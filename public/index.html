@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="nb">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=4, user-scalable=yes, minimum-scale=1"
+    />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500"
+    />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <base href="%PUBLIC_URL%/" />
+    <title>Økologisk grunnkart</title>
+  </head>
+
+  <body style="margin: 0;font-family: Roboto;">
+    <noscript>
+      <div style="text-align: center;max-width:600px;padding:20px;margin:auto;">
+        <h1 style="color:$dark-nin">NiN-kart</h1>
+        <h2 style="color:$medium-nin">JavaScript er deaktivert</h2>
+        <p>
+          Vi har på dette tidspunktet ikke lagt inn støtte for sider uten
+          JavaScript, men det står på planen.
+        </p>
+
+        <h2 style="color:$medium-nin">Alternative sider</h2>
+        <p>
+          Det meste av innholdet er tilgjengelig via våre dedikerte nettsider,
+          som du finner <a href="https://www.artsdatabanken.no/NiN">her.</a>
+          <br />Om du heller vil navigere deg gjennom datakildene direkte, kan
+          du gjøre det <a href="data.artsdatabanken.no">her.</a>
+        </p>
+        <h2 style="color:$medium-nin">Hjelp oss å forbedre siden</h2>
+        <p>
+          Hvis du ønsker å hjelpe oss med å utvikle en bedre alternativ visning,
+          eller har innspill vi bør ta høyde for, kontakt oss eller legg inn en
+          issue på vår GitHub-bruker
+          <a href="https://github.com/Artsdatabanken/nin-kart-frontend">her</a>,
+          hele kildekoden er åpen.
+        </p>
+      </div>
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>
