@@ -1,6 +1,5 @@
 import L from "leaflet";
 // -- WEBPACK: Load styles --
-import "./leaflet.scss";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
