@@ -1,6 +1,7 @@
 import metadata from "./metadata";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./RightWindow";
+import LeftWindow from "./LeftWindow";
 import XML from "pixl-xml";
 import React from "react";
 import { withRouter } from "react-router";
@@ -111,6 +112,20 @@ class App extends React.Component {
                   onMouseLeave={this.handleMouseLeave}
                 />
                 <RightWindow
+                  {...this.state}
+                  path={path}
+                  history={history}
+                  show_current={this.state.showCurrent}
+                  handleShowCurrent={this.handleShowCurrent}
+                  onFitBounds={this.handleFitBounds}
+                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                  meta={this.state.meta || {}}
+                  aktiveLag={Object.assign(
+                    {},
+                    this.state.meta && this.state.meta.barn
+                  )}
+                />
+                <LeftWindow
                   {...this.state}
                   path={path}
                   history={history}

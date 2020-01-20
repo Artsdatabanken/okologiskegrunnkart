@@ -11,6 +11,7 @@ import ExpandedHeader from "./ExpandedHeader";
 
 const Livsmiljø = props => {
   if (!props) return null;
+  if(!props.barn)return null;
   let kartlag = props.barn.find(k => k.kode === props.kode);
   if (!kartlag) kartlag = {};
   return Object.keys(props).map(key => {
