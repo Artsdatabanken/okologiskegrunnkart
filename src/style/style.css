@@ -1,0 +1,78 @@
+div,
+button {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  touch-action: none;
+}
+
+a,
+a:visited,
+a:active,
+a:focus {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+strong,
+b {
+  font-weight: 500;
+}
+
+button {
+  border: 0px;
+}
+
+button:hover,
+button.active:hover,
+button.active:focus,
+button.active {
+  cursor: pointer;
+}
+
+.right_panel {
+  position: absolute;
+  height: 100%;
+  right: 0px;
+  top: 0px;
+  width: 408px;
+  background-color: #eee;
+  box-shadow: "0 0 20px rgba(0, 0, 0, 0.3)";
+}
+
+@media only screen and (max-width: 768px) {
+  .right_panel {
+    width: 100%;
+    height: 50%;
+    top: 50%;
+  }
+}
+
+.scroll_area {
+  max-height: calc(100% - 56px);
+  overflow-y: auto;
+  width: 100%;
+}
+
+.container_header {
+  margin-left: 15px;
+  margin-right: 15px;
+  border-bottom: 1px solid grey;
+  font-weight: 400;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .hidden_in_fullscreen {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+}
