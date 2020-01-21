@@ -30,3 +30,27 @@
     left: auto;
   }
 }
+
+.map_button {
+  top: 10px;
+  left: 0px;
+  z-index: 100;
+  border-radius: 3px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0px;
+}
+
+.map_button.active {
+  background: black;
+  color: white;
+  border-color: white;
+}
+
+.currentlyhidden {
+  display: none;
+}
