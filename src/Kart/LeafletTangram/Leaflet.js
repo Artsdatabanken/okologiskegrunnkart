@@ -186,21 +186,13 @@ class LeafletTangram extends React.Component {
   handleClick = e => {
     if (!this.state.markerTool) return;
     const latlng = e.leaflet_event.latlng;
+
     this.removeMarker();
     this.setState({
       showInfobox: !this.state.showInfobox,
       coordinates_area: "lng: " + latlng.lng + " lat: " + latlng.lat
     });
-    if (!this.state.showInfobox) {
-      this.marker = L.marker([latlng.lat, latlng.lng], {
-        icon: this.icon
-      }).addTo(this.map);
-    }
 
-    /*
-    // Dette er funksjonene som henter inn backend data fra alle lag.
-    // Sett på når klart igjen.
-    this.getBackendData(latlng.lng, latlng.lat, e.leaflet_event.layerPoint);
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";
     for (let i in urlparams) {
@@ -208,9 +200,24 @@ class LeafletTangram extends React.Component {
         newurlstring += "?" + urlparams[i];
       }
     }
-    this.props.history.push(
-      "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
-    );*/
+
+    if (this.state.showInfobox) {
+      this.marker = L.marker([latlng.lat, latlng.lng], {
+        icon: this.icon
+      }).addTo(this.map);
+      this.props.history.push(
+        "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
+      );
+    } else {
+      this.props.history.push("");
+    }
+
+    /*
+    // Dette er funksjonene som henter inn backend data fra alle lag.
+    // Sett på når klart igjen.
+    this.getBackendData(latlng.lng, latlng.lat, e.leaflet_event.layerPoint);
+
+    */
   };
 
   updateMap(props) {
