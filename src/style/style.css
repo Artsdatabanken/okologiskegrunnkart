@@ -25,7 +25,9 @@ b {
 }
 
 button {
-  border: 0px;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 5px;
 }
 
 button:hover,
@@ -33,6 +35,7 @@ button.active:hover,
 button.active:focus,
 button.active {
   cursor: pointer;
+  background: grey;
 }
 
 .right_panel {
@@ -95,4 +98,12 @@ button.active {
     max-width: 100%;
     border-bottom: black;
   }
+}
+
+.left_window button {
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
 }

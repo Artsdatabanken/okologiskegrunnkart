@@ -130,6 +130,7 @@ class App extends React.Component {
                 />
                 <LeftWindow
                   {...this.state}
+                  handleExtensiveInfo={this.handleExtensiveInfo}
                   showExtensiveInfo={this.state.showExtensiveInfo}
                   path={path}
                   history={history}
