@@ -45,23 +45,12 @@ const FeatureInfo = ({
     kommune.kommune.tittel.nb + " kommune i " + kommune.fylke.tittel.nb;
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        width: 408,
-        backgroundColor: "#eee",
-        boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-        zIndex: -1
-      }}
-    >
+    <div className="left_window">
       <div
         // Dette er altså markørens søkeinnhold
         style={{
           position: "absolute",
-          top: 56,
+          top: 0,
           bottom: 0,
           overflowY: "auto",
           paddingBottom: 48,

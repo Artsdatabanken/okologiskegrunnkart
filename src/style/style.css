@@ -76,3 +76,23 @@ button.active {
 
 @media only screen and (min-width: 768px) {
 }
+
+.left_window {
+  position: absolute;
+  min-height: 100px;
+  bottom: 50%;
+  left: 0;
+  top: 100px;
+  width: 100%;
+  max-width: 408px;
+  background: #eee;
+  z-index: 20;
+}
+
+@media only screen and (max-width: 768px) {
+  .left_window {
+    bottom: 60%;
+    max-width: 100%;
+    border-bottom: black;
+  }
+}
