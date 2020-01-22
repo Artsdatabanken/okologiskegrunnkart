@@ -41,7 +41,9 @@ class LeafletTangram extends React.Component {
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
-    markerTool: true
+    markerTool: true,
+    showInfobox: false,
+    coordinates_area: null
   };
   componentDidMount() {
     const options = {
@@ -185,10 +187,16 @@ class LeafletTangram extends React.Component {
     if (!this.state.markerTool) return;
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
-    this.marker = L.marker([latlng.lat, latlng.lng], { icon: this.icon }).addTo(
-      this.map
-    );
-    alert("lng: " + latlng.lng + " lat: " + latlng.lat);
+    this.setState({
+      showInfobox: !this.state.showInfobox,
+      coordinates_area: "lng: " + latlng.lng + " lat: " + latlng.lat
+    });
+    if (!this.state.showInfobox) {
+      this.marker = L.marker([latlng.lat, latlng.lng], {
+        icon: this.icon
+      }).addTo(this.map);
+    }
+
     /*
     // Dette er funksjonene som henter inn backend data fra alle lag.
     // Sett på når klart igjen.
@@ -247,6 +255,15 @@ class LeafletTangram extends React.Component {
   render() {
     return (
       <>
+        {this.state.markerTool === true && this.state.showInfobox && (
+          <div className="infobox">
+            Infoboks
+            <br />
+            {this.state.coordinates_area && (
+              <span className="coordinates">{this.state.coordinates_area}</span>
+            )}
+          </div>
+        )}
         <button
           className={
             this.state.markerTool === true ? "map_button active" : "map_button"

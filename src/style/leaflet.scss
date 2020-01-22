@@ -54,3 +54,18 @@
 .currentlyhidden {
   display: none;
 }
+
+.infobox {
+  width: calc(100% - 408px);
+  left: 0px;
+  top: 100px;
+  height: 100px;
+  background: white;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .infobox {
+    width: 100%;
+  }
+}
