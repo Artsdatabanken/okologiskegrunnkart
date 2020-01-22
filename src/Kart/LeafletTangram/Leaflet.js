@@ -179,6 +179,7 @@ class LeafletTangram extends React.Component {
   }
 
   getBackendData = async (lng, lat, e) => {
+    this.props.handleExtensiveInfo(true);
     updateMarkerPosition(e, this, header_shift);
     this.props.handleLokalitetUpdate(lng, lat);
   };
@@ -186,11 +187,11 @@ class LeafletTangram extends React.Component {
   handleClick = e => {
     if (!this.state.markerTool) return;
     const latlng = e.leaflet_event.latlng;
-
     this.removeMarker();
     this.setState({
       showInfobox: !this.state.showInfobox,
-      coordinates_area: "lng: " + latlng.lng + " lat: " + latlng.lat
+      coordinates_area: latlng,
+      layerevent: e.leaflet_event.layerPoint
     });
 
     let urlparams = (this.props.path || "").split("?");
@@ -210,14 +211,11 @@ class LeafletTangram extends React.Component {
       );
     } else {
       this.props.history.push("");
+      this.setState({
+        layerevent: null
+      });
+      this.props.handleExtensiveInfo(false);
     }
-
-    /*
-    // Dette er funksjonene som henter inn backend data fra alle lag.
-    // Sett på når klart igjen.
-    this.getBackendData(latlng.lng, latlng.lat, e.leaflet_event.layerPoint);
-
-    */
   };
 
   updateMap(props) {
@@ -267,8 +265,26 @@ class LeafletTangram extends React.Component {
             Infoboks
             <br />
             {this.state.coordinates_area && (
-              <span className="coordinates">{this.state.coordinates_area}</span>
+              <span className="coordinates">
+                lng: {this.state.coordinates_area.lng} lat:{" "}
+                {this.state.coordinates_area.lat}
+                <br />
+              </span>
             )}
+            <button
+              className="search_layers"
+              title="Marker tool"
+              alt="Marker tool"
+              onClick={e => {
+                this.getBackendData(
+                  this.state.coordinates_area.lng,
+                  this.state.coordinates_area.lat,
+                  this.state.layerevent
+                );
+              }}
+            >
+              Søk informasjon for alle lag i dette punktet
+            </button>
           </div>
         )}
         <button
