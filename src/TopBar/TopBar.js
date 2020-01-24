@@ -69,6 +69,7 @@ class TopBar extends React.Component<Props> {
               hasResults && classes.squareBottom
             )}
             square={false}
+            style={{ display: "none" }}
           >
             <Toolbar variant="dense" className={classes.toolbar}>
               {this.props.isAtRoot ? (

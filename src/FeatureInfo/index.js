@@ -8,6 +8,7 @@ import {
   ListItemText,
   ListSubheader
 } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import Landskap from "./Landskap";
 import Vassdrag from "./Vassdrag";
 import Arealtype from "./Arealtype";
@@ -21,6 +22,7 @@ import Kalk from "./Kalk";
 const FeatureInfo = ({
   meta,
   onUpdateLayerProp,
+  handleExtensiveInfo,
   lat,
   lng,
   sted,
@@ -45,29 +47,25 @@ const FeatureInfo = ({
     kommune.kommune.tittel.nb + " kommune i " + kommune.fylke.tittel.nb;
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        width: 408,
-        backgroundColor: "#eee",
-        boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-        zIndex: -1
-      }}
-    >
+    <div className="left_window">
       <div
         // Dette er altså markørens søkeinnhold
         style={{
           position: "absolute",
-          top: 56,
+          top: 0,
           bottom: 0,
           overflowY: "auto",
           paddingBottom: 48,
           width: "100%"
         }}
       >
+        <button
+          onClick={e => {
+            handleExtensiveInfo(false);
+          }}
+        >
+          <Close />
+        </button>
         <List>
           <ListSubheader disableSticky={true}>
             {lat ? coords : "Klikk i kartet..."}

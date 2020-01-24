@@ -1,16 +1,10 @@
 import L from "leaflet";
 // -- WEBPACK: Load styles --
-import "./leaflet.scss";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
-import PopUp from "./LeafletComponents/PopUp";
-import {
-  Fullscreen,
-  FullscreenExit,
-  LocationSearching
-} from "@material-ui/icons";
+import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import updateMarkerPosition from "./LeafletActions/updateMarkerPosition";
 // -- LEAFLET: Fix Leaflet's icon paths for Webpack --
 // See here: https://github.com/PaulLeCam/react-leaflet/issues/255
@@ -46,7 +40,10 @@ class LeafletTangram extends React.Component {
     sted: null,
     data: null,
     koordinat: null,
-    clickCoordinates: { x: 0, y: 0 }
+    clickCoordinates: { x: 0, y: 0 },
+    markerTool: true,
+    showInfobox: false,
+    coordinates_area: null
   };
   componentDidMount() {
     const options = {
@@ -182,17 +179,21 @@ class LeafletTangram extends React.Component {
   }
 
   getBackendData = async (lng, lat, e) => {
+    this.props.handleExtensiveInfo(true);
     updateMarkerPosition(e, this, header_shift);
     this.props.handleLokalitetUpdate(lng, lat);
   };
 
   handleClick = e => {
+    if (!this.state.markerTool) return;
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
-    this.marker = L.marker([latlng.lat, latlng.lng], { icon: this.icon }).addTo(
-      this.map
-    );
-    this.getBackendData(latlng.lng, latlng.lat, e.leaflet_event.layerPoint);
+    this.setState({
+      showInfobox: !this.state.showInfobox,
+      coordinates_area: latlng,
+      layerevent: e.leaflet_event.layerPoint
+    });
+
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";
     for (let i in urlparams) {
@@ -200,9 +201,21 @@ class LeafletTangram extends React.Component {
         newurlstring += "?" + urlparams[i];
       }
     }
-    this.props.history.push(
-      "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
-    );
+
+    if (this.state.showInfobox) {
+      this.marker = L.marker([latlng.lat, latlng.lng], {
+        icon: this.icon
+      }).addTo(this.map);
+      this.props.history.push(
+        "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
+      );
+    } else {
+      this.props.history.push("");
+      this.setState({
+        layerevent: null
+      });
+      this.props.handleExtensiveInfo(false);
+    }
   };
 
   updateMap(props) {
@@ -247,24 +260,48 @@ class LeafletTangram extends React.Component {
   render() {
     return (
       <>
-        {this.state.showPopup && <PopUp parent={this} path={this.props.path} />}
-
-        {this.props.aktivTab === "kartlag" && (
-          <button
-            className="fullscreen map_button"
-            title="Fullskjermsvisning"
-            alt="Fullskjermsvisning"
-            onClick={e => {
-              this.props.handleFullscreen(!this.props.showFullscreen);
-            }}
-          >
-            {this.props.showFullscreen === true ? (
-              <FullscreenExit />
-            ) : (
-              <Fullscreen />
+        {this.state.markerTool === true && this.state.showInfobox && (
+          <div className="infobox">
+            Infoboks
+            <br />
+            {this.state.coordinates_area && (
+              <span className="coordinates">
+                lng: {this.state.coordinates_area.lng} lat:{" "}
+                {this.state.coordinates_area.lat}
+                <br />
+              </span>
             )}
-          </button>
+            <button
+              className="search_layers"
+              title="Marker tool"
+              alt="Marker tool"
+              onClick={e => {
+                this.getBackendData(
+                  this.state.coordinates_area.lng,
+                  this.state.coordinates_area.lat,
+                  this.state.layerevent
+                );
+              }}
+            >
+              Søk informasjon for alle lag i dette punktet
+            </button>
+          </div>
         )}
+        <button
+          className={
+            this.state.markerTool === true ? "map_button active" : "map_button"
+          }
+          title="Marker tool"
+          alt="Marker tool"
+          onClick={e => {
+            console.log("Already chosen marker tool");
+            this.setState({
+              markerTool: !this.state.markerTool
+            });
+          }}
+        >
+          <WhereToVote />
+        </button>
 
         <div
           style={{ zIndex: -100, cursor: "default" }}
@@ -272,19 +309,19 @@ class LeafletTangram extends React.Component {
             this.mapEl = ref;
           }}
         />
-        {this.props.aktivTab === "kartlag" && (
-          <button
-            className="geolocate map_button"
-            alt="Geolokalisering"
-            title="Geolokalisering"
-            onClick={() => {
-              this.props.handleFullscreen(false);
-              this.handleLocate();
-            }}
-          >
-            <LocationSearching />
-          </button>
-        )}
+
+        <button
+          className="map_button currentlyhidden"
+          alt="Geolokalisering"
+          title="Geolokalisering"
+          onClick={() => {
+            //this.props.handleFullscreen(false);
+            //this.handleLocate();
+            console.log("geolocate button clicked");
+          }}
+        >
+          <LocationSearching />
+        </button>
       </>
     );
   }

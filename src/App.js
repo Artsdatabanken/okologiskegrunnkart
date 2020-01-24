@@ -63,7 +63,8 @@ class App extends React.Component {
       navigation_history: [],
       showCurrent: true,
       showFullscreen: false,
-      spraak: "nb"
+      spraak: "nb",
+      showExtensiveInfo: true
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -90,6 +91,8 @@ class App extends React.Component {
                   aktivtFormat={basiskart.kart.aktivtFormat}
                 />
                 <Kart
+                  showExtensiveInfo={this.state.showExtensiveInfo}
+                  handleExtensiveInfo={this.handleExtensiveInfo}
                   handleLokalitetUpdate={this.handleLokalitetUpdate}
                   forvaltningsportal={true}
                   show_current={this.state.showCurrent}
@@ -127,6 +130,8 @@ class App extends React.Component {
                 />
                 <LeftWindow
                   {...this.state}
+                  handleExtensiveInfo={this.handleExtensiveInfo}
+                  showExtensiveInfo={this.state.showExtensiveInfo}
                   path={path}
                   history={history}
                   show_current={this.state.showCurrent}
@@ -161,8 +166,12 @@ class App extends React.Component {
   onNavigateToTab = tab => {
     this.props.history.push(getPathNotTab(this.props.location) + "?" + tab);
   };
+
   handleActualBoundsChange = bounds => {
     this.setState({ actualBounds: bounds, fitBounds: null });
+  };
+  handleExtensiveInfo = showExtensiveInfo => {
+    this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
   handleFitBounds = bbox => {
     this.setState({ fitBounds: bbox });
@@ -196,12 +205,14 @@ class App extends React.Component {
       landskap:
         "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}"
     };
+
     this.setState({
       lat,
       lng,
       sted: null,
       wms1: null
     });
+
     backend.hentPunkt(lng, lat).then(pi => {
       const env = pi.environment;
       if (pi.kommune)
