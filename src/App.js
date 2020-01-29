@@ -123,10 +123,6 @@ class App extends React.Component {
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   meta={this.state.meta || {}}
-                  aktiveLag={Object.assign(
-                    {},
-                    this.state.meta && this.state.meta.barn
-                  )}
                 />
                 <LeftWindow
                   {...this.state}
@@ -139,10 +135,6 @@ class App extends React.Component {
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   meta={this.state.meta || {}}
-                  aktiveLag={Object.assign(
-                    {},
-                    this.state.meta && this.state.meta.barn
-                  )}
                 />
               </>
             </>

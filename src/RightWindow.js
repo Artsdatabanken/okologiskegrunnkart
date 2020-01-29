@@ -7,10 +7,8 @@ const RightWindow = props => {
       <h3 className="container_header">Kartlag</h3>
       <div className="scroll_area">
         <ForvaltningsKartlag
-          lag={props.meta.lag}
           show_current={props.show_current}
           handleShowCurrent={props.handleShowCurrent}
-          aktiveLag={props.aktiveLag}
           meta={props.meta}
           navigation_history={props.navigation_history}
           onFitBounds={props.handleFitBounds}

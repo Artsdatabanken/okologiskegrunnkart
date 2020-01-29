@@ -4,24 +4,27 @@ import ForvaltningsEkspanderTopp from "./ForvaltningsEkspanderTopp";
 import { List, ListSubheader } from "@material-ui/core";
 
 class ForvaltningsKartlag extends React.Component {
+  // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
+
   render() {
-    const { lag, onUpdateLayerProp } = this.props;
+    const { onUpdateLayerProp } = this.props;
+    const lag = this.props.meta.lag;
     return (
       <SettingsContext.Consumer>
         {context => (
           <>
             <List>
-              {Object.keys(lag || {}).map(datalev => {
+              {Object.keys(lag || {}).map(dataeier => {
                 return (
-                  <div key={datalev}>
+                  <div key={dataeier}>
                     <ListSubheader disableSticky={true}>
-                      {datalev}
+                      {dataeier}
                     </ListSubheader>
-                    <DataLevLag
-                      koder={lag[datalev]}
+                    <DataEierLag
+                      koder={lag[dataeier]}
                       onUpdateLayerProp={onUpdateLayerProp}
                       context={context}
-                    ></DataLevLag>
+                    ></DataEierLag>
                   </div>
                 );
               })}
@@ -33,9 +36,9 @@ class ForvaltningsKartlag extends React.Component {
   }
 }
 
-const DataLevLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
+const DataEierLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
+  // Denne funksjonen behandler hvert lag per dataeier
   const keys = Object.keys(koder);
-
   return keys.reverse().map(fkode => {
     const kartlag = koder[fkode];
     return (
