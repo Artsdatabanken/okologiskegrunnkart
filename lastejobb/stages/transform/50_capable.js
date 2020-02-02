@@ -1,6 +1,6 @@
 const { io } = require("lastejobb");
 
-const datasett = io.lesDatafil("ubehandlet/datasett.json");
+const datasett = io.lesDatafil("datasett.json");
 
 let r = [];
 datasett.forEach(ds => readCapabilities(ds));

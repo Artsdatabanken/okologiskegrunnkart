@@ -13,8 +13,10 @@
 
 ### Installere
 
+Krever Python 2 pga. gammel dependency lastajobb -> node-expat -> node-gyp
+
 ```bash
-npm run install
+npm install
 ```
 
 Laster ned avhengige biblioteker til `node_modules`.

@@ -3,7 +3,7 @@ const { DOMParser } = require("xmldom");
 const WMSCapabilities = require("wms-capabilities");
 const fetch = require("node-fetch");
 
-const datasett = io.lesDatafil("ubehandlet/datasett.json");
+const datasett = io.lesDatafil("datasett.json");
 datasett.forEach(ds => getCapabilities(ds));
 
 async function getCapabilities(ds) {

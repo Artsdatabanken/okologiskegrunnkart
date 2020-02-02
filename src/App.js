@@ -1,4 +1,4 @@
-import metadata from "./Data/metadata";
+import metadata from "./metadata";
 import layers from "./Data/layers";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./RightWindow";

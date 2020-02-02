@@ -12,137 +12,6 @@
   "barn": [
     {
       "tittel": {
-        "nb": "Administrative inndelinger: Administrative enheter 2018"
-      },
-      "dataeier": "Kartverket",
-      "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-      "tema": {
-        "nb": "Administrative inndelinger"
-      },
-      "kode": "FP-KAE",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-            "layer": "Administrative_enheter_2018",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
-        "nb": "Sjø: Kyst"
-      },
-      "dataeier": "Kartverket",
-      "tema": {
-        "nb": "Sjø"
-      },
-      "kode": "FP-KK",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://wms.geonorge.no/skwms1/wms.sjokartraster",
-            "layer": "kyst",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
-        "nb": "Administrative inndelinger: Fylkesgrenser"
-      },
-      "dataeier": "Kartverket",
-      "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-      "tema": {
-        "nb": "Administrative inndelinger"
-      },
-      "kode": "FP-KF",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-            "layer": "fylker",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
-        "nb": "Administrative inndelinger: Riksgrense"
-      },
-      "dataeier": "Kartverket",
-      "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-      "tema": {
-        "nb": "Administrative inndelinger"
-      },
-      "kode": "FP-KR",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-            "layer": "riksgrense",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
-        "nb": "Administrative inndelinger: Territorialgrense"
-      },
-      "dataeier": "Kartverket",
-      "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-      "tema": {
-        "nb": "Administrative inndelinger"
-      },
-      "kode": "FP-KT",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-            "layer": "territorialgrense",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
-        "nb": "Administrative inndelinger: Avtalt avgrensningslinje"
-      },
-      "dataeier": "Kartverket",
-      "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-      "tema": {
-        "nb": "Administrative inndelinger"
-      },
-      "kode": "FP-KAA",
-      "foreldre": ["FP"],
-      "kart": {
-        "format": {
-          "wms": {
-            "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-            "layer": "avtaltavgrensningslinje",
-            "version": "1.3.0"
-          }
-        }
-      },
-      "farge": "#ef8040"
-    },
-    {
-      "tittel": {
         "nb": "Administrative inndelinger: Maritime grenser"
       },
       "dataeier": "Kartverket",
@@ -1340,6 +1209,27 @@
     },
     {
       "tittel": {
+        "nb": "Sjø: Kyst"
+      },
+      "dataeier": "Kartverket",
+      "tema": {
+        "nb": "Sjø"
+      },
+      "kode": "FP-KK",
+      "foreldre": ["FP"],
+      "kart": {
+        "format": {
+          "wms": {
+            "url": "https://wms.geonorge.no/skwms1/wms.sjokartraster",
+            "layer": "kyst",
+            "version": "1.3.0"
+          }
+        }
+      },
+      "farge": "#ef8040"
+    },
+    {
+      "tittel": {
         "nb": "Sjø: Havn"
       },
       "dataeier": "Kartverket",
@@ -1383,131 +1273,6 @@
   ],
   "lag": {
     "Kartverket": {
-      "FP-KAE": {
-        "tittel": {
-          "nb": "Administrative inndelinger: Administrative enheter 2018"
-        },
-        "dataeier": "Kartverket",
-        "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-        "tema": {
-          "nb": "Administrative inndelinger"
-        },
-        "kode": "FP-KAE",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-              "layer": "Administrative_enheter_2018",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
-      "FP-KK": {
-        "tittel": {
-          "nb": "Sjø: Kyst"
-        },
-        "dataeier": "Kartverket",
-        "tema": {
-          "nb": "Sjø"
-        },
-        "kode": "FP-KK",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://wms.geonorge.no/skwms1/wms.sjokartraster",
-              "layer": "kyst",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
-      "FP-KF": {
-        "tittel": {
-          "nb": "Administrative inndelinger: Fylkesgrenser"
-        },
-        "dataeier": "Kartverket",
-        "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-        "tema": {
-          "nb": "Administrative inndelinger"
-        },
-        "kode": "FP-KF",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-              "layer": "fylker",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
-      "FP-KR": {
-        "tittel": {
-          "nb": "Administrative inndelinger: Riksgrense"
-        },
-        "dataeier": "Kartverket",
-        "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-        "tema": {
-          "nb": "Administrative inndelinger"
-        },
-        "kode": "FP-KR",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-              "layer": "riksgrense",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
-      "FP-KT": {
-        "tittel": {
-          "nb": "Administrative inndelinger: Territorialgrense"
-        },
-        "dataeier": "Kartverket",
-        "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-        "tema": {
-          "nb": "Administrative inndelinger"
-        },
-        "kode": "FP-KT",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-              "layer": "territorialgrense",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
-      "FP-KAA": {
-        "tittel": {
-          "nb": "Administrative inndelinger: Avtalt avgrensningslinje"
-        },
-        "dataeier": "Kartverket",
-        "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
-        "tema": {
-          "nb": "Administrative inndelinger"
-        },
-        "kode": "FP-KAA",
-        "foreldre": ["FP"],
-        "kart": {
-          "format": {
-            "wms": {
-              "url": "https://openwms.statkart.no/skwms1/wms.adm_enheter",
-              "layer": "avtaltavgrensningslinje",
-              "version": "1.3.0"
-            }
-          }
-        }
-      },
       "FP-KM": {
         "tittel": {
           "nb": "Administrative inndelinger: Maritime grenser"
@@ -1586,6 +1351,26 @@
             "wms": {
               "url": "https://wms.geonorge.no/skwms1/wms.sjokartraster",
               "layer": "omriss",
+              "version": "1.3.0"
+            }
+          }
+        }
+      },
+      "FP-KK": {
+        "tittel": {
+          "nb": "Sjø: Kyst"
+        },
+        "dataeier": "Kartverket",
+        "tema": {
+          "nb": "Sjø"
+        },
+        "kode": "FP-KK",
+        "foreldre": ["FP"],
+        "kart": {
+          "format": {
+            "wms": {
+              "url": "https://wms.geonorge.no/skwms1/wms.sjokartraster",
+              "layer": "kyst",
               "version": "1.3.0"
             }
           }

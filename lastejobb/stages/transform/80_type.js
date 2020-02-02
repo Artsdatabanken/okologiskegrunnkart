@@ -33,10 +33,14 @@ let tre2 = {};
 wms.forEach(ds => readCapabilities(ds));
 //new url(tre).assignUrls();
 mapBarn();
-fs.writeFileSync("build/metadata.json", JSON.stringify(topp, null, " "));
+fs.writeFileSync("../src/metadata.json", JSON.stringify(topp, null, " "));
 
 function readCapabilities(ds) {
   const cfg = io.lesDatafil(ds.datasett);
+  if (cfg.Capability === undefined) {
+    console.log("Unable to find Capabilities");
+    return;
+  }
   const layers = cfg.Capability.Layer.Layer;
   layers.forEach(l => {
     addLayer(l, ds);
