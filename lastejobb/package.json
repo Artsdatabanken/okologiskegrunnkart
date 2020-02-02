@@ -1,0 +1,23 @@
+{
+  "name": "forvaltningsportal-lastejobb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "download": "node index download",
+    "transform": "node --max_old_space_size=8192 index transform",
+    "build": "npm run download && npm run transform",
+    "test": "node --max_old_space_size=6144 node_modules/.bin/jest",
+    "deploy": "./scripts/deploy.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lastejobb": "^2.6.2",
+    "node-fetch": "^2.6.0",
+    "wms-capabilities": "^0.4.0",
+    "xml2json": "^0.11.2",
+    "xmldom": "^0.1.27"
+  }
+}
