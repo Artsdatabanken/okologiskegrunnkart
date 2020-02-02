@@ -1,0 +1,115 @@
+[
+  {
+    "dataeier": "Kartverket",
+    "tema": "Administrative inndelinger",
+    "datasett": "Kommunegrenser",
+    "wms": "https://openwms.statkart.no/skwms1/wms.adm_enheter?service=wms&request=getcapabilities",
+    "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b"
+  },
+  {
+    "dataeier": "Kartverket",
+    "tema": "Administrative inndelinger",
+    "datasett": "Fylkesgrenser",
+    "wms": "https://openwms.statkart.no/skwms1/wms.adm_enheter?service=wms&request=getcapabilities",
+    "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b"
+  },
+  {
+    "dataeier": "Kartverket",
+    "tema": "Administrative inndelinger",
+    "datasett": "Maritime_grenser",
+    "tittel": "Maritime grenser",
+    "wms": "https://openwms.statkart.no/skwms1/wms.nmg?service=wms&request=getcapabilities",
+    "geonorge": "https://kartkatalog.geonorge.no/metadata/kartverket/administrative-enheter-kommuner/041f1e6e-bdbc-4091-b48f-8a5990f3cc5b"
+  },
+  {
+    "dataeier": "NIBIO",
+    "tema": "Skog",
+    "datasett": "nokkelbiotop",
+    "tittel": "Miljøregistreringer i skog",
+    "wms": "https://wms.nibio.no/cgi-bin/skogbruksplan?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities"
+  },
+  {
+    "dataeier": "NIBIO",
+    "tema": "Arealressurs",
+    "datasett": "Arealressurskart - FKB-AR5",
+    "wms": "https://wms.nibio.no/cgi-bin/ar5?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Naturvern",
+    "datasett": "Naturvernområder",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/vern/mapserver/WMSServer?service=wms&request=getcapabilities"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Naturtyper",
+    "datasett": "Naturtyper -  NiN",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?service=wms&version=1.1.1&request=getcapabilities"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Naturtyper",
+    "datasett": "Naturtyper  - DN-håndbok 13",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/mapserver/WMSServer?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Naturtyper",
+    "datasett": "Naturtyper - marine (DN håndbok 19)",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_marine_hb19/MapServer/WMSServer?service=wms&version=1.1.1&request=getcapabilities"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Naturtyper",
+    "datasett": "Naturtyper - utvalgte",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_utvalgte/mapserver/WMSServer?service=wms&request=getcapabilities"
+  },
+  {
+    "dataeier": "Miljødirektoratet",
+    "tema": "Arter",
+    "datasett": "Arter av nasjonal forvaltningsinteresse",
+    "wms": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/mapserver/WMSServer?service=wms&version=1.1.1&request=getcapabilities"
+  },
+  {
+    "dataeier": "ADB",
+    "tema": "Arter",
+    "datasett": "Rødlista Arter",
+    "wms": "https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "ADB",
+    "tema": "Arter",
+    "datasett": "Fremmedarter",
+    "wms": "https://kart.artsdatabanken.no/WMS/artskartfa.aspx?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "ADB",
+    "tema": "Landskap",
+    "datasett": "Landskap",
+    "wms": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?&request=GetCapabilities&service=WMS&version=1.1.1&"
+  },
+  {
+    "dataeier": "NVE",
+    "tema": "Ferskvann",
+    "datasett": "Innsjødatabase",
+    "wms": "https://gis3.nve.no/map/services/Innsjodatabase1/MapServer/WmsServer?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "NVE",
+    "tema": "Ferskvann",
+    "datasett": "Elvenett Elvis",
+    "wms": "https://gis3.nve.no/map/services/Elvenett1/MapServer/WmsServer?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "NVE",
+    "tema": "Ferskvann",
+    "datasett": "Verneplan for vassdrag",
+    "wms": "https://gis3.nve.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?request=GetCapabilities&service=WMS"
+  },
+  {
+    "dataeier": "Kartverket",
+    "tema": "Sjø",
+    "datasett": "Sjøkart",
+    "wms": "https://wms.geonorge.no/skwms1/wms.sjokartraster?request=GetCapabilities&service=WMS"
+  }
+]
