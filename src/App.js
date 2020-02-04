@@ -23,28 +23,6 @@ import BaseMapSelector from "./BaseMapSelector";
 export let exportableSpraak;
 export let exportableFullscreen;
 
-function getPathTab(path) {
-  const searchparams = path.search.split("?");
-  for (let i in searchparams) {
-    const item = searchparams[i];
-    if (!item.includes("lng") && item !== "undefined" && item !== "") {
-      return item;
-    }
-  }
-  return "informasjon";
-}
-
-function getPathNotTab(path) {
-  const searchparams = path.search.split("?");
-  for (let i in searchparams) {
-    const item = searchparams[i];
-    if (item.includes("lng") && item !== "undefined" && item !== "") {
-      return "?" + item;
-    }
-  }
-  return "";
-}
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -144,21 +122,6 @@ class App extends React.Component {
       </SettingsContext.Consumer>
     );
   }
-
-  handleNavigate = url => {
-    let new_url = url;
-    if (!url || url === undefined) {
-      return;
-    }
-    if (new_url[0] !== "/") {
-      new_url = "/" + url;
-    }
-    this.props.history.push(new_url + "?" + getPathTab(this.props.location));
-  };
-
-  onNavigateToTab = tab => {
-    this.props.history.push(getPathNotTab(this.props.location) + "?" + tab);
-  };
 
   handleActualBoundsChange = bounds => {
     this.setState({ actualBounds: bounds, fitBounds: null });
