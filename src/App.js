@@ -11,7 +11,7 @@ import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen//RightWindow";
 import LeftWindow from "./Forvaltningsportalen/LeftWindow";
 import Kart from "Kart/LeafletTangram/Leaflet";
-import BaseMapSelector from "./BaseMapSelector";
+import KartVelger from "./KartVelger";
 import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
 import { setValue } from "AppSettings/AppFunksjoner/setValue";
 export let exportableSpraak;
@@ -59,7 +59,7 @@ class App extends React.Component {
                 <TopBarContainer
                   _tittel={"Økologisk grunnkart forvaltningsportal"}
                 />
-                <BaseMapSelector
+                <KartVelger
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   aktivtFormat={basiskart.kart.aktivtFormat}
                 />
