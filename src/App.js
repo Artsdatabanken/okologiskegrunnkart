@@ -8,10 +8,11 @@ import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
-import RightWindow from "./Forvaltningsportalen//RightWindow";
+import RightWindow from "./Forvaltningsportalen/RightWindow";
 import LeftWindow from "./Forvaltningsportalen/LeftWindow";
+import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "Kart/LeafletTangram/Leaflet";
-import KartVelger from "./KartVelger";
+
 import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
 import { setValue } from "AppSettings/AppFunksjoner/setValue";
 export let exportableSpraak;
