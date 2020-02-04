@@ -1,25 +1,19 @@
-import metadata from "./metadata";
-import layers from "./Data/layers";
-import TopBarContainer from "./TopBar/TopBarContainer";
-import RightWindow from "./RightWindow";
-import LeftWindow from "./LeftWindow";
-import XML from "pixl-xml";
 import React from "react";
 import { withRouter } from "react-router";
-import backend from "Funksjoner/backend";
+import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
-import Kart from "Kart/LeafletTangram/Leaflet";
+import layers from "./Data/layers";
+import metadata from "./metadata";
 import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
-import aktiverFraHistorikk from "AppSettings/AppFunksjoner/aktiverFraHistorikk";
-import aktiverValgtKartlag from "AppSettings/AppFunksjoner/aktiverValgtKartlag";
-import oppdaterMetaProperties from "AppSettings/AppFunksjoner/oppdaterMetaProperties";
-import oppdaterLagProperties, {
-  setValue
-} from "AppSettings/AppFunksjoner/oppdaterLagProperties";
-import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
+import backend from "Funksjoner/backend";
+import TopBarContainer from "./TopBar/TopBarContainer";
+import RightWindow from "./Forvaltningsportalen//RightWindow";
+import LeftWindow from "./Forvaltningsportalen/LeftWindow";
+import Kart from "Kart/LeafletTangram/Leaflet";
 import BaseMapSelector from "./BaseMapSelector";
-
+import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
+import { setValue } from "AppSettings/AppFunksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
 
@@ -209,22 +203,6 @@ class App extends React.Component {
     fetchMeta(this.props.location.pathname, this);
   }
 
-  addSelected = props => {
-    this.setState({
-      aktiveLag: Object.assign(
-        {},
-        aktiverValgtKartlag(props, this.state.aktiveLag)
-      )
-    });
-  };
-
-  activateLayerFromHistory = node => {
-    const aktive = this.state.aktiveLag;
-    this.setState({
-      aktiveLag: Object.assign({}, aktiverFraHistorikk(aktive, node))
-    });
-  };
-
   async downloadMeta() {
     const meta = metadata;
     metaSjekk(meta, this);
@@ -235,14 +213,6 @@ class App extends React.Component {
     let aktive = this.state.aktiveLag;
     delete aktive[kode];
     this.setState({ aktiveLag: aktive });
-  };
-
-  handleUpdateLayerProp = (layer, key, value, elementType) => {
-    console.log(layer, key, value);
-    const v = oppdaterLagProperties(layer, key, value, this, elementType);
-    this.setState({
-      aktiveLag: Object.assign({}, v)
-    });
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
@@ -256,12 +226,6 @@ class App extends React.Component {
     }
     this.setState({
       forvaltningsLag: Object.assign({}, nye_lag)
-    });
-  };
-
-  handleUpdateMetaProp = (kode, key, value) => {
-    this.setState({
-      meta: Object.assign({}, oppdaterMetaProperties(kode, key, value, this))
     });
   };
 

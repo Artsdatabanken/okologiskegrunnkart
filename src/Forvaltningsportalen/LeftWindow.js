@@ -1,5 +1,5 @@
 import React from "react";
-import FeatureInfo from "./FeatureInfo";
+import FeatureInfo from "../FeatureInfo";
 
 const LeftWindow = props => {
   if (props.showExtensiveInfo) {
