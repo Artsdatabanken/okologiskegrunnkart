@@ -4,7 +4,7 @@ import Byggeklosser from "./LokalitetElement/Byggeklosser";
 import Stedsinfo from "./LokalitetElement/Stedsinfo";
 import Landskapstypefordeling from "./LokalitetElement/Landskapstypefordeling";
 import språk from "Funksjoner/språk";
-import "style/Lokasjon.scss";
+import "style/Lokasjon.css";
 
 class Lokalitet extends Component {
   state = { bareAktive: false };

@@ -2,7 +2,7 @@ import React from "react";
 import språk from "Funksjoner/språk";
 import getSecondary from "./NavigeringslisteFunksjoner/getSecondary";
 import kodeSuffix from "./NavigeringslisteFunksjoner/kodeSuffix";
-import "style/NavMenu.scss";
+import "style/NavMenu.css";
 
 class KartlagBarnElement extends React.Component {
   render() {

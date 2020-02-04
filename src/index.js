@@ -6,7 +6,7 @@ import * as Sentry from "@sentry/browser";
 import { BrowserRouter } from "react-router-dom";
 import SettingsContainer from "SettingsContainer";
 import "style/style.css";
-import "style/leaflet.scss";
+import "style/leaflet.css";
 true &&
   Sentry.init({
     dsn: "https://c493d02267634ba4bc387feaddbeb083@sentry.io/1302262",

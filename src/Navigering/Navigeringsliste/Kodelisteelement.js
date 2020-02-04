@@ -5,7 +5,7 @@ import Bildeavatar from "GjenbruksElement/Bildeavatar";
 import VolumIndikator from "./VolumIndikator";
 import getSecondary from "./NavigeringslisteFunksjoner/getSecondary";
 import kodeSuffix from "./NavigeringslisteFunksjoner/kodeSuffix";
-import "style/NavMenu.scss";
+import "style/NavMenu.css";
 
 class Kodelisteelement extends React.Component {
   shouldComponentUpdate(np) {
