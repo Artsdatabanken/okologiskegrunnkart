@@ -5,10 +5,6 @@ import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
-import updateMarkerPosition from "./LeafletActions/updateMarkerPosition";
-// -- LEAFLET: Fix Leaflet's icon paths for Webpack --
-// See here: https://github.com/PaulLeCam/react-leaflet/issues/255
-// Used in conjunction with url-loader.
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -16,8 +12,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
-
-let header_shift = 56;
 
 class LeafletTangram extends React.Component {
   state = {
@@ -40,42 +34,21 @@ class LeafletTangram extends React.Component {
       minZoom: 3
     };
 
-    /*    if (this.props.forvaltningsportal === "true") {
-      header_shift = 113;
-    }
-*/
     let map = L.map(this.mapEl, options);
 
     map.on("drag", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
-      if (this.marker) {
-        updateMarkerPosition(this.state.clickCoordinates, this, header_shift);
-      }
     });
     map.on("zoomend", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
-      if (this.marker) {
-        updateMarkerPosition(
-          this.marker._icon._leaflet_pos,
-          this,
-          header_shift
-        );
-      }
     });
     map.on("resize", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
-      }
-      if (this.marker) {
-        updateMarkerPosition(
-          this.marker._icon._leaflet_pos,
-          this,
-          header_shift
-        );
       }
     });
     map.setView(
@@ -136,7 +109,6 @@ class LeafletTangram extends React.Component {
 
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
-    updateMarkerPosition(e, this, header_shift);
     this.props.handleLokalitetUpdate(lng, lat);
   };
 
