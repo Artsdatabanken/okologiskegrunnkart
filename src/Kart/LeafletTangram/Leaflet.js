@@ -19,18 +19,6 @@ L.Icon.Default.mergeOptions({
 
 let header_shift = 56;
 
-function find_searchparams(searchparams) {
-  let coord = null;
-  for (let i in searchparams) {
-    if (searchparams[i].includes("lng")) {
-      coord = searchparams[i].split("&");
-      coord[0] = coord[0].split("=")[1];
-      coord[1] = coord[1].split("=")[1];
-    }
-  }
-  return coord;
-}
-
 class LeafletTangram extends React.Component {
   state = {
     windowXpos: 0,
@@ -115,19 +103,6 @@ class LeafletTangram extends React.Component {
       iconSize: [38, 51],
       iconAnchor: [19, 41]
     });
-
-    let coord = find_searchparams((this.props.path || "").split("?"));
-
-    if (coord) {
-      this.marker = L.marker([coord[1], coord[0]], { icon: this.icon })
-        .addTo(this.map)
-        .on("click", e => {
-          if (this.map) {
-            console.warn("legg inn funksjon her senere.");
-          }
-        });
-      this.getBackendData(coord[0], coord[1], this.marker._icon._leaflet_pos);
-    }
   }
 
   erEndret(prevProps) {
