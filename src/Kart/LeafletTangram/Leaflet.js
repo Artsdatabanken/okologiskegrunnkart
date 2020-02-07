@@ -118,9 +118,6 @@ class LeafletTangram extends React.Component {
 
     let coord = find_searchparams((this.props.path || "").split("?"));
 
-    map.on("locationfound", e => this.onLocationFound(e));
-    map.on("locationerror", e => this.onLocationError(e));
-
     if (coord) {
       this.marker = L.marker([coord[1], coord[0]], { icon: this.icon })
         .addTo(this.map)
@@ -131,22 +128,6 @@ class LeafletTangram extends React.Component {
         });
       this.getBackendData(coord[0], coord[1], this.marker._icon._leaflet_pos);
     }
-  }
-
-  onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    radius = L.circle(e.latlng, radius).addTo(this.map);
-    var gpsmarker = L.marker(e.latlng)
-      .addTo(this.map)
-      .on("click", e => {
-        if (this.map) {
-          this.map.removeLayer(gpsmarker);
-          this.map.removeLayer(radius);
-        }
-      });
-  }
-  onLocationError(e) {
-    alert(e.message);
   }
 
   erEndret(prevProps) {

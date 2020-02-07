@@ -166,12 +166,12 @@ class App extends React.Component {
     });
 
     backend.hentStedsnavn(lng, lat).then(sted => {
+      // returnerer stedsnavn som vist øverst i feltet
       this.setState({
         sted: sted
       });
     });
-    //   lng = 9.676521245246727;
-    //   lat = 62.83068996597348;
+
     Object.keys(layers).forEach(key => {
       let url = layers[key];
       url += "&request=GetFeatureInfo";
@@ -190,13 +190,6 @@ class App extends React.Component {
     });
   };
 
-  handleFullscreen = showFullscreen => {
-    this.setState({ showFullscreen: showFullscreen });
-  };
-  handleClearSearchFor = () => this.setState({ searchFor: null });
-  handleToggleLayer = () => {
-    this.addSelected(this.state.meta);
-  };
   componentDidMount() {
     fetchMeta(this.props.location.pathname, this);
   }
