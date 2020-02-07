@@ -84,9 +84,6 @@ class App extends React.Component {
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
-                  onRemoveSelectedLayer={this.handleRemoveSelectedLayer}
-                  onMouseEnter={this.handleMouseEnter}
-                  onMouseLeave={this.handleMouseLeave}
                 />
                 <RightWindow
                   {...this.state}
@@ -169,12 +166,12 @@ class App extends React.Component {
     });
 
     backend.hentStedsnavn(lng, lat).then(sted => {
+      // returnerer stedsnavn som vist øverst i feltet
       this.setState({
         sted: sted
       });
     });
-    //   lng = 9.676521245246727;
-    //   lat = 62.83068996597348;
+
     Object.keys(layers).forEach(key => {
       let url = layers[key];
       url += "&request=GetFeatureInfo";
@@ -193,13 +190,6 @@ class App extends React.Component {
     });
   };
 
-  handleFullscreen = showFullscreen => {
-    this.setState({ showFullscreen: showFullscreen });
-  };
-  handleClearSearchFor = () => this.setState({ searchFor: null });
-  handleToggleLayer = () => {
-    this.addSelected(this.state.meta);
-  };
   componentDidMount() {
     fetchMeta(this.props.location.pathname, this);
   }
@@ -209,12 +199,6 @@ class App extends React.Component {
     metaSjekk(meta, this);
     return meta;
   }
-
-  handleRemoveSelectedLayer = kode => {
-    let aktive = this.state.aktiveLag;
-    delete aktive[kode];
-    this.setState({ aktiveLag: aktive });
-  };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.forvaltningsLag;
@@ -228,16 +212,6 @@ class App extends React.Component {
     this.setState({
       forvaltningsLag: Object.assign({}, nye_lag)
     });
-  };
-
-  handleMouseEnter = ({ kode, url }) => {
-    // console.log("mouseenter", kode, url);
-    this.setState({ opplystKode: kode, opplyst: { kode: kode, url: url } });
-  };
-
-  handleMouseLeave = () => {
-    // console.log("mouseleave");
-    this.setState({ opplystKode: "", opplyst: {} });
   };
 
   static contextType = SettingsContext;

@@ -5,10 +5,6 @@ import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
-import updateMarkerPosition from "./LeafletActions/updateMarkerPosition";
-// -- LEAFLET: Fix Leaflet's icon paths for Webpack --
-// See here: https://github.com/PaulLeCam/react-leaflet/issues/255
-// Used in conjunction with url-loader.
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -16,20 +12,6 @@ L.Icon.Default.mergeOptions({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
-
-let header_shift = 56;
-
-function find_searchparams(searchparams) {
-  let coord = null;
-  for (let i in searchparams) {
-    if (searchparams[i].includes("lng")) {
-      coord = searchparams[i].split("&");
-      coord[0] = coord[0].split("=")[1];
-      coord[1] = coord[1].split("=")[1];
-    }
-  }
-  return coord;
-}
 
 class LeafletTangram extends React.Component {
   state = {
@@ -52,42 +34,21 @@ class LeafletTangram extends React.Component {
       minZoom: 3
     };
 
-    /*    if (this.props.forvaltningsportal === "true") {
-      header_shift = 113;
-    }
-*/
     let map = L.map(this.mapEl, options);
 
     map.on("drag", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
-      if (this.marker) {
-        updateMarkerPosition(this.state.clickCoordinates, this, header_shift);
-      }
     });
     map.on("zoomend", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
-      if (this.marker) {
-        updateMarkerPosition(
-          this.marker._icon._leaflet_pos,
-          this,
-          header_shift
-        );
-      }
     });
     map.on("resize", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
-      }
-      if (this.marker) {
-        updateMarkerPosition(
-          this.marker._icon._leaflet_pos,
-          this,
-          header_shift
-        );
       }
     });
     map.setView(
@@ -115,38 +76,6 @@ class LeafletTangram extends React.Component {
       iconSize: [38, 51],
       iconAnchor: [19, 41]
     });
-
-    let coord = find_searchparams((this.props.path || "").split("?"));
-
-    map.on("locationfound", e => this.onLocationFound(e));
-    map.on("locationerror", e => this.onLocationError(e));
-
-    if (coord) {
-      this.marker = L.marker([coord[1], coord[0]], { icon: this.icon })
-        .addTo(this.map)
-        .on("click", e => {
-          if (this.map) {
-            console.warn("legg inn funksjon her senere.");
-          }
-        });
-      this.getBackendData(coord[0], coord[1], this.marker._icon._leaflet_pos);
-    }
-  }
-
-  onLocationFound(e) {
-    var radius = e.accuracy / 2;
-    radius = L.circle(e.latlng, radius).addTo(this.map);
-    var gpsmarker = L.marker(e.latlng)
-      .addTo(this.map)
-      .on("click", e => {
-        if (this.map) {
-          this.map.removeLayer(gpsmarker);
-          this.map.removeLayer(radius);
-        }
-      });
-  }
-  onLocationError(e) {
-    alert(e.message);
   }
 
   erEndret(prevProps) {
@@ -180,7 +109,6 @@ class LeafletTangram extends React.Component {
 
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
-    updateMarkerPosition(e, this, header_shift);
     this.props.handleLokalitetUpdate(lng, lat);
   };
 
