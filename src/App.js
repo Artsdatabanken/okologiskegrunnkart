@@ -84,9 +84,6 @@ class App extends React.Component {
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
-                  onRemoveSelectedLayer={this.handleRemoveSelectedLayer}
-                  onMouseEnter={this.handleMouseEnter}
-                  onMouseLeave={this.handleMouseLeave}
                 />
                 <RightWindow
                   {...this.state}
@@ -210,12 +207,6 @@ class App extends React.Component {
     return meta;
   }
 
-  handleRemoveSelectedLayer = kode => {
-    let aktive = this.state.aktiveLag;
-    delete aktive[kode];
-    this.setState({ aktiveLag: aktive });
-  };
-
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.forvaltningsLag;
     for (let item in this.state.forvaltningsLag) {
@@ -228,16 +219,6 @@ class App extends React.Component {
     this.setState({
       forvaltningsLag: Object.assign({}, nye_lag)
     });
-  };
-
-  handleMouseEnter = ({ kode, url }) => {
-    // console.log("mouseenter", kode, url);
-    this.setState({ opplystKode: kode, opplyst: { kode: kode, url: url } });
-  };
-
-  handleMouseLeave = () => {
-    // console.log("mouseleave");
-    this.setState({ opplystKode: "", opplyst: {} });
   };
 
   static contextType = SettingsContext;

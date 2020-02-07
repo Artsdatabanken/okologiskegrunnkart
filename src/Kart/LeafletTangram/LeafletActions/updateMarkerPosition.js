@@ -3,7 +3,7 @@ export default function updateMarkerPosition(
   parent,
   header_shift
 ) {
-  if (parent.marker) {
+  if (parent.marker && parent.marker._mapToAdd) {
     let offset = parent.marker._mapToAdd._mapPane._leaflet_pos;
 
     parent.setState({
