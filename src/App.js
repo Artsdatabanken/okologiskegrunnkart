@@ -150,33 +150,26 @@ class App extends React.Component {
       });
     });
 
-    backend.hentPunkt(lng, lat).then(pi => {
-      // Denne henter .... alt som ikke er stedsnavn?
-      const env = pi.environment;
-      if (pi.kommune)
-        this.setState({
-          kommune: { kommune: pi.kommune, fylke: pi.fylke }
-        });
-
-      const sone = env["NN-NA-BS-6SO"];
-      if (sone)
-        this.setState({
-          sone
-        });
-      const seksjon = env["NN-NA-BS-6SE"];
-      if (seksjon)
-        this.setState({
-          seksjon
-        });
-
-      const kalk = env["NN-NA-LKM-KA"];
-      if (kalk)
-        this.setState({
-          kalk
-        });
+    backend.hentPunkt(lng, lat).then(el => {
+      // Denne henter utvalgte lag fra artsdatabanken
+      let dict = {};
+      if (el.kommune) {
+        dict["kommune"] = { kommune: el.kommune, fylke: el.fylke };
+      }
+      if (el.environment["NN-NA-BS-6SO"]) {
+        dict["sone"] = el.environment["NN-NA-BS-6SO"];
+      }
+      if (el.environment["NN-NA-BS-6SE"]) {
+        dict["seksjon"] = el.environment["NN-NA-BS-6SE"];
+      }
+      if (el.environment["NN-NA-LKM-KA"]) {
+        dict["kalk"] = el.environment["NN-NA-LKM-KA"];
+      }
+      this.setState(dict);
     });
 
     Object.keys(layers).forEach(key => {
+      // Og denne benytter layers-listen.
       let url = layers[key];
       url += "&request=GetFeatureInfo";
       url += "&service=WMS";
