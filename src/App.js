@@ -135,6 +135,7 @@ class App extends React.Component {
   };
 
   handleLokalitetUpdate = async (lng, lat) => {
+    // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
     this.setState({
       lat,
       lng,
@@ -142,12 +143,21 @@ class App extends React.Component {
       wms1: null
     });
 
+    backend.hentStedsnavn(lng, lat).then(sted => {
+      // returnerer stedsnavn som vist øverst i feltet
+      this.setState({
+        sted: sted
+      });
+    });
+
     backend.hentPunkt(lng, lat).then(pi => {
+      // Denne henter .... alt som ikke er stedsnavn?
       const env = pi.environment;
       if (pi.kommune)
         this.setState({
           kommune: { kommune: pi.kommune, fylke: pi.fylke }
         });
+
       const sone = env["NN-NA-BS-6SO"];
       if (sone)
         this.setState({
@@ -158,18 +168,12 @@ class App extends React.Component {
         this.setState({
           seksjon
         });
+
       const kalk = env["NN-NA-LKM-KA"];
       if (kalk)
         this.setState({
           kalk
         });
-    });
-
-    backend.hentStedsnavn(lng, lat).then(sted => {
-      // returnerer stedsnavn som vist øverst i feltet
-      this.setState({
-        sted: sted
-      });
     });
 
     Object.keys(layers).forEach(key => {
