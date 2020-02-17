@@ -9,29 +9,6 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-
-/*
-<msGMLOutput 
-	 xmlns:gml="http://www.opengis.net/gml"
-	 xmlns:xlink="http://www.w3.org/1999/xlink"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<layer_388_layer>
-	<gml:name>Nasjonale laksefjorder</gml:name>
-		<layer_388_feature>
-			<gml:boundedBy>
-				<gml:Box srsName="EPSG:4326">
-					<gml:coordinates>9.663230,63.310492 11.501435,64.119825</gml:coordinates>
-				</gml:Box>
-			</gml:boundedBy>
-			<fjord>Trondheimsfjorden</fjord>
-			<fylke>Sør Trøndelag</fylke>
-			<region>Region Trøndelag</region>
-			<runde>1</runde>
-			<grensepunk>Agdenes fyr - Brekstad</grensepunk>
-		</layer_388_feature>
-	</layer_388_layer>
-</msGMLOutput>
-*/
 const Laksefjord = props => {
   // console.log("laksefjord", props);
   const [open, setOpen] = useState(false);
@@ -55,7 +32,6 @@ const Laksefjord = props => {
         button
         onClick={() => {
           setOpen(!open);
-          //          window.open(url, "", "width=500,height=500")
         }}
       >
         <ListItemIcon>

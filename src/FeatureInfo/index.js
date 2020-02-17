@@ -16,8 +16,7 @@ import Laksefjord from "./Laksefjord";
 import Losmasse from "./Løsmasse";
 import Naturtype from "./Naturtype";
 import Livsmiljo from "./Livsmiljø";
-import Bioklimatisk from "./Bioklimatisk";
-import Kalk from "./Kalk";
+import AdbElement from "./AdbElement";
 
 const FeatureInfo = ({
   meta,
@@ -81,6 +80,7 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
+          {/*
           <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
           <Naturtype
             {...naturtype}
@@ -99,12 +99,8 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
           />
-          <Arealtype
-            kode="FP-NH"
-            {...arealtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
+
+
           <Laksefjord
             {...laksefjord}
             onUpdateLayerProp={onUpdateLayerProp}
@@ -114,27 +110,35 @@ const FeatureInfo = ({
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
+          />*/}
+
+          <Arealtype
+            kode="FP-NH"
+            {...arealtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
           />
-          <Bioklimatisk
+          <AdbElement
             barn={meta.barn}
             {...seksjon}
             onUpdateLayerProp={onUpdateLayerProp}
             tittel="Bioklimatisk seksjon"
+            type="bioklimatisk"
           />
-          <Bioklimatisk
+          <AdbElement
             barn={meta.barn}
             {...sone}
             onUpdateLayerProp={onUpdateLayerProp}
             tittel="Bioklimatisk sone"
+            type="bioklimatisk"
           />
-          {false && (
-            <Kalk
-              {...kalk}
-              onUpdateLayerProp={onUpdateLayerProp}
-              barn={meta.barn}
-              tittel="Kalkinnhold"
-            />
-          )}
+          <AdbElement
+            {...kalk}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            tittel="Kalkinnhold"
+            type="kalk"
+          />
         </List>
       </div>
     </div>

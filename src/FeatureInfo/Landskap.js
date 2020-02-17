@@ -9,13 +9,6 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 
-/*
-area: "26220000"
-code: "LA-I-A-53"
-gml:boundedBy: {gml:Box: {…}}
-index: "8707"
-name: "Tindepreget ås- og fjellandskap med bart fjell over skoggrensen"
- */
 const Landskap = props => {
   const [open, setOpen] = useState(false);
   if (!props) return null;
@@ -32,7 +25,6 @@ const Landskap = props => {
         button
         onClick={() => {
           setOpen(!open);
-          //          window.open(url, "", "width=500,height=500")
         }}
       >
         <ListItemIcon>

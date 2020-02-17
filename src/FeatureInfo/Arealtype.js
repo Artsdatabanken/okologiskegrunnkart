@@ -1,4 +1,4 @@
-import { LocationCity, ExpandLess, ExpandMore } from "@material-ui/icons";
+import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -7,40 +7,9 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-/*
-<msGMLOutput 
-	 xmlns:gml="http://www.opengis.net/gml"
-	 xmlns:xlink="http://www.w3.org/1999/xlink"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Arealtyper_layer>
-	<gml:name>Arealtyper</gml:name>
-		<Arealtyper_feature>
-			<gml:boundedBy>
-				<gml:Box srsName="EPSG:4326">
-					<gml:coordinates>10.556298,63.402536 10.614902,63.429819</gml:coordinates>
-				</gml:Box>
-			</gml:boundedBy>
-			<areal>1957270.15718</areal>
-			<ar50klasse_beskrivelse>Barskog, middels skogbonitet</ar50klasse_beskrivelse>
-			<artype>30</artype>
-			<artreslag>31</artreslag>
-			<arskogbon>13</arskogbon>
-			<ardyrking>81</ardyrking>
-			<arjordbr>98</arjordbr>
-			<arveget>98</arveget>
-			<artype_beskrivelse>Skog</artype_beskrivelse>
-			<artreslag_beskrivelse>Barskog</artreslag_beskrivelse>
-			<arskogbon_beskrivelse>Middels bonitet</arskogbon_beskrivelse>
-			<ardyrking_beskrivelse>Ikke dyrkbar jord</ardyrking_beskrivelse>
-			<arjordbr_beskrivelse>Ikke relevant</arjordbr_beskrivelse>
-			<arveget_beskrivelse>Ikke relevant</arveget_beskrivelse>
-			<bonitet>4</bonitet>
-			<bonitet_beskrivelse>Skog, middels bonitet</bonitet_beskrivelse>
-			<sl_sdeid>1191183</sl_sdeid>
-		</Arealtyper_feature>
-	</Arealtyper_layer>
-</msGMLOutput>  
-*/
+import lookup from "./lookup";
+import fancy_liste from "../Data/fancy_liste";
+
 const Arealtype = props => {
   //  console.log("grunntype", props);
   const [open, setOpen] = useState(false);
@@ -71,7 +40,7 @@ const Arealtype = props => {
         }}
       >
         <ListItemIcon>
-          <LocationCity />
+          <Star />
         </ListItemIcon>
         <ListItemText
           primary={

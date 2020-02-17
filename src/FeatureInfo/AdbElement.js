@@ -1,4 +1,4 @@
-import { GroupWork, ExpandLess, ExpandMore } from "@material-ui/icons";
+import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -7,30 +7,33 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
+import lookup from "./lookup";
+import fancy_liste from "../Data/fancy_liste";
 
-const Kalk = props => {
+const AdbElement = props => {
   const [open, setOpen] = useState(false);
   if (!props.barn) return null;
-  const ban = lookup(props.barn);
-  const url = "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold";
+  const subelement = lookup(props.barn);
+  if (!subelement) return null;
+  const url = fancy_liste[props.type]["url"];
   return (
     <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
       <ListItem
         button
         onClick={() => {
           setOpen(!open);
-          //          window.open(url, "", "width=500,height=500")
         }}
       >
         <ListItemIcon>
-          <GroupWork />
+          <Star />
         </ListItemIcon>
         <ListItemText
-          primary={ban && ban.tittel && ban.tittel.nb}
+          primary={subelement && subelement.tittel && subelement.tittel.nb}
           secondary={props.tittel}
         />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
+
       <Collapse in={open} timeout="auto" unmountOnExit>
         <ExpandedHeader
           visible={props.visible}
@@ -40,6 +43,7 @@ const Kalk = props => {
           kode={props.kode}
           url={url}
         ></ExpandedHeader>
+
         <iframe
           allowtransparency="true"
           style={{
@@ -55,11 +59,4 @@ const Kalk = props => {
   );
 };
 
-function lookup(barn) {
-  if (!barn) return null;
-  const r = barn.filter(b => b.aktiv);
-  if (r.length > 0) return r[0];
-  return null;
-}
-
-export default Kalk;
+export default AdbElement;

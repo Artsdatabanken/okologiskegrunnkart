@@ -7,21 +7,6 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-
-/*
-AREAL: "264.33"
-GlobalID: "Null"
-IKRAFTTREDNINGSDATO: "10/30/1980"
-OBJECTID: "156869"
-OBJEKTID: "137/1"
-OBJEKTNAVN: "Steinselva"
-OBJTYPE: "VassVernOmråde"
-SUPPLERING: ""
-Shape: "Polygon"
-VASSDRAGNR: "137.2Z"
-VERNEPLAN: "Verneplan II av 1980"
-VERNEPLANURL: "sor-trondelag/137-1-Steinselva/"
-*/
 const Vassdrag = props => {
   const [open, setOpen] = useState(false);
   if (!props) return null;
