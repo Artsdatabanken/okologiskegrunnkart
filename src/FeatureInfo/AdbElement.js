@@ -12,10 +12,32 @@ import fancy_liste from "../Data/fancy_liste";
 
 const AdbElement = props => {
   const [open, setOpen] = useState(false);
+  if (!props) return null;
   if (!props.barn) return null;
-  const subelement = lookup(props.barn);
-  if (!subelement) return null;
-  const url = fancy_liste[props.type]["url"];
+  let primary_text = "";
+  let secondary_text = "";
+  let url = fancy_liste[props.type]["url"];
+  if (fancy_liste[props.type]["subelement"]) {
+    const subelement = lookup(props.barn);
+    if (!subelement) return null;
+    if (subelement && subelement.tittel && subelement.tittel.nb) {
+      primary_text = subelement.tittel.nb;
+    }
+    secondary_text = props.tittel;
+  } else {
+    const layer = props[fancy_liste[props.type]["layer"]];
+    if (!layer) return null;
+    const feature = layer[fancy_liste[props.type]["feature"]];
+    if (!feature) return null;
+    url = props.url.replace(
+      fancy_liste[props.type]["url_replace"][0],
+      fancy_liste[props.type]["url_replace"][1]
+    );
+    primary_text = feature[fancy_liste[props.type]["feature_text"]];
+    secondary_text =
+      fancy_liste[props.type]["object_text"] + feature["objectid"];
+  }
+
   return (
     <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
       <ListItem
@@ -27,10 +49,7 @@ const AdbElement = props => {
         <ListItemIcon>
           <Star />
         </ListItemIcon>
-        <ListItemText
-          primary={subelement && subelement.tittel && subelement.tittel.nb}
-          secondary={props.tittel}
-        />
+        <ListItemText primary={primary_text} secondary={secondary_text} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
 

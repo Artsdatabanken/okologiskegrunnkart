@@ -1,4 +1,4 @@
-import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
+import { LocationCity, ExpandLess, ExpandMore } from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -7,8 +7,6 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-import lookup from "./lookup";
-import fancy_liste from "../Data/fancy_liste";
 
 const Arealtype = props => {
   //  console.log("grunntype", props);
@@ -40,7 +38,7 @@ const Arealtype = props => {
         }}
       >
         <ListItemIcon>
-          <Star />
+          <LocationCity />
         </ListItemIcon>
         <ListItemText
           primary={

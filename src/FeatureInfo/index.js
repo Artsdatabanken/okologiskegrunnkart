@@ -13,7 +13,6 @@ import Landskap from "./Landskap";
 import Vassdrag from "./Vassdrag";
 import Arealtype from "./Arealtype";
 import Laksefjord from "./Laksefjord";
-import Losmasse from "./Løsmasse";
 import Naturtype from "./Naturtype";
 import Livsmiljo from "./Livsmiljø";
 import AdbElement from "./AdbElement";
@@ -99,22 +98,15 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
           />
-
-
-          <Laksefjord
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Losmasse
-            {...løsmasse}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />*/}
-
           <Arealtype
             kode="FP-NH"
             {...arealtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+          />
+
+          <Laksefjord
+            {...laksefjord}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
           />
@@ -138,6 +130,13 @@ const FeatureInfo = ({
             barn={meta.barn}
             tittel="Kalkinnhold"
             type="kalk"
+          />
+          */}
+          <AdbElement
+            {...løsmasse}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="løsmasse"
           />
         </List>
       </div>
