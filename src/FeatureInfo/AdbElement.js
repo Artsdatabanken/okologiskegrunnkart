@@ -28,7 +28,7 @@ const AdbElement = props => {
   } else if (props.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
     if (!props.OBJEKTID) return null;
-    const url = url + VERNEPLANURL;
+    url = url + VERNEPLANURL;
     primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
     secondary_text = fancy_liste[props.type]["object_text"] + OBJEKTID;
   } else {
@@ -46,6 +46,11 @@ const AdbElement = props => {
       primary_text =
         artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
       secondary_text = "AR5 Arealtype " + artype;
+    } else if (props.type === "laksefjord") {
+      const { fjord, fylke } = feature;
+      url = url + fjord;
+      primary_text = fjord;
+      secondary_text = fancy_liste[props.type]["object_text"] + fylke;
     } else {
       url = props.url;
       primary_text = feature[fancy_liste[props.type]["feature_text"]];

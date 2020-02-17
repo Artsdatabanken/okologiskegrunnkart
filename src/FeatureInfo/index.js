@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Landskap from "./Landskap";
-import Laksefjord from "./Laksefjord";
 import Naturtype from "./Naturtype";
 import Livsmiljo from "./Livsmiljø";
 import AdbElement from "./AdbElement";
@@ -77,8 +76,6 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          {/*
-          <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
 
           <AdbElement
             barn={meta.barn}
@@ -101,32 +98,6 @@ const FeatureInfo = ({
             tittel="Kalkinnhold"
             type="kalk"
           />
-
-          <AdbElement
-            kode="FP-NV"
-            {...vassdrag}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="vassdrag"
-          />
-
-          <Naturtype
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Livsmiljo
-            kode="FP-NL"
-            {...livsmiljø}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Laksefjord
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          */}
           <AdbElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
@@ -140,6 +111,38 @@ const FeatureInfo = ({
             barn={meta.barn}
             type="arealtype"
           />
+
+          <AdbElement
+            kode="FP-NV"
+            {...vassdrag}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="vassdrag"
+          />
+
+          <AdbElement
+            {...laksefjord}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="laksefjord"
+          />
+          {/*
+          <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
+
+
+
+          <Naturtype
+            {...naturtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+          />
+          <Livsmiljo
+            kode="FP-NL"
+            {...livsmiljø}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+          />
+          */}
         </List>
       </div>
     </div>

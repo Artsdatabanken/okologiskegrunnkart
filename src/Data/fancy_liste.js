@@ -12,6 +12,17 @@ const fancy_liste = {
     subelement: false,
     object_text: "Verneplan for vassdrag "
   },
+  laksefjord: {
+    url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+    subelement: false,
+    url_replace: [
+      "info_format=application/vnd.ogc.gml",
+      "info_format=text/html"
+    ],
+    layer: "layer_388_layer",
+    feature: "layer_388_feature",
+    object_text: "Laksefjord i  "
+  },
   arealtype: {
     url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     subelement: false,
@@ -31,7 +42,6 @@ const fancy_liste = {
       "info_format=application/vnd.ogc.gml",
       "info_format=text/html"
     ],
-    subelement: false,
     layer: "Losmasse_flate_layer",
     feature: "Losmasse_flate_feature",
     feature_text: "losmassetype_tekst",
@@ -39,7 +49,3 @@ const fancy_liste = {
   }
 };
 export default fancy_liste;
-
-function round(v) {
-  return Math.round(v * 100) / 100;
-}
