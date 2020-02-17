@@ -25,6 +25,15 @@ const AdbElement = props => {
       primary_text = subelement.tittel.nb;
     }
     secondary_text = props.tittel;
+  } else if (props.type === "naturtype") {
+    const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
+    if (!Naturtype) return null;
+    const kode = "FP-MDN";
+    let kartlag = props.barn.find(k => k.kode === kode);
+    if (!kartlag) kartlag = {};
+    url = url + "?id=" + NiNID; //NINFP1810030453";
+    primary_text = Naturtype;
+    secondary_text = "Naturtype (" + NiNKartleggingsenheter + ")";
   } else if (props.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
     if (!props.OBJEKTID) return null;
@@ -90,17 +99,26 @@ const AdbElement = props => {
           kode={props.kode}
           url={url}
         ></ExpandedHeader>
-
-        <iframe
-          allowtransparency="true"
-          style={{
-            frameBorder: 0,
-            width: "100%",
-            height: "100vh"
-          }}
-          title="Faktaark"
-          src={url}
-        />
+        {props.type === "naturtype" ? (
+          <ul>
+            <li style={{ padding: 16 }}>
+              <a href={url} target="_top">
+                Faktaark i eget vindu
+              </a>
+            </li>
+          </ul>
+        ) : (
+          <iframe
+            allowtransparency="true"
+            style={{
+              frameBorder: 0,
+              width: "100%",
+              height: "100vh"
+            }}
+            title="Faktaark"
+            src={url}
+          />
+        )}
       </Collapse>
     </div>
   );

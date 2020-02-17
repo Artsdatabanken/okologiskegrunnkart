@@ -23,6 +23,9 @@ const fancy_liste = {
     feature: "layer_388_feature",
     object_text: "Laksefjord i  "
   },
+  naturtype: {
+    url: "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
+  },
   arealtype: {
     url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     subelement: false,

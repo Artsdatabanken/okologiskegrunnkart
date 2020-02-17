@@ -10,7 +10,6 @@ import {
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Landskap from "./Landskap";
-import Naturtype from "./Naturtype";
 import Livsmiljo from "./Livsmiljø";
 import AdbElement from "./AdbElement";
 
@@ -76,6 +75,7 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
+          {/*
 
           <AdbElement
             barn={meta.barn}
@@ -126,16 +126,19 @@ const FeatureInfo = ({
             barn={meta.barn}
             type="laksefjord"
           />
-          {/*
+
+          <AdbElement
+            {...naturtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="naturtype"
+          />
+
           <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
 
 
 
-          <Naturtype
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
+
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}
