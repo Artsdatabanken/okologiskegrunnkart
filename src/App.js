@@ -4,6 +4,7 @@ import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
 import layers from "./Data/layers";
 import adb_layers from "./Data/adb_layers";
+import url_formatter from "./Data/url_formatter";
 import metadata from "./metadata";
 import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
@@ -68,7 +69,7 @@ class App extends React.Component {
                 <Kart
                   showExtensiveInfo={this.state.showExtensiveInfo}
                   handleExtensiveInfo={this.handleExtensiveInfo}
-                  handleLokalitetUpdate={this.handleLokalitetUpdate}
+                  handleLokalitetUpdate={this.hentInfoAlleLag}
                   forvaltningsportal={true}
                   show_current={this.state.showCurrent}
                   bounds={this.state.fitBounds}
@@ -135,7 +136,7 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
-  handleLokalitetUpdate = async (lng, lat) => {
+  hentInfoAlleLag = async (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
     this.setState({
       lat,
@@ -151,26 +152,20 @@ class App extends React.Component {
       });
     });
 
-    backend.hentPunkt(lng, lat).then(el => {
+    backend.hentAdbPunkt(lng, lat).then(el => {
       // Denne henter utvalgte lag fra artsdatabanken
       const dict = adb_layers(el);
       this.setState(dict);
     });
 
     Object.keys(layers).forEach(key => {
-      // Og denne benytter layers-listen.
-      let url = layers[key];
-      url += "&request=GetFeatureInfo";
-      url += "&service=WMS";
-      url = url.replace("{x}", "&x=" + lng);
-      url = url.replace("{y}", "&y=" + lat);
-      url = url.replace("{lng}", lng);
-      url = url.replace("{lat}", lat);
-      const delta = key === "naturtype" ? 0.0001 : 0.01;
+      // Denne henter utvalgte lag baser på listen layers
+      let url = url_formatter(layers[key], lat, lng);
+      const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
       backend.wmsFeatureInfo(url, lat, lng, delta).then(response => {
         const res = XML.parse(response.text);
         res.url = response.url;
-        if (key === "naturvern") console.log(key, JSON.stringify(res));
+        //if (key === "naturvern") console.log(key, JSON.stringify(res)); // unødvendig?
         this.setState({ [key]: res.FIELDS || res });
       });
     });
