@@ -7,8 +7,26 @@ const fancy_liste = {
     url: "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
     subelement: true
   },
+  vassdrag: {
+    url: "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
+    subelement: false,
+    object_text: "Verneplan for vassdrag "
+  },
+  arealtype: {
+    url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+    subelement: false,
+    url_replace: [
+      "info_format=application/vnd.ogc.gml",
+      "info_format=text/html"
+    ],
+    layer: "Arealtyper_layer",
+    feature: "Arealtyper_feature",
+    feature_text: "artype_beskrivelse",
+    object_text: "AR5 Arealtype "
+  },
   løsmasse: {
-    url: "",
+    url: "", /// er denne samme som i layers? isåfall kan den jo ... bo her
+    subelement: false,
     url_replace: [
       "info_format=application/vnd.ogc.gml",
       "info_format=text/html"
@@ -21,3 +39,7 @@ const fancy_liste = {
   }
 };
 export default fancy_liste;
+
+function round(v) {
+  return Math.round(v * 100) / 100;
+}

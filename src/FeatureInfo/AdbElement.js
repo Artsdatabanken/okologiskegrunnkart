@@ -13,29 +13,50 @@ import fancy_liste from "../Data/fancy_liste";
 const AdbElement = props => {
   const [open, setOpen] = useState(false);
   if (!props) return null;
-  if (!props.barn) return null;
   let primary_text = "";
   let secondary_text = "";
+  if (!fancy_liste[props.type]) return null;
   let url = fancy_liste[props.type]["url"];
   if (fancy_liste[props.type]["subelement"]) {
+    if (!props.barn) return null;
     const subelement = lookup(props.barn);
     if (!subelement) return null;
     if (subelement && subelement.tittel && subelement.tittel.nb) {
       primary_text = subelement.tittel.nb;
     }
     secondary_text = props.tittel;
+  } else if (props.type === "vassdrag") {
+    const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
+    if (!props.OBJEKTID) return null;
+    const url = url + VERNEPLANURL;
+    primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
+    secondary_text = fancy_liste[props.type]["object_text"] + OBJEKTID;
   } else {
     const layer = props[fancy_liste[props.type]["layer"]];
     if (!layer) return null;
     const feature = layer[fancy_liste[props.type]["feature"]];
     if (!feature) return null;
-    url = props.url.replace(
+
+    if (props.type === "arealtype") {
+      const { areal, artype, artype_beskrivelse } = feature;
+      if (!artype_beskrivelse) return null;
+      let kartlag = props.barn.find(k => k.kode === props.kode);
+      if (!kartlag) kartlag = {};
+      url = url + artype_beskrivelse.toLowerCase();
+      primary_text =
+        artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
+      secondary_text = "AR5 Arealtype " + artype;
+    } else {
+      url = props.url;
+      primary_text = feature[fancy_liste[props.type]["feature_text"]];
+      secondary_text =
+        fancy_liste[props.type]["object_text"] + feature["objectid"];
+    }
+
+    url = url.replace(
       fancy_liste[props.type]["url_replace"][0],
       fancy_liste[props.type]["url_replace"][1]
     );
-    primary_text = feature[fancy_liste[props.type]["feature_text"]];
-    secondary_text =
-      fancy_liste[props.type]["object_text"] + feature["objectid"];
   }
 
   return (
@@ -58,6 +79,8 @@ const AdbElement = props => {
           visible={props.visible}
           opacity={props.opacity}
           onUpdateLayerProp={props.onUpdateLayerProp}
+          //erSynlig={kartlag.erSynlig}
+          //opacity={kartlag.opacity}
           geonorge={props.geonorge}
           kode={props.kode}
           url={url}
@@ -77,5 +100,9 @@ const AdbElement = props => {
     </div>
   );
 };
+
+function round(v) {
+  return Math.round(v * 100) / 100;
+}
 
 export default AdbElement;
