@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
 import layers from "./Data/layers";
+import adb_layers from "./Data/adb_layers";
 import metadata from "./metadata";
 import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
@@ -152,19 +153,7 @@ class App extends React.Component {
 
     backend.hentPunkt(lng, lat).then(el => {
       // Denne henter utvalgte lag fra artsdatabanken
-      let dict = {};
-      if (el.kommune) {
-        dict["kommune"] = { kommune: el.kommune, fylke: el.fylke };
-      }
-      if (el.environment["NN-NA-BS-6SO"]) {
-        dict["sone"] = el.environment["NN-NA-BS-6SO"];
-      }
-      if (el.environment["NN-NA-BS-6SE"]) {
-        dict["seksjon"] = el.environment["NN-NA-BS-6SE"];
-      }
-      if (el.environment["NN-NA-LKM-KA"]) {
-        dict["kalk"] = el.environment["NN-NA-LKM-KA"];
-      }
+      const dict = adb_layers(el);
       this.setState(dict);
     });
 
