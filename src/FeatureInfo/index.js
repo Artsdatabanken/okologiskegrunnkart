@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import Livsmiljo from "./Livsmiljø";
-import AdbElement from "./AdbElement";
+import ListeTreffElement from "./ListeTreffElement";
 
 const FeatureInfo = ({
   meta,
@@ -65,34 +65,31 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          <AdbElement
+          <ListeTreffElement
             barn={meta.barn}
             {...seksjon}
             onUpdateLayerProp={onUpdateLayerProp}
-            tittel="Bioklimatisk seksjon"
-            type="bioklimatisk"
+            type="bioklimatiske_seksjoner"
           />
-          <AdbElement
+          <ListeTreffElement
             barn={meta.barn}
             {...sone}
             onUpdateLayerProp={onUpdateLayerProp}
-            tittel="Bioklimatisk sone"
-            type="bioklimatisk"
+            type="bioklimatiske_soner"
           />
-          <AdbElement
+          <ListeTreffElement
             {...kalk}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
-            tittel="Kalkinnhold"
             type="kalk"
           />
-          <AdbElement
+          <ListeTreffElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
             type="løsmasse"
           />
-          <AdbElement
+          <ListeTreffElement
             kode="FP-NH"
             {...arealtype}
             onUpdateLayerProp={onUpdateLayerProp}
@@ -100,7 +97,7 @@ const FeatureInfo = ({
             type="arealtype"
           />
 
-          <AdbElement
+          <ListeTreffElement
             kode="FP-NV"
             {...vassdrag}
             onUpdateLayerProp={onUpdateLayerProp}
@@ -108,20 +105,20 @@ const FeatureInfo = ({
             type="vassdrag"
           />
 
-          <AdbElement
+          <ListeTreffElement
             {...laksefjord}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
             type="laksefjord"
           />
 
-          <AdbElement
+          <ListeTreffElement
             {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
             type="naturtype"
           />
-          <AdbElement
+          <ListeTreffElement
             {...landskap}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}

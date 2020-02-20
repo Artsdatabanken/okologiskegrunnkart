@@ -10,13 +10,16 @@ import ExpandedHeader from "./ExpandedHeader";
 import lookup from "./lookup";
 import fancy_liste from "../Data/fancy_liste";
 
-const AdbElement = props => {
+const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
   if (!props) return null;
+  if (!fancy_liste[props.type]) return null;
   let primary_text = "";
   let secondary_text = "";
-  if (!fancy_liste[props.type]) return null;
   let url = fancy_liste[props.type]["url"];
+  let tittel = fancy_liste[props.type]["tittel"];
+  secondary_text = tittel;
+
   if (fancy_liste[props.type]["subelement"]) {
     if (!props.barn) return null;
     const subelement = lookup(props.barn);
@@ -24,7 +27,6 @@ const AdbElement = props => {
     if (subelement && subelement.tittel && subelement.tittel.nb) {
       primary_text = subelement.tittel.nb;
     }
-    secondary_text = props.tittel;
   } else if (props.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
     if (!Naturtype) return null;
@@ -33,7 +35,7 @@ const AdbElement = props => {
     if (!kartlag) kartlag = {};
     url = url + "?id=" + NiNID; //NINFP1810030453";
     primary_text = Naturtype;
-    secondary_text = "Naturtype (" + NiNKartleggingsenheter + ")";
+    secondary_text = secondary_text + " (" + NiNKartleggingsenheter + ")";
   } else if (props.type === "landskap") {
     const grunntype = finnGrunntype(props);
     if (!grunntype) return null;
@@ -41,13 +43,13 @@ const AdbElement = props => {
     if (!name) return null;
     url = url + code.replace("LA-", "LA-TI-").replace(/-/g, "/");
     primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
-    secondary_text = "Landskap " + index;
+    secondary_text = tittel + " " + index;
   } else if (props.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
     if (!props.OBJEKTID) return null;
     url = url + VERNEPLANURL;
     primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
-    secondary_text = fancy_liste[props.type]["object_text"] + OBJEKTID;
+    secondary_text = tittel + " " + OBJEKTID;
   } else {
     const layer = props[fancy_liste[props.type]["layer"]];
     if (!layer) return null;
@@ -62,17 +64,16 @@ const AdbElement = props => {
       url = url + artype_beskrivelse.toLowerCase();
       primary_text =
         artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
-      secondary_text = "AR5 Arealtype " + artype;
+      secondary_text = tittel + " " + artype;
     } else if (props.type === "laksefjord") {
       const { fjord, fylke } = feature;
       url = url + fjord;
       primary_text = fjord;
-      secondary_text = fancy_liste[props.type]["object_text"] + fylke;
+      secondary_text = tittel + " i " + fylke;
     } else {
       url = props.url;
       primary_text = feature[fancy_liste[props.type]["feature_text"]];
-      secondary_text =
-        fancy_liste[props.type]["object_text"] + feature["objectid"];
+      secondary_text = tittel + " " + feature["objectid"];
     }
 
     url = url.replace(
@@ -145,4 +146,4 @@ function finnGrunntype(fi) {
   return value && Object.values(value)[0];
 }
 
-export default AdbElement;
+export default ListeTreffElement;
