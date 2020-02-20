@@ -13,6 +13,7 @@ import Livsmiljo from "./Livsmiljø";
 import ListeTreffElement from "./ListeTreffElement";
 
 const FeatureInfo = ({
+  showExtensiveInfo,
   meta,
   onUpdateLayerProp,
   handleExtensiveInfo,
@@ -31,6 +32,7 @@ const FeatureInfo = ({
   laksefjord,
   løsmasse
 }) => {
+  if (!showExtensiveInfo) return null;
   if (!lat) return null;
   const coords = `${Math.round(lat * 10000) / 10000}° N ${Math.round(
     lng * 10000

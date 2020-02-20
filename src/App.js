@@ -11,7 +11,7 @@ import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
-import LeftWindow from "./Forvaltningsportalen/LeftWindow";
+import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "Kart/LeafletTangram/Leaflet";
 
@@ -97,7 +97,7 @@ class App extends React.Component {
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   meta={this.state.meta || {}}
                 />
-                <LeftWindow
+                <FeatureInfo
                   {...this.state}
                   handleExtensiveInfo={this.handleExtensiveInfo}
                   showExtensiveInfo={this.state.showExtensiveInfo}

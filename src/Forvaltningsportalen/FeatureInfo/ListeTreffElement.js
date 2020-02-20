@@ -8,7 +8,8 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import lookup from "./lookup";
-import fancy_liste from "../Data/fancy_liste";
+import finnGrunntype from "./finnGrunntype";
+import fancy_liste from "../../Data/fancy_liste";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
@@ -131,19 +132,6 @@ const ListeTreffElement = props => {
 
 function round(v) {
   return Math.round(v * 100) / 100;
-}
-
-function finnGrunntype(fi) {
-  let value = null;
-  let longestkey = "";
-  for (var key of Object.keys(fi)) {
-    if (key.indexOf("_layer") < 0) continue;
-    if (key.length > longestkey.length) {
-      longestkey = key;
-      value = fi[key];
-    }
-  }
-  return value && Object.values(value)[0];
 }
 
 export default ListeTreffElement;
