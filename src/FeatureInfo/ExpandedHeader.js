@@ -1,19 +1,19 @@
 import {
-  OpenInNew,
-  VisibilityOutlined,
-  VisibilityOffOutlined
+  OpenInNew
+  //VisibilityOutlined,
+  //VisibilityOffOutlined
 } from "@material-ui/icons";
-import {
-  IconButton,
-  Typography,
-  Slider,
-  ListSubheader
-} from "@material-ui/core";
+import //IconButton,
+//Typography,
+//Slider,
+"@material-ui/core";
 import React from "react";
 
 const ExpandedHeader = props => {
   return (
-    <div style={{ float: "left", marginLeft: 56 }}>
+    <div className="expand_header">
+      {/*
+      // Denne knappen både er feilplassert og virker ikke. Midlertidig avskrudd.
       <IconButton
         onClick={e => {
           if (props.onUpdateLayerProp)
@@ -27,7 +27,11 @@ const ExpandedHeader = props => {
           <VisibilityOffOutlined style={{ color: "#aaa" }} />
         )}
       </IconButton>
-      <div style={{ float: "right" }}>
+
+    */}
+      {/*
+      // Funksjon midlertidig fraværende
+      <div style={{ float: "right",background:"hotpink" }}>
         <div style={{ position: "relative" }}>
           <Typography id="range-slider" gutterBottom variant="caption">
             Gjennomsiktighet
@@ -49,14 +53,12 @@ const ExpandedHeader = props => {
           getAriaValueText={opacity => opacity + " %"}
         />
       </div>
-      <ListSubheader>
-        Faktaark{" "}
-        {props.url && (
-          <IconButton onClick={() => window.open(props.url)}>
-            <OpenInNew></OpenInNew>
-          </IconButton>
-        )}
-      </ListSubheader>
+    */}
+      {props.url && (
+        <button onClick={() => window.open(props.url)}>
+          Åpne faktaark i nytt vindu <OpenInNew />
+        </button>
+      )}
     </div>
   );
 };

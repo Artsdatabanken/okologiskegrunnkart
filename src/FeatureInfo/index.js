@@ -9,7 +9,6 @@ import {
   ListSubheader
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import Landskap from "./Landskap";
 import Livsmiljo from "./Livsmiljø";
 import AdbElement from "./AdbElement";
 
@@ -42,18 +41,9 @@ const FeatureInfo = ({
 
   return (
     <div className="left_window">
-      <div
-        // Dette er altså markørens søkeinnhold
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          overflowY: "auto",
-          paddingBottom: 48,
-          width: "100%"
-        }}
-      >
+      <div className="left_window_scrollable">
         <button
+          className="close_button"
           onClick={e => {
             handleExtensiveInfo(false);
           }}
@@ -75,8 +65,6 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          {/*
-
           <AdbElement
             barn={meta.barn}
             {...seksjon}
@@ -133,19 +121,18 @@ const FeatureInfo = ({
             barn={meta.barn}
             type="naturtype"
           />
-
-          <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
-
-
-
-
+          <AdbElement
+            {...landskap}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="landskap"
+          />
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
           />
-          */}
         </List>
       </div>
     </div>

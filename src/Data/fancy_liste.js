@@ -26,6 +26,9 @@ const fancy_liste = {
   naturtype: {
     url: "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
   },
+  landskap: {
+    url: "https://artsdatabanken.no/nin/"
+  },
   arealtype: {
     url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     subelement: false,

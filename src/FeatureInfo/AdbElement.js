@@ -34,6 +34,14 @@ const AdbElement = props => {
     url = url + "?id=" + NiNID; //NINFP1810030453";
     primary_text = Naturtype;
     secondary_text = "Naturtype (" + NiNKartleggingsenheter + ")";
+  } else if (props.type === "landskap") {
+    const grunntype = finnGrunntype(props);
+    if (!grunntype) return null;
+    const { area, code, index, name } = grunntype;
+    if (!name) return null;
+    url = url + code.replace("LA-", "LA-TI-").replace(/-/g, "/");
+    primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
+    secondary_text = "Landskap " + index;
   } else if (props.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
     if (!props.OBJEKTID) return null;
@@ -91,29 +99,25 @@ const AdbElement = props => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <ExpandedHeader
           visible={props.visible}
-          opacity={props.opacity}
-          onUpdateLayerProp={props.onUpdateLayerProp}
+          //opacity={props.opacity}
+          //onUpdateLayerProp={props.onUpdateLayerProp}
           //erSynlig={kartlag.erSynlig}
           //opacity={kartlag.opacity}
           geonorge={props.geonorge}
           kode={props.kode}
           url={url}
-        ></ExpandedHeader>
-        {props.type === "naturtype" ? (
-          <ul>
-            <li style={{ padding: 16 }}>
-              <a href={url} target="_top">
-                Faktaark i eget vindu
-              </a>
-            </li>
-          </ul>
-        ) : (
+          type={props.type}
+        />
+        {props.type !== "naturtype" && (
           <iframe
             allowtransparency="true"
             style={{
               frameBorder: 0,
               width: "100%",
-              height: "100vh"
+              minHeight: "500px",
+              maxHeight: "100%",
+              position: "relative",
+              overflow: "none"
             }}
             title="Faktaark"
             src={url}
@@ -126,6 +130,19 @@ const AdbElement = props => {
 
 function round(v) {
   return Math.round(v * 100) / 100;
+}
+
+function finnGrunntype(fi) {
+  let value = null;
+  let longestkey = "";
+  for (var key of Object.keys(fi)) {
+    if (key.indexOf("_layer") < 0) continue;
+    if (key.length > longestkey.length) {
+      longestkey = key;
+      value = fi[key];
+    }
+  }
+  return value && Object.values(value)[0];
 }
 
 export default AdbElement;
