@@ -3,6 +3,7 @@ import { createStyles } from "./styles";
 import lagAktiveLag from "./sceneFunksjoner/lagAktiveLag";
 
 function createScene(props) {
+  console.log(props);
   let config = {
     sources: {},
     cameras: {
