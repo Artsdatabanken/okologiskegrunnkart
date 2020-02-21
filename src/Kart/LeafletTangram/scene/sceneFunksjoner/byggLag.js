@@ -3,6 +3,10 @@ import { lagTerreng } from "../terreng";
 
 export default function byggLag(lag, opplyst, config) {
   // console.log("skal prøve å bygge ",lag.kode)
+  if (!lag.kart) lag.kart = {};
+  if (!lag.kart.format) lag.kart.format = {};
+  if (!lag.kart.aktivtFormat)
+    lag.kart.aktivtFormat = Object.keys(lag.kart.format)[0];
   const viz = lag.kart.format[lag.kart.aktivtFormat];
   // console.log( "visualiseringen er: ", viz)
   if (!viz) return console.warn("No visualisation availiable for " + lag.url);
