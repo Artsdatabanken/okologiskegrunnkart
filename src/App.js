@@ -7,7 +7,6 @@ import adb_layers from "./Data/adb_layers";
 import url_formatter from "./Data/url_formatter";
 import metadata from "./metadata";
 import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
-import fetchMeta from "AppSettings/AppFunksjoner/fetchMeta";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
@@ -172,7 +171,9 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    fetchMeta(this.props.location.pathname, this);
+    this.downloadMeta().then(data => {
+      this.setState({ meta: data, opplystKode: "", opplyst: {} });
+    });
   }
 
   async downloadMeta() {
