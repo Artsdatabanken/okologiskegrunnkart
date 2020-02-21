@@ -15,7 +15,7 @@ class Backend {
     });
   }
 
-  static async hentPunkt(lng, lat) {
+  static async hentAdbPunkt(lng, lat) {
     return this.getPromise(
       `https://punkt.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
     );

@@ -9,17 +9,11 @@ import {
   ListSubheader
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import Landskap from "./Landskap";
-import Vassdrag from "./Vassdrag";
-import Arealtype from "./Arealtype";
-import Laksefjord from "./Laksefjord";
-import Losmasse from "./Løsmasse";
-import Naturtype from "./Naturtype";
 import Livsmiljo from "./Livsmiljø";
-import Bioklimatisk from "./Bioklimatisk";
-import Kalk from "./Kalk";
+import ListeTreffElement from "./ListeTreffElement";
 
 const FeatureInfo = ({
+  showExtensiveInfo,
   meta,
   onUpdateLayerProp,
   handleExtensiveInfo,
@@ -38,6 +32,7 @@ const FeatureInfo = ({
   laksefjord,
   løsmasse
 }) => {
+  if (!showExtensiveInfo) return null;
   if (!lat) return null;
   const coords = `${Math.round(lat * 10000) / 10000}° N ${Math.round(
     lng * 10000
@@ -48,18 +43,9 @@ const FeatureInfo = ({
 
   return (
     <div className="left_window">
-      <div
-        // Dette er altså markørens søkeinnhold
-        style={{
-          position: "absolute",
-          top: 0,
-          bottom: 0,
-          overflowY: "auto",
-          paddingBottom: 48,
-          width: "100%"
-        }}
-      >
+      <div className="left_window_scrollable">
         <button
+          className="close_button"
           onClick={e => {
             handleExtensiveInfo(false);
           }}
@@ -81,11 +67,64 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          <Landskap {...landskap} onUpdateLayerProp={onUpdateLayerProp} />
-          <Naturtype
+          <ListeTreffElement
+            barn={meta.barn}
+            {...seksjon}
+            onUpdateLayerProp={onUpdateLayerProp}
+            type="bioklimatiske_seksjoner"
+          />
+          <ListeTreffElement
+            barn={meta.barn}
+            {...sone}
+            onUpdateLayerProp={onUpdateLayerProp}
+            type="bioklimatiske_soner"
+          />
+          <ListeTreffElement
+            {...kalk}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="kalk"
+          />
+          <ListeTreffElement
+            {...løsmasse}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="løsmasse"
+          />
+          <ListeTreffElement
+            kode="FP-NH"
+            {...arealtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="arealtype"
+          />
+
+          <ListeTreffElement
+            kode="FP-NV"
+            {...vassdrag}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="vassdrag"
+          />
+
+          <ListeTreffElement
+            {...laksefjord}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="laksefjord"
+          />
+
+          <ListeTreffElement
             {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
+            type="naturtype"
+          />
+          <ListeTreffElement
+            {...landskap}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="landskap"
           />
           <Livsmiljo
             kode="FP-NL"
@@ -93,48 +132,6 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
           />
-          <Vassdrag
-            kode="FP-NV"
-            {...vassdrag}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Arealtype
-            kode="FP-NH"
-            {...arealtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Laksefjord
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Losmasse
-            {...løsmasse}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-          />
-          <Bioklimatisk
-            barn={meta.barn}
-            {...seksjon}
-            onUpdateLayerProp={onUpdateLayerProp}
-            tittel="Bioklimatisk seksjon"
-          />
-          <Bioklimatisk
-            barn={meta.barn}
-            {...sone}
-            onUpdateLayerProp={onUpdateLayerProp}
-            tittel="Bioklimatisk sone"
-          />
-          {false && (
-            <Kalk
-              {...kalk}
-              onUpdateLayerProp={onUpdateLayerProp}
-              barn={meta.barn}
-              tittel="Kalkinnhold"
-            />
-          )}
         </List>
       </div>
     </div>
