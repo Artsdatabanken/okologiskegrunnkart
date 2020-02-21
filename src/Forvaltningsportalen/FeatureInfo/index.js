@@ -67,6 +67,7 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
+          {/*
           <ListeTreffElement
             barn={meta.barn}
             {...seksjon}
@@ -85,11 +86,26 @@ const FeatureInfo = ({
             barn={meta.barn}
             type="kalk"
           />
+
           <ListeTreffElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}
             type="løsmasse"
+          />
+          <ListeTreffElement
+            {...laksefjord}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="laksefjord"
+          />
+*/}
+          <ListeTreffElement
+            kode="FP-NV"
+            {...vassdrag}
+            onUpdateLayerProp={onUpdateLayerProp}
+            barn={meta.barn}
+            type="vassdrag"
           />
           <ListeTreffElement
             kode="FP-NH"
@@ -100,21 +116,7 @@ const FeatureInfo = ({
           />
 
           <ListeTreffElement
-            kode="FP-NV"
-            {...vassdrag}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="vassdrag"
-          />
-
-          <ListeTreffElement
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="laksefjord"
-          />
-
-          <ListeTreffElement
+            kode="FP-MDN"
             {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
             barn={meta.barn}

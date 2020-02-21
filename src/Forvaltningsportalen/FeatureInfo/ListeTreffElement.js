@@ -31,7 +31,7 @@ const ListeTreffElement = props => {
   } else if (props.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
     if (!Naturtype) return null;
-    const kode = "FP-MDN";
+    const kode = props.kode;
     let kartlag = props.barn.find(k => k.kode === kode);
     if (!kartlag) kartlag = {};
     url = url + "?id=" + NiNID; //NINFP1810030453";
