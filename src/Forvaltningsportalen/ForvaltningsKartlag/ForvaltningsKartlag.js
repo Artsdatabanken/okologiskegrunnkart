@@ -46,7 +46,6 @@ const DataEierLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
         kartlag={kartlag}
         key={fkode}
         {...props}
-        visKoder={context.visKoder}
         onUpdateLayerProp={onUpdateLayerProp}
       />
     );

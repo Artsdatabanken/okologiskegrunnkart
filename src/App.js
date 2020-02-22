@@ -26,7 +26,6 @@ class App extends React.Component {
       bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema))
     };
     this.state = {
-      forvaltningsportalen: "true",
       aktiveLag: aktive,
       forvaltningsLag: aktive,
       opplystKode: "",
@@ -34,7 +33,6 @@ class App extends React.Component {
       actualBounds: null,
       fitBounds: null,
       meta: null,
-      visKoder: false,
       navigation_history: [],
       showCurrent: true,
       showFullscreen: false,
