@@ -43,7 +43,6 @@ const ListeTreffElement = props => {
   let secondary_text = "";
   let url = fancy.url;
   let tittel = fancy.tittel;
-  secondary_text = tittel;
 
   if (fancy.subelement) {
     const subelement = lookup(props.kartlag);
@@ -53,59 +52,65 @@ const ListeTreffElement = props => {
     }
   } else if (props.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
-    if (!Naturtype) {
-      url = null;
-      primary_text = "Naturtype";
-      secondary_text = "Ingen markerte i området";
-    } else {
+    primary_text = "Naturtype";
+    if (Naturtype) {
       const kode = props.kode;
       let kartlag = props.kartlag[kode];
       if (!kartlag) kartlag = {};
       url = url + "?id=" + NiNID; //NINFP1810030453";
       primary_text = Naturtype;
-      secondary_text = secondary_text + " (" + NiNKartleggingsenheter + ")";
+      secondary_text = tittel + " (" + NiNKartleggingsenheter + ")";
     }
   } else if (props.type === "landskap") {
     const grunntype = finnGrunntype(props);
-    if (!grunntype) return null;
-    const { area, code, index, name } = grunntype;
-    if (!name) return null;
-    url = url + code.replace("LA-", "LA-TI-").replace(/-/g, "/");
-    primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
-    secondary_text = tittel + " " + index;
+    primary_text = "Landskap";
+    if (grunntype) {
+      const { area, code, index, name } = grunntype;
+      if (!name) return null;
+      url = url + code.replace("LA-", "LA-TI-").replace(/-/g, "/");
+      primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
+      secondary_text = tittel + " " + index;
+    }
   } else if (props.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
-    if (!props.OBJEKTID) return null;
-    url = url + VERNEPLANURL;
-    primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
-    secondary_text = tittel + " " + OBJEKTID;
+    primary_text = "Vassdrag";
+    if (props.OBJEKTID) {
+      url = url + VERNEPLANURL;
+      primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
+      secondary_text = tittel + " " + OBJEKTID;
+    }
   } else {
-    const layer = props[fancy.layer];
-    if (!layer) return null;
-    const feature = layer[fancy.feature];
-    if (!feature) return null;
+    const layer = props[fancy.layer] || {};
+    const feature = layer[fancy.feature] || {};
+    primary_text = fancy.tittel;
 
     if (props.type === "arealtype") {
       const { areal, artype, artype_beskrivelse } = feature;
-      if (!artype_beskrivelse) return null;
-      let kartlag = props.kartlag[props.kode];
-      if (!kartlag) kartlag = {};
-      url = url + artype_beskrivelse.toLowerCase();
-      primary_text =
-        artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
-      secondary_text = tittel + " " + artype;
+      primary_text = "Arealtype";
+      if (artype_beskrivelse) {
+        let kartlag = props.kartlag[props.kode];
+        if (!kartlag) kartlag = {};
+        url = url + artype_beskrivelse.toLowerCase();
+        primary_text =
+          artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
+        secondary_text = tittel + " " + artype;
+      }
     } else if (props.type === "laksefjord") {
       const { fjord, fylke } = feature;
-      url = url + fjord;
-      primary_text = fjord;
-      secondary_text = tittel + " i " + fylke;
+      primary_text = "Laksefjord";
+      if (fjord) {
+        url = url + fjord;
+        primary_text = fjord;
+        secondary_text = tittel + " i " + fylke;
+      }
     } else {
       url = props.url;
-      primary_text = feature[fancy.feature_text];
-      secondary_text = tittel + " " + feature["objectid"];
+      const title = feature[fancy.feature_text];
+      if (title) primary_text = title;
+      const objectid = feature["objectid"];
+      if (objectid) secondary_text = tittel + " " + objectid;
     }
-
-    url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
+    if (url) url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
   }
 
   return (
@@ -119,7 +124,10 @@ const ListeTreffElement = props => {
         <ListItemIcon>
           <Star />
         </ListItemIcon>
-        <ListItemText primary={primary_text} secondary={secondary_text} />
+        <ListItemText
+          primary={primary_text}
+          secondary={secondary_text || "Ingen markerte i området"}
+        />
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
       {url && (
