@@ -1,7 +1,7 @@
 import React from "react";
 import { SettingsContext } from "SettingsContext";
 import ForvaltningsEkspanderTopp from "./ForvaltningsEkspanderTopp";
-import { List, ListSubheader } from "@material-ui/core";
+import { List } from "@material-ui/core";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier

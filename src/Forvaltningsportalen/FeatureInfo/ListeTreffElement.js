@@ -52,17 +52,19 @@ const ListeTreffElement = props => {
       primary_text = subelement.tittel.nb;
     }
   } else if (props.type === "naturtype") {
-    console.log("props2", props);
-    console.log("kartlag", kartlag);
-    console.log("fancy", fancy);
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
-    if (!Naturtype) return null;
-    const kode = props.kode;
-    let kartlag = props.kartlag[kode];
-    if (!kartlag) kartlag = {};
-    url = url + "?id=" + NiNID; //NINFP1810030453";
-    primary_text = Naturtype;
-    secondary_text = secondary_text + " (" + NiNKartleggingsenheter + ")";
+    if (!Naturtype) {
+      url = null;
+      primary_text = "Naturtype";
+      secondary_text = "Ingen markerte i området";
+    } else {
+      const kode = props.kode;
+      let kartlag = props.kartlag[kode];
+      if (!kartlag) kartlag = {};
+      url = url + "?id=" + NiNID; //NINFP1810030453";
+      primary_text = Naturtype;
+      secondary_text = secondary_text + " (" + NiNKartleggingsenheter + ")";
+    }
   } else if (props.type === "landskap") {
     const grunntype = finnGrunntype(props);
     if (!grunntype) return null;
@@ -118,37 +120,34 @@ const ListeTreffElement = props => {
           <Star />
         </ListItemIcon>
         <ListItemText primary={primary_text} secondary={secondary_text} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+        {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
-
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <ExpandedHeader
-          visible={props.visible}
-          //opacity={props.opacity}
-          //onUpdateLayerProp={props.onUpdateLayerProp}
-          //erSynlig={kartlag.erSynlig}
-          //opacity={kartlag.opacity}
-          geonorge={props.geonorge}
-          kode={props.kode}
-          url={url}
-          type={props.type}
-        />
-        {props.type !== "naturtype" && (
-          <iframe
-            allowtransparency="true"
-            style={{
-              frameBorder: 0,
-              width: "100%",
-              minHeight: "500px",
-              maxHeight: "100%",
-              position: "relative",
-              overflow: "none"
-            }}
-            title="Faktaark"
-            src={url}
+      {url && (
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <ExpandedHeader
+            visible={props.visible}
+            geonorge={props.geonorge}
+            kode={props.kode}
+            url={url}
+            type={props.type}
           />
-        )}
-      </Collapse>
+          {props.type !== "naturtype" && (
+            <iframe
+              allowtransparency="true"
+              style={{
+                frameBorder: 0,
+                width: "100%",
+                minHeight: "500px",
+                maxHeight: "100%",
+                position: "relative",
+                overflow: "none"
+              }}
+              title="Faktaark"
+              src={url}
+            />
+          )}
+        </Collapse>
+      )}
     </div>
   );
 };

@@ -67,7 +67,20 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-
+          <ListeTreffElement
+            kode="FP-MDN"
+            {...naturtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            kartlag={kartlag}
+            type="naturtype"
+          />
+          <ListeTreffElement
+            kode="FP-NH"
+            {...arealtype}
+            onUpdateLayerProp={onUpdateLayerProp}
+            kartlag={kartlag}
+            type="arealtype"
+          />
           <ListeTreffElement
             kartlag={kartlag}
             {...seksjon}
@@ -107,21 +120,7 @@ const FeatureInfo = ({
             kartlag={kartlag}
             type="vassdrag"
           />
-          <ListeTreffElement
-            kode="FP-NH"
-            {...arealtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="arealtype"
-          />
 
-          <ListeTreffElement
-            kode="FP-MDN"
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="naturtype"
-          />
           <ListeTreffElement
             {...landskap}
             onUpdateLayerProp={onUpdateLayerProp}
