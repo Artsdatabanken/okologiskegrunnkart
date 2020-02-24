@@ -67,7 +67,7 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          {/*
+
           <ListeTreffElement
             kartlag={meta}
             {...seksjon}
@@ -99,7 +99,7 @@ const FeatureInfo = ({
             kartlag={meta}
             type="laksefjord"
           />
-*/}
+
           <ListeTreffElement
             kode="FP-NV"
             {...vassdrag}
