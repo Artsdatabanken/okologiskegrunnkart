@@ -353,5 +353,57 @@
       "url": "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
       "tittel": "Verneplan for vassdrag"
     }
+  },
+  "bioklimatiske_soner": {
+    "fancy": {
+      "url": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
+      "tittel": "Bioklimatiske soner",
+      "subelement": true
+    }
+  },
+  "bioklimatiske_seksjoner": {
+    "fancy": {
+      "url": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
+      "tittel": "Bioklimatiske seksjoner",
+      "subelement": true
+    }
+  },
+  "kalk": {
+    "fancy": {
+      "url": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
+      "tittel": "Kalkinnhold",
+      "subelement": true
+    }
+  },
+  "landskap": {
+    "fancy": {
+      "url": "https://artsdatabanken.no/nin/",
+      "tittel": "Landskap"
+    }
+  },
+  "laksefjord": {
+    "fancy": {
+      "url": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+      "url_replace": [
+        "info_format=application/vnd.ogc.gml",
+        "info_format=text/html"
+      ],
+      "layer": "layer_388_layer",
+      "feature": "layer_388_feature",
+      "tittel": "Laksefjord"
+    }
+  },
+  "løsmasse": {
+    "fancy": {
+      "url": "",
+      "url_replace": [
+        "info_format=application/vnd.ogc.gml",
+        "info_format=text/html"
+      ],
+      "layer": "Losmasse_flate_layer",
+      "feature": "Losmasse_flate_feature",
+      "feature_text": "losmassetype_tekst",
+      "tittel": "Løsmasse"
+    }
   }
 }
