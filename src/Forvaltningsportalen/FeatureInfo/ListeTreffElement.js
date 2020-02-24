@@ -22,8 +22,8 @@ const ListeTreffElement = props => {
   secondary_text = tittel;
 
   if (fancy_liste[props.type]["subelement"]) {
-    if (!props.barn) return null;
-    const subelement = lookup(props.barn);
+    if (!props.kartlag) return null;
+    const subelement = lookup(props.kartlag);
     if (!subelement) return null;
     if (subelement && subelement.tittel && subelement.tittel.nb) {
       primary_text = subelement.tittel.nb;
@@ -32,7 +32,7 @@ const ListeTreffElement = props => {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
     if (!Naturtype) return null;
     const kode = props.kode;
-    let kartlag = props.barn.find(k => k.kode === kode);
+    let kartlag = props.kartlag[kode];
     if (!kartlag) kartlag = {};
     url = url + "?id=" + NiNID; //NINFP1810030453";
     primary_text = Naturtype;
@@ -60,7 +60,7 @@ const ListeTreffElement = props => {
     if (props.type === "arealtype") {
       const { areal, artype, artype_beskrivelse } = feature;
       if (!artype_beskrivelse) return null;
-      let kartlag = props.barn.find(k => k.kode === props.kode);
+      let kartlag = props.kartlag[props.kode];
       if (!kartlag) kartlag = {};
       url = url + artype_beskrivelse.toLowerCase();
       primary_text =

@@ -69,13 +69,13 @@ const FeatureInfo = ({
           )}
           {/*
           <ListeTreffElement
-            barn={meta.barn}
+            kartlag={meta}
             {...seksjon}
             onUpdateLayerProp={onUpdateLayerProp}
             type="bioklimatiske_seksjoner"
           />
           <ListeTreffElement
-            barn={meta.barn}
+            kartlag={meta}
             {...sone}
             onUpdateLayerProp={onUpdateLayerProp}
             type="bioklimatiske_soner"
@@ -83,20 +83,20 @@ const FeatureInfo = ({
           <ListeTreffElement
             {...kalk}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="kalk"
           />
 
           <ListeTreffElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="løsmasse"
           />
           <ListeTreffElement
             {...laksefjord}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="laksefjord"
           />
 */}
@@ -104,14 +104,14 @@ const FeatureInfo = ({
             kode="FP-NV"
             {...vassdrag}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="vassdrag"
           />
           <ListeTreffElement
             kode="FP-NH"
             {...arealtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="arealtype"
           />
 
@@ -119,20 +119,20 @@ const FeatureInfo = ({
             kode="FP-MDN"
             {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="naturtype"
           />
           <ListeTreffElement
             {...landskap}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
             type="landskap"
           />
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={meta}
           />
         </List>
       </div>
