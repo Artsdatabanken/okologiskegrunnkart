@@ -33,7 +33,6 @@ const DataEierLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
   const keys = Object.keys(koder);
   return keys.reverse().map(fkode => {
     const kartlag = koder[fkode];
-    console.log("#####", kartlag);
     return (
       <ForvaltningsEkspanderTopp
         kartlag={kartlag}
