@@ -9,7 +9,6 @@ class ForvaltningsKartlag extends React.Component {
   render() {
     const { onUpdateLayerProp } = this.props;
     const lag = this.props.kartlag;
-    console.log("lag", lag);
     return (
       <SettingsContext.Consumer>
         {context => (
