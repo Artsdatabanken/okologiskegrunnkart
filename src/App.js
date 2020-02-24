@@ -31,7 +31,6 @@ class App extends React.Component {
       opplyst: {},
       actualBounds: null,
       fitBounds: null,
-      meta: null,
       navigation_history: [],
       showCurrent: true,
       showFullscreen: false,
@@ -96,7 +95,7 @@ class App extends React.Component {
                   handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  meta={this.state.meta || {}}
+                  kartlag={this.state.kartlag}
                 />
               </>
             </>

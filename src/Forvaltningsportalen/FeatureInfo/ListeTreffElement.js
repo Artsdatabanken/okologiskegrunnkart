@@ -9,26 +9,31 @@ import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import lookup from "./lookup";
 import finnGrunntype from "./finnGrunntype";
-import fancy_liste from "../../Data/fancy_liste";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
   if (!props) return null;
-  if (!fancy_liste[props.type]) return null;
+  if (!props.kartlag) return null;
+  const kartlag = props.kartlag[props.type];
+  if (!kartlag) return null;
+  const fancy = kartlag.fancy;
+  if (!fancy) return null;
   let primary_text = "";
   let secondary_text = "";
-  let url = fancy_liste[props.type]["url"];
-  let tittel = fancy_liste[props.type]["tittel"];
+  let url = fancy.url;
+  let tittel = fancy.tittel;
   secondary_text = tittel;
 
-  if (fancy_liste[props.type]["subelement"]) {
-    if (!props.kartlag) return null;
+  if (fancy.subelement) {
     const subelement = lookup(props.kartlag);
     if (!subelement) return null;
     if (subelement && subelement.tittel && subelement.tittel.nb) {
       primary_text = subelement.tittel.nb;
     }
   } else if (props.type === "naturtype") {
+    console.log("props2", props);
+    console.log("kartlag", kartlag);
+    console.log("fancy", fancy);
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
     if (!Naturtype) return null;
     const kode = props.kode;
@@ -52,9 +57,9 @@ const ListeTreffElement = props => {
     primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
     secondary_text = tittel + " " + OBJEKTID;
   } else {
-    const layer = props[fancy_liste[props.type]["layer"]];
+    const layer = props[fancy.layer];
     if (!layer) return null;
-    const feature = layer[fancy_liste[props.type]["feature"]];
+    const feature = layer[fancy.feature];
     if (!feature) return null;
 
     if (props.type === "arealtype") {
@@ -73,14 +78,11 @@ const ListeTreffElement = props => {
       secondary_text = tittel + " i " + fylke;
     } else {
       url = props.url;
-      primary_text = feature[fancy_liste[props.type]["feature_text"]];
+      primary_text = feature[fancy.feature_text];
       secondary_text = tittel + " " + feature["objectid"];
     }
 
-    url = url.replace(
-      fancy_liste[props.type]["url_replace"][0],
-      fancy_liste[props.type]["url_replace"][1]
-    );
+    url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
   }
 
   return (

@@ -32,10 +32,6 @@ const fancy_liste = {
     feature: "layer_388_feature",
     tittel: "Laksefjord"
   },
-  naturtype: {
-    url: "https://nin-faktaark.miljodirektoratet.no/naturtyper/",
-    tittel: "Naturtype"
-  },
   arealtype: {
     url: "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     url_replace: [
