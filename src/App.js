@@ -22,12 +22,11 @@ export let exportableFullscreen;
 class App extends React.Component {
   constructor(props) {
     super(props);
-    let aktive = {
-      bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema))
-    };
     this.state = {
-      aktiveLag: aktive,
-      forvaltningsLag: aktive,
+      kartlag: {
+        bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
+        ...metaSjekk(metadata)
+      },
       opplystKode: "",
       opplyst: {},
       actualBounds: null,
@@ -46,10 +45,7 @@ class App extends React.Component {
   render() {
     const { history } = this.props;
     const path = this.props.location.pathname;
-    const basiskart =
-      Object.values(this.state.forvaltningsLag || {}).find(
-        x => x.kode === "bakgrunnskart"
-      ) || {};
+    const basiskart = this.state.kartlag.bakgrunnskart;
     return (
       <SettingsContext.Consumer>
         {context => {
@@ -73,13 +69,9 @@ class App extends React.Component {
                   latitude={65.4}
                   longitude={15.8}
                   zoom={3.1}
-                  aktiveLag={Object.assign(
-                    this.state.forvaltningsLag,
-                    this.state.meta && this.state.meta.barn
-                  )}
+                  aktiveLag={this.state.kartlag}
                   opplyst={this.state.opplyst}
                   opplystKode={this.state.opplystKode}
-                  meta={this.state.meta}
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
@@ -92,7 +84,7 @@ class App extends React.Component {
                   handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  meta={this.state.meta || {}}
+                  kartlag={this.state.kartlag}
                 />
                 <FeatureInfo
                   {...this.state}
@@ -168,21 +160,9 @@ class App extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.downloadMeta().then(data => {
-      this.setState({ meta: data, opplystKode: "", opplyst: {} });
-    });
-  }
-
-  async downloadMeta() {
-    const meta = metadata;
-    metaSjekk(meta, this);
-    return meta;
-  }
-
   handleForvaltningsLayerProp = (layer, key, value) => {
-    let nye_lag = this.state.forvaltningsLag;
-    for (let item in this.state.forvaltningsLag) {
+    let nye_lag = this.state.kartlag;
+    for (let item in this.state.kartlag) {
       if (nye_lag[item].kode === layer) {
         //        nye_lag[item][key] = value;
         setValue(nye_lag[item], key, value);
@@ -190,7 +170,7 @@ class App extends React.Component {
       }
     }
     this.setState({
-      forvaltningsLag: Object.assign({}, nye_lag)
+      kartlag: Object.assign({}, nye_lag)
     });
   };
 

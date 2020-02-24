@@ -8,26 +8,18 @@ class ForvaltningsKartlag extends React.Component {
 
   render() {
     const { onUpdateLayerProp } = this.props;
-    const lag = this.props.meta.lag;
+    const lag = this.props.kartlag;
+    console.log("lag", lag);
     return (
       <SettingsContext.Consumer>
         {context => (
           <>
             <List>
-              {Object.keys(lag || {}).map(dataeier => {
-                return (
-                  <div key={dataeier}>
-                    <ListSubheader disableSticky={true}>
-                      {dataeier}
-                    </ListSubheader>
-                    <DataEierLag
-                      koder={lag[dataeier]}
-                      onUpdateLayerProp={onUpdateLayerProp}
-                      context={context}
-                    ></DataEierLag>
-                  </div>
-                );
-              })}
+              <DataEierLag
+                koder={lag}
+                onUpdateLayerProp={onUpdateLayerProp}
+                context={context}
+              ></DataEierLag>
             </List>
           </>
         )}
@@ -41,6 +33,7 @@ const DataEierLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
   const keys = Object.keys(koder);
   return keys.reverse().map(fkode => {
     const kartlag = koder[fkode];
+    console.log("#####", kartlag);
     return (
       <ForvaltningsEkspanderTopp
         kartlag={kartlag}
