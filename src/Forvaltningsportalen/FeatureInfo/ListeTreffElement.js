@@ -1,4 +1,9 @@
-import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
+import {
+  Star,
+  NotListedLocation,
+  ExpandLess,
+  ExpandMore
+} from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -15,7 +20,23 @@ const ListeTreffElement = props => {
   if (!props) return null;
   if (!props.kartlag) return null;
   const kartlag = props.kartlag[props.type];
-  if (!kartlag) return null;
+  if (!kartlag) {
+    return (
+      <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
+        <ListItem
+          button
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          <ListItemIcon>
+            <NotListedLocation />
+          </ListItemIcon>
+          <ListItemText primary={props.type} secondary={"fant ikke data"} />
+        </ListItem>
+      </div>
+    );
+  }
   const fancy = kartlag.fancy;
   if (!fancy) return null;
   let primary_text = "";
