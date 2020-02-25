@@ -62,6 +62,7 @@ class App extends React.Component {
                   showExtensiveInfo={this.state.showExtensiveInfo}
                   handleExtensiveInfo={this.handleExtensiveInfo}
                   handleLokalitetUpdate={this.hentInfoAlleLag}
+                  handleValgteLag={this.hentInfoValgteLag}
                   forvaltningsportal={true}
                   show_current={this.state.showCurrent}
                   bounds={this.state.fitBounds}
@@ -109,6 +110,7 @@ class App extends React.Component {
     this.setState({ actualBounds: bounds, fitBounds: null });
   };
   handleExtensiveInfo = showExtensiveInfo => {
+    // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
   handleFitBounds = bbox => {
@@ -124,7 +126,7 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
-  hentInfoAlleLag = async (lng, lat) => {
+  handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
     this.setState({
       lat,
@@ -132,22 +134,28 @@ class App extends React.Component {
       sted: null,
       wms1: null
     });
+  };
 
+  handleStedsNavn = (lng, lat) => {
+    // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat).then(sted => {
-      // returnerer stedsnavn som vist øverst i feltet
       this.setState({
         sted: sted
       });
     });
+  };
 
+  handleADBSøk = (lng, lat) => {
+    // Denne henter utvalgte lag fra artsdatabanken
     backend.hentAdbPunkt(lng, lat).then(el => {
-      // Denne henter utvalgte lag fra artsdatabanken
       const dict = adb_layers(el);
       this.setState(dict);
     });
+  };
 
+  handleLayersSøk = (lng, lat) => {
+    // Denne henter utvalgte lag baser på listen layers
     Object.keys(layers).forEach(key => {
-      // Denne henter utvalgte lag baser på listen layers
       let url = url_formatter(layers[key], lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
       backend.wmsFeatureInfo(url, lat, lng, delta).then(response => {
@@ -157,6 +165,17 @@ class App extends React.Component {
         this.setState({ [key]: res.FIELDS || res });
       });
     });
+  };
+
+  hentInfoValgteLag = async (lng, lat) => {
+    console.log("valgte_resultat");
+  };
+
+  hentInfoAlleLag = async (lng, lat) => {
+    this.handleLatLng(lng, lat);
+    this.handleStedsNavn(lng, lat);
+    this.handleADBSøk(lng, lat);
+    this.handleLayersSøk(lng, lat);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {

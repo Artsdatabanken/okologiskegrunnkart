@@ -136,6 +136,7 @@ class LeafletTangram extends React.Component {
       this.props.history.push(
         "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
       );
+      this.props.handleValgteLag(latlng.lat, latlng.lng);
     } else {
       this.props.history.push("");
       this.setState({
