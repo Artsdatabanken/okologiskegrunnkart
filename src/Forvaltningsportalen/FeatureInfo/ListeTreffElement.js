@@ -17,8 +17,7 @@ import finnGrunntype from "./finnGrunntype";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
-  if (!props) return null;
-  if (!props.kartlag) return null;
+  //  if (!props.kartlag) return null;
   const kartlag = props.kartlag[props.type];
   if (!kartlag) {
     return (

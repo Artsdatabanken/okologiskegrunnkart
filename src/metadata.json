@@ -1,10 +1,16 @@
 {
   "FP-NL": {
-    "tittel": { "nb": "Skog: Livsmiljøer" },
+    "tittel": {
+      "nb": "Skog: Livsmiljøer"
+    },
     "dataeier": "NIBIO",
-    "tema": { "nb": "Skog" },
+    "tema": {
+      "nb": "Skog"
+    },
     "kode": "FP-NL",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -16,11 +22,17 @@
     }
   },
   "arealtype": {
-    "tittel": { "nb": "Arealressurs: Hovedgrupper" },
+    "tittel": {
+      "nb": "Arealressurs: Hovedgrupper"
+    },
     "dataeier": "NIBIO",
-    "tema": { "nb": "Arealressurs" },
+    "tema": {
+      "nb": "Arealressurs"
+    },
     "kode": "arealtype",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -43,11 +55,17 @@
     }
   },
   "naturtype": {
-    "tittel": { "nb": "Naturtyper: naturtyper " },
+    "tittel": {
+      "nb": "Naturtyper: naturtyper "
+    },
     "dataeier": "Miljødirektoratet",
-    "tema": { "nb": "Naturtyper" },
+    "tema": {
+      "nb": "Naturtyper"
+    },
     "kode": "naturtype",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -63,11 +81,17 @@
     }
   },
   "FP-ALI": {
-    "tittel": { "nb": "Landskap: LA-I" },
+    "tittel": {
+      "nb": "Landskap: LA-I"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALI",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -79,11 +103,17 @@
     }
   },
   "FP-ALK": {
-    "tittel": { "nb": "Landskap: LA-K" },
+    "tittel": {
+      "nb": "Landskap: LA-K"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALK",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -95,11 +125,17 @@
     }
   },
   "FP-ALIA": {
-    "tittel": { "nb": "Landskap: LA-I-A" },
+    "tittel": {
+      "nb": "Landskap: LA-I-A"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALIA",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -111,11 +147,17 @@
     }
   },
   "FP-ALID": {
-    "tittel": { "nb": "Landskap: LA-I-D" },
+    "tittel": {
+      "nb": "Landskap: LA-I-D"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALID",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -127,11 +169,17 @@
     }
   },
   "FP-ALIS": {
-    "tittel": { "nb": "Landskap: LA-I-S" },
+    "tittel": {
+      "nb": "Landskap: LA-I-S"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALIS",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -143,11 +191,17 @@
     }
   },
   "FP-ALKF": {
-    "tittel": { "nb": "Landskap: LA-K-F" },
+    "tittel": {
+      "nb": "Landskap: LA-K-F"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKF",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -159,11 +213,17 @@
     }
   },
   "FP-ALKS": {
-    "tittel": { "nb": "Landskap: LA-K-S" },
+    "tittel": {
+      "nb": "Landskap: LA-K-S"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKS",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -175,11 +235,17 @@
     }
   },
   "FP-ALKA": {
-    "tittel": { "nb": "Landskap: LA-KLG-AI k" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-AI k"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKA",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -191,11 +257,17 @@
     }
   },
   "FP-ALM": {
-    "tittel": { "nb": "Landskap: LA-M" },
+    "tittel": {
+      "nb": "Landskap: LA-M"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALM",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -207,11 +279,17 @@
     }
   },
   "FP-ALKJ": {
-    "tittel": { "nb": "Landskap: LA-KLG-JA d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-JA d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKJ",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -223,11 +301,17 @@
     }
   },
   "FP-ALKK": {
-    "tittel": { "nb": "Landskap: LA-KLG-KA k" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-KA k"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKK",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -239,11 +323,17 @@
     }
   },
   "FP-ALKV": {
-    "tittel": { "nb": "Landskap: LA-KLG-VP d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-VP d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKV",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -255,11 +345,17 @@
     }
   },
   "FP-ALKB": {
-    "tittel": { "nb": "Landskap: LA-KLG-BP d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-BP d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKB",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -271,11 +367,17 @@
     }
   },
   "FP-ALKI": {
-    "tittel": { "nb": "Landskap: LA-KLG-IYK d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-IYK d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKI",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -287,11 +389,17 @@
     }
   },
   "FP-ALKRI": {
-    "tittel": { "nb": "Landskap: LA-KLG-RE-IA d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-RE-IA d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKRI",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -303,11 +411,17 @@
     }
   },
   "FP-ALKRKI": {
-    "tittel": { "nb": "Landskap: LA-KLG-RE-KF-ID d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-RE-KF-ID d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKRKI",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -319,11 +433,17 @@
     }
   },
   "FP-ALKRK": {
-    "tittel": { "nb": "Landskap: LA-KLG-RE-KS d" },
+    "tittel": {
+      "nb": "Landskap: LA-KLG-RE-KS d"
+    },
     "dataeier": "ADB",
-    "tema": { "nb": "Landskap" },
+    "tema": {
+      "nb": "Landskap"
+    },
     "kode": "FP-ALKRK",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
@@ -334,12 +454,18 @@
       }
     }
   },
-  "FP-NV": {
-    "tittel": { "nb": "Ferskvann: VerneplanforVassdrag" },
+  "vassdrag": {
+    "tittel": {
+      "nb": "Ferskvann: VerneplanforVassdrag"
+    },
     "dataeier": "NVE",
-    "tema": { "nb": "Ferskvann" },
+    "tema": {
+      "nb": "Ferskvann"
+    },
     "kode": "FP-NV",
-    "foreldre": ["FP"],
+    "foreldre": [
+      "FP"
+    ],
     "kart": {
       "format": {
         "wms": {
