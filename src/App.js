@@ -27,6 +27,7 @@ class App extends React.Component {
         bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
         ...metaSjekk(metadata)
       },
+      valgteLag: {},
       opplystKode: "",
       opplyst: {},
       actualBounds: null,
@@ -81,7 +82,6 @@ class App extends React.Component {
                   path={path}
                   history={history}
                   show_current={this.state.showCurrent}
-                  handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   kartlag={this.state.kartlag}
@@ -93,7 +93,6 @@ class App extends React.Component {
                   path={path}
                   history={history}
                   show_current={this.state.showCurrent}
-                  handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   kartlag={this.state.kartlag}
@@ -115,9 +114,6 @@ class App extends React.Component {
   };
   handleFitBounds = bbox => {
     this.setState({ fitBounds: bbox });
-  };
-  handleShowCurrent = show_current => {
-    this.setState({ showCurrent: show_current });
   };
   handleBoundsChange = bbox => {
     this.setState({ actualBounds: bbox });
@@ -168,7 +164,24 @@ class App extends React.Component {
   };
 
   hentInfoValgteLag = async (lng, lat) => {
-    console.log("valgte_resultat");
+    let kartlag = this.state.kartlag;
+    let valgteLag = {};
+    for (let i in kartlag) {
+      if (kartlag[i].erSynlig) {
+        if (kartlag[i].type) {
+          let item = kartlag[i].type;
+          let res = kartlag[i];
+          valgteLag[item] = res;
+        } else if (kartlag[i].kode) {
+          if (kartlag[i].kode !== "bakgrunnskart") {
+            let item = kartlag[i].kode;
+            let res = kartlag[item];
+            valgteLag[item] = res;
+          }
+        }
+      }
+    }
+    console.log(valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat) => {
@@ -181,7 +194,7 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
-      if (nye_lag[item].kode === layer) {
+      if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {
         //        nye_lag[item][key] = value;
         setValue(nye_lag[item], key, value);
         break;

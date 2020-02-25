@@ -1,7 +1,4 @@
-import {
-  Star, ExpandLess,
-  ExpandMore
-} from "@material-ui/icons";
+import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -16,11 +13,14 @@ const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
   const kartlag = props.kartlag;
   if (!kartlag) {
-    console.log("Fant ikke kartlag for " + kartlag.type)
+    console.log("Fant ikke kartlag");
     return null;
   }
   const fancy = kartlag.fancy;
-  if (!fancy) return null;
+  if (!fancy) {
+    console.log("har ikke lokasjonssøk");
+    return null;
+  }
   let primary_text = kartlag.tittel && kartlag.tittel.nb;
   let secondary_text = "";
   let url = fancy.url;
@@ -52,7 +52,7 @@ const ListeTreffElement = props => {
       primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
       secondary_text = tittel + " " + OBJEKTID;
     }
-  } else if (kartlag.type === "bioklimatisk") {
+  } else if (kartlag.type.split("_")[0] === "bioklimatisk") {
     const { v, trinn = {} } = props;
     secondary_text = `${trinn.tittel} (PCA ${v})`;
   } else {
@@ -84,7 +84,8 @@ const ListeTreffElement = props => {
       const objectid = feature["objectid"];
       if (objectid) secondary_text = tittel + " " + objectid;
     }
-    if (url && fancy.url_replace) url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
+    if (url && fancy.url_replace)
+      url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
   }
 
   //  if (!secondary_text) console.log(props, fancy)

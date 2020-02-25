@@ -9,9 +9,7 @@
       "nb": "Skog"
     },
     "kode": "FP-NL",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -32,9 +30,7 @@
       "nb": "Arealressurs"
     },
     "kode": "arealtype",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -66,9 +62,7 @@
       "nb": "Naturtyper"
     },
     "kode": "naturtype",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -93,9 +87,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALI",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -115,9 +107,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALK",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -137,9 +127,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALIA",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -159,9 +147,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALID",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -181,9 +167,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALIS",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -203,9 +187,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKF",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -225,9 +207,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKS",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -247,9 +227,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKA",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -269,9 +247,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALM",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -291,9 +267,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKJ",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -313,9 +287,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKK",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -335,9 +307,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKV",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -357,9 +327,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKB",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -379,9 +347,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKI",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -401,9 +367,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKRI",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -423,9 +387,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKRKI",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -445,9 +407,7 @@
       "nb": "Landskap"
     },
     "kode": "FP-ALKRK",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -468,9 +428,7 @@
       "nb": "Ferskvann"
     },
     "kode": "FP-NV",
-    "foreldre": [
-      "FP"
-    ],
+    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -486,7 +444,7 @@
     }
   },
   "bioklimatiske_soner": {
-    "type": "bioklimatisk",
+    "type": "bioklimatisk_sone",
     "tittel": {
       "nb": "Bioklimatisk sone"
     },
@@ -496,7 +454,7 @@
     }
   },
   "bioklimatiske_seksjoner": {
-    "type": "bioklimatisk",
+    "type": "bioklimatisk_seksjon",
     "tittel": {
       "nb": "Bioklimatisk seksjon"
     },
