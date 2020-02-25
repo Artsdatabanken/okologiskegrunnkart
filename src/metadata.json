@@ -1,5 +1,6 @@
 {
-  "FP-NL": {
+  "livsmiljø": {
+    "type": "livsmiljø",
     "tittel": {
       "nb": "Skog: Livsmiljøer"
     },
@@ -22,6 +23,7 @@
     }
   },
   "arealtype": {
+    "type": "arealtype",
     "tittel": {
       "nb": "Arealressurs: Hovedgrupper"
     },
@@ -55,6 +57,7 @@
     }
   },
   "naturtype": {
+    "type": "naturtype",
     "tittel": {
       "nb": "Naturtyper: naturtyper "
     },
@@ -80,7 +83,8 @@
       "tittel": "Naturtype"
     }
   },
-  "FP-ALI": {
+  "landskap": {
+    "type": "landskap",
     "tittel": {
       "nb": "Landskap: LA-I"
     },
@@ -455,6 +459,7 @@
     }
   },
   "vassdrag": {
+    "type": "vassdrag",
     "tittel": {
       "nb": "Ferskvann: VerneplanforVassdrag"
     },
@@ -481,33 +486,47 @@
     }
   },
   "bioklimatiske_soner": {
+    "type": "bioklimatisk",
+    "tittel": {
+      "nb": "Bioklimatisk sone"
+    },
     "fancy": {
       "url": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
-      "tittel": "Bioklimatiske soner",
-      "subelement": true
+      "tittel": "Bioklimatiske soner"
     }
   },
   "bioklimatiske_seksjoner": {
+    "type": "bioklimatisk",
+    "tittel": {
+      "nb": "Bioklimatisk seksjon"
+    },
     "fancy": {
       "url": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
-      "tittel": "Bioklimatiske seksjoner",
-      "subelement": true
+      "tittel": "Bioklimatiske seksjoner"
     }
   },
   "kalk": {
+    "type": "kalk",
+    "tittel": {
+      "nb": "Kalkinnhold"
+    },
     "fancy": {
       "url": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
-      "tittel": "Kalkinnhold",
-      "subelement": true
+      "tittel": "Kalkinnhold"
     }
   },
   "landskap": {
+    "type": "landskap",
     "fancy": {
       "url": "https://artsdatabanken.no/nin/",
       "tittel": "Landskap"
     }
   },
   "laksefjord": {
+    "type": "laksefjord",
+    "tittel": {
+      "nb": "Laksefjord"
+    },
     "fancy": {
       "url": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
       "url_replace": [
@@ -520,6 +539,10 @@
     }
   },
   "løsmasse": {
+    "type": "løsmasse",
+    "tittel": {
+      "nb": "Løsmasse"
+    },
     "fancy": {
       "url": "",
       "url_replace": [

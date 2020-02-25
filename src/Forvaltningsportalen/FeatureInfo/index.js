@@ -71,67 +71,58 @@ const FeatureInfo = ({
             kode="FP-MDN"
             {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="naturtype"
+            kartlag={kartlag.naturtype}
           />
           <ListeTreffElement
             kode="FP-NH"
             {...arealtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="arealtype"
+            kartlag={kartlag.arealtype}
           />
           <ListeTreffElement
-            kartlag={kartlag}
+            kartlag={kartlag.bioklimatiske_seksjoner}
             {...seksjon}
             onUpdateLayerProp={onUpdateLayerProp}
-            type="bioklimatiske_seksjoner"
           />
           <ListeTreffElement
-            kartlag={kartlag}
+            kartlag={kartlag.bioklimatiske_soner}
             {...sone}
             onUpdateLayerProp={onUpdateLayerProp}
-            type="bioklimatiske_soner"
           />
           <ListeTreffElement
             {...kalk}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="kalk"
+            kartlag={kartlag.kalk}
           />
 
           <ListeTreffElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="løsmasse"
+            kartlag={kartlag.løsmasse}
           />
           <ListeTreffElement
             {...laksefjord}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="laksefjord"
+            kartlag={kartlag.laksefjord}
           />
 
           <ListeTreffElement
             kode="FP-NV"
             {...vassdrag}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="vassdrag"
+            kartlag={kartlag.vassdrag}
           />
 
           <ListeTreffElement
             {...landskap}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
-            type="landskap"
+            kartlag={kartlag.landskap}
           />
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}
             onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag}
+            kartlag={kartlag.livsmiljø}
           />
         </List>
       </div>

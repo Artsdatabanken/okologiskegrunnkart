@@ -1,7 +1,5 @@
 import {
-  Star,
-  NotListedLocation,
-  ExpandLess,
+  Star, ExpandLess,
   ExpandMore
 } from "@material-ui/icons";
 import {
@@ -12,32 +10,24 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-import lookup from "./lookup";
 import finnGrunntype from "./finnGrunntype";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
-  const kartlag = props.kartlag[props.type];
+  const kartlag = props.kartlag;
   if (!kartlag) {
-    console.log("Fant ikke kartlag for " + props.type)
+    console.log("Fant ikke kartlag for " + kartlag.type)
     return null;
   }
   const fancy = kartlag.fancy;
   if (!fancy) return null;
-  let primary_text = "";
+  let primary_text = kartlag.tittel && kartlag.tittel.nb;
   let secondary_text = "";
   let url = fancy.url;
   let tittel = fancy.tittel;
 
-  if (fancy.subelement) {
-    const subelement = lookup(props.kartlag);
-    if (!subelement) return null;
-    if (subelement && subelement.tittel && subelement.tittel.nb) {
-      primary_text = subelement.tittel.nb;
-    }
-  } else if (props.type === "naturtype") {
+  if (kartlag.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
-    primary_text = "Naturtype";
     if (Naturtype) {
       const kode = props.kode;
       let kartlag = props.kartlag[kode];
@@ -46,9 +36,8 @@ const ListeTreffElement = props => {
       primary_text = Naturtype;
       secondary_text = tittel + " (" + NiNKartleggingsenheter + ")";
     }
-  } else if (props.type === "landskap") {
+  } else if (kartlag.type === "landskap") {
     const grunntype = finnGrunntype(props);
-    primary_text = "Landskap";
     if (grunntype) {
       const { area, code, index, name } = grunntype;
       if (!name) return null;
@@ -56,22 +45,23 @@ const ListeTreffElement = props => {
       primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
       secondary_text = tittel + " " + index;
     }
-  } else if (props.type === "vassdrag") {
+  } else if (kartlag.type === "vassdrag") {
     const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = props;
-    primary_text = "Vassdrag";
     if (props.OBJEKTID) {
       url = url + VERNEPLANURL;
       primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
       secondary_text = tittel + " " + OBJEKTID;
     }
+  } else if (kartlag.type === "bioklimatisk") {
+    const { v } = props;
+    secondary_text = "PCA " + v;
   } else {
     const layer = props[fancy.layer] || {};
     const feature = layer[fancy.feature] || {};
     primary_text = fancy.tittel;
 
-    if (props.type === "arealtype") {
+    if (kartlag.type === "arealtype") {
       const { areal, artype, artype_beskrivelse } = feature;
-      primary_text = "Arealtype";
       if (artype_beskrivelse) {
         let kartlag = props.kartlag[props.kode];
         if (!kartlag) kartlag = {};
@@ -80,24 +70,24 @@ const ListeTreffElement = props => {
           artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
         secondary_text = tittel + " " + artype;
       }
-    } else if (props.type === "laksefjord") {
+    } else if (kartlag.type === "laksefjord") {
       const { fjord, fylke } = feature;
-      primary_text = "Laksefjord";
       if (fjord) {
         url = url + fjord;
         primary_text = fjord;
         secondary_text = tittel + " i " + fylke;
       }
     } else {
-      console.log(props, fancy)
       url = props.url;
       const title = feature[fancy.feature_text];
       if (title) primary_text = title;
       const objectid = feature["objectid"];
       if (objectid) secondary_text = tittel + " " + objectid;
     }
-    if (url) url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
+    if (url && fancy.url_replace) url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
   }
+
+  //  if (!secondary_text) console.log(props, fancy)
 
   return (
     <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
@@ -123,9 +113,9 @@ const ListeTreffElement = props => {
             geonorge={props.geonorge}
             kode={props.kode}
             url={url}
-            type={props.type}
+            type={kartlag.type}
           />
-          {props.type !== "naturtype" && (
+          {kartlag.type !== "naturtype" && (
             <iframe
               allowtransparency="true"
               style={{
