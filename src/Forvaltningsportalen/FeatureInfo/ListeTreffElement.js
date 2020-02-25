@@ -53,8 +53,8 @@ const ListeTreffElement = props => {
       secondary_text = tittel + " " + OBJEKTID;
     }
   } else if (kartlag.type === "bioklimatisk") {
-    const { v } = props;
-    secondary_text = "PCA " + v;
+    const { v, trinn = {} } = props;
+    secondary_text = `${trinn.tittel} (PCA ${v})`;
   } else {
     const layer = props[fancy.layer] || {};
     const feature = layer[fancy.feature] || {};

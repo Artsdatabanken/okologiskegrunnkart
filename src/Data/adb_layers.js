@@ -1,16 +1,16 @@
+function mapAktivtTrinn(el, key, outkey, dict) {
+  const x = el.environment[key];
+  if (!x) return;
+  const trinn = x.barn.find(e => e.aktiv)
+  x.trinn = { kode: trinn.kode, tittel: trinn.tittel.nb }
+  dict[outkey] = x;
+}
+
 export default function adb_layers(el) {
   let dict = {};
-  if (el.kommune) {
-    dict["kommune"] = { kommune: el.kommune, fylke: el.fylke };
-  }
-  if (el.environment["NN-NA-BS-6SO"]) {
-    dict["sone"] = el.environment["NN-NA-BS-6SO"];
-  }
-  if (el.environment["NN-NA-BS-6SE"]) {
-    dict["seksjon"] = el.environment["NN-NA-BS-6SE"];
-  }
-  if (el.environment["NN-NA-LKM-KA"]) {
-    dict["kalk"] = el.environment["NN-NA-LKM-KA"];
-  }
+  dict["kommune"] = { kommune: el.kommune, fylke: el.fylke };
+  mapAktivtTrinn(el, "NN-NA-BS-6SO", "sone", dict)
+  mapAktivtTrinn(el, "NN-NA-BS-6SE", "seksjon", dict)
+  mapAktivtTrinn(el, "NN-NA-LKM-KA", "kalk", dict)
   return dict;
 }
