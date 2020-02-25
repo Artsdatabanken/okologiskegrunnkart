@@ -1,6 +1,6 @@
 import tinycolor from "tinycolor2";
 
-function drawAll({ format, opplystKode }) {
+function drawAll() {
   return {
     google: {
       draw: {
@@ -13,7 +13,7 @@ function drawAll({ format, opplystKode }) {
   };
 }
 
-function lagSource({ url, zoom }, { bbox }) {
+function lagSource({ url, zoom }) {
   return {
     type: "Raster",
     url: url,
@@ -22,9 +22,7 @@ function lagSource({ url, zoom }, { bbox }) {
 }
 
 function lagStyle(format, drawArgs) {
-  const tint = tinycolor(drawArgs.format.tint);
-  if (drawArgs.opplystKode)
-    tint._a = drawArgs.opplystKode === "bakgrunnskart" ? 1.0 : tint._a * 0.5;
+  const tint = tinycolor(format.tint);
   const tintar = [tint._r / 255, tint._g / 255, tint._b / 255, 1.0 - tint._a];
 
   return {

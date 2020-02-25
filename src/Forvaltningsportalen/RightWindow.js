@@ -9,7 +9,7 @@ const RightWindow = props => {
         <ForvaltningsKartlag
           show_current={props.show_current}
           handleShowCurrent={props.handleShowCurrent}
-          meta={props.meta}
+          kartlag={props.kartlag}
           navigation_history={props.navigation_history}
           onFitBounds={props.handleFitBounds}
           history={props.history}

@@ -30,6 +30,8 @@ const ForvaltningsEkspanderTopp = ({
 
   const [open, setOpen] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
+
+  if (!tittel) return null;
   return (
     <>
       <ListItem
@@ -70,7 +72,7 @@ const ForvaltningsEkspanderTopp = ({
             paddingTop: 16
           }}
         >
-          {kartlag.kart.format.wms && (
+          {kartlag.kart && kartlag.kart.format.wms && (
             <div style={{ marginLeft: 24 }}>
               <Typography id="range-slider" gutterBottom>
                 Gjennomsiktighet

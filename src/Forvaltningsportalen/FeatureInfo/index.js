@@ -14,7 +14,7 @@ import ListeTreffElement from "./ListeTreffElement";
 
 const FeatureInfo = ({
   showExtensiveInfo,
-  meta,
+  kartlag,
   onUpdateLayerProp,
   handleExtensiveInfo,
   lat,
@@ -68,69 +68,61 @@ const FeatureInfo = ({
             </ListItem>
           )}
           <ListeTreffElement
-            barn={meta.barn}
-            {...seksjon}
+            kode="FP-MDN"
+            {...naturtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            type="bioklimatiske_seksjoner"
-          />
-          <ListeTreffElement
-            barn={meta.barn}
-            {...sone}
-            onUpdateLayerProp={onUpdateLayerProp}
-            type="bioklimatiske_soner"
-          />
-          <ListeTreffElement
-            {...kalk}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="kalk"
-          />
-          <ListeTreffElement
-            {...løsmasse}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="løsmasse"
+            kartlag={kartlag.naturtype}
           />
           <ListeTreffElement
             kode="FP-NH"
             {...arealtype}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="arealtype"
+            kartlag={kartlag.arealtype}
+          />
+          <ListeTreffElement
+            kartlag={kartlag.bioklimatiske_seksjoner}
+            {...seksjon}
+            onUpdateLayerProp={onUpdateLayerProp}
+          />
+          <ListeTreffElement
+            kartlag={kartlag.bioklimatiske_soner}
+            {...sone}
+            onUpdateLayerProp={onUpdateLayerProp}
+          />
+          <ListeTreffElement
+            {...kalk}
+            onUpdateLayerProp={onUpdateLayerProp}
+            kartlag={kartlag.kalk}
+          />
+
+          <ListeTreffElement
+            {...løsmasse}
+            onUpdateLayerProp={onUpdateLayerProp}
+            kartlag={kartlag.løsmasse}
+          />
+          <ListeTreffElement
+            {...laksefjord}
+            onUpdateLayerProp={onUpdateLayerProp}
+            kartlag={kartlag.laksefjord}
           />
 
           <ListeTreffElement
             kode="FP-NV"
             {...vassdrag}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="vassdrag"
+            kartlag={kartlag.vassdrag}
           />
 
-          <ListeTreffElement
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="laksefjord"
-          />
-
-          <ListeTreffElement
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="naturtype"
-          />
           <ListeTreffElement
             {...landskap}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
-            type="landskap"
+            kartlag={kartlag.landskap}
           />
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}
             onUpdateLayerProp={onUpdateLayerProp}
-            barn={meta.barn}
+            kartlag={kartlag.livsmiljø}
           />
         </List>
       </div>
