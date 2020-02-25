@@ -17,24 +17,10 @@ import finnGrunntype from "./finnGrunntype";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
-  //  if (!props.kartlag) return null;
   const kartlag = props.kartlag[props.type];
   if (!kartlag) {
-    return (
-      <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
-        <ListItem
-          button
-          onClick={() => {
-            setOpen(!open);
-          }}
-        >
-          <ListItemIcon>
-            <NotListedLocation />
-          </ListItemIcon>
-          <ListItemText primary={props.type} secondary={"fant ikke data"} />
-        </ListItem>
-      </div>
-    );
+    console.log("Fant ikke kartlag for " + props.type)
+    return null;
   }
   const fancy = kartlag.fancy;
   if (!fancy) return null;
@@ -103,6 +89,7 @@ const ListeTreffElement = props => {
         secondary_text = tittel + " i " + fylke;
       }
     } else {
+      console.log(props, fancy)
       url = props.url;
       const title = feature[fancy.feature_text];
       if (title) primary_text = title;
