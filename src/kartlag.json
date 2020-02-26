@@ -43,7 +43,7 @@
       "layer": "Arealtyper_layer",
       "feature": "Arealtyper_feature",
       "feature_text": "artype_beskrivelse",
-      "tittel": "AR5 Arealtype ",
+      "tittel": "AR5 Arealtype",
       "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
     },
     "opacity": 0.9
@@ -93,7 +93,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALIA": {
     "tittel": { "nb": "Landskap: LA-I-A" },
@@ -109,7 +110,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALID": {
     "tittel": { "nb": "Landskap: LA-I-D" },
@@ -125,7 +127,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALIS": {
     "tittel": { "nb": "Landskap: LA-I-S" },
@@ -141,7 +144,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKF": {
     "tittel": { "nb": "Landskap: LA-K-F" },
@@ -157,7 +161,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKS": {
     "tittel": { "nb": "Landskap: LA-K-S" },
@@ -173,7 +178,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKA": {
     "tittel": { "nb": "Landskap: LA-KLG-AI k" },
@@ -189,7 +195,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALM": {
     "tittel": { "nb": "Landskap: LA-M" },
@@ -205,7 +212,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKJ": {
     "tittel": { "nb": "Landskap: LA-KLG-JA d" },
@@ -221,7 +229,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKK": {
     "tittel": { "nb": "Landskap: LA-KLG-KA k" },
@@ -237,7 +246,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKV": {
     "tittel": { "nb": "Landskap: LA-KLG-VP d" },
@@ -253,7 +263,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKB": {
     "tittel": { "nb": "Landskap: LA-KLG-BP d" },
@@ -269,7 +280,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKI": {
     "tittel": { "nb": "Landskap: LA-KLG-IYK d" },
@@ -285,7 +297,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKRI": {
     "tittel": { "nb": "Landskap: LA-KLG-RE-IA d" },
@@ -301,7 +314,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKRKI": {
     "tittel": { "nb": "Landskap: LA-KLG-RE-KF-ID d" },
@@ -317,7 +331,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "FP-ALKRK": {
     "tittel": { "nb": "Landskap: LA-KLG-RE-KS d" },
@@ -333,7 +348,8 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "featureinfo": {}
   },
   "vassdrag": {
     "type": "vassdrag",

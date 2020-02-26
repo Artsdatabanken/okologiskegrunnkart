@@ -20,7 +20,7 @@ const ListeTreffElement = props => {
     return null;
   }
   const featureinfo = kartlag.featureinfo;
-  if (!featureinfo) {
+  if (!featureinfo.url) {
     console.log("har ikke lokasjonssøk");
     return null;
   }
@@ -67,6 +67,7 @@ const ListeTreffElement = props => {
     const layer = props[featureinfo.layer] || {};
     const feature = layer[featureinfo.feature] || {};
     primary_text = featureinfo.tittel;
+    if (!primary_text) console.warn(featureinfo);
 
     if (kartlag.type === "arealtype") {
       const { areal, artype, artype_beskrivelse } = feature;

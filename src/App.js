@@ -150,7 +150,6 @@ class App extends React.Component {
   handleLayersSøk = (lng, lat) => {
     // Denne henter utvalgte lag baser på listen layers
     Object.keys(kartlag).forEach(key => {
-      if (!kartlag[key].featureinfo) return;
       var url = kartlag[key].featureinfo.url;
       if (!url) return;
       url = url_formatter(url, lat, lng);
