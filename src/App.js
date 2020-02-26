@@ -154,12 +154,18 @@ class App extends React.Component {
     Object.keys(layers).forEach(key => {
       let url = url_formatter(layers[key], lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
-      backend.wmsFeatureInfo(url, lat, lng, delta).then(response => {
-        const res = XML.parse(response.text);
-        res.url = response.url;
-        //if (key === "naturvern") console.log(key, JSON.stringify(res)); // unødvendig?
-        this.setState({ [key]: res.FIELDS || res });
-      });
+      this.setState({ [key]: { loading: true } });
+      backend
+        .wmsFeatureInfo(url, lat, lng, delta)
+        .then(response => {
+          const res = XML.parse(response.text);
+          res.url = response.url;
+          //if (key === "naturvern") console.log(key, JSON.stringify(res)); // unødvendig?
+          this.setState({ [key]: res.FIELDS || res });
+        })
+        .catch(e => {
+          this.setState({ [key]: { error: e.message } });
+        });
     });
   };
 

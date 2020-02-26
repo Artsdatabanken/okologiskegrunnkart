@@ -8,9 +8,12 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
+import ErrorItem from "./ErrorItem";
+import LoadingItem from "./LoadingItem";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
+
   const kartlag = props.kartlag;
   if (!kartlag) {
     console.log("Fant ikke kartlag");
@@ -25,6 +28,11 @@ const ListeTreffElement = props => {
   let secondary_text = "";
   let url = fancy.url;
   let tittel = fancy.tittel;
+
+  if (props.error)
+    return <ErrorItem title={primary_text} message={props.error}></ErrorItem>;
+
+  if (props.loading) return <LoadingItem title={primary_text} />;
 
   if (kartlag.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
