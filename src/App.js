@@ -2,10 +2,9 @@ import React from "react";
 import { withRouter } from "react-router";
 import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
-import layers from "./Data/layers";
 import adb_layers from "./Data/adb_layers";
-import url_formatter from "./Data/url_formatter";
 import kartlag from "./kartlag";
+import url_formatter from "./Data/url_formatter";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
@@ -150,8 +149,11 @@ class App extends React.Component {
 
   handleLayersSøk = (lng, lat) => {
     // Denne henter utvalgte lag baser på listen layers
-    Object.keys(layers).forEach(key => {
-      let url = url_formatter(layers[key], lat, lng);
+    Object.keys(kartlag).forEach(key => {
+      if (!kartlag[key].fancy) return;
+      var url = kartlag[key].fancy.url;
+      if (!url) return;
+      url = url_formatter(url, lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
       this.setState({ [key]: { loading: true } });
       backend
