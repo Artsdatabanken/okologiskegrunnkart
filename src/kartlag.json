@@ -15,7 +15,10 @@
         }
       }
     },
-    "opacity": 0.9
+    "opacity": 0.9,
+    "fancy": {
+      "url": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920"
+    }
   },
   "arealtype": {
     "type": "arealtype",
@@ -34,7 +37,7 @@
       }
     },
     "fancy": {
-      "url": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+      "url": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
         "info_format=text/html"
@@ -42,7 +45,8 @@
       "layer": "Arealtyper_layer",
       "feature": "Arealtyper_feature",
       "feature_text": "artype_beskrivelse",
-      "tittel": "AR5 Arealtype "
+      "tittel": "AR5 Arealtype ",
+      "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
     },
     "opacity": 0.9
   },
@@ -63,14 +67,19 @@
       }
     },
     "fancy": {
-      "url": "https://nin-faktaark.miljodirektoratet.no/naturtyper/",
-      "tittel": "Naturtype"
+      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.1.1&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920",
+      "tittel": "Naturtype",
+      "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
     },
     "opacity": 0.9
   },
   "landskap": {
     "type": "landskap",
-    "fancy": { "url": "https://artsdatabanken.no/nin/", "tittel": "Landskap" },
+    "fancy": {
+      "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}",
+      "tittel": "Landskap",
+      "faktaark": "https://artsdatabanken.no/nin/"
+    },
     "opacity": 0.9
   },
   "FP-ALK": {
@@ -362,8 +371,9 @@
       }
     },
     "fancy": {
-      "url": "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
-      "tittel": "Verneplan for vassdrag"
+      "url": "https://gis3.nve.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326",
+      "tittel": "Verneplan for vassdrag",
+      "faktaark": "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
     },
     "opacity": 0.9
   },
@@ -371,8 +381,9 @@
     "type": "bioklimatisk_sone",
     "tittel": { "nb": "Bioklimatisk sone" },
     "fancy": {
-      "url": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
-      "tittel": "Bioklimatiske soner"
+      "url": "",
+      "tittel": "Bioklimatiske soner",
+      "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner"
     },
     "opacity": 0.9
   },
@@ -380,8 +391,9 @@
     "type": "bioklimatisk_seksjon",
     "tittel": { "nb": "Bioklimatisk seksjon" },
     "fancy": {
-      "url": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
-      "tittel": "Bioklimatiske seksjoner"
+      "url": "",
+      "tittel": "Bioklimatiske seksjoner",
+      "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner"
     },
     "opacity": 0.9
   },
@@ -389,8 +401,9 @@
     "type": "kalk",
     "tittel": { "nb": "Kalkinnhold" },
     "fancy": {
-      "url": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
-      "tittel": "Kalkinnhold"
+      "url": "",
+      "tittel": "Kalkinnhold",
+      "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold"
     },
     "opacity": 0.9
   },
@@ -398,14 +411,15 @@
     "type": "laksefjord",
     "tittel": { "nb": "Laksefjord" },
     "fancy": {
-      "url": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+      "url": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
         "info_format=text/html"
       ],
       "layer": "layer_388_layer",
       "feature": "layer_388_feature",
-      "tittel": "Laksefjord"
+      "tittel": "Laksefjord",
+      "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
     },
     "opacity": 0.9
   },
@@ -413,7 +427,7 @@
     "type": "løsmasse",
     "tittel": { "nb": "Løsmasse" },
     "fancy": {
-      "url": "",
+      "url": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
         "info_format=text/html"
@@ -421,7 +435,8 @@
       "layer": "Losmasse_flate_layer",
       "feature": "Losmasse_flate_feature",
       "feature_text": "losmassetype_tekst",
-      "tittel": "Løsmasse"
+      "tittel": "Løsmasse",
+      "faktaark": ""
     },
     "opacity": 0.9
   }

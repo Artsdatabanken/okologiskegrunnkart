@@ -26,7 +26,7 @@ const ListeTreffElement = props => {
   }
   let primary_text = kartlag.tittel && kartlag.tittel.nb;
   let secondary_text = "";
-  let url = fancy.url;
+  let url = fancy.faktaark;
   let tittel = fancy.tittel;
 
   if (props.error)
@@ -86,7 +86,6 @@ const ListeTreffElement = props => {
         secondary_text = tittel + " i " + fylke;
       }
     } else {
-      url = props.url;
       const title = feature[fancy.feature_text];
       if (title) primary_text = title;
       const objectid = feature["objectid"];
