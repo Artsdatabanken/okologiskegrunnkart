@@ -15,10 +15,6 @@ const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
 
   const kartlag = props.kartlag;
-  if (!kartlag) {
-    console.log("Fant ikke kartlag");
-    return null;
-  }
   const featureinfo = kartlag.featureinfo;
   if (!featureinfo.url) {
     console.log("har ikke lokasjonssøk");

@@ -153,14 +153,13 @@ class App extends React.Component {
       var url = kartlag[key].featureinfo.url;
       if (!url) return;
       url = url_formatter(url, lat, lng);
-      const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
+      const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
       this.setState({ [key]: { loading: true } });
       backend
         .wmsFeatureInfo(url, lat, lng, delta)
         .then(response => {
           const res = XML.parse(response.text);
           res.url = response.url;
-          //if (key === "naturvern") console.log(key, JSON.stringify(res)); // unødvendig?
           this.setState({ [key]: res.FIELDS || res });
         })
         .catch(e => {
