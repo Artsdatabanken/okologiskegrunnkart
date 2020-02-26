@@ -6,7 +6,6 @@ import layers from "./Data/layers";
 import adb_layers from "./Data/adb_layers";
 import url_formatter from "./Data/url_formatter";
 import metadata from "./metadata";
-import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
@@ -25,7 +24,7 @@ class App extends React.Component {
     this.state = {
       kartlag: {
         bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
-        ...metaSjekk(metadata)
+        ...metadata
       },
       valgteLag: {},
       opplystKode: "",
