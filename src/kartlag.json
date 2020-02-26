@@ -15,7 +15,7 @@
       }
     },
     "opacity": 0.9,
-    "fancy": {
+    "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920"
     }
   },
@@ -34,7 +34,7 @@
         }
       }
     },
-    "fancy": {
+    "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
@@ -63,7 +63,7 @@
         }
       }
     },
-    "fancy": {
+    "featureinfo": {
       "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.1.1&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920",
       "tittel": "Naturtype",
       "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
@@ -72,7 +72,7 @@
   },
   "landskap": {
     "type": "landskap",
-    "fancy": {
+    "featureinfo": {
       "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}",
       "tittel": "Landskap",
       "faktaark": "https://artsdatabanken.no/nin/"
@@ -350,7 +350,7 @@
         }
       }
     },
-    "fancy": {
+    "featureinfo": {
       "url": "https://gis3.nve.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326",
       "tittel": "Verneplan for vassdrag",
       "faktaark": "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
@@ -360,7 +360,7 @@
   "bioklimatiske_soner": {
     "type": "bioklimatisk_sone",
     "tittel": { "nb": "Bioklimatisk sone" },
-    "fancy": {
+    "featureinfo": {
       "url": "",
       "tittel": "Bioklimatiske soner",
       "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner"
@@ -370,7 +370,7 @@
   "bioklimatiske_seksjoner": {
     "type": "bioklimatisk_seksjon",
     "tittel": { "nb": "Bioklimatisk seksjon" },
-    "fancy": {
+    "featureinfo": {
       "url": "",
       "tittel": "Bioklimatiske seksjoner",
       "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner"
@@ -380,7 +380,7 @@
   "kalk": {
     "type": "kalk",
     "tittel": { "nb": "Kalkinnhold" },
-    "fancy": {
+    "featureinfo": {
       "url": "",
       "tittel": "Kalkinnhold",
       "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold"
@@ -390,7 +390,7 @@
   "laksefjord": {
     "type": "laksefjord",
     "tittel": { "nb": "Laksefjord" },
-    "fancy": {
+    "featureinfo": {
       "url": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
@@ -406,7 +406,7 @@
   "løsmasse": {
     "type": "løsmasse",
     "tittel": { "nb": "Løsmasse" },
-    "fancy": {
+    "featureinfo": {
       "url": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}",
       "url_replace": [
         "info_format=application/vnd.ogc.gml",
