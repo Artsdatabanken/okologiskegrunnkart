@@ -5,7 +5,6 @@
     "dataeier": "NIBIO",
     "tema": { "nb": "Skog" },
     "kode": "FP-NL",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -26,7 +25,6 @@
     "dataeier": "NIBIO",
     "tema": { "nb": "Arealressurs" },
     "kode": "arealtype",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -56,7 +54,6 @@
     "dataeier": "Miljødirektoratet",
     "tema": { "nb": "Naturtyper" },
     "kode": "naturtype",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -87,7 +84,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALK",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -104,7 +100,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALIA",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -121,7 +116,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALID",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -138,7 +132,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALIS",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -155,7 +148,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKF",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -172,7 +164,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKS",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -189,7 +180,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKA",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -206,7 +196,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALM",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -223,7 +212,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKJ",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -240,7 +228,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKK",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -257,7 +244,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKV",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -274,7 +260,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKB",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -291,7 +276,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKI",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -308,7 +292,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKRI",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -325,7 +308,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKRKI",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -342,7 +324,6 @@
     "dataeier": "ADB",
     "tema": { "nb": "Landskap" },
     "kode": "FP-ALKRK",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
@@ -360,7 +341,6 @@
     "dataeier": "NVE",
     "tema": { "nb": "Ferskvann" },
     "kode": "FP-NV",
-    "foreldre": ["FP"],
     "kart": {
       "format": {
         "wms": {
