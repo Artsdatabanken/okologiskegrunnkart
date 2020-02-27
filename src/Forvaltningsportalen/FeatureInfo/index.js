@@ -21,6 +21,7 @@ const FeatureInfo = ({
   lat,
   lng,
   resultat,
+  layersresultat,
   sted,
   kommune,
   arealtype,
@@ -39,12 +40,14 @@ const FeatureInfo = ({
   const coords = `${Math.round(lat * 10000) / 10000}° N ${Math.round(
     lng * 10000
   ) / 10000}° Ø`;
+
   const kommunestr =
-    kommune &&
-    kommune.kommune.tittel.nb + " kommune i " + kommune.fylke.tittel.nb;
-
-  console.log(resultat);
-
+    resultat &&
+    resultat.kommune &&
+    resultat.kommune.kommune &&
+    resultat.kommune.kommune.tittel.nb +
+      " kommune i " +
+      resultat.kommune.fylke.tittel.nb;
   return (
     <div className="left_window">
       <div className="left_window_scrollable">
@@ -72,18 +75,41 @@ const FeatureInfo = ({
             </ListItem>
           )}
 
-          {resultat !== undefined &&
-            Object.keys(resultat).map(key => {
+          {layersresultat !== undefined &&
+            Object.keys(layersresultat).map(key => {
               return (
                 <GeneriskElement
                   kartlag={kartlag}
-                  resultat={resultat[key]}
+                  resultat={layersresultat[key]}
                   element={key}
                 />
               );
             })}
 
           {/*
+            <ListeTreffElement
+              kode="FP-MDN"
+              {...naturtype}
+              onUpdateLayerProp={onUpdateLayerProp}
+              kartlag={kartlag.naturtype}
+            />
+            {resultat !== undefined &&
+              Object.keys(resultat).map(key => {
+                return (
+                  <GeneriskElement
+                    kartlag={kartlag}
+                    resultat={resultat[key]}
+                    element={key}
+                  />
+                );
+              })}
+
+            <ListeTreffElement
+              {...landskap}
+              onUpdateLayerProp={onUpdateLayerProp}
+              kartlag={kartlag.landskap}
+            />
+
             <ListeTreffElement
               kartlag={kartlag.bioklimatiske_seksjoner}
               {...seksjon}
@@ -99,12 +125,7 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             kartlag={kartlag.kalk}
           />
-            <ListeTreffElement
-              kode="FP-MDN"
-              {...naturtype}
-              onUpdateLayerProp={onUpdateLayerProp}
-              kartlag={kartlag.naturtype}
-            />
+
             <ListeTreffElement
               kode="FP-NH"
               {...arealtype}
@@ -129,11 +150,7 @@ const FeatureInfo = ({
             kartlag={kartlag.vassdrag}
           />
 
-          <ListeTreffElement
-            {...landskap}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.landskap}
-          />
+
           <Livsmiljo
             kode="FP-NL"
             {...livsmiljø}

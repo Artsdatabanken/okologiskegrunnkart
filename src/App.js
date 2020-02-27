@@ -85,6 +85,7 @@ class App extends React.Component {
                 <FeatureInfo
                   {...this.state}
                   resultat={this.state.resultat}
+                  layersresultat={this.state.layersresultat}
                   handleExtensiveInfo={this.handleExtensiveInfo}
                 />
               </>
@@ -141,6 +142,7 @@ class App extends React.Component {
 
   handleLayersSøk = (lng, lat) => {
     // Denne henter utvalgte lag baser på listen layers
+    this.setState({ layersresultat: {} });
     Object.keys(kartlag).forEach(key => {
       var url = kartlag[key].featureinfo.url;
       if (!url) return;
@@ -152,10 +154,20 @@ class App extends React.Component {
         .then(response => {
           const res = XML.parse(response.text);
           res.url = response.url;
-          this.setState({ [key]: res.FIELDS || res });
+          //  let item = {[key]: res.FIELDS || res};
+          //  this.setState(item);
+
+          let layersresultat = this.state.layersresultat;
+          layersresultat[key] = res.FIELDS || res;
+          this.setState(layersresultat);
         })
         .catch(e => {
-          this.setState({ [key]: { error: e.message } });
+          //  let item = { [key]: { error: e.message } };
+          //  this.setState(item);
+
+          let layersresultat = this.state.layersresultat;
+          layersresultat[key] = { error: e.message };
+          this.setState(layersresultat);
         });
     });
   };
@@ -186,7 +198,7 @@ class App extends React.Component {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat);
     this.handleADBSøk(lng, lat);
-    //this.handleLayersSøk(lng, lat);
+    this.handleLayersSøk(lng, lat);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {

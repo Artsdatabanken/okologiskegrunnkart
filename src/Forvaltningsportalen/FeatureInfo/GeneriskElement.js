@@ -14,23 +14,50 @@ import LoadingItem from "./LoadingItem";
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
   const layername = props.element || "navnløs";
-  const resultat = resultat || "resultatløs";
+  const resultat = props.resultat || "resultatløs";
   const kartlag = props.kartlag[layername] || null;
   let primary_text = "fant ingen match i kartlag";
   let secondary_text = "fant ingen for området";
-
+  let url = props.element.url || "";
   if (kartlag) {
     primary_text = kartlag.tittel && kartlag.tittel.nb;
+    let tittel = primary_text;
+
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
       const trinn = props.resultat.trinn || "ingen";
       const v = props.resultat.v || "ingen";
       secondary_text = trinn.tittel + " (PCA " + v + " )";
     }
+    if (kartlag.type === "naturtype") {
+      const { NiNID, Naturtype, NiNKartleggingsenheter } = resultat;
+      if (Naturtype) {
+        const kode = props.kode;
+        let kartlag = props.kartlag[kode];
+        if (!kartlag) kartlag = {};
+        url = url + "?id=" + NiNID; //NINFP1810030453";
+        secondary_text = Naturtype + " (" + NiNKartleggingsenheter + ")";
+      }
+    } else if (kartlag.type === "landskap") {
+      const grunntype = finnGrunntype(resultat);
+      if (grunntype) {
+        const { area, code, index, name } = grunntype;
+        if (!name) return null;
+        url = url + code.replace("LA-", "LA-TI-").replace(/-/g, "/");
+        primary_text = name + " (" + parseInt(area) / 1e6 + " km²)";
+        secondary_text = tittel + " " + index;
+      }
+    } else if (kartlag.type === "vassdrag") {
+      const { VERNEPLANURL, OBJEKTNAVN, AREAL, OBJEKTID } = resultat;
+      if (props.OBJEKTID) {
+        url = url + VERNEPLANURL;
+        primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
+        secondary_text = tittel + " " + OBJEKTID;
+      }
+    }
   } else {
     return null;
   }
 
-  const url = props.element.url || "";
   return (
     <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
       <ListItem

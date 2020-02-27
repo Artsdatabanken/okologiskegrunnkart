@@ -12,7 +12,6 @@ import ErrorItem from "./ErrorItem";
 import LoadingItem from "./LoadingItem";
 
 const ListeTreffElement = props => {
-  console.log(props);
   const [open, setOpen] = useState(false);
   const kartlag = props.kartlag;
   const featureinfo = kartlag.featureinfo;
