@@ -50,9 +50,7 @@ class App extends React.Component {
           return (
             <>
               <>
-                <TopBarContainer
-                  _tittel={"Økologisk grunnkart forvaltningsportal"}
-                />
+                <TopBarContainer />
                 <KartVelger
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   aktivtFormat={basiskart.kart.aktivtFormat}
@@ -169,6 +167,7 @@ class App extends React.Component {
   };
 
   hentInfoValgteLag = async (lng, lat) => {
+    // TODO: Denne ser ikke ut til å gjøre noe som helst?
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
