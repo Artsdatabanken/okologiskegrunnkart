@@ -2,11 +2,9 @@ import React from "react";
 import { withRouter } from "react-router";
 import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
-import layers from "./Data/layers";
 import adb_layers from "./Data/adb_layers";
+import kartlag from "./kartlag";
 import url_formatter from "./Data/url_formatter";
-import metadata from "./metadata";
-import metaSjekk from "AppSettings/AppFunksjoner/metaSjekk";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
@@ -25,8 +23,9 @@ class App extends React.Component {
     this.state = {
       kartlag: {
         bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
-        ...metaSjekk(metadata)
+        ...kartlag
       },
+      valgteLag: {},
       opplystKode: "",
       opplyst: {},
       actualBounds: null,
@@ -51,9 +50,7 @@ class App extends React.Component {
           return (
             <>
               <>
-                <TopBarContainer
-                  _tittel={"Økologisk grunnkart forvaltningsportal"}
-                />
+                <TopBarContainer />
                 <KartVelger
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   aktivtFormat={basiskart.kart.aktivtFormat}
@@ -62,6 +59,7 @@ class App extends React.Component {
                   showExtensiveInfo={this.state.showExtensiveInfo}
                   handleExtensiveInfo={this.handleExtensiveInfo}
                   handleLokalitetUpdate={this.hentInfoAlleLag}
+                  handleValgteLag={this.hentInfoValgteLag}
                   forvaltningsportal={true}
                   show_current={this.state.showCurrent}
                   bounds={this.state.fitBounds}
@@ -80,7 +78,6 @@ class App extends React.Component {
                   path={path}
                   history={history}
                   show_current={this.state.showCurrent}
-                  handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   kartlag={this.state.kartlag}
@@ -92,7 +89,6 @@ class App extends React.Component {
                   path={path}
                   history={history}
                   show_current={this.state.showCurrent}
-                  handleShowCurrent={this.handleShowCurrent}
                   onFitBounds={this.handleFitBounds}
                   onUpdateLayerProp={this.handleForvaltningsLayerProp}
                   kartlag={this.state.kartlag}
@@ -109,13 +105,11 @@ class App extends React.Component {
     this.setState({ actualBounds: bounds, fitBounds: null });
   };
   handleExtensiveInfo = showExtensiveInfo => {
+    // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
   handleFitBounds = bbox => {
     this.setState({ fitBounds: bbox });
-  };
-  handleShowCurrent = show_current => {
-    this.setState({ showCurrent: show_current });
   };
   handleBoundsChange = bbox => {
     this.setState({ actualBounds: bbox });
@@ -124,7 +118,7 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
-  hentInfoAlleLag = async (lng, lat) => {
+  handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
     this.setState({
       lat,
@@ -132,37 +126,79 @@ class App extends React.Component {
       sted: null,
       wms1: null
     });
+  };
 
+  handleStedsNavn = (lng, lat) => {
+    // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat).then(sted => {
-      // returnerer stedsnavn som vist øverst i feltet
       this.setState({
         sted: sted
       });
     });
+  };
 
+  handleADBSøk = (lng, lat) => {
+    // Denne henter utvalgte lag fra artsdatabanken
     backend.hentAdbPunkt(lng, lat).then(el => {
-      // Denne henter utvalgte lag fra artsdatabanken
       const dict = adb_layers(el);
       this.setState(dict);
     });
+  };
 
-    Object.keys(layers).forEach(key => {
-      // Denne henter utvalgte lag baser på listen layers
-      let url = url_formatter(layers[key], lat, lng);
-      const delta = key === "naturtype" ? 0.0001 : 0.01; // målestokk?
-      backend.wmsFeatureInfo(url, lat, lng, delta).then(response => {
-        const res = XML.parse(response.text);
-        res.url = response.url;
-        //if (key === "naturvern") console.log(key, JSON.stringify(res)); // unødvendig?
-        this.setState({ [key]: res.FIELDS || res });
-      });
+  handleLayersSøk = (lng, lat) => {
+    // Denne henter utvalgte lag baser på listen layers
+    Object.keys(kartlag).forEach(key => {
+      var url = kartlag[key].featureinfo.url;
+      if (!url) return;
+      url = url_formatter(url, lat, lng);
+      const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
+      this.setState({ [key]: { loading: true } });
+      backend
+        .wmsFeatureInfo(url, lat, lng, delta)
+        .then(response => {
+          const res = XML.parse(response.text);
+          res.url = response.url;
+          this.setState({ [key]: res.FIELDS || res });
+        })
+        .catch(e => {
+          this.setState({ [key]: { error: e.message } });
+        });
     });
+  };
+
+  hentInfoValgteLag = async (lng, lat) => {
+    // TODO: Denne ser ikke ut til å gjøre noe som helst?
+    let kartlag = this.state.kartlag;
+    let valgteLag = {};
+    for (let i in kartlag) {
+      if (kartlag[i].erSynlig) {
+        if (kartlag[i].type) {
+          let item = kartlag[i].type;
+          let res = kartlag[i];
+          valgteLag[item] = res;
+        } else if (kartlag[i].kode) {
+          if (kartlag[i].kode !== "bakgrunnskart") {
+            let item = kartlag[i].kode;
+            let res = kartlag[item];
+            valgteLag[item] = res;
+          }
+        }
+      }
+    }
+    console.log(valgteLag);
+  };
+
+  hentInfoAlleLag = async (lng, lat) => {
+    this.handleLatLng(lng, lat);
+    this.handleStedsNavn(lng, lat);
+    this.handleADBSøk(lng, lat);
+    this.handleLayersSøk(lng, lat);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
-      if (nye_lag[item].kode === layer) {
+      if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {
         //        nye_lag[item][key] = value;
         setValue(nye_lag[item], key, value);
         break;

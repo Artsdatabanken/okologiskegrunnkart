@@ -1,7 +1,4 @@
-import {
-  Star, ExpandLess,
-  ExpandMore
-} from "@material-ui/icons";
+import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -11,20 +8,27 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
+import ErrorItem from "./ErrorItem";
+import LoadingItem from "./LoadingItem";
 
 const ListeTreffElement = props => {
   const [open, setOpen] = useState(false);
+
   const kartlag = props.kartlag;
-  if (!kartlag) {
-    console.log("Fant ikke kartlag for " + kartlag.type)
+  const featureinfo = kartlag.featureinfo;
+  if (!featureinfo.url) {
+    console.log("har ikke lokasjonssøk");
     return null;
   }
-  const fancy = kartlag.fancy;
-  if (!fancy) return null;
   let primary_text = kartlag.tittel && kartlag.tittel.nb;
   let secondary_text = "";
-  let url = fancy.url;
-  let tittel = fancy.tittel;
+  let url = featureinfo.faktaark;
+  let tittel = featureinfo.tittel;
+
+  if (props.error)
+    return <ErrorItem title={primary_text} message={props.error}></ErrorItem>;
+
+  if (props.loading) return <LoadingItem title={primary_text} />;
 
   if (kartlag.type === "naturtype") {
     const { NiNID, Naturtype, NiNKartleggingsenheter } = props;
@@ -52,13 +56,14 @@ const ListeTreffElement = props => {
       primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
       secondary_text = tittel + " " + OBJEKTID;
     }
-  } else if (kartlag.type === "bioklimatisk") {
+  } else if (kartlag.type.split("_")[0] === "bioklimatisk") {
     const { v, trinn = {} } = props;
     secondary_text = `${trinn.tittel} (PCA ${v})`;
   } else {
-    const layer = props[fancy.layer] || {};
-    const feature = layer[fancy.feature] || {};
-    primary_text = fancy.tittel;
+    const layer = props[featureinfo.layer] || {};
+    const feature = layer[featureinfo.feature] || {};
+    primary_text = featureinfo.tittel;
+    if (!primary_text) console.warn(featureinfo);
 
     if (kartlag.type === "arealtype") {
       const { areal, artype, artype_beskrivelse } = feature;
@@ -78,16 +83,14 @@ const ListeTreffElement = props => {
         secondary_text = tittel + " i " + fylke;
       }
     } else {
-      url = props.url;
-      const title = feature[fancy.feature_text];
+      const title = feature[featureinfo.feature_text];
       if (title) primary_text = title;
       const objectid = feature["objectid"];
       if (objectid) secondary_text = tittel + " " + objectid;
     }
-    if (url && fancy.url_replace) url = url.replace(fancy.url_replace[0], fancy.url_replace[1]);
+    if (url && featureinfo.url_replace)
+      url = url.replace(featureinfo.url_replace[0], featureinfo.url_replace[1]);
   }
-
-  //  if (!secondary_text) console.log(props, fancy)
 
   return (
     <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>

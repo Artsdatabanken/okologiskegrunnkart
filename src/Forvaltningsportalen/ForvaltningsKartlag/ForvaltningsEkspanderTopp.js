@@ -25,9 +25,12 @@ const ForvaltningsEkspanderTopp = ({
   show_current
 }) => {
   let tittel = kartlag.tittel;
-  const kode = kartlag.kode;
-  const erSynlig = kartlag.erSynlig;
 
+  let kode = kartlag.kode || null;
+  if (!kode) {
+    kode = kartlag.type;
+  }
+  const erSynlig = kartlag.erSynlig;
   const [open, setOpen] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
 
@@ -43,13 +46,10 @@ const ForvaltningsEkspanderTopp = ({
       >
         <ListItemIcon onClick={e => e.stopPropagation()}>
           <IconButton
+            className="visibility_button"
             onClick={e => {
-              if (!erAktivtLag) {
-                onUpdateLayerProp(kode, "erSynlig", !erSynlig);
-                e.stopPropagation();
-              } else {
-                handleShowCurrent(!show_current);
-              }
+              onUpdateLayerProp(kode, "erSynlig", !erSynlig);
+              e.stopPropagation();
             }}
           >
             {erSynlig ? (
