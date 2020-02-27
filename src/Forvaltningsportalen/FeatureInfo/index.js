@@ -11,6 +11,7 @@ import {
 import { Close } from "@material-ui/icons";
 import Livsmiljo from "./Livsmiljø";
 import ListeTreffElement from "./ListeTreffElement";
+import GeneriskElement from "./GeneriskElement";
 
 const FeatureInfo = ({
   showExtensiveInfo,
@@ -19,6 +20,7 @@ const FeatureInfo = ({
   handleExtensiveInfo,
   lat,
   lng,
+  resultat,
   sted,
   kommune,
   arealtype,
@@ -40,6 +42,8 @@ const FeatureInfo = ({
   const kommunestr =
     kommune &&
     kommune.kommune.tittel.nb + " kommune i " + kommune.fylke.tittel.nb;
+
+  console.log(resultat);
 
   return (
     <div className="left_window">
@@ -67,23 +71,24 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-          <ListeTreffElement
-            kode="FP-MDN"
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.naturtype}
-          />
-          <ListeTreffElement
-            kode="FP-NH"
-            {...arealtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.arealtype}
-          />
-          <ListeTreffElement
-            kartlag={kartlag.bioklimatiske_seksjoner}
-            {...seksjon}
-            onUpdateLayerProp={onUpdateLayerProp}
-          />
+
+          {resultat !== undefined &&
+            Object.keys(resultat).map(key => {
+              return (
+                <GeneriskElement
+                  kartlag={kartlag}
+                  resultat={resultat[key]}
+                  element={key}
+                />
+              );
+            })}
+
+          {/*
+            <ListeTreffElement
+              kartlag={kartlag.bioklimatiske_seksjoner}
+              {...seksjon}
+              onUpdateLayerProp={onUpdateLayerProp}
+            />
           <ListeTreffElement
             kartlag={kartlag.bioklimatiske_soner}
             {...sone}
@@ -94,7 +99,18 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             kartlag={kartlag.kalk}
           />
-
+            <ListeTreffElement
+              kode="FP-MDN"
+              {...naturtype}
+              onUpdateLayerProp={onUpdateLayerProp}
+              kartlag={kartlag.naturtype}
+            />
+            <ListeTreffElement
+              kode="FP-NH"
+              {...arealtype}
+              onUpdateLayerProp={onUpdateLayerProp}
+              kartlag={kartlag.arealtype}
+            />
           <ListeTreffElement
             {...løsmasse}
             onUpdateLayerProp={onUpdateLayerProp}
@@ -124,6 +140,7 @@ const FeatureInfo = ({
             onUpdateLayerProp={onUpdateLayerProp}
             kartlag={kartlag.livsmiljø}
           />
+          */}
         </List>
       </div>
     </div>

@@ -373,7 +373,7 @@
     },
     "opacity": 0.9
   },
-  "bioklimatiske_soner": {
+  "sone": {
     "type": "bioklimatisk_sone",
     "tittel": { "nb": "Bioklimatisk sone" },
     "featureinfo": {
@@ -383,7 +383,7 @@
     },
     "opacity": 0.9
   },
-  "bioklimatiske_seksjoner": {
+  "seksjon": {
     "type": "bioklimatisk_seksjon",
     "tittel": { "nb": "Bioklimatisk seksjon" },
     "featureinfo": {

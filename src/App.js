@@ -84,14 +84,8 @@ class App extends React.Component {
                 />
                 <FeatureInfo
                   {...this.state}
+                  resultat={this.state.resultat}
                   handleExtensiveInfo={this.handleExtensiveInfo}
-                  showExtensiveInfo={this.state.showExtensiveInfo}
-                  path={path}
-                  history={history}
-                  show_current={this.state.showCurrent}
-                  onFitBounds={this.handleFitBounds}
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  kartlag={this.state.kartlag}
                 />
               </>
             </>
@@ -140,8 +134,8 @@ class App extends React.Component {
   handleADBSøk = (lng, lat) => {
     // Denne henter utvalgte lag fra artsdatabanken
     backend.hentAdbPunkt(lng, lat).then(el => {
-      const dict = adb_layers(el);
-      this.setState(dict);
+      const resultat = adb_layers(el);
+      this.setState({ resultat: resultat });
     });
   };
 
@@ -167,7 +161,7 @@ class App extends React.Component {
   };
 
   hentInfoValgteLag = async (lng, lat) => {
-    // TODO: Denne ser ikke ut til å gjøre noe som helst?
+    // Kode kommer.
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
@@ -185,14 +179,14 @@ class App extends React.Component {
         }
       }
     }
-    console.log(valgteLag);
+    this.setState({ valgteLag: valgteLag });
   };
 
   hentInfoAlleLag = async (lng, lat) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat);
     this.handleADBSøk(lng, lat);
-    this.handleLayersSøk(lng, lat);
+    //this.handleLayersSøk(lng, lat);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
