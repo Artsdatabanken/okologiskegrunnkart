@@ -72,6 +72,10 @@ class App extends React.Component {
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
+                  resultat={this.state.resultat}
+                  layersresultat={this.state.layersresultat}
+                  valgteLag={this.state.valgteLag}
+                  {...this.state}
                 />
                 <RightWindow
                   {...this.state}
@@ -132,7 +136,7 @@ class App extends React.Component {
     });
   };
 
-  handleADBSøk = (lng, lat) => {
+  handleADBSøk = (lng, lat, select) => {
     // Denne henter utvalgte lag fra artsdatabanken
     backend.hentAdbPunkt(lng, lat).then(el => {
       const resultat = adb_layers(el);
@@ -140,11 +144,15 @@ class App extends React.Component {
     });
   };
 
-  handleLayersSøk = (lng, lat) => {
+  handleLayersSøk = (lng, lat, valgteLag) => {
+    let looplist = kartlag;
+    if (valgteLag) {
+      looplist = valgteLag;
+    }
     // Denne henter utvalgte lag baser på listen layers
     this.setState({ layersresultat: {} });
-    Object.keys(kartlag).forEach(key => {
-      var url = kartlag[key].featureinfo.url;
+    Object.keys(looplist).forEach(key => {
+      var url = looplist[key].featureinfo.url;
       if (!url) return;
       url = url_formatter(url, lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
@@ -154,17 +162,11 @@ class App extends React.Component {
         .then(response => {
           const res = XML.parse(response.text);
           res.url = response.url;
-          //  let item = {[key]: res.FIELDS || res};
-          //  this.setState(item);
-
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res.FIELDS || res;
           this.setState(layersresultat);
         })
         .catch(e => {
-          //  let item = { [key]: { error: e.message } };
-          //  this.setState(item);
-
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = { error: e.message };
           this.setState(layersresultat);
@@ -192,13 +194,17 @@ class App extends React.Component {
       }
     }
     this.setState({ valgteLag: valgteLag });
+    //this.handleLatLng(lng, lat);
+    //this.handleStedsNavn(lng, lat);
+    //this.handleADBSøk(lng, lat,true);
+    this.handleLayersSøk(lng, lat, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat);
-    this.handleADBSøk(lng, lat);
-    this.handleLayersSøk(lng, lat);
+    this.handleADBSøk(lng, lat, false);
+    this.handleLayersSøk(lng, lat, false);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {

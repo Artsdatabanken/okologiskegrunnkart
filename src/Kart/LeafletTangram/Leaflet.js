@@ -5,6 +5,7 @@ import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import InfoBox from "../../Forvaltningsportalen/FeatureInfo/InfoBox";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -189,31 +190,13 @@ class LeafletTangram extends React.Component {
     return (
       <>
         {this.state.markerTool === true && this.state.showInfobox && (
-          <div className="infobox">
-            Infoboks
-            <br />
-            {this.state.coordinates_area && (
-              <span className="coordinates">
-                lng: {this.state.coordinates_area.lng} lat:{" "}
-                {this.state.coordinates_area.lat}
-                <br />
-              </span>
-            )}
-            <button
-              className="search_layers"
-              title="Marker tool"
-              alt="Marker tool"
-              onClick={e => {
-                this.getBackendData(
-                  this.state.coordinates_area.lng,
-                  this.state.coordinates_area.lat,
-                  this.state.layerevent
-                );
-              }}
-            >
-              Søk informasjon for alle lag i dette punktet
-            </button>
-          </div>
+          <InfoBox
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+          />
         )}
         <button
           className={

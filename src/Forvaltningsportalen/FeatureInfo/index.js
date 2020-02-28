@@ -9,8 +9,6 @@ import {
   ListSubheader
 } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import Livsmiljo from "./Livsmiljø";
-import ListeTreffElement from "./ListeTreffElement";
 import GeneriskElement from "./GeneriskElement";
 
 const FeatureInfo = ({
@@ -23,17 +21,7 @@ const FeatureInfo = ({
   resultat,
   layersresultat,
   sted,
-  kommune,
-  arealtype,
-  landskap,
-  naturtype,
-  livsmiljø,
-  vassdrag,
-  seksjon,
-  sone,
-  kalk,
-  laksefjord,
-  løsmasse
+  kommune
 }) => {
   if (!showExtensiveInfo) return null;
   if (!lat) return null;

@@ -8,8 +8,8 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
-import ErrorItem from "./ErrorItem";
-import LoadingItem from "./LoadingItem";
+//import ErrorItem from "./ErrorItem";
+//import LoadingItem from "./LoadingItem";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -79,8 +79,6 @@ const GeneriskElement = props => {
         if (artype_beskrivelse) {
           kode = "FP-NH";
           kartlag = props.kartlag[kode] || null;
-          console.log("denne");
-          console.log(kartlag);
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
