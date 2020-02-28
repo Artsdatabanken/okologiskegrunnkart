@@ -15,14 +15,29 @@ const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
   const layername = props.element || "navnløs";
   const resultat = props.resultat || "resultatløs";
-  const kartlag = props.kartlag[layername] || null;
+  let kartlag = props.kartlag[layername] || null;
   let primary_text = "fant ingen match i kartlag";
   let secondary_text = "fant ingen for området";
   let url = props.element.url || "";
-  if (kartlag) {
-    primary_text = kartlag.tittel && kartlag.tittel.nb;
-    let tittel = primary_text;
+  let kode = "";
 
+  if (kartlag) {
+    // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
+    primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
+    const featureinfo = kartlag.featureinfo;
+    if (!featureinfo.url) {
+      console.warn("har ikke lokasjonssøk");
+      // Denne stopper ikke lengre elementet fra å lages, den bare logges.
+    }
+    let tittel = featureinfo.tittel || primary_text;
+    url = featureinfo.faktaark; //props.element.url || "";
+
+    /* Tror muligens ikke disse trigges/er i bruk nå, usikker. @bjørn?
+    if (resultat.error)
+      return <ErrorItem title={primary_text} message={resultat.error}></ErrorItem>;
+    if (resultat.loading) return <LoadingItem title={primary_text} />;*/
+
+    // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
       const trinn = props.resultat.trinn || "ingen";
       const v = props.resultat.v || "ingen";
@@ -34,7 +49,7 @@ const GeneriskElement = props => {
         const kode = props.kode;
         let kartlag = props.kartlag[kode];
         if (!kartlag) kartlag = {};
-        url = url + "?id=" + NiNID; //NINFP1810030453";
+        url = url + "?id=" + NiNID;
         secondary_text = Naturtype + " (" + NiNKartleggingsenheter + ")";
       }
     } else if (kartlag.type === "landskap") {
@@ -53,8 +68,50 @@ const GeneriskElement = props => {
         primary_text = OBJEKTNAVN + " (" + AREAL + " km²)";
         secondary_text = tittel + " " + OBJEKTID;
       }
+    } else {
+      const layer = resultat[featureinfo.layer] || {};
+      const feature = layer[featureinfo.feature] || {};
+      primary_text = featureinfo.tittel || primary_text;
+      //if (!primary_text) console.warn(featureinfo);
+
+      if (kartlag.type === "arealtype") {
+        const { areal, artype, artype_beskrivelse } = feature;
+        if (artype_beskrivelse) {
+          kode = "FP-NH";
+          kartlag = props.kartlag[kode] || null;
+          console.log("denne");
+          console.log(kartlag);
+          if (!kartlag) kartlag = {};
+          url = url + artype_beskrivelse.toLowerCase();
+          primary_text =
+            artype_beskrivelse + " (" + round(parseInt(areal) / 1e6) + " km²)";
+          secondary_text = tittel + " " + artype;
+        }
+      } else if (kartlag.type === "laksefjord") {
+        const { fjord, fylke } = feature;
+        if (fjord) {
+          url = url + fjord;
+          primary_text = fjord;
+          secondary_text = tittel + " i " + fylke;
+        }
+      } else {
+        if (kartlag.type === "livsmiljø") {
+          kode = "FP-NL";
+        }
+        const title = feature[featureinfo.feature_text];
+        if (title) primary_text = title;
+        const objectid = feature["objectid"];
+        if (objectid) secondary_text = tittel + " " + objectid;
+      }
+      if (url && featureinfo.url_replace)
+        url = url.replace(
+          featureinfo.url_replace[0],
+          featureinfo.url_replace[1]
+        );
     }
   } else {
+    // Her kan vi teknisk sett akseptere å vise element som ikke har en match i kartlagfila også
+    // Hvordan ønsker vi da å fremstille dem?
     return null;
   }
 
@@ -69,19 +126,22 @@ const GeneriskElement = props => {
         <ListItemIcon>
           <Star />
         </ListItemIcon>
-        <ListItemText primary={primary_text} secondary={secondary_text} />
+        <ListItemText
+          primary={primary_text}
+          secondary={secondary_text || "Ingen markerte i området"}
+        />
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
       {url && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           <ExpandedHeader
-          //visible={props.visible}
-          //geonorge={props.geonorge}
-          //kode={props.kode}
-          //url={url}
-          //type={kartlag.type}
+            visible={props.visible}
+            geonorge={props.geonorge}
+            kode={props.kode}
+            url={url}
+            type={kartlag.type}
           />
-          {kartlag && kartlag.type !== "naturtype" && (
+          {kartlag.type !== "naturtype" && (
             <iframe
               allowtransparency="true"
               style={{

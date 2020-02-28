@@ -74,90 +74,27 @@ const FeatureInfo = ({
               />
             </ListItem>
           )}
-
+          {resultat !== undefined &&
+            Object.keys(resultat).map(key => {
+              return (
+                <GeneriskElement
+                  kartlag={kartlag}
+                  resultat={resultat[key]}
+                  element={key}
+                />
+              );
+            })}
           {layersresultat !== undefined &&
             Object.keys(layersresultat).map(key => {
               return (
                 <GeneriskElement
+                  key={key}
                   kartlag={kartlag}
                   resultat={layersresultat[key]}
                   element={key}
                 />
               );
             })}
-
-          {/*
-            <ListeTreffElement
-              kode="FP-MDN"
-              {...naturtype}
-              onUpdateLayerProp={onUpdateLayerProp}
-              kartlag={kartlag.naturtype}
-            />
-            {resultat !== undefined &&
-              Object.keys(resultat).map(key => {
-                return (
-                  <GeneriskElement
-                    kartlag={kartlag}
-                    resultat={resultat[key]}
-                    element={key}
-                  />
-                );
-              })}
-
-            <ListeTreffElement
-              {...landskap}
-              onUpdateLayerProp={onUpdateLayerProp}
-              kartlag={kartlag.landskap}
-            />
-
-            <ListeTreffElement
-              kartlag={kartlag.bioklimatiske_seksjoner}
-              {...seksjon}
-              onUpdateLayerProp={onUpdateLayerProp}
-            />
-          <ListeTreffElement
-            kartlag={kartlag.bioklimatiske_soner}
-            {...sone}
-            onUpdateLayerProp={onUpdateLayerProp}
-          />
-          <ListeTreffElement
-            {...kalk}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.kalk}
-          />
-
-            <ListeTreffElement
-              kode="FP-NH"
-              {...arealtype}
-              onUpdateLayerProp={onUpdateLayerProp}
-              kartlag={kartlag.arealtype}
-            />
-          <ListeTreffElement
-            {...løsmasse}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.løsmasse}
-          />
-          <ListeTreffElement
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.laksefjord}
-          />
-
-          <ListeTreffElement
-            kode="FP-NV"
-            {...vassdrag}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.vassdrag}
-          />
-
-
-          <Livsmiljo
-            kode="FP-NL"
-            {...livsmiljø}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.livsmiljø}
-          />
-          */}
         </List>
       </div>
     </div>
