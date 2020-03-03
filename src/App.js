@@ -72,7 +72,7 @@ class App extends React.Component {
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
-                  resultat={this.state.resultat}
+                  sted={this.state.sted}
                   layersresultat={this.state.layersresultat}
                   valgteLag={this.state.valgteLag}
                   {...this.state}
@@ -195,7 +195,7 @@ class App extends React.Component {
     }
     this.setState({ valgteLag: valgteLag });
     //this.handleLatLng(lng, lat);
-    //this.handleStedsNavn(lng, lat);
+    this.handleStedsNavn(lng, lat);
     //this.handleADBSøk(lng, lat,true);
     this.handleLayersSøk(lng, lat, valgteLag);
   };

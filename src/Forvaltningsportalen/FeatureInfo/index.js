@@ -1,13 +1,7 @@
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader
-} from "@material-ui/core";
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 
@@ -25,10 +19,6 @@ const FeatureInfo = ({
 }) => {
   if (!showExtensiveInfo) return null;
   if (!lat) return null;
-  const coords = `${Math.round(lat * 10000) / 10000}° N ${Math.round(
-    lng * 10000
-  ) / 10000}° Ø`;
-
   const kommunestr =
     resultat &&
     resultat.kommune &&
@@ -48,9 +38,6 @@ const FeatureInfo = ({
           <Close />
         </button>
         <List>
-          <ListSubheader disableSticky={true}>
-            {lat ? coords : "Klikk i kartet..."}
-          </ListSubheader>
           {lat && (
             <ListItem button>
               <ListItemIcon>

@@ -196,6 +196,7 @@ class LeafletTangram extends React.Component {
             getBackendData={this.getBackendData}
             layersresultat={this.props.layersresultat}
             valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
           />
         )}
         <button

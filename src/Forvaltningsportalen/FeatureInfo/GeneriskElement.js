@@ -114,7 +114,10 @@ const GeneriskElement = props => {
   }
 
   return (
-    <div style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}>
+    <div
+      style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
+      className="generic_element"
+    >
       <ListItem
         button
         onClick={() => {

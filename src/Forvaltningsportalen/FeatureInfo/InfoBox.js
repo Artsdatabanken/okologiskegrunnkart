@@ -1,26 +1,48 @@
 import React from "react";
+import LocationSearching from "@material-ui/icons/LocationSearching";
 
 import GeneriskElement from "./GeneriskElement";
-
 const InfoBox = ({
   coordinates_area,
   layerevent,
   getBackendData,
   layersresultat,
-  valgteLag
+  valgteLag,
+  sted
 }) => {
-  console.log(layersresultat);
+  const coords = `${Math.round(coordinates_area.lat * 10000) /
+    10000}° N ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
+
+  // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
 
   return (
     <div className="infobox">
-      Infoboks
+      {sted && (
+        <span className="infotitle">
+          <LocationSearching />
+          {sted && sted.navn}
+        </span>
+      )}
       <br />
       {coordinates_area && (
         <span className="coordinates">
-          lng: {coordinates_area.lng} lat: {coordinates_area.lat}
+          {coords}
           <br />
         </span>
       )}
+
+      {layersresultat !== undefined &&
+        Object.keys(layersresultat).map(key => {
+          return (
+            <GeneriskElement
+              key={key}
+              kartlag={valgteLag}
+              resultat={layersresultat[key]}
+              element={key}
+            />
+          );
+        })}
+
       <button
         className="search_layers"
         title="Marker tool"
@@ -35,17 +57,6 @@ const InfoBox = ({
       >
         Søk informasjon for alle lag i dette punktet
       </button>
-      {layersresultat !== undefined &&
-        Object.keys(layersresultat).map(key => {
-          return (
-            <GeneriskElement
-              key={key}
-              kartlag={valgteLag}
-              resultat={layersresultat[key]}
-              element={key}
-            />
-          );
-        })}
     </div>
   );
 };
