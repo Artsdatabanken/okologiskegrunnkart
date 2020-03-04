@@ -1,5 +1,5 @@
-import json_api from './json_api'
-import wms_api from './wms_api'
+import json_api from "./json_api";
+import wms_api from "./wms_api";
 
 class Backend {
   static async getPromise(url) {
@@ -24,18 +24,17 @@ class Backend {
     );
   }
 
-  static async featureInfo(protokoll, url, lat, lng, delta = 0.01) {
-    const api = protokoll === "json" ? json_api : wms_api
-    url = api.makeUrl(url, lat, lng, delta)
+  static async getFeatureInfo(protokoll, url) {
+    const api = protokoll === "json" ? json_api : wms_api;
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
           if (response.status !== 200)
-            return reject("HTTP status " + response.status)
+            return reject("HTTP status " + response.status);
           api.parse(response).then(res => {
             res.url = url;
             resolve(res);
-          })
+          });
         })
         .catch(err => {
           console.error(url, err);

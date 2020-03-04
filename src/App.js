@@ -144,11 +144,11 @@ class App extends React.Component {
     Object.keys(looplist).forEach(key => {
       const layer = looplist[key].featureinfo;
       if (!layer.url) return;
-      var url = url_formatter(layer.url, lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
+      var url = url_formatter(layer.url, lat, lng, delta);
       this.setState({ [key]: { loading: true } });
       backend
-        .featureInfo(layer.protokoll, url, lat, lng, delta)
+        .getFeatureInfo(layer.protokoll, url)
         .then(res => {
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res.FIELDS || res;
