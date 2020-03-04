@@ -147,7 +147,8 @@ class App extends React.Component {
       var url = url_formatter(layer.url, lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
       this.setState({ [key]: { loading: true } });
-      backend.featureInfo(layer.protokoll, url, lat, lng, delta)
+      backend
+        .featureInfo(layer.protokoll, url, lat, lng, delta)
         .then(res => {
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res.FIELDS || res;
@@ -162,7 +163,6 @@ class App extends React.Component {
   };
 
   hentInfoValgteLag = async (lng, lat) => {
-    // Kode kommer.
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
