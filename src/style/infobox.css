@@ -1,10 +1,13 @@
 .infobox_container {
+  position: absolute;
+  top: 0px;
   width: calc(100% - 408px);
   padding: 10px;
   height: 1px;
 }
 
-.infobox {
+.infobox,
+.left_window {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -29,4 +32,41 @@
     max-height: calc(50vh - 150px);
     overflow-y: auto;
   }
+}
+
+/* Venstresidepanelet; altså resultat av søk i alt */
+.left_window {
+  position: relative;
+  padding: 0px;
+  margin-top: 60px;
+  background: hotpink;
+  background: #eee;
+  z-index: 200;
+  height: 400px;
+  border: 1px solid #666;
+}
+
+@media only screen and (max-width: 768px) {
+  .left_window {
+    min-height: 50px;
+    height: calc(50vh - 80px);
+  }
+}
+
+.left_window_scrollable {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  overflow-y: auto;
+  padding-bottom: 48px;
+  width: 100%;
+}
+
+.close_button {
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
 }
