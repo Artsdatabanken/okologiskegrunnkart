@@ -24,9 +24,8 @@ class Backend {
     );
   }
 
-  static async featureInfo(protokoll, url, lat, lng, delta = 0.01) {
+  static async getFeatureInfo(protokoll, url) {
     const api = protokoll === "json" ? json_api : wms_api
-    url = api.makeUrl(url, lat, lng, delta)
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
