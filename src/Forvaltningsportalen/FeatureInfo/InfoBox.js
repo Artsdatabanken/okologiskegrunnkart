@@ -43,19 +43,19 @@ const InfoBox = ({
             <br />
           </span>
         )}
-
-        {layersresultat !== undefined &&
-          Object.keys(layersresultat).map(key => {
-            return (
-              <GeneriskElement
-                key={key}
-                kartlag={valgteLag}
-                resultat={layersresultat[key]}
-                element={key}
-              />
-            );
-          })}
-
+        <div className="window_scrollable">
+          {layersresultat !== undefined &&
+            Object.keys(layersresultat).map(key => {
+              return (
+                <GeneriskElement
+                  key={key}
+                  kartlag={valgteLag}
+                  resultat={layersresultat[key]}
+                  element={key}
+                />
+              );
+            })}
+        </div>
         <button
           className="search_layers"
           title="Marker tool"

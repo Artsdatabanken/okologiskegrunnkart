@@ -31,9 +31,11 @@
 }
 
 .map_button {
-  top: 10px;
-  left: 0px;
-  z-index: 100;
+  top: auto;
+  position: absolute;
+  bottom: 83px;
+  left: auto;
+  right: calc(408px + 6px);
   border-radius: 3px;
   margin: 5px;
   border: 1px solid #ccc;
@@ -42,6 +44,13 @@
   height: 30px;
   text-align: center;
   padding: 0px;
+}
+
+@media only screen and (max-width: 768px) {
+  .map_button {
+    bottom: calc(50% + 83px);
+    right: 16px;
+  }
 }
 
 .map_button.active {

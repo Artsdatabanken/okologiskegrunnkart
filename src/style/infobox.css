@@ -21,5 +21,12 @@
   }
   .infobox {
     width: 100%;
+    max-height: calc(50vh - 20px);
+  }
+
+  .window_scrollable {
+    display: inline-block;
+    max-height: calc(50vh - 150px);
+    overflow-y: auto;
   }
 }
