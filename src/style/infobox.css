@@ -7,7 +7,7 @@
 }
 
 .infobox,
-.left_window {
+.all_layer_results {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -35,7 +35,7 @@
 }
 
 /* Venstresidepanelet; altså resultat av søk i alt */
-.left_window {
+.all_layer_results {
   position: relative;
   padding: 0px;
   margin-top: 60px;
@@ -47,16 +47,17 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .left_window {
+  .all_layer_results {
     min-height: 50px;
     height: calc(50vh - 80px);
   }
 }
 
-.left_window_scrollable {
+.all_layer_results_scrollable {
   box-sizing: border-box;
   position: absolute;
-  top: 0px;
+  border-top: 1px solid lightgrey;
+  top: 50px;
   bottom: 0px;
   overflow-y: auto;
   padding-bottom: 48px;
