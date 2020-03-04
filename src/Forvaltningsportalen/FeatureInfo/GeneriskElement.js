@@ -32,16 +32,23 @@ const GeneriskElement = props => {
     let tittel = featureinfo.tittel || primary_text;
     url = featureinfo.faktaark; //props.element.url || "";
 
-    /* Tror muligens ikke disse trigges/er i bruk nå, usikker. @bjørn?
+    /* Tror muligens ikke disse trigges/er i bruk nå, usikker. @bjørn? 
+    :+1
     if (resultat.error)
       return <ErrorItem title={primary_text} message={resultat.error}></ErrorItem>;
     if (resultat.loading) return <LoadingItem title={primary_text} />;*/
 
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
-      const trinn = props.resultat.trinn || "ingen";
+      const trinn = props.resultat.barn.find(x => x.aktiv) || "ingen";
       const v = props.resultat.v || "ingen";
-      secondary_text = trinn.tittel + " (PCA " + v + " )";
+      secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
+    }
+    if (kartlag.type.split("_")[0] === "kalk") {
+      const trinn = props.resultat.barn && props.resultat.barn.find(x => x.aktiv) || { tittel: { nb: "ingen" } };
+      const v = props.resultat.v || "?";
+      const tittel = trinn && trinn.tittel && trinn.tittel.nb
+      secondary_text = tittel + " (" + v + ")";
     }
     if (kartlag.type === "naturtype") {
       const { NiNID, Naturtype, NiNKartleggingsenheter } = resultat;

@@ -26,6 +26,7 @@ class Backend {
       `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
     );
   }
+
   static async wmsFeatureInfo(url, lat, lng, delta = 0.01) {
     // https://ahocevar.com/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=ne%3Ane&LAYERS=ne%3Ane&INFO_FORMAT=text%2Fhtml&I=67&J=192&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX=0%2C0%2C20037508.342789244%2C20037508.342789244
 
@@ -43,9 +44,28 @@ class Backend {
         })
         .catch(err => {
           console.error(url, err);
-          reject();
+          reject(err);
+        });
+    });
+  }
+
+  static async jsonFeatureInfo(url, lat, lng) {
+    return new Promise((resolve, reject) => {
+      const url1 = url + `&lat=${lat}&lng=${lng}`;
+      fetch(url1, {
+        headers: {}
+      })
+        .then(result => {
+          if (result && result.status === 200) {
+            result.text().then(text => resolve({ url: url1, text: text }));
+          }
+        })
+        .catch(err => {
+          console.error(url, err);
+          reject(err);
         });
     });
   }
 }
+
 export default Backend;
