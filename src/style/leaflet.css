@@ -24,8 +24,7 @@
 
 @media only screen and (max-width: 768px) {
   .leaflet-top {
-    top: 20px;
-    bottom: auto;
+    bottom: calc(50% + 20px);
     right: 10px;
     left: auto;
   }

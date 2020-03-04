@@ -161,21 +161,6 @@ button.active {
   }
 }
 
-.infobox {
-  width: calc(100% - 408px);
-  left: 0px;
-  top: 100px;
-  background: #eeeeee;
-  text-align: center;
-  padding: 20px;
-}
-
-@media only screen and (max-width: 768px) {
-  .infobox {
-    width: 100%;
-  }
-}
-
 .generic_element div {
   margin-left: auto;
   margin-right: auto;
