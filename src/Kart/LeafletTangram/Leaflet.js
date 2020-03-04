@@ -118,6 +118,7 @@ class LeafletTangram extends React.Component {
 
   handleClick = e => {
     if (!this.state.markerTool) return;
+    this.props.handleExtensiveInfo(false);
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
     this.setState({
