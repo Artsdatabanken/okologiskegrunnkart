@@ -40,15 +40,12 @@ const GeneriskElement = props => {
 
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
-      const trinn = props.resultat.barn.find(x => x.aktiv) || "ingen";
+      const trinn = (props.resultat.barn || []).find(x => x.aktiv) || { tittel: { nb: "Ingen data" } };
       const v = props.resultat.v || "ingen";
       secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
     }
     if (kartlag.type.split("_")[0] === "kalk") {
-      const trinn = props.resultat.barn && props.resultat.barn.find(x => x.aktiv) || { tittel: { nb: "ingen" } };
-      const v = props.resultat.v || "?";
-      const tittel = trinn && trinn.tittel && trinn.tittel.nb
-      secondary_text = tittel + " (" + v + ")";
+      secondary_text = "Ingen data";
     }
     if (kartlag.type === "naturtype") {
       const { NiNID, Naturtype, NiNKartleggingsenheter } = resultat;

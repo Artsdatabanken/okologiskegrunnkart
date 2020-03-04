@@ -460,7 +460,7 @@
     },
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?layer=NN-NA-BS-6SO",
-      "type": "json",
+      "protokoll": "json",
       "tittel": "Bioklimatiske sone",
       "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner"
     },
@@ -473,7 +473,7 @@
     },
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?layer=NN-NA-BS-6SE",
-      "type": "json",
+      "protokoll": "json",
       "tittel": "Bioklimatiske seksjon",
       "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner"
     },
@@ -486,7 +486,7 @@
     },
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?layer=NN-NA-LKM-KA",
-      "type": "json",
+      "protokoll": "json",
       "tittel": "Kalkinnhold",
       "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold"
     },

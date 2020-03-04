@@ -1,6 +1,5 @@
 import React from "react";
 import { withRouter } from "react-router";
-import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
 import kartlag from "./kartlag";
 import url_formatter from "./Data/url_formatter";
@@ -148,19 +147,15 @@ class App extends React.Component {
       var url = url_formatter(layer.url, lat, lng);
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
       this.setState({ [key]: { loading: true } });
-      var fn = layer.type === "json" ? backend.jsonFeatureInfo : backend.wmsFeatureInfo
-      fn(url, lat, lng, delta)
-        .then(response => {
-          const res = layer.type === "json" ? JSON.parse(response.text) : XML.parse(response.text);
-          res.url = response.url;
+      backend.featureInfo(layer.protokoll, url, lat, lng, delta)
+        .then(res => {
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res.FIELDS || res;
           this.setState(layersresultat);
         })
         .catch(e => {
-          console.error(key, url, looplist[key])
           let layersresultat = this.state.layersresultat;
-          layersresultat[key] = { error: e && e.message || key };
+          layersresultat[key] = { error: e.message || key };
           this.setState(layersresultat);
         });
     });
