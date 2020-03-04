@@ -1,5 +1,6 @@
 import React from "react";
 import LocationSearching from "@material-ui/icons/LocationSearching";
+import { Close } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "style/infobox.css";
 
@@ -7,6 +8,7 @@ const InfoBox = ({
   coordinates_area,
   layerevent,
   getBackendData,
+  handleInfobox,
   layersresultat,
   valgteLag,
   sted
@@ -19,6 +21,15 @@ const InfoBox = ({
   return (
     <div className="infobox_container">
       <div className="infobox">
+        <button
+          className="close_button"
+          onClick={e => {
+            handleInfobox(false);
+          }}
+        >
+          <Close />
+        </button>
+
         {sted && (
           <span className="infotitle">
             <LocationSearching />

@@ -112,12 +112,16 @@ class LeafletTangram extends React.Component {
     this.props.handleLokalitetUpdate(lng, lat);
   };
 
+  handleInfobox = bool => {
+    this.setState({ showInfobox: bool });
+  };
+
   handleClick = e => {
     if (!this.state.markerTool) return;
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
     this.setState({
-      showInfobox: !this.state.showInfobox,
+      showInfobox: true,
       coordinates_area: latlng,
       layerevent: e.leaflet_event.layerPoint
     });
@@ -130,21 +134,13 @@ class LeafletTangram extends React.Component {
       }
     }
 
-    if (this.state.showInfobox) {
-      this.marker = L.marker([latlng.lat, latlng.lng], {
-        icon: this.icon
-      }).addTo(this.map);
-      this.props.history.push(
-        "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
-      );
-      this.props.handleValgteLag(latlng.lng, latlng.lat);
-    } else {
-      this.props.history.push("");
-      this.setState({
-        layerevent: null
-      });
-      this.props.handleExtensiveInfo(false);
-    }
+    this.marker = L.marker([latlng.lat, latlng.lng], {
+      icon: this.icon
+    }).addTo(this.map);
+    this.props.history.push(
+      "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
+    );
+    this.props.handleValgteLag(latlng.lng, latlng.lat);
   };
 
   updateMap(props) {
@@ -183,7 +179,6 @@ class LeafletTangram extends React.Component {
       }
     });
   }
-
   wms = {};
 
   render() {
@@ -197,6 +192,7 @@ class LeafletTangram extends React.Component {
             layersresultat={this.props.layersresultat}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
+            handleInfobox={this.handleInfobox}
           />
         )}
         <button
