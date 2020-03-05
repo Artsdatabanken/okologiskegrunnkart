@@ -14,7 +14,7 @@ export default function byggLag(lag, opplyst, config) {
     aktivtFormat: lag.kart.aktivtFormat,
     format: lag.kart.format,
     opacity: lag.opacity || "1",
-    blendmode: lag.blendmode || "overlay",
+    blendmode: lag.blendmode || "overlay"
   };
 
   lagTegner(drawArgs, config);
