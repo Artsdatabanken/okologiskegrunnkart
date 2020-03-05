@@ -1,8 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
-import XML from "pixl-xml";
 import { SettingsContext } from "SettingsContext";
-import adb_layers from "./Data/adb_layers";
 import kartlag from "./kartlag";
 import url_formatter from "./Data/url_formatter";
 import backend from "Funksjoner/backend";
@@ -72,6 +70,10 @@ class App extends React.Component {
                   onMapBoundsChange={this.handleActualBoundsChange}
                   onMapMove={context.onMapMove}
                   history={history}
+                  sted={this.state.sted}
+                  layersresultat={this.state.layersresultat}
+                  valgteLag={this.state.valgteLag}
+                  {...this.state}
                 />
                 <RightWindow
                   {...this.state}
@@ -84,14 +86,9 @@ class App extends React.Component {
                 />
                 <FeatureInfo
                   {...this.state}
+                  resultat={this.state.resultat}
+                  layersresultat={this.state.layersresultat}
                   handleExtensiveInfo={this.handleExtensiveInfo}
-                  showExtensiveInfo={this.state.showExtensiveInfo}
-                  path={path}
-                  history={history}
-                  show_current={this.state.showCurrent}
-                  onFitBounds={this.handleFitBounds}
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  kartlag={this.state.kartlag}
                 />
               </>
             </>
@@ -137,37 +134,35 @@ class App extends React.Component {
     });
   };
 
-  handleADBSøk = (lng, lat) => {
-    // Denne henter utvalgte lag fra artsdatabanken
-    backend.hentAdbPunkt(lng, lat).then(el => {
-      const dict = adb_layers(el);
-      this.setState(dict);
-    });
-  };
-
-  handleLayersSøk = (lng, lat) => {
+  handleLayersSøk = (lng, lat, valgteLag) => {
+    let looplist = kartlag;
+    if (valgteLag) {
+      looplist = valgteLag;
+    }
     // Denne henter utvalgte lag baser på listen layers
-    Object.keys(kartlag).forEach(key => {
-      var url = kartlag[key].featureinfo.url;
-      if (!url) return;
-      url = url_formatter(url, lat, lng);
+    this.setState({ layersresultat: {} });
+    Object.keys(looplist).forEach(key => {
+      const layer = looplist[key].featureinfo;
+      if (!layer.url) return;
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
+      var url = url_formatter(layer.url, lat, lng, delta);
       this.setState({ [key]: { loading: true } });
       backend
-        .wmsFeatureInfo(url, lat, lng, delta)
-        .then(response => {
-          const res = XML.parse(response.text);
-          res.url = response.url;
-          this.setState({ [key]: res.FIELDS || res });
+        .getFeatureInfo(layer.protokoll, url)
+        .then(res => {
+          let layersresultat = this.state.layersresultat;
+          layersresultat[key] = res.FIELDS || res;
+          this.setState(layersresultat);
         })
         .catch(e => {
-          this.setState({ [key]: { error: e.message } });
+          let layersresultat = this.state.layersresultat;
+          layersresultat[key] = { error: e.message || key };
+          this.setState(layersresultat);
         });
     });
   };
 
   hentInfoValgteLag = async (lng, lat) => {
-    // TODO: Denne ser ikke ut til å gjøre noe som helst?
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
@@ -185,14 +180,15 @@ class App extends React.Component {
         }
       }
     }
-    console.log(valgteLag);
+    this.setState({ valgteLag: valgteLag });
+    this.handleStedsNavn(lng, lat);
+    this.handleLayersSøk(lng, lat, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat);
-    this.handleADBSøk(lng, lat);
-    this.handleLayersSøk(lng, lat);
+    this.handleLayersSøk(lng, lat, false);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {

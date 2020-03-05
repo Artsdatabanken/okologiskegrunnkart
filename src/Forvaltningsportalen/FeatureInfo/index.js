@@ -1,16 +1,9 @@
-import LocationSearching from "@material-ui/icons/LocationSearching";
 import React from "react";
 import { withRouter } from "react-router-dom";
-import {
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader
-} from "@material-ui/core";
-import { Close } from "@material-ui/icons";
-import Livsmiljo from "./Livsmiljø";
-import ListeTreffElement from "./ListeTreffElement";
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Close, Layers } from "@material-ui/icons";
+import GeneriskElement from "./GeneriskElement";
+import "style/infobox.css";
 
 const FeatureInfo = ({
   showExtensiveInfo,
@@ -19,31 +12,15 @@ const FeatureInfo = ({
   handleExtensiveInfo,
   lat,
   lng,
+  layersresultat,
   sted,
-  kommune,
-  arealtype,
-  landskap,
-  naturtype,
-  livsmiljø,
-  vassdrag,
-  seksjon,
-  sone,
-  kalk,
-  laksefjord,
-  løsmasse
+  kommune
 }) => {
   if (!showExtensiveInfo) return null;
   if (!lat) return null;
-  const coords = `${Math.round(lat * 10000) / 10000}° N ${Math.round(
-    lng * 10000
-  ) / 10000}° Ø`;
-  const kommunestr =
-    kommune &&
-    kommune.kommune.tittel.nb + " kommune i " + kommune.fylke.tittel.nb;
-
   return (
-    <div className="left_window">
-      <div className="left_window_scrollable">
+    <div className="infobox_container">
+      <div className="all_layer_results">
         <button
           className="close_button"
           onClick={e => {
@@ -52,79 +29,29 @@ const FeatureInfo = ({
         >
           <Close />
         </button>
-        <List>
-          <ListSubheader disableSticky={true}>
-            {lat ? coords : "Klikk i kartet..."}
-          </ListSubheader>
-          {lat && (
-            <ListItem button>
-              <ListItemIcon>
-                <LocationSearching />
-              </ListItemIcon>
-              <ListItemText
-                primary={sted && sted.navn}
-                secondary={kommunestr}
-              />
-            </ListItem>
-          )}
-          <ListeTreffElement
-            kode="FP-MDN"
-            {...naturtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.naturtype}
-          />
-          <ListeTreffElement
-            kode="FP-NH"
-            {...arealtype}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.arealtype}
-          />
-          <ListeTreffElement
-            kartlag={kartlag.bioklimatiske_seksjoner}
-            {...seksjon}
-            onUpdateLayerProp={onUpdateLayerProp}
-          />
-          <ListeTreffElement
-            kartlag={kartlag.bioklimatiske_soner}
-            {...sone}
-            onUpdateLayerProp={onUpdateLayerProp}
-          />
-          <ListeTreffElement
-            {...kalk}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.kalk}
-          />
 
-          <ListeTreffElement
-            {...løsmasse}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.løsmasse}
-          />
-          <ListeTreffElement
-            {...laksefjord}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.laksefjord}
-          />
+        <ListItem>
+          <ListItemIcon>
+            <Layers />
+          </ListItemIcon>
+          <ListItemText primary={"Resultat fra alle kartlag"} />
+        </ListItem>
 
-          <ListeTreffElement
-            kode="FP-NV"
-            {...vassdrag}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.vassdrag}
-          />
-
-          <ListeTreffElement
-            {...landskap}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.landskap}
-          />
-          <Livsmiljo
-            kode="FP-NL"
-            {...livsmiljø}
-            onUpdateLayerProp={onUpdateLayerProp}
-            kartlag={kartlag.livsmiljø}
-          />
-        </List>
+        <div className="all_layer_results_scrollable">
+          <List>
+            {layersresultat !== undefined &&
+              Object.keys(layersresultat).map(key => {
+                return (
+                  <GeneriskElement
+                    key={key}
+                    kartlag={kartlag}
+                    resultat={layersresultat[key]}
+                    element={key}
+                  />
+                );
+              })}
+          </List>
+        </div>
       </div>
     </div>
   );

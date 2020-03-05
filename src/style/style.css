@@ -79,44 +79,6 @@ button.active {
   text-align: center;
 }
 
-/* Venstresidepanelet; altså resultat av søk i alt */
-.left_window {
-  position: absolute;
-  min-height: 100px;
-  bottom: 50%;
-  left: 0;
-  top: 100px;
-  width: 100%;
-  max-width: 408px;
-  background: #eee;
-  z-index: 20;
-}
-
-@media only screen and (max-width: 768px) {
-  .left_window {
-    bottom: 60%;
-    max-width: 100%;
-    border-bottom: black;
-  }
-}
-
-.left_window_scrollable {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  overflow-y: auto;
-  padding-bottom: 48px;
-  width: 100%;
-}
-
-.close_button {
-  text-align: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 100;
-}
-
 .expand_header {
   float: left;
   width: 100%;
@@ -135,9 +97,8 @@ button.active {
   height: 70px;
   border-radius: 5px;
   position: absolute;
-  bottom: 0px;
   left: 10px;
-  bottom: 10px;
+  bottom: 20px;
   background: grey;
 }
 
@@ -159,4 +120,23 @@ button.active {
   .change_map_button {
     bottom: calc(50% + 20px);
   }
+}
+
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+
+.infotitle svg {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-right: 5px;
+  height: 18px;
+}
+
+.coordinates {
+  color: grey;
 }

@@ -1,3 +1,6 @@
+import json_api from "./json_api";
+import wms_api from "./wms_api";
+
 class Backend {
   static async getPromise(url) {
     return new Promise((resolve, reject) => {
@@ -15,37 +18,30 @@ class Backend {
     });
   }
 
-  static async hentAdbPunkt(lng, lat) {
-    return this.getPromise(
-      `https://punkt.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
-    );
-  }
-
   static async hentStedsnavn(lng, lat) {
     return this.getPromise(
       `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
     );
   }
-  static async wmsFeatureInfo(url, lat, lng, delta = 0.01) {
-    // https://ahocevar.com/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=ne%3Ane&LAYERS=ne%3Ane&INFO_FORMAT=text%2Fhtml&I=67&J=192&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX=0%2C0%2C20037508.342789244%2C20037508.342789244
 
-    const url1 =
-      url + `&bbox=${lng - delta},${lat - delta},${lng + delta},${lat + delta}`;
-    // https://ahocevar.com/geoserver/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetFeatureInfo&FORMAT=image%2Fpng&TRANSPARENT=true&QUERY_LAYERS=ne%3Ane&LAYERS=ne%3Ane&INFO_FORMAT=text%2Fhtml&I=67&J=192&WIDTH=256&HEIGHT=256&CRS=EPSG%3A3857&STYLES=&BBOX=0%2C0%2C20037508.342789244%2C20037508.342789244
+  static async getFeatureInfo(protokoll, url) {
+    const api = protokoll === "json" ? json_api : wms_api;
     return new Promise((resolve, reject) => {
-      fetch(url1, {
-        headers: {}
-      })
-        .then(result => {
-          if (result && result.status === 200) {
-            result.text().then(text => resolve({ url: url1, text: text }));
-          }
+      fetch(url)
+        .then(response => {
+          if (response.status !== 200)
+            return reject("HTTP status " + response.status);
+          api.parse(response).then(res => {
+            res.url = url;
+            resolve(res);
+          });
         })
         .catch(err => {
           console.error(url, err);
-          reject();
+          reject(err);
         });
     });
   }
 }
+
 export default Backend;

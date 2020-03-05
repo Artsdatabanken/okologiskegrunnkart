@@ -5,6 +5,7 @@ import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import InfoBox from "../../Forvaltningsportalen/FeatureInfo/InfoBox";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -111,12 +112,17 @@ class LeafletTangram extends React.Component {
     this.props.handleLokalitetUpdate(lng, lat);
   };
 
+  handleInfobox = bool => {
+    this.setState({ showInfobox: bool });
+  };
+
   handleClick = e => {
     if (!this.state.markerTool) return;
+    this.props.handleExtensiveInfo(false);
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
     this.setState({
-      showInfobox: !this.state.showInfobox,
+      showInfobox: true,
       coordinates_area: latlng,
       layerevent: e.leaflet_event.layerPoint
     });
@@ -129,21 +135,13 @@ class LeafletTangram extends React.Component {
       }
     }
 
-    if (this.state.showInfobox) {
-      this.marker = L.marker([latlng.lat, latlng.lng], {
-        icon: this.icon
-      }).addTo(this.map);
-      this.props.history.push(
-        "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
-      );
-      this.props.handleValgteLag(latlng.lat, latlng.lng);
-    } else {
-      this.props.history.push("");
-      this.setState({
-        layerevent: null
-      });
-      this.props.handleExtensiveInfo(false);
-    }
+    this.marker = L.marker([latlng.lat, latlng.lng], {
+      icon: this.icon
+    }).addTo(this.map);
+    this.props.history.push(
+      "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
+    );
+    this.props.handleValgteLag(latlng.lng, latlng.lat);
   };
 
   updateMap(props) {
@@ -182,38 +180,21 @@ class LeafletTangram extends React.Component {
       }
     });
   }
-
   wms = {};
 
   render() {
     return (
       <>
         {this.state.markerTool === true && this.state.showInfobox && (
-          <div className="infobox">
-            Infoboks
-            <br />
-            {this.state.coordinates_area && (
-              <span className="coordinates">
-                lng: {this.state.coordinates_area.lng} lat:{" "}
-                {this.state.coordinates_area.lat}
-                <br />
-              </span>
-            )}
-            <button
-              className="search_layers"
-              title="Marker tool"
-              alt="Marker tool"
-              onClick={e => {
-                this.getBackendData(
-                  this.state.coordinates_area.lng,
-                  this.state.coordinates_area.lat,
-                  this.state.layerevent
-                );
-              }}
-            >
-              Søk informasjon for alle lag i dette punktet
-            </button>
-          </div>
+          <InfoBox
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
+            handleInfobox={this.handleInfobox}
+          />
         )}
         <button
           className={
