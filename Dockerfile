@@ -2,15 +2,14 @@ FROM node:10
 
 WORKDIR /app
 RUN apt update && apt install -y --no-install-recommends apt-utils curl
-RUN curl -o- -L https://yarnpkg.com/install.sh | /bin/bash
+#RUN curl -o- -L https://yarnpkg.com/install.sh | /bin/bash
 
-COPY package.json yarn.lock ./
+COPY package*.json ./
 
-RUN yarn install --frozen-lockfile --no-cache
+#RUN npm install 
+RUN npm ci --only=production
 COPY . .
-RUN yarn test && \
-    yarn build && \
-    yarn cache clean
+RUN npm run test && \
+    npm run build && 
 
-
-CMD [ "yarn", "start" ]
+CMD [ "npm", "start" ]
