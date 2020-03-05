@@ -5,7 +5,7 @@ import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
-import InfoBox from "../../Forvaltningsportalen/FeatureInfo/InfoBox";
+import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -14,7 +14,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
-class LeafletTangram extends React.Component {
+class Leaflet extends React.Component {
   state = {
     windowXpos: 0,
     windowYpos: 0,
@@ -240,4 +240,4 @@ class LeafletTangram extends React.Component {
   }
 }
 
-export default LeafletTangram;
+export default Leaflet;

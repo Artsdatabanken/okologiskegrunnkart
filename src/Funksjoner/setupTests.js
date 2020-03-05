@@ -14,7 +14,7 @@ jest.mock("@material-ui/core/Tooltip");
 jest.mock("@material-ui/core/MenuItem");
 jest.mock("backend", () => () => ({}));
 
-jest.mock("./Kart/LeafletTangram", () => "tangram");
+jest.mock("./Kart", () => "tangram");
 jest.mock("tangram/dist/tangram.debug", () => "tangram");
 
 var localStorageMock = (function() {

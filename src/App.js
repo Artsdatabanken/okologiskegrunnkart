@@ -2,16 +2,16 @@ import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "SettingsContext";
 import kartlag from "./kartlag";
-import url_formatter from "./Data/url_formatter";
+import url_formatter from "./Funksjoner/url_formatter";
 import backend from "Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
-import Kart from "Kart/LeafletTangram/Leaflet";
+import Kart from "Kart/Leaflet";
 
 import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
-import { setValue } from "AppSettings/AppFunksjoner/setValue";
+import { setValue } from "Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
 
