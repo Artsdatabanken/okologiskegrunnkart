@@ -1,6 +1,6 @@
 import React from "react";
 import { SettingsContext } from "SettingsContext";
-import ForvaltningsEkspanderTopp from "./ForvaltningsEkspanderTopp";
+import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { List } from "@material-ui/core";
 
 class ForvaltningsKartlag extends React.Component {
@@ -8,17 +8,40 @@ class ForvaltningsKartlag extends React.Component {
 
   render() {
     const { onUpdateLayerProp } = this.props;
-    const lag = this.props.kartlag;
+    let lag = this.props.kartlag;
+
+    let sortcriteria = "dataeier";
+    let sorted = {};
+    for (let item in lag) {
+      let criteria = lag[item][sortcriteria];
+      let new_list = [];
+
+      if (!criteria) {
+        criteria = "usortert";
+      }
+      if (sorted[criteria]) {
+        new_list = sorted[criteria];
+      }
+      new_list.push(lag[item]);
+      sorted[criteria] = new_list;
+    }
     return (
       <SettingsContext.Consumer>
         {context => (
           <>
             <List>
-              <DataEierLag
-                koder={lag}
-                onUpdateLayerProp={onUpdateLayerProp}
-                context={context}
-              ></DataEierLag>
+              {Object.keys(sorted)
+                .reverse()
+                .map(element => {
+                  return (
+                    <ForvaltningsGruppering
+                      kartlag={sorted[element]}
+                      element={element}
+                      key={element}
+                      onUpdateLayerProp={onUpdateLayerProp}
+                    />
+                  );
+                })}
             </List>
           </>
         )}
@@ -26,21 +49,5 @@ class ForvaltningsKartlag extends React.Component {
     );
   }
 }
-
-const DataEierLag = ({ context, koder, onUpdateLayerProp, ...props }) => {
-  // Denne funksjonen behandler hvert lag per dataeier
-  const keys = Object.keys(koder);
-  return keys.reverse().map(fkode => {
-    const kartlag = koder[fkode];
-    return (
-      <ForvaltningsEkspanderTopp
-        kartlag={kartlag}
-        key={fkode}
-        {...props}
-        onUpdateLayerProp={onUpdateLayerProp}
-      />
-    );
-  });
-};
 
 export default ForvaltningsKartlag;
