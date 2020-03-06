@@ -17,12 +17,13 @@ import {
   ListItemText
 } from "@material-ui/core";
 
-const ForvaltningsEkspanderTopp = ({
+const ForvaltningsElement = ({
   kartlag,
   erAktivtLag,
   onUpdateLayerProp,
   handleShowCurrent,
-  show_current
+  show_current,
+  element
 }) => {
   let tittel = kartlag.tittel;
 
@@ -33,8 +34,8 @@ const ForvaltningsEkspanderTopp = ({
   const erSynlig = kartlag.erSynlig;
   const [open, setOpen] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
-
   if (!tittel) return null;
+
   return (
     <>
       <ListItem
@@ -129,4 +130,4 @@ const ForvaltningsEkspanderTopp = ({
   );
 };
 
-export default ForvaltningsEkspanderTopp;
+export default ForvaltningsElement;

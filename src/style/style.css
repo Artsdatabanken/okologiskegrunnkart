@@ -79,6 +79,14 @@ button.active {
   text-align: center;
 }
 
+h4.container_header {
+  margin-left: 25px;
+  margin-right: 25px;
+  text-align: left;
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 5px;
+}
+
 .expand_header {
   float: left;
   width: 100%;
