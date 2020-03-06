@@ -15,9 +15,8 @@ class ForvaltningsKartlag extends React.Component {
     for (let item in lag) {
       let criteria = lag[item][sortcriteria];
       let new_list = [];
-
       if (!criteria) {
-        criteria = "usortert";
+        criteria = "Ikke markert";
       }
       if (sorted[criteria]) {
         new_list = sorted[criteria];

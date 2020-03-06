@@ -11,7 +11,7 @@ const ForvaltningsGruppering = ({
 }) => {
   return (
     <>
-      <h2>{element}</h2>
+      <h4 className="container_header">{element}</h4>
 
       {kartlag.map((element, index) => {
         return (

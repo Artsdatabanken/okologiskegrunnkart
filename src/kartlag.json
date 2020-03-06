@@ -95,7 +95,7 @@
     "tittel": {
       "nb": "Landskap: LA-K"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -116,7 +116,7 @@
     "tittel": {
       "nb": "Landskap: LA-I-A"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -137,7 +137,7 @@
     "tittel": {
       "nb": "Landskap: LA-I-D"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -158,7 +158,7 @@
     "tittel": {
       "nb": "Landskap: LA-I-S"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -179,7 +179,7 @@
     "tittel": {
       "nb": "Landskap: LA-K-F"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -200,7 +200,7 @@
     "tittel": {
       "nb": "Landskap: LA-K-S"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -221,7 +221,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-AI k"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -242,7 +242,7 @@
     "tittel": {
       "nb": "Landskap: LA-M"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -263,7 +263,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-JA d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -284,7 +284,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-KA k"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -305,7 +305,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-VP d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -326,7 +326,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-BP d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -347,7 +347,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-IYK d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -368,7 +368,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-RE-IA d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -389,7 +389,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-RE-KF-ID d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -410,7 +410,7 @@
     "tittel": {
       "nb": "Landskap: LA-KLG-RE-KS d"
     },
-    "dataeier": "ADB",
+    "dataeier": "Artsdatabanken",
     "tema": {
       "nb": "Landskap"
     },
@@ -432,7 +432,7 @@
     "tittel": {
       "nb": "Ferskvann: VerneplanforVassdrag"
     },
-    "dataeier": "NVE",
+    "dataeier": "Norges vassdrags- og energidirektorat",
     "tema": {
       "nb": "Ferskvann"
     },
@@ -440,16 +440,16 @@
     "kart": {
       "format": {
         "wms": {
-          "url": "https://gis3.nve.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
+          "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
           "layer": "VerneplanforVassdrag",
           "version": "1.3.0"
         }
       }
     },
     "featureinfo": {
-      "url": "https://gis3.nve.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
       "tittel": "Verneplan for vassdrag",
-      "faktaark": "https://www.nve.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
+      "faktaark": "https://www.Norges vassdrags- og energidirektorat.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
     },
     "opacity": 0.9
   },
