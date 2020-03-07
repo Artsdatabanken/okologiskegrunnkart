@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as Sentry from "@sentry/browser";
 import { BrowserRouter } from "react-router-dom";
-import SettingsContainer from "SettingsContainer";
+import SettingsContainer from "./SettingsContainer";
 import "style/style.css";
 import "style/leaflet.css";
 true &&
