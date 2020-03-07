@@ -1,5 +1,5 @@
 import React from "react";
-import { SettingsContext } from "./SettingsContext";
+import { SettingsContext } from "../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { List } from "@material-ui/core";
 
