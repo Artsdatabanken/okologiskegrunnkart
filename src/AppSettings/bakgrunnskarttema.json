@@ -81,28 +81,28 @@
       },
       "gebco": {
         "kode": "bakgrunnskart",
-        "tittel": "Norge i bilder",
+        "tittel": "Gebco",
         "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=havbunn_grunnkart&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
       },
       "fjellskygge": {
         "kode": "bakgrunnskart",
-        "tittel": "Norge i bilder",
+        "tittel": "Fjellskygge",
         "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=fjellskygge&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
       },
       "topo4": {
         "kode": "bakgrunnskart",
-        "tittel": "Norge i bilder",
+        "tittel": "Topo 4",
         "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=topo4&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
       },
       "topo4graatone": {
         "kode": "bakgrunnskart",
-        "tittel": "Norge i bilder",
+        "tittel": "Topo 4 gråtone",
         "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=topo4graatone&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
