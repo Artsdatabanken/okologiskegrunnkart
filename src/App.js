@@ -10,7 +10,7 @@ import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "./Kart/Leaflet";
 
-import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
+import bakgrunnskarttema from "./AppSettings/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
