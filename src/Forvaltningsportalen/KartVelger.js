@@ -1,5 +1,4 @@
 import baseMapSelectorImage from "./BaseMapSelectorImage.png";
-import BaseMapSelectorImageGoogle from "./BaseMapSelectorImageGoogle.png";
 import React from "react";
 
 const tilgjengelige = ["gebco", "topo4", "topo4graatone", "fjellskygge"];
