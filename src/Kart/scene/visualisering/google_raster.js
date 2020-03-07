@@ -24,7 +24,15 @@ function lagStyle(format, drawArgs) {
   return {
     name: "googleshade",
     value: {
-      base: "raster"
+      base: "raster",
+      shaders: {
+        blocks: {
+          color: `
+            color.rgb = sampleRaster(0).rgb;
+            color.a=1.0;
+    `
+        }
+      }
     }
   };
 }

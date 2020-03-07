@@ -1,9 +1,7 @@
-import { createLights } from "./lights";
 import { createStyles } from "./styles";
 import lagAktiveLag from "./sceneFunksjoner/lagAktiveLag";
 
 function createScene(props) {
-  //console.log(props);
   let config = {
     sources: {},
     cameras: {
@@ -11,7 +9,6 @@ function createScene(props) {
         type: "flat"
       }
     },
-    lights: createLights(),
     layers: {},
     styles: createStyles(),
     scene: { background: {} }
@@ -24,6 +21,7 @@ function updateScene(config, props) {
   if (!config) return; // not yet loaded
   const viserKatalog = !!props.meta; // meta = true or meta = false , never meta = null
   lagAktiveLag(props.aktiveLag, viserKatalog, props.opplyst, config);
+  console.log(JSON.stringify(config));
   return config;
 }
 

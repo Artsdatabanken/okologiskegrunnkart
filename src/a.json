@@ -1,0 +1,173 @@
+{
+  "sources": {
+    "bakgrunnskart": {
+      "type": "Raster",
+      "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=topo4&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}",
+      "max_zoom": 21
+    }
+  },
+  "cameras": {
+    "cam": {
+      "type": "flat"
+    }
+  },
+  "lights": {
+    "default_light": {
+      "type": "directional",
+      "name": "default_light",
+      "visible": true
+    }
+  },
+  "layers": {
+    "google": {
+      "draw": {
+        "googleshade": {
+          "order": 0
+        }
+      },
+      "data": {
+        "source": "bakgrunnskart"
+      }
+    }
+  },
+  "styles": {
+    "po": {
+      "base": "points",
+      "texture": "http://localhost:3000/marker.png"
+    },
+    "boundary": {
+      "base": "lines",
+      "order": 150,
+      "blend": "overlay"
+    },
+    "mu_polygons": {
+      "base": "polygons"
+    },
+    "mu_lines": {
+      "base": "lines"
+    },
+    "road_names": {
+      "base": "text",
+      "draw": {
+        "font": {
+          "family": "Roboto",
+          "size": "12px",
+          "fill": "black",
+          "stroke": {
+            "color": "white",
+            "width": "1px"
+          }
+        }
+      }
+    },
+    "googleshade": {
+      "base": "raster"
+    },
+    "opaque_polygons": {
+      "base": "polygons",
+      "blend": "opaque"
+    },
+    "opaque_lines": {
+      "base": "lines",
+      "blend": "opaque"
+    },
+    "opaque_points": {
+      "base": "points",
+      "blend": "opaque"
+    },
+    "opaque_text": {
+      "base": "text",
+      "blend": "opaque"
+    },
+    "add_polygons": {
+      "base": "polygons",
+      "blend": "add"
+    },
+    "add_lines": {
+      "base": "lines",
+      "blend": "add"
+    },
+    "add_points": {
+      "base": "points",
+      "blend": "add"
+    },
+    "add_text": {
+      "base": "text",
+      "blend": "add"
+    },
+    "multiply_polygons": {
+      "base": "polygons",
+      "blend": "multiply"
+    },
+    "multiply_lines": {
+      "base": "lines",
+      "blend": "multiply"
+    },
+    "multiply_points": {
+      "base": "points",
+      "blend": "multiply"
+    },
+    "multiply_text": {
+      "base": "text",
+      "blend": "multiply"
+    },
+    "overlay_polygons": {
+      "base": "polygons",
+      "blend": "overlay"
+    },
+    "overlay_lines": {
+      "base": "lines",
+      "blend": "overlay"
+    },
+    "overlay_points": {
+      "base": "points",
+      "blend": "overlay"
+    },
+    "overlay_text": {
+      "base": "text",
+      "blend": "overlay"
+    },
+    "inlay_polygons": {
+      "base": "polygons",
+      "blend": "inlay"
+    },
+    "inlay_lines": {
+      "base": "lines",
+      "blend": "inlay"
+    },
+    "inlay_points": {
+      "base": "points",
+      "blend": "inlay"
+    },
+    "inlay_text": {
+      "base": "text",
+      "blend": "inlay"
+    },
+    "translucent_polygons": {
+      "base": "polygons",
+      "blend": "translucent"
+    },
+    "translucent_lines": {
+      "base": "lines",
+      "blend": "translucent"
+    },
+    "translucent_points": {
+      "base": "points",
+      "blend": "translucent"
+    },
+    "translucent_text": {
+      "base": "text",
+      "blend": "translucent"
+    }
+  },
+  "scene": {
+    "background": {}
+  },
+  "fonts": {},
+  "textures": {
+    "http://localhost:3000/marker.png": {
+      "url": "http://localhost:3000/marker.png"
+    }
+  },
+  "global": {}
+}
