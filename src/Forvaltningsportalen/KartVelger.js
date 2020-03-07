@@ -5,7 +5,6 @@ import React from "react";
 const tilgjengelige = ["gebco", "topo4", "topo4graatone", "fjellskygge"];
 
 const KartVelger = props => {
-  const sat = props.aktivtFormat === "norge_i_bilder";
   return (
     <button
       className="change_map_button"
@@ -22,10 +21,7 @@ const KartVelger = props => {
       <div className="change_map_text">
         <b>Kart</b>
       </div>
-      <img
-        alt="basemap preview"
-        src={sat ? baseMapSelectorImage : BaseMapSelectorImageGoogle}
-      />
+      <img alt="basemap preview" src={baseMapSelectorImage} />
     </button>
   );
 };
