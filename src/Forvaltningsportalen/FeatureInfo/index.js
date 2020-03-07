@@ -8,13 +8,10 @@ import "style/infobox.css";
 const FeatureInfo = ({
   showExtensiveInfo,
   kartlag,
-  onUpdateLayerProp,
   handleExtensiveInfo,
   lat,
   lng,
   layersresultat,
-  sted,
-  kommune
 }) => {
   if (!showExtensiveInfo) return null;
   if (!lat) return null;

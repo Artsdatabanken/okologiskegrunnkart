@@ -109,8 +109,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALIA": {
     "tittel": {
@@ -130,8 +129,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALID": {
     "tittel": {
@@ -151,8 +149,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALIS": {
     "tittel": {
@@ -172,8 +169,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKF": {
     "tittel": {
@@ -193,8 +189,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKS": {
     "tittel": {
@@ -214,8 +209,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKA": {
     "tittel": {
@@ -235,8 +229,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALM": {
     "tittel": {
@@ -256,8 +249,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKJ": {
     "tittel": {
@@ -277,8 +269,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKK": {
     "tittel": {
@@ -298,8 +289,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKV": {
     "tittel": {
@@ -319,8 +309,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKB": {
     "tittel": {
@@ -340,8 +329,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKI": {
     "tittel": {
@@ -361,8 +349,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKRI": {
     "tittel": {
@@ -382,8 +369,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKRKI": {
     "tittel": {
@@ -403,8 +389,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "FP-ALKRK": {
     "tittel": {
@@ -424,8 +409,7 @@
         }
       }
     },
-    "opacity": 0.9,
-    "featureinfo": {}
+    "opacity": 0.9
   },
   "vassdrag": {
     "type": "vassdrag",

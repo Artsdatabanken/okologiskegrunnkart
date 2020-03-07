@@ -8,8 +8,7 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
-//import ErrorItem from "./ErrorItem";
-//import LoadingItem from "./LoadingItem";
+import LoadingPlaceholder from './LoadingPlaceholder'
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -20,23 +19,15 @@ const GeneriskElement = props => {
   let secondary_text = "fant ingen for området";
   let url = props.element.url || "";
   let kode = "";
-
   if (kartlag) {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
     primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
     const featureinfo = kartlag.featureinfo;
-    if (!featureinfo.url) {
-      console.warn("har ikke lokasjonssøk");
-      // Denne stopper ikke lengre elementet fra å lages, den bare logges.
-    }
     let tittel = featureinfo.tittel || primary_text;
     url = featureinfo.faktaark; //props.element.url || "";
 
-    /* Tror muligens ikke disse trigges/er i bruk nå, usikker. @bjørn? 
-    :+1
-    if (resultat.error)
-      return <ErrorItem title={primary_text} message={resultat.error}></ErrorItem>;
-    if (resultat.loading) return <LoadingItem title={primary_text} />;*/
+    if (resultat.error) secondary_text = resultat.error;
+    if (resultat.loading) secondary_text = "...'"; //return <LoadingItem title={primary_text} />;
 
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
@@ -133,7 +124,9 @@ const GeneriskElement = props => {
         </ListItemIcon>
         <ListItemText
           primary={primary_text}
-          secondary={secondary_text || "Ingen markerte i området"}
+          secondaryTypographyProps={{ style: resultat.error ? { color: 'red' } : {} }}
+          secondary3={<LoadingPlaceholder />}
+          secondary={resultat.loading ? <LoadingPlaceholder /> : secondary_text}
         />
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>

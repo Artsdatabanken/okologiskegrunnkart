@@ -62,7 +62,7 @@ class Leaflet extends React.Component {
     let def = {
       scene: createScene(this.props),
       events: {
-        hover: function(selection) {},
+        hover: function (selection) { },
         click: this.handleClick,
         drag: this.handleDrag
       },
