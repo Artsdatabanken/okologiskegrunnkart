@@ -192,6 +192,7 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
+    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
       if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {

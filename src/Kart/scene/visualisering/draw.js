@@ -13,7 +13,11 @@ export default {
   raster_ruter: ruter, // Arter
   osm_lys: openStreetMap,
   osm_mørk: openStreetMap,
+  gebco: googleRaster,
   topo4: googleRaster,
+  topo4graatone: googleRaster,
+  fjellskygge: googleRaster,
+  norge_i_bilder: googleRaster,
   google_hybrid: googleRaster,
   google_satellite: googleRaster
 };

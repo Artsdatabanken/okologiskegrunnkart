@@ -6,7 +6,9 @@
     "kode": "terreng",
     "type": "terreng",
     "aktivtFormat": "normals",
-    "tittel": { "tittel": "3D terreng" },
+    "tittel": {
+      "tittel": "3D terreng"
+    },
     "erSynlig": false,
     "vertikaltOverdriv": 1.0,
     "visKontur": false,
@@ -15,7 +17,7 @@
     "visEtikettKontur": true
   },
   "kart": {
-    "aktivtFormat": "google_satellite",
+    "aktivtFormat": "gebco",
     "format": {
       "osm_lys": {
         "tittel": "Lys (OpenStreetMap)",
@@ -70,12 +72,43 @@
         "landegrense_farge": "hsl(0,0%,30%)",
         "kanHaTerreng": true
       },
-      "topo4": {
+      "egk_topo4": {
         "kode": "bakgrunnskart",
         "tittel": "Topografisk Norgeskart (Kartverket)",
         "zoom": [2, 20],
         "tint": "#fff",
         "url": "https://bakgrunnskart.artsdatabanken.no/v1/egk_topo4graatone/{z}/{x}/{y}"
+      },
+      "gebco": {
+        "kode": "bakgrunnskart",
+        "tittel": "Norge i bilder",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url1": "https://gatekeeper3.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?gkt=AFBEE1CC7D863648EACBD634B9DD361B99B9C4D1FFBD428B0620806098907A946926E65AF6E363A86DC8E12D5DE3C7C5621C1FE2F7FF34EF8D018F0853CD0DA1&layer=nibcache_utm33_euref89_v2&style=default&tilematrixset=default028mm&service=wmts&request=gettile&version=1.0.0&format=image%2fpng&tilematrix={z}&tilecol={x}&tilerow={y}",
+        "url2": "https://gatekeeper3.geonorge.no/BaatGatekeeper/gk/gk.nib_utm33_wmts_v2?gkt=AFBEE1CC7D863648EACBD634B9DD361B99B9C4D1FFBD428B0620806098907A946926E65AF6E363A86DC8E12D5DE3C7C5621C1FE2F7FF34EF8D018F0853CD0DA1&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&service=wmts&request=gettile&version=1.0.0&format=image%2fpng&tilematrix={z}&tilecol={x}&tilerow={y}",
+        "url_ok1": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=norgeskart_bakgrunn&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=havbunn_grunnkart&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "fjellskygge": {
+        "kode": "bakgrunnskart",
+        "tittel": "Norge i bilder",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=fjellskygge&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "topo4": {
+        "kode": "bakgrunnskart",
+        "tittel": "Norge i bilder",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=topo4&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "topo4graatone": {
+        "kode": "bakgrunnskart",
+        "tittel": "Norge i bilder",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt=AFBEE1CC7D8636485038DE8B5CC72587F74CBEDB7F5D7FD302C5DA042E48C30717091E651A442FE05E3C27E20F4683F223A891EEAFF40BA78D018F0853CD0DA1&layer=topo4graatone&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
       },
       "google_satellite": {
         "kode": "bakgrunnskart",

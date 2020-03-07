@@ -2,18 +2,20 @@ import baseMapSelectorImage from "./BaseMapSelectorImage.png";
 import BaseMapSelectorImageGoogle from "./BaseMapSelectorImageGoogle.png";
 import React from "react";
 
+const tilgjengelige = ["gebco", "topo4", "topo4graatone", "fjellskygge"];
+
 const KartVelger = props => {
-  const sat = props.aktivtFormat === "google_satellite";
+  const sat = props.aktivtFormat === "norge_i_bilder";
   return (
     <button
       className="change_map_button"
       onClick={() => {
+        const current = tilgjengelige.indexOf(props.aktivtFormat);
+        const next = (current + 1) % tilgjengelige.length;
         props.onUpdateLayerProp(
           "bakgrunnskart",
           "kart.aktivtFormat",
-          props.aktivtFormat === "google_satellite"
-            ? "topo4"
-            : "google_satellite"
+          tilgjengelige[next]
         );
       }}
     >
@@ -21,7 +23,7 @@ const KartVelger = props => {
         <b>Kart</b>
       </div>
       <img
-        alt="basemap preview  "
+        alt="basemap preview"
         src={sat ? baseMapSelectorImage : BaseMapSelectorImageGoogle}
       />
     </button>
