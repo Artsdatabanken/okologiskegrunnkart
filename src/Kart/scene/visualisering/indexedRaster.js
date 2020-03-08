@@ -1,4 +1,4 @@
-import colorArray2Image from "Funksjoner/palette/colorArray2Image";
+import colorArray2Image from "../../../Funksjoner/palette/colorArray2Image";
 import landskapIndexTemp from "./fellesfunksjoner/landskap_index_temp";
 import drawSetup from "./fellesfunksjoner/drawSetup";
 import lagSource from "./fellesfunksjoner/lagSource";
