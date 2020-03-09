@@ -82,7 +82,6 @@ const GeneriskElement = props => {
         const { areal, artype, artype_beskrivelse } = feature;
         if (artype_beskrivelse) {
           kode = "FP-NH";
-          kartlag = props.kartlag[kode] || null;
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
@@ -116,7 +115,6 @@ const GeneriskElement = props => {
     // Hvordan ønsker vi da å fremstille dem?
     return null;
   }
-
   return (
     <div
       style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
