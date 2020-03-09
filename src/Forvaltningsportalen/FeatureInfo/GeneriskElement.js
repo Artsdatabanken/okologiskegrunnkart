@@ -25,7 +25,6 @@ const GeneriskElement = props => {
   let primary_text = "fant ingen match i kartlag";
   let secondary_text = "fant ingen for området";
   let url = props.element.url || "";
-  let kode = "";
   if (kartlag) {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
     primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
