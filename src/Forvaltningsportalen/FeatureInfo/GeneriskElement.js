@@ -1,4 +1,10 @@
-import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
+import {
+  Visibility,
+  VisibilityOff,
+  ErrorOutline,
+  ExpandLess,
+  ExpandMore
+} from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -8,7 +14,7 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
-import LoadingPlaceholder from './LoadingPlaceholder'
+import LoadingPlaceholder from "./LoadingPlaceholder";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -26,12 +32,15 @@ const GeneriskElement = props => {
     let tittel = featureinfo.tittel || primary_text;
     url = featureinfo.faktaark; //props.element.url || "";
 
-    if (resultat.error) secondary_text = resultat.error;
+    if (resultat.error)
+      secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
     if (resultat.loading) secondary_text = "...'"; //return <LoadingItem title={primary_text} />;
 
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
-      const trinn = (props.resultat.barn || []).find(x => x.aktiv) || { tittel: { nb: "Ingen data" } };
+      const trinn = (props.resultat.barn || []).find(x => x.aktiv) || {
+        tittel: { nb: "Ingen data" }
+      };
       const v = props.resultat.v || "ingen";
       secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
     }
@@ -67,7 +76,6 @@ const GeneriskElement = props => {
       const layer = resultat[featureinfo.layer] || {};
       const feature = layer[featureinfo.feature] || {};
       primary_text = featureinfo.tittel || primary_text;
-      //if (!primary_text) console.warn(featureinfo);
 
       if (kartlag.type === "arealtype") {
         const { areal, artype, artype_beskrivelse } = feature;
@@ -120,11 +128,14 @@ const GeneriskElement = props => {
         }}
       >
         <ListItemIcon>
-          <Star />
+          {resultat.error ? (
+            <ErrorOutline />
+          ) : (
+            <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
+          )}
         </ListItemIcon>
         <ListItemText
           primary={primary_text}
-          secondaryTypographyProps={{ style: resultat.error ? { color: 'red' } : {} }}
           secondary3={<LoadingPlaceholder />}
           secondary={resultat.loading ? <LoadingPlaceholder /> : secondary_text}
         />

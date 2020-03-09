@@ -12,56 +12,53 @@
   margin-left: auto;
   margin-right: auto;
   max-width: 600px;
+  max-height: 400px;
   background: #eeeeee;
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   border: 1px solid #666;
+}
+
+.window_scrollable,
+.all_layer_results_scrollable {
+  display: inline-block;
+  max-height: 245px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.all_layer_results {
+  margin-top: 58px;
+  z-index: 200;
 }
 
 @media only screen and (max-width: 768px) {
   .infobox_container {
     width: 100%;
   }
-  .infobox {
+
+  .infobox,
+  .all_layer_results {
     width: 100%;
     max-height: calc(50vh - 20px);
   }
 
-  .window_scrollable {
+  .all_layer_results {
+    min-height: 50px;
+    max-height: calc(50vh - 80px);
+  }
+
+  .window_scrollable,
+  .all_layer_results_scrollable {
     display: inline-block;
     max-height: calc(50vh - 150px);
     overflow-y: auto;
+    width: 100%;
   }
-}
 
-/* Venstresidepanelet; altså resultat av søk i alt */
-.all_layer_results {
-  position: relative;
-  padding: 0px;
-  margin-top: 60px;
-  background: hotpink;
-  background: #eee;
-  z-index: 200;
-  height: 400px;
-  border: 1px solid #666;
-}
-
-@media only screen and (max-width: 768px) {
-  .all_layer_results {
-    min-height: 50px;
-    height: calc(50vh - 80px);
+  .all_layer_results_scrollable {
+    max-height: calc(50vh - 188px);
   }
-}
-
-.all_layer_results_scrollable {
-  box-sizing: border-box;
-  position: absolute;
-  border-top: 1px solid lightgrey;
-  top: 50px;
-  bottom: 0px;
-  overflow-y: auto;
-  padding-bottom: 48px;
-  width: 100%;
 }
 
 .close_button {
