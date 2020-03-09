@@ -44,6 +44,7 @@
   height: 30px;
   text-align: center;
   padding: 0px;
+  z-index: 1;
 }
 
 @media only screen and (max-width: 768px) {
