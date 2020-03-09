@@ -80,7 +80,7 @@ const GeneriskElement = props => {
       if (kartlag.type === "arealtype") {
         const { areal, artype, artype_beskrivelse } = feature;
         if (artype_beskrivelse) {
-          var kode = "FP-NH";
+          //var kode = "FP-NH";
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
