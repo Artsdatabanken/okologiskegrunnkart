@@ -15,6 +15,7 @@ import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
 import LoadingPlaceholder from "./LoadingPlaceholder";
+import { CircularProgress } from "@material-ui/core";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -128,10 +129,16 @@ const GeneriskElement = props => {
         }}
       >
         <ListItemIcon>
-          {resultat.error ? (
-            <ErrorOutline />
+          {resultat.loading ? (
+            <CircularProgress />
           ) : (
-            <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
+            <>
+              {resultat.error ? (
+                <ErrorOutline />
+              ) : (
+                <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
+              )}
+            </>
           )}
         </ListItemIcon>
         <ListItemText
