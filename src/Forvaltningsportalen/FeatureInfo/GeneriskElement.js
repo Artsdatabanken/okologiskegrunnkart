@@ -80,7 +80,7 @@ const GeneriskElement = props => {
       if (kartlag.type === "arealtype") {
         const { areal, artype, artype_beskrivelse } = feature;
         if (artype_beskrivelse) {
-          kode = "FP-NH";
+          var kode = "FP-NH";
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
@@ -95,9 +95,6 @@ const GeneriskElement = props => {
           secondary_text = tittel + " i " + fylke;
         }
       } else {
-        if (kartlag.type === "livsmiljø") {
-          kode = "FP-NL";
-        }
         const title = feature[featureinfo.feature_text];
         if (title) primary_text = title;
         const objectid = feature["objectid"];
