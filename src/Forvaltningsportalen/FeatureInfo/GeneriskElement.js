@@ -1,4 +1,10 @@
-import { Star, ExpandLess, ExpandMore } from "@material-ui/icons";
+import {
+  Visibility,
+  VisibilityOff,
+  ErrorOutline,
+  ExpandLess,
+  ExpandMore
+} from "@material-ui/icons";
 import {
   Collapse,
   ListItem,
@@ -8,8 +14,8 @@ import {
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import finnGrunntype from "./finnGrunntype";
-//import ErrorItem from "./ErrorItem";
-//import LoadingItem from "./LoadingItem";
+import LoadingPlaceholder from "./LoadingPlaceholder";
+import { CircularProgress } from "@material-ui/core";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -19,28 +25,22 @@ const GeneriskElement = props => {
   let primary_text = "fant ingen match i kartlag";
   let secondary_text = "fant ingen for området";
   let url = props.element.url || "";
-  let kode = "";
-
   if (kartlag) {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
     primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
     const featureinfo = kartlag.featureinfo;
-    if (!featureinfo.url) {
-      console.warn("har ikke lokasjonssøk");
-      // Denne stopper ikke lengre elementet fra å lages, den bare logges.
-    }
     let tittel = featureinfo.tittel || primary_text;
     url = featureinfo.faktaark; //props.element.url || "";
 
-    /* Tror muligens ikke disse trigges/er i bruk nå, usikker. @bjørn? 
-    :+1
     if (resultat.error)
-      return <ErrorItem title={primary_text} message={resultat.error}></ErrorItem>;
-    if (resultat.loading) return <LoadingItem title={primary_text} />;*/
+      secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
+    if (resultat.loading) secondary_text = "...'"; //return <LoadingItem title={primary_text} />;
 
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
-      const trinn = (props.resultat.barn || []).find(x => x.aktiv) || { tittel: { nb: "Ingen data" } };
+      const trinn = (props.resultat.barn || []).find(x => x.aktiv) || {
+        tittel: { nb: "Ingen data" }
+      };
       const v = props.resultat.v || "ingen";
       secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
     }
@@ -76,13 +76,11 @@ const GeneriskElement = props => {
       const layer = resultat[featureinfo.layer] || {};
       const feature = layer[featureinfo.feature] || {};
       primary_text = featureinfo.tittel || primary_text;
-      //if (!primary_text) console.warn(featureinfo);
 
       if (kartlag.type === "arealtype") {
         const { areal, artype, artype_beskrivelse } = feature;
         if (artype_beskrivelse) {
-          kode = "FP-NH";
-          kartlag = props.kartlag[kode] || null;
+          //var kode = "FP-NH";
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
@@ -97,9 +95,6 @@ const GeneriskElement = props => {
           secondary_text = tittel + " i " + fylke;
         }
       } else {
-        if (kartlag.type === "livsmiljø") {
-          kode = "FP-NL";
-        }
         const title = feature[featureinfo.feature_text];
         if (title) primary_text = title;
         const objectid = feature["objectid"];
@@ -116,7 +111,6 @@ const GeneriskElement = props => {
     // Hvordan ønsker vi da å fremstille dem?
     return null;
   }
-
   return (
     <div
       style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
@@ -129,11 +123,22 @@ const GeneriskElement = props => {
         }}
       >
         <ListItemIcon>
-          <Star />
+          {resultat.loading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              {resultat.error ? (
+                <ErrorOutline />
+              ) : (
+                <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
+              )}
+            </>
+          )}
         </ListItemIcon>
         <ListItemText
           primary={primary_text}
-          secondary={secondary_text || "Ingen markerte i området"}
+          secondary3={<LoadingPlaceholder />}
+          secondary={resultat.loading ? <LoadingPlaceholder /> : secondary_text}
         />
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>

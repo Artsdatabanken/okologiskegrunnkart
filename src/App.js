@@ -140,13 +140,16 @@ class App extends React.Component {
       looplist = valgteLag;
     }
     // Denne henter utvalgte lag baser på listen layers
-    this.setState({ layersresultat: {} });
+    var layersresultat = {};
     Object.keys(looplist).forEach(key => {
+      if (!looplist[key].featureinfo) return;
+      layersresultat[key] = { loading: true };
+    })
+    this.setState({ layersresultat: layersresultat });
+    Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key].featureinfo;
-      if (!layer.url) return;
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
       var url = url_formatter(layer.url, lat, lng, delta);
-      this.setState({ [key]: { loading: true } });
       backend
         .getFeatureInfo(layer.protokoll, url)
         .then(res => {

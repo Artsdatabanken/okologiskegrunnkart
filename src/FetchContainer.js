@@ -66,7 +66,7 @@ class FetchContainer extends React.Component {
       .catch(error => {
         this.setState(decrement);
         const message = description + ": " + error.message;
-        console.error(message);
+        //console.error(message);
         this.flashMessage(message);
       });
   };
