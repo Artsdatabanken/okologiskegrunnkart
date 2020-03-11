@@ -148,3 +148,17 @@ h4.container_header {
 .coordinates {
   color: grey;
 }
+
+.sort_chooser_container {
+  text-align: center;
+}
+
+.sort_chooser_container label {
+  display: block;
+}
+
+.sort_chooser_container select {
+  min-width: 200px;
+  border-radius: 3px;
+  padding: 5px;
+}
