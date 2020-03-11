@@ -1,12 +1,9 @@
 {
   "livsmiljø": {
     "type": "livsmiljø",
-    "tittel": {
-      "nb": "Skog: Livsmiljøer"
-    },
+    "tittel": "Skog: Livsmiljøer",
     "dataeier": "NIBIO",
     "tema": "Skog",
-    "kode": "FP-NL",
     "kart": {
       "format": {
         "wms": {
@@ -23,9 +20,7 @@
   },
   "arealtype": {
     "type": "arealtype",
-    "tittel": {
-      "nb": "Arealressurs: Hovedgrupper"
-    },
+    "tittel": "Arealressurs: Hovedgrupper",
     "dataeier": "NIBIO",
     "tema": "Arealressurs",
     "kode": "arealtype",
@@ -54,9 +49,7 @@
   },
   "naturtype": {
     "type": "naturtype",
-    "tittel": {
-      "nb": "Naturtyper: naturtyper "
-    },
+    "tittel": "Naturtyper: naturtyper ",
     "dataeier": "Miljødirektoratet",
     "tema": "Naturtyper",
     "kode": "naturtype",
@@ -86,9 +79,7 @@
     "opacity": 0.9
   },
   "FP-ALK": {
-    "tittel": {
-      "nb": "Landskap: LA-K"
-    },
+    "tittel": "Landskap: LA-K",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALK",
@@ -104,9 +95,7 @@
     "opacity": 0.9
   },
   "FP-ALIA": {
-    "tittel": {
-      "nb": "Landskap: LA-I-A"
-    },
+    "tittel": "Landskap: LA-I-A",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALIA",
@@ -122,9 +111,7 @@
     "opacity": 0.9
   },
   "FP-ALID": {
-    "tittel": {
-      "nb": "Landskap: LA-I-D"
-    },
+    "tittel": "Landskap: LA-I-D",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALID",
@@ -140,9 +127,7 @@
     "opacity": 0.9
   },
   "FP-ALIS": {
-    "tittel": {
-      "nb": "Landskap: LA-I-S"
-    },
+    "tittel": "Landskap: LA-I-S",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALIS",
@@ -158,9 +143,7 @@
     "opacity": 0.9
   },
   "FP-ALKF": {
-    "tittel": {
-      "nb": "Landskap: LA-K-F"
-    },
+    "tittel": "Landskap: LA-K-F",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKF",
@@ -176,9 +159,7 @@
     "opacity": 0.9
   },
   "FP-ALKS": {
-    "tittel": {
-      "nb": "Landskap: LA-K-S"
-    },
+    "tittel": "Landskap: LA-K-S",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKS",
@@ -194,9 +175,7 @@
     "opacity": 0.9
   },
   "FP-ALKA": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-AI k"
-    },
+    "tittel": "Landskap: LA-KLG-AI k",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKA",
@@ -212,9 +191,7 @@
     "opacity": 0.9
   },
   "FP-ALM": {
-    "tittel": {
-      "nb": "Landskap: LA-M"
-    },
+    "tittel": "Landskap: LA-M",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALM",
@@ -230,9 +207,7 @@
     "opacity": 0.9
   },
   "FP-ALKJ": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-JA d"
-    },
+    "tittel": "Landskap: LA-KLG-JA d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKJ",
@@ -248,9 +223,7 @@
     "opacity": 0.9
   },
   "FP-ALKK": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-KA k"
-    },
+    "tittel": "Landskap: LA-KLG-KA k",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKK",
@@ -266,9 +239,7 @@
     "opacity": 0.9
   },
   "FP-ALKV": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-VP d"
-    },
+    "tittel": "Landskap: LA-KLG-VP d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKV",
@@ -284,9 +255,7 @@
     "opacity": 0.9
   },
   "FP-ALKB": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-BP d"
-    },
+    "tittel": "Landskap: LA-KLG-BP d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKB",
@@ -302,9 +271,7 @@
     "opacity": 0.9
   },
   "FP-ALKI": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-IYK d"
-    },
+    "tittel": "Landskap: LA-KLG-IYK d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKI",
@@ -320,9 +287,7 @@
     "opacity": 0.9
   },
   "FP-ALKRI": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-RE-IA d"
-    },
+    "tittel": "Landskap: LA-KLG-RE-IA d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRI",
@@ -338,9 +303,7 @@
     "opacity": 0.9
   },
   "FP-ALKRKI": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-RE-KF-ID d"
-    },
+    "tittel": "Landskap: LA-KLG-RE-KF-ID d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRKI",
@@ -356,9 +319,7 @@
     "opacity": 0.9
   },
   "FP-ALKRK": {
-    "tittel": {
-      "nb": "Landskap: LA-KLG-RE-KS d"
-    },
+    "tittel": "Landskap: LA-KLG-RE-KS d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRK",
@@ -375,9 +336,7 @@
   },
   "vassdrag": {
     "type": "vassdrag",
-    "tittel": {
-      "nb": "Ferskvann: Verneplan for Vassdrag"
-    },
+    "tittel": "Ferskvann: Verneplan for Vassdrag",
     "dataeier": "Norges vassdrags- og energidirektorat",
     "tema": "Ferskvann",
     "kode": "FP-NV",
@@ -400,9 +359,7 @@
   "sone": {
     "type": "bioklimatisk_sone",
     "dataeier": "Artsdatabanken",
-    "tittel": {
-      "nb": "Bioklimatisk sone"
-    },
+    "tittel": "Bioklimatisk sone",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
       "protokoll": "json",
@@ -414,9 +371,7 @@
   "seksjon": {
     "type": "bioklimatisk_seksjon",
     "dataeier": "Artsdatabanken",
-    "tittel": {
-      "nb": "Bioklimatisk seksjon"
-    },
+    "tittel": "Bioklimatisk seksjon",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
       "protokoll": "json",
@@ -428,9 +383,7 @@
   "kalk": {
     "type": "kalk",
     "dataeier": "Artsdatabanken",
-    "tittel": {
-      "nb": "Kalkinnhold"
-    },
+    "tittel": "Kalkinnhold",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-LKM-KA",
       "protokoll": "json",
@@ -442,9 +395,7 @@
   "laksefjord": {
     "type": "laksefjord",
     "dataeier": "NIBIO",
-    "tittel": {
-      "nb": "Laksefjord"
-    },
+    "tittel": "Laksefjord",
     "featureinfo": {
       "url": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
       "url_replace": [
@@ -461,9 +412,7 @@
   "løsmasse": {
     "type": "løsmasse",
     "dataeier": "NGU",
-    "tittel": {
-      "nb": "Løsmasse"
-    },
+    "tittel": "Løsmasse",
     "featureinfo": {
       "url": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
       "url_replace": [

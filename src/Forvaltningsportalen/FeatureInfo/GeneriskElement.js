@@ -27,7 +27,7 @@ const GeneriskElement = props => {
   let url = props.element.url || "";
   if (kartlag) {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
-    primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
+    primary_text = kartlag.tittel || "mangler tittel";
     const featureinfo = kartlag.featureinfo;
     let tittel = featureinfo.tittel || primary_text;
     url = featureinfo.faktaark; //props.element.url || "";
@@ -39,10 +39,10 @@ const GeneriskElement = props => {
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
       const trinn = (props.resultat.barn || []).find(x => x.aktiv) || {
-        tittel: { nb: "Ingen data" }
+        tittel: "Ingen data"
       };
       const v = props.resultat.v || "ingen";
-      secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
+      secondary_text = trinn.tittel + " (PCA " + v + " )";
     }
     if (kartlag.type.split("_")[0] === "kalk") {
       secondary_text = "Ingen data";
