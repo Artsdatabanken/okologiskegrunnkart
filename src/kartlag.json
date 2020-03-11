@@ -20,7 +20,7 @@
   },
   "arealtype": {
     "type": "arealtype",
-    "tittel": "Arealressurs: Hovedgrupper",
+    "tittel": "Arealressurs: Hovedgrupper - AR5 Arealtype",
     "dataeier": "NIBIO",
     "tema": "Arealressurs",
     "kode": "arealtype",
@@ -35,16 +35,11 @@
     },
     "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "url_replace": [
-        "info_format=application/vnd.ogc.gml",
-        "info_format=text/html"
-      ],
       "layer": "Arealtyper_layer",
       "feature": "Arealtyper_feature",
-      "feature_text": "artype_beskrivelse",
-      "tittel": "AR5 Arealtype",
-      "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
+      "feature_text": "artype_beskrivelse"
     },
+    "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     "opacity": 0.9
   },
   "naturtype": {
@@ -63,19 +58,17 @@
       }
     },
     "featureinfo": {
-      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.1.1&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "tittel": "Naturtype",
-      "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
+      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.1.1&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
+    "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/",
     "opacity": 0.9
   },
   "landskap": {
     "type": "landskap",
     "featureinfo": {
-      "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "tittel": "Landskap",
-      "faktaark": "https://artsdatabanken.no/nin/"
+      "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
+    "faktaark": "https://artsdatabanken.no/nin/",
     "opacity": 0.9
   },
   "FP-ALK": {
@@ -350,10 +343,9 @@
       }
     },
     "featureinfo": {
-      "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "tittel": "Verneplan for vassdrag",
-      "faktaark": "https://www.Norges vassdrags- og energidirektorat.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
+      "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
+    "faktaark": "https://www.Norges vassdrags- og energidirektorat.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
     "opacity": 0.9
   },
   "sone": {
@@ -362,10 +354,9 @@
     "tittel": "Bioklimatisk sone",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
-      "protokoll": "json",
-      "tittel": "Bioklimatiske sone",
-      "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner"
+      "protokoll": "json"
     },
+    "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
     "opacity": 0.9
   },
   "seksjon": {
@@ -374,10 +365,9 @@
     "tittel": "Bioklimatisk seksjon",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-      "protokoll": "json",
-      "tittel": "Bioklimatiske seksjon",
-      "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner"
+      "protokoll": "json"
     },
+    "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
     "opacity": 0.9
   },
   "kalk": {
@@ -386,10 +376,9 @@
     "tittel": "Kalkinnhold",
     "featureinfo": {
       "url": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-LKM-KA",
-      "protokoll": "json",
-      "tittel": "Kalkinnhold",
-      "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold"
+      "protokoll": "json"
     },
+    "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
     "opacity": 0.9
   },
   "laksefjord": {
@@ -398,15 +387,10 @@
     "tittel": "Laksefjord",
     "featureinfo": {
       "url": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "url_replace": [
-        "info_format=application/vnd.ogc.gml",
-        "info_format=text/html"
-      ],
       "layer": "layer_388_layer",
-      "feature": "layer_388_feature",
-      "tittel": "Laksefjord",
-      "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
+      "feature": "layer_388_feature"
     },
+    "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     "opacity": 0.9
   },
   "løsmasse": {
@@ -415,16 +399,11 @@
     "tittel": "Løsmasse",
     "featureinfo": {
       "url": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "url_replace": [
-        "info_format=application/vnd.ogc.gml",
-        "info_format=text/html"
-      ],
       "layer": "Losmasse_flate_layer",
       "feature": "Losmasse_flate_feature",
-      "feature_text": "losmassetype_tekst",
-      "tittel": "Løsmasse",
-      "faktaark": ""
+      "feature_text": "losmassetype_tekst"
     },
+    "faktaark": "",
     "opacity": 0.9
   }
 }

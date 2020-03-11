@@ -29,8 +29,8 @@ const GeneriskElement = props => {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
     primary_text = kartlag.tittel || "mangler tittel";
     const featureinfo = kartlag.featureinfo;
-    let tittel = featureinfo.tittel || primary_text;
-    url = featureinfo.faktaark; //props.element.url || "";
+    let tittel = kartlag.tittel || primary_text;
+    url = kartlag.faktaark; //props.element.url || "";
 
     if (resultat.error)
       secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
@@ -42,7 +42,7 @@ const GeneriskElement = props => {
         tittel: "Ingen data"
       };
       const v = props.resultat.v || "ingen";
-      secondary_text = trinn.tittel + " (PCA " + v + " )";
+      secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
     }
     if (kartlag.type.split("_")[0] === "kalk") {
       secondary_text = "Ingen data";
@@ -75,7 +75,7 @@ const GeneriskElement = props => {
     } else {
       const layer = resultat[featureinfo.layer] || {};
       const feature = layer[featureinfo.feature] || {};
-      primary_text = featureinfo.tittel || primary_text;
+      primary_text = kartlag.tittel || primary_text;
 
       if (kartlag.type === "arealtype") {
         const { areal, artype, artype_beskrivelse } = feature;
@@ -100,11 +100,6 @@ const GeneriskElement = props => {
         const objectid = feature["objectid"];
         if (objectid) secondary_text = tittel + " " + objectid;
       }
-      if (url && featureinfo.url_replace)
-        url = url.replace(
-          featureinfo.url_replace[0],
-          featureinfo.url_replace[1]
-        );
     }
   } else {
     // Her kan vi teknisk sett akseptere å vise element som ikke har en match i kartlagfila også
