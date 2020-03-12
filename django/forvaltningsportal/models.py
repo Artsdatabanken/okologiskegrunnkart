@@ -2,6 +2,7 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
+import json
 
 # Antar nå at alle url'er er lange, og at vi får slått sammen alle url-variablene til en variabel.
 # ignorerer for øyeblikket de som har felter som skiller seg ut fra resten
@@ -44,5 +45,26 @@ class Kartlag(models.Model):
 
 
 @receiver(post_save, sender=Kartlag)
-def save_profile(sender, instance, **kwargs):
+def createJSON(sender, instance, **kwargs):
     print("************Doing the thing************")
+
+    dict = {}
+    for kartlag in Kartlag.objects.all():
+        dict[kartlag.tittel] = {
+            'dataeier': kartlag.dataeier.tittel,
+            'tittel': kartlag.tittel
+
+        }
+        if kartlag.type:
+            dict[kartlag.tittel]['type'] = kartlag.type.tittel
+        if kartlag.faktaark:
+            dict[kartlag.faktaark]['faktaark'] = kartlag.faktaark
+        if kartlag.kode:
+            dict[kartlag.kode]['kode'] = kartlag.kode    
+
+
+    print(json.dumps(dict,indent=4,sort_keys=True))
+    with open("kartlag_ny.json","w") as file:
+        json.dump(dict,file,indent=4,sort_keys=True)
+
+    print("************FINISHED doing the thing************")
