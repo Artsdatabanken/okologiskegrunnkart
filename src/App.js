@@ -18,7 +18,10 @@ export let exportableFullscreen;
 class App extends React.Component {
   constructor(props) {
     super(props);
-    Object.values(kartlag).forEach(k => (k.opacity = 0.8));
+    Object.values(kartlag).forEach(k => {
+      k.opacity = 0.8;
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } }
+    });
     this.state = {
       kartlag: {
         bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
