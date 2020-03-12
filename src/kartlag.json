@@ -4,17 +4,11 @@
     "tittel": "Skog: Livsmiljøer",
     "dataeier": "NIBIO",
     "tema": "Skog",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.nibio.no/cgi-bin/skogbruksplan",
-          "layer": "Livsmiljoer"
-        }
-      }
-    },
     "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
-    }
+    },
+    "wmsurl": "https://wms.nibio.no/cgi-bin/skogbruksplan",
+    "wmslayer": "Livsmiljoer"
   },
   "arealtype": {
     "type": "arealtype",
@@ -22,21 +16,15 @@
     "dataeier": "NIBIO",
     "tema": "Arealressurs",
     "kode": "arealtype",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.nibio.no/cgi-bin/ar5",
-          "layer": "Hovedgrupper"
-        }
-      }
-    },
     "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
       "layer": "Arealtyper_layer",
       "feature": "Arealtyper_feature",
       "feature_text": "artype_beskrivelse"
     },
-    "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
+    "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+    "wmsurl": "https://wms.nibio.no/cgi-bin/ar5",
+    "wmslayer": "Hovedgrupper"
   },
   "naturtype": {
     "type": "naturtype",
@@ -44,18 +32,12 @@
     "dataeier": "Miljødirektoratet",
     "tema": "Naturtyper",
     "kode": "naturtype",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?",
-          "layer": "naturtyper_nin_alle"
-        }
-      }
-    },
     "featureinfo": {
       "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
-    "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
+    "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/",
+    "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?",
+    "wmslayer": "naturtyper_nin_alle"
   },
   "landskap": {
     "type": "landskap",
@@ -70,225 +52,128 @@
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALK",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-K"
   },
   "FP-ALIA": {
     "tittel": "Landskap: LA-I-A",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALIA",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-A"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-I-A"
   },
   "FP-ALID": {
     "tittel": "Landskap: LA-I-D",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALID",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-D"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-I-D"
   },
   "FP-ALIS": {
     "tittel": "Landskap: LA-I-S",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALIS",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-S"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-I-S"
   },
   "FP-ALKF": {
     "tittel": "Landskap: LA-K-F",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKF",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K-F"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-K-F"
   },
   "FP-ALKS": {
     "tittel": "Landskap: LA-K-S",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKS",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K-S"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-K-S"
   },
   "FP-ALKA": {
     "tittel": "Landskap: LA-KLG-AI k",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKA",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-AI_k"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-AI_k"
   },
   "FP-ALM": {
     "tittel": "Landskap: LA-M",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALM",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-M",
-          "version": "1.1.1"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-M"
   },
   "FP-ALKJ": {
     "tittel": "Landskap: LA-KLG-JA d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKJ",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-JA_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-JA_d"
   },
   "FP-ALKK": {
     "tittel": "Landskap: LA-KLG-KA k",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKK",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-KA_k"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-KA_k"
   },
   "FP-ALKV": {
     "tittel": "Landskap: LA-KLG-VP d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKV",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-VP_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-VP_d"
   },
   "FP-ALKB": {
     "tittel": "Landskap: LA-KLG-BP d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKB",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-BP_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-BP_d"
   },
   "FP-ALKI": {
     "tittel": "Landskap: LA-KLG-IYK d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKI",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-IYK_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-IYK_d"
   },
   "FP-ALKRI": {
     "tittel": "Landskap: LA-KLG-RE-IA d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRI",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-IA_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-RE-IA_d"
   },
   "FP-ALKRKI": {
     "tittel": "Landskap: LA-KLG-RE-KF-ID d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRKI",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-KF-ID_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-RE-KF-ID_d"
   },
   "FP-ALKRK": {
     "tittel": "Landskap: LA-KLG-RE-KS d",
     "dataeier": "Artsdatabanken",
     "tema": "Landskap",
     "kode": "FP-ALKRK",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-KS_d"
-        }
-      }
-    }
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+    "wmslayer": "LA-KLG-RE-KS_d"
   },
   "vassdrag": {
     "type": "vassdrag",
@@ -296,18 +181,12 @@
     "dataeier": "Norges vassdrags- og energidirektorat",
     "tema": "Ferskvann",
     "kode": "FP-NV",
-    "kart": {
-      "format": {
-        "wms": {
-          "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
-          "layer": "VerneplanforVassdrag"
-        }
-      }
-    },
     "featureinfo": {
       "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
-    "faktaark": "https://www.Norges vassdrags- og energidirektorat.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/"
+    "faktaark": "https://www.Norges vassdrags- og energidirektorat.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
+    "wmsurl": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
+    "wmslayer": "VerneplanforVassdrag"
   },
   "sone": {
     "type": "bioklimatisk_sone",
