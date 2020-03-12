@@ -19,3 +19,19 @@
 <a href="https://www.browserstack.com/"><img src="doc/Browserstack-logo.svg" width="200px">
 </a>
 <br/>Thanks to BrowserStack for providing an open-source account for testing & development!
+
+## Sette opp django
+
+- gå inn i django mappa
+- pass på at du har python3
+- skriv virtualenv.exe environment
+- aktiver environment med .environment/Scripts/activate.ps1
+- pip install django
+- django-admin.exe startproject forvaltningsportal .
+- lag models.py
+- .\manage.py makemigrations forvaltningsportal
+- python .\manage.py migrate
+- python .\manage.py createsuperuser
+- lag admin.py
+- python .\manage.py runserver
+- når adminpanelet via localhost:8000/admin
