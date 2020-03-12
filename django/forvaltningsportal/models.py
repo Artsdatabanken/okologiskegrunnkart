@@ -37,9 +37,9 @@ class Kartlag(models.Model):
     wmslayer = models.CharField(max_length=100,blank=True)
     faktaark = models.CharField(max_length=500,blank=True)
     klikkurl = models.CharField(max_length=500,blank=True)
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True)
+    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True,blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
-    tema = models.ForeignKey(Tema, on_delete=models.SET_NULL, null=True)
+    tema = models.ForeignKey(Tema, on_delete=models.SET_NULL, null=True,blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
     def __str__(self):
        return self.tittel
