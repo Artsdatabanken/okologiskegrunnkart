@@ -7,9 +7,8 @@
     "kart": {
       "format": {
         "wms": {
-          "url": "https://wms.nibio.no/cgi-bin/skogbruksplan?",
-          "layer": "Livsmiljoer",
-          "version": "1.3.0"
+          "url": "https://wms.nibio.no/cgi-bin/skogbruksplan",
+          "layer": "Livsmiljoer"
         }
       }
     },
@@ -26,9 +25,8 @@
     "kart": {
       "format": {
         "wms": {
-          "url": "https://wms.nibio.no/cgi-bin/ar5?",
-          "layer": "Hovedgrupper",
-          "version": "1.3.0"
+          "url": "https://wms.nibio.no/cgi-bin/ar5",
+          "layer": "Hovedgrupper"
         }
       }
     },
@@ -50,13 +48,12 @@
       "format": {
         "wms": {
           "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?",
-          "layer": "naturtyper_nin_alle",
-          "version": "1.1.1"
+          "layer": "naturtyper_nin_alle"
         }
       }
     },
     "featureinfo": {
-      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.1.1&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
+      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
     },
     "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/"
   },
@@ -77,8 +74,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K",
-          "version": "1.1.1"
+          "layer": "LA-K"
         }
       }
     }
@@ -92,8 +88,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-A",
-          "version": "1.1.1"
+          "layer": "LA-I-A"
         }
       }
     }
@@ -107,8 +102,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-D",
-          "version": "1.1.1"
+          "layer": "LA-I-D"
         }
       }
     }
@@ -122,8 +116,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-I-S",
-          "version": "1.1.1"
+          "layer": "LA-I-S"
         }
       }
     }
@@ -137,8 +130,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K-F",
-          "version": "1.1.1"
+          "layer": "LA-K-F"
         }
       }
     }
@@ -152,8 +144,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-K-S",
-          "version": "1.1.1"
+          "layer": "LA-K-S"
         }
       }
     }
@@ -167,8 +158,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-AI_k",
-          "version": "1.1.1"
+          "layer": "LA-KLG-AI_k"
         }
       }
     }
@@ -197,8 +187,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-JA_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-JA_d"
         }
       }
     }
@@ -212,8 +201,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-KA_k",
-          "version": "1.1.1"
+          "layer": "LA-KLG-KA_k"
         }
       }
     }
@@ -227,8 +215,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-VP_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-VP_d"
         }
       }
     }
@@ -242,8 +229,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-BP_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-BP_d"
         }
       }
     }
@@ -257,8 +243,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-IYK_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-IYK_d"
         }
       }
     }
@@ -272,8 +257,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-IA_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-RE-IA_d"
         }
       }
     }
@@ -287,8 +271,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-KF-ID_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-RE-KF-ID_d"
         }
       }
     }
@@ -302,8 +285,7 @@
       "format": {
         "wms": {
           "url": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
-          "layer": "LA-KLG-RE-KS_d",
-          "version": "1.1.1"
+          "layer": "LA-KLG-RE-KS_d"
         }
       }
     }
@@ -318,8 +300,7 @@
       "format": {
         "wms": {
           "url": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
-          "layer": "VerneplanforVassdrag",
-          "version": "1.3.0"
+          "layer": "VerneplanforVassdrag"
         }
       }
     },
