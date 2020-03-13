@@ -17,13 +17,11 @@ class ForvaltningsKartlag extends React.Component {
     let sortcriteria = this.state.sortcriteria;
     let sorted = {};
 
-    let taglist = [];
+    let taglist = new Set();
     for (let i in lag) {
       let new_tags = lag[i]["tags"];
       if (new_tags) {
-        taglist = taglist.concat(
-          new_tags.filter(item => taglist.indexOf(item) < 0)
-        );
+        for (let tag of new_tags) taglist.add(tag);
       }
     }
     for (let item in lag) {
@@ -46,7 +44,7 @@ class ForvaltningsKartlag extends React.Component {
             <div className="sort_chooser_container">
               <h4>Filtrering</h4>
 
-              {taglist.map(element => {
+              {Array.from(taglist).map(element => {
                 return (
                   <div className="filterobject">
                     <input
