@@ -24,14 +24,15 @@ class Backend {
     );
   }
 
-  static async getFeatureInfo(protokoll, url) {
-    const api = protokoll === "json" ? json_api : wms_api;
+  static async getFeatureInfo(url) {
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
           if (response.status !== 200)
             return reject("HTTP status " + response.status);
-          api.parse(response).then(res => {
+          response.text().then(text => {
+            const api = text[0] === "{" ? json_api : wms_api;
+            const res = api.parse(text);
             res.url = url;
             resolve(res);
           });
