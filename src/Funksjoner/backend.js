@@ -1,6 +1,5 @@
 import json_api from "./json_api";
 import wms_api from "./wms_api";
-import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 class Backend {
   static async getPromise(url) {
@@ -47,10 +46,8 @@ class Backend {
           response.text().then(text => {
             const api = text[0] === "{" ? json_api : wms_api;
             var res = api.parse(text);
-            //res.url = url;
             res = res.FIELDS || res;
             for (var key of boringkeys) delete res[key];
-            console.warn("----", res);
             resolve(res);
           });
         })
