@@ -117,8 +117,4 @@ const GeneriskElement = props => {
   );
 };
 
-function round(v) {
-  return Math.round(v * 100) / 100;
-}
-
 export default GeneriskElement;
