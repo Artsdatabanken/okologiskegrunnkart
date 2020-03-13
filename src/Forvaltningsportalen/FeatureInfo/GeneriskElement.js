@@ -47,9 +47,10 @@ const GeneriskElement = props => {
 
     if (resultat.error)
       secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
-    if (resultat.loading) secondary_text = "...'"; //return <LoadingItem title={primary_text} />;
-
-    secondary_text = lookup(resultat, kartlag.klikktekst);
+    else if (resultat.loading) secondary_text = "...'";
+    //return <LoadingItem title={primary_text} />;
+    else
+      secondary_text = lookup(resultat, kartlag.klikktekst) || secondary_text;
     primary_text = kartlag.tittel || primary_text;
   } else {
     // Her kan vi teknisk sett akseptere å vise element som ikke har en match i kartlagfila også
