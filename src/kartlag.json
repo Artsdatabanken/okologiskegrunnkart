@@ -18,9 +18,7 @@
     "kode": "arealtype",
     "featureinfo": {
       "url": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "layer": "Arealtyper_layer",
-      "feature": "Arealtyper_feature",
-      "feature_text": "artype_beskrivelse"
+      "layer": "Arealtyper_layer"
     },
     "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     "wmsurl": "https://wms.nibio.no/cgi-bin/ar5",
@@ -224,8 +222,7 @@
     "tittel": "Laksefjord",
     "featureinfo": {
       "url": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "layer": "layer_388_layer",
-      "feature": "layer_388_feature"
+      "layer": "layer_388_layer"
     },
     "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/"
   },
@@ -235,9 +232,7 @@
     "tittel": "Løsmasse",
     "featureinfo": {
       "url": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "layer": "Losmasse_flate_layer",
-      "feature": "Losmasse_flate_feature",
-      "feature_text": "losmassetype_tekst"
+      "layer": "Losmasse_flate_layer"
     },
     "faktaark": ""
   }
