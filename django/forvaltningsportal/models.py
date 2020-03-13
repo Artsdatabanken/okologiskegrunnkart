@@ -47,8 +47,6 @@ class Kartlag(models.Model):
 
 @receiver(post_save, sender=Kartlag)
 def createJSON(sender, instance, **kwargs):
-    print("************Doing the thing************")
-
     dict = {}
     for kartlag in Kartlag.objects.all():
         dict[kartlag.tittel] = {
@@ -69,12 +67,6 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.tittel]['kode'] = kartlag.kode
         if kartlag.klikkurl:
             dict[kartlag.tittel]['klikkurl'] = kartlag.klikkurl
-
         # og så legg til nye felt, som tags osv
-
-
-    print(json.dumps(dict,indent=4,sort_keys=True))
-    with open("kartlag_ny.json","w", encoding='utf8') as file:
+    with open("../src/kartlag_ny.json","w", encoding='utf8') as file:
         json.dump(dict,file,indent=4,sort_keys=True, ensure_ascii=False)
-
-    print("************FINISHED doing the thing************")
