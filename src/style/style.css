@@ -159,7 +159,7 @@ h4.container_header {
 }
 
 .filterobject input {
-  vertical-align: middle;
+  vertical-align: top;
 }
 
 .sort_chooser_container select {
