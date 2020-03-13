@@ -20,7 +20,7 @@ class App extends React.Component {
     super(props);
     Object.values(kartlag).forEach(k => {
       k.opacity = 0.8;
-      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } }
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
     this.state = {
       kartlag: {
@@ -146,19 +146,19 @@ class App extends React.Component {
     // Denne henter utvalgte lag baser på listen layers
     var layersresultat = {};
     Object.keys(looplist).forEach(key => {
-      if (!looplist[key].featureinfo) return;
+      if (!looplist[key].klikkurl) return;
       layersresultat[key] = { loading: true };
     });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
-      const layer = looplist[key].featureinfo;
+      const layer = looplist[key];
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
-      var url = url_formatter(layer.url, lat, lng, delta);
+      var url = url_formatter(layer.klikkurl, lat, lng, delta);
       backend
-        .getFeatureInfo(layer.protokoll, url)
+        .getFeatureInfo(url)
         .then(res => {
           let layersresultat = this.state.layersresultat;
-          layersresultat[key] = res.FIELDS || res;
+          layersresultat[key] = res;
           this.setState(layersresultat);
         })
         .catch(e => {

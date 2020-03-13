@@ -1,5 +1,6 @@
 import json_api from "./json_api";
 import wms_api from "./wms_api";
+import { CompassCalibrationOutlined } from "@material-ui/icons";
 
 class Backend {
   static async getPromise(url) {
@@ -25,6 +26,19 @@ class Backend {
   }
 
   static async getFeatureInfo(url) {
+    const boringkeys = [
+      "gml:boundedBy",
+      "gml:Box",
+      "srsName",
+      "gml:coordinates",
+      "xmlns",
+      "xmlns:gml",
+      "xmlns:xlink",
+      "xmlns:xsi",
+      "xsi:schemaLocation",
+      "version"
+    ];
+
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
@@ -32,8 +46,11 @@ class Backend {
             return reject("HTTP status " + response.status);
           response.text().then(text => {
             const api = text[0] === "{" ? json_api : wms_api;
-            const res = api.parse(text);
-            res.url = url;
+            var res = api.parse(text);
+            //res.url = url;
+            res = res.FIELDS || res;
+            for (var key of boringkeys) delete res[key];
+            console.warn("----", res);
             resolve(res);
           });
         })
