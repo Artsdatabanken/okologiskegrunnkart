@@ -74,13 +74,11 @@ const GeneriskElement = props => {
       }
     } else {
       const layer = resultat[featureinfo.layer] || {};
-      const feature = layer[featureinfo.feature] || {};
       primary_text = kartlag.tittel || primary_text;
-
       if (kartlag.type === "arealtype") {
-        const { areal, artype, artype_beskrivelse } = feature;
+        const { areal, artype, artype_beskrivelse } =
+          layer["Arealtyper_feature"] || {};
         if (artype_beskrivelse) {
-          //var kode = "FP-NH";
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
@@ -88,15 +86,18 @@ const GeneriskElement = props => {
           secondary_text = tittel + " " + artype;
         }
       } else if (kartlag.type === "laksefjord") {
-        const { fjord, fylke } = feature;
+        const { fjord, fylke } = layer["layer_388_feature"] || {};
         if (fjord) {
           url = url + fjord;
           primary_text = fjord;
           secondary_text = tittel + " i " + fylke;
         }
-      } else {
-        const title = feature[featureinfo.feature_text];
-        if (title) primary_text = title;
+      } else if (kartlag.type === "løsmasse") {
+        const feature = layer["Losmasse_flate_feature"] || {};
+        const title = feature["losmassetype_tekst"];
+        if (title) {
+          primary_text = title;
+        }
         const objectid = feature["objectid"];
         if (objectid) secondary_text = tittel + " " + objectid;
       }
