@@ -210,7 +210,7 @@
     "tittel": "Bioklimatisk sone",
     "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
     "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
-    "klikktekst": "{v}"
+    "klikktekst": "{trinn.tittel.nb} (PCA2={v})"
   },
   "seksjon": {
     "type": "bioklimatisk_seksjon",
@@ -218,7 +218,7 @@
     "tittel": "Bioklimatisk seksjon",
     "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
     "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-    "klikktekst": "{v}"
+    "klikktekst": "{trinn.tittel.nb} (PCA1={v})"
   },
   "kalk": {
     "type": "kalk",
@@ -226,7 +226,7 @@
     "tittel": "Kalkinnhold",
     "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
     "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-LKM-KA",
-    "klikktekst": "{v}",
+    "klikktekst": "{trinn.tittel.nb} {v}",
     "tags": ["Miljøvariabler og økologiske grunnlagsdata", "Feltkartlagte data"]
   },
   "laksefjord": {

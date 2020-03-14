@@ -44,16 +44,14 @@ const Klikktekst = ({ input, formatstring }) => {
   });
 
   return (
-    <div className="App">
-      <p>
-        {hits.map(e => {
-          if (e.component) return React.createElement(Test, e.component.props);
-          if (e.variable) return lookup(input, e.variable);
-          if (e.literal) return e.literal;
-          return null;
-        })}
-      </p>
-    </div>
+    <>
+      {hits.map(e => {
+        if (e.component) return React.createElement(Test, e.component.props);
+        if (e.variable) return lookup(input, e.variable);
+        if (e.literal) return e.literal;
+        return null;
+      })}
+    </>
   );
 };
 
