@@ -6,6 +6,7 @@
     "tema": "Skog",
     "wmsurl": "https://wms.nibio.no/cgi-bin/skogbruksplan",
     "wmslayer": "Livsmiljoer",
+    "faktaark": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "klikktekst": "{vegtype_beskr}",
     "tags": ["Feltkartlagte data", "Naturtype"]
