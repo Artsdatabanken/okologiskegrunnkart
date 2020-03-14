@@ -12,11 +12,11 @@
   },
   "arealtype": {
     "type": "arealtype",
-    "tittel": "Arealressurs: Hovedgrupper - AR5 Arealtype",
+    "tittel": "Arealressurs: Hovedgrupper - AR50 Arealtype",
     "dataeier": "NIBIO",
     "tema": "Arealressurs",
     "kode": "arealtype",
-    "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+    "faktaark": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "wmsurl": "https://wms.nibio.no/cgi-bin/ar5",
     "wmslayer": "Hovedgrupper",
     "klikkurl": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",

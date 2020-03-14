@@ -93,6 +93,10 @@ class App extends React.Component {
                   resultat={this.state.resultat}
                   layersresultat={this.state.layersresultat}
                   handleExtensiveInfo={this.handleExtensiveInfo}
+                  coordinates_area={{
+                    lat: this.state.lat,
+                    lng: this.state.lng
+                  }}
                 />
               </>
             </>

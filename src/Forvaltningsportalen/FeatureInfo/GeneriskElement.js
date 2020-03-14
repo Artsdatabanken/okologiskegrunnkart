@@ -17,6 +17,18 @@ import LoadingPlaceholder from "./LoadingPlaceholder";
 import { CircularProgress } from "@material-ui/core";
 import Klikktekst from "./Klikktekst";
 
+const formatterFaktaarkUrl = (formatstring, pos) => {
+  if (!formatstring) return;
+  const delta = 0.01;
+  const bbox = [
+    pos.lng - delta,
+    pos.lat - delta,
+    pos.lng + delta,
+    pos.lat + delta
+  ].join(",");
+  return formatstring.replace("{bbox}", bbox);
+};
+
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
   const resultat = props.resultat;
@@ -29,7 +41,7 @@ const GeneriskElement = props => {
   let url = props.element.url || "";
   // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
   primary_text = kartlag.tittel || "mangler tittel";
-  url = kartlag.faktaark;
+  url = formatterFaktaarkUrl(kartlag.faktaark, props.coordinates_area);
 
   secondary_text = (
     <Klikktekst input={resultat} formatstring={kartlag.klikktekst} />

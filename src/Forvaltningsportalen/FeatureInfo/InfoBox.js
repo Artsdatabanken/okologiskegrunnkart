@@ -48,6 +48,7 @@ const InfoBox = ({
             Object.keys(layersresultat).map(key => {
               return (
                 <GeneriskElement
+                  coordinates_area={coordinates_area}
                   key={key}
                   kartlag={valgteLag}
                   resultat={layersresultat[key]}
