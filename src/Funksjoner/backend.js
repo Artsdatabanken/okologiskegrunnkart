@@ -37,6 +37,14 @@ class Backend {
       "xsi:schemaLocation",
       "version"
     ];
+    function collapseLayerFeature(i) {
+      const layerKey = Object.keys(i).find(e => e.endsWith("_layer"));
+      if (!layerKey) return i;
+      i = i[layerKey];
+      const featureKey = Object.keys(i).find(e => e.endsWith("_feature"));
+      if (!featureKey) return i;
+      return i[featureKey];
+    }
 
     return new Promise((resolve, reject) => {
       fetch(url)
@@ -47,6 +55,7 @@ class Backend {
             const api = text[0] === "{" ? json_api : wms_api;
             var res = api.parse(text);
             res = res.FIELDS || res;
+            res = collapseLayerFeature(res);
             for (var key of boringkeys) delete res[key];
             resolve(res);
           });

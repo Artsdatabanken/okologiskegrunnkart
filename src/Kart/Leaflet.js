@@ -62,7 +62,7 @@ class Leaflet extends React.Component {
     let def = {
       scene: createScene(this.props),
       events: {
-        hover: function (selection) { },
+        hover: function(selection) {},
         click: this.handleClick,
         drag: this.handleDrag
       },
@@ -156,7 +156,6 @@ class Leaflet extends React.Component {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
       const prev = this.wms[layerName];
-      console.log('___', al)
       if (!al.kart.format.wms || !al.kart.format.wms.url) return;
       const wms = al.kart.format.wms;
       if (wms.url && al.erSynlig) {

@@ -6,10 +6,13 @@ const Test = props => {
 
 function lookup(o, path) {
   if (o.loading || o.error) return;
+  if (!path) return JSON.stringify(o);
   const segments = path.split(".");
   for (var segment of segments) {
-    if (segment === "undefined") continue;
-    if (!o[segment]) return null;
+    if (!o[segment]) {
+      console.warn(path, segment + " mangler i ", o);
+      return null;
+    }
     o = o[segment];
   }
   if (typeof o === "string") return o;
@@ -30,6 +33,7 @@ function mapComponent(c) {
 }
 
 const Klikktekst = ({ input, formatstring }) => {
+  console.log(formatstring, JSON.stringify(input));
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
 

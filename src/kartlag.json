@@ -20,12 +20,12 @@
     "wmsurl": "https://wms.nibio.no/cgi-bin/ar5",
     "wmslayer": "Hovedgrupper",
     "klikkurl": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-    "klikktekst": "{Arealtyper_layer.Arealtyper_feature.artype_beskrivelse}",
+    "klikktekst": "{artype_beskrivelse}",
     "tags": ["DOK-data", "Naturtype"]
   },
   "naturtype": {
     "type": "naturtype",
-    "tittel": "Naturtyper: naturtyper ",
+    "tittel": "Naturtyper: naturtyper",
     "dataeier": "Miljødirektoratet",
     "tema": "Naturtyper",
     "kode": "naturtype",
@@ -34,10 +34,7 @@
     "wmslayer": "naturtyper_nin_alle",
     "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?&version=1.3.0&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "klikktekst": "{}",
-    "tags": ["Naturtype", "DOK-data", "Feltkartlagte data"],
-    "featureinfo": {
-      "url": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}"
-    }
+    "tags": ["Naturtype", "DOK-data", "Feltkartlagte data"]
   },
   "landskap": {
     "type": "landskap",
@@ -235,7 +232,7 @@
     "tittel": "Laksefjord",
     "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
     "klikkurl": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-    "klikktekst": "{layer_388_layer.layer_388_feature.undefined}"
+    "klikktekst": "{}"
   },
   "løsmasse": {
     "type": "løsmasse",
@@ -243,6 +240,6 @@
     "tittel": "Løsmasse",
     "faktaark": "",
     "klikkurl": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-    "klikktekst": "{Losmasse_flate_layer.Losmasse_flate_feature.losmassetype_tekst}"
+    "klikktekst": "{losmassetype_tekst}"
   }
 }
