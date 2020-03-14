@@ -15,48 +15,27 @@ import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import LoadingPlaceholder from "./LoadingPlaceholder";
 import { CircularProgress } from "@material-ui/core";
-
-function lookup(o, path) {
-  if (o.loading || o.error) return;
-  const segments = path.split(".");
-  //  if (o[segments[0]])
-  console.log(segments, o);
-
-  for (var segment of segments) {
-    if (segment === "undefined") continue;
-    if (!o[segment]) return null;
-    o = o[segment];
-  }
-  console.log("resssss", path, o);
-  if (typeof o === "string") return o;
-  return JSON.stringify(o);
-}
+import Klikktekst from "./Klikktekst";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
-  const layername = props.element || "navnløs";
-  const resultat = props.resultat || "resultatløs";
-  let kartlag = props.kartlag[layername] || null;
+  const resultat = props.resultat;
+
+  let kartlag = props.kartlag[props.element];
+  if (!kartlag) return null;
+
   let primary_text = "fant ingen match i kartlag";
   let secondary_text = "fant ingen for området";
   let url = props.element.url || "";
-  if (kartlag) {
-    // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
-    primary_text = kartlag.tittel || "mangler tittel";
-    url = kartlag.faktaark;
+  // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
+  primary_text = kartlag.tittel || "mangler tittel";
+  url = kartlag.faktaark;
 
-    if (resultat.error)
-      secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
-    else if (resultat.loading) secondary_text = "...'";
-    //return <LoadingItem title={primary_text} />;
-    else
-      secondary_text = lookup(resultat, kartlag.klikktekst) || secondary_text;
-    primary_text = kartlag.tittel || primary_text;
-  } else {
-    // Her kan vi teknisk sett akseptere å vise element som ikke har en match i kartlagfila også
-    // Hvordan ønsker vi da å fremstille dem?
-    return null;
-  }
+  secondary_text = (
+    <Klikktekst input={resultat} formatstring={kartlag.klikktekst} />
+  );
+  primary_text = kartlag.tittel || primary_text;
+
   return (
     <div
       style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
