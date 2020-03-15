@@ -33,7 +33,6 @@ function mapComponent(c) {
 }
 
 const Klikktekst = ({ input, formatstring }) => {
-  console.log(formatstring, JSON.stringify(input));
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
 

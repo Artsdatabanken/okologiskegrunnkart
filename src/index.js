@@ -5,6 +5,7 @@ import App from "./App";
 import * as Sentry from "@sentry/browser";
 import { BrowserRouter } from "react-router-dom";
 import SettingsContainer from "SettingsContainer";
+import AuthenticationContextProvider from "./AuthenticationContextProvider";
 import "style/style.css";
 import "style/leaflet.css";
 
@@ -77,9 +78,11 @@ if (isIE11) {
     <BrowserRouter baseName={process.env.PUBLIC_URL}>
       <RootBoundary>
         <SettingsContainer>
-          <ThemeProvider theme={theme}>
-            <App />
-          </ThemeProvider>
+          <AuthenticationContextProvider>
+            <ThemeProvider theme={theme}>
+              <App />
+            </ThemeProvider>
+          </AuthenticationContextProvider>
         </SettingsContainer>
       </RootBoundary>
     </BrowserRouter>,

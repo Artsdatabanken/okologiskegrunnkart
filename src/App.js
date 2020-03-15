@@ -9,7 +9,7 @@ import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "Kart/Leaflet";
-
+import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./AppSettings/bakgrunnskarttema";
 import fjellskygge from "./AppSettings/fjellskygge";
 import { setValue } from "Funksjoner/setValue";
@@ -52,56 +52,61 @@ class App extends React.Component {
       <SettingsContext.Consumer>
         {context => {
           return (
-            <>
-              <>
-                <TopBarContainer />
-                <KartVelger
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  aktivtFormat={basiskart.kart.aktivtFormat}
-                />
-                <Kart
-                  showExtensiveInfo={this.state.showExtensiveInfo}
-                  handleExtensiveInfo={this.handleExtensiveInfo}
-                  handleLokalitetUpdate={this.hentInfoAlleLag}
-                  handleValgteLag={this.hentInfoValgteLag}
-                  forvaltningsportal={true}
-                  show_current={this.state.showCurrent}
-                  bounds={this.state.fitBounds}
-                  latitude={65.4}
-                  longitude={15.8}
-                  zoom={3.1}
-                  aktiveLag={this.state.kartlag}
-                  opplyst={this.state.opplyst}
-                  opplystKode={this.state.opplystKode}
-                  onMapBoundsChange={this.handleActualBoundsChange}
-                  onMapMove={context.onMapMove}
-                  history={history}
-                  sted={this.state.sted}
-                  layersresultat={this.state.layersresultat}
-                  valgteLag={this.state.valgteLag}
-                  {...this.state}
-                />
-                <RightWindow
-                  {...this.state}
-                  path={path}
-                  history={history}
-                  show_current={this.state.showCurrent}
-                  onFitBounds={this.handleFitBounds}
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  kartlag={this.state.kartlag}
-                />
-                <FeatureInfo
-                  {...this.state}
-                  resultat={this.state.resultat}
-                  layersresultat={this.state.layersresultat}
-                  handleExtensiveInfo={this.handleExtensiveInfo}
-                  coordinates_area={{
-                    lat: this.state.lat,
-                    lng: this.state.lng
-                  }}
-                />
-              </>
-            </>
+            <AuthenticationContext.Consumer>
+              {token => {
+                return (
+                  <>
+                    <TopBarContainer />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      aktivtFormat={basiskart.kart.aktivtFormat}
+                    />
+                    <Kart
+                      showExtensiveInfo={this.state.showExtensiveInfo}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      handleLokalitetUpdate={this.hentInfoAlleLag}
+                      handleValgteLag={this.hentInfoValgteLag}
+                      forvaltningsportal={true}
+                      show_current={this.state.showCurrent}
+                      bounds={this.state.fitBounds}
+                      latitude={65.4}
+                      longitude={15.8}
+                      zoom={3.1}
+                      aktiveLag={this.state.kartlag}
+                      opplyst={this.state.opplyst}
+                      opplystKode={this.state.opplystKode}
+                      onMapBoundsChange={this.handleActualBoundsChange}
+                      onMapMove={context.onMapMove}
+                      history={history}
+                      sted={this.state.sted}
+                      layersresultat={this.state.layersresultat}
+                      valgteLag={this.state.valgteLag}
+                      token={token}
+                      {...this.state}
+                    />
+                    <RightWindow
+                      {...this.state}
+                      path={path}
+                      history={history}
+                      show_current={this.state.showCurrent}
+                      onFitBounds={this.handleFitBounds}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      kartlag={this.state.kartlag}
+                    />
+                    <FeatureInfo
+                      {...this.state}
+                      resultat={this.state.resultat}
+                      layersresultat={this.state.layersresultat}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      coordinates_area={{
+                        lat: this.state.lat,
+                        lng: this.state.lng
+                      }}
+                    />
+                  </>
+                );
+              }}
+            </AuthenticationContext.Consumer>
           );
         }}
       </SettingsContext.Consumer>
@@ -205,7 +210,6 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
-    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
       if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {

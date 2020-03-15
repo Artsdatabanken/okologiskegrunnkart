@@ -22,8 +22,7 @@ function createScene(props) {
 
 function updateScene(config, props) {
   if (!config) return; // not yet loaded
-  lagAktiveLag(props.aktiveLag, props.opplyst, config);
-  console.log("config", config);
+  lagAktiveLag(props.aktiveLag, props.opplyst, config, props.token);
   return config;
 }
 

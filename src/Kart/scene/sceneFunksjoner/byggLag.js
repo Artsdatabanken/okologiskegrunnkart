@@ -1,6 +1,6 @@
 import lagTegner from "./lagTegner";
 
-export default function byggLag(lag, config) {
+export default function byggLag(lag, config, token) {
   if (!lag.kart) lag.kart = {};
   if (!lag.kart.format) lag.kart.format = {};
   if (!lag.kart.aktivtFormat)
@@ -14,6 +14,7 @@ export default function byggLag(lag, config) {
     aktivtFormat: lag.kart.aktivtFormat,
     format: lag.kart.format,
     opacity: lag.opacity || "1",
+    token,
     blendmode: lag.blendmode || "overlay"
   };
 

@@ -1,5 +1,4 @@
 import tinycolor from "tinycolor2";
-import token from "../../../authentication_token";
 
 function drawAll() {
   return {
@@ -14,11 +13,10 @@ function drawAll() {
   };
 }
 
-function lagSource({ url, zoom }) {
-  console.log("dididi", url);
+function lagSource({ url, zoom }, drawArgs) {
   return {
     type: "Raster",
-    url: url.replace("{gkt}", token.kartverket),
+    url: url.replace("{gkt}", drawArgs.token),
     max_zoom: zoom[1]
   };
 }
