@@ -10,7 +10,8 @@ import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "Kart/Leaflet";
 
-import bakgrunnskarttema from "./AppSettings/bakgrunnskarttema";
+import bakgrunnskart from "./AppSettings/bakgrunnskarttema";
+import fjellskygge from "./AppSettings/fjellskygge";
 import { setValue } from "Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
@@ -24,7 +25,8 @@ class App extends React.Component {
     });
     this.state = {
       kartlag: {
-        bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
+        bakgrunnskart, //: JSON.parse(JSON.stringify(bakgrunnskarttema)),
+        fjellskygge,
         ...kartlag
       },
       valgteLag: {},
@@ -203,6 +205,7 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
+    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
       if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {

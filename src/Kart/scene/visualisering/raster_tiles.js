@@ -1,4 +1,5 @@
 import tinycolor from "tinycolor2";
+import token from "../../../authentication_token";
 
 function drawAll() {
   return {
@@ -14,14 +15,15 @@ function drawAll() {
 }
 
 function lagSource({ url, zoom }) {
+  console.log("dididi", url);
   return {
     type: "Raster",
-    url: url,
+    url: url.replace("{gkt}", token.kartverket),
     max_zoom: zoom[1]
   };
 }
 
-function lagStyle(format, drawArgs) {
+function lagStyle(format) {
   const tint = tinycolor(format.tint);
   const tintar = [tint._r / 255, tint._g / 255, tint._b / 255, 1.0 - tint._a];
 

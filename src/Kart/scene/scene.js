@@ -22,8 +22,8 @@ function createScene(props) {
 
 function updateScene(config, props) {
   if (!config) return; // not yet loaded
-  const viserKatalog = !!props.meta; // meta = true or meta = false , never meta = null
-  lagAktiveLag(props.aktiveLag, viserKatalog, props.opplyst, config);
+  lagAktiveLag(props.aktiveLag, props.opplyst, config);
+  console.log("config", config);
   return config;
 }
 

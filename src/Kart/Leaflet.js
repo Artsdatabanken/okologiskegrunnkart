@@ -6,6 +6,7 @@ import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
+import token from "../authentication_token";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -156,11 +157,13 @@ class Leaflet extends React.Component {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
       const prev = this.wms[layerName];
-      if (!al.kart.format.wms || !al.kart.format.wms.url) return;
+      if (!al.wmsurl) return;
+      const url = al.wmsurl.replace("{gkt}", token.kartverket);
+      console.log(al.wmsurl, url);
       const wms = al.kart.format.wms;
-      if (wms.url && al.erSynlig) {
+      if (al.erSynlig) {
         if (!prev) {
-          var wmsLayer = L.tileLayer.wms(wms.url, {
+          var wmsLayer = L.tileLayer.wms(url, {
             layers: wms.layer,
             transparent: true,
             format: "image/png",
