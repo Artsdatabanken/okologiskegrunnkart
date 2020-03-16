@@ -62,7 +62,7 @@ class Leaflet extends React.Component {
     let def = {
       scene: createScene(this.props),
       events: {
-        hover: function (selection) { },
+        hover: function(selection) {},
         click: this.handleClick,
         drag: this.handleDrag
       },
@@ -83,6 +83,7 @@ class Leaflet extends React.Component {
     if (this.props.aktiveLag !== prevProps.aktiveLag) return true;
     if (this.props.opplystKode !== prevProps.opplystKode) return true;
     if (this.props.show_current !== prevProps.show_current) return true;
+    if (this.props.token !== prevProps.token) return true;
   }
 
   componentDidUpdate(prevProps) {
@@ -145,6 +146,7 @@ class Leaflet extends React.Component {
   };
 
   updateMap(props) {
+    if (!this.props.token) return; // not yet loaded
     if (!this.layer.scene.config) return; // not yet loaded
     updateScene(this.layer.scene.config, props);
     this.layer.scene.updateConfig({ rebuild: true });
@@ -155,25 +157,24 @@ class Leaflet extends React.Component {
     Object.keys(aktive).forEach(akey => {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
-      const prev = this.wms[layerName];
-      console.log('___', al)
-      if (!al.kart.format.wms || !al.kart.format.wms.url) return;
-      const wms = al.kart.format.wms;
-      if (wms.url && al.erSynlig) {
-        if (!prev) {
-          var wmsLayer = L.tileLayer.wms(wms.url, {
-            layers: wms.layer,
+      var layer = this.wms[layerName];
+      if (!al.wmsurl) return;
+      if (al.erSynlig) {
+        if (!layer) {
+          layer = L.tileLayer.wms("", {
+            layers: al.wmslayer,
             transparent: true,
             format: "image/png",
             opacity: al.opacity
           });
-          this.wms[layerName] = wmsLayer;
-          this.map.addLayer(wmsLayer);
-          wmsLayer.setOpacity(al.opacity);
-        } else prev.setOpacity(al.opacity);
+          this.wms[layerName] = layer;
+          this.map.addLayer(layer);
+        }
+        layer.setUrl(al.wmsurl.replace("{gkt}", this.props.token));
+        layer.setOpacity(al.opacity);
       } else {
-        if (prev) {
-          this.map.removeLayer(prev);
+        if (layer) {
+          this.map.removeLayer(layer);
           delete this.wms[layerName];
         }
       }

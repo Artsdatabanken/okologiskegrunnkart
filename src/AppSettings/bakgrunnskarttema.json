@@ -6,7 +6,9 @@
     "kode": "terreng",
     "type": "terreng",
     "aktivtFormat": "normals",
-    "tittel": { "tittel": "3D terreng" },
+    "tittel": {
+      "tittel": "3D terreng"
+    },
     "erSynlig": false,
     "vertikaltOverdriv": 1.0,
     "visKontur": false,
@@ -15,7 +17,7 @@
     "visEtikettKontur": true
   },
   "kart": {
-    "aktivtFormat": "google_satellite",
+    "aktivtFormat": "topo4",
     "format": {
       "osm_lys": {
         "tittel": "Lys (OpenStreetMap)",
@@ -70,12 +72,40 @@
         "landegrense_farge": "hsl(0,0%,30%)",
         "kanHaTerreng": true
       },
+      "norgeibilder": {
+        "kode": "bakgrunnskart",
+        "tittel": "Norge i bilder",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_web_mercator_v2?gkt={gkt}&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=0&TILED=true&PROJECTION=EPSG%3A3857&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&STYLES=&{z}&TileCol={x}&TileRow={y}"
+      },
+      "gebco": {
+        "kode": "bakgrunnskart",
+        "tittel": "Gebco",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=havbunn_grunnkart&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "fjellskygge": {
+        "kode": "bakgrunnskart",
+        "tittel": "Fjellskygge",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=fjellskygge&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
       "topo4": {
         "kode": "bakgrunnskart",
-        "tittel": "Topografisk Norgeskart (Kartverket)",
-        "zoom": [2, 20],
+        "tittel": "Topo 4",
+        "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://bakgrunnskart.artsdatabanken.no/v1/egk_topo4graatone/{z}/{x}/{y}"
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=topo4&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "topo4graatone": {
+        "kode": "bakgrunnskart",
+        "tittel": "Topo 4 gråtone",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=topo4graatone&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
       },
       "google_satellite": {
         "kode": "bakgrunnskart",

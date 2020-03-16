@@ -13,15 +13,15 @@ function drawAll() {
   };
 }
 
-function lagSource({ url, zoom }) {
+function lagSource({ url, zoom }, drawArgs) {
   return {
     type: "Raster",
-    url: url,
+    url: url.replace("{gkt}", drawArgs.token),
     max_zoom: zoom[1]
   };
 }
 
-function lagStyle(format, drawArgs) {
+function lagStyle(format) {
   const tint = tinycolor(format.tint);
   const tintar = [tint._r / 255, tint._g / 255, tint._b / 255, 1.0 - tint._a];
 

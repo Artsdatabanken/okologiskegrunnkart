@@ -3,14 +3,15 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "SettingsContext";
 import kartlag from "./kartlag";
 import url_formatter from "./Funksjoner/url_formatter";
-import backend from "Funksjoner/backend";
+import backend from "./Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "Kart/Leaflet";
-
-import bakgrunnskarttema from "AppSettings/bakgrunnskarttema";
+import AuthenticationContext from "./AuthenticationContext";
+import bakgrunnskart from "./AppSettings/bakgrunnskarttema";
+import fjellskygge from "./AppSettings/fjellskygge";
 import { setValue } from "Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
@@ -20,11 +21,12 @@ class App extends React.Component {
     super(props);
     Object.values(kartlag).forEach(k => {
       k.opacity = 0.8;
-      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } }
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
     this.state = {
       kartlag: {
-        bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
+        bakgrunnskart, //: JSON.parse(JSON.stringify(bakgrunnskarttema)),
+        fjellskygge,
         ...kartlag
       },
       valgteLag: {},
@@ -50,52 +52,61 @@ class App extends React.Component {
       <SettingsContext.Consumer>
         {context => {
           return (
-            <>
-              <>
-                <TopBarContainer />
-                <KartVelger
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  aktivtFormat={basiskart.kart.aktivtFormat}
-                />
-                <Kart
-                  showExtensiveInfo={this.state.showExtensiveInfo}
-                  handleExtensiveInfo={this.handleExtensiveInfo}
-                  handleLokalitetUpdate={this.hentInfoAlleLag}
-                  handleValgteLag={this.hentInfoValgteLag}
-                  forvaltningsportal={true}
-                  show_current={this.state.showCurrent}
-                  bounds={this.state.fitBounds}
-                  latitude={65.4}
-                  longitude={15.8}
-                  zoom={3.1}
-                  aktiveLag={this.state.kartlag}
-                  opplyst={this.state.opplyst}
-                  opplystKode={this.state.opplystKode}
-                  onMapBoundsChange={this.handleActualBoundsChange}
-                  onMapMove={context.onMapMove}
-                  history={history}
-                  sted={this.state.sted}
-                  layersresultat={this.state.layersresultat}
-                  valgteLag={this.state.valgteLag}
-                  {...this.state}
-                />
-                <RightWindow
-                  {...this.state}
-                  path={path}
-                  history={history}
-                  show_current={this.state.showCurrent}
-                  onFitBounds={this.handleFitBounds}
-                  onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                  kartlag={this.state.kartlag}
-                />
-                <FeatureInfo
-                  {...this.state}
-                  resultat={this.state.resultat}
-                  layersresultat={this.state.layersresultat}
-                  handleExtensiveInfo={this.handleExtensiveInfo}
-                />
-              </>
-            </>
+            <AuthenticationContext.Consumer>
+              {token => {
+                return (
+                  <>
+                    <TopBarContainer />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      aktivtFormat={basiskart.kart.aktivtFormat}
+                    />
+                    <Kart
+                      showExtensiveInfo={this.state.showExtensiveInfo}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      handleLokalitetUpdate={this.hentInfoAlleLag}
+                      handleValgteLag={this.hentInfoValgteLag}
+                      forvaltningsportal={true}
+                      show_current={this.state.showCurrent}
+                      bounds={this.state.fitBounds}
+                      latitude={65.4}
+                      longitude={15.8}
+                      zoom={3.1}
+                      aktiveLag={this.state.kartlag}
+                      opplyst={this.state.opplyst}
+                      opplystKode={this.state.opplystKode}
+                      onMapBoundsChange={this.handleActualBoundsChange}
+                      onMapMove={context.onMapMove}
+                      history={history}
+                      sted={this.state.sted}
+                      layersresultat={this.state.layersresultat}
+                      valgteLag={this.state.valgteLag}
+                      token={token}
+                      {...this.state}
+                    />
+                    <RightWindow
+                      {...this.state}
+                      path={path}
+                      history={history}
+                      show_current={this.state.showCurrent}
+                      onFitBounds={this.handleFitBounds}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      kartlag={this.state.kartlag}
+                    />
+                    <FeatureInfo
+                      {...this.state}
+                      resultat={this.state.resultat}
+                      layersresultat={this.state.layersresultat}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      coordinates_area={{
+                        lat: this.state.lat,
+                        lng: this.state.lng
+                      }}
+                    />
+                  </>
+                );
+              }}
+            </AuthenticationContext.Consumer>
           );
         }}
       </SettingsContext.Consumer>
@@ -146,19 +157,19 @@ class App extends React.Component {
     // Denne henter utvalgte lag baser på listen layers
     var layersresultat = {};
     Object.keys(looplist).forEach(key => {
-      if (!looplist[key].featureinfo) return;
+      if (!looplist[key].klikkurl) return;
       layersresultat[key] = { loading: true };
     });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
-      const layer = looplist[key].featureinfo;
+      const layer = looplist[key];
       const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
-      var url = url_formatter(layer.url, lat, lng, delta);
+      var url = url_formatter(layer.klikkurl, lat, lng, delta);
       backend
-        .getFeatureInfo(layer.protokoll, url)
+        .getFeatureInfo(url)
         .then(res => {
           let layersresultat = this.state.layersresultat;
-          layersresultat[key] = res.FIELDS || res;
+          layersresultat[key] = res;
           this.setState(layersresultat);
         })
         .catch(e => {
