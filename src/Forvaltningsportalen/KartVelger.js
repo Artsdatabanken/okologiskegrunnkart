@@ -1,5 +1,5 @@
 import baseMapSelectorImage from "./BaseMapSelectorImage.png";
-import BaseMapSelectorImageGoogle from "./BaseMapSelectorImageGoogle.png";
+//import BaseMapSelectorImageGoogle from "./BaseMapSelectorImageGoogle.png";
 import React from "react";
 import bakgrunnskart from "../AppSettings/bakgrunnskarttema";
 
