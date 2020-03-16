@@ -24,15 +24,39 @@ class Backend {
     );
   }
 
-  static async getFeatureInfo(protokoll, url) {
-    const api = protokoll === "json" ? json_api : wms_api;
+  static async getFeatureInfo(url) {
+    const boringkeys = [
+      "gml:boundedBy",
+      "gml:Box",
+      "srsName",
+      "gml:coordinates",
+      "xmlns",
+      "xmlns:gml",
+      "xmlns:xlink",
+      "xmlns:xsi",
+      "xsi:schemaLocation",
+      "version"
+    ];
+    function collapseLayerFeature(i) {
+      const layerKey = Object.keys(i).find(e => e.endsWith("_layer"));
+      if (!layerKey) return i;
+      i = i[layerKey];
+      const featureKey = Object.keys(i).find(e => e.endsWith("_feature"));
+      if (!featureKey) return i;
+      return i[featureKey];
+    }
+
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
           if (response.status !== 200)
             return reject("HTTP status " + response.status);
-          api.parse(response).then(res => {
-            res.url = url;
+          response.text().then(text => {
+            const api = text[0] === "{" ? json_api : wms_api;
+            var res = api.parse(text);
+            res = res.FIELDS || res;
+            res = collapseLayerFeature(res);
+            for (var key of boringkeys) delete res[key];
             resolve(res);
           });
         })

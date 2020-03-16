@@ -9,12 +9,11 @@ const FeatureInfo = ({
   showExtensiveInfo,
   kartlag,
   handleExtensiveInfo,
-  lat,
-  lng,
-  layersresultat,
+  coordinates_area,
+  layersresultat
 }) => {
   if (!showExtensiveInfo) return null;
-  if (!lat) return null;
+  if (!coordinates_area.lat) return null;
   return (
     <div className="infobox_container">
       <div className="all_layer_results">
@@ -40,6 +39,7 @@ const FeatureInfo = ({
               Object.keys(layersresultat).map(key => {
                 return (
                   <GeneriskElement
+                    coordinates_area={coordinates_area}
                     key={key}
                     kartlag={kartlag}
                     resultat={layersresultat[key]}

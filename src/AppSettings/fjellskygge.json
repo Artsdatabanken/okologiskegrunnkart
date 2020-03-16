@@ -1,0 +1,18 @@
+{
+  "kode": "fjellskygge",
+  "tittel": "Fjellskygge",
+  "erSynlig": true,
+  "kart": {
+    "aktivtFormat": "fjellskygge",
+    "format": {
+      "fjellskygge": {
+        "kode": "bakgrunnskart",
+        "tittel": "Fjellskygge",
+        "zoom": [2, 21],
+        "tint": "#fff",
+        "blendmode": "multiply",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=fjellskygge&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      }
+    }
+  }
+}

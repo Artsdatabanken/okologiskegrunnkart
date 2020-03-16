@@ -1,6 +1,6 @@
 // RESTful JSON API
 const json_api = {
-  parse: async response => JSON.parse(await response.text())
+  parse: text => JSON.parse(text)
 };
 
 export default json_api;

@@ -11,16 +11,15 @@ function drawAll() {
   };
 }
 
-function lagSource({ url, zoom }) {
-  console.warn(url);
+function lagSource({ url, zoom }, drawArgs) {
   return {
     type: "Raster",
-    url: url,
+    url: url.replace("{gkt}", drawArgs.token),
     max_zoom: zoom[1]
   };
 }
 
-function lagStyle(format, drawArgs) {
+function lagStyle(format) {
   return {
     name: "googleshade",
     value: {
