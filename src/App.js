@@ -18,6 +18,10 @@ export let exportableFullscreen;
 class App extends React.Component {
   constructor(props) {
     super(props);
+    Object.values(kartlag).forEach(k => {
+      k.opacity = 0.8;
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } }
+    });
     this.state = {
       kartlag: {
         bakgrunnskart: JSON.parse(JSON.stringify(bakgrunnskarttema)),
@@ -144,7 +148,7 @@ class App extends React.Component {
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].featureinfo) return;
       layersresultat[key] = { loading: true };
-    })
+    });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key].featureinfo;

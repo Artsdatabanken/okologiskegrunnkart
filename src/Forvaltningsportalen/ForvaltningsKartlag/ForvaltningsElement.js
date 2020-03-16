@@ -35,6 +35,7 @@ const ForvaltningsElement = ({
   const [open, setOpen] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
   if (!tittel) return null;
+  let tags = kartlag.tags || null;
 
   return (
     <>
@@ -73,6 +74,15 @@ const ForvaltningsElement = ({
             paddingTop: 16
           }}
         >
+          {tags && (
+            <>
+              Emneknagger: <br />
+              {tags.map((element, index) => {
+                return <div className="tags">{element}</div>;
+              })}
+            </>
+          )}
+
           {kartlag.kart && kartlag.kart.format.wms && (
             <div style={{ marginLeft: 24 }}>
               <Typography id="range-slider" gutterBottom>

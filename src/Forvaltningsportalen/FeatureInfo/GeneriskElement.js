@@ -27,10 +27,10 @@ const GeneriskElement = props => {
   let url = props.element.url || "";
   if (kartlag) {
     // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
-    primary_text = (kartlag.tittel && kartlag.tittel.nb) || "mangler tittel";
+    primary_text = kartlag.tittel || "mangler tittel";
     const featureinfo = kartlag.featureinfo;
-    let tittel = featureinfo.tittel || primary_text;
-    url = featureinfo.faktaark; //props.element.url || "";
+    let tittel = kartlag.tittel || primary_text;
+    url = kartlag.faktaark; //props.element.url || "";
 
     if (resultat.error)
       secondary_text = "Får ikke kontakt med leverandør" || resultat.error;
@@ -39,7 +39,7 @@ const GeneriskElement = props => {
     // Overført og modifisert fra ListeTreffElement - sammenligningene :)
     if (kartlag.type.split("_")[0] === "bioklimatisk") {
       const trinn = (props.resultat.barn || []).find(x => x.aktiv) || {
-        tittel: { nb: "Ingen data" }
+        tittel: "Ingen data"
       };
       const v = props.resultat.v || "ingen";
       secondary_text = trinn.tittel.nb + " (PCA " + v + " )";
@@ -74,13 +74,11 @@ const GeneriskElement = props => {
       }
     } else {
       const layer = resultat[featureinfo.layer] || {};
-      const feature = layer[featureinfo.feature] || {};
-      primary_text = featureinfo.tittel || primary_text;
-
+      primary_text = kartlag.tittel || primary_text;
       if (kartlag.type === "arealtype") {
-        const { areal, artype, artype_beskrivelse } = feature;
+        const { areal, artype, artype_beskrivelse } =
+          layer["Arealtyper_feature"] || {};
         if (artype_beskrivelse) {
-          //var kode = "FP-NH";
           if (!kartlag) kartlag = {};
           url = url + artype_beskrivelse.toLowerCase();
           primary_text =
@@ -88,23 +86,21 @@ const GeneriskElement = props => {
           secondary_text = tittel + " " + artype;
         }
       } else if (kartlag.type === "laksefjord") {
-        const { fjord, fylke } = feature;
+        const { fjord, fylke } = layer["layer_388_feature"] || {};
         if (fjord) {
           url = url + fjord;
           primary_text = fjord;
           secondary_text = tittel + " i " + fylke;
         }
-      } else {
-        const title = feature[featureinfo.feature_text];
-        if (title) primary_text = title;
+      } else if (kartlag.type === "løsmasse") {
+        const feature = layer["Losmasse_flate_feature"] || {};
+        const title = feature["losmassetype_tekst"];
+        if (title) {
+          primary_text = title;
+        }
         const objectid = feature["objectid"];
         if (objectid) secondary_text = tittel + " " + objectid;
       }
-      if (url && featureinfo.url_replace)
-        url = url.replace(
-          featureinfo.url_replace[0],
-          featureinfo.url_replace[1]
-        );
     }
   } else {
     // Her kan vi teknisk sett akseptere å vise element som ikke har en match i kartlagfila også
