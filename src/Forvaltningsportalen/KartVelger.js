@@ -3,7 +3,7 @@ import baseMapSelectorImage from "./BaseMapSelectorImage.png";
 import React from "react";
 import bakgrunnskart from "../AppSettings/bakgrunnskarttema";
 
-const tilgjengelige = ["gebco", "topo4", "topo4graatone", "fjellskygge"];
+const tilgjengelige = ["gebco", "topo4", "topo4graatone"];
 
 const KartVelger = props => {
   var current = tilgjengelige.indexOf(props.aktivtFormat);

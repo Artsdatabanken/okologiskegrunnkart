@@ -1,5 +1,5 @@
 import mal from "../mal/openStreetMap";
-import sysconfig from "Funksjoner/config";
+import sysconfig from "../../../Funksjoner/config";
 
 function override(o, key, value) {
   if (value === null) return;

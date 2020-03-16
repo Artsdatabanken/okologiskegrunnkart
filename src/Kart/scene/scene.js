@@ -1,9 +1,7 @@
-import { createLights } from "./lights";
 import { createStyles } from "./styles";
 import lagAktiveLag from "./sceneFunksjoner/lagAktiveLag";
 
 function createScene(props) {
-  //console.log(props);
   let config = {
     sources: {},
     cameras: {
@@ -11,7 +9,6 @@ function createScene(props) {
         type: "flat"
       }
     },
-    lights: createLights(),
     layers: {},
     styles: createStyles(),
     scene: { background: {} }

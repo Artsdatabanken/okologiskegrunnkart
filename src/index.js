@@ -4,10 +4,10 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as Sentry from "@sentry/browser";
 import { BrowserRouter } from "react-router-dom";
-import SettingsContainer from "SettingsContainer";
+import SettingsContainer from "./SettingsContainer";
 import AuthenticationContextProvider from "./AuthenticationContextProvider";
-import "style/style.css";
-import "style/leaflet.css";
+import "./style/style.css";
+import "./style/leaflet.css";
 
 true &&
   Sentry.init({

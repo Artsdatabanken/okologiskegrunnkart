@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
-import { SettingsContext } from "SettingsContext";
+import { SettingsContext } from "./SettingsContext";
 import kartlag from "./kartlag";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
@@ -8,11 +8,11 @@ import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
-import Kart from "Kart/Leaflet";
+import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./AppSettings/bakgrunnskarttema";
 import fjellskygge from "./AppSettings/fjellskygge";
-import { setValue } from "Funksjoner/setValue";
+import { setValue } from "./Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
 
@@ -210,6 +210,7 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
+    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
     for (let item in this.state.kartlag) {
       if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {

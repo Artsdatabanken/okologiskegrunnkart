@@ -2,7 +2,7 @@ import React from "react";
 import LocationSearching from "@material-ui/icons/LocationSearching";
 import { Close } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
-import "style/infobox.css";
+import "../../style/infobox.css";
 
 const InfoBox = ({
   coordinates_area,
