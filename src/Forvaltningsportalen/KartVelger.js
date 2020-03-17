@@ -1,41 +1,68 @@
-import baseMapSelectorImage from "./BaseMapSelectorImage.png";
-//import BaseMapSelectorImageGoogle from "./BaseMapSelectorImageGoogle.png";
-import React from "react";
-import bakgrunnskart from "../AppSettings/bakgrunnskarttema";
+import gebco from "./gebco.jpg";
+import topo4 from "./topo4.jpg";
+import topo4graatone from "./topo4graatone.jpg";
+import React, { useState } from "react";
+import { Map } from "@material-ui/icons";
 
 const tilgjengelige = ["gebco", "topo4", "topo4graatone"];
+const imgs = [gebco, topo4, topo4graatone];
 
 const KartVelger = props => {
+  const [open, setOpen] = useState(false);
   var current = tilgjengelige.indexOf(props.aktivtFormat);
   return (
-    <button
-      className="change_map_button"
-      onMouseEnter={() => {
-        props.onUpdateLayerProp(
-          "bakgrunnskart",
-          "kart.aktivtFormat",
-          tilgjengelige[current]
-        );
-      }}
-      onClick={() => {
-        current = (current + 1) % tilgjengelige.length;
-        props.onUpdateLayerProp(
-          "bakgrunnskart",
-          "kart.aktivtFormat",
-          tilgjengelige[current]
-        );
+    <div
+      className="change_map_buttons"
+      style={{
+        background: open ? "white" : "transparent",
+        borderColor: open ? "#9f9f9f" : "transparent"
       }}
     >
-      <div className="change_map_text">
-        {true ? (
-          bakgrunnskart.kart.format[tilgjengelige[current]].tittel // TODO: Temp, Bare for å vise at noe skjer
-        ) : (
-          <b>Kart</b>
-        )}
-      </div>
-      <div style={{ fontSize: 8, position: "absolute" }}></div>
-      <img alt="basemap preview" src={baseMapSelectorImage} />
-    </button>
+      <button
+        className="change_map_icon"
+        onMouseEnter={() => {
+          props.onUpdateLayerProp(
+            "bakgrunnskart",
+            "kart.aktivtFormat",
+            tilgjengelige[current]
+          );
+        }}
+        onClick={() => {
+          setOpen(!open);
+        }}
+        style={{
+          backgroundImage: "url('" + imgs[current] + "')",
+          backgroundSize: "cover"
+        }}
+      >
+        <Map />
+      </button>
+      {open && (
+        <div>
+          {tilgjengelige.map((element, index) => {
+            return (
+              <button
+                style={{
+                  backgroundImage: "url('" + imgs[index] + "')",
+                  backgroundSize: "cover",
+                  borderColor: index === current ? "black" : "#9f9f9f"
+                }}
+                className="change_map_button"
+                onClick={() => {
+                  props.onUpdateLayerProp(
+                    "bakgrunnskart",
+                    "kart.aktivtFormat",
+                    element
+                  );
+                }}
+              >
+                <span>{element}</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 };
 
