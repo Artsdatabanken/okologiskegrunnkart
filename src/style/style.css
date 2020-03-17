@@ -99,33 +99,43 @@ h4.container_header {
 }
 
 /* Kartvelgeren */
-.change_map_button {
-  padding: 0px;
-  width: 70px;
-  height: 70px;
-  border-radius: 5px;
+.change_map_buttons {
+  padding: 5px;
+  display: flex;
   position: absolute;
   left: 10px;
   bottom: 20px;
-  background: grey;
+  z-index: 1000;
+  border-radius: 3px;
+  border: 1px solid #9f9f9f;
 }
 
-.change_map_button img {
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
+.change_map_icon,
+.change_map_button {
+  border-radius: 3px;
+  border: 1px solid #9f9f9f;
+  background: #f4f4f4;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0px;
+  z-index: 1;
 }
 
-.change_map_text {
-  position: absolute;
-  top: 10%;
+.change_map_button {
+  margin-left: 5px;
+}
+
+.change_map_button span {
+  display: inline-block;
   width: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  color: black;
+  background: white;
+  overflow: hidden;
+  font-size: 8pt;
 }
 
 @media only screen and (max-width: 768px) {
-  .change_map_button {
+  .change_map_buttons {
     bottom: calc(50% + 20px);
   }
 }
