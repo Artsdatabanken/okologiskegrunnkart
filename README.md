@@ -20,7 +20,31 @@
 </a>
 <br/>Thanks to BrowserStack for providing an open-source account for testing & development!
 
-## Sette opp django
+# Django og kartlagfila
+
+## Å få i gang django når du har alt satt opp
+
+- gå inn i django mappa
+- aktiver environment med: .environment/Scripts/activate.ps1
+- python .\manage.py migrate (hvis noe nytt er lagt til/endret)
+- python .\manage.py runserver
+- når adminpanelet via localhost:8000/admin
+
+## Å få i gang django når det er i prosjektet men du ikke har den lokalt
+
+- gå inn i django mappa
+- pass på at du har python3
+- skriv: virtualenv.exe environment
+- aktiver environment med: .environment/Scripts/activate.ps1
+- pip install django
+- django-admin.exe startproject forvaltningsportal .
+- python .\manage.py migrate forvaltningsportal
+- python .\manage.py createsuperuser
+- følg det shellet sier for å sette opp brukeren din
+- python .\manage.py runserver
+- når adminpanelet via localhost:8000/admin
+
+## Sette opp django første gang i prosjektet
 
 - gå inn i django mappa
 - pass på at du har python3
