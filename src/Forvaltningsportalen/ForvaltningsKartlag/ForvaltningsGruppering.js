@@ -14,7 +14,7 @@ const ForvaltningsGruppering = ({
     <>
       <h4 className="container_header">{element}</h4>
 
-      {kartlag.map((element, index) => {
+      {kartlag.map(element => {
         let showelement = false;
         let tags = element.tags;
         if (
@@ -26,8 +26,9 @@ const ForvaltningsGruppering = ({
         if (!showelement) return null;
         return (
           <ForvaltningsElement
+            kartlag_key={element.id}
             kartlag={element}
-            key={index}
+            key={element.id}
             onUpdateLayerProp={onUpdateLayerProp}
           />
         );

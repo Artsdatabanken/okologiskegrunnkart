@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import kartlag from "./kartlag";
+import kartlag from "./kartlag_ny";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
@@ -185,19 +185,12 @@ class App extends React.Component {
     let valgteLag = {};
     for (let i in kartlag) {
       if (kartlag[i].erSynlig) {
-        if (kartlag[i].type) {
-          let item = kartlag[i].type;
-          let res = kartlag[i];
-          valgteLag[item] = res;
-        } else if (kartlag[i].kode) {
-          if (kartlag[i].kode !== "bakgrunnskart") {
-            let item = kartlag[i].kode;
-            let res = kartlag[item];
-            valgteLag[item] = res;
-          }
+        if (i !== "bakgrunnskart" && i !== "fjellskygge") {
+          valgteLag[i] = kartlag[i];
         }
       }
     }
+    console.log(valgteLag);
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat);
     this.handleLayersSøk(lng, lat, valgteLag);
@@ -210,15 +203,8 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
-    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
-    for (let item in this.state.kartlag) {
-      if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {
-        //        nye_lag[item][key] = value;
-        setValue(nye_lag[item], key, value);
-        break;
-      }
-    }
+    setValue(nye_lag[layer], key, value);
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });

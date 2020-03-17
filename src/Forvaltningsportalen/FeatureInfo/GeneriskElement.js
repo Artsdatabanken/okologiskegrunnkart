@@ -84,7 +84,6 @@ const GeneriskElement = props => {
           <ExpandedHeader
             visible={props.visible}
             geonorge={props.geonorge}
-            kode={props.kode}
             url={url}
             type={kartlag.type}
           />
