@@ -22,6 +22,13 @@
 
 # Django og kartlagfila
 
+## Om du endrer noe i db som andre også skal få
+
+- kartlag.json er ikke lenger i git, men håndteres lokalt, for å endre konflikt med ting som gjøres på server.
+- Å endre på datadump er derfor kun relevant nå i startsfasen mens vi korrigerer kartlagene.
+- Gå inn i djangomappa
+- kjør kommandoen : python .\manage.py dumpdata -o initialdb.json --indent 4
+
 ## Å få i gang django når du har alt satt opp
 
 - gå inn i django mappa
