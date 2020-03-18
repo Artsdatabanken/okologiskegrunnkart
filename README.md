@@ -27,6 +27,7 @@
 - gå inn i django mappa
 - aktiver environment med: .environment/Scripts/activate.ps1
 - python .\manage.py migrate (hvis noe nytt er lagt til/endret)
+- python .\manage.py loaddata initialdb.json
 - python .\manage.py runserver
 - når adminpanelet via localhost:8000/admin
 
@@ -41,8 +42,10 @@
 - python .\manage.py migrate forvaltningsportal
 - python .\manage.py createsuperuser
 - følg det shellet sier for å sette opp brukeren din
+- python .\manage.py loaddata initialdb.json
 - python .\manage.py runserver
 - når adminpanelet via localhost:8000/admin
+- Endre noe i adminpanelet for å lage kartlag.json (har ikke egen kommando per nå)
 
 ## Sette opp django første gang i prosjektet
 

@@ -1,0 +1,2097 @@
+[
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "forvaltningsportal",
+      "model": "dataeier"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "forvaltningsportal",
+      "model": "tag"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "forvaltningsportal",
+      "model": "tema"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "forvaltningsportal",
+      "model": "type"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "forvaltningsportal",
+      "model": "kartlag"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "7xv376vmpvac67mp9skchzs8z90kcoek",
+    "fields": {
+      "session_data": "NDUxN2MxZTgzNTQzMTI4YTZhN2RhNjJhYjhkNzc3NjhmYTExNzczNzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5ZmVhMGUwZmRmYjk2ZGYzNTViNDUwNzZjYzQ3MDFhMTMzODg2NzNlIn0=",
+      "expire_date": "2020-04-01T10:10:48.949Z"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 1,
+    "fields": {
+      "tittel": "Skog"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 2,
+    "fields": {
+      "tittel": "Arealressurs"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 3,
+    "fields": {
+      "tittel": "Naturtyper"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 4,
+    "fields": {
+      "tittel": "Landskap"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 5,
+    "fields": {
+      "tittel": "Ferskvann"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 6,
+    "fields": {
+      "tittel": "Klima"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 7,
+    "fields": {
+      "tittel": "Milj\u00f8variabel"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 8,
+    "fields": {
+      "tittel": "Vann"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tema",
+    "pk": 9,
+    "fields": {
+      "tittel": "Geologi"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 1,
+    "fields": {
+      "tittel": "Feltkartlagte data"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 2,
+    "fields": {
+      "tittel": "Naturtype"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 3,
+    "fields": {
+      "tittel": "DOK-data"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 4,
+    "fields": {
+      "tittel": "Modellerte data"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 5,
+    "fields": {
+      "tittel": "Landskap"
+    }
+  },
+  {
+    "model": "forvaltningsportal.tag",
+    "pk": 6,
+    "fields": {
+      "tittel": "Milj\u00f8variabler og \u00f8kologiske grunnlagsdata"
+    }
+  },
+  {
+    "model": "forvaltningsportal.dataeier",
+    "pk": 1,
+    "fields": {
+      "tittel": "NIBIO",
+      "logourl": "",
+      "url": ""
+    }
+  },
+  {
+    "model": "forvaltningsportal.dataeier",
+    "pk": 2,
+    "fields": {
+      "tittel": "Milj\u00f8direktoratet",
+      "logourl": "",
+      "url": ""
+    }
+  },
+  {
+    "model": "forvaltningsportal.dataeier",
+    "pk": 3,
+    "fields": {
+      "tittel": "Artsdatabanken",
+      "logourl": "",
+      "url": ""
+    }
+  },
+  {
+    "model": "forvaltningsportal.dataeier",
+    "pk": 4,
+    "fields": {
+      "tittel": "Norges vassdrags- og energidirektorat",
+      "logourl": "",
+      "url": ""
+    }
+  },
+  {
+    "model": "forvaltningsportal.dataeier",
+    "pk": 5,
+    "fields": {
+      "tittel": "NGU",
+      "logourl": "",
+      "url": ""
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 1,
+    "fields": {
+      "tittel": "livsmilj\u00f8"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 2,
+    "fields": {
+      "tittel": "arealtype"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 3,
+    "fields": {
+      "tittel": "naturtype"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 4,
+    "fields": {
+      "tittel": "landskap"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 5,
+    "fields": {
+      "tittel": "bioklimatisk_sone"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 6,
+    "fields": {
+      "tittel": "bioklimatisk_seksjon"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 7,
+    "fields": {
+      "tittel": "kalk"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 8,
+    "fields": {
+      "tittel": "laksefjord"
+    }
+  },
+  {
+    "model": "forvaltningsportal.type",
+    "pk": 9,
+    "fields": {
+      "tittel": "l\u00f8smasse"
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 1,
+    "fields": {
+      "tittel": "Livsmilj\u00f8er",
+      "wmsurl": "https://wms.nibio.no/cgi-bin/skogbruksplan",
+      "wmslayer": "Livsmiljoer",
+      "faktaark": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{vegtype_beskr}",
+      "type": 1,
+      "dataeier": 1,
+      "tema": 1,
+      "tag": [1, 2]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 2,
+    "fields": {
+      "tittel": "Arealressurs: Hovedgrupper - AR50 Arealtype",
+      "wmsurl": "https://wms.nibio.no/cgi-bin/ar5",
+      "wmslayer": "Hovedgrupper",
+      "faktaark": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "https://wms.nibio.no/cgi-bin/ar50?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Arealtyper&query_layers=Arealtyper&x=699&y=481&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{artype_beskrivelse}",
+      "type": 2,
+      "dataeier": 1,
+      "tema": 2,
+      "tag": [2, 3]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 3,
+    "fields": {
+      "tittel": "Naturtyper",
+      "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?",
+      "wmslayer": "naturtyper_nin_alle",
+      "faktaark": "https://nin-faktaark.miljodirektoratet.no/naturtyper/",
+      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?&version=1.3.0&layers=naturtyper_nin_alle&query_layers=naturtyper_nin_alle&srs=EPSG%3A4326&height=921&width=1920&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{}",
+      "type": 3,
+      "dataeier": 2,
+      "tema": 3,
+      "tag": [1, 2, 3]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 4,
+    "fields": {
+      "tittel": "Landskap",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "https://artsdatabanken.no/nin/",
+      "klikkurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&version=1.1.1&width=256&height=256&INFO_FORMAT=gml&QUERY_LAYERS=LA&layers=LA&srs=EPSG%3A4326&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{name}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [3, 4, 5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 5,
+    "fields": {
+      "tittel": "Kystlandskap (LA-TI-K)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-K",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 6,
+    "fields": {
+      "tittel": "Innlandsdallandskap (LA-TI-I-D)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-I-D",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 7,
+    "fields": {
+      "tittel": "Innlandsslettelandskap (LA-TI-I-S)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-I-S",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 8,
+    "fields": {
+      "tittel": "Kystslettelandskap (LA-TI-K-S)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-K-S",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 9,
+    "fields": {
+      "tittel": "Arealbruksintensitet (LA-KLG-AI kontinuerlig)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-AI_k",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 10,
+    "fields": {
+      "tittel": "Marine landskap (LA-TI-M)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-M",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 11,
+    "fields": {
+      "tittel": "Her er noe feil (LA-KLG-JA diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-JA_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 12,
+    "fields": {
+      "tittel": "Kystavstand (LA-KLG-KA kontinuerlig)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-KA_k",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 13,
+    "fields": {
+      "tittel": "V\u00e5tmarkspreg (LA-KLG-VP diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-VP_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 14,
+    "fields": {
+      "tittel": "Brepreg (LA-KLG-BP diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-BP_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 15,
+    "fields": {
+      "tittel": "Indre ytre kyst (LA-KLG-IYK diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-IYK_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 16,
+    "fields": {
+      "tittel": "Relieff i innlands\u00e5s- og fjellandskap (LA-KLG-REIA diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-RE-IA_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 17,
+    "fields": {
+      "tittel": "Relieff i innlandsdal og fjordlandskap (LA-KLG-REIDKF diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-RE-KF-ID_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 18,
+    "fields": {
+      "tittel": "Relieff i kystslettelandskap (LA-KLG-REKS diskret)",
+      "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
+      "wmslayer": "LA-KLG-RE-KS_d",
+      "faktaark": "",
+      "klikkurl": "",
+      "klikktekst": "{}",
+      "type": 4,
+      "dataeier": 3,
+      "tema": 4,
+      "tag": [5]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 19,
+    "fields": {
+      "tittel": "Verneplan for Vassdrag",
+      "wmsurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
+      "wmslayer": "VerneplanforVassdrag",
+      "faktaark": "https://www.NVE.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
+      "klikkurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{}",
+      "type": null,
+      "dataeier": 4,
+      "tema": 5,
+      "tag": []
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 20,
+    "fields": {
+      "tittel": "Bioklimatisk sone",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
+      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
+      "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
+      "type": 5,
+      "dataeier": 3,
+      "tema": 6,
+      "tag": []
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 21,
+    "fields": {
+      "tittel": "Bioklimatisk seksjon",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "https://artsdatabanken.no/Pages/181900/Bioklimatiske_seksjoner",
+      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
+      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
+      "type": 6,
+      "dataeier": 3,
+      "tema": 6,
+      "tag": []
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 22,
+    "fields": {
+      "tittel": "Kalkinnhold",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "https://www.artsdatabanken.no/Pages/137908/Kalkinnhold",
+      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-LKM-KA",
+      "klikktekst": "{trinn.tittel.nb} {v}",
+      "type": 7,
+      "dataeier": 3,
+      "tema": 7,
+      "tag": [1, 6]
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 23,
+    "fields": {
+      "tittel": "Laksefjord",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "https://www.nibio.no/tema/jord/arealressurser/arealressurskart-ar5/",
+      "klikkurl": "https://ogc.fiskeridir.no/wms.ashx?service=wms&version=1.1.1&srs=EPSG:4326&layers=layer_388&query_layers=layer_388&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{}",
+      "type": 8,
+      "dataeier": 1,
+      "tema": 8,
+      "tag": []
+    }
+  },
+  {
+    "model": "forvaltningsportal.kartlag",
+    "pk": 24,
+    "fields": {
+      "tittel": "L\u00f8smasse",
+      "wmsurl": "",
+      "wmslayer": "",
+      "faktaark": "",
+      "klikkurl": "https://geo.ngu.no/mapserver/LosmasserWMS?service=wms&version=1.1.1&srs=EPSG:4326&layers=Losmasse_flate&query_layers=Losmasse_flate&info_format=application/vnd.ogc.gml&height=921&width=1920&{x}&{y}&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikktekst": "{losmassetype_tekst}",
+      "type": 9,
+      "dataeier": 5,
+      "tema": 9,
+      "tag": []
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add dataeier",
+      "content_type": 7,
+      "codename": "add_dataeier"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change dataeier",
+      "content_type": 7,
+      "codename": "change_dataeier"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete dataeier",
+      "content_type": 7,
+      "codename": "delete_dataeier"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view dataeier",
+      "content_type": 7,
+      "codename": "view_dataeier"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add tag",
+      "content_type": 8,
+      "codename": "add_tag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change tag",
+      "content_type": 8,
+      "codename": "change_tag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete tag",
+      "content_type": 8,
+      "codename": "delete_tag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view tag",
+      "content_type": 8,
+      "codename": "view_tag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add tema",
+      "content_type": 9,
+      "codename": "add_tema"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change tema",
+      "content_type": 9,
+      "codename": "change_tema"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete tema",
+      "content_type": 9,
+      "codename": "delete_tema"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view tema",
+      "content_type": 9,
+      "codename": "view_tema"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add type",
+      "content_type": 10,
+      "codename": "add_type"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change type",
+      "content_type": 10,
+      "codename": "change_type"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete type",
+      "content_type": 10,
+      "codename": "delete_type"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view type",
+      "content_type": 10,
+      "codename": "view_type"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add kartlag",
+      "content_type": 11,
+      "codename": "add_kartlag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change kartlag",
+      "content_type": 11,
+      "codename": "change_kartlag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete kartlag",
+      "content_type": 11,
+      "codename": "delete_kartlag"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view kartlag",
+      "content_type": 11,
+      "codename": "view_kartlag"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$180000$LzDf9vPPphWu$vBHJvWwuU4QpOWzqh8+dN6fNX8x5j47fJ2shO+Z5CDE=",
+      "last_login": "2020-03-17T11:37:05.748Z",
+      "is_superuser": true,
+      "username": "helemork",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-03-17T11:08:13.389Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2020-03-17T11:37:24.812Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "livsmilj\u00f8",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2020-03-17T11:37:35.215Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "NIBIO",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2020-03-17T11:37:50.827Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "1",
+      "object_repr": "Skog",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2020-03-17T11:38:39.932Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "1",
+      "object_repr": "Feltkartlagte data",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2020-03-17T11:38:46.186Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "2",
+      "object_repr": "Naturtype",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2020-03-17T11:38:50.881Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Skog: Livsmilj\u00f8er",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2020-03-17T11:39:32.874Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "arealtype",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2020-03-17T11:39:44.675Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "2",
+      "object_repr": "Arealressurs",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2020-03-17T11:40:32.033Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "3",
+      "object_repr": "DOK-data",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2020-03-17T11:40:36.308Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "2",
+      "object_repr": "Arealressurs: Hovedgrupper - AR50 Arealtype",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2020-03-17T11:46:46.485Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "naturtype",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2020-03-17T11:47:03.037Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "Milj\u00f8direktoratet",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2020-03-17T11:47:12.026Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "3",
+      "object_repr": "Naturtyper",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2020-03-17T11:48:20.440Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper: naturtyper",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2020-03-17T11:50:41.992Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "landskap",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2020-03-17T11:50:55.977Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+      "action_time": "2020-03-17T11:51:07.630Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "Artsdatabanken",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+      "action_time": "2020-03-17T11:51:19.238Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "4",
+      "object_repr": "Modellerte data",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+      "action_time": "2020-03-17T11:51:28.803Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "5",
+      "object_repr": "Landskap",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+      "action_time": "2020-03-17T11:51:35.503Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+      "action_time": "2020-03-17T12:05:53.073Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Kode\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+      "action_time": "2020-03-17T12:06:20.913Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+      "action_time": "2020-03-17T12:06:50.510Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+      "action_time": "2020-03-17T12:08:17.935Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper: naturtyper",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Kode\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+      "action_time": "2020-03-17T12:08:23.161Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "2",
+      "object_repr": "Arealressurs: Hovedgrupper - AR50 Arealtype",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Kode\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+      "action_time": "2020-03-17T12:08:26.384Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Skog: Livsmilj\u00f8er",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+      "action_time": "2020-03-17T12:09:36.336Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+      "action_time": "2020-03-17T12:13:33.583Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "Kystlandskap (LA-TI-K)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+      "action_time": "2020-03-17T12:27:35.645Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "Kystlandskap (LA-TI-K)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+      "action_time": "2020-03-17T12:28:15.796Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "Kystlandskap (LA-TI-K)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+      "action_time": "2020-03-17T13:41:05.490Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "Kystlandskap (LA-TI-K)",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+      "action_time": "2020-03-18T09:05:13.367Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "6",
+      "object_repr": "Innlandsdallandskap (LA-TI-I-D)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+      "action_time": "2020-03-18T09:07:17.447Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "7",
+      "object_repr": "Innlandsslettelandskap (LA-TI-I-S)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+      "action_time": "2020-03-18T09:08:56.109Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "8",
+      "object_repr": "Kystslettelandskap (LA-TI-K-S)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+      "action_time": "2020-03-18T09:11:22.941Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "9",
+      "object_repr": "Arealbruksintensitet (LA-KLG-AI kontinuerlig)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+      "action_time": "2020-03-18T09:13:19.244Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "10",
+      "object_repr": "Marine landskap (LA-TI-M)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+      "action_time": "2020-03-18T09:17:37.073Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "11",
+      "object_repr": "Jordbrukspreg (LA-KLG-JP diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+      "action_time": "2020-03-18T09:20:17.180Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "11",
+      "object_repr": "\"FP-ALKJ\" Her er noe feil (LA-KLG-JA diskret)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+      "action_time": "2020-03-18T09:20:55.768Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "11",
+      "object_repr": "Her er noe feil (LA-KLG-JA diskret)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+      "action_time": "2020-03-18T09:22:30.683Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "12",
+      "object_repr": "Kystavstand (LA-KLG-KA kontinuerlig)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+      "action_time": "2020-03-18T09:23:30.826Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "13",
+      "object_repr": "V\u00e5tmarkspreg (LA-KLG-VP diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+      "action_time": "2020-03-18T09:26:17.416Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "14",
+      "object_repr": "Brepreg (LA-KLG-BP diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+      "action_time": "2020-03-18T09:26:46.611Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "14",
+      "object_repr": "Brepreg (LA-KLG-BP diskret)",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+      "action_time": "2020-03-18T09:27:33.477Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "15",
+      "object_repr": "Indre ytre kyst (LA-KLG-IYK)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+      "action_time": "2020-03-18T09:27:45.704Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "15",
+      "object_repr": "Indre ytre kyst (LA-KLG-IYK diskret)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+      "action_time": "2020-03-18T09:28:37.434Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "16",
+      "object_repr": "Relieff i innlands\u00e5s- og fjellandskap (LA-KLG-REIA diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+      "action_time": "2020-03-18T09:30:29.949Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "17",
+      "object_repr": "Relieff i innlandsdal og fjordlandskap (LA-KLG-REIDKF diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+      "action_time": "2020-03-18T09:31:15.366Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "18",
+      "object_repr": "Relieff i kystslettelandskap (LA-KLG-REKS diskret)",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+      "action_time": "2020-03-18T09:37:18.029Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "4",
+      "object_repr": "Norges vassdrags- og energidirektorat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 50,
+    "fields": {
+      "action_time": "2020-03-18T09:39:09.387Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "5",
+      "object_repr": "Ferskvann",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 51,
+    "fields": {
+      "action_time": "2020-03-18T09:39:30.984Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "19",
+      "object_repr": "Verneplan for Vassdrag",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 52,
+    "fields": {
+      "action_time": "2020-03-18T09:40:39.087Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "bioklimatisk_sone",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 53,
+    "fields": {
+      "action_time": "2020-03-18T09:41:33.334Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "6",
+      "object_repr": "Klima",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 54,
+    "fields": {
+      "action_time": "2020-03-18T09:41:35.943Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 55,
+    "fields": {
+      "action_time": "2020-03-18T09:41:43.019Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "bioklimatisk_seksjon",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 56,
+    "fields": {
+      "action_time": "2020-03-18T09:42:19.873Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 57,
+    "fields": {
+      "action_time": "2020-03-18T09:42:39.476Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "7",
+      "object_repr": "kalk",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 58,
+    "fields": {
+      "action_time": "2020-03-18T09:42:55.336Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "7",
+      "object_repr": "Milj\u00f8variabel",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 59,
+    "fields": {
+      "action_time": "2020-03-18T09:43:27.606Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "6",
+      "object_repr": "Milj\u00f8variabler og \u00f8kologiske grunnlagsdata",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 60,
+    "fields": {
+      "action_time": "2020-03-18T09:43:33.973Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "7",
+      "object_repr": "Feltkartlagte data",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 61,
+    "fields": {
+      "action_time": "2020-03-18T09:43:43.896Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "22",
+      "object_repr": "Kalkinnhold",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 62,
+    "fields": {
+      "action_time": "2020-03-18T09:43:56.213Z",
+      "user": 1,
+      "content_type": 8,
+      "object_id": "7",
+      "object_repr": "Feltkartlagte data",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 63,
+    "fields": {
+      "action_time": "2020-03-18T09:44:09.152Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "22",
+      "object_repr": "Kalkinnhold",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 64,
+    "fields": {
+      "action_time": "2020-03-18T09:44:51.325Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "8",
+      "object_repr": "laksefjord",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 65,
+    "fields": {
+      "action_time": "2020-03-18T09:45:04.094Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "8",
+      "object_repr": "Vann",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 66,
+    "fields": {
+      "action_time": "2020-03-18T09:45:16.659Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "23",
+      "object_repr": "Laksefjord",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 67,
+    "fields": {
+      "action_time": "2020-03-18T09:45:26.748Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "5",
+      "object_repr": "NGU",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 68,
+    "fields": {
+      "action_time": "2020-03-18T09:46:00.162Z",
+      "user": 1,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "l\u00f8smasse",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 69,
+    "fields": {
+      "action_time": "2020-03-18T09:46:20.618Z",
+      "user": 1,
+      "content_type": 9,
+      "object_id": "9",
+      "object_repr": "Geologi",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 70,
+    "fields": {
+      "action_time": "2020-03-18T09:46:24.603Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "24",
+      "object_repr": "L\u00f8smasse",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 71,
+    "fields": {
+      "action_time": "2020-03-18T09:47:52.362Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Livsmilj\u00f8er",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 72,
+    "fields": {
+      "action_time": "2020-03-18T09:48:11.324Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 73,
+    "fields": {
+      "action_time": "2020-03-18T09:49:47.837Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "24",
+      "object_repr": "L\u00f8smasse",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 74,
+    "fields": {
+      "action_time": "2020-03-18T10:05:36.361Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "24",
+      "object_repr": "L\u00f8smasse",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 75,
+    "fields": {
+      "action_time": "2020-03-18T10:05:59.982Z",
+      "user": 1,
+      "content_type": 11,
+      "object_id": "14",
+      "object_repr": "Brepreg (LA-KLG-BP diskret)",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 76,
+    "fields": {
+      "action_time": "2020-03-18T10:10:48.934Z",
+      "user": 1,
+      "content_type": 4,
+      "object_id": "1",
+      "object_repr": "helemork",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"password\"]}}]"
+    }
+  }
+]
