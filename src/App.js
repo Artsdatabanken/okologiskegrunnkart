@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import kartlag from "./kartlag_ny";
+import kartlag from "./kartlag";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
