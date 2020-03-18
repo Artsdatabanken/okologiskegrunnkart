@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import kartlag from "./kartlag";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
@@ -15,6 +14,19 @@ import fjellskygge from "./Kart/Bakgrunnskart/fjellskygge";
 import { setValue } from "./Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
+var kartlag;
+
+try {
+  kartlag = require("./kartlag.json");
+} catch (e) {
+  kartlag = require("./kartlag_preview.json");
+  console.error(
+    "Du har ikke opprettet databasen og hentet ned datadump, og blir derfor vist et testdatasett."
+  );
+  console.error(
+    "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
+  );
+}
 
 class App extends React.Component {
   constructor(props) {
