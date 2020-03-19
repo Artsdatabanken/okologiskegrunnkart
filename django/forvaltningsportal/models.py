@@ -76,5 +76,5 @@ def createJSON(sender, instance, **kwargs):
 
 
         # og så legg til nye felt, som tags osv
-    with open("../src/kartlag.json","w", encoding='utf8') as file:
+    with open("../public/kartlag.json","w", encoding='utf8') as file:
         json.dump(dict,file,indent=4,sort_keys=True, ensure_ascii=False)
