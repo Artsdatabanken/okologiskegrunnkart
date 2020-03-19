@@ -84,6 +84,7 @@ class App extends React.Component {
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
                       handleLokalitetUpdate={this.hentInfoAlleLag}
@@ -117,6 +118,7 @@ class App extends React.Component {
                     />
                     <FeatureInfo
                       {...this.state}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       resultat={this.state.resultat}
                       layersresultat={this.state.layersresultat}
                       handleExtensiveInfo={this.handleExtensiveInfo}
