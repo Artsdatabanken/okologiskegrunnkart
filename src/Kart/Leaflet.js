@@ -194,6 +194,7 @@ class Leaflet extends React.Component {
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             handleInfobox={this.handleInfobox}
+            onUpdateLayerProp={this.props.onUpdateLayerProp}
           />
         )}
         <button

@@ -37,13 +37,10 @@ const GeneriskElement = props => {
   // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
   primary_text = kartlag.tittel || "mangler tittel";
   url = formatterFaktaarkUrl(kartlag.faktaark, props.coordinates_area);
-
   secondary_text = (
     <Klikktekst input={resultat} formatstring={kartlag.klikktekst} />
   );
   primary_text = kartlag.tittel || primary_text;
-
-  console.log(kartlag.dataeier);
 
   return (
     <div
@@ -56,7 +53,12 @@ const GeneriskElement = props => {
           setOpen(!open);
         }}
       >
-        <ListItemIcon>
+        <ListItemIcon
+          className="visibility_button"
+          onClick={e => {
+            props.onUpdateLayerProp(kartlag.id, "erSynlig", !kartlag.erSynlig);
+          }}
+        >
           {resultat.loading ? (
             <CircularProgress />
           ) : (
