@@ -8,6 +8,7 @@ const ForvaltningsGruppering = ({
   onUpdateLayerProp,
   handleShowCurrent,
   show_current,
+  hideHidden,
   element
 }) => {
   return (
@@ -23,6 +24,8 @@ const ForvaltningsGruppering = ({
         ) {
           showelement = true;
         }
+
+        if (hideHidden && !element.erSynlig) return null;
         if (!showelement) return null;
         return (
           <ForvaltningsElement

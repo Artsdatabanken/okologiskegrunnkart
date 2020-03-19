@@ -158,30 +158,3 @@ h4.container_header {
 .coordinates {
   color: grey;
 }
-
-.sort_chooser_container {
-  text-align: center;
-}
-
-.filterobject {
-  display: inline-block;
-  padding: 5px;
-}
-
-.filterobject input {
-  vertical-align: top;
-}
-
-.sort_chooser_container select {
-  min-width: 200px;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-.tags {
-  background: lightgrey;
-  padding: 10px;
-  display: inline-block;
-  border-radius: 3px;
-  margin: 2px;
-}
