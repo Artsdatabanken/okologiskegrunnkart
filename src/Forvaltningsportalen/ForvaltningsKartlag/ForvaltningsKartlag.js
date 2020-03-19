@@ -2,12 +2,14 @@ import React from "react";
 import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { List } from "@material-ui/core";
+import "../../style/filtrering.css";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   state = {
     sortcriteria: "ingen",
-    filterlist: []
+    filterlist: [],
+    hideHidden: false
   };
 
   render() {
@@ -73,6 +75,30 @@ class ForvaltningsKartlag extends React.Component {
                 );
               })}
 
+              <h4> Filtrer bort skjulte element </h4>
+              <div className="toggle">
+                <span>av</span>
+                <label class="switch">
+                  <input
+                    type="checkbox"
+                    onChange={e => {
+                      if (e.target.checked) {
+                        this.setState({
+                          hideHidden: true
+                        });
+                      } else {
+                        this.setState({
+                          hideHidden: false
+                        });
+                      }
+                    }}
+                    id=""
+                  />
+                  <span class="slider"></span>
+                </label>
+                <span>på</span>
+              </div>
+
               <h4>Gruppering</h4>
 
               <select id="sort_chooser">
@@ -115,6 +141,7 @@ class ForvaltningsKartlag extends React.Component {
                 .map(element => {
                   return (
                     <ForvaltningsGruppering
+                      hideHidden={this.state.hideHidden}
                       filterlist={this.state.filterlist}
                       kartlag={sorted[element]}
                       element={element}
