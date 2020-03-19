@@ -13,10 +13,10 @@ class ForvaltningsKartlag extends React.Component {
   render() {
     const { onUpdateLayerProp } = this.props;
     let lag = this.props.kartlag;
-
     let sortcriteria = this.state.sortcriteria;
     let sorted = {};
 
+    // Henter ut unike tags for checklistegenerering
     let taglist = new Set();
     for (let i in lag) {
       let new_tags = lag[i]["tags"];
@@ -24,6 +24,8 @@ class ForvaltningsKartlag extends React.Component {
         for (let tag of new_tags) taglist.add(tag);
       }
     }
+
+    // Sorterer listen på valgt kriterie
     for (let item in lag) {
       let criteria = lag[item][sortcriteria];
       let new_list = [];
@@ -33,6 +35,7 @@ class ForvaltningsKartlag extends React.Component {
       if (sorted[criteria]) {
         new_list = sorted[criteria];
       }
+      lag[item].id = item;
       new_list.push(lag[item]);
       sorted[criteria] = new_list;
     }
@@ -44,9 +47,9 @@ class ForvaltningsKartlag extends React.Component {
             <div className="sort_chooser_container">
               <h4>Filtrering</h4>
 
-              {Array.from(taglist).map(element => {
+              {Array.from(taglist).map((element, index) => {
                 return (
-                  <div className="filterobject">
+                  <div className="filterobject" key={index}>
                     <input
                       type="checkbox"
                       onChange={e => {

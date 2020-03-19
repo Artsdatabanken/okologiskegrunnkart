@@ -1,0 +1,34 @@
+{
+  "1": {
+    "dataeier": "Artsdatabanken",
+    "klikktekst": "Testdatasett",
+    "tags": ["Test"],
+    "tema": "Landskap",
+    "tittel": "Eksempeldata: Landskap",
+    "type": "landskap",
+    "tags": ["Test", "Landskap"],
+    "wmslayer": "LA-I-D",
+    "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?"
+  },
+  "2": {
+    "dataeier": "Norges vassdrags- og energidirektorat",
+    "faktaark": "https://www.NVE.no/vann-vassdrag-og-miljo/verneplan-for-vassdrag/",
+    "klikktekst": "{}",
+    "klikkurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+    "tags": ["Test", "Vassdrag"],
+    "tema": "Ferskvann",
+    "tittel": "Eksempeldata: Verneplan for Vassdrag",
+    "wmslayer": "VerneplanforVassdrag",
+    "wmsurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer"
+  },
+  "3": {
+    "dataeier": "Artsdatabanken",
+    "faktaark": "https://artsdatabanken.no/Pages/181901/Bioklimatiske_soner",
+    "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
+    "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
+    "tags": ["Klima", "Test"],
+    "tema": "Klima",
+    "tittel": "Eksempeldata uten wms: Bioklimatisk sone",
+    "type": "bioklimatisk_sone"
+  }
+}

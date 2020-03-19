@@ -53,7 +53,7 @@
     "kode": "FP-ALK",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-K",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALIA": {
     "tittel": "Landskap: LA-I-A",
@@ -62,7 +62,7 @@
     "kode": "FP-ALIA",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-I-A",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALID": {
     "tittel": "Landskap: LA-I-D",
@@ -71,7 +71,7 @@
     "kode": "FP-ALID",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-I-D",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALIS": {
     "tittel": "Landskap: LA-I-S",
@@ -80,7 +80,7 @@
     "kode": "FP-ALIS",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-I-S",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKF": {
     "tittel": "Landskap: LA-K-F",
@@ -89,7 +89,7 @@
     "kode": "FP-ALKF",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-K-F",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKS": {
     "tittel": "Landskap: LA-K-S",
@@ -98,7 +98,7 @@
     "kode": "FP-ALKS",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-K-S",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKA": {
     "tittel": "Landskap: LA-KLG-AI k",
@@ -107,7 +107,7 @@
     "kode": "FP-ALKA",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-AI_k",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALM": {
     "tittel": "Landskap: LA-M",
@@ -116,7 +116,7 @@
     "kode": "FP-ALM",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-M",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKJ": {
     "tittel": "Landskap: LA-KLG-JA d",
@@ -125,7 +125,7 @@
     "kode": "FP-ALKJ",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-JA_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKK": {
     "tittel": "Landskap: LA-KLG-KA k",
@@ -134,7 +134,7 @@
     "kode": "FP-ALKK",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-KA_k",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKV": {
     "tittel": "Landskap: LA-KLG-VP d",
@@ -143,7 +143,7 @@
     "kode": "FP-ALKV",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-VP_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKB": {
     "tittel": "Landskap: LA-KLG-BP d",
@@ -152,7 +152,7 @@
     "kode": "FP-ALKB",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-BP_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKI": {
     "tittel": "Landskap: LA-KLG-IYK d",
@@ -161,7 +161,7 @@
     "kode": "FP-ALKI",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-IYK_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKRI": {
     "tittel": "Landskap: LA-KLG-RE-IA d",
@@ -170,7 +170,7 @@
     "kode": "FP-ALKRI",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-RE-IA_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKRKI": {
     "tittel": "Landskap: LA-KLG-RE-KF-ID d",
@@ -179,7 +179,7 @@
     "kode": "FP-ALKRKI",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-RE-KF-ID_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "FP-ALKRK": {
     "tittel": "Landskap: LA-KLG-RE-KS d",
@@ -188,7 +188,7 @@
     "kode": "FP-ALKRK",
     "wmsurl": "https://wms.artsdatabanken.no/?map=/maps/mapfiles/la.map&?",
     "wmslayer": "LA-KLG-RE-KS_d",
-    "klikktekst": "{undefined}"
+    "klikktekst": "{}"
   },
   "vassdrag": {
     "type": "vassdrag",
@@ -200,7 +200,7 @@
     "wmsurl": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer",
     "wmslayer": "VerneplanforVassdrag",
     "klikkurl": "https://gis3.Norges vassdrags- og energidirektorat.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-    "klikktekst": "{undefined.undefined.undefined}"
+    "klikktekst": "{}"
   },
   "sone": {
     "type": "bioklimatisk_sone",

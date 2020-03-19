@@ -23,14 +23,12 @@ const ForvaltningsElement = ({
   onUpdateLayerProp,
   handleShowCurrent,
   show_current,
+  kartlag_key,
   element
 }) => {
   let tittel = kartlag.tittel;
 
-  let kode = kartlag.kode || null;
-  if (!kode) {
-    kode = kartlag.type;
-  }
+  let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
   const [open, setOpen] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
@@ -78,7 +76,11 @@ const ForvaltningsElement = ({
             <>
               Emneknagger: <br />
               {tags.map((element, index) => {
-                return <div className="tags">{element}</div>;
+                return (
+                  <div className="tags" key={index}>
+                    {element}
+                  </div>
+                );
               })}
             </>
           )}

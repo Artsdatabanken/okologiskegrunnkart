@@ -32,11 +32,11 @@ class Type(models.Model):
 
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
-    kode = models.CharField(max_length=50,blank=True)
     wmsurl = models.CharField(max_length=500,blank=True)
     wmslayer = models.CharField(max_length=100,blank=True)
     faktaark = models.CharField(max_length=500,blank=True)
     klikkurl = models.CharField(max_length=500,blank=True)
+    klikktekst = models.CharField(max_length=500,blank=True)
     type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True,blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
     tema = models.ForeignKey(Tema, on_delete=models.SET_NULL, null=True,blank=True)
@@ -49,24 +49,32 @@ class Kartlag(models.Model):
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
-        dict[kartlag.tittel] = {
+        dict[kartlag.id] = {
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
         }
         if kartlag.type:
-            dict[kartlag.tittel]['type'] = kartlag.type.tittel
+            dict[kartlag.id]['type'] = kartlag.type.tittel
         if kartlag.tema:
-            dict[kartlag.tittel]['tema'] = kartlag.tema.tittel
+            dict[kartlag.id]['tema'] = kartlag.tema.tittel
         if kartlag.faktaark:
-            dict[kartlag.tittel]['faktaark'] = kartlag.faktaark
+            dict[kartlag.id]['faktaark'] = kartlag.faktaark
         if kartlag.wmsurl:
-            dict[kartlag.tittel]['wmsurl'] = kartlag.wmsurl
+            dict[kartlag.id]['wmsurl'] = kartlag.wmsurl
         if kartlag.wmslayer:
-            dict[kartlag.tittel]['wmslayer'] = kartlag.wmslayer
-        if kartlag.kode:
-            dict[kartlag.tittel]['kode'] = kartlag.kode
+            dict[kartlag.id]['wmslayer'] = kartlag.wmslayer
         if kartlag.klikkurl:
-            dict[kartlag.tittel]['klikkurl'] = kartlag.klikkurl
+            dict[kartlag.id]['klikkurl'] = kartlag.klikkurl
+        if kartlag.klikktekst:
+            dict[kartlag.id]['klikktekst'] = kartlag.klikktekst
+
+        if kartlag.tag:
+            list = []
+            for tag in kartlag.tag.all():
+                list.append(tag.tittel)
+            dict[kartlag.id]['tags'] = list
+
+
         # og så legg til nye felt, som tags osv
-    with open("../src/kartlag_ny.json","w", encoding='utf8') as file:
+    with open("../src/kartlag.json","w", encoding='utf8') as file:
         json.dump(dict,file,indent=4,sort_keys=True, ensure_ascii=False)

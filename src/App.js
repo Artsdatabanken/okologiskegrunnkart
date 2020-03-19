@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import kartlag from "./kartlag";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import TopBarContainer from "./TopBar/TopBarContainer";
@@ -19,15 +18,10 @@ export let exportableFullscreen;
 class App extends React.Component {
   constructor(props) {
     super(props);
-    Object.values(kartlag).forEach(k => {
-      k.opacity = 0.8;
-      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
-    });
     this.state = {
       kartlag: {
-        bakgrunnskart, //: JSON.parse(JSON.stringify(bakgrunnskarttema)),
-        fjellskygge,
-        ...kartlag
+        bakgrunnskart,
+        fjellskygge
       },
       valgteLag: {},
       opplystKode: "",
@@ -42,6 +36,34 @@ class App extends React.Component {
     };
     exportableSpraak = this;
     exportableFullscreen = this;
+  }
+
+  async lastNedKartlag() {
+    var kartlag = await backend.hentLokalFil("kartlag.json");
+    if (!kartlag) {
+      console.error(
+        "Du har ikke opprettet databasen og hentet ned datadump, og blir derfor vist et testdatasett."
+      );
+      kartlag = await backend.hentLokalFil("kartlag_preview.json");
+      console.error(
+        "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
+      );
+    }
+    Object.values(kartlag).forEach(k => {
+      k.opacity = 0.8;
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+    });
+    this.setState({
+      kartlag: {
+        bakgrunnskart,
+        fjellskygge,
+        ...kartlag
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.lastNedKartlag();
   }
 
   render() {
@@ -150,7 +172,7 @@ class App extends React.Component {
   };
 
   handleLayersSøk = (lng, lat, valgteLag) => {
-    let looplist = kartlag;
+    let looplist = this.state.kartlag;
     if (valgteLag) {
       looplist = valgteLag;
     }
@@ -185,19 +207,12 @@ class App extends React.Component {
     let valgteLag = {};
     for (let i in kartlag) {
       if (kartlag[i].erSynlig) {
-        if (kartlag[i].type) {
-          let item = kartlag[i].type;
-          let res = kartlag[i];
-          valgteLag[item] = res;
-        } else if (kartlag[i].kode) {
-          if (kartlag[i].kode !== "bakgrunnskart") {
-            let item = kartlag[i].kode;
-            let res = kartlag[item];
-            valgteLag[item] = res;
-          }
+        if (i !== "bakgrunnskart" && i !== "fjellskygge") {
+          valgteLag[i] = kartlag[i];
         }
       }
     }
+    console.log(valgteLag);
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat);
     this.handleLayersSøk(lng, lat, valgteLag);
@@ -210,15 +225,8 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
-    console.log(layer, key, value);
     let nye_lag = this.state.kartlag;
-    for (let item in this.state.kartlag) {
-      if (nye_lag[item].kode === layer || nye_lag[item].type === layer) {
-        //        nye_lag[item][key] = value;
-        setValue(nye_lag[item], key, value);
-        break;
-      }
-    }
+    setValue(nye_lag[layer], key, value);
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
