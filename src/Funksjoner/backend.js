@@ -3,19 +3,18 @@ import wms_api from "./wms_api";
 
 class Backend {
   static async getPromise(url) {
-    return new Promise((resolve, reject) => {
-      fetch(url)
-        .then(result => {
-          if (result && result.status === 200) {
-            return result.json();
-          }
-        })
-        .then(json => resolve(json))
-        .catch(err => {
-          console.error(url, err);
-          return {};
-        });
-    });
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+      return json;
+    } catch (e) {
+      console.error(url, e);
+      return null;
+    }
+  }
+
+  static async hentLokalFil(filnavn) {
+    return this.getPromise("/" + filnavn);
   }
 
   static async hentStedsnavn(lng, lat) {

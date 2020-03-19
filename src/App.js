@@ -14,32 +14,14 @@ import fjellskygge from "./Kart/Bakgrunnskart/fjellskygge";
 import { setValue } from "./Funksjoner/setValue";
 export let exportableSpraak;
 export let exportableFullscreen;
-var kartlag;
-
-try {
-  kartlag = require("./kartlag.json");
-} catch (e) {
-  kartlag = require("./kartlag_preview.json");
-  console.error(
-    "Du har ikke opprettet databasen og hentet ned datadump, og blir derfor vist et testdatasett."
-  );
-  console.error(
-    "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
-  );
-}
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    Object.values(kartlag).forEach(k => {
-      k.opacity = 0.8;
-      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
-    });
     this.state = {
       kartlag: {
-        bakgrunnskart, //: JSON.parse(JSON.stringify(bakgrunnskarttema)),
-        fjellskygge,
-        ...kartlag
+        bakgrunnskart,
+        fjellskygge
       },
       valgteLag: {},
       opplystKode: "",
@@ -54,6 +36,34 @@ class App extends React.Component {
     };
     exportableSpraak = this;
     exportableFullscreen = this;
+  }
+
+  async lastNedKartlag() {
+    var kartlag = await backend.hentLokalFil("kartlag.json");
+    if (!kartlag) {
+      console.error(
+        "Du har ikke opprettet databasen og hentet ned datadump, og blir derfor vist et testdatasett."
+      );
+      kartlag = await backend.hentLokalFil("kartlag_preview.json");
+      console.error(
+        "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
+      );
+    }
+    Object.values(kartlag).forEach(k => {
+      k.opacity = 0.8;
+      k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+    });
+    this.setState({
+      kartlag: {
+        bakgrunnskart,
+        fjellskygge,
+        ...kartlag
+      }
+    });
+  }
+
+  componentDidMount() {
+    this.lastNedKartlag();
   }
 
   render() {
@@ -162,7 +172,7 @@ class App extends React.Component {
   };
 
   handleLayersSøk = (lng, lat, valgteLag) => {
-    let looplist = kartlag;
+    let looplist = this.state.kartlag;
     if (valgteLag) {
       looplist = valgteLag;
     }
