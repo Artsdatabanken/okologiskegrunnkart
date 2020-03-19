@@ -5,12 +5,7 @@ import {
   ExpandLess,
   ExpandMore
 } from "@material-ui/icons";
-import {
-  Collapse,
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from "@material-ui/core";
+import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import LoadingPlaceholder from "./LoadingPlaceholder";
@@ -48,6 +43,8 @@ const GeneriskElement = props => {
   );
   primary_text = kartlag.tittel || primary_text;
 
+  console.log(kartlag.dataeier);
+
   return (
     <div
       style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
@@ -72,11 +69,34 @@ const GeneriskElement = props => {
             </>
           )}
         </ListItemIcon>
-        <ListItemText
-          primary={primary_text}
-          secondary3={<LoadingPlaceholder />}
-          secondary={resultat.loading ? <LoadingPlaceholder /> : secondary_text}
-        />
+        <div
+          style={{
+            flex: 1
+          }}
+        >
+          <div>
+            {resultat.loading ? <LoadingPlaceholder /> : secondary_text}
+          </div>
+          <div
+            style={{
+              display: "block",
+              fontSize: "12pt",
+              color: "#6d6d6d"
+            }}
+          >
+            {primary_text}
+          </div>
+          <div
+            style={{
+              display: "block",
+              fontSize: "10pt",
+              color: "grey"
+            }}
+          >
+            {kartlag.dataeier}
+          </div>
+        </div>
+
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
       {url && (

@@ -212,7 +212,6 @@ class App extends React.Component {
         }
       }
     }
-    console.log(valgteLag);
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat);
     this.handleLayersSøk(lng, lat, valgteLag);
