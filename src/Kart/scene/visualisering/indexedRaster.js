@@ -20,14 +20,14 @@ const global = `
   }`;
 
 function lagStyle(format, drawArgs) {
-  const { opplyst, blendmode } = drawArgs;
+  const { blendmode } = drawArgs;
   const gradient = {
     base: "raster",
     blend: blendmode,
     animated: false,
     shaders: {
       uniforms: {
-        palette: makePalette(opplyst, drawArgs),
+        palette: makePalette(drawArgs),
         depth: 1 - (drawArgs.depth || 0) / 8 - 0.5 / 8
       },
       blocks: {
@@ -44,7 +44,7 @@ function finnBarn(kode, barn, blank) {
   return { kode: kode, farge: blank };
 }
 
-function makePalette(opplyst, drawArgs) {
+function makePalette(drawArgs) {
   const barna = drawArgs.barn.length > 0 ? drawArgs.barn : [drawArgs];
   const hash = {};
   let blank = "#FFFFFF";
@@ -57,8 +57,6 @@ function makePalette(opplyst, drawArgs) {
     const barnet = finnBarn(kode, barna, blank);
     if (barnet.erSynlig === false) {
       colors.push(blank);
-    } else if (barnet.kode === opplyst.kode) {
-      colors.push("#f88");
     } else {
       colors.push(barnet.farge);
     }

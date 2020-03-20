@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
-import TopBarContainer from "./TopBar/TopBarContainer";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
@@ -24,8 +23,6 @@ class App extends React.Component {
         fjellskygge
       },
       valgteLag: {},
-      opplystKode: "",
-      opplyst: {},
       actualBounds: null,
       fitBounds: null,
       navigation_history: [],
@@ -78,7 +75,6 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <TopBarContainer />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       aktivtFormat={basiskart.kart.aktivtFormat}
@@ -96,8 +92,6 @@ class App extends React.Component {
                       longitude={15.8}
                       zoom={3.1}
                       aktiveLag={this.state.kartlag}
-                      opplyst={this.state.opplyst}
-                      opplystKode={this.state.opplystKode}
                       onMapBoundsChange={this.handleActualBoundsChange}
                       onMapMove={context.onMapMove}
                       history={history}

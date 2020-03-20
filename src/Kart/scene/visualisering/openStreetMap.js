@@ -35,32 +35,14 @@ function opprett(kode, kf, layers, style) {
   layers[kode] = layer;
 }
 
-function opprettTekst(kode, kf, layers) {
-  if (!kf[kode]) {
-    return;
-  }
-  const layer = Object.assign({}, mal[kode]);
-  const font = layer.draw.text.font;
-  font.fill = kf[kode + "_farge"];
-  font.stroke.color = kf[kode + "_stroke_farge"];
-  font.stroke.width = kf[kode + "_stroke_width"];
-  layers[kode] = layer;
-}
-
 function drawAll(drawArgs) {
   const kf = drawArgs.format;
-  const { opplystKode } = drawArgs;
   const layers = {};
   opprett("kommunegrense", kf, layers, "boundary");
   opprett("fylkesgrense", kf, layers, "boundary");
   opprett("landegrense", kf, layers, "boundary");
   opprett("vann", kf, layers, "polygons");
   opprett("transport", kf, layers, "lines");
-  if (!opplystKode) {
-    opprettTekst("transport_navn", kf, layers);
-    opprettTekst("sted_navn", kf, layers);
-    opprettTekst("vann_navn", kf, layers);
-  }
   return layers;
 }
 

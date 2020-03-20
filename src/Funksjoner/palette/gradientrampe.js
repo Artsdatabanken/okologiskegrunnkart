@@ -1,7 +1,7 @@
 import tinycolor from "tinycolor2";
 import colorArray2Image from "./colorArray2Image";
 
-function lagGradientRampe(barna, opplystKode, mode, blendmode, opacity) {
+function lagGradientRampe(barna, mode, blendmode, opacity) {
   let steps = [];
   barna.forEach(b => {
     if (!b.farge) console.warn("Manger farge for " + b.kode);
@@ -26,7 +26,7 @@ function steps2Palette(steps, blendmode = "multiply", opacity = 100) {
   return colorArray2Image(cmap, blendmode, opacity);
 }
 
-function buildGradient(steps, opplystLevel = -1) {
+function buildGradient(steps) {
   const cmap = [];
   for (let i = 0; i < steps.length - 1; i++) {
     const a = steps[i];

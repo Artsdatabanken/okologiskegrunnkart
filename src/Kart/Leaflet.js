@@ -81,7 +81,6 @@ class Leaflet extends React.Component {
 
   erEndret(prevProps) {
     if (this.props.aktiveLag !== prevProps.aktiveLag) return true;
-    if (this.props.opplystKode !== prevProps.opplystKode) return true;
     if (this.props.show_current !== prevProps.show_current) return true;
     if (this.props.token !== prevProps.token) return true;
   }

@@ -19,7 +19,7 @@ function normaliserFilter(format) {
 }
 
 function lagStyle(format, drawArgs) {
-  const { opplystKode, barn, palett, blendmode } = drawArgs;
+  const { barn, palett, blendmode } = drawArgs;
   let [filterMin, filterMax] = normaliserFilter(format);
   const visning = drawArgs.format.aktivVisning;
   let transparent_blendmode_handler = `vec4 transparent = vec4(1.,1.,1.,0.);`;
@@ -28,13 +28,7 @@ function lagStyle(format, drawArgs) {
   }
   const palette = palett
     ? steps2Palette(palett)
-    : lagGradientRampe(
-        barn,
-        opplystKode,
-        visning || "diskret",
-        blendmode,
-        drawArgs.opacity
-      );
+    : lagGradientRampe(barn, visning || "diskret", blendmode, drawArgs.opacity);
   console.log("palette", palette);
   const gradient = {
     base: "raster",

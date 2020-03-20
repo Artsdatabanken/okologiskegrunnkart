@@ -16,10 +16,7 @@ function drawAll(drawArgs) {
 }
 
 function lagStyle(format, drawArgs) {
-  let farge = tinycolor(
-    drawArgs.opplystBarn ? drawArgs.opplystBarn.farge : drawArgs.farge
-  ).saturate(30);
-  if (drawArgs.opplystKode && !drawArgs.opplystBarn) farge.lighten(20);
+  let farge = tinycolor(drawArgs.farge).saturate(30);
   const fargear = [farge._r / 255, farge._g / 255, farge._b / 255, farge._a];
   const gradient = {
     base: "raster",
@@ -29,7 +26,7 @@ function lagStyle(format, drawArgs) {
       blocks: {
         color: `
         float value = 1.-sampleRaster(0).r;
-        float zoomratio = smoothstep(8.,10.,(u_map_position.z)); 
+        float zoomratio = smoothstep(8.,10.,(u_map_position.z));
         value = mix(
           value,
           1.8-step(value,0.98),
@@ -48,8 +45,6 @@ function lagStyle(format, drawArgs) {
 }
 
 function lagSource({ url, zoom }, drawArgs) {
-  if (drawArgs.opplystBarn)
-    url = url.replace(drawArgs.url, drawArgs.opplystBarn.url);
   return sysconfig.createTileSource(url, "Raster", zoom, drawArgs.bbox);
 }
 
