@@ -19,7 +19,7 @@ function createScene(props) {
 
 function updateScene(config, props) {
   if (!config) return; // not yet loaded
-  lagAktiveLag(props.aktiveLag, props.opplyst, config, props.token);
+  lagAktiveLag(props.aktiveLag, config, props.token);
   return config;
 }
 

@@ -49,18 +49,12 @@ function opprettTekst(kode, kf, layers) {
 
 function drawAll(drawArgs) {
   const kf = drawArgs.format;
-  const { opplystKode } = drawArgs;
   const layers = {};
   opprett("kommunegrense", kf, layers, "boundary");
   opprett("fylkesgrense", kf, layers, "boundary");
   opprett("landegrense", kf, layers, "boundary");
   opprett("vann", kf, layers, "polygons");
   opprett("transport", kf, layers, "lines");
-  if (!opplystKode) {
-    opprettTekst("transport_navn", kf, layers);
-    opprettTekst("sted_navn", kf, layers);
-    opprettTekst("vann_navn", kf, layers);
-  }
   return layers;
 }
 
