@@ -10,39 +10,50 @@ import json
 
 class Tema(models.Model):
     tittel = models.CharField(max_length=200)
+
     def __str__(self):
         return self.tittel
+
 
 class Tag(models.Model):
     tittel = models.CharField(max_length=200)
+
     def __str__(self):
         return self.tittel
+
 
 class Dataeier(models.Model):
     tittel = models.CharField(max_length=200)
-    logourl = models.CharField(max_length=500,blank=True)
-    url = models.CharField(max_length=500,blank=True)
+    logourl = models.CharField(max_length=500, blank=True)
+    url = models.CharField(max_length=500, blank=True)
+
     def __str__(self):
         return self.tittel
+
 
 class Type(models.Model):
     tittel = models.CharField(max_length=200)
+
     def __str__(self):
         return self.tittel
 
+
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
-    wmsurl = models.CharField(max_length=500,blank=True)
-    wmslayer = models.CharField(max_length=100,blank=True)
-    faktaark = models.CharField(max_length=500,blank=True)
-    klikkurl = models.CharField(max_length=500,blank=True)
-    klikktekst = models.CharField(max_length=500,blank=True)
-    type = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True,blank=True)
+    wmsurl = models.CharField(max_length=500, blank=True)
+    wmslayer = models.CharField(max_length=100, blank=True)
+    faktaark = models.CharField(max_length=500, blank=True)
+    klikkurl = models.CharField(max_length=500, blank=True)
+    klikktekst = models.CharField(max_length=500, blank=True)
+    type = models.ForeignKey(
+        Type, on_delete=models.SET_NULL, null=True, blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
-    tema = models.ForeignKey(Tema, on_delete=models.SET_NULL, null=True,blank=True)
+    tema = models.ForeignKey(
+        Tema, on_delete=models.SET_NULL, null=True, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
+
     def __str__(self):
-       return self.tittel
+        return self.tittel
 
 
 @receiver(post_save, sender=Kartlag)
@@ -74,7 +85,6 @@ def createJSON(sender, instance, **kwargs):
                 list.append(tag.tittel)
             dict[kartlag.id]['tags'] = list
 
-
         # og så legg til nye felt, som tags osv
-    with open("../public/kartlag.json","w", encoding='utf8') as file:
-        json.dump(dict,file,indent=4,sort_keys=True, ensure_ascii=False)
+    with open("./kartlag.json", "w", encoding='utf8') as file:
+        json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
