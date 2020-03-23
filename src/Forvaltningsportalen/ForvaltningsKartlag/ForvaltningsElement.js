@@ -120,6 +120,32 @@ const ForvaltningsElement = ({
                 </ListItem>
               )}
 
+              {kartlag.logourl && (
+                <>
+                  <ListItem
+                    style={{ backgroundColor: open ? "#fff" : "#eee" }}
+                    button
+                    onClick={e => {
+                      if (kartlag.kildeurl) {
+                        window.open(kartlag.kildeurl);
+                      }
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
+                    <ListItemIcon>
+                      <img
+                        src={kartlag.logourl}
+                        style={{ maxWidth: "24px" }}
+                        alt=""
+                      />
+                    </ListItemIcon>
+                    <ListItemText primary={kartlag.dataeier} />
+                    <OpenInNew />
+                  </ListItem>
+                </>
+              )}
+
               {hasLegend && (
                 <>
                   <Typography id="range-slider" gutterBottom>
