@@ -8,7 +8,7 @@ Denne trenger ikke bygges for hver commit da den ikke inneholder annet enn Pytho
 docker create \
   --name forvaltningsportal-django \
   -p 8000:8000 \
-  -v /home/b/src/adb/forvaltningsportal/django:/usr/src/app \
+  -v /home/grunnkart/forvaltningsportal/django:/usr/src/app \
   --restart unless-stopped \
   forvaltningsportal-django
 ```
@@ -31,4 +31,4 @@ ALLOWED_HOSTS = ["*"]
 
 ## Deployment
 
-Filer fra denne katalogen django
+Filer fra denne katalogen django, deployes til katalogen som er mappet inn i *forvaltningsporta-django* container.
