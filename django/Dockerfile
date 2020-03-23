@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 #COPY . .
 EXPOSE 8000
-CMD [ "./start.sh" ]
+CMD [ "./start.sh", "--port", "8000" ]
 
