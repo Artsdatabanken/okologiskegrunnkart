@@ -5,6 +5,8 @@ import språk from "../../Funksjoner/språk";
 import {
   OpenInNew,
   VisibilityOutlined,
+  Link,
+  Layers,
   VisibilityOffOutlined
 } from "@material-ui/icons";
 import {
@@ -118,6 +120,36 @@ const ForvaltningsElement = ({
                   <ListItemText primary="Datasettet på Geonorge.no" />
                   <OpenInNew />
                 </ListItem>
+              )}
+
+              {kartlag.dataeier && (
+                <>
+                  <ListItem
+                    style={{ backgroundColor: open ? "#fff" : "#eee" }}
+                    button
+                    onClick={e => {
+                      if (kartlag.kildeurl) {
+                        window.open(kartlag.kildeurl);
+                      }
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                  >
+                    <ListItemIcon>
+                      {kartlag.logourl ? (
+                        <img
+                          src={kartlag.logourl}
+                          style={{ maxWidth: "24px" }}
+                          alt=""
+                        />
+                      ) : (
+                        <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                      )}
+                    </ListItemIcon>
+                    <ListItemText primary={kartlag.dataeier} />
+                    {kartlag.kildeurl && <OpenInNew />}
+                  </ListItem>
+                </>
               )}
 
               {hasLegend && (

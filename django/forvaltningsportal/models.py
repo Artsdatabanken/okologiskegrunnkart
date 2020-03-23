@@ -64,6 +64,11 @@ def createJSON(sender, instance, **kwargs):
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
         }
+
+        if kartlag.dataeier.logourl:
+            dict[kartlag.id]['logourl'] = kartlag.dataeier.logourl
+        if kartlag.dataeier.url:
+            dict[kartlag.id]['kildeurl'] = kartlag.dataeier.url
         if kartlag.type:
             dict[kartlag.id]['type'] = kartlag.type.tittel
         if kartlag.tema:
@@ -86,5 +91,5 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['tags'] = list
 
         # og så legg til nye felt, som tags osv
-    with open("./kartlag.json", "w", encoding='utf8') as file:
+    with open("../public/kartlag.json", "w", encoding='utf8') as file:
         json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
