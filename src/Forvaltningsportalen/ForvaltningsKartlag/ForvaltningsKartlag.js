@@ -9,7 +9,8 @@ class ForvaltningsKartlag extends React.Component {
   state = {
     sortcriteria: "ingen",
     filterlist: [],
-    hideHidden: false
+    hideHidden: false,
+    searchTerm: null
   };
 
   render() {
@@ -47,6 +48,18 @@ class ForvaltningsKartlag extends React.Component {
         {context => (
           <>
             <div className="sort_chooser_container">
+              <h4>Søk i kartlag</h4>
+              <input
+                type="text"
+                onChange={e => {
+                  if (e.target.value) {
+                    this.setState({
+                      searchTerm: e.target.value.toLowerCase()
+                    });
+                  }
+                }}
+              />
+
               <h4>Filtrering</h4>
 
               {Array.from(taglist).map((element, index) => {
@@ -78,7 +91,7 @@ class ForvaltningsKartlag extends React.Component {
               <h4> Filtrer bort skjulte element </h4>
               <div className="toggle">
                 <span>av</span>
-                <label class="switch">
+                <label className="switch">
                   <input
                     type="checkbox"
                     onChange={e => {
@@ -92,9 +105,8 @@ class ForvaltningsKartlag extends React.Component {
                         });
                       }
                     }}
-                    id=""
                   />
-                  <span class="slider"></span>
+                  <span className="slider"></span>
                 </label>
                 <span>på</span>
               </div>
@@ -141,6 +153,7 @@ class ForvaltningsKartlag extends React.Component {
                 .map(element => {
                   return (
                     <ForvaltningsGruppering
+                      searchTerm={this.state.searchTerm}
                       hideHidden={this.state.hideHidden}
                       filterlist={this.state.filterlist}
                       kartlag={sorted[element]}

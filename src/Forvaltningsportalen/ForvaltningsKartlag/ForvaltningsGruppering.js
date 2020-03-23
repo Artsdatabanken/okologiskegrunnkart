@@ -9,6 +9,7 @@ const ForvaltningsGruppering = ({
   handleShowCurrent,
   show_current,
   hideHidden,
+  searchTerm,
   element
 }) => {
   return (
@@ -25,6 +26,12 @@ const ForvaltningsGruppering = ({
           showelement = true;
         }
 
+        if (searchTerm && searchTerm.length > 0) {
+          let string = JSON.stringify(element).toLowerCase();
+          if (string.indexOf(searchTerm) === -1) {
+            return null;
+          }
+        }
         if (hideHidden && !element.erSynlig) return null;
         if (!showelement) return null;
         return (
