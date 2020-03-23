@@ -5,6 +5,8 @@ import språk from "../../Funksjoner/språk";
 import {
   OpenInNew,
   VisibilityOutlined,
+  Link,
+  Layers,
   VisibilityOffOutlined
 } from "@material-ui/icons";
 import {
@@ -120,7 +122,7 @@ const ForvaltningsElement = ({
                 </ListItem>
               )}
 
-              {kartlag.logourl && (
+              {kartlag.dataeier && (
                 <>
                   <ListItem
                     style={{ backgroundColor: open ? "#fff" : "#eee" }}
@@ -134,14 +136,18 @@ const ForvaltningsElement = ({
                     }}
                   >
                     <ListItemIcon>
-                      <img
-                        src={kartlag.logourl}
-                        style={{ maxWidth: "24px" }}
-                        alt=""
-                      />
+                      {kartlag.logourl ? (
+                        <img
+                          src={kartlag.logourl}
+                          style={{ maxWidth: "24px" }}
+                          alt=""
+                        />
+                      ) : (
+                        <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                      )}
                     </ListItemIcon>
                     <ListItemText primary={kartlag.dataeier} />
-                    <OpenInNew />
+                    {kartlag.kildeurl && <OpenInNew />}
                   </ListItem>
                 </>
               )}
