@@ -13,6 +13,14 @@ docker create \
   forvaltningsportal-django
 ```
 
+## Add superuser
+
+Etter første gangs oppstart av containeren (uten gamle data) må det opprettes bruker fra innsiden av containeren.
+
+```
+python manage.py createsuperuser
+```
+
 ## Variabler
 
 Variabler i _settings.py_ som kan være greit å vite om.
@@ -31,4 +39,4 @@ ALLOWED_HOSTS = ["*"]
 
 ## Deployment
 
-Filer fra denne katalogen django, deployes til katalogen som er mappet inn i *forvaltningsporta-django* container.
+Filer fra denne katalogen django, deployes til katalogen som er mappet inn i _forvaltningsporta-django_ container.
