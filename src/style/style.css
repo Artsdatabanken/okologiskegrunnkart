@@ -158,3 +158,24 @@ h4.container_header {
 .coordinates {
   color: grey;
 }
+
+.collapsed_container {
+  background: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.collapsed_container div {
+  text-align: center;
+}
+
+.collapsed_container h4 {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 8pt;
+  width: 100%;
+  font-weight: normal;
+}

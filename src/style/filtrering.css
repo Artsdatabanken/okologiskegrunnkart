@@ -26,7 +26,10 @@
 
 .tags {
   background: lightgrey;
-  padding: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 8pt;
   display: inline-block;
   border-radius: 3px;
   margin: 2px;

@@ -40,7 +40,9 @@ const ForvaltningsElement = ({
   return (
     <>
       <ListItem
+        // Elementet som inneholder tittel, visningsøye og droppned-knapp
         style={{ backgroundColor: open ? "#fff" : "#eee" }}
+        className="element"
         button
         onClick={() => {
           setOpen(!open);
@@ -64,19 +66,12 @@ const ForvaltningsElement = ({
         <ListItemText primary={språk(tittel)} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
+
       <Collapse in={open} timeout="auto" unmountOnExit>
-        <div
-          style={{
-            backgroundColor: open ? "#fff" : "#eee",
-            paddingLeft: 16,
-            paddingBottom: 16,
-            paddingRight: 16,
-            paddingTop: 16
-          }}
-        >
+        <div className="collapsed_container">
           {tags && (
-            <>
-              Emneknagger: <br />
+            <div className="tags_container">
+              <h4>Emneknagger</h4>
               {tags.map((element, index) => {
                 return (
                   <div className="tags" key={index}>
@@ -84,14 +79,12 @@ const ForvaltningsElement = ({
                   </div>
                 );
               })}
-            </>
+            </div>
           )}
 
           {kartlag.kart && kartlag.kart.format.wms && (
-            <div style={{ marginLeft: 24 }}>
-              <Typography id="range-slider" gutterBottom>
-                Gjennomsiktighet
-              </Typography>
+            <div>
+              <h4>Gjennomsiktighet</h4>
               <Slider
                 value={100 * kartlag.opacity}
                 step={1}
@@ -104,35 +97,28 @@ const ForvaltningsElement = ({
                 aria-labelledby="range-slider"
                 getAriaValueText={opacity => opacity + " %"}
               />
-              {true && (
-                <ListItem
-                  style={{ backgroundColor: open ? "#fff" : "#eee" }}
-                  button
-                  onClick={e => {
-                    window.open(kartlag.geonorge || "https://www.geonorge.no/");
-                    e.preventDefault();
-                    e.stopPropagation();
-                  }}
-                >
-                  <ListItemIcon>
-                    <Geonorge />
-                  </ListItemIcon>
-                  <ListItemText primary="Datasettet på Geonorge.no" />
-                  <OpenInNew />
-                </ListItem>
-              )}
+
+              <ListItem
+                button
+                onClick={e => {
+                  window.open(kartlag.geonorge || "https://www.geonorge.no/");
+                }}
+              >
+                <ListItemIcon>
+                  <Geonorge />
+                </ListItemIcon>
+                <ListItemText primary="Datasettet på Geonorge.no" />
+                <OpenInNew />
+              </ListItem>
 
               {kartlag.dataeier && (
                 <>
                   <ListItem
-                    style={{ backgroundColor: open ? "#fff" : "#eee" }}
                     button
                     onClick={e => {
                       if (kartlag.kildeurl) {
                         window.open(kartlag.kildeurl);
                       }
-                      e.preventDefault();
-                      e.stopPropagation();
                     }}
                   >
                     <ListItemIcon>
