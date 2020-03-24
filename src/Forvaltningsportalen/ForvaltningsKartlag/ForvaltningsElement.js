@@ -65,7 +65,12 @@ const ForvaltningsElement = ({
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
 
-      <Collapse in={open} timeout="auto" unmountOnExit>
+      <Collapse
+        in={open}
+        timeout="auto"
+        unmountOnExit
+        // Underelementet
+      >
         <div className="collapsed_container">
           {tags && (
             <div className="tags_container">
@@ -95,6 +100,23 @@ const ForvaltningsElement = ({
                 aria-labelledby="range-slider"
                 getAriaValueText={opacity => opacity + " %"}
               />
+
+              {kartlag.faktaark && (
+                <>
+                  <ListItem
+                    button
+                    onClick={e => {
+                      window.open(kartlag.faktaark);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Link />
+                    </ListItemIcon>
+                    <ListItemText primary="Faktaark" />
+                    <OpenInNew />
+                  </ListItem>
+                </>
+              )}
 
               <ListItem
                 button
