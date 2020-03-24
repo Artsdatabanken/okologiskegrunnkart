@@ -1,3 +1,5 @@
+/**** CSS for Kartlagfanen og alle dens underkomponenter *****/
+
 .infobox_container {
   position: absolute;
   top: 0px;
@@ -67,4 +69,15 @@
   top: 5px;
   right: 5px;
   z-index: 100;
+}
+
+.expand_header {
+  float: left;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+}
+
+.expand_header button {
+  margin: auto;
 }

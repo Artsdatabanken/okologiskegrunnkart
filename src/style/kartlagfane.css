@@ -1,0 +1,172 @@
+/**** CSS for Kartlagfanen og alle dens underkomponenter *****/
+
+/* Selve panelet */
+
+.right_panel {
+  position: absolute;
+  height: 100%;
+  right: 0px;
+  top: 0px;
+  width: 408px;
+  background-color: #eee;
+}
+
+@media only screen and (max-width: 768px) {
+  .right_panel {
+    width: 100%;
+    height: 50%;
+    top: 50%;
+  }
+}
+
+/* Overskriftene i panelet */
+
+.container_header {
+  margin-left: 15px;
+  margin-right: 15px;
+  border-bottom: 1px solid grey;
+  font-weight: 400;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+/* Overskrift på grupperte element*/
+h4.container_header {
+  margin-left: 25px;
+  margin-right: 25px;
+  text-align: left;
+  border-bottom: 1px solid lightgrey;
+  padding-bottom: 5px;
+}
+
+/* Tittelboksen bruker Listitems fra Material-Ui, uten endringer */
+
+/* Åpnet Underfane-elementer  */
+
+.collapsed_container {
+  background: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.collapsed_container div {
+  text-align: center;
+}
+
+.collapsed_container h4 {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 8pt;
+  width: 100%;
+  font-weight: normal;
+}
+
+.tags {
+  background: lightgrey;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 8pt;
+  display: inline-block;
+  border-radius: 3px;
+  margin: 2px;
+}
+
+/* Sortering, filtrering og søk -delen */
+
+.sort_chooser_container {
+  text-align: center;
+}
+
+.sort_chooser_container h4 {
+  font-size: 12pt;
+  font-weight: normal;
+  margin: 10px;
+}
+
+.filterobject {
+  /* checkboksene i filtreringen */
+  display: inline-block;
+  padding: 5px;
+  font-size: 10pt;
+}
+
+.filterobject input {
+  vertical-align: top;
+}
+
+.sort_chooser_container select {
+  min-width: 200px;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+/* Selvbygget toggle-element */
+.toggle {
+  margin: 10px;
+  font-size: 10pt;
+  text-align: center;
+  color: gray;
+}
+
+.toggle span {
+  padding: 5px;
+}
+
+.toggle .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.toggle .switch input {
+  /* Hide default HTML checkbox */
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle .slider {
+  border-radius: inherit;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  border: 1px solid gray;
+}
+
+.toggle input:checked + .slider {
+  border-color: black;
+  background-color: black;
+}
+
+.toggle input:focus + .slider {
+  box-shadow: 0 0 1px blue;
+}
+
+.toggle .slider:before {
+  /* The toggle-ball */
+  border-radius: 50%;
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 2px;
+  top: 1px;
+  background: gray;
+}
+
+.toggle input:checked + .slider:before {
+  background-color: white;
+  left: auto;
+  right: 2px;
+}

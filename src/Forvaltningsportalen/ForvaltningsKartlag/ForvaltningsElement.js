@@ -41,8 +41,6 @@ const ForvaltningsElement = ({
     <>
       <ListItem
         // Elementet som inneholder tittel, visningsøye og droppned-knapp
-        style={{ backgroundColor: open ? "#fff" : "#eee" }}
-        className="element"
         button
         onClick={() => {
           setOpen(!open);
