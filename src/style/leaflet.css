@@ -5,6 +5,7 @@
   will-change: unset;
 }
 
+/* Kartets plassering */
 .leaflet-container {
   position: absolute;
   left: 0;
@@ -12,54 +13,4 @@
   width: 100%;
   height: 100%;
   z-index: 0;
-}
-
-/* KARTKNAPPENE */
-.leaflet-top {
-  top: auto;
-  bottom: 20px;
-  right: 408px;
-  left: auto;
-}
-
-@media only screen and (max-width: 768px) {
-  .leaflet-top {
-    bottom: calc(50% + 20px);
-    right: 10px;
-    left: auto;
-  }
-}
-
-.map_button {
-  top: auto;
-  position: absolute;
-  bottom: 83px;
-  left: auto;
-  right: calc(408px + 6px);
-  border-radius: 3px;
-  margin: 5px;
-  border: 1px solid #ccc;
-  background: #f4f4f4;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  padding: 0px;
-  z-index: 1;
-}
-
-@media only screen and (max-width: 768px) {
-  .map_button {
-    bottom: calc(50% + 83px);
-    right: 16px;
-  }
-}
-
-.map_button.active {
-  background: black;
-  color: white;
-  border-color: white;
-}
-
-.currentlyhidden {
-  display: none;
 }

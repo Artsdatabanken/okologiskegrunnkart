@@ -19,6 +19,12 @@
   }
 }
 
+.scroll_area {
+  max-height: calc(100% - 56px);
+  overflow-y: auto;
+  width: 100%;
+}
+
 /* Overskriftene i panelet */
 
 .container_header {

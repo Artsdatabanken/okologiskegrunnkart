@@ -1,5 +1,6 @@
 /**** CSS for Kartlagfanen og alle dens underkomponenter *****/
 
+/* Topp-anker for infoboksen som justeres i forhold til Kartlagfanens bredde */
 .infobox_container {
   position: absolute;
   top: 0px;
@@ -8,6 +9,13 @@
   height: 1px;
 }
 
+@media only screen and (max-width: 768px) {
+  .infobox_container {
+    width: 100%;
+  }
+}
+
+/* Infoboksen og Søk i alle lag-boksen */
 .infobox,
 .all_layer_results {
   position: relative;
@@ -35,10 +43,6 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .infobox_container {
-    width: 100%;
-  }
-
   .infobox,
   .all_layer_results {
     width: 100%;
@@ -63,6 +67,19 @@
   }
 }
 
+/* Overskriften */
+.infotitle svg {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-right: 5px;
+  height: 18px;
+}
+
+.coordinates {
+  color: grey;
+}
+
+/* Knapper i boksene  */
 .close_button {
   text-align: center;
   position: absolute;
@@ -71,6 +88,16 @@
   z-index: 100;
 }
 
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+
+/* Felt øverst et åpnet underelement  */
 .expand_header {
   float: left;
   width: 100%;

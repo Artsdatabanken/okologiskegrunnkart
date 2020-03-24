@@ -1,5 +1,6 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
+import "../style/kartlagfane.css";
 
 const RightWindow = props => {
   return (
