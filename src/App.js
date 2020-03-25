@@ -11,6 +11,7 @@ import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import fjellskygge from "./Kart/Bakgrunnskart/fjellskygge";
 import { setValue } from "./Funksjoner/setValue";
+import "./style/kartknapper.css";
 export let exportableSpraak;
 export let exportableFullscreen;
 

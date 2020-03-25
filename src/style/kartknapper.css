@@ -1,0 +1,96 @@
+/* Zoom-knappene */
+.leaflet-top {
+  top: auto;
+  bottom: 20px;
+  right: 408px;
+  left: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .leaflet-top {
+    bottom: calc(50% + 20px);
+    right: 10px;
+    left: auto;
+  }
+}
+
+/* Kartvelgeren */
+.change_map_buttons {
+  padding: 5px;
+  display: flex;
+  position: absolute;
+  left: 10px;
+  bottom: 20px;
+  z-index: 1000;
+  border-radius: 3px;
+  border: 1px solid #9f9f9f;
+}
+
+.change_map_icon,
+.change_map_button {
+  border-radius: 3px;
+  border: 1px solid #9f9f9f;
+  background: #f4f4f4;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0px;
+  z-index: 1;
+}
+
+.change_map_button {
+  margin-left: 5px;
+}
+
+.change_map_button span {
+  display: inline-block;
+  width: 100%;
+  background: white;
+  overflow: hidden;
+  font-size: 8pt;
+}
+
+@media only screen and (max-width: 768px) {
+  .change_map_buttons {
+    bottom: calc(50% + 20px);
+  }
+}
+
+/* Av/på markør-knappen */
+.map_button {
+  top: auto;
+  position: absolute;
+  bottom: 83px;
+  left: auto;
+  right: calc(408px + 6px);
+  border-radius: 3px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  background: #f4f4f4;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 0px;
+  z-index: 1;
+}
+
+@media only screen and (max-width: 768px) {
+  .map_button {
+    bottom: calc(50% + 83px);
+    right: 16px;
+  }
+}
+
+.map_button.active {
+  background: black;
+  color: white;
+  border-color: white;
+}
+
+/* Skrur av knapper vi midlertidig ikke trenger
+- knapp for å bytte mellom f.eks polygon/markør
+- knapp for zoom til gps
+*/
+.currentlyhidden {
+  display: none;
+}

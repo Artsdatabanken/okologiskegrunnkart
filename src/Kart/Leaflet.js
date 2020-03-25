@@ -6,6 +6,7 @@ import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
+import "../style/leaflet.css";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -198,7 +199,9 @@ class Leaflet extends React.Component {
         )}
         <button
           className={
-            this.state.markerTool === true ? "map_button active" : "map_button"
+            this.state.markerTool === true
+              ? "map_button active currentlyhidden"
+              : "map_button currentlyhidden"
           }
           title="Marker tool"
           alt="Marker tool"

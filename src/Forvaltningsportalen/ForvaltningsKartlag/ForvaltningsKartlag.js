@@ -2,7 +2,6 @@ import React from "react";
 import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { List } from "@material-ui/core";
-import "../../style/filtrering.css";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
