@@ -6,6 +6,7 @@ import {
   OpenInNew,
   VisibilityOutlined,
   Link,
+  Description,
   Layers,
   VisibilityOffOutlined
 } from "@material-ui/icons";
@@ -106,7 +107,7 @@ const ForvaltningsElement = ({
                 <>
                   <ListItem>
                     <ListItemIcon>
-                      <Link />
+                      <Description />
                     </ListItemIcon>
                     <ListItemText primary="Faktaark" />
                     {kartlag.faktaark && (
@@ -117,20 +118,24 @@ const ForvaltningsElement = ({
                             window.open(kartlag.faktaark);
                           }}
                         />
-                        {openFakta ? (
-                          <ExpandLess
-                            className="iconbutton"
-                            onClick={e => {
-                              setOpenFakta(!openFakta);
-                            }}
-                          />
-                        ) : (
-                          <ExpandMore
-                            className="iconbutton"
-                            onClick={e => {
-                              setOpenFakta(!openFakta);
-                            }}
-                          />
+                        {kartlag.type !== "naturtype" && (
+                          <>
+                            {openFakta ? (
+                              <ExpandLess
+                                className="iconbutton"
+                                onClick={e => {
+                                  setOpenFakta(!openFakta);
+                                }}
+                              />
+                            ) : (
+                              <ExpandMore
+                                className="iconbutton"
+                                onClick={e => {
+                                  setOpenFakta(!openFakta);
+                                }}
+                              />
+                            )}
+                          </>
                         )}
                       </>
                     )}
