@@ -6,6 +6,7 @@ import backend from "./Funksjoner/backend";
 import RightWindow from "./Forvaltningsportalen/RightWindow";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
+import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
@@ -76,6 +77,7 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
+                    <SearchBar />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       aktivtFormat={basiskart.kart.aktivtFormat}

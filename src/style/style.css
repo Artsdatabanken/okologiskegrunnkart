@@ -38,3 +38,10 @@ button.active {
   cursor: pointer;
   background: grey;
 }
+
+input,
+select {
+  border-radius: 3px;
+  padding: 5px;
+  border: 1px solid #808080;
+}
