@@ -81,6 +81,11 @@ h4.container_header {
   margin: 2px;
 }
 
+.iconbutton:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
 /* Sortering, filtrering og søk -delen */
 
 .sort_chooser_container {

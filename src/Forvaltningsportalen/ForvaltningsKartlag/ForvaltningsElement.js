@@ -33,6 +33,7 @@ const ForvaltningsElement = ({
   let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
   const [open, setOpen] = useState(false);
+  const [openFakta, setOpenFakta] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
   if (!tittel) return null;
   let tags = kartlag.tags || null;
@@ -103,18 +104,57 @@ const ForvaltningsElement = ({
 
               {kartlag.faktaark && (
                 <>
-                  <ListItem
-                    button
-                    onClick={e => {
-                      window.open(kartlag.faktaark);
-                    }}
-                  >
+                  <ListItem>
                     <ListItemIcon>
                       <Link />
                     </ListItemIcon>
                     <ListItemText primary="Faktaark" />
-                    <OpenInNew />
+                    {kartlag.faktaark && (
+                      <>
+                        <OpenInNew
+                          className="iconbutton"
+                          onClick={e => {
+                            window.open(kartlag.faktaark);
+                          }}
+                        />
+                        {openFakta ? (
+                          <ExpandLess
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
+                        ) : (
+                          <ExpandMore
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
+                        )}
+                      </>
+                    )}
                   </ListItem>
+
+                  {kartlag.faktaark && (
+                    <Collapse in={openFakta} timeout="auto" unmountOnExit>
+                      {kartlag.type !== "naturtype" && (
+                        <iframe
+                          allowtransparency="true"
+                          style={{
+                            frameBorder: 0,
+                            width: "100%",
+                            minHeight: "500px",
+                            maxHeight: "100%",
+                            position: "relative",
+                            overflow: "none"
+                          }}
+                          title="Faktaark"
+                          src={kartlag.faktaark}
+                        />
+                      )}
+                    </Collapse>
+                  )}
                 </>
               )}
 
