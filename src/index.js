@@ -7,7 +7,6 @@ import { BrowserRouter } from "react-router-dom";
 import SettingsContainer from "./SettingsContainer";
 import AuthenticationContextProvider from "./AuthenticationContextProvider";
 import "./style/style.css";
-import "./style/leaflet.css";
 
 true &&
   Sentry.init({

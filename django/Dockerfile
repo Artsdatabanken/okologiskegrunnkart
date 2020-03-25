@@ -7,7 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN groupadd -r --gid 1007 dockerrunner && useradd -r -g dockerrunner dockerrunner
 
 
-#COPY . .
 EXPOSE 8000
 USER dockerrunner
 CMD [ "./start.sh", "--port", "8000" ]
