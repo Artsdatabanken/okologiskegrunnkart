@@ -9,3 +9,18 @@
   text-align: center;
   padding: 10px;
 }
+
+.treffliste {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 28px;
+  display: block;
+  max-width: 186px;
+  min-height: 20px;
+  border-radius: 3px;
+}
+
+.treffliste button {
+  display: block;
+  width: 100%;
+}

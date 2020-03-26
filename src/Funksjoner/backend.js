@@ -23,6 +23,10 @@ class Backend {
     );
   }
 
+  static async hentFylker() {
+    return this.getPromise(`https://ws.geonorge.no/kommuneinfo/v1/fylker`);
+  }
+
   static async getFeatureInfo(url) {
     const boringkeys = [
       "gml:boundedBy",
@@ -36,6 +40,7 @@ class Backend {
       "xsi:schemaLocation",
       "version"
     ];
+
     function collapseLayerFeature(i) {
       const layerKey = Object.keys(i).find(e => e.endsWith("_layer"));
       if (!layerKey) return i;

@@ -31,7 +31,9 @@ class App extends React.Component {
       showCurrent: true,
       showFullscreen: false,
       spraak: "nb",
-      showExtensiveInfo: true
+      showExtensiveInfo: true,
+      treffliste: null,
+      fylker: null
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -77,7 +79,10 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <SearchBar />
+                    <SearchBar
+                      handleSearchBar={this.handleSearchBar}
+                      treffliste={this.state.treffliste}
+                    />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       aktivtFormat={basiskart.kart.aktivtFormat}
@@ -149,6 +154,34 @@ class App extends React.Component {
   };
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
+  };
+
+  async doStuff() {
+    let fylker = this.state.fylker;
+    if (fylker === null) {
+      await backend.hentFylker().then(henta_fylker => {
+        fylker = henta_fylker;
+        this.setState({
+          fylker: fylker
+        });
+      });
+    }
+  }
+
+  handleSearchBar = searchTerm => {
+    this.doStuff().then(() => {
+      let fylker = this.state.fylker;
+      let treffliste = [];
+      for (let i in fylker) {
+        let treff = fylker[i].fylkesnavn.toLowerCase();
+        if (treff.indexOf(searchTerm) !== -1) {
+          treffliste.push(fylker[i].fylkesnavn);
+        }
+      }
+      this.setState({
+        treffliste: treffliste
+      });
+    });
   };
 
   handleLatLng = (lng, lat) => {

@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../style/searchbar.css";
 
 const SearchBar = props => {
-  const [searchTerm, setSearchTerm] = useState(null);
+  let treffliste = props.treffliste;
 
   return (
     <div className="infobox_container">
@@ -12,18 +12,28 @@ const SearchBar = props => {
           type="text"
           onChange={e => {
             if (e.target.value) {
-              setSearchTerm(e.target.value.toLowerCase());
+              props.handleSearchBar(e.target.value.toLowerCase());
+            } else {
+              props.handleSearchBar(null);
             }
           }}
         />
         <button
           onClick={() => {
-            console.log(searchTerm);
+            console.log("klikk");
           }}
         >
           {" "}
           Søk
         </button>
+      </div>
+
+      <div className="treffliste">
+        {treffliste &&
+          props.treffliste.length > 0 &&
+          treffliste.map(item => {
+            return <button key={item}> {item} </button>;
+          })}
       </div>
     </div>
   );
