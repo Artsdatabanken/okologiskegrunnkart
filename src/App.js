@@ -33,7 +33,8 @@ class App extends React.Component {
       spraak: "nb",
       showExtensiveInfo: true,
       treffliste: null,
-      fylker: null
+      fylker: null,
+      kommuner: null
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -82,6 +83,7 @@ class App extends React.Component {
                     <SearchBar
                       handleSearchBar={this.handleSearchBar}
                       treffliste={this.state.treffliste}
+                      handleGeoSelection={this.handleGeoSelection}
                     />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
@@ -156,13 +158,30 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
+  handleGeoSelection = geostring => {
+    console.log(geostring);
+    if (geostring[1] === "Kommune") {
+      backend.hentKommunePolygon(geostring[2]).then(resultat => {
+        console.log(resultat.omrade.coordinates);
+      });
+    }
+  };
+
   async doStuff() {
     let fylker = this.state.fylker;
     if (fylker === null) {
       await backend.hentFylker().then(henta_fylker => {
-        fylker = henta_fylker;
         this.setState({
-          fylker: fylker
+          fylker: henta_fylker
+        });
+      });
+    }
+
+    let kommuner = this.state.kommuner;
+    if (kommuner === null) {
+      await backend.hentKommuner().then(henta_kommuner => {
+        this.setState({
+          kommuner: henta_kommuner
         });
       });
     }
@@ -171,11 +190,26 @@ class App extends React.Component {
   handleSearchBar = searchTerm => {
     this.doStuff().then(() => {
       let fylker = this.state.fylker;
+      let kommuner = this.state.kommuner;
       let treffliste = [];
       for (let i in fylker) {
         let treff = fylker[i].fylkesnavn.toLowerCase();
         if (treff.indexOf(searchTerm) !== -1) {
-          treffliste.push(fylker[i].fylkesnavn);
+          treffliste.push([
+            fylker[i].fylkesnavn,
+            "Fylke",
+            fylker[i].fylkesnummer
+          ]);
+        }
+      }
+      for (let i in kommuner) {
+        let treff = kommuner[i].kommunenavn.toLowerCase();
+        if (treff.indexOf(searchTerm) !== -1) {
+          treffliste.push([
+            kommuner[i].kommunenavn,
+            "Kommune",
+            kommuner[i].kommunenummer
+          ]);
         }
       }
       this.setState({

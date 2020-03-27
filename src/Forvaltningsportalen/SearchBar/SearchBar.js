@@ -32,7 +32,21 @@ const SearchBar = props => {
         {treffliste &&
           props.treffliste.length > 0 &&
           treffliste.map(item => {
-            return <button key={item}> {item} </button>;
+            let itemname = item[0] || "";
+            let itemtype = item[1] || "";
+            let itemnr = item[2] || "";
+            return (
+              <button
+                key={item}
+                onClick={() => {
+                  props.handleGeoSelection(item);
+                }}
+              >
+                <span className="itemname">{itemname} </span>
+                <span className="itemtype">{itemtype} </span>
+                <span className="itemnr">{itemnr} </span>
+              </button>
+            );
           })}
       </div>
     </div>

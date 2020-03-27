@@ -27,6 +27,16 @@ class Backend {
     return this.getPromise(`https://ws.geonorge.no/kommuneinfo/v1/fylker`);
   }
 
+  static async hentKommuner() {
+    return this.getPromise(`https://ws.geonorge.no/kommuneinfo/v1/kommuner`);
+  }
+
+  static async hentKommunePolygon(nr) {
+    return this.getPromise(
+      `https://ws.geonorge.no/kommuneinfo/v1/kommuner/` + nr + "/omrade"
+    );
+  }
+
   static async getFeatureInfo(url) {
     const boringkeys = [
       "gml:boundedBy",
