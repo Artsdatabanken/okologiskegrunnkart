@@ -194,6 +194,18 @@ class Leaflet extends React.Component {
           icon: this.icon
         }
       ).addTo(this.map);
+
+      let new_bounds = [
+        [
+          this.props.zoomcoordinates.maxcoord[1],
+          this.props.zoomcoordinates.maxcoord[0]
+        ],
+        [
+          this.props.zoomcoordinates.mincoord[1],
+          this.props.zoomcoordinates.mincoord[0]
+        ]
+      ];
+      this.map.fitBounds(new_bounds);
       this.props.handleRemoveZoomCoordinates();
     }
     return (

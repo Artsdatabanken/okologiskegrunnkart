@@ -211,7 +211,9 @@ class App extends React.Component {
     }
   };
 
-  async doStuff() {
+  async fetchGeoData() {
+    /*
+    // Skjult midlertidig siden vi ikke har koordinater for dem
     let fylker = this.state.fylker;
     if (fylker === null) {
       await backend.hentFylker().then(henta_fylker => {
@@ -219,7 +221,7 @@ class App extends React.Component {
           fylker: henta_fylker
         });
       });
-    }
+    }*/
 
     let kommuner = this.state.kommuner;
     if (kommuner === null) {
@@ -232,10 +234,12 @@ class App extends React.Component {
   }
 
   handleSearchBar = searchTerm => {
-    this.doStuff().then(() => {
-      let fylker = this.state.fylker;
+    this.fetchGeoData().then(() => {
       let kommuner = this.state.kommuner;
       let treffliste = [];
+      /*
+      // Skjult midlertidig siden vi ikke har koordinater for dem
+      let fylker = this.state.fylker;
       for (let i in fylker) {
         let treff = fylker[i].fylkesnavn.toLowerCase();
         if (treff.indexOf(searchTerm) !== -1) {
@@ -245,7 +249,7 @@ class App extends React.Component {
             fylker[i].fylkesnummer
           ]);
         }
-      }
+      }*/
       for (let i in kommuner) {
         let treff = kommuner[i].kommunenavn.toLowerCase();
         if (treff.indexOf(searchTerm) !== -1) {
