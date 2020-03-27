@@ -34,7 +34,8 @@ class App extends React.Component {
       showExtensiveInfo: true,
       treffliste: null,
       fylker: null,
-      kommuner: null
+      kommuner: null,
+      zoomcoordinates: null
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -84,12 +85,17 @@ class App extends React.Component {
                       handleSearchBar={this.handleSearchBar}
                       treffliste={this.state.treffliste}
                       handleGeoSelection={this.handleGeoSelection}
+                      handleRemoveTreffliste={this.handleRemoveTreffliste}
                     />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      zoomcoordinates={this.state.zoomcoordinates}
+                      handleRemoveZoomCoordinates={
+                        this.handleRemoveZoomCoordinates
+                      }
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
@@ -158,8 +164,15 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
+  handleRemoveZoomCoordinates = () => {
+    this.setState({ zoomcoordinates: null });
+  };
+
+  handleRemoveTreffliste = () => {
+    this.setState({ treffliste: null });
+  };
+
   handleGeoSelection = geostring => {
-    console.log(geostring);
     if (geostring[1] === "Kommune") {
       backend.hentKommunePolygon(geostring[2]).then(resultat => {
         let polygon = resultat.omrade.coordinates[0];
@@ -186,9 +199,14 @@ class App extends React.Component {
         let mincoord = [minx, miny];
         let maxcoord = [maxx, maxy];
         let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        console.log(mincoord);
-        console.log(maxcoord);
-        console.log(centercoord);
+        console.log("setting state zoomcoordinates");
+        this.setState({
+          zoomcoordinates: {
+            mincoord: mincoord,
+            maxcoord: maxcoord,
+            centercoord: centercoord
+          }
+        });
       });
     }
   };

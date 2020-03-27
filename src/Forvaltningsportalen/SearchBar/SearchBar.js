@@ -40,6 +40,7 @@ const SearchBar = props => {
                 key={item}
                 onClick={() => {
                   props.handleGeoSelection(item);
+                  props.handleRemoveTreffliste();
                 }}
               >
                 <span className="itemname">{itemname} </span>
