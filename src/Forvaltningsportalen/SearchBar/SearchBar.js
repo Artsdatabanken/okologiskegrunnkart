@@ -9,6 +9,7 @@ const SearchBar = props => {
       <div className="searchbar">
         <input
           className="searchbarfield"
+          id="searchfield"
           type="text"
           onChange={e => {
             if (e.target.value) {
@@ -41,6 +42,7 @@ const SearchBar = props => {
                 onClick={() => {
                   props.handleGeoSelection(item);
                   props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
                 }}
               >
                 <span className="itemname">{itemname} </span>
