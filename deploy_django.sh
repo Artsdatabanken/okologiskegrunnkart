@@ -7,7 +7,6 @@ set -e
 BRANCH=$1
 FILENAME=forvaltningsportal_django_$BRANCH.tar.gz
 echo "Making archive..."
-cd ../django/
 tar --directory=django -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
