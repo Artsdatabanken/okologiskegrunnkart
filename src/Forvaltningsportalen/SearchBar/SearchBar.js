@@ -1,8 +1,10 @@
 import React from "react";
 import "../../style/searchbar.css";
+import ForvaltningsElement from "../ForvaltningsKartlag/ForvaltningsElement";
 
 const SearchBar = props => {
   let treffliste = props.treffliste;
+  let treffliste_lokalt = props.treffliste_lokalt;
 
   return (
     <div className="searchbar_container">
@@ -48,6 +50,31 @@ const SearchBar = props => {
                 <span className="itemname">{itemname} </span>
                 <span className="itemtype">{itemtype} </span>
                 <span className="itemnr">{itemnr} </span>
+              </button>
+            );
+          })}
+
+        {treffliste_lokalt &&
+          props.treffliste_lokalt.length > 0 &&
+          treffliste_lokalt.map(item => {
+            console.log(item);
+            return (
+              <button
+                key={item}
+                onClick={() => {
+                  props.handleGeoSelection(item);
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }}
+              >
+                <span className="itemname">{""} </span>
+
+                <ForvaltningsElement
+                  kartlag_key={item.id}
+                  kartlag={item}
+                  key={item.id}
+                  onUpdateLayerProp={props.onUpdateLayerProp}
+                />
               </button>
             );
           })}

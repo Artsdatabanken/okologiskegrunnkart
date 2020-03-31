@@ -33,6 +33,7 @@ class App extends React.Component {
       spraak: "nb",
       showExtensiveInfo: true,
       treffliste: null,
+      treffliste_lokalt: null,
       fylker: null,
       kommuner: null,
       zoomcoordinates: null
@@ -84,8 +85,10 @@ class App extends React.Component {
                     <SearchBar
                       handleSearchBar={this.handleSearchBar}
                       treffliste={this.state.treffliste}
+                      treffliste_lokalt={this.state.treffliste_lokalt}
                       handleGeoSelection={this.handleGeoSelection}
                       handleRemoveTreffliste={this.handleRemoveTreffliste}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
@@ -234,6 +237,22 @@ class App extends React.Component {
   }
 
   handleSearchBar = searchTerm => {
+    let treffliste_lokalt = [];
+    let lag = this.state.kartlag;
+    if (searchTerm && searchTerm.length > 0) {
+      for (let i in lag) {
+        let lagstring = JSON.stringify(lag[i].tittel).toLowerCase();
+        if (lagstring.indexOf(searchTerm) !== -1) {
+          let element = lag[i];
+          element.id = Object.keys(lag)[i];
+          treffliste_lokalt.push(element);
+        }
+      }
+    }
+    this.setState({
+      treffliste_lokalt: treffliste_lokalt
+    });
+
     this.fetchGeoData().then(() => {
       let kommuner = this.state.kommuner;
       let treffliste = [];
