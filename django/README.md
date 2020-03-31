@@ -21,6 +21,12 @@ Etter første gangs oppstart av containeren (uten gamle data) må det opprettes 
 python manage.py createsuperuser
 ```
 
+## Importer initielle data
+
+```bash
+python manage.py loaddata initialdb.json
+```
+
 ## Variabler
 
 Variabler i _settings.py_ som kan være greit å vite om.
