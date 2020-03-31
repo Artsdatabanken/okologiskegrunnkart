@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
-import RightWindow from "./Forvaltningsportalen/RightWindow";
+import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
@@ -117,7 +117,7 @@ class App extends React.Component {
                       token={token}
                       {...this.state}
                     />
-                    <RightWindow
+                    <KartlagFanen
                       {...this.state}
                       path={path}
                       history={history}

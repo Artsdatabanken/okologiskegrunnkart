@@ -5,7 +5,7 @@ const SearchBar = props => {
   let treffliste = props.treffliste;
 
   return (
-    <div className="infobox_container">
+    <div className="searchbar_container">
       <div className="searchbar">
         <input
           className="searchbarfield"
