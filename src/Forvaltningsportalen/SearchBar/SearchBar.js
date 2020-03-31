@@ -40,6 +40,7 @@ const SearchBar = props => {
             let itemnr = item[2] || "";
             return (
               <button
+                className="searchbar_item"
                 key={item}
                 onClick={() => {
                   props.handleGeoSelection(item);
@@ -57,25 +58,15 @@ const SearchBar = props => {
         {treffliste_lokalt &&
           props.treffliste_lokalt.length > 0 &&
           treffliste_lokalt.map(item => {
-            console.log(item);
             return (
-              <button
-                key={item}
-                onClick={() => {
-                  props.handleGeoSelection(item);
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }}
-              >
-                <span className="itemname">{""} </span>
-
+              <div className="searchbar_item searchbar_local_item_container">
                 <ForvaltningsElement
                   kartlag_key={item.id}
                   kartlag={item}
                   key={item.id}
                   onUpdateLayerProp={props.onUpdateLayerProp}
                 />
-              </button>
+              </div>
             );
           })}
       </div>

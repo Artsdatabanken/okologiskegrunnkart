@@ -50,7 +50,8 @@
   z-index: 2;
 }
 
-.treffliste button {
+.treffliste .searchbar_item {
+  background: #eee;
   width: 100%;
   text-align: left;
   display: flex;
@@ -61,11 +62,11 @@
   border-top: 0px;
 }
 
-.treffliste button:first-child {
+.treffliste .searchbar_item:first-child {
   border-top: 1px solid #eee;
 }
 
-.treffliste button:last-child {
+.treffliste .searchbar_item:last-child {
   border-bottom-right-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -100,4 +101,8 @@
 
 .itemnr {
   text-align: right;
+}
+
+.searchbar_local_item_container span {
+  font-size: 8pt;
 }

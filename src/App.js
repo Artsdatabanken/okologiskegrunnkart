@@ -237,15 +237,23 @@ class App extends React.Component {
   }
 
   handleSearchBar = searchTerm => {
+    let counter = 0;
     let treffliste_lokalt = [];
     let lag = this.state.kartlag;
+
     if (searchTerm && searchTerm.length > 0) {
       for (let i in lag) {
-        let lagstring = JSON.stringify(lag[i].tittel).toLowerCase();
-        if (lagstring.indexOf(searchTerm) !== -1) {
-          let element = lag[i];
-          element.id = Object.keys(lag)[i];
-          treffliste_lokalt.push(element);
+        if (counter >= 2) {
+          console.log("counter: ", counter);
+          break;
+        } else {
+          let lagstring = JSON.stringify(lag[i].tittel).toLowerCase();
+          if (lagstring.indexOf(searchTerm) !== -1) {
+            let element = lag[i];
+            element.id = Object.keys(lag)[i];
+            treffliste_lokalt.push(element);
+            counter += 1;
+          }
         }
       }
     }
@@ -254,6 +262,7 @@ class App extends React.Component {
     });
 
     this.fetchGeoData().then(() => {
+      let counter2 = 0;
       let kommuner = this.state.kommuner;
       let treffliste = [];
       /*
@@ -270,13 +279,18 @@ class App extends React.Component {
         }
       }*/
       for (let i in kommuner) {
-        let treff = kommuner[i].kommunenavn.toLowerCase();
-        if (treff.indexOf(searchTerm) !== -1) {
-          treffliste.push([
-            kommuner[i].kommunenavn,
-            "Kommune",
-            kommuner[i].kommunenummer
-          ]);
+        if (counter2 >= 5) {
+          break;
+        } else {
+          let treff = kommuner[i].kommunenavn.toLowerCase();
+          if (treff.indexOf(searchTerm) !== -1) {
+            treffliste.push([
+              kommuner[i].kommunenavn,
+              "Kommune",
+              kommuner[i].kommunenummer
+            ]);
+            counter2 += 1;
+          }
         }
       }
       this.setState({
