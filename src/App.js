@@ -244,21 +244,36 @@ class App extends React.Component {
     let treffliste_lokalt = [];
     let lag = this.state.kartlag;
 
-    if (searchTerm && searchTerm.length > 0) {
+    function searchForKey(criteria, counter, lag, searchTerm) {
+      let treffliste_lokalt = [];
       for (let i in lag) {
-        if (counter >= 2) {
-          console.log("counter: ", counter);
+        if (counter >= 5) {
           break;
         } else {
-          let lagstring = JSON.stringify(lag[i].tittel).toLowerCase();
-          if (lagstring.indexOf(searchTerm) !== -1) {
-            let element = lag[i];
-            element.id = Object.keys(lag)[i];
-            treffliste_lokalt.push(element);
-            counter += 1;
+          if (lag[i][criteria]) {
+            let lagstring = lag[i][criteria].toLowerCase();
+            if (lagstring.indexOf(searchTerm) !== -1) {
+              let element = lag[i];
+              element.id = Object.keys(lag)[i];
+              treffliste_lokalt.push(element);
+              counter += 1;
+            }
           }
         }
       }
+      return [treffliste_lokalt, counter];
+    }
+
+    if (searchTerm && searchTerm.length > 0) {
+      let title_search = searchForKey("tittel", counter, lag, searchTerm);
+      treffliste_lokalt = title_search[0];
+      counter = title_search[1];
+      let owner_search = searchForKey("dataeier", counter, lag, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(owner_search[0]);
+      counter += owner_search[1];
+      let theme_search = searchForKey("tema", counter, lag, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
+      counter += theme_search[1];
     }
     this.setState({
       treffliste_lokalt: treffliste_lokalt
