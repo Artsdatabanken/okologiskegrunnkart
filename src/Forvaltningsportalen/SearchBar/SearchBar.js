@@ -13,6 +13,7 @@ const SearchBar = props => {
           className="searchbarfield"
           id="searchfield"
           type="text"
+          placeholder="søk i sideinnhold eller geografisk område"
           onChange={e => {
             if (e.target.value) {
               props.handleSearchBar(e.target.value.toLowerCase());
@@ -21,13 +22,15 @@ const SearchBar = props => {
             }
           }}
         />
+
         <button
           onClick={() => {
-            console.log("klikk");
+            props.handleRemoveTreffliste();
+            props.handleSearchBar(null);
+            document.getElementById("searchfield").value = "";
           }}
         >
-          {" "}
-          Søk
+          x
         </button>
       </div>
 

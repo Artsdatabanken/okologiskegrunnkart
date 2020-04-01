@@ -172,7 +172,10 @@ class App extends React.Component {
   };
 
   handleRemoveTreffliste = () => {
-    this.setState({ treffliste: null });
+    this.setState({
+      treffliste: null,
+      treffliste_lokalt: null
+    });
   };
 
   handleGeoSelection = geostring => {
