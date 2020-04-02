@@ -32,10 +32,6 @@ class App extends React.Component {
       showFullscreen: false,
       spraak: "nb",
       showExtensiveInfo: true,
-      treffliste: null,
-      treffliste_lokalt: null,
-      fylker: null,
-      kommuner: null,
       zoomcoordinates: null
     };
     exportableSpraak = this;
@@ -83,10 +79,8 @@ class App extends React.Component {
                 return (
                   <>
                     <SearchBar
-                      handleSearchBar={this.handleSearchBar}
-                      treffliste={this.state.treffliste}
-                      treffliste_lokalt={this.state.treffliste_lokalt}
-                      handleGeoSelection={this.handleGeoSelection}
+                      kartlag={this.state.kartlag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       handleRemoveTreffliste={this.handleRemoveTreffliste}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
@@ -171,149 +165,13 @@ class App extends React.Component {
     this.setState({ zoomcoordinates: null });
   };
 
-  handleRemoveTreffliste = () => {
+  handleSetZoomCoordinates = (mincoord, maxcoord, centercoord) => {
     this.setState({
-      treffliste: null,
-      treffliste_lokalt: null
-    });
-  };
-
-  handleGeoSelection = geostring => {
-    if (geostring[1] === "Kommune") {
-      backend.hentKommunePolygon(geostring[2]).then(resultat => {
-        let polygon = resultat.omrade.coordinates[0];
-        let minx = 100;
-        let maxy = 0;
-        let maxx = 0;
-        let miny = 100;
-        for (let i in polygon) {
-          let this_item = polygon[i];
-          for (let i in this_item) {
-            let item = this_item[i];
-            if (item[0] < minx) {
-              minx = item[0];
-            } else if (item[0] > maxx) {
-              maxx = item[0];
-            }
-            if (item[1] > maxy) {
-              maxy = item[1];
-            } else if (item[1] < miny) {
-              miny = item[1];
-            }
-          }
-        }
-        let mincoord = [minx, miny];
-        let maxcoord = [maxx, maxy];
-        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        console.log("setting state zoomcoordinates");
-        this.setState({
-          zoomcoordinates: {
-            mincoord: mincoord,
-            maxcoord: maxcoord,
-            centercoord: centercoord
-          }
-        });
-      });
-    }
-  };
-
-  async fetchGeoData() {
-    /*
-    // Skjult midlertidig siden vi ikke har koordinater for dem
-    let fylker = this.state.fylker;
-    if (fylker === null) {
-      await backend.hentFylker().then(henta_fylker => {
-        this.setState({
-          fylker: henta_fylker
-        });
-      });
-    }*/
-
-    let kommuner = this.state.kommuner;
-    if (kommuner === null) {
-      await backend.hentKommuner().then(henta_kommuner => {
-        this.setState({
-          kommuner: henta_kommuner
-        });
-      });
-    }
-  }
-
-  handleSearchBar = searchTerm => {
-    let counter = 0;
-    let treffliste_lokalt = [];
-    let lag = this.state.kartlag;
-
-    function searchForKey(criteria, counter, lag, searchTerm) {
-      let treffliste_lokalt = [];
-      for (let i in lag) {
-        if (counter >= 5) {
-          break;
-        } else {
-          if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria].toLowerCase();
-            if (lagstring.indexOf(searchTerm) !== -1) {
-              let element = lag[i];
-              element.id = Object.keys(lag)[i];
-              treffliste_lokalt.push(element);
-              counter += 1;
-            }
-          }
-        }
+      zoomcoordinates: {
+        mincoord: mincoord,
+        maxcoord: maxcoord,
+        centercoord: centercoord
       }
-      return [treffliste_lokalt, counter];
-    }
-
-    if (searchTerm && searchTerm.length > 0) {
-      let title_search = searchForKey("tittel", counter, lag, searchTerm);
-      treffliste_lokalt = title_search[0];
-      counter = title_search[1];
-      let owner_search = searchForKey("dataeier", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(owner_search[0]);
-      counter += owner_search[1];
-      let theme_search = searchForKey("tema", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
-      counter += theme_search[1];
-    }
-    this.setState({
-      treffliste_lokalt: treffliste_lokalt
-    });
-
-    this.fetchGeoData().then(() => {
-      let counter2 = 0;
-      let kommuner = this.state.kommuner;
-      let treffliste = [];
-      /*
-      // Skjult midlertidig siden vi ikke har koordinater for dem
-      let fylker = this.state.fylker;
-      for (let i in fylker) {
-        let treff = fylker[i].fylkesnavn.toLowerCase();
-        if (treff.indexOf(searchTerm) !== -1) {
-          treffliste.push([
-            fylker[i].fylkesnavn,
-            "Fylke",
-            fylker[i].fylkesnummer
-          ]);
-        }
-      }*/
-      for (let i in kommuner) {
-        if (counter2 >= 5) {
-          break;
-        } else {
-          let treff = kommuner[i].kommunenavn.toLowerCase();
-          if (treff.indexOf(searchTerm) !== -1) {
-            treffliste.push([
-              kommuner[i].kommunenavn,
-              "Kommune",
-              kommuner[i].kommunenummer
-            ]);
-            counter2 += 1;
-          }
-        }
-      }
-      this.setState({
-        treffliste: treffliste
-      });
     });
   };
 
