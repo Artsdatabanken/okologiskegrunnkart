@@ -126,13 +126,31 @@ class SearchBar extends React.Component {
     });
   };
 
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside = (event) => {
+    if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.handleRemoveTreffliste()
+    }
+  }
+
+  setWrapperRef = (node) => {
+    this.wrapperRef = node;
+  }
+
   render() {
     let treffliste = this.state.treffliste;
     let treffliste_lokalt = this.state.treffliste_lokalt;
 
     return (
       <div className="searchbar_container">
-        <div className="searchbar">
+        <div className="searchbar" ref={this.setWrapperRef}>
           <input
             className="searchbarfield"
             id="searchfield"
@@ -197,7 +215,7 @@ class SearchBar extends React.Component {
               );
             })}
         </div>
-      </div>
+      </div >
     );
   }
 }
