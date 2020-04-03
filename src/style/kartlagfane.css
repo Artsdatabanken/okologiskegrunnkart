@@ -20,6 +20,10 @@
   }
 }
 
+.valgtLag {
+  background: white;
+}
+
 .scroll_area {
   max-height: calc(100% - 56px);
   overflow-y: auto;
