@@ -57,7 +57,7 @@ class ForvaltningsKartlag extends React.Component {
               }}
             >
               <FilterList />
-              <span>Vis listeinnstillinger og filtere</span>
+              <span>Listeinnstillinger og filtere</span>
               {this.state.showFilter ? <ExpandLess /> : <ExpandMore />}
             </button>
 
