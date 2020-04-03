@@ -13,6 +13,7 @@
 
 - [Webklient](https://forvaltningsportal.artsdatabanken.no)
 - [Webklient testversion](https://forvaltningsportal.test.artsdatabanken.no)
+- [Administrasjonsverktøy](https://forvaltningsportaladmin.artsdatabanken.no/admin/)
 
 ## Thanks
 
