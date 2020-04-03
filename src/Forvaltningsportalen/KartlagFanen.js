@@ -2,9 +2,9 @@ import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
 import "../style/kartlagfane.css";
 
-const RightWindow = props => {
+const KartlagFanen = props => {
   return (
-    <div className="right_panel">
+    <div className="kartlag_fanen">
       <h3 className="container_header">Kartlag</h3>
       <div className="scroll_area">
         <ForvaltningsKartlag
@@ -21,4 +21,4 @@ const RightWindow = props => {
   );
 };
 
-export default RightWindow;
+export default KartlagFanen;

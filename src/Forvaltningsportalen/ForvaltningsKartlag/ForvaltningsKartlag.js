@@ -47,7 +47,7 @@ class ForvaltningsKartlag extends React.Component {
         {context => (
           <>
             <div className="sort_chooser_container">
-              <h4>Søk i kartlag</h4>
+              <h4>Filtrer kartlag på søkestreng</h4>
               <input
                 type="text"
                 onChange={e => {

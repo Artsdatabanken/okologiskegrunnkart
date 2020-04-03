@@ -2,17 +2,18 @@
 
 /* Selve panelet */
 
-.right_panel {
+.kartlag_fanen {
   position: absolute;
   height: 100%;
   right: 0px;
   top: 0px;
   width: 408px;
+  padding-top: 50px;
   background-color: #eee;
 }
 
 @media only screen and (max-width: 768px) {
-  .right_panel {
+  .kartlag_fanen {
     width: 100%;
     height: 50%;
     top: 50%;
