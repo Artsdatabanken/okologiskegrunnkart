@@ -76,6 +76,26 @@ http://172.17.0.3/login?next=%2F
 psql -h 172.17.0.2 -U postgres -d postgres -a -v ON_ERROR_STOP=1 -f 001_schema.sql
 ```
 
+## Fylker
+
+### GML (todo attributes)
+
+```bash
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" /home/b/src/adb/forvaltningsportal/database/temp/Basisdata_0000_Norge_4258_Fylker_GML.gml  -lco SCHEMA=import -nln fylke -lco OVERWRITE=YES
+```
+
+### GitHub kommune-kart
+
+```bash
+cd temp
+wget https://github.com/Artsdatabanken/kommune-kart/raw/master/fylke_4326.geojson
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/fylke_4326.geojson -lco SCHEMA=import -nln fylke -lco OVERWRITE=yes
+
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.18 user=postgres password=veldighemmelig" $PWD/fylke_4326.geojson -lco SCHEMA=import -nln fylke -lco OVERWRITE=yes
+psql -h 172.17.0.18 -U postgres
+
+```
+
 ## Kommuner
 
 ### GitHub kommune-kart
@@ -83,7 +103,7 @@ psql -h 172.17.0.2 -U postgres -d postgres -a -v ON_ERROR_STOP=1 -f 001_schema.s
 ```bash
 cd temp
 wget https://github.com/Artsdatabanken/kommune-kart/raw/master/kommune_4326.geojson
-docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres schema=import host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -nln kommune -overwrite
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -lco SCHEMA=import -nln kommune -overwrite
 ```
 
 ### PostGIS backup
@@ -120,10 +140,6 @@ docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "Postgr
 ## Postgrest
 
 ```sql
-CREATE FUNCTION add_them(a integer, b integer)
-RETURNS integer AS \$\$
-SELECT a + b;
-$$
 
 CREATE FUNCTION punkt(lng decimal, lat decimal)
 RETURNS kart AS $$
@@ -131,14 +147,28 @@ SELECT * FROM kart
 WHERE ST_Contains(geom, ST_SetSRID(ST_Point(13.9203608,65.154592),4326))
 $$ LANGUAGE SQL IMMUTABLE;
 
+-- FUNCTION: public.punkt(numeric, numeric)
+
+-- DROP FUNCTION public.punkt(numeric, numeric);
+
+CREATE OR REPLACE FUNCTION punkt(lng numeric,	lat numeric)
+RETURNS SETOF kart AS $$
+SELECT datasettkode AS kartlag, navn, geom, bbox
+FROM kart
+WHERE ST_Contains(geom, ST_SetSRID(ST_Point(lng,lat),4326))
+$$ LANGUAGE SQL IMMUTABLE;
+
+
+CREATE OR REPLACE FUNCTION oppslag(q varchar)
+RETURNS SETOF kart AS $$
+SELECT datasettkode AS kartlag, navn, geom, bbox
+FROM kart
+WHERE kart.navn LIKE q
+$$ LANGUAGE SQL IMMUTABLE;
+
 ```
 
-curl "http://localhost:3000/rpc/add_them?a=2&b=9"
-
 docker restart postgrest
-curl --data "a=2&b=3" http://localhost:3000/rpc/add_them
-
-$$
-$$
 
 curl "http://localhost:3000/rpc/punkt?a=2&b=9"
+https://forvaltningsportalapi.test.artsdatabanken.no/rpc/oppslag?q=Nord%
