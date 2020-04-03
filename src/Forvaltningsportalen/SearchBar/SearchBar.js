@@ -62,6 +62,7 @@ class SearchBar extends React.Component {
   };
 
   handleSearchBar = searchTerm => {
+    searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
     let lag = this.props.kartlag;
@@ -156,12 +157,9 @@ class SearchBar extends React.Component {
             id="searchfield"
             type="text"
             placeholder="søk i sideinnhold eller geografisk område"
+            onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
-              if (e.target.value) {
-                this.handleSearchBar(e.target.value.toLowerCase());
-              } else {
-                this.handleSearchBar(null);
-              }
+              this.handleSearchBar(e.target.value);
             }}
           />
 
