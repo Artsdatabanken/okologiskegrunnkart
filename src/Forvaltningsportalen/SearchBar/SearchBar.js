@@ -127,30 +127,30 @@ class SearchBar extends React.Component {
   };
 
   componentDidMount() {
-    document.addEventListener('mousedown', this.handleClickOutside);
+    document.addEventListener("mousedown", this.handleClickOutside);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this.handleClickOutside);
+    document.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  handleClickOutside = (event) => {
+  handleClickOutside = event => {
     if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-      this.handleRemoveTreffliste()
+      this.handleRemoveTreffliste();
     }
-  }
+  };
 
-  setWrapperRef = (node) => {
+  setWrapperRef = node => {
     this.wrapperRef = node;
-  }
+  };
 
   render() {
     let treffliste = this.state.treffliste;
     let treffliste_lokalt = this.state.treffliste_lokalt;
 
     return (
-      <div className="searchbar_container">
-        <div className="searchbar" ref={this.setWrapperRef}>
+      <div className="searchbar_container" ref={this.setWrapperRef}>
+        <div className="searchbar">
           <input
             className="searchbarfield"
             id="searchfield"
@@ -215,7 +215,7 @@ class SearchBar extends React.Component {
               );
             })}
         </div>
-      </div >
+      </div>
     );
   }
 }
