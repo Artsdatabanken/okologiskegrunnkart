@@ -3,9 +3,10 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
-import RightWindow from "./Forvaltningsportalen/RightWindow";
+import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
+import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
@@ -30,7 +31,8 @@ class App extends React.Component {
       showCurrent: true,
       showFullscreen: false,
       spraak: "nb",
-      showExtensiveInfo: true
+      showExtensiveInfo: true,
+      zoomcoordinates: null
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -76,11 +78,21 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
+                    <SearchBar
+                      kartlag={this.state.kartlag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                      handleRemoveTreffliste={this.handleRemoveTreffliste}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                    />
                     <KartVelger
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      zoomcoordinates={this.state.zoomcoordinates}
+                      handleRemoveZoomCoordinates={
+                        this.handleRemoveZoomCoordinates
+                      }
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
@@ -102,7 +114,7 @@ class App extends React.Component {
                       token={token}
                       {...this.state}
                     />
-                    <RightWindow
+                    <KartlagFanen
                       {...this.state}
                       path={path}
                       history={history}
@@ -147,6 +159,20 @@ class App extends React.Component {
   };
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
+  };
+
+  handleRemoveZoomCoordinates = () => {
+    this.setState({ zoomcoordinates: null });
+  };
+
+  handleSetZoomCoordinates = (mincoord, maxcoord, centercoord) => {
+    this.setState({
+      zoomcoordinates: {
+        mincoord: mincoord,
+        maxcoord: maxcoord,
+        centercoord: centercoord
+      }
+    });
   };
 
   handleLatLng = (lng, lat) => {
