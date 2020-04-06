@@ -28,6 +28,13 @@
   max-height: calc(100% - 56px);
   overflow-y: auto;
   width: 100%;
+  height: calc(100vh - 122px);
+}
+
+@media only screen and (max-width: 768px) {
+  .scroll_area {
+    height: calc(50vh - 122px);
+  }
 }
 
 /* Overskriftene i panelet */
