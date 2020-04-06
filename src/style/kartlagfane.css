@@ -20,7 +20,7 @@
   }
 }
 
-.valgtLag {
+.valgtLag div:first-child {
   background: white;
 }
 

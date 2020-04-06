@@ -20,6 +20,7 @@ const KartlagFanen = props => {
           </button>
           <div className="scroll_area">
             <ForvaltningsElement
+              valgt={true}
               kartlag_key={props.valgtLag.id}
               kartlag={props.valgtLag}
               key={props.valgtLag.id}

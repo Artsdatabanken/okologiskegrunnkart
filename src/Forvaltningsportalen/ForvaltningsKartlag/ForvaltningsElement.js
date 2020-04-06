@@ -27,13 +27,15 @@ const ForvaltningsElement = ({
   handleShowCurrent,
   show_current,
   kartlag_key,
+  valgt,
   element
 }) => {
   let tittel = kartlag.tittel;
 
   let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
-  const [open, setOpen] = useState(false);
+  let startstate = valgt || false;
+  const [open, setOpen] = useState(startstate);
   const [openFakta, setOpenFakta] = useState(false);
   const [hasLegend, setHasLegend] = useState(true);
   if (!tittel) return null;
@@ -45,7 +47,9 @@ const ForvaltningsElement = ({
         // Elementet som inneholder tittel, visningsøye og droppned-knapp
         button
         onClick={() => {
-          setOpen(!open);
+          if (!valgt) {
+            setOpen(!open);
+          }
         }}
       >
         <ListItemIcon onClick={e => e.stopPropagation()}>
@@ -64,7 +68,8 @@ const ForvaltningsElement = ({
           </IconButton>
         </ListItemIcon>
         <ListItemText primary={språk(tittel)} />
-        {open ? <ExpandLess /> : <ExpandMore />}
+
+        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
 
       <Collapse
