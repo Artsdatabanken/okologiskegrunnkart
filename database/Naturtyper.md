@@ -23,7 +23,7 @@
 ```
 
 ```bash
-docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" /home/b/Downloads/ADB/NiN_hovedbase_2019_20200328.gdb -lco SCHEMA=import_nin -lco OVERWRITE=YES
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' forvaltningsportal-postgres) user=postgres password=veldighemmelig" $PWD/NiN_hovedbase_2019_20200328.gdb.zip -lco SCHEMA=import_nin -lco OVERWRITE=YES
 ```
 
 ```sql
@@ -31,6 +31,8 @@ SELECT o.område20kid as id, shape as geom, kartleggingsenhetkode kode
 FROM import_nin.områder20k o JOIN import_nin.kartleggingsenheter20k k ON o.område20kid=k.område20kid
 WHERE o.område20kid='NIN7109610'
 ```
+
+## Adhoc
 
 ### Variabler
 
@@ -52,7 +54,7 @@ FROM  (
 ```sql
 SELECT to_json(sub) AS naturtype
 FROM  (
-   SELECT json_agg(kartleggingsenhetkode) AS "kode"
+   SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
    FROM   import_nin.områder20k c
    LEFT   JOIN import_nin.kartleggingsenheter20k ct ON ct.område20kid = c.område20kid
    WHERE  c.område20kid IN ('NIN7000046')
@@ -62,15 +64,16 @@ FROM  (
 
 ## Functions
 
-### Naturtyper 1:20k
+### Naturtyper 1:20000
 
 ```sql
-CREATE OR REPLACE FUNCTION import_nin.naturtype_json(områdekid varchar)
+DROP FUNCTION import_nin.naturtype_20k_json(naturtype_id varchar);
+CREATE OR REPLACE FUNCTION import_nin.naturtype_20k_json(områdekid varchar)
 RETURNS json AS $$
 BEGIN
 	RETURN (SELECT to_json(sub)
 	FROM  (
-	   SELECT json_agg(kartleggingsenhetkode) AS "kode"
+      SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
 	   FROM   import_nin.områder20k c
 	   LEFT   JOIN import_nin.kartleggingsenheter20k ct ON ct.område20kid = c.område20kid
 	   WHERE  c.område20kid = områdekid
@@ -80,6 +83,106 @@ END; $$
 LANGUAGE PLPGSQL;
 ```
 
+### Naturtyper 1:5000
+
 ```sql
-SELECT  import_nin.naturtype_json('NIN7109610')
+DROP FUNCTION import_nin.naturtype_5k_json(naturtype_id varchar);
+CREATE OR REPLACE FUNCTION import_nin.naturtype_5k_json(områdekid varchar)
+RETURNS json AS $$
+BEGIN
+	RETURN (SELECT to_json(sub)
+	FROM  (
+      SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
+	   FROM   import_nin.områder5k c
+	   LEFT   JOIN import_nin.kartleggingsenheter5k ct ON ct.område5kid = c.område5kid
+	   WHERE  c.område5kid = områdekid
+	   GROUP  BY c.område5kid
+	   ) sub);
+END; $$
+LANGUAGE PLPGSQL;
+```
+
+### Naturtyper NT
+
+```sql
+DROP FUNCTION import_nin.naturtype_nt_json;
+CREATE OR REPLACE FUNCTION import_nin.naturtype_nt_json(naturtype_id varchar)
+RETURNS json AS $$
+BEGIN
+	RETURN (SELECT to_json(sub)
+	FROM  (
+	   SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
+      FROM   import_nin.kartleggingsenheternt ct
+	   WHERE  ct.naturtypeid = naturtype_id
+	   GROUP  BY ct.naturtypeid
+	   ) sub);
+END; $$
+LANGUAGE PLPGSQL;
+```
+
+### Variabel 1:5000
+
+```sql
+DROP FUNCTION import_nin.variabel_5k_json;
+CREATE OR REPLACE FUNCTION import_nin.variabel_5k_json(områdekid varchar)
+RETURNS json AS $$
+BEGIN
+	RETURN (SELECT to_json(sub)
+	FROM  (
+	   SELECT json_agg(variabelkode) AS "variabel"
+	   FROM   import_nin.områder5k c
+	   LEFT   JOIN import_nin.kartleggingsenheter5k ct ON ct.område5kid = c.område5kid
+	   LEFT   JOIN import_nin.variabler5k v ON v.kartleggingsenhet5kid = ct.kartleggingsenhet5kid
+	   WHERE  c.område5kid = områdekid
+	   GROUP  BY c.område5kid
+	   ) sub);
+END; $$
+LANGUAGE PLPGSQL;
+```
+
+### Variabel 1:20000
+
+```sql
+DROP FUNCTION import_nin.variabel_20k_json;
+CREATE OR REPLACE FUNCTION import_nin.variabel_20k_json(områdekid varchar)
+RETURNS json AS $$
+BEGIN
+	RETURN (SELECT to_json(sub)
+	FROM  (
+	   SELECT json_agg(variabelkode) AS "variabel"
+	   FROM   import_nin.områder20k c
+	   LEFT   JOIN import_nin.kartleggingsenheter20k ct ON ct.område20kid = c.område20kid
+	   LEFT   JOIN import_nin.variabler20k v ON v.kartleggingsenhet20kid = ct.kartleggingsenhet20kid
+	   WHERE  c.område20kid = områdekid
+	   GROUP  BY c.område20kid
+	   ) sub);
+END; $$
+LANGUAGE PLPGSQL;
+```
+
+### Variabel naturtype
+
+```sql
+DROP FUNCTION import_nin.variabel_nt_json;
+CREATE OR REPLACE FUNCTION import_nin.variabel_nt_json(områdekid varchar)
+RETURNS json AS $$
+BEGIN
+	RETURN (SELECT to_json(sub)
+	FROM  (
+	   SELECT json_agg(variabelkode) AS "variabel"
+	   FROM   import_nin.variablernaturtyper c
+	   WHERE  c.naturtypeid=områdekid
+	   GROUP  BY c.naturtypeid
+	   ) sub);
+END; $$
+LANGUAGE PLPGSQL;
+```
+
+```sql
+SELECT import_nin.naturtype_20k_json('NIN7109610');
+SELECT import_nin.naturtype_5k_json('NIN6000016');
+select import_nin.naturtype_nt_json('NINFP1910007047');
+select import_nin.variabel_5k_json('NIN5013589');
+select import_nin.variabel_20k_json('NIN7000006');
+select import_nin.variabel_nt_json('NINFP1810000528');
 ```
