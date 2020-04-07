@@ -153,7 +153,7 @@ $$ LANGUAGE SQL IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION punkt(lng numeric,	lat numeric)
 RETURNS SETOF kart AS $$
-SELECT datasettkode AS kartlag, navn, geom, bbox
+SELECT *--datasettkode AS kartlag, navn, data, geom, bbox
 FROM kart
 WHERE ST_Contains(geom, ST_SetSRID(ST_Point(lng,lat),4326))
 $$ LANGUAGE SQL IMMUTABLE;
@@ -161,7 +161,7 @@ $$ LANGUAGE SQL IMMUTABLE;
 
 CREATE OR REPLACE FUNCTION oppslag(q varchar)
 RETURNS SETOF kart AS $$
-SELECT datasettkode AS kartlag, navn, geom, bbox
+SELECT *--datasettkode AS kartlag, navn, geom, bbox
 FROM kart
 WHERE kart.navn LIKE q
 $$ LANGUAGE SQL IMMUTABLE;
