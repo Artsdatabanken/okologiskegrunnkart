@@ -17,10 +17,12 @@ const TreffListe = props => {
               className="searchbar_item"
               key={item}
               onClick={() => {
-                props.removeValgtLag();
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
                 props.handleGeoSelection(item);
-                props.handleRemoveTreffliste();
-                document.getElementById("searchfield").value = "";
               }}
             >
               <span className="itemname">{itemname} </span>
@@ -42,10 +44,12 @@ const TreffListe = props => {
               className="searchbar_item"
               key={item.id}
               onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
                 props.removeValgtLag();
                 props.addValgtLag(item);
-                props.handleRemoveTreffliste();
-                document.getElementById("searchfield").value = "";
               }}
             >
               <span className="itemname">{itemname} </span>

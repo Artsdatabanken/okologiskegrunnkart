@@ -2,14 +2,10 @@ import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
+import TreffListe from "./SearchBar/TreffListe";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
-  if (props.searchResultPage) {
-    console.log(props.kartlagSearchResults);
-    console.log(props.geoSearchResults);
-  }
-
   return (
     <div className="kartlag_fanen">
       {props.searchResultPage ? (
@@ -24,7 +20,15 @@ const KartlagFanen = props => {
             <span>Tilbake til kartlag</span>
           </button>
           <div className="scroll_area">
-            <b>Her kommer søkeresultatene</b>
+            <TreffListe
+              isSearchResultPage={true}
+              treffliste={props.geoSearchResults}
+              treffliste_lokalt={props.kartlagSearchResults}
+              removeValgtLag={props.removeValgtLag}
+              addValgtLag={props.addValgtLag}
+              handleGeoSelection={props.handleGeoSelection}
+              handleRemoveTreffliste={console.log("trengs ikke")}
+            />
           </div>
         </div>
       ) : (
