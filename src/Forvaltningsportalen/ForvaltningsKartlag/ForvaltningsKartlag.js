@@ -1,6 +1,7 @@
 import React from "react";
 import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
+import { ExpandLess, ExpandMore, FilterList } from "@material-ui/icons";
 import { List } from "@material-ui/core";
 
 class ForvaltningsKartlag extends React.Component {
@@ -9,7 +10,8 @@ class ForvaltningsKartlag extends React.Component {
     sortcriteria: "ingen",
     filterlist: [],
     hideHidden: false,
-    searchTerm: null
+    searchTerm: null,
+    showFilter: false
   };
 
   render() {
@@ -46,105 +48,120 @@ class ForvaltningsKartlag extends React.Component {
       <SettingsContext.Consumer>
         {context => (
           <>
-            <div className="sort_chooser_container">
-              <h4>Søk i kartlag</h4>
-              <input
-                type="text"
-                onChange={e => {
-                  if (e.target.value) {
-                    this.setState({
-                      searchTerm: e.target.value.toLowerCase()
-                    });
-                  }
-                }}
-              />
+            <button
+              className="listheadingbutton"
+              onClick={e => {
+                this.setState({
+                  showFilter: !this.state.showFilter
+                });
+              }}
+            >
+              <FilterList />
+              <span>Listeinnstillinger og filtere</span>
+              {this.state.showFilter ? <ExpandLess /> : <ExpandMore />}
+            </button>
 
-              <h4>Filtrering</h4>
+            {this.state.showFilter && (
+              <div className="sort_chooser_container">
+                <h4>Filtrer kartlag på søkestreng</h4>
+                <input
+                  type="text"
+                  onChange={e => {
+                    if (e.target.value) {
+                      this.setState({
+                        searchTerm: e.target.value.toLowerCase()
+                      });
+                    }
+                  }}
+                />
 
-              {Array.from(taglist).map((element, index) => {
-                return (
-                  <div className="filterobject" key={index}>
+                <h4>Filtrering</h4>
+
+                {Array.from(taglist).map((element, index) => {
+                  return (
+                    <div className="filterobject" key={index}>
+                      <input
+                        type="checkbox"
+                        onChange={e => {
+                          let filterlist = this.state.filterlist;
+                          if (e.target.checked) {
+                            filterlist.push(element);
+                          } else {
+                            const index = filterlist.indexOf(element);
+                            if (index > -1) {
+                              filterlist.splice(index, 1);
+                            }
+                          }
+                          this.setState({
+                            filterlist: filterlist
+                          });
+                        }}
+                        id=""
+                      />
+                      <label>{element}</label>
+                    </div>
+                  );
+                })}
+
+                <h4> Filtrer bort skjulte element </h4>
+                <div className="toggle">
+                  <span>av</span>
+                  <label className="switch">
                     <input
                       type="checkbox"
                       onChange={e => {
-                        let filterlist = this.state.filterlist;
                         if (e.target.checked) {
-                          filterlist.push(element);
+                          this.setState({
+                            hideHidden: true
+                          });
                         } else {
-                          const index = filterlist.indexOf(element);
-                          if (index > -1) {
-                            filterlist.splice(index, 1);
-                          }
+                          this.setState({
+                            hideHidden: false
+                          });
                         }
-                        this.setState({
-                          filterlist: filterlist
-                        });
                       }}
-                      id=""
                     />
-                    <label>{element}</label>
-                  </div>
-                );
-              })}
+                    <span className="slider"></span>
+                  </label>
+                  <span>på</span>
+                </div>
 
-              <h4> Filtrer bort skjulte element </h4>
-              <div className="toggle">
-                <span>av</span>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    onChange={e => {
-                      if (e.target.checked) {
-                        this.setState({
-                          hideHidden: true
-                        });
-                      } else {
-                        this.setState({
-                          hideHidden: false
-                        });
-                      }
+                <h4>Gruppering</h4>
+
+                <select id="sort_chooser">
+                  <option
+                    value="ingen"
+                    onClick={e => {
+                      this.setState({
+                        sortcriteria: "ingen"
+                      });
                     }}
-                  />
-                  <span className="slider"></span>
-                </label>
-                <span>på</span>
+                  >
+                    Ingen gruppering
+                  </option>
+                  <option
+                    value="dataeier"
+                    onClick={e => {
+                      this.setState({
+                        sortcriteria: "dataeier"
+                      });
+                    }}
+                  >
+                    Dataeier
+                  </option>
+                  <option
+                    value="tema"
+                    onClick={e => {
+                      this.setState({
+                        sortcriteria: "tema"
+                      });
+                    }}
+                  >
+                    Tema
+                  </option>
+                </select>
               </div>
-
-              <h4>Gruppering</h4>
-
-              <select id="sort_chooser">
-                <option
-                  value="ingen"
-                  onClick={e => {
-                    this.setState({
-                      sortcriteria: "ingen"
-                    });
-                  }}
-                >
-                  Ingen gruppering
-                </option>
-                <option
-                  value="dataeier"
-                  onClick={e => {
-                    this.setState({
-                      sortcriteria: "dataeier"
-                    });
-                  }}
-                >
-                  Dataeier
-                </option>
-                <option
-                  value="tema"
-                  onClick={e => {
-                    this.setState({
-                      sortcriteria: "tema"
-                    });
-                  }}
-                >
-                  Tema
-                </option>
-              </select>
-            </div>
+            )}
 
             <List>
               {Object.keys(sorted)

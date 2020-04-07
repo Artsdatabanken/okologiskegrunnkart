@@ -3,26 +3,22 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
-import RightWindow from "./Forvaltningsportalen/RightWindow";
+import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
+import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
-import fjellskygge from "./Kart/Bakgrunnskart/fjellskygge";
 import { setValue } from "./Funksjoner/setValue";
 import "./style/kartknapper.css";
-export let exportableSpraak;
-export let exportableFullscreen;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      kartlag: {
-        bakgrunnskart,
-        fjellskygge
-      },
+      bakgrunnskart,
+      kartlag: {},
       valgteLag: {},
       actualBounds: null,
       fitBounds: null,
@@ -30,10 +26,13 @@ class App extends React.Component {
       showCurrent: true,
       showFullscreen: false,
       spraak: "nb",
-      showExtensiveInfo: true
+      showExtensiveInfo: true,
+      zoomcoordinates: null,
+      valgtLag: null,
+      searchResultPage: false,
+      kartlagSearchResults: null,
+      geoSearchResults: null
     };
-    exportableSpraak = this;
-    exportableFullscreen = this;
   }
 
   async lastNedKartlag() {
@@ -51,13 +50,7 @@ class App extends React.Component {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
-    this.setState({
-      kartlag: {
-        bakgrunnskart,
-        fjellskygge,
-        ...kartlag
-      }
-    });
+    this.setState({ kartlag });
   }
 
   componentDidMount() {
@@ -67,7 +60,7 @@ class App extends React.Component {
   render() {
     const { history } = this.props;
     const path = this.props.location.pathname;
-    const basiskart = this.state.kartlag.bakgrunnskart;
+    const basiskart = this.state.bakgrunnskart;
     return (
       <SettingsContext.Consumer>
         {context => {
@@ -76,11 +69,27 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <KartVelger
+                    <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
+                      kartlag={this.state.kartlag}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                      handleRemoveTreffliste={this.handleRemoveTreffliste}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                    />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleSetBakgrunnskart}
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      zoomcoordinates={this.state.zoomcoordinates}
+                      handleRemoveZoomCoordinates={
+                        this.handleRemoveZoomCoordinates
+                      }
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
@@ -93,6 +102,7 @@ class App extends React.Component {
                       longitude={15.8}
                       zoom={3.1}
                       aktiveLag={this.state.kartlag}
+                      bakgrunnskart={this.state.bakgrunnskart}
                       onMapBoundsChange={this.handleActualBoundsChange}
                       onMapMove={context.onMapMove}
                       history={history}
@@ -102,13 +112,22 @@ class App extends React.Component {
                       token={token}
                       {...this.state}
                     />
-                    <RightWindow
+                    <KartlagFanen
                       {...this.state}
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
+                      kartlagSearchResults={this.state.kartlagSearchResults}
+                      geoSearchResults={this.state.geoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      valgtLag={this.state.valgtLag}
                       path={path}
                       history={history}
                       show_current={this.state.showCurrent}
                       onFitBounds={this.handleFitBounds}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
                     />
                     <FeatureInfo
@@ -147,6 +166,72 @@ class App extends React.Component {
   };
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
+  };
+
+  addValgtLag = valgtLag => {
+    this.setState({ valgtLag: valgtLag });
+  };
+
+  removeValgtLag = () => {
+    this.setState({ valgtLag: null });
+  };
+
+  setSearchResultPage = searchResultPage => {
+    this.setState({ searchResultPage: searchResultPage });
+  };
+
+  setGeoSearchResults = geoSearchResults => {
+    this.setState({ geoSearchResults: geoSearchResults });
+  };
+
+  setKartlagSearchResults = kartlagSearchResults => {
+    this.setState({ kartlagSearchResults: kartlagSearchResults });
+  };
+
+  handleRemoveZoomCoordinates = () => {
+    this.setState({ zoomcoordinates: null });
+  };
+
+  handleSetZoomCoordinates = (mincoord, maxcoord, centercoord) => {
+    this.setState({
+      zoomcoordinates: {
+        mincoord: mincoord,
+        maxcoord: maxcoord,
+        centercoord: centercoord
+      }
+    });
+  };
+
+  handleGeoSelection = geostring => {
+    if (geostring[1] === "Kommune") {
+      backend.hentKommunePolygon(geostring[2]).then(resultat => {
+        let polygon = resultat.omrade.coordinates[0];
+        let minx = 100;
+        let maxy = 0;
+        let maxx = 0;
+        let miny = 100;
+        for (let i in polygon) {
+          let this_item = polygon[i];
+          for (let i in this_item) {
+            let item = this_item[i];
+            if (item[0] < minx) {
+              minx = item[0];
+            } else if (item[0] > maxx) {
+              maxx = item[0];
+            }
+            if (item[1] > maxy) {
+              maxy = item[1];
+            } else if (item[1] < miny) {
+              miny = item[1];
+            }
+          }
+        }
+        let mincoord = [minx, miny];
+        let maxcoord = [maxx, maxy];
+        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
+        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+      });
+    }
   };
 
   handleLatLng = (lng, lat) => {
@@ -203,11 +288,7 @@ class App extends React.Component {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
-      if (kartlag[i].erSynlig) {
-        if (i !== "bakgrunnskart" && i !== "fjellskygge") {
-          valgteLag[i] = kartlag[i];
-        }
-      }
+      if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat);
@@ -225,6 +306,14 @@ class App extends React.Component {
     setValue(nye_lag[layer], key, value);
     this.setState({
       kartlag: Object.assign({}, nye_lag)
+    });
+  };
+
+  handleSetBakgrunnskart = (key, value) => {
+    let bakgrunnskart = this.state.bakgrunnskart;
+    setValue(bakgrunnskart, key, value);
+    this.setState({
+      bakgrunnskart: Object.assign({}, bakgrunnskart)
     });
   };
 

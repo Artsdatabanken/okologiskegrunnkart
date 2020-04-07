@@ -29,6 +29,7 @@ class Leaflet extends React.Component {
     showInfobox: false,
     coordinates_area: null
   };
+
   componentDidMount() {
     const options = {
       zoomControl: false,
@@ -79,9 +80,9 @@ class Leaflet extends React.Component {
       iconAnchor: [19, 41]
     });
   }
-
   erEndret(prevProps) {
     if (this.props.aktiveLag !== prevProps.aktiveLag) return true;
+    if (this.props.bakgrunnskart !== prevProps.bakgrunnskart) return true;
     if (this.props.show_current !== prevProps.show_current) return true;
     if (this.props.token !== prevProps.token) return true;
   }
@@ -183,6 +184,31 @@ class Leaflet extends React.Component {
   wms = {};
 
   render() {
+    if (this.props.zoomcoordinates) {
+      this.removeMarker();
+      this.marker = L.marker(
+        [
+          this.props.zoomcoordinates.centercoord[1],
+          this.props.zoomcoordinates.centercoord[0]
+        ],
+        {
+          icon: this.icon
+        }
+      ).addTo(this.map);
+
+      let new_bounds = [
+        [
+          this.props.zoomcoordinates.maxcoord[1],
+          this.props.zoomcoordinates.maxcoord[0]
+        ],
+        [
+          this.props.zoomcoordinates.mincoord[1],
+          this.props.zoomcoordinates.mincoord[0]
+        ]
+      ];
+      this.map.fitBounds(new_bounds);
+      this.props.handleRemoveZoomCoordinates();
+    }
     return (
       <>
         {this.state.markerTool === true && this.state.showInfobox && (
