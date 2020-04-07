@@ -1,5 +1,6 @@
 import React from "react";
 import "../../style/searchbar.css";
+import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
 
 class SearchBar extends React.Component {
@@ -175,9 +176,6 @@ class SearchBar extends React.Component {
   };
 
   render() {
-    let treffliste = this.state.treffliste;
-    let treffliste_lokalt = this.state.treffliste_lokalt;
-
     return (
       <div className="searchbar_container" ref={this.setWrapperRef}>
         <div className="searchbar">
@@ -215,60 +213,14 @@ class SearchBar extends React.Component {
           </button>
         </div>
         {this.state.isSearching && (
-          <>
-            <div className="treffliste">
-              {treffliste &&
-                treffliste.length > 0 &&
-                treffliste.map(item => {
-                  let itemname = item[0] || "";
-                  let itemtype = item[1] || "";
-                  let itemnr = item[2] || "";
-                  return (
-                    <button
-                      className="searchbar_item"
-                      key={item}
-                      onClick={() => {
-                        this.props.removeValgtLag();
-                        this.handleGeoSelection(item);
-                        this.handleRemoveTreffliste();
-                        document.getElementById("searchfield").value = "";
-                      }}
-                    >
-                      <span className="itemname">{itemname} </span>
-                      <span className="itemtype">{itemtype} </span>
-                      <span className="itemnr">{itemnr} </span>
-                    </button>
-                  );
-                })}
-
-              {treffliste_lokalt &&
-                treffliste_lokalt.length > 0 &&
-                treffliste_lokalt.map(item => {
-                  let itemname = item.tittel;
-                  let itemtype = "Kartlag";
-                  let itemowner = item.dataeier;
-                  let tema = item.tema || "";
-                  return (
-                    <button
-                      className="searchbar_item"
-                      key={item.id}
-                      onClick={() => {
-                        this.props.removeValgtLag();
-                        this.props.addValgtLag(item);
-                        this.handleRemoveTreffliste();
-                        document.getElementById("searchfield").value = "";
-                      }}
-                    >
-                      <span className="itemname">{itemname} </span>
-                      <span className="itemtype">
-                        {itemtype}, {itemowner}{" "}
-                      </span>
-                      <span className="itemnr">{tema}</span>
-                    </button>
-                  );
-                })}
-            </div>
-          </>
+          <TreffListe
+            treffliste={this.state.treffliste}
+            treffliste_lokalt={this.state.treffliste_lokalt}
+            removeValgtLag={this.props.removeValgtLag}
+            addValgtLag={this.props.addValgtLag}
+            handleGeoSelection={this.handleGeoSelection}
+            handleRemoveTreffliste={this.handleRemoveTreffliste}
+          />
         )}
       </div>
     );
