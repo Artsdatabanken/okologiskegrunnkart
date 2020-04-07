@@ -32,7 +32,8 @@ class App extends React.Component {
       showFullscreen: false,
       spraak: "nb",
       showExtensiveInfo: true,
-      zoomcoordinates: null
+      zoomcoordinates: null,
+      valgtLag: null
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -80,6 +81,8 @@ class App extends React.Component {
                   <>
                     <SearchBar
                       kartlag={this.state.kartlag}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       handleRemoveTreffliste={this.handleRemoveTreffliste}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
@@ -116,11 +119,15 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      valgtLag={this.state.valgtLag}
                       path={path}
                       history={history}
                       show_current={this.state.showCurrent}
                       onFitBounds={this.handleFitBounds}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
                     />
                     <FeatureInfo
@@ -159,6 +166,14 @@ class App extends React.Component {
   };
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
+  };
+
+  addValgtLag = valgtLag => {
+    this.setState({ valgtLag: valgtLag });
+  };
+
+  removeValgtLag = () => {
+    this.setState({ valgtLag: null });
   };
 
   handleRemoveZoomCoordinates = () => {

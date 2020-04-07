@@ -1,6 +1,5 @@
 import React from "react";
 import "../../style/searchbar.css";
-import ForvaltningsElement from "../ForvaltningsKartlag/ForvaltningsElement";
 import backend from "../../Funksjoner/backend";
 
 class SearchBar extends React.Component {
@@ -62,6 +61,7 @@ class SearchBar extends React.Component {
   };
 
   handleSearchBar = searchTerm => {
+    if (!searchTerm) return null;
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
@@ -74,10 +74,13 @@ class SearchBar extends React.Component {
           break;
         } else {
           if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria].toLowerCase();
+            let lagstring = lag[i][criteria];
+            if (criteria === "tags") {
+              lagstring = JSON.stringify(lag[i][criteria]);
+            }
+            lagstring = lagstring.toLowerCase();
             if (lagstring.indexOf(searchTerm) !== -1) {
               let element = lag[i];
-              element.id = Object.keys(lag)[i];
               treffliste_lokalt.push(element);
               counter += 1;
             }
@@ -97,6 +100,9 @@ class SearchBar extends React.Component {
       let theme_search = searchForKey("tema", counter, lag, searchTerm);
       treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
       counter += theme_search[1];
+      let tags_search = searchForKey("tags", counter, lag, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(tags_search[0]);
+      counter += tags_search[1];
     }
     this.setState({
       treffliste_lokalt: treffliste_lokalt
@@ -186,6 +192,7 @@ class SearchBar extends React.Component {
                   className="searchbar_item"
                   key={item}
                   onClick={() => {
+                    this.props.removeValgtLag();
                     this.handleGeoSelection(item);
                     this.handleRemoveTreffliste();
                     document.getElementById("searchfield").value = "";
@@ -201,15 +208,27 @@ class SearchBar extends React.Component {
           {treffliste_lokalt &&
             treffliste_lokalt.length > 0 &&
             treffliste_lokalt.map(item => {
+              let itemname = item.tittel;
+              let itemtype = "Kartlag";
+              let itemowner = item.dataeier;
+              let tema = item.tema || "";
               return (
-                <div className="searchbar_item searchbar_local_item_container">
-                  <ForvaltningsElement
-                    kartlag_key={item.id}
-                    kartlag={item}
-                    key={item.id}
-                    onUpdateLayerProp={this.props.onUpdateLayerProp}
-                  />
-                </div>
+                <button
+                  className="searchbar_item"
+                  key={item.id}
+                  onClick={() => {
+                    this.props.removeValgtLag();
+                    this.props.addValgtLag(item);
+                    this.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }}
+                >
+                  <span className="itemname">{itemname} </span>
+                  <span className="itemtype">
+                    {itemtype}, {itemowner}{" "}
+                  </span>
+                  <span className="itemnr">{tema}</span>
+                </button>
               );
             })}
         </div>
