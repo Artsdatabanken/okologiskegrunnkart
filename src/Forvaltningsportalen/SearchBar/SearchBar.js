@@ -7,13 +7,15 @@ class SearchBar extends React.Component {
     treffliste: null,
     treffliste_lokalt: null,
     fylker: null,
-    kommuner: null
+    kommuner: null,
+    isSearching: false
   };
 
   handleRemoveTreffliste = () => {
     this.setState({
       treffliste: null,
-      treffliste_lokalt: null
+      treffliste_lokalt: null,
+      isSearching: false
     });
   };
 
@@ -166,6 +168,7 @@ class SearchBar extends React.Component {
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
               this.handleSearchBar(e.target.value);
+              this.setState({ isSearching: true });
             }}
           />
 
@@ -176,8 +179,21 @@ class SearchBar extends React.Component {
               document.getElementById("searchfield").value = "";
             }}
           >
-            x
+            søk
           </button>
+
+          {this.state.isSearching && (
+            <button
+              onClick={() => {
+                this.handleRemoveTreffliste();
+                this.handleSearchBar(null);
+                document.getElementById("searchfield").value = "";
+                this.setState({ isSearching: false });
+              }}
+            >
+              x
+            </button>
+          )}
         </div>
 
         <div className="treffliste">
