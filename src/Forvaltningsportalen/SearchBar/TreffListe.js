@@ -47,6 +47,8 @@ const TreffListe = props => {
                 if (!props.isSearchResultPage) {
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
+                } else {
+                  props.setSearchResultPage(false);
                 }
                 props.removeValgtLag();
                 props.addValgtLag(item);

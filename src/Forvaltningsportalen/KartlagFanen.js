@@ -28,6 +28,7 @@ const KartlagFanen = props => {
               addValgtLag={props.addValgtLag}
               handleGeoSelection={props.handleGeoSelection}
               handleRemoveTreffliste={console.log("trengs ikke")}
+              setSearchResultPage={props.setSearchResultPage}
             />
           </div>
         </div>
