@@ -51,7 +51,7 @@ class App extends React.Component {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
-    this.setState(kartlag);
+    this.setState({ kartlag });
   }
 
   componentDidMount() {
