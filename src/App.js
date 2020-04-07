@@ -10,7 +10,6 @@ import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
-import fjellskygge from "./Kart/Bakgrunnskart/fjellskygge";
 import { setValue } from "./Funksjoner/setValue";
 import "./style/kartknapper.css";
 export let exportableSpraak;
@@ -20,10 +19,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      kartlag: {
-        bakgrunnskart,
-        fjellskygge
-      },
+      bakgrunnskart,
+      kartlag: {},
       valgteLag: {},
       actualBounds: null,
       fitBounds: null,
@@ -54,13 +51,7 @@ class App extends React.Component {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
-    this.setState({
-      kartlag: {
-        bakgrunnskart,
-        fjellskygge,
-        ...kartlag
-      }
-    });
+    this.setState(kartlag);
   }
 
   componentDidMount() {
@@ -70,7 +61,7 @@ class App extends React.Component {
   render() {
     const { history } = this.props;
     const path = this.props.location.pathname;
-    const basiskart = this.state.kartlag.bakgrunnskart;
+    const basiskart = this.state.bakgrunnskart;
     return (
       <SettingsContext.Consumer>
         {context => {
@@ -88,7 +79,7 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartVelger
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      onUpdateLayerProp={this.handleSetBakgrunnskart}
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
@@ -108,6 +99,7 @@ class App extends React.Component {
                       longitude={15.8}
                       zoom={3.1}
                       aktiveLag={this.state.kartlag}
+                      bakgrunnskart={this.state.bakgrunnskart}
                       onMapBoundsChange={this.handleActualBoundsChange}
                       onMapMove={context.onMapMove}
                       history={history}
@@ -244,11 +236,7 @@ class App extends React.Component {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
-      if (kartlag[i].erSynlig) {
-        if (i !== "bakgrunnskart" && i !== "fjellskygge") {
-          valgteLag[i] = kartlag[i];
-        }
-      }
+      if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat);
@@ -266,6 +254,14 @@ class App extends React.Component {
     setValue(nye_lag[layer], key, value);
     this.setState({
       kartlag: Object.assign({}, nye_lag)
+    });
+  };
+
+  handleSetBakgrunnskart = (key, value) => {
+    let bakgrunnskart = this.state.bakgrunnskart;
+    setValue(bakgrunnskart, key, value);
+    this.setState({
+      bakgrunnskart: Object.assign({}, bakgrunnskart)
     });
   };
 
