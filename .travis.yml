@@ -23,6 +23,8 @@ after_success:
   - ls -la ..
   - ./deploy.sh $BRANCH
   - ./deploy_django.sh $BRANCH
+  - curl -X POST --data-urlencode "payload={\"channel\": \"$slack_chan\", \"username\": \"travis not the band\", \"text\": \"$slack_command\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/$SLACK_TOKEN
+  - curl -X POST --data-urlencode "payload={\"channel\": \"$slack_chan\", \"username\": \"travis not the band\", \"text\": \"$slack_command2\", \"icon_emoji\": \":ghost:\"}" https://hooks.slack.com/services/$SLACK_TOKEN
 notifications:
   slack:
     on_success: change
