@@ -21,11 +21,7 @@ const KartVelger = props => {
       <button
         className="change_map_icon"
         onMouseEnter={() => {
-          props.onUpdateLayerProp(
-            "bakgrunnskart",
-            "kart.aktivtFormat",
-            tilgjengelige[current]
-          );
+          props.onUpdateLayerProp("kart.aktivtFormat", tilgjengelige[current]);
         }}
         onClick={() => {
           setOpen(!open);
@@ -39,27 +35,22 @@ const KartVelger = props => {
       </button>
       {open && (
         <div>
-          {tilgjengelige.map((element, index) => {
-            return (
-              <button
-                style={{
-                  backgroundImage: "url('" + imgs[index] + "')",
-                  backgroundSize: "cover",
-                  borderColor: index === current ? "black" : "#9f9f9f"
-                }}
-                className="change_map_button"
-                onClick={() => {
-                  props.onUpdateLayerProp(
-                    "bakgrunnskart",
-                    "kart.aktivtFormat",
-                    element
-                  );
-                }}
-              >
-                <span>{element}</span>
-              </button>
-            );
-          })}
+          {tilgjengelige.map((element, index) => (
+            <button
+              key={element}
+              style={{
+                backgroundImage: "url('" + imgs[index] + "')",
+                backgroundSize: "cover",
+                borderColor: index === current ? "black" : "#9f9f9f"
+              }}
+              className="change_map_button"
+              onClick={() => {
+                props.onUpdateLayerProp("kart.aktivtFormat", element);
+              }}
+            >
+              <span>{element}</span>
+            </button>
+          ))}
         </div>
       )}
     </div>
