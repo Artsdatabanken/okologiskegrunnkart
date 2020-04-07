@@ -12,8 +12,6 @@ import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import "./style/kartknapper.css";
-export let exportableSpraak;
-export let exportableFullscreen;
 
 class App extends React.Component {
   constructor(props) {
@@ -30,10 +28,11 @@ class App extends React.Component {
       spraak: "nb",
       showExtensiveInfo: true,
       zoomcoordinates: null,
-      valgtLag: null
+      valgtLag: null,
+      searchResultPage: false,
+      kartlagSearchResults: null,
+      geoSearchResults: null
     };
-    exportableSpraak = this;
-    exportableFullscreen = this;
   }
 
   async lastNedKartlag() {
@@ -71,6 +70,10 @@ class App extends React.Component {
                 return (
                   <>
                     <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
                       kartlag={this.state.kartlag}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
@@ -111,6 +114,11 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
+                      kartlagSearchResults={this.state.kartlagSearchResults}
+                      geoSearchResults={this.state.geoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
@@ -168,6 +176,18 @@ class App extends React.Component {
     this.setState({ valgtLag: null });
   };
 
+  setSearchResultPage = searchResultPage => {
+    this.setState({ searchResultPage: searchResultPage });
+  };
+
+  setGeoSearchResults = geoSearchResults => {
+    this.setState({ geoSearchResults: geoSearchResults });
+  };
+
+  setKartlagSearchResults = kartlagSearchResults => {
+    this.setState({ kartlagSearchResults: kartlagSearchResults });
+  };
+
   handleRemoveZoomCoordinates = () => {
     this.setState({ zoomcoordinates: null });
   };
@@ -180,6 +200,38 @@ class App extends React.Component {
         centercoord: centercoord
       }
     });
+  };
+
+  handleGeoSelection = geostring => {
+    if (geostring[1] === "Kommune") {
+      backend.hentKommunePolygon(geostring[2]).then(resultat => {
+        let polygon = resultat.omrade.coordinates[0];
+        let minx = 100;
+        let maxy = 0;
+        let maxx = 0;
+        let miny = 100;
+        for (let i in polygon) {
+          let this_item = polygon[i];
+          for (let i in this_item) {
+            let item = this_item[i];
+            if (item[0] < minx) {
+              minx = item[0];
+            } else if (item[0] > maxx) {
+              maxx = item[0];
+            }
+            if (item[1] > maxy) {
+              maxy = item[1];
+            } else if (item[1] < miny) {
+              miny = item[1];
+            }
+          }
+        }
+        let mincoord = [minx, miny];
+        let maxcoord = [maxx, maxy];
+        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
+        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+      });
+    }
   };
 
   handleLatLng = (lng, lat) => {
