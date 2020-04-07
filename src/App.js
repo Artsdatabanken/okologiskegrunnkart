@@ -33,7 +33,8 @@ class App extends React.Component {
       spraak: "nb",
       showExtensiveInfo: true,
       zoomcoordinates: null,
-      valgtLag: null
+      valgtLag: null,
+      searchResultPage: false
     };
     exportableSpraak = this;
     exportableFullscreen = this;
@@ -80,6 +81,7 @@ class App extends React.Component {
                 return (
                   <>
                     <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
                       kartlag={this.state.kartlag}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
@@ -119,6 +121,8 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
@@ -174,6 +178,11 @@ class App extends React.Component {
 
   removeValgtLag = () => {
     this.setState({ valgtLag: null });
+  };
+
+  setSearchResultPage = searchResultPage => {
+    console.log("setting, ", searchResultPage);
+    this.setState({ searchResultPage: searchResultPage });
   };
 
   handleRemoveZoomCoordinates = () => {

@@ -62,13 +62,19 @@ class SearchBar extends React.Component {
     }
   };
 
-  handleSearchBar = searchTerm => {
+  handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
       this.setState({ isSearching: false });
       return null;
     }
-    this.setState({ isSearching: true });
-
+    let countermax = 5;
+    if (resultpage) {
+      this.props.setSearchResultPage(true);
+      this.setState({ isSearching: false });
+      countermax = 15;
+    } else {
+      this.setState({ isSearching: true });
+    }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
@@ -77,7 +83,7 @@ class SearchBar extends React.Component {
     function searchForKey(criteria, counter, lag, searchTerm) {
       let treffliste_lokalt = [];
       for (let i in lag) {
-        if (counter >= 5) {
+        if (counter >= countermax) {
           break;
         } else {
           if (lag[i][criteria]) {
@@ -120,7 +126,7 @@ class SearchBar extends React.Component {
       let kommuner = this.state.kommuner;
       let treffliste = [];
       for (let i in kommuner) {
-        if (counter2 >= 5) {
+        if (counter2 >= countermax) {
           break;
         } else {
           let treff = kommuner[i].kommunenavn.toLowerCase();
@@ -178,8 +184,10 @@ class SearchBar extends React.Component {
 
           <button
             onClick={() => {
-              this.handleRemoveTreffliste();
-              this.handleSearchBar(null);
+              this.handleSearchBar(
+                document.getElementById("searchfield").value,
+                true
+              );
               document.getElementById("searchfield").value = "";
             }}
           >
@@ -198,59 +206,62 @@ class SearchBar extends React.Component {
             </button>
           )}
         </div>
+        {this.state.isSearching && (
+          <>
+            <div className="treffliste">
+              {treffliste &&
+                treffliste.length > 0 &&
+                treffliste.map(item => {
+                  let itemname = item[0] || "";
+                  let itemtype = item[1] || "";
+                  let itemnr = item[2] || "";
+                  return (
+                    <button
+                      className="searchbar_item"
+                      key={item}
+                      onClick={() => {
+                        this.props.removeValgtLag();
+                        this.handleGeoSelection(item);
+                        this.handleRemoveTreffliste();
+                        document.getElementById("searchfield").value = "";
+                      }}
+                    >
+                      <span className="itemname">{itemname} </span>
+                      <span className="itemtype">{itemtype} </span>
+                      <span className="itemnr">{itemnr} </span>
+                    </button>
+                  );
+                })}
 
-        <div className="treffliste">
-          {treffliste &&
-            treffliste.length > 0 &&
-            treffliste.map(item => {
-              let itemname = item[0] || "";
-              let itemtype = item[1] || "";
-              let itemnr = item[2] || "";
-              return (
-                <button
-                  className="searchbar_item"
-                  key={item}
-                  onClick={() => {
-                    this.props.removeValgtLag();
-                    this.handleGeoSelection(item);
-                    this.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }}
-                >
-                  <span className="itemname">{itemname} </span>
-                  <span className="itemtype">{itemtype} </span>
-                  <span className="itemnr">{itemnr} </span>
-                </button>
-              );
-            })}
-
-          {treffliste_lokalt &&
-            treffliste_lokalt.length > 0 &&
-            treffliste_lokalt.map(item => {
-              let itemname = item.tittel;
-              let itemtype = "Kartlag";
-              let itemowner = item.dataeier;
-              let tema = item.tema || "";
-              return (
-                <button
-                  className="searchbar_item"
-                  key={item.id}
-                  onClick={() => {
-                    this.props.removeValgtLag();
-                    this.props.addValgtLag(item);
-                    this.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }}
-                >
-                  <span className="itemname">{itemname} </span>
-                  <span className="itemtype">
-                    {itemtype}, {itemowner}{" "}
-                  </span>
-                  <span className="itemnr">{tema}</span>
-                </button>
-              );
-            })}
-        </div>
+              {treffliste_lokalt &&
+                treffliste_lokalt.length > 0 &&
+                treffliste_lokalt.map(item => {
+                  let itemname = item.tittel;
+                  let itemtype = "Kartlag";
+                  let itemowner = item.dataeier;
+                  let tema = item.tema || "";
+                  return (
+                    <button
+                      className="searchbar_item"
+                      key={item.id}
+                      onClick={() => {
+                        this.props.removeValgtLag();
+                        this.props.addValgtLag(item);
+                        this.handleRemoveTreffliste();
+                        document.getElementById("searchfield").value = "";
+                      }}
+                    >
+                      <span className="itemname">{itemname} </span>
+                      <span className="itemtype">
+                        {itemtype}, {itemowner}{" "}
+                      </span>
+                      <span className="itemnr">{tema}</span>
+                    </button>
+                  );
+                })}
+            </div>
+          </>
+        )}
       </div>
     );
   }
