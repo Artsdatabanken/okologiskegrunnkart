@@ -31,38 +31,6 @@ class SearchBar extends React.Component {
     }
   }
 
-  handleGeoSelection = geostring => {
-    if (geostring[1] === "Kommune") {
-      backend.hentKommunePolygon(geostring[2]).then(resultat => {
-        let polygon = resultat.omrade.coordinates[0];
-        let minx = 100;
-        let maxy = 0;
-        let maxx = 0;
-        let miny = 100;
-        for (let i in polygon) {
-          let this_item = polygon[i];
-          for (let i in this_item) {
-            let item = this_item[i];
-            if (item[0] < minx) {
-              minx = item[0];
-            } else if (item[0] > maxx) {
-              maxx = item[0];
-            }
-            if (item[1] > maxy) {
-              maxy = item[1];
-            } else if (item[1] < miny) {
-              miny = item[1];
-            }
-          }
-        }
-        let mincoord = [minx, miny];
-        let maxcoord = [maxx, maxy];
-        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        this.props.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      });
-    }
-  };
-
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
       this.setState({ isSearching: false });
@@ -218,7 +186,7 @@ class SearchBar extends React.Component {
             treffliste_lokalt={this.state.treffliste_lokalt}
             removeValgtLag={this.props.removeValgtLag}
             addValgtLag={this.props.addValgtLag}
-            handleGeoSelection={this.handleGeoSelection}
+            handleGeoSelection={this.props.handleGeoSelection}
             handleRemoveTreffliste={this.handleRemoveTreffliste}
           />
         )}
