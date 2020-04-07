@@ -1,7 +1,6 @@
 import Geonorge from "./Geonorge";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
-import språk from "../../Funksjoner/språk";
 import {
   OpenInNew,
   VisibilityOutlined,
@@ -67,7 +66,7 @@ const ForvaltningsElement = ({
             )}
           </IconButton>
         </ListItemIcon>
-        <ListItemText primary={språk(tittel)} />
+        <ListItemText primary={tittel.nb || tittel} />
 
         {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
