@@ -63,7 +63,12 @@ class SearchBar extends React.Component {
   };
 
   handleSearchBar = searchTerm => {
-    if (!searchTerm) return null;
+    if (!searchTerm) {
+      this.setState({ isSearching: false });
+      return null;
+    }
+    this.setState({ isSearching: true });
+
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
@@ -168,7 +173,6 @@ class SearchBar extends React.Component {
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
               this.handleSearchBar(e.target.value);
-              this.setState({ isSearching: true });
             }}
           />
 
@@ -188,7 +192,6 @@ class SearchBar extends React.Component {
                 this.handleRemoveTreffliste();
                 this.handleSearchBar(null);
                 document.getElementById("searchfield").value = "";
-                this.setState({ isSearching: false });
               }}
             >
               x
