@@ -17,7 +17,7 @@ const KartlagFanen = props => {
             }}
           >
             <KeyboardBackspace />
-            <span>Tilbake til kartlag</span>
+            <span>Tilbake</span>
           </button>
           <div className="scroll_area">
             <TreffListe
@@ -43,7 +43,7 @@ const KartlagFanen = props => {
                 }}
               >
                 <KeyboardBackspace />
-                <span>Tilbake til kartlag</span>
+                <span>Tilbake</span>
               </button>
               <div className="scroll_area">
                 <ForvaltningsElement

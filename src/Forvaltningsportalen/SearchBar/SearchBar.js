@@ -156,6 +156,15 @@ class SearchBar extends React.Component {
             onChange={e => {
               this.handleSearchBar(e.target.value);
             }}
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+                this.handleSearchBar(
+                  document.getElementById("searchfield").value,
+                  true
+                );
+                document.getElementById("searchfield").value = "";
+              }
+            }}
           />
           {this.state.isSearching && (
             <button
