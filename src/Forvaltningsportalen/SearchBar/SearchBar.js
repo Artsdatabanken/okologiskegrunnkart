@@ -117,9 +117,14 @@ class SearchBar extends React.Component {
       treffliste_lokalt = treffliste_lokalt.concat(tags_search[0]);
       counter += tags_search[1];
     }
-    this.setState({
-      treffliste_lokalt: treffliste_lokalt
-    });
+
+    if (resultpage) {
+      this.props.setKartlagSearchResults(treffliste_lokalt);
+    } else {
+      this.setState({
+        treffliste_lokalt: treffliste_lokalt
+      });
+    }
 
     this.fetchGeoData().then(() => {
       let counter2 = 0;
@@ -140,9 +145,14 @@ class SearchBar extends React.Component {
           }
         }
       }
-      this.setState({
-        treffliste: treffliste
-      });
+
+      if (resultpage) {
+        this.props.setGeoSearchResults(treffliste);
+      } else {
+        this.setState({
+          treffliste: treffliste
+        });
+      }
     });
   };
 
@@ -181,19 +191,6 @@ class SearchBar extends React.Component {
               this.handleSearchBar(e.target.value);
             }}
           />
-
-          <button
-            onClick={() => {
-              this.handleSearchBar(
-                document.getElementById("searchfield").value,
-                true
-              );
-              document.getElementById("searchfield").value = "";
-            }}
-          >
-            søk
-          </button>
-
           {this.state.isSearching && (
             <button
               onClick={() => {
@@ -205,6 +202,17 @@ class SearchBar extends React.Component {
               x
             </button>
           )}
+          <button
+            onClick={() => {
+              this.handleSearchBar(
+                document.getElementById("searchfield").value,
+                true
+              );
+              document.getElementById("searchfield").value = "";
+            }}
+          >
+            søk
+          </button>
         </div>
         {this.state.isSearching && (
           <>

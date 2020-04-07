@@ -5,7 +5,11 @@ import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
-  console.log("ny fin prop:", props.searchResultPage);
+  if (props.searchResultPage) {
+    console.log(props.kartlagSearchResults);
+    console.log(props.geoSearchResults);
+  }
+
   return (
     <div className="kartlag_fanen">
       {props.searchResultPage ? (

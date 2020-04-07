@@ -12,8 +12,6 @@ import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import "./style/kartknapper.css";
-export let exportableSpraak;
-export let exportableFullscreen;
 
 class App extends React.Component {
   constructor(props) {
@@ -31,10 +29,10 @@ class App extends React.Component {
       showExtensiveInfo: true,
       zoomcoordinates: null,
       valgtLag: null,
-      searchResultPage: false
+      searchResultPage: false,
+      kartlagSearchResults: null,
+      geoSearchResults: null
     };
-    exportableSpraak = this;
-    exportableFullscreen = this;
   }
 
   async lastNedKartlag() {
@@ -73,6 +71,8 @@ class App extends React.Component {
                   <>
                     <SearchBar
                       setSearchResultPage={this.setSearchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
                       kartlag={this.state.kartlag}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
@@ -115,6 +115,8 @@ class App extends React.Component {
                       {...this.state}
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}
+                      kartlagSearchResults={this.state.kartlagSearchResults}
+                      geoSearchResults={this.state.geoSearchResults}
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
@@ -173,8 +175,15 @@ class App extends React.Component {
   };
 
   setSearchResultPage = searchResultPage => {
-    console.log("setting, ", searchResultPage);
     this.setState({ searchResultPage: searchResultPage });
+  };
+
+  setGeoSearchResults = geoSearchResults => {
+    this.setState({ geoSearchResults: geoSearchResults });
+  };
+
+  setKartlagSearchResults = kartlagSearchResults => {
+    this.setState({ kartlagSearchResults: kartlagSearchResults });
   };
 
   handleRemoveZoomCoordinates = () => {
