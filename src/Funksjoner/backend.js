@@ -23,9 +23,11 @@ class Backend {
     );
   }
 
-  static async hentFylkePolygon() {
+  static async hentFylkePolygon(nr) {
     return this.getPromise(
-      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/oppslag?q=%ron%`
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/fylke?nummer=` +
+        nr +
+        ""
     );
   }
 
