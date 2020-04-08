@@ -203,6 +203,19 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
+    if (geostring[1] === "Fylke") {
+      backend.hentFylkePolygon(geostring[2]).then(resultat => {
+        let fylke = resultat[0];
+        let bbox = fylke.bbox.coordinates[0];
+        let mincoord = bbox[0];
+        let maxcoord = bbox[2];
+        let centercoord = [
+          (bbox[0][0] + bbox[2][0]) / 2,
+          (bbox[0][1] + bbox[2][1]) / 2
+        ];
+        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+      });
+    }
     if (geostring[1] === "Kommune") {
       backend.hentKommunePolygon(geostring[2]).then(resultat => {
         let polygon = resultat.omrade.coordinates[0];
