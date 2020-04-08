@@ -89,9 +89,11 @@ docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "Postgr
 ```bash
 cd temp
 wget https://github.com/Artsdatabanken/kommune-kart/raw/master/fylke_4326.geojson
+
 docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/fylke_4326.geojson -lco SCHEMA=import -nln fylke -lco OVERWRITE=yes
 
 docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.18 user=postgres password=veldighemmelig" $PWD/fylke_4326.geojson -lco SCHEMA=import -nln fylke -lco OVERWRITE=yes
+
 psql -h 172.17.0.18 -U postgres
 
 ```
@@ -103,6 +105,7 @@ psql -h 172.17.0.18 -U postgres
 ```bash
 cd temp
 wget https://github.com/Artsdatabanken/kommune-kart/raw/master/kommune_4326.geojson
+
 docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -lco SCHEMA=import -nln kommune -overwrite
 ```
 
@@ -164,6 +167,24 @@ RETURNS SETOF kart AS $$
 SELECT *--datasettkode AS kartlag, navn, geom, bbox
 FROM kart
 WHERE kart.navn LIKE q
+$$ LANGUAGE SQL IMMUTABLE;
+
+-- Fylke fra nummer
+CREATE OR REPLACE FUNCTION fylke(nummer varchar)
+RETURNS SETOF kart AS $$
+SELECT *
+FROM kart
+WHERE datasettkode='FYL'
+AND id LIKE NUMMER
+$$ LANGUAGE SQL IMMUTABLE;
+
+-- Kommune fra nummer
+CREATE OR REPLACE FUNCTION kommune(nummer varchar)
+RETURNS SETOF kart AS $$
+SELECT *
+FROM kart
+WHERE datasettkode='KOM'
+AND id LIKE NUMMER
 $$ LANGUAGE SQL IMMUTABLE;
 
 ```
