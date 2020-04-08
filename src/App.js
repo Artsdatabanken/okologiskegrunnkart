@@ -203,6 +203,12 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
+    if (geostring[1] === "Fylke") {
+      console.log("fylke oot oot");
+      backend.hentFylkePolygon().then(resultat => {
+        console.log(resultat);
+      });
+    }
     if (geostring[1] === "Kommune") {
       backend.hentKommunePolygon(geostring[2]).then(resultat => {
         let polygon = resultat.omrade.coordinates[0];

@@ -23,6 +23,12 @@ class Backend {
     );
   }
 
+  static async hentFylkePolygon() {
+    return this.getPromise(
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/oppslag?q=%ron%`
+    );
+  }
+
   static async hentFylker() {
     return this.getPromise(`https://ws.geonorge.no/kommuneinfo/v1/fylker`);
   }
