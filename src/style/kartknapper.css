@@ -2,16 +2,8 @@
 .leaflet-top {
   top: auto;
   bottom: 20px;
-  right: 408px;
+  right: 10px;
   left: auto;
-}
-
-@media only screen and (max-width: 768px) {
-  .leaflet-top {
-    bottom: calc(50% + 20px);
-    right: 10px;
-    left: auto;
-  }
 }
 
 /* Kartvelgeren */
