@@ -204,7 +204,6 @@ class App extends React.Component {
 
   handleGeoSelection = geostring => {
     if (geostring[1] === "Fylke") {
-      console.log("fylke oot oot");
       backend.hentFylkePolygon(geostring[2]).then(resultat => {
         let fylke = resultat[0];
         let bbox = fylke.bbox.coordinates[0];
