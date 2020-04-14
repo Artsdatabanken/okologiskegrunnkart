@@ -18,6 +18,7 @@ before_deploy:
 #      branch: master
 #      repo: Artsdatabanken/nin-kart-frontend
 #    skip_cleanup: true
+# Trigge på nytt
 after_success:
   #  - npm run report-coverage
   - ls -la ..
