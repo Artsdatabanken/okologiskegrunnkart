@@ -29,6 +29,15 @@ class SearchBar extends React.Component {
         });
       });
     }
+
+    let fylker = this.state.fylker;
+    if (fylker === null) {
+      await backend.hentFylker().then(henta_fylker => {
+        this.setState({
+          fylker: henta_fylker
+        });
+      });
+    }
   }
 
   handleSearchBar = (searchTerm, resultpage) => {
@@ -98,9 +107,10 @@ class SearchBar extends React.Component {
     this.fetchGeoData().then(() => {
       let counter2 = 0;
       let kommuner = this.state.kommuner;
+      let fylker = this.state.fylker;
       let treffliste = [];
       for (let i in kommuner) {
-        if (counter2 >= countermax) {
+        if (counter2 >= countermax / 2) {
           break;
         } else {
           let treff = kommuner[i].kommunenavn.toLowerCase();
@@ -109,6 +119,22 @@ class SearchBar extends React.Component {
               kommuner[i].kommunenavn,
               "Kommune",
               kommuner[i].kommunenummer
+            ]);
+            counter2 += 1;
+          }
+        }
+      }
+
+      for (let i in fylker) {
+        if (counter2 >= countermax) {
+          break;
+        } else {
+          let treff = fylker[i].fylkesnavn.toLowerCase();
+          if (treff.indexOf(searchTerm) !== -1) {
+            treffliste.push([
+              fylker[i].fylkesnavn,
+              "Fylke",
+              fylker[i].fylkesnummer
             ]);
             counter2 += 1;
           }
