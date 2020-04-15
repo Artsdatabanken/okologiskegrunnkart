@@ -106,3 +106,19 @@
 .searchbar_local_item_container span {
   font-size: 8pt;
 }
+
+/* Kartlagfanens treffliste -> søkebarens landingsside */
+
+.kartlag_fanen .treffliste {
+  max-width: 100%;
+}
+
+.kartlag_fanen .searchbar_item {
+  background: white;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+.kartlag_fanen .searchbar_item:first-child {
+  border-top: 1px solid #808080;
+}

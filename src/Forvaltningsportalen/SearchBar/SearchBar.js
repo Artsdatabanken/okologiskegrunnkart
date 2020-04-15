@@ -1,6 +1,6 @@
 import React from "react";
 import "../../style/searchbar.css";
-import ForvaltningsElement from "../ForvaltningsKartlag/ForvaltningsElement";
+import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
 
 class SearchBar extends React.Component {
@@ -8,13 +8,15 @@ class SearchBar extends React.Component {
     treffliste: null,
     treffliste_lokalt: null,
     fylker: null,
-    kommuner: null
+    kommuner: null,
+    isSearching: false
   };
 
   handleRemoveTreffliste = () => {
     this.setState({
       treffliste: null,
-      treffliste_lokalt: null
+      treffliste_lokalt: null,
+      isSearching: false
     });
   };
 
@@ -27,41 +29,30 @@ class SearchBar extends React.Component {
         });
       });
     }
-  }
 
-  handleGeoSelection = geostring => {
-    if (geostring[1] === "Kommune") {
-      backend.hentKommunePolygon(geostring[2]).then(resultat => {
-        let polygon = resultat.omrade.coordinates[0];
-        let minx = 100;
-        let maxy = 0;
-        let maxx = 0;
-        let miny = 100;
-        for (let i in polygon) {
-          let this_item = polygon[i];
-          for (let i in this_item) {
-            let item = this_item[i];
-            if (item[0] < minx) {
-              minx = item[0];
-            } else if (item[0] > maxx) {
-              maxx = item[0];
-            }
-            if (item[1] > maxy) {
-              maxy = item[1];
-            } else if (item[1] < miny) {
-              miny = item[1];
-            }
-          }
-        }
-        let mincoord = [minx, miny];
-        let maxcoord = [maxx, maxy];
-        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        this.props.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    let fylker = this.state.fylker;
+    if (fylker === null) {
+      await backend.hentFylker().then(henta_fylker => {
+        this.setState({
+          fylker: henta_fylker
+        });
       });
     }
-  };
+  }
 
-  handleSearchBar = searchTerm => {
+  handleSearchBar = (searchTerm, resultpage) => {
+    if (!searchTerm) {
+      this.setState({ isSearching: false });
+      return null;
+    }
+    let countermax = 5;
+    if (resultpage) {
+      this.props.setSearchResultPage(true);
+      this.setState({ isSearching: false });
+      countermax = 15;
+    } else {
+      this.setState({ isSearching: true });
+    }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
@@ -70,14 +61,17 @@ class SearchBar extends React.Component {
     function searchForKey(criteria, counter, lag, searchTerm) {
       let treffliste_lokalt = [];
       for (let i in lag) {
-        if (counter >= 5) {
+        if (counter >= countermax) {
           break;
         } else {
           if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria].toLowerCase();
+            let lagstring = lag[i][criteria];
+            if (criteria === "tags") {
+              lagstring = JSON.stringify(lag[i][criteria]);
+            }
+            lagstring = lagstring.toLowerCase();
             if (lagstring.indexOf(searchTerm) !== -1) {
               let element = lag[i];
-              element.id = Object.keys(lag)[i];
               treffliste_lokalt.push(element);
               counter += 1;
             }
@@ -97,17 +91,26 @@ class SearchBar extends React.Component {
       let theme_search = searchForKey("tema", counter, lag, searchTerm);
       treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
       counter += theme_search[1];
+      let tags_search = searchForKey("tags", counter, lag, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(tags_search[0]);
+      counter += tags_search[1];
     }
-    this.setState({
-      treffliste_lokalt: treffliste_lokalt
-    });
+
+    if (resultpage) {
+      this.props.setKartlagSearchResults(treffliste_lokalt);
+    } else {
+      this.setState({
+        treffliste_lokalt: treffliste_lokalt
+      });
+    }
 
     this.fetchGeoData().then(() => {
       let counter2 = 0;
       let kommuner = this.state.kommuner;
+      let fylker = this.state.fylker;
       let treffliste = [];
       for (let i in kommuner) {
-        if (counter2 >= 5) {
+        if (counter2 >= countermax / 2) {
           break;
         } else {
           let treff = kommuner[i].kommunenavn.toLowerCase();
@@ -121,9 +124,30 @@ class SearchBar extends React.Component {
           }
         }
       }
-      this.setState({
-        treffliste: treffliste
-      });
+
+      for (let i in fylker) {
+        if (counter2 >= countermax) {
+          break;
+        } else {
+          let treff = fylker[i].fylkesnavn.toLowerCase();
+          if (treff.indexOf(searchTerm) !== -1) {
+            treffliste.push([
+              fylker[i].fylkesnavn,
+              "Fylke",
+              fylker[i].fylkesnummer
+            ]);
+            counter2 += 1;
+          }
+        }
+      }
+
+      if (resultpage) {
+        this.props.setGeoSearchResults(treffliste);
+      } else {
+        this.setState({
+          treffliste: treffliste
+        });
+      }
     });
   };
 
@@ -146,9 +170,6 @@ class SearchBar extends React.Component {
   };
 
   render() {
-    let treffliste = this.state.treffliste;
-    let treffliste_lokalt = this.state.treffliste_lokalt;
-
     return (
       <div className="searchbar_container" ref={this.setWrapperRef}>
         <div className="searchbar">
@@ -161,58 +182,49 @@ class SearchBar extends React.Component {
             onChange={e => {
               this.handleSearchBar(e.target.value);
             }}
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+                this.handleSearchBar(
+                  document.getElementById("searchfield").value,
+                  true
+                );
+                document.getElementById("searchfield").value = "";
+              }
+            }}
           />
-
+          {this.state.isSearching && (
+            <button
+              onClick={() => {
+                this.handleRemoveTreffliste();
+                this.handleSearchBar(null);
+                document.getElementById("searchfield").value = "";
+              }}
+            >
+              x
+            </button>
+          )}
           <button
             onClick={() => {
-              this.handleRemoveTreffliste();
-              this.handleSearchBar(null);
+              this.handleSearchBar(
+                document.getElementById("searchfield").value,
+                true
+              );
               document.getElementById("searchfield").value = "";
             }}
           >
-            x
+            søk
           </button>
         </div>
-
-        <div className="treffliste">
-          {treffliste &&
-            treffliste.length > 0 &&
-            treffliste.map(item => {
-              let itemname = item[0] || "";
-              let itemtype = item[1] || "";
-              let itemnr = item[2] || "";
-              return (
-                <button
-                  className="searchbar_item"
-                  key={item}
-                  onClick={() => {
-                    this.handleGeoSelection(item);
-                    this.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }}
-                >
-                  <span className="itemname">{itemname} </span>
-                  <span className="itemtype">{itemtype} </span>
-                  <span className="itemnr">{itemnr} </span>
-                </button>
-              );
-            })}
-
-          {treffliste_lokalt &&
-            treffliste_lokalt.length > 0 &&
-            treffliste_lokalt.map(item => {
-              return (
-                <div className="searchbar_item searchbar_local_item_container">
-                  <ForvaltningsElement
-                    kartlag_key={item.id}
-                    kartlag={item}
-                    key={item.id}
-                    onUpdateLayerProp={this.props.onUpdateLayerProp}
-                  />
-                </div>
-              );
-            })}
-        </div>
+        {this.state.isSearching && (
+          <TreffListe
+            treffliste={this.state.treffliste}
+            treffliste_lokalt={this.state.treffliste_lokalt}
+            removeValgtLag={this.props.removeValgtLag}
+            addValgtLag={this.props.addValgtLag}
+            handleGeoSelection={this.props.handleGeoSelection}
+            handleRemoveTreffliste={this.handleRemoveTreffliste}
+          />
+        )}
       </div>
     );
   }
