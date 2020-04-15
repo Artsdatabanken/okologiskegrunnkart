@@ -3,6 +3,9 @@ import React from "react";
 const TreffListe = props => {
   let treffliste = props.treffliste;
   let treffliste_lokalt = props.treffliste_lokalt;
+  let warning =
+    (treffliste && treffliste.length) ||
+    (treffliste_lokalt && treffliste_lokalt.length);
 
   return (
     <div className="treffliste">
@@ -62,6 +65,17 @@ const TreffListe = props => {
             </button>
           );
         })}
+      {warning ? (
+        <button className="searchbar_item infobutton">
+          <span className="itemname">
+            Trykk enter eller på søk for å få fler treff
+          </span>
+        </button>
+      ) : (
+        <button className="searchbar_item infobutton">
+          <span className="itemname">Ingen treff</span>
+        </button>
+      )}
     </div>
   );
 };
