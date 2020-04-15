@@ -24,8 +24,7 @@ after_success:
   - ls -la ..
   - ./deploy.sh $BRANCH
   - ./deploy_django.sh $BRANCH
-  - "curl -X POST --data-urlencode 'payload={\"channel\": \"$slack_chan\", \"username\": \"$slackuser\", \"text\": \"$slack_command\", \"icon_emoji\": \":ghost:\"}' https://hooks.slack.com/services/$SLACK_TOKEN"
-  - "curl -X POST --data-urlencode 'payload={\"channel\": \"$slack_chan\", \"username\": \"$slackuser\", \"text\": \"$slack_command2\", \"icon_emoji\": \":ghost:\"}' https://hooks.slack.com/services/$SLACK_TOKEN"
+  - "curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' $slackaddy"
 notifications:
   slack:
     on_success: change
