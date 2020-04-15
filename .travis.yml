@@ -24,8 +24,8 @@ after_success:
   - ls -la ..
   - ./deploy.sh $BRANCH
   - ./deploy_django.sh $BRANCH
-  - "curl -X POST -H 'Content-type: application/json' --data $slackcommand $slackaddy"
-  - "curl -X POST -H 'Content-type: application/json' --data $slackcommand2 $slackaddy"
+  - "curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning"}' $slackaddy"
+  - "curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltnings-admin"}' $slackaddy"
 notifications:
   slack:
     on_success: change
