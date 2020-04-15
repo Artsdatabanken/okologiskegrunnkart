@@ -194,6 +194,7 @@ class SearchBar extends React.Component {
           />
           {this.state.isSearching && (
             <button
+              className="x"
               onClick={() => {
                 this.handleRemoveTreffliste();
                 this.handleSearchBar(null);
