@@ -34,6 +34,18 @@
   border-left: 1px solid black;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
+  font-size: 12pt;
+}
+
+.searchbar .x {
+  display: inline;
+  background: none;
+  border: none;
+  border-radius: 0px;
+}
+
+.searchbar .x:hover {
+  background: grey;
 }
 
 .searchbar input {
