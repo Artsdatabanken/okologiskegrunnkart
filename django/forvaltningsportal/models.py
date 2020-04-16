@@ -43,8 +43,12 @@ class Kartlag(models.Model):
     wmsurl = models.CharField(max_length=500, blank=True)
     wmslayer = models.CharField(max_length=100, blank=True)
     faktaark = models.CharField(max_length=500, blank=True)
+    produktark = models.CharField(max_length=500, blank=True)
     klikkurl = models.CharField(max_length=500, blank=True)
     klikktekst = models.CharField(max_length=500, blank=True)
+    geonorgeurl = models.CharField(max_length=500, blank=True)
+    legendeurl = models.CharField(max_length=500, blank=True)
+    publiser = models.BooleanField(default=False)
     type = models.ForeignKey(
         Type, on_delete=models.SET_NULL, null=True, blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
