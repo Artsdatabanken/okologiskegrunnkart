@@ -226,6 +226,17 @@ class SearchBar extends React.Component {
             handleRemoveTreffliste={this.handleRemoveTreffliste}
           />
         )}
+
+        <button
+          className="help_button"
+          onClick={e => {
+            window.open(
+              "https://github.com/Artsdatabanken/forvaltningsportal/wiki/Brukermanual"
+            );
+          }}
+        >
+          ?
+        </button>
       </div>
     );
   }
