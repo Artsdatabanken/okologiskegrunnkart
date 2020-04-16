@@ -24,10 +24,6 @@ after_success:
   - ls -la ..
   - ./deploy.sh $BRANCH
   - ./deploy_django.sh $BRANCH
-  - test $TRAVIS_BRANCH = "master" && 
-    "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"deploy forvaltning\"}' $slackaddy"
-  - test $TRAVIS_BRANCH = "master" && 
-    "curl -X POST -H 'Content-type: application/json' --data '{\"text\":\"deploy forvaltnings-admin\"}' $slackaddy"
 notifications:
   slack:
     on_success: change
