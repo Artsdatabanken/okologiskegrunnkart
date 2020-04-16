@@ -40,6 +40,8 @@ const ForvaltningsElement = ({
   if (!tittel) return null;
   let tags = kartlag.tags || null;
 
+  console.log(kartlag);
+
   return (
     <>
       <ListItem
@@ -107,61 +109,56 @@ const ForvaltningsElement = ({
                 getAriaValueText={opacity => opacity + " %"}
               />
 
-              {kartlag.faktaark && (
+              {kartlag.produktark && (
                 <>
                   <ListItem>
                     <ListItemIcon>
                       <Description />
                     </ListItemIcon>
-                    <ListItemText primary="Faktaark" />
-                    {kartlag.faktaark && (
+                    <ListItemText primary="Produktark" />
+                    {kartlag.produktark && (
                       <>
                         <OpenInNew
                           className="iconbutton"
                           onClick={e => {
-                            window.open(kartlag.faktaark);
+                            window.open(kartlag.produktark);
                           }}
                         />
-                        {kartlag.type !== "naturtype" && (
-                          <>
-                            {openFakta ? (
-                              <ExpandLess
-                                className="iconbutton"
-                                onClick={e => {
-                                  setOpenFakta(!openFakta);
-                                }}
-                              />
-                            ) : (
-                              <ExpandMore
-                                className="iconbutton"
-                                onClick={e => {
-                                  setOpenFakta(!openFakta);
-                                }}
-                              />
-                            )}
-                          </>
+
+                        {openFakta ? (
+                          <ExpandLess
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
+                        ) : (
+                          <ExpandMore
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
                         )}
                       </>
                     )}
                   </ListItem>
 
-                  {kartlag.faktaark && (
+                  {kartlag.produktark && (
                     <Collapse in={openFakta} timeout="auto" unmountOnExit>
-                      {kartlag.type !== "naturtype" && (
-                        <iframe
-                          allowtransparency="true"
-                          style={{
-                            frameBorder: 0,
-                            width: "100%",
-                            minHeight: "500px",
-                            maxHeight: "100%",
-                            position: "relative",
-                            overflow: "none"
-                          }}
-                          title="Faktaark"
-                          src={kartlag.faktaark}
-                        />
-                      )}
+                      <iframe
+                        allowtransparency="true"
+                        style={{
+                          frameBorder: 0,
+                          width: "100%",
+                          minHeight: "500px",
+                          maxHeight: "100%",
+                          position: "relative",
+                          overflow: "none"
+                        }}
+                        title="Produktark"
+                        src={kartlag.produktark}
+                      />
                     </Collapse>
                   )}
                 </>
@@ -170,7 +167,9 @@ const ForvaltningsElement = ({
               <ListItem
                 button
                 onClick={e => {
-                  window.open(kartlag.geonorge || "https://www.geonorge.no/");
+                  window.open(
+                    kartlag.geonorgeurl || "https://www.geonorge.no/"
+                  );
                 }}
               >
                 <ListItemIcon>
@@ -217,6 +216,20 @@ const ForvaltningsElement = ({
                       alt="legend"
                       onError={() => setHasLegend(false)}
                       src={`${kartlag.kart.format.wms.url}?layer=${kartlag.kart.format.wms.layer}&request=GetLegendGraphic&format=image/png&version=1.3.0`}
+                    />
+                  </div>
+                </>
+              )}
+              {kartlag.legendeurl && (
+                <>
+                  <Typography id="range-slider" gutterBottom>
+                    Tegnforklaring
+                  </Typography>
+                  <div style={{ paddingLeft: 56 }}>
+                    <img
+                      alt="legend"
+                      src={kartlag.legendeurl}
+                      style={{ maxWidth: "90%" }}
                     />
                   </div>
                 </>
