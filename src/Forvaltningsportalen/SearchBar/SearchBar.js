@@ -172,16 +172,6 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div className="searchbar_container" ref={this.setWrapperRef}>
-        <button
-          className="help_button"
-          onClick={e => {
-            window.open(
-              "https://github.com/Artsdatabanken/forvaltningsportal/wiki/Brukermanual"
-            );
-          }}
-        >
-          ?
-        </button>
         <div className="searchbar">
           <input
             className="searchbarfield"
@@ -236,6 +226,17 @@ class SearchBar extends React.Component {
             handleRemoveTreffliste={this.handleRemoveTreffliste}
           />
         )}
+
+        <button
+          className="help_button"
+          onClick={e => {
+            window.open(
+              "https://github.com/Artsdatabanken/forvaltningsportal/wiki/Brukermanual"
+            );
+          }}
+        >
+          ?
+        </button>
       </div>
     );
   }
