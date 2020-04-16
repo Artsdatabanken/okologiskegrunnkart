@@ -17,19 +17,22 @@
 }
 
 .searchbar {
+  position: relative;
   margin-top: 10px;
-  margin-left: auto;
+  margin-left: 10px;
   margin-right: auto;
-  max-width: 350px;
+  width: 350px;
   background: white;
   border-radius: 3px;
   text-align: center;
-  display: flex;
+  display: inline-block;
+  height: 31px;
   border: 1px solid black;
 }
 
 .searchbar button {
   width: 50px;
+  float: right;
   border: 0px;
   border-left: 1px solid black;
   border-top-left-radius: 0px;
@@ -38,7 +41,9 @@
 }
 
 .searchbar .x {
-  display: inline;
+  position: absolute;
+  right: 50px;
+  width: 30px;
   background: none;
   border: none;
   border-radius: 0px;
@@ -51,16 +56,28 @@
 .searchbar input {
   border: 0px;
   font-size: 12pt;
-  flex: 1;
+  float: left;
+  width: 100%;
+  padding-right: 15px;
+  box-sizing: border-box;
+  max-width: calc(100% - 60px);
 }
 
 .treffliste {
   width: 100%;
-  max-width: 350px;
-  margin-left: auto;
+  width: 350px;
+  margin-left: 10px;
   margin-right: auto;
   display: block;
   z-index: 2;
+  margin-top: -4px;
+}
+
+@media only screen and (max-width: 768px) {
+  .treffliste,
+  .searchbar {
+    max-width: calc(100% - 60px);
+  }
 }
 
 .treffliste .searchbar_item {
@@ -138,4 +155,12 @@
 
 .kartlag_fanen .searchbar_item:first-child {
   border-top: 1px solid #808080;
+}
+
+.help_button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 31px;
+  height: 31px;
 }
