@@ -6,6 +6,7 @@ class SearchBar extends React.Component {
   state = {
     treffliste: null,
     treffliste_lokalt: null,
+    treffliste_sted: null,
     fylker: null,
     kommuner: null,
     isSearching: false
@@ -104,7 +105,9 @@ class SearchBar extends React.Component {
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
-      console.log(resultat);
+      this.setState({
+        treffliste_sted: resultat.stedsnavn
+      });
     });
 
     this.fetchGeoData().then(() => {
@@ -223,6 +226,7 @@ class SearchBar extends React.Component {
           <TreffListe
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
+            treffliste_sted={this.state.treffliste_sted}
             removeValgtLag={this.props.removeValgtLag}
             addValgtLag={this.props.addValgtLag}
             handleGeoSelection={this.props.handleGeoSelection}

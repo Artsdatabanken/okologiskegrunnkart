@@ -3,9 +3,13 @@ import React from "react";
 const TreffListe = props => {
   let treffliste = props.treffliste;
   let treffliste_lokalt = props.treffliste_lokalt;
+  let treffliste_sted = props.treffliste_sted;
   let warning =
     (treffliste && treffliste.length) ||
-    (treffliste_lokalt && treffliste_lokalt.length);
+    (treffliste_lokalt && treffliste_lokalt.length) ||
+    (treffliste_sted && treffliste_sted.length);
+
+  console.log(treffliste_sted);
 
   return (
     <div className="treffliste">
@@ -19,6 +23,32 @@ const TreffListe = props => {
             <button
               className="searchbar_item"
               key={item}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+                props.handleGeoSelection(item);
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">{itemtype} </span>
+              <span className="itemnr">{itemnr} </span>
+            </button>
+          );
+        })}
+
+      {treffliste_sted &&
+        treffliste_sted.length > 0 &&
+        treffliste_sted.map(item => {
+          let itemname = item.stedsnavn || "";
+          let itemtype = "ssr" + item.navnetype || "";
+          let itemnr = item.ssrId || "";
+          return (
+            <button
+              className="searchbar_item"
+              key={itemnr}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.removeValgtLag();

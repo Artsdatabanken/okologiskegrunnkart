@@ -203,7 +203,22 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
-    if (geostring[1] === "Fylke") {
+    if (geostring.ssrId) {
+      console.log("fra stedsnavnregister");
+      let mincoord = [
+        parseFloat(geostring.aust) - 1,
+        parseFloat(geostring.nord) - 1
+      ];
+      let maxcoord = [
+        parseFloat(geostring.aust) + 1,
+        parseFloat(geostring.nord) + 1
+      ];
+      let centercoord = [
+        parseFloat(geostring.aust),
+        parseFloat(geostring.nord)
+      ];
+      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    } else if (geostring[1] === "Fylke") {
       backend.hentFylkePolygon(geostring[2]).then(resultat => {
         let fylke = resultat[0];
         let bbox = fylke.bbox.coordinates[0];
@@ -215,8 +230,7 @@ class App extends React.Component {
         ];
         this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
       });
-    }
-    if (geostring[1] === "Kommune") {
+    } else if (geostring[1] === "Kommune") {
       backend.hentKommunePolygon(geostring[2]).then(resultat => {
         let polygon = resultat.omrade.coordinates[0];
         let minx = 100;
