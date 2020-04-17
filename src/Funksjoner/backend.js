@@ -4,7 +4,12 @@ import wms_api from "./wms_api";
 class Backend {
   static async getPromise(url) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        method: "get",
+        headers: {
+          Accept: "application/json"
+        }
+      });
       const json = await response.json();
       return json;
     } catch (e) {
