@@ -64,6 +64,7 @@ class Kartlag(models.Model):
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
+        # legg til sjekk her for om det står publiser når vi lager egen fil til prod
         dict[kartlag.id] = {
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
@@ -77,8 +78,14 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['type'] = kartlag.type.tittel
         if kartlag.tema:
             dict[kartlag.id]['tema'] = kartlag.tema.tittel
-        if kartlag.faktaark:
-            dict[kartlag.id]['faktaark'] = kartlag.faktaark
+        if kartlag.produktark:
+            dict[kartlag.id]['produktark'] = kartlag.produktark
+        if kartlag.produktark:
+            dict[kartlag.id]['produktark'] = kartlag.produktark
+        if kartlag.geonorgeurl:
+            dict[kartlag.id]['geonorgeurl'] = kartlag.geonorgeurl
+        if kartlag.legendeurl:
+            dict[kartlag.id]['legendeurl'] = kartlag.legendeurl
         if kartlag.wmsurl:
             dict[kartlag.id]['wmsurl'] = kartlag.wmsurl
         if kartlag.wmslayer:
