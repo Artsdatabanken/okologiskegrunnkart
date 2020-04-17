@@ -171,7 +171,8 @@ class Leaflet extends React.Component {
           this.wms[layerName] = layer;
           this.map.addLayer(layer);
         }
-        layer.setUrl(al.wmsurl.replace("{gkt}", this.props.token));
+        const url = this.makeWmsUrl(al.wmsurl);
+        layer.setUrl(url);
         layer.setOpacity(al.opacity);
       } else {
         if (layer) {
@@ -182,6 +183,14 @@ class Leaflet extends React.Component {
     });
   }
   wms = {};
+
+  makeWmsUrl(url) {
+    url = url.replace(/request\=GetCapabilities/gi, "");
+    url = url.replace(/service\=WMS/gi, "");
+    url = url.replace(/[&?]*$/gi, "");
+    url = url.replace("{gkt}", this.props.token);
+    return url;
+  }
 
   render() {
     if (this.props.zoomcoordinates) {
