@@ -18,20 +18,6 @@ class Backend {
     }
   }
 
-  static async getPromiseXML(url) {
-    try {
-      const res = await fetch(url);
-      let xml;
-      await res.text().then(function(d) {
-        xml = d;
-      });
-      return xml;
-    } catch (e) {
-      console.error(url, e);
-      return null;
-    }
-  }
-
   static async hentLokalFil(filnavn) {
     return this.getPromise("/" + filnavn);
   }
@@ -43,8 +29,8 @@ class Backend {
   }
 
   static async hentSteder(bokstav) {
-    return this.getPromiseXML(
-      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=5&eksakteForst=true`
+    return this.getPromise(
+      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=5&eksakteForst=true&epsgKode=4326`
     );
   }
 
