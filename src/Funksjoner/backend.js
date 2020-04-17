@@ -13,6 +13,20 @@ class Backend {
     }
   }
 
+  static async getPromiseXML(url) {
+    try {
+      const res = await fetch(url);
+      let xml;
+      await res.text().then(function(d) {
+        xml = d;
+      });
+      return xml;
+    } catch (e) {
+      console.error(url, e);
+      return null;
+    }
+  }
+
   static async hentLokalFil(filnavn) {
     return this.getPromise("/" + filnavn);
   }
@@ -20,6 +34,12 @@ class Backend {
   static async hentStedsnavn(lng, lat) {
     return this.getPromise(
       `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
+    );
+  }
+
+  static async hentSteder(bokstav) {
+    return this.getPromiseXML(
+      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=5&eksakteForst=true`
     );
   }
 

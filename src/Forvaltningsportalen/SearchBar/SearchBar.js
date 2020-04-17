@@ -2,7 +2,6 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-
 class SearchBar extends React.Component {
   state = {
     treffliste: null,
@@ -103,6 +102,10 @@ class SearchBar extends React.Component {
         treffliste_lokalt: treffliste_lokalt
       });
     }
+
+    backend.hentSteder(searchTerm).then(resultat => {
+      console.log(resultat);
+    });
 
     this.fetchGeoData().then(() => {
       let counter2 = 0;
