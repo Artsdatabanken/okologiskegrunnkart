@@ -185,8 +185,8 @@ class Leaflet extends React.Component {
   wms = {};
 
   makeWmsUrl(url) {
-    url = url.replace(/request\=GetCapabilities/gi, "");
-    url = url.replace(/service\=WMS/gi, "");
+    url = url.replace(/request=GetCapabilities/gi, "");
+    url = url.replace(/service=WMS/gi, "");
     url = url.replace(/[&?]*$/gi, "");
     url = url.replace("{gkt}", this.props.token);
     return url;
