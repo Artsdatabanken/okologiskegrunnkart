@@ -78,8 +78,8 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['type'] = kartlag.type.tittel
         if kartlag.tema:
             dict[kartlag.id]['tema'] = kartlag.tema.tittel
-        if kartlag.produktark:
-            dict[kartlag.id]['produktark'] = kartlag.produktark
+        if kartlag.faktaark:
+            dict[kartlag.id]['faktaark'] = kartlag.faktaark
         if kartlag.produktark:
             dict[kartlag.id]['produktark'] = kartlag.produktark
         if kartlag.geonorgeurl:
