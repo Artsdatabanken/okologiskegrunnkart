@@ -1,0 +1,33 @@
+{
+  "LastOpendConfigFile": {
+    "Id": "6d533adb-98d5-48d5-9b7d-e23152ca421e",
+    "Name": "default",
+    "FilePath": "/home/grunnkart/src/adb/forvaltningsportal/massivnedlaster/default.json",
+    "DownloadDirectory": "/home/grunnkart/src/adb/forvaltningsportal/lastejobb/temp",
+    "LogDirectory": "/home/grunnkart/src/adb/forvaltningsportal/lastejobb/temp",
+    "DownloadUsage": {
+      "Group": "Samarbeidspartner",
+      "Purpose": ["Videreformidling"],
+      "SoftwareClient": "Geonorge.MassivNedlasting",
+      "SoftwareClientVersion": "0.9.193.0",
+      "Entries": []
+    }
+  },
+  "ConfigFiles": [
+    {
+      "Id": "6d533adb-98d5-48d5-9b7d-e23152ca421e",
+      "Name": "default",
+      "FilePath": "/home/grunnkart/src/adb/forvaltningsportal/massivnedlaster/default.json",
+      "DownloadDirectory": "/home/grunnkart/src/adb/forvaltningsportal/lastejobb/temp",
+      "LogDirectory": "/home/grunnkart/src/adb/forvaltningsportal/lastejobb/temp",
+      "DownloadUsage": {
+        "Group": "Samarbeidspartner",
+        "Purpose": ["Videreformidling"],
+        "SoftwareClient": "Geonorge.MassivNedlasting",
+        "SoftwareClientVersion": "0.9.193.0",
+        "Entries": []
+      }
+    }
+  ],
+  "LastCheckForUpdate": "2020-04-19T23:59:10"
+}

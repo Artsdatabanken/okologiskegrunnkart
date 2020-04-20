@@ -1,0 +1,762 @@
+[
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AdministrativeEnheterKommuner_AtomFeedGEOJSON.xml\n",
+    "DatasetTitle": "Administrative enheter kommuner GEOJSON-format",
+    "DatasetId": "041f1e6e-bdbc-4091-b48f-8a5990f3cc5b",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GEOJSON-format",
+        "Name": "GEOJSON-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GEOJSON-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GEOJSON/Basisdata_0000_Norge_25833_Kommuner_GEOJSON.zip",
+        "LastUpdated": "2020-02-24T21:59:35",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GEOJSON-format",
+        "DatasetId": "Administrative enheter kommuner GEOJSON-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AdministrativeEnheterKommuner_AtomFeedGEOJSON.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/VerneplanVassdrag_AtomFeedGML.xml\n",
+    "DatasetTitle": "Verneplan for vassdrag GML-format",
+    "DatasetId": "df5c70a1-e9cf-4b2c-bf9a-7dce453830cd",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/Natur/VerneplanVassdrag/GML/Natur_0000_Norge_25833_VerneplanVassdrag_GML.zip",
+        "LastUpdated": "2020-03-01T19:48:04",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Verneplan for vassdrag GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/VerneplanVassdrag_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/StedsnavnKomplettSSR_AtomFeedGML.xml\n",
+    "DatasetTitle": "Stedsnavn (komplett SSR) GML-format",
+    "DatasetId": "e1c50348-962d-4047-8325-bdc265c853ed",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/Basisdata/StedsnavnKomplettSSR/GML/Basisdata_0000_Norge_25833_StedsnavnKomplettSSR_GML.zip",
+        "LastUpdated": "2020-04-06T08:47:04",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Stedsnavn (komplett SSR) GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/StedsnavnKomplettSSR_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "https://nedlasting.ngu.no/api/atom/3de4ddf6-d6b8-4398-8222-f5c47791a757",
+    "DatasetTitle": "Løsmasser",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "Format:GEODATABASE_FILE",
+        "Name": "Format:GEODATABASE_FILE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SHAPE",
+        "Name": "Format:SHAPE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SOSI",
+        "Name": "Format:SOSI"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "Løsmasser-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
+        "Description": "",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/3de4ddf6-d6b8-4398-8222-f5c47791a757/f1684ee1-8922-45e2-a16c-5ae143dcaf4a",
+        "LastUpdated": "2020-04-01T07:35:58Z",
+        "Organization": "",
+        "Projection": "EPSG:25833",
+        "Format": "Format:GEODATABASE_FILE",
+        "DatasetId": "Løsmasser",
+        "DatasetUrl": "https://nedlasting.ngu.no/api/atom/3de4ddf6-d6b8-4398-8222-f5c47791a757"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "https://nedlasting.ngu.no/api/atom/cf8ccec7-9505-4d84-94a9-eac9c69971d3",
+    "DatasetTitle": "Marin grense",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "Format:GEODATABASE_FILE",
+        "Name": "Format:GEODATABASE_FILE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:GML",
+        "Name": "Format:GML"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SHAPE",
+        "Name": "Format:SHAPE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SOSI",
+        "Name": "Format:SOSI"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "Marin grense-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GML",
+        "Description": "",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/cf8ccec7-9505-4d84-94a9-eac9c69971d3/4453d602-af26-4e56-85b2-1c207c9ed330",
+        "LastUpdated": "2020-04-14T12:38:52Z",
+        "Organization": "",
+        "Projection": "EPSG:25833",
+        "Format": "Format:GML",
+        "DatasetId": "Marin grense",
+        "DatasetUrl": "https://nedlasting.ngu.no/api/atom/cf8ccec7-9505-4d84-94a9-eac9c69971d3"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "https://nedlasting.ngu.no/api/atom/378d5f88-de1f-4d1e-b99a-7b0f0dd52951",
+    "DatasetTitle": "Mineralressurser",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "Format:GEODATABASE_FILE",
+        "Name": "Format:GEODATABASE_FILE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SHAPE",
+        "Name": "Format:SHAPE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SOSI",
+        "Name": "Format:SOSI"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "Mineralressurser-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
+        "Description": "",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/378d5f88-de1f-4d1e-b99a-7b0f0dd52951/952672de-d25f-4907-8849-10232f7f4f90",
+        "LastUpdated": "2020-04-14T11:03:31Z",
+        "Organization": "",
+        "Projection": "EPSG:25833",
+        "Format": "Format:GEODATABASE_FILE",
+        "DatasetId": "Mineralressurser",
+        "DatasetUrl": "https://nedlasting.ngu.no/api/atom/378d5f88-de1f-4d1e-b99a-7b0f0dd52951"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "https://nedlasting.ngu.no/api/atom/641a81c2-9354-473b-b8f0-2b1e2ab3930a",
+    "DatasetTitle": "Mulig Marin Leire",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "Format:GEODATABASE_FILE",
+        "Name": "Format:GEODATABASE_FILE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SHAPE",
+        "Name": "Format:SHAPE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SOSI",
+        "Name": "Format:SOSI"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "Mulig Marin Leire-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
+        "Description": "",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/641a81c2-9354-473b-b8f0-2b1e2ab3930a/3b281757-2795-423b-bca4-418be757ffca",
+        "LastUpdated": "2020-04-15T17:15:50Z",
+        "Organization": "",
+        "Projection": "EPSG:25833",
+        "Format": "Format:GEODATABASE_FILE",
+        "DatasetId": "Mulig Marin Leire",
+        "DatasetUrl": "https://nedlasting.ngu.no/api/atom/641a81c2-9354-473b-b8f0-2b1e2ab3930a"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "https://nedlasting.ngu.no/api/atom/a5c76d05-33bd-4a1d-b28b-81575092e468",
+    "DatasetTitle": "Berggrunn N50",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "Format:GEODATABASE_FILE",
+        "Name": "Format:GEODATABASE_FILE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SHAPE",
+        "Name": "Format:SHAPE"
+      },
+      {
+        "Selected": true,
+        "Code": "Format:SOSI",
+        "Name": "Format:SOSI"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "Berggrunn N50-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
+        "Description": "",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/a5c76d05-33bd-4a1d-b28b-81575092e468/b7d2c6ae-3681-46bf-9f75-72e3d169b6e1",
+        "LastUpdated": "2020-03-31T06:52:08Z",
+        "Organization": "",
+        "Projection": "EPSG:25833",
+        "Format": "Format:GEODATABASE_FILE",
+        "DatasetId": "Berggrunn N50",
+        "DatasetUrl": "https://nedlasting.ngu.no/api/atom/a5c76d05-33bd-4a1d-b28b-81575092e468"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AkvakulturLokaliteter_AtomFeedGML.xml\n",
+    "DatasetTitle": "Akvakultur - lokaliteter GML-format",
+    "DatasetId": "4ca8af5e-ffc7-4636-847d-4eca92c4a3b0",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/AkvakulturLokaliteter/GML/KystOgFiskeri_0000_Norge_25833_AkvakulturLokaliteter_GML.zip",
+        "LastUpdated": "2020-04-19T01:43:10",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Akvakultur - lokaliteter GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AkvakulturLokaliteter_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/FiskeplasserRedskap_AtomFeedGML.xml\n",
+    "DatasetTitle": "Fiskeplasser - redskap GML-format",
+    "DatasetId": "09a40026-00e2-4fd8-b390-afd8d6f88c63",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/FiskeplasserRedskap/GML/KystOgFiskeri_0000_Norge_25833_FiskeplasserRedskap_GML.zip",
+        "LastUpdated": "2020-03-29T21:26:07",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Fiskeplasser - redskap GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/FiskeplasserRedskap_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Gyteomrader_AtomFeedGML.xml\n",
+    "DatasetTitle": "Gyteområder GML-format",
+    "DatasetId": "c3d6bba0-e4b0-44e6-93a4-5b379946acb7",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Gyteomrader/GML/KystOgFiskeri_0000_Norge_25833_Gyteomrader_GML.zip",
+        "LastUpdated": "2020-03-28T02:00:57",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Gyteområder GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Gyteomrader_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Lassettingsplasser_AtomFeedGML.xml\n",
+    "DatasetTitle": "Låssettingsplasser GML-format",
+    "DatasetId": "fb59846b-edb3-4631-ba85-90dd0193e3be",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Lassettingsplasser/GML/KystOgFiskeri_0000_Norge_25833_Lassettingsplasser_GML.zip",
+        "LastUpdated": "2020-03-28T01:41:07",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Låssettingsplasser GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Lassettingsplasser_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Laksefjorder_AtomFeedGML.xml\n",
+    "DatasetTitle": "Nasjonale laksefjorder GML-format",
+    "DatasetId": "b12d041d-03d4-4562-b333-bc9d7c9bd123",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25835",
+        "Name": "EPSG:25835"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Laksefjorder/GML/KystOgFiskeri_0000_Norge_25833_Laksefjorder_GML.zip",
+        "LastUpdated": "2020-03-23T22:09:40",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Nasjonale laksefjorder GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Laksefjorder_AtomFeedGML.xml\n"
+      }
+    ]
+  },
+  {
+    "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Tarehostefelt_AtomFeedGML.xml\n",
+    "DatasetTitle": "Tare - høstefelt GML-format",
+    "DatasetId": "4d0bd656-640b-4592-be35-e7435aa313dc",
+    "Subscribe": false,
+    "AutoDeleteFiles": false,
+    "AutoAddFiles": false,
+    "Projections": [
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25832",
+        "Name": "EPSG:25832"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:25833",
+        "Name": "EPSG:25833"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:3035",
+        "Name": "EPSG:3035"
+      },
+      {
+        "Selected": true,
+        "Epsg": "EPSG:4258",
+        "Name": "EPSG:4258"
+      }
+    ],
+    "Formats": [
+      {
+        "Selected": true,
+        "Code": "GML-format",
+        "Name": "GML-format"
+      }
+    ],
+    "Files": [
+      {
+        "Title": "GML-format, Landsdekkende",
+        "Description": "",
+        "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Tarehostefelt/GML/KystOgFiskeri_0000_Norge_25833_Tarehostefelt_GML.zip",
+        "LastUpdated": "2020-04-11T22:06:35",
+        "Organization": "Kartverket",
+        "Projection": "EPSG:25833",
+        "Format": "GML-format",
+        "DatasetId": "Tare - høstefelt GML-format",
+        "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Tarehostefelt_AtomFeedGML.xml\n"
+      }
+    ]
+  }
+]
