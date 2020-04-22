@@ -32,7 +32,7 @@ function mapComponent(c) {
   return { type, props };
 }
 
-const Klikktekst = ({ input, formatstring }) => {
+const Klikktekst = ({ input, formatstring = "" }) => {
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
 

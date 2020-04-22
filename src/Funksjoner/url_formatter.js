@@ -1,11 +1,33 @@
-export default function url_formatter(url, lat, lng, delta = 0.01) {
-  url = url.replace(/{x}/gi, "&x=" + lng);
-  url = url.replace(/{y}/gi, "&y=" + lat);
-  url = url.replace(/{lng}/gi, lng);
-  url = url.replace(/{lat}/gi, lat);
-  url = url.replace(
-    /{bbox}/gi,
-    `${lng - delta},${lat - delta},${lng + delta},${lat + delta}`
+export default function url_formatter(formatstring, variables) {
+  if (variables.loading) return null;
+  if (variables.error) return null;
+
+  const matches = formatstring.matchAll(
+    /\{(?<variable>[^{]*?)\}|(?<literal>[^<{]+)/g
   );
+  var hits = Array.from(matches);
+  const parts = hits.map(hit => {
+    const e = hit.groups;
+    if (e.variable) return lookup(variables, e.variable);
+    if (e.literal) return e.literal;
+    return "";
+  });
+
+  const url = parts.join("");
   return url;
+}
+
+function lookup(o, path) {
+  if (o.loading || o.error) return;
+  if (!path) return JSON.stringify(o);
+  const segments = path.split(".");
+  for (var segment of segments) {
+    if (!o[segment]) {
+      console.warn(path, segment + " mangler i ", o);
+      return null;
+    }
+    o = o[segment];
+  }
+  if (typeof o === "string") return o;
+  return JSON.stringify(o);
 }
