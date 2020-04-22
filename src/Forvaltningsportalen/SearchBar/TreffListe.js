@@ -8,7 +8,7 @@ const TreffListe = props => {
     (treffliste_lokalt && treffliste_lokalt.length);
 
   return (
-    <div className="treffliste" id="treffliste" tabindex="0">
+    <ul className="treffliste" id="treffliste" tabindex="0">
       {treffliste &&
         treffliste.length > 0 &&
         treffliste.map(item => {
@@ -16,7 +16,7 @@ const TreffListe = props => {
           let itemtype = item[1] || "";
           let itemnr = item[2] || "";
           return (
-            <button
+            <li
               className="searchbar_item"
               key={item}
               onClick={() => {
@@ -31,7 +31,7 @@ const TreffListe = props => {
               <span className="itemname">{itemname} </span>
               <span className="itemtype">{itemtype} </span>
               <span className="itemnr">{itemnr} </span>
-            </button>
+            </li>
           );
         })}
 
@@ -43,7 +43,7 @@ const TreffListe = props => {
           let itemowner = item.dataeier;
           let tema = item.tema || "";
           return (
-            <button
+            <li
               className="searchbar_item"
               key={item.id}
               onClick={() => {
@@ -62,7 +62,7 @@ const TreffListe = props => {
                 {itemtype}, {itemowner}{" "}
               </span>
               <span className="itemnr">{tema}</span>
-            </button>
+            </li>
           );
         })}
       {warning ? (
@@ -76,7 +76,7 @@ const TreffListe = props => {
           <span className="itemname">Ingen treff</span>
         </button>
       )}
-    </div>
+    </ul>
   );
 };
 
