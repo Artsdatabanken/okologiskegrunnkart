@@ -9,18 +9,17 @@ const TreffListe = props => {
 
   function movefocus(e, index) {
     if (document.getElementsByClassName("searchbar_item")) {
-      let all_nodes = document.getElementsByClassName("searchbar_item");
+      // nedoverpil
       if (e.keyCode === 40) {
-        console.log("gå ned");
-        all_nodes[index + 1].focus();
+        document.getElementsByClassName("searchbar_item")[index + 1].focus();
       }
-      // Up key
+      // oppoverpil
       if (e.keyCode === 38) {
         let nextindex = index - 1;
         if (nextindex < 0) {
           document.getElementById("searchfield").focus();
         } else {
-          all_nodes[index - 1].focus();
+          document.getElementsByClassName("searchbar_item")[index - 1].focus();
         }
       }
     }
@@ -41,7 +40,17 @@ const TreffListe = props => {
               className="searchbar_item"
               key={item}
               onKeyDown={e => {
-                movefocus(e, index);
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
               }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
@@ -77,7 +86,19 @@ const TreffListe = props => {
               className="searchbar_item"
               key={item.id}
               onKeyDown={e => {
-                movefocus(e, full_index);
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  } else {
+                    props.setSearchResultPage(false);
+                  }
+                  props.removeValgtLag();
+                  props.addValgtLag(item);
+                } else {
+                  movefocus(e, full_index);
+                }
               }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
