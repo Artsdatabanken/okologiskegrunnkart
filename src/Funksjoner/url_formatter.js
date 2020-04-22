@@ -1,4 +1,4 @@
-export default function url_formatter(formatstring, variables) {
+export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
 
