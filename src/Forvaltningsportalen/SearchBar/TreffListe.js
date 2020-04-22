@@ -7,18 +7,51 @@ const TreffListe = props => {
     (treffliste && treffliste.length) ||
     (treffliste_lokalt && treffliste_lokalt.length);
 
+  function movefocus(e, index) {
+    if (document.getElementsByClassName("searchbar_item")) {
+      // nedoverpil
+      if (e.keyCode === 40) {
+        document.getElementsByClassName("searchbar_item")[index + 1].focus();
+      }
+      // oppoverpil
+      if (e.keyCode === 38) {
+        let nextindex = index - 1;
+        if (nextindex < 0) {
+          document.getElementById("searchfield").focus();
+        } else {
+          document.getElementsByClassName("searchbar_item")[index - 1].focus();
+        }
+      }
+    }
+  }
+
   return (
-    <div className="treffliste">
+    <ul className="treffliste" id="treffliste" tabIndex="0">
       {treffliste &&
         treffliste.length > 0 &&
-        treffliste.map(item => {
+        treffliste.map((item, index) => {
           let itemname = item[0] || "";
           let itemtype = item[1] || "";
           let itemnr = item[2] || "";
           return (
-            <button
+            <li
+              id={index}
+              tabIndex="0"
               className="searchbar_item"
               key={item}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
+              }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.removeValgtLag();
@@ -31,21 +64,42 @@ const TreffListe = props => {
               <span className="itemname">{itemname} </span>
               <span className="itemtype">{itemtype} </span>
               <span className="itemnr">{itemnr} </span>
-            </button>
+            </li>
           );
         })}
 
       {treffliste_lokalt &&
         treffliste_lokalt.length > 0 &&
-        treffliste_lokalt.map(item => {
+        treffliste_lokalt.map((item, index) => {
+          let full_index = index;
+          if (treffliste && treffliste.length) {
+            full_index = full_index + treffliste.length;
+          }
           let itemname = item.tittel;
           let itemtype = "Kartlag";
           let itemowner = item.dataeier;
           let tema = item.tema || "";
           return (
-            <button
+            <li
+              tabIndex="0"
+              id={full_index}
               className="searchbar_item"
               key={item.id}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  } else {
+                    props.setSearchResultPage(false);
+                  }
+                  props.removeValgtLag();
+                  props.addValgtLag(item);
+                } else {
+                  movefocus(e, full_index);
+                }
+              }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.handleRemoveTreffliste();
@@ -62,21 +116,21 @@ const TreffListe = props => {
                 {itemtype}, {itemowner}{" "}
               </span>
               <span className="itemnr">{tema}</span>
-            </button>
+            </li>
           );
         })}
       {warning ? (
-        <button className="searchbar_item infobutton">
+        <li className="searchbar_item infobutton">
           <span className="itemname">
             Trykk enter eller på søk for å få fler treff
           </span>
-        </button>
+        </li>
       ) : (
-        <button className="searchbar_item infobutton">
+        <li className="searchbar_item infobutton">
           <span className="itemname">Ingen treff</span>
-        </button>
+        </li>
       )}
-    </div>
+    </ul>
   );
 };
 
