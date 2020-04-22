@@ -116,7 +116,7 @@
 .treffliste li:focus {
   background: black;
   color: white;
-  outline: none;
+  /*outline: none;*/
   cursor: pointer;
 }
 

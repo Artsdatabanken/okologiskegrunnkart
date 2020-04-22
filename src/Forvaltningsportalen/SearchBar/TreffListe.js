@@ -7,18 +7,39 @@ const TreffListe = props => {
     (treffliste && treffliste.length) ||
     (treffliste_lokalt && treffliste_lokalt.length);
 
+  function movefocus(e, index) {
+    if (document.getElementsByClassName("searchbar_item")) {
+      let all_nodes = document.getElementsByClassName("searchbar_item");
+      if (e.keyCode === 40) {
+        console.log("gå ned");
+        all_nodes[index + 1].focus();
+      }
+      // Up key
+      if (e.keyCode === 38) {
+        all_nodes[index - 1].focus();
+      }
+    } else {
+      console.log("hva driver jeg med");
+    }
+  }
+
   return (
-    <ul className="treffliste" id="treffliste" tabindex="0">
+    <ul className="treffliste" id="treffliste" tabIndex="0">
       {treffliste &&
         treffliste.length > 0 &&
-        treffliste.map(item => {
+        treffliste.map((item, index) => {
           let itemname = item[0] || "";
           let itemtype = item[1] || "";
           let itemnr = item[2] || "";
           return (
             <li
+              id={index}
+              tabIndex="0"
               className="searchbar_item"
               key={item}
+              onKeyDown={e => {
+                movefocus(e, index);
+              }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.removeValgtLag();
@@ -37,15 +58,24 @@ const TreffListe = props => {
 
       {treffliste_lokalt &&
         treffliste_lokalt.length > 0 &&
-        treffliste_lokalt.map(item => {
+        treffliste_lokalt.map((item, index) => {
+          let full_index = index;
+          if (treffliste && treffliste.length) {
+            full_index = full_index + treffliste.length;
+          }
           let itemname = item.tittel;
           let itemtype = "Kartlag";
           let itemowner = item.dataeier;
           let tema = item.tema || "";
           return (
             <li
+              tabIndex="0"
+              id={full_index}
               className="searchbar_item"
               key={item.id}
+              onKeyDown={e => {
+                movefocus(e, full_index);
+              }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.handleRemoveTreffliste();
@@ -66,15 +96,15 @@ const TreffListe = props => {
           );
         })}
       {warning ? (
-        <button className="searchbar_item infobutton">
+        <li className="searchbar_item infobutton">
           <span className="itemname">
             Trykk enter eller på søk for å få fler treff
           </span>
-        </button>
+        </li>
       ) : (
-        <button className="searchbar_item infobutton">
+        <li className="searchbar_item infobutton">
           <span className="itemname">Ingen treff</span>
-        </button>
+        </li>
       )}
     </ul>
   );
