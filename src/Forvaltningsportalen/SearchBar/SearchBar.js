@@ -184,10 +184,16 @@ class SearchBar extends React.Component {
             }}
             onKeyDown={e => {
               if (e.key === "ArrowDown") {
-                let id = document.getElementById("treffliste");
-                console.log(id);
-                console.log(id.focus());
-                console.log(document.activeElement);
+                if (document.getElementsByClassName("searchbar_item")) {
+                  if (e.keyCode === 40) {
+                    console.log("gå ned");
+                    document
+                      .getElementsByClassName("searchbar_item")[0]
+                      .focus();
+                  }
+                } else {
+                  console.log("nothjing to see her");
+                }
               }
             }}
             onKeyPress={e => {

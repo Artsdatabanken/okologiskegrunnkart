@@ -16,10 +16,13 @@ const TreffListe = props => {
       }
       // Up key
       if (e.keyCode === 38) {
-        all_nodes[index - 1].focus();
+        let nextindex = index - 1;
+        if (nextindex < 0) {
+          document.getElementById("searchfield").focus();
+        } else {
+          all_nodes[index - 1].focus();
+        }
       }
-    } else {
-      console.log("hva driver jeg med");
     }
   }
 
