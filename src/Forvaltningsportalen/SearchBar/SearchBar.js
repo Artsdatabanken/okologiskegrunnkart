@@ -182,12 +182,21 @@ class SearchBar extends React.Component {
             onChange={e => {
               this.handleSearchBar(e.target.value);
             }}
+            onKeyDown={e => {
+              if (e.key === "ArrowDown") {
+                let id = document.getElementById("treffliste");
+                console.log(id);
+                console.log(id.focus());
+                console.log(document.activeElement);
+              }
+            }}
             onKeyPress={e => {
               if (e.key === "Enter") {
                 this.handleSearchBar(
                   document.getElementById("searchfield").value,
                   true
                 );
+
                 document.getElementById("searchfield").value = "";
               }
             }}

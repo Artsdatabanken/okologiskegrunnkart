@@ -8,7 +8,7 @@ const TreffListe = props => {
     (treffliste_lokalt && treffliste_lokalt.length);
 
   return (
-    <div className="treffliste">
+    <div className="treffliste" id="treffliste" tabindex="0">
       {treffliste &&
         treffliste.length > 0 &&
         treffliste.map(item => {

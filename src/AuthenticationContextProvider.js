@@ -8,7 +8,7 @@ const thirtyMinutes = 30 * 60 * 1000;
 
 async function downloadToken() {
   window.setInterval(downloadToken, thirtyMinutes);
-  console.log(new Date());
+  //console.log(new Date());
   try {
     const result = await fetch(url);
     const t = await result.text();
