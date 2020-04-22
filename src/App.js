@@ -280,8 +280,12 @@ class App extends React.Component {
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
-      const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
-      var url = url_formatter(layer.klikkurl, lat, lng, delta);
+      const delta = 0.0001; // bounding box størrelse for søk. TODO: Investigate WMS protocol
+      const bbox = `${lng - delta},${lat - delta},${lng + delta},${lat +
+        delta}`;
+      var url = url_formatter(layer.klikkurl, { lat, lng, delta, bbox });
+      url = url.replace(256, 255);
+      url = url.replace(256, 255);
       backend
         .getFeatureInfo(url)
         .then(res => {

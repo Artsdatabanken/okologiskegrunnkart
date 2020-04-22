@@ -29,7 +29,6 @@ function lagStyle(format, drawArgs) {
   const palette = palett
     ? steps2Palette(palett)
     : lagGradientRampe(barn, visning || "diskret", blendmode, drawArgs.opacity);
-  console.log("palette", palette);
   const gradient = {
     base: "raster",
     blend: blendmode,
