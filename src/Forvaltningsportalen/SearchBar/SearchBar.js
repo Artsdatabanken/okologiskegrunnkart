@@ -177,6 +177,7 @@ class SearchBar extends React.Component {
             className="searchbarfield"
             id="searchfield"
             type="text"
+            autocomplete="off"
             placeholder="søk etter kartlag eller område..."
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
