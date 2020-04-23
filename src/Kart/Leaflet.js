@@ -38,7 +38,9 @@ class Leaflet extends React.Component {
     };
 
     let map = L.map(this.mapEl, options);
-
+    // For servere som bare støtter 900913
+    L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
+    L.CRS.EPSG900913.code = "EPSG:900913";
     map.on("drag", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
@@ -161,18 +163,18 @@ class Leaflet extends React.Component {
       var layer = this.wms[layerName];
       if (!al.wmsurl) return;
       if (al.erSynlig) {
+        const { url, srs } = this.makeWmsUrl(al.wmsurl);
         if (!layer) {
           layer = L.tileLayer.wms("", {
             layers: al.wmslayer,
             transparent: true,
-            crs: L.CRS.EPSG900913,
+            crs: L.CRS[srs],
             format: "image/png",
             opacity: al.opacity
           });
           this.wms[layerName] = layer;
           this.map.addLayer(layer);
         }
-        const url = this.makeWmsUrl(al.wmsurl);
         layer.setUrl(url);
         layer.setOpacity(al.opacity);
       } else {
@@ -190,7 +192,9 @@ class Leaflet extends React.Component {
     url = url.replace(/service=WMS/gi, "");
     url = url.replace(/[&?]*$/gi, "");
     url = url.replace("{gkt}", this.props.token);
-    return url;
+    var srs = url.match(/srs=(?<srs>[^&]+)/i);
+    url = url.replace(/srs=(?<srs>[^&]+)/i, "");
+    return { url, srs: srs && srs.groups.srs.replace(":", "") };
   }
 
   render() {

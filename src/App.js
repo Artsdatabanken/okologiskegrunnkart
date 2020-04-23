@@ -286,6 +286,10 @@ class App extends React.Component {
       backend
         .getFeatureInfo(url)
         .then(res => {
+          if (res.ServiceException) {
+            res.error = res.ServiceException;
+            delete res.ServiceException;
+          }
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res;
           this.setState(layersresultat);
