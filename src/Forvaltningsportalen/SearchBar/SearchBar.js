@@ -177,6 +177,7 @@ class SearchBar extends React.Component {
             className="searchbarfield"
             id="searchfield"
             type="text"
+            autocomplete="off"
             placeholder="søk etter kartlag eller område..."
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
@@ -233,6 +234,7 @@ class SearchBar extends React.Component {
         </div>
         {this.state.isSearching && (
           <TreffListe
+            handleSearchBar={this.handleSearchBar}
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
             removeValgtLag={this.props.removeValgtLag}
