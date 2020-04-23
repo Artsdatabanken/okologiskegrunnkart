@@ -8,6 +8,12 @@ const TreffListe = props => {
     (treffliste_lokalt && treffliste_lokalt.length);
 
   function movefocus(e, index) {
+    if (e.keyCode === 27) {
+      props.handleRemoveTreffliste();
+      props.handleSearchBar(null);
+      document.getElementById("searchfield").value = "";
+      document.getElementById("searchfield").focus();
+    }
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
