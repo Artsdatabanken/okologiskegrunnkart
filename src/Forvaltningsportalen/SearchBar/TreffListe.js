@@ -3,16 +3,19 @@ import React from "react";
 const TreffListe = props => {
   let treffliste = props.treffliste;
   let treffliste_lokalt = props.treffliste_lokalt;
-  let warning =
-    (treffliste && treffliste.length) ||
-    (treffliste_lokalt && treffliste_lokalt.length);
+
+  let geolength = (treffliste && treffliste.length) || 0;
+  let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
+  let warning = geolength + kartlaglength > 0;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
-      props.handleRemoveTreffliste();
-      props.handleSearchBar(null);
-      document.getElementById("searchfield").value = "";
-      document.getElementById("searchfield").focus();
+      if (props.handleRemoveTreffliste) {
+        props.handleRemoveTreffliste();
+        props.handleSearchBar(null);
+        document.getElementById("searchfield").value = "";
+        document.getElementById("searchfield").focus();
+      }
     }
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
@@ -128,7 +131,15 @@ const TreffListe = props => {
       {warning ? (
         <li className="searchbar_item infobutton">
           <span className="itemname">
-            Trykk enter eller på søk for å få fler treff
+            {geolength >= 5 && (
+              <>
+                Trykk enter/søk for å se flere geografiske treff
+                <br />
+              </>
+            )}
+
+            {kartlaglength >= 5 &&
+              "Trykk enter/søk for å se flere treff i kartlag"}
           </span>
         </li>
       ) : (
