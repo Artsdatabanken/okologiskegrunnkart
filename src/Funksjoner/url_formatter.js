@@ -2,6 +2,10 @@ export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
 
+  const delta = 0.0001; // bounding box størrelse for søk. TODO: Investigate WMS protocol
+  variables.bbox = `${variables.lng - delta},${variables.lat -
+    delta},${variables.lng + delta},${variables.lat + delta}`;
+
   const matches = formatstring.matchAll(
     /\{(?<variable>[^{]*?)\}|(?<literal>[^<{]+)/g
   );
