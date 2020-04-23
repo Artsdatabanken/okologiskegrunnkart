@@ -165,6 +165,7 @@ class Leaflet extends React.Component {
           layer = L.tileLayer.wms("", {
             layers: al.wmslayer,
             transparent: true,
+            crs: L.CRS.EPSG900913,
             format: "image/png",
             opacity: al.opacity
           });
