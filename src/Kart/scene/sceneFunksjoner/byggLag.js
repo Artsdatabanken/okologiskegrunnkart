@@ -6,7 +6,6 @@ export default function byggLag(lag, config, token) {
   if (!lag.kart.aktivtFormat)
     lag.kart.aktivtFormat = Object.keys(lag.kart.format)[0];
   const viz = lag.kart.format[lag.kart.aktivtFormat];
-  // console.log( "visualiseringen er: ", viz)
   if (!viz) return console.warn("No visualisation availiable for " + lag.url);
   let drawArgs = {
     kode: lag.kode,

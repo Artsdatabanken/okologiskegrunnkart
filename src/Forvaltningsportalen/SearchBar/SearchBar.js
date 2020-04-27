@@ -183,10 +183,25 @@ class SearchBar extends React.Component {
             className="searchbarfield"
             id="searchfield"
             type="text"
+            autoComplete="off"
             placeholder="søk etter kartlag eller område..."
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
               this.handleSearchBar(e.target.value);
+            }}
+            onKeyDown={e => {
+              if (e.key === "ArrowDown") {
+                if (document.getElementsByClassName("searchbar_item")) {
+                  if (e.keyCode === 40) {
+                    console.log("gå ned");
+                    document
+                      .getElementsByClassName("searchbar_item")[0]
+                      .focus();
+                  }
+                } else {
+                  console.log("nothjing to see her");
+                }
+              }
             }}
             onKeyPress={e => {
               if (e.key === "Enter") {
@@ -194,6 +209,7 @@ class SearchBar extends React.Component {
                   document.getElementById("searchfield").value,
                   true
                 );
+
                 document.getElementById("searchfield").value = "";
               }
             }}
@@ -224,6 +240,7 @@ class SearchBar extends React.Component {
         </div>
         {this.state.isSearching && (
           <TreffListe
+            handleSearchBar={this.handleSearchBar}
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
             treffliste_sted={this.state.treffliste_sted}

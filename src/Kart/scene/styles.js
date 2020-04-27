@@ -1,8 +1,4 @@
 const styles = {
-  po: {
-    base: "points",
-    texture: "/marker.png"
-  },
   boundary: {
     base: "lines",
     order: 150,

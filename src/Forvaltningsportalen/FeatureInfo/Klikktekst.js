@@ -5,7 +5,7 @@ const Test = props => {
 };
 
 function lookup(o, path) {
-  if (o.loading || o.error) return;
+  if (o.loading || o.error || Object.keys(o).length === 0) return;
   if (!path) return JSON.stringify(o);
   const segments = path.split(".");
   for (var segment of segments) {
@@ -32,7 +32,7 @@ function mapComponent(c) {
   return { type, props };
 }
 
-const Klikktekst = ({ input, formatstring }) => {
+const Klikktekst = ({ input, formatstring = "" }) => {
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
 
