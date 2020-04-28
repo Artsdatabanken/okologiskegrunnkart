@@ -107,7 +107,7 @@ class SearchBar extends React.Component {
         } else {
           if (Object.keys(resultatliste).length < max_items) {
             resultatliste[id] = entries[i];
-            resultatliste[id].ssrpri = i;
+            resultatliste[id].ssrpri = i || 100;
           }
         }
       }
