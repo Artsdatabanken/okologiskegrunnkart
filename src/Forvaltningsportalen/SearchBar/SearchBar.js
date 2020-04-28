@@ -4,7 +4,6 @@ import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
 class SearchBar extends React.Component {
   state = {
-    treffliste: null,
     treffliste_lokalt: null,
     treffliste_sted: null,
     fylker: null,
@@ -14,31 +13,11 @@ class SearchBar extends React.Component {
 
   handleRemoveTreffliste = () => {
     this.setState({
-      treffliste: null,
+      treffliste_sted: null,
       treffliste_lokalt: null,
       isSearching: false
     });
   };
-
-  async fetchGeoData() {
-    let kommuner = this.state.kommuner;
-    if (kommuner === null) {
-      await backend.hentKommuner().then(henta_kommuner => {
-        this.setState({
-          kommuner: henta_kommuner
-        });
-      });
-    }
-
-    let fylker = this.state.fylker;
-    if (fylker === null) {
-      await backend.hentFylker().then(henta_fylker => {
-        this.setState({
-          fylker: henta_fylker
-        });
-      });
-    }
-  }
 
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
@@ -105,6 +84,10 @@ class SearchBar extends React.Component {
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
+      let max_items = 5;
+      if (resultpage) {
+        max_items = 50;
+      }
       let entries = resultat.stedsnavn;
       let resultatliste = {};
       for (let i in entries) {
@@ -122,7 +105,7 @@ class SearchBar extends React.Component {
           }
           resultatliste[id].variasjon = variasjon;
         } else {
-          if (Object.keys(resultatliste).length < 10) {
+          if (Object.keys(resultatliste).length < max_items) {
             resultatliste[id] = entries[i];
             resultatliste[id].ssrpri = i;
           }
@@ -133,53 +116,11 @@ class SearchBar extends React.Component {
         let element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
-      this.setState({
-        treffliste_sted: Object.values(prioritertliste)
-      });
-    });
-
-    this.fetchGeoData().then(() => {
-      let counter2 = 0;
-      let kommuner = this.state.kommuner;
-      let fylker = this.state.fylker;
-      let treffliste = [];
-      for (let i in kommuner) {
-        if (counter2 >= countermax / 2) {
-          break;
-        } else {
-          let treff = kommuner[i].kommunenavn.toLowerCase();
-          if (treff.indexOf(searchTerm) !== -1) {
-            treffliste.push([
-              kommuner[i].kommunenavn,
-              "Kommune",
-              kommuner[i].kommunenummer
-            ]);
-            counter2 += 1;
-          }
-        }
-      }
-
-      for (let i in fylker) {
-        if (counter2 >= countermax) {
-          break;
-        } else {
-          let treff = fylker[i].fylkesnavn.toLowerCase();
-          if (treff.indexOf(searchTerm) !== -1) {
-            treffliste.push([
-              fylker[i].fylkesnavn,
-              "Fylke",
-              fylker[i].fylkesnummer
-            ]);
-            counter2 += 1;
-          }
-        }
-      }
-
       if (resultpage) {
-        this.props.setGeoSearchResults(treffliste);
+        this.props.setGeoSearchResults(Object.values(prioritertliste));
       } else {
         this.setState({
-          treffliste: treffliste
+          treffliste_sted: Object.values(prioritertliste)
         });
       }
     });

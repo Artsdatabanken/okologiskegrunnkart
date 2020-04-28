@@ -218,47 +218,7 @@ class App extends React.Component {
         parseFloat(geostring.nord)
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-    } /* else if (geostring[1] === "Fylke") {
-      backend.hentFylkePolygon(geostring[2]).then(resultat => {
-        let fylke = resultat[0];
-        let bbox = fylke.bbox.coordinates[0];
-        let mincoord = bbox[0];
-        let maxcoord = bbox[2];
-        let centercoord = [
-          (bbox[0][0] + bbox[2][0]) / 2,
-          (bbox[0][1] + bbox[2][1]) / 2
-        ];
-        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      });
-    } else if (geostring[1] === "Kommune") {
-      backend.hentKommunePolygon(geostring[2]).then(resultat => {
-        let polygon = resultat.omrade.coordinates[0];
-        let minx = 100;
-        let maxy = 0;
-        let maxx = 0;
-        let miny = 100;
-        for (let i in polygon) {
-          let this_item = polygon[i];
-          for (let i in this_item) {
-            let item = this_item[i];
-            if (item[0] < minx) {
-              minx = item[0];
-            } else if (item[0] > maxx) {
-              maxx = item[0];
-            }
-            if (item[1] > maxy) {
-              maxy = item[1];
-            } else if (item[1] < miny) {
-              miny = item[1];
-            }
-          }
-        }
-        let mincoord = [minx, miny];
-        let maxcoord = [maxx, maxy];
-        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      });
-    }*/
+    }
   };
 
   handleLatLng = (lng, lat) => {

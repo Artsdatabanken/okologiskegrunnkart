@@ -1,13 +1,11 @@
 import React from "react";
 
 const TreffListe = props => {
-  let treffliste = props.treffliste;
   let treffliste_lokalt = props.treffliste_lokalt;
   let treffliste_sted = props.treffliste_sted;
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
-  let geolength = (treffliste && treffliste.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let warning = geolength + kartlaglength + stedlength > 0;
+  let warning = kartlaglength + stedlength > 0;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -37,47 +35,6 @@ const TreffListe = props => {
 
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
-      {false &&
-        geolength > 0 &&
-        treffliste.map((item, index) => {
-          let itemname = item[0] || "";
-          let itemtype = item[1] || "";
-          let itemnr = item[2] || "";
-          return (
-            <li
-              id={index}
-              tabIndex="0"
-              className="searchbar_item"
-              key={item}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.removeValgtLag();
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }
-                props.handleGeoSelection(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">{itemtype} </span>
-              <span className="itemnr">{itemnr} </span>
-            </li>
-          );
-        })}
-
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";
@@ -168,7 +125,7 @@ const TreffListe = props => {
       {warning ? (
         <li className="searchbar_item infobutton">
           <span className="itemname">
-            {geolength >= 5 && (
+            {stedlength >= 5 && (
               <>
                 Trykk enter/søk for å se flere geografiske treff
                 <br />
