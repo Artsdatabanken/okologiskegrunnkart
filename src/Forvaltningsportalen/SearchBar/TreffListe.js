@@ -4,9 +4,10 @@ const TreffListe = props => {
   let treffliste = props.treffliste;
   let treffliste_lokalt = props.treffliste_lokalt;
   let treffliste_sted = props.treffliste_sted;
+  let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let geolength = (treffliste && treffliste.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let warning = geolength + kartlaglength > 0;
+  let warning = geolength + kartlaglength + stedlength > 0;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -36,8 +37,8 @@ const TreffListe = props => {
 
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
-      {treffliste &&
-        treffliste.length > 0 &&
+      {false &&
+        geolength > 0 &&
         treffliste.map((item, index) => {
           let itemname = item[0] || "";
           let itemtype = item[1] || "";
@@ -77,8 +78,7 @@ const TreffListe = props => {
           );
         })}
 
-      {treffliste_sted &&
-        treffliste_sted.length > 0 &&
+      {stedlength > 0 &&
         treffliste_sted.map(item => {
           let itemname = item.stedsnavn || "";
           let itemtype = "ssr" + item.navnetype || "";
@@ -103,8 +103,7 @@ const TreffListe = props => {
           );
         })}
 
-      {treffliste_lokalt &&
-        treffliste_lokalt.length > 0 &&
+      {kartlaglength > 0 &&
         treffliste_lokalt.map((item, index) => {
           let full_index = index;
           if (treffliste && treffliste.length) {

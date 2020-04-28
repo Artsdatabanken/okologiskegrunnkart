@@ -124,17 +124,18 @@ class SearchBar extends React.Component {
         } else {
           if (Object.keys(resultatliste).length < 10) {
             resultatliste[id] = entries[i];
+            resultatliste[id].ssrpri = i;
           }
         }
       }
-
-      console.log(resultatliste);
-
-      /*
+      let prioritertliste = {};
+      for (let i in resultatliste) {
+        let element = resultatliste[i];
+        prioritertliste[element.ssrpri] = element;
+      }
       this.setState({
-        treffliste_sted: resultat.stedsnavn
+        treffliste_sted: Object.values(prioritertliste)
       });
-      */
     });
 
     this.fetchGeoData().then(() => {
