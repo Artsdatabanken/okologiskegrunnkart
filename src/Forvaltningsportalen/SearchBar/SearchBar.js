@@ -105,9 +105,36 @@ class SearchBar extends React.Component {
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
+      let entries = resultat.stedsnavn;
+      let resultatliste = {};
+      for (let i in entries) {
+        let id = entries[i].ssrId;
+        if (resultatliste[id]) {
+          let gammel = resultatliste[id];
+          let ny = entries[i];
+          let variasjon = {};
+          for (let j in gammel) {
+            if (gammel[j] !== ny[j]) {
+              if (j !== "variasjon") {
+                variasjon[j] = [gammel[j], ny[j]];
+              }
+            }
+          }
+          resultatliste[id].variasjon = variasjon;
+        } else {
+          if (Object.keys(resultatliste).length < 10) {
+            resultatliste[id] = entries[i];
+          }
+        }
+      }
+
+      console.log(resultatliste);
+
+      /*
       this.setState({
         treffliste_sted: resultat.stedsnavn
       });
+      */
     });
 
     this.fetchGeoData().then(() => {

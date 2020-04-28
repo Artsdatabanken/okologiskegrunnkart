@@ -274,6 +274,8 @@ class App extends React.Component {
   handleStedsNavn = (lng, lat) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat).then(sted => {
+      console.log(sted);
+
       this.setState({
         sted: sted
       });
