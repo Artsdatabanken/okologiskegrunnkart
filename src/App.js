@@ -218,7 +218,7 @@ class App extends React.Component {
         parseFloat(geostring.nord)
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-    } else if (geostring[1] === "Fylke") {
+    } /* else if (geostring[1] === "Fylke") {
       backend.hentFylkePolygon(geostring[2]).then(resultat => {
         let fylke = resultat[0];
         let bbox = fylke.bbox.coordinates[0];
@@ -258,7 +258,7 @@ class App extends React.Component {
         let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
         this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
       });
-    }
+    }*/
   };
 
   handleLatLng = (lng, lat) => {

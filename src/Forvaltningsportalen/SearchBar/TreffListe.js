@@ -79,14 +79,29 @@ const TreffListe = props => {
         })}
 
       {stedlength > 0 &&
-        treffliste_sted.map(item => {
+        treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";
-          let itemtype = "ssr" + item.navnetype || "";
+          let itemtype = item.navnetype || "";
           let itemnr = item.ssrId || "";
           return (
-            <button
+            <li
+              id={index}
+              tabIndex="0"
               className="searchbar_item"
               key={itemnr}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
+              }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.removeValgtLag();
@@ -99,16 +114,13 @@ const TreffListe = props => {
               <span className="itemname">{itemname} </span>
               <span className="itemtype">{itemtype} </span>
               <span className="itemnr">{itemnr} </span>
-            </button>
+            </li>
           );
         })}
 
       {kartlaglength > 0 &&
         treffliste_lokalt.map((item, index) => {
-          let full_index = index;
-          if (treffliste && treffliste.length) {
-            full_index = full_index + treffliste.length;
-          }
+          let full_index = index + stedlength;
           let itemname = item.tittel;
           let itemtype = "Kartlag";
           let itemowner = item.dataeier;
