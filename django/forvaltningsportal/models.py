@@ -37,7 +37,6 @@ class Type(models.Model):
     def __str__(self):
         return self.tittel
 
-
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
     wmsurl = models.CharField(max_length=500, blank=True)
@@ -54,11 +53,22 @@ class Kartlag(models.Model):
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
     tema = models.ForeignKey(
         Tema, on_delete=models.SET_NULL, null=True, blank=True)
+
     tag = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):
         return self.tittel
 
+class UnderKartlag(models.Model):
+    tittel = models.CharField(max_length=200)
+    wmsurl = models.CharField(max_length=500, blank=True)
+    wmslayer = models.CharField(max_length=100, blank=True)
+    legendeurl = models.CharField(max_length=500, blank=True)
+    publiser = models.BooleanField(default=False)
+    turnedon = models.BooleanField(default=False)
+    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return self.tittel
 
 @receiver(post_save, sender=Kartlag)
 def createJSON(sender, instance, **kwargs):
