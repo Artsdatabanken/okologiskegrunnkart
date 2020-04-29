@@ -128,37 +128,17 @@ class ForvaltningsKartlag extends React.Component {
 
                 <h4>Gruppering</h4>
 
-                <select id="sort_chooser">
-                  <option
-                    value="ingen"
-                    onClick={e => {
-                      this.setState({
-                        sortcriteria: "ingen"
-                      });
-                    }}
-                  >
-                    Ingen gruppering
-                  </option>
-                  <option
-                    value="dataeier"
-                    onClick={e => {
-                      this.setState({
-                        sortcriteria: "dataeier"
-                      });
-                    }}
-                  >
-                    Dataeier
-                  </option>
-                  <option
-                    value="tema"
-                    onClick={e => {
-                      this.setState({
-                        sortcriteria: "tema"
-                      });
-                    }}
-                  >
-                    Tema
-                  </option>
+                <select
+                  id="sort_chooser"
+                  onChange={e => {
+                    this.setState({
+                      sortcriteria: e.target.value.toLowerCase()
+                    });
+                  }}
+                >
+                  <option value="ingen">Ingen gruppering</option>
+                  <option value="dataeier">Dataeier</option>
+                  <option value="tema">Tema</option>
                 </select>
               </div>
             )}
