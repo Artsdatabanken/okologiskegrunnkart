@@ -66,7 +66,7 @@ class UnderKartlag(models.Model):
     legendeurl = models.CharField(max_length=500, blank=True)
     publiser = models.BooleanField(default=False)
     turnedon = models.BooleanField(default=False)
-    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, null=True, blank=True)
+    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, null=True, blank=True,related_name="underkartlag")
     def __str__(self):
         return self.tittel
 
@@ -80,6 +80,21 @@ def createJSON(sender, instance, **kwargs):
             'tittel': kartlag.tittel
         }
 
+        if kartlag.underkartlag.count():
+            alle_underlag = kartlag.underkartlag.all()
+            underlag = {}
+            for lag in alle_underlag:
+                lag_json = {}
+                lag_json['tittel'] = lag.tittel
+                lag_json['wmsurl'] = lag.wmsurl
+                lag_json['wmslayer'] = lag.wmslayer
+                lag_json['legendeurl'] = lag.legendeurl
+                lag_json['turnedon'] = lag.turnedon
+                underlag[lag.id] = lag_json
+            dict[kartlag.id]['underlag'] = underlag
+
+
+            #print(underlag)
         if kartlag.dataeier.logourl:
             dict[kartlag.id]['logourl'] = kartlag.dataeier.logourl
         if kartlag.dataeier.url:
