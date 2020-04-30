@@ -1,6 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
 import json
 
@@ -71,6 +71,9 @@ class UnderKartlag(models.Model):
         return self.tittel
 
 @receiver(post_save, sender=Kartlag)
+@receiver(post_save, sender=UnderKartlag)
+@receiver(post_delete, sender=Kartlag)
+@receiver(post_delete, sender=UnderKartlag)
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
@@ -85,14 +88,19 @@ def createJSON(sender, instance, **kwargs):
             underlag = {}
             for lag in alle_underlag:
                 lag_json = {}
-                lag_json['tittel'] = lag.tittel
-                lag_json['wmsurl'] = lag.wmsurl
-                lag_json['wmslayer'] = lag.wmslayer
-                lag_json['legendeurl'] = lag.legendeurl
+                if lag.tittel:
+                    lag_json['tittel'] = lag.tittel
+                if lag.wmsurl:
+                    lag_json['wmsurl'] = lag.wmsurl
+                if lag.wmslayer:
+                    lag_json['wmslayer'] = lag.wmslayer
+                if lag.legendeurl:
+                    lag_json['legendeurl'] = lag.legendeurl
+
                 lag_json['turnedon'] = lag.turnedon
+
                 underlag[lag.id] = lag_json
             dict[kartlag.id]['underlag'] = underlag
-
 
             #print(underlag)
         if kartlag.dataeier.logourl:
