@@ -2,11 +2,10 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-
 class SearchBar extends React.Component {
   state = {
-    treffliste: null,
     treffliste_lokalt: null,
+    treffliste_sted: null,
     fylker: null,
     kommuner: null,
     isSearching: false
@@ -14,31 +13,11 @@ class SearchBar extends React.Component {
 
   handleRemoveTreffliste = () => {
     this.setState({
-      treffliste: null,
+      treffliste_sted: null,
       treffliste_lokalt: null,
       isSearching: false
     });
   };
-
-  async fetchGeoData() {
-    let kommuner = this.state.kommuner;
-    if (kommuner === null) {
-      await backend.hentKommuner().then(henta_kommuner => {
-        this.setState({
-          kommuner: henta_kommuner
-        });
-      });
-    }
-
-    let fylker = this.state.fylker;
-    if (fylker === null) {
-      await backend.hentFylker().then(henta_fylker => {
-        this.setState({
-          fylker: henta_fylker
-        });
-      });
-    }
-  }
 
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
@@ -104,48 +83,44 @@ class SearchBar extends React.Component {
       });
     }
 
-    this.fetchGeoData().then(() => {
-      let counter2 = 0;
-      let kommuner = this.state.kommuner;
-      let fylker = this.state.fylker;
-      let treffliste = [];
-      for (let i in kommuner) {
-        if (counter2 >= countermax / 2) {
-          break;
-        } else {
-          let treff = kommuner[i].kommunenavn.toLowerCase();
-          if (treff.indexOf(searchTerm) !== -1) {
-            treffliste.push([
-              kommuner[i].kommunenavn,
-              "Kommune",
-              kommuner[i].kommunenummer
-            ]);
-            counter2 += 1;
-          }
-        }
-      }
-
-      for (let i in fylker) {
-        if (counter2 >= countermax) {
-          break;
-        } else {
-          let treff = fylker[i].fylkesnavn.toLowerCase();
-          if (treff.indexOf(searchTerm) !== -1) {
-            treffliste.push([
-              fylker[i].fylkesnavn,
-              "Fylke",
-              fylker[i].fylkesnummer
-            ]);
-            counter2 += 1;
-          }
-        }
-      }
-
+    backend.hentSteder(searchTerm).then(resultat => {
+      let max_items = 5;
       if (resultpage) {
-        this.props.setGeoSearchResults(treffliste);
+        max_items = 50;
+      }
+      let entries = resultat.stedsnavn;
+      let resultatliste = {};
+      for (let i in entries) {
+        let id = entries[i].ssrId;
+        if (resultatliste[id]) {
+          let gammel = resultatliste[id];
+          let ny = entries[i];
+          let variasjon = {};
+          for (let j in gammel) {
+            if (gammel[j] !== ny[j]) {
+              if (j !== "variasjon") {
+                variasjon[j] = [gammel[j], ny[j]];
+              }
+            }
+          }
+          resultatliste[id].variasjon = variasjon;
+        } else {
+          if (Object.keys(resultatliste).length < max_items) {
+            resultatliste[id] = entries[i];
+            resultatliste[id].ssrpri = i || 100;
+          }
+        }
+      }
+      let prioritertliste = {};
+      for (let i in resultatliste) {
+        let element = resultatliste[i];
+        prioritertliste[element.ssrpri] = element;
+      }
+      if (resultpage) {
+        this.props.setGeoSearchResults(Object.values(prioritertliste));
       } else {
         this.setState({
-          treffliste: treffliste
+          treffliste_sted: Object.values(prioritertliste)
         });
       }
     });
@@ -177,10 +152,25 @@ class SearchBar extends React.Component {
             className="searchbarfield"
             id="searchfield"
             type="text"
+            autoComplete="off"
             placeholder="søk etter kartlag eller område..."
             onFocus={e => this.handleSearchBar(e.target.value)}
             onChange={e => {
               this.handleSearchBar(e.target.value);
+            }}
+            onKeyDown={e => {
+              if (e.key === "ArrowDown") {
+                if (document.getElementsByClassName("searchbar_item")) {
+                  if (e.keyCode === 40) {
+                    console.log("gå ned");
+                    document
+                      .getElementsByClassName("searchbar_item")[0]
+                      .focus();
+                  }
+                } else {
+                  console.log("nothjing to see her");
+                }
+              }
             }}
             onKeyPress={e => {
               if (e.key === "Enter") {
@@ -188,6 +178,7 @@ class SearchBar extends React.Component {
                   document.getElementById("searchfield").value,
                   true
                 );
+
                 document.getElementById("searchfield").value = "";
               }
             }}
@@ -218,8 +209,10 @@ class SearchBar extends React.Component {
         </div>
         {this.state.isSearching && (
           <TreffListe
+            handleSearchBar={this.handleSearchBar}
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
+            treffliste_sted={this.state.treffliste_sted}
             removeValgtLag={this.props.removeValgtLag}
             addValgtLag={this.props.addValgtLag}
             handleGeoSelection={this.props.handleGeoSelection}

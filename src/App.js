@@ -203,47 +203,21 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
-    if (geostring[1] === "Fylke") {
-      backend.hentFylkePolygon(geostring[2]).then(resultat => {
-        let fylke = resultat[0];
-        let bbox = fylke.bbox.coordinates[0];
-        let mincoord = bbox[0];
-        let maxcoord = bbox[2];
-        let centercoord = [
-          (bbox[0][0] + bbox[2][0]) / 2,
-          (bbox[0][1] + bbox[2][1]) / 2
-        ];
-        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      });
-    }
-    if (geostring[1] === "Kommune") {
-      backend.hentKommunePolygon(geostring[2]).then(resultat => {
-        let polygon = resultat.omrade.coordinates[0];
-        let minx = 100;
-        let maxy = 0;
-        let maxx = 0;
-        let miny = 100;
-        for (let i in polygon) {
-          let this_item = polygon[i];
-          for (let i in this_item) {
-            let item = this_item[i];
-            if (item[0] < minx) {
-              minx = item[0];
-            } else if (item[0] > maxx) {
-              maxx = item[0];
-            }
-            if (item[1] > maxy) {
-              maxy = item[1];
-            } else if (item[1] < miny) {
-              miny = item[1];
-            }
-          }
-        }
-        let mincoord = [minx, miny];
-        let maxcoord = [maxx, maxy];
-        let centercoord = [(minx + maxx) / 2, (miny + maxy) / 2];
-        this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      });
+    if (geostring.ssrId) {
+      console.log("fra stedsnavnregister");
+      let mincoord = [
+        parseFloat(geostring.aust) - 1,
+        parseFloat(geostring.nord) - 1
+      ];
+      let maxcoord = [
+        parseFloat(geostring.aust) + 1,
+        parseFloat(geostring.nord) + 1
+      ];
+      let centercoord = [
+        parseFloat(geostring.aust),
+        parseFloat(geostring.nord)
+      ];
+      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     }
   };
 
@@ -260,6 +234,8 @@ class App extends React.Component {
   handleStedsNavn = (lng, lat) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat).then(sted => {
+      console.log(sted);
+
       this.setState({
         sted: sted
       });
@@ -280,11 +256,16 @@ class App extends React.Component {
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
-      const delta = key === "naturtype" ? 0.0001 : 0.01; // bounding box størrelse for søk. TODO: Investigate WMS protocol
-      var url = url_formatter(layer.klikkurl, lat, lng, delta);
+      var url = url_formatter(layer.klikkurl, { lat, lng });
+      url = url.replace(256, 255);
+      url = url.replace(256, 255);
       backend
         .getFeatureInfo(url)
         .then(res => {
+          if (res.ServiceException) {
+            res.error = res.ServiceException;
+            delete res.ServiceException;
+          }
           let layersresultat = this.state.layersresultat;
           layersresultat[key] = res;
           this.setState(layersresultat);

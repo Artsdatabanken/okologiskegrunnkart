@@ -21,7 +21,6 @@ function lagGradientRampe(barna, mode, blendmode, opacity) {
 }
 
 function steps2Palette(steps, blendmode = "multiply", opacity = 100) {
-  console.log(steps);
   const cmap = buildGradient(steps);
   return colorArray2Image(cmap, blendmode, opacity);
 }

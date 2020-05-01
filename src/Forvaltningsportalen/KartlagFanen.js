@@ -22,7 +22,7 @@ const KartlagFanen = props => {
           <div className="scroll_area">
             <TreffListe
               isSearchResultPage={true}
-              treffliste={props.geoSearchResults}
+              treffliste_sted={props.geoSearchResults}
               treffliste_lokalt={props.kartlagSearchResults}
               removeValgtLag={props.removeValgtLag}
               addValgtLag={props.addValgtLag}

@@ -40,8 +40,6 @@ const ForvaltningsElement = ({
   if (!tittel) return null;
   let tags = kartlag.tags || null;
 
-  console.log(kartlag);
-
   return (
     <>
       <ListItem
