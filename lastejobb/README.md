@@ -1,6 +1,8 @@
 # Lastejobb
 
-Kjører en sekvens med steg (`stages/`) i alfabetisk rekkefølge.
+Laster kart fra Massiv nedlastingsklient inn i Postgres-databasen.
+
+-
 
 ## Funksjoner
 
