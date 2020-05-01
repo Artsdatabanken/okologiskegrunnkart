@@ -1,0 +1,61 @@
+{
+  "_from": "lastejobb@^3.5.3",
+  "_id": "lastejobb@3.5.3",
+  "_inBundle": false,
+  "_integrity": "sha512-ioczRKOuHZxxWW3qi1o2JMMkAEHJivuiswatkobCSDcvpDFeeuJ4N6v5STSl/byqUHEyGdEK3TB9raJQh/ruSQ==",
+  "_location": "/lastejobb",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "range",
+    "registry": true,
+    "raw": "lastejobb@^3.5.3",
+    "name": "lastejobb",
+    "escapedName": "lastejobb",
+    "rawSpec": "^3.5.3",
+    "saveSpec": null,
+    "fetchSpec": "^3.5.3"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/lastejobb/-/lastejobb-3.5.3.tgz",
+  "_shasum": "58b30322809ce296b3fdf28ede5b5d2d5dcba5e7",
+  "_spec": "lastejobb@^3.5.3",
+  "_where": "/home/b/src/adb/forvaltningsportal/lastejobb",
+  "author": {
+    "name": "Bjorn Reppen",
+    "email": "bjreppen@gmail.com",
+    "url": "https://github.com/bjornreppen"
+  },
+  "bin": {
+    "lastejobb": "lastejobb.js"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@types/node": "^13.13.4",
+    "csv-parse": "^4.9.0",
+    "decompress-zip": "^0.2.2",
+    "fs-extra": "^9.0.0",
+    "generate-schema": "^2.6.0",
+    "ini": "^1.3.5",
+    "log-less-fancy": "^1.4.0",
+    "node-fetch": "^2.6.0",
+    "xml2js": "^0.4.23"
+  },
+  "deprecated": false,
+  "description": "Rutine for å kjøre en sekvens med lastejobber (js/sh/sparql) i batch",
+  "devDependencies": {
+    "jest-core": "0.0.0"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "lastejobb",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "version": "3.5.3"
+}
