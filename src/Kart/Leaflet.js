@@ -145,7 +145,7 @@ class Leaflet extends React.Component {
     this.props.history.push(
       "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
     );
-    this.props.handleValgteLag(latlng.lng, latlng.lat);
+    this.props.handleValgteLag(latlng.lng, latlng.lat, this.map.getZoom());
   };
 
   updateMap(props) {

@@ -231,13 +231,15 @@ class App extends React.Component {
     });
   };
 
-  handleStedsNavn = (lng, lat) => {
+  handleStedsNavn = (lng, lat, zoom) => {
     // returnerer stedsnavn som vist øverst i feltet
-    backend.hentStedsnavn(lng, lat).then(sted => {
+    backend.hentStedsnavn(lng, lat, zoom).then(sted => {
+      sted = sted.sort((a, b) =>
+        a.distancemeters > b.distancemeters ? 1 : -1
+      );
       console.log(sted);
-
       this.setState({
-        sted: sted
+        sted: sted.length > 0 ? sted[0] : null
       });
     });
   };
@@ -278,14 +280,14 @@ class App extends React.Component {
     });
   };
 
-  hentInfoValgteLag = async (lng, lat) => {
+  hentInfoValgteLag = async (lng, lat, zoom) => {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
       if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
     }
     this.setState({ valgteLag: valgteLag });
-    this.handleStedsNavn(lng, lat);
+    this.handleStedsNavn(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, valgteLag);
   };
 

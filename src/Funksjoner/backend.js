@@ -22,7 +22,7 @@ class Backend {
     return this.getPromise("/" + filnavn);
   }
 
-  static async hentStedsnavn(lng, lat) {
+  static async hentStedsnavn(lng, lat, zoom) {
     /*
     let ostLL = lng - 0.01;
     let ostUR = lng + 0.01;
@@ -30,7 +30,9 @@ class Backend {
     let nordUR = lat + 0.01;
     */
     return this.getPromise(
-      `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
+      //`http://localhost:3000/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
+      //      `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
     );
     /*
     `https://www.norgeskart.no/ws/elev.py?lat=${lat}&lon=${lng}&epsg=4326`

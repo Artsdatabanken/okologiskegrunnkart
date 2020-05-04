@@ -36,7 +36,12 @@ const InfoBox = ({
         {sted && (
           <span className="infotitle">
             <LocationSearching />
-            {sted && sted.navn}
+            {sted &&
+              `${sted.komplettskrivemåte[0]} ${sted.kommunenavn} i ${
+                sted.fylkesnavn
+              } (${sted.navneobjekthovedgruppe}->${sted.navneobjektgruppe}->${
+                sted.navneobjekttype
+              })`}
           </span>
         )}
         <br />
