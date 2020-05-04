@@ -1,8 +1,10 @@
 # Lastejobb
 
-Laster kart fra Massiv nedlastingsklient inn i Postgres-databasen.
+Laster ned kart ved hjelp av [Massiv nedlastingsklient](https://www.geonorge.no/verktoy/APIer-og-grensesnitt/massivnedlastingsklient/) og importerer i Postgres-databasen.
 
--
+## Kartlag
+
+- Stedsnavn (Komplett SSR)[https://register.geonorge.no/geodatalov-statusregister/stedsnavn-komplett-ssr/e1c50348-962d-4047-8325-bdc265c853ed]
 
 ## Funksjoner
 
