@@ -18,6 +18,7 @@ import {
   ListItem,
   ListItemText
 } from "@material-ui/core";
+import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -30,7 +31,6 @@ const ForvaltningsElement = ({
   element
 }) => {
   let tittel = kartlag.tittel;
-
   let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
   let startstate = valgt || false;
@@ -85,12 +85,12 @@ const ForvaltningsElement = ({
 
                 return (
                   <div className="underlag">
-                    {lag.turnedon ? (
-                      <VisibilityOutlined style={{ color: "#333" }} />
-                    ) : (
-                      <VisibilityOffOutlined style={{ color: "#aaa" }} />
-                    )}
-                    <span>{lag.tittel}</span>
+                    <ForvaltningsUnderElement
+                      kartlag={lag}
+                      kartlag_owner_key={kartlag_key}
+                      kartlag_key={sublag}
+                      onUpdateLayerProp={onUpdateLayerProp}
+                    />
                   </div>
                 );
               })}
