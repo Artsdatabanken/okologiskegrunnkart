@@ -160,32 +160,40 @@ class Leaflet extends React.Component {
     Object.keys(aktive).forEach(akey => {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
-      var layer = this.wms[layerName];
-      if (!al.wmsurl) return;
-      if (al.erSynlig) {
-        const { url, srs } = this.makeWmsUrl(al.wmsurl);
-        if (!layer) {
-          layer = L.tileLayer.wms("", {
-            layers: al.wmslayer,
-            transparent: true,
-            crs: L.CRS[srs],
-            format: "image/png",
-            opacity: al.opacity
-          });
-          this.wms[layerName] = layer;
-          this.map.addLayer(layer);
-        }
-        layer.setUrl(url);
-        layer.setOpacity(al.opacity);
-      } else {
-        if (layer) {
-          this.map.removeLayer(layer);
-          delete this.wms[layerName];
-        }
-      }
+      if (!al.underlag) al.underlag = { 1: al };
+      Object.keys(al.underlag).forEach(underlagsnøkkel => {
+        const nøkkel = layerName + ":" + underlagsnøkkel;
+        this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
+      });
     });
   }
   wms = {};
+
+  syncUnderlag(layerName, al, underlag) {
+    if (!underlag.wmsurl) return;
+    if (al.erSynlig && underlag.turnedon) {
+      const { url, srs } = this.makeWmsUrl(underlag.wmsurl);
+      var layer = this.wms[layerName];
+      if (!layer) {
+        layer = L.tileLayer.wms("", {
+          layers: underlag.wmslayer,
+          transparent: true,
+          crs: L.CRS[srs],
+          format: "image/png",
+          opacity: al.opacity
+        });
+        this.wms[layerName] = layer;
+        this.map.addLayer(layer);
+      }
+      layer.setUrl(url);
+      layer.setOpacity(al.opacity);
+    } else {
+      if (layer) {
+        this.map.removeLayer(layer);
+        delete this.wms[layerName];
+      }
+    }
+  }
 
   makeWmsUrl(url) {
     url = url.replace(/request=GetCapabilities/gi, "");
