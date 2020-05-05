@@ -21,13 +21,9 @@ import {
 
 const ForvaltningsElement = ({
   kartlag,
-  erAktivtLag,
   onUpdateLayerProp,
-  handleShowCurrent,
-  show_current,
   kartlag_key,
-  valgt,
-  element
+  valgt
 }) => {
   let tittel = kartlag.tittel;
 
@@ -84,7 +80,7 @@ const ForvaltningsElement = ({
                 let lag = kartlag.underlag[sublag];
 
                 return (
-                  <div className="underlag">
+                  <div className="underlag" key={sublag}>
                     {lag.turnedon ? (
                       <VisibilityOutlined style={{ color: "#333" }} />
                     ) : (
