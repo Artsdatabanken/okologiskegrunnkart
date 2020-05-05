@@ -46,9 +46,10 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
-    Object.values(kartlag).forEach(k => {
+    Object.entries(kartlag).forEach(([key, k]) => {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+      k.underlag = { ["0"]: { ...k, turnedon: true }, ...(k.underlag || {}) };
     });
     this.setState({ kartlag });
   }
