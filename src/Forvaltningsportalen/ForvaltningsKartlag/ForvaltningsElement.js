@@ -22,13 +22,9 @@ import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 
 const ForvaltningsElement = ({
   kartlag,
-  erAktivtLag,
   onUpdateLayerProp,
-  handleShowCurrent,
-  show_current,
   kartlag_key,
-  valgt,
-  element
+  valgt
 }) => {
   let tittel = kartlag.tittel;
   let kode = kartlag_key;

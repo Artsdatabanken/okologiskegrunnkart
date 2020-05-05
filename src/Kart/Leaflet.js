@@ -4,11 +4,7 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
-import {
-  LocationSearching,
-  WhereToVote,
-  CompassCalibrationOutlined
-} from "@material-ui/icons";
+import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 
