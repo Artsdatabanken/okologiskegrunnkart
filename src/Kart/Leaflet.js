@@ -160,7 +160,9 @@ class Leaflet extends React.Component {
     Object.keys(aktive).forEach(akey => {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
-      if (!al.underlag) al.underlag = { 1: { ...al, turnedon: true } };
+      if (!al.underlag) al.underlag = {};
+      if (!al.underlag[layerName])
+        al.underlag[layerName] = { ...al, turnedon: true };
       Object.keys(al.underlag).forEach(underlagsnøkkel => {
         const nøkkel = layerName + ":" + underlagsnøkkel;
         this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
