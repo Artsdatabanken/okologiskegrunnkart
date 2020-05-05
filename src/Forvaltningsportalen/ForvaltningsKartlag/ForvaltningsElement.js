@@ -78,6 +78,25 @@ const ForvaltningsElement = ({
         // Underelementet
       >
         <div className="collapsed_container">
+          {kartlag.underlag && (
+            <>
+              {Object.keys(kartlag.underlag).map(sublag => {
+                let lag = kartlag.underlag[sublag];
+
+                return (
+                  <div className="underlag">
+                    {lag.turnedon ? (
+                      <VisibilityOutlined style={{ color: "#333" }} />
+                    ) : (
+                      <VisibilityOffOutlined style={{ color: "#aaa" }} />
+                    )}
+                    <span>{lag.tittel}</span>
+                  </div>
+                );
+              })}
+            </>
+          )}
+
           {tags && (
             <div className="tags_container">
               <h4>Emneknagger</h4>
@@ -203,7 +222,6 @@ const ForvaltningsElement = ({
                   </ListItem>
                 </>
               )}
-
               {hasLegend && (
                 <>
                   <Typography id="range-slider" gutterBottom>
