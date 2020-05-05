@@ -4,7 +4,11 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import {
+  LocationSearching,
+  WhereToVote,
+  CompassCalibrationOutlined
+} from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 
@@ -160,9 +164,6 @@ class Leaflet extends React.Component {
     Object.keys(aktive).forEach(akey => {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
-      if (!al.underlag) al.underlag = {};
-      if (!al.underlag[layerName])
-        al.underlag[layerName] = { ...al, turnedon: true };
       Object.keys(al.underlag).forEach(underlagsnøkkel => {
         const nøkkel = layerName + ":" + underlagsnøkkel;
         this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
