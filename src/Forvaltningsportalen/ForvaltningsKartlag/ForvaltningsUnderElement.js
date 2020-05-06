@@ -74,7 +74,7 @@ const ForvaltningsUnderElement = ({
           <div>
             <h4>Gjennomsiktighet</h4>
             <Slider
-              value={100 * kartlag.opacity}
+              value={100 * kartlag.opacity || 80}
               step={1}
               min={0}
               max={100}
