@@ -10,8 +10,6 @@ import {
   VisibilityOffOutlined
 } from "@material-ui/icons";
 import {
-  Typography,
-  Slider,
   IconButton,
   ListItemIcon,
   Collapse,
@@ -32,7 +30,6 @@ const ForvaltningsElement = ({
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
   const [openFakta, setOpenFakta] = useState(false);
-  const [hasLegend, setHasLegend] = useState(true);
   if (!tittel) return null;
   let tags = kartlag.tags || null;
 
@@ -108,20 +105,6 @@ const ForvaltningsElement = ({
 
           {kartlag.kart && kartlag.kart.format.wms && (
             <div>
-              <h4>Gjennomsiktighet</h4>
-              <Slider
-                value={100 * kartlag.opacity}
-                step={1}
-                min={0}
-                max={100}
-                onChange={(e, v) => {
-                  onUpdateLayerProp(kode, "opacity", v / 100.0);
-                }}
-                valueLabelDisplay="auto"
-                aria-labelledby="range-slider"
-                getAriaValueText={opacity => opacity + " %"}
-              />
-
               {kartlag.produktark && (
                 <>
                   <ListItem>
@@ -216,34 +199,6 @@ const ForvaltningsElement = ({
                     <ListItemText primary={kartlag.dataeier} />
                     {kartlag.kildeurl && <OpenInNew />}
                   </ListItem>
-                </>
-              )}
-              {hasLegend && (
-                <>
-                  <Typography id="range-slider" gutterBottom>
-                    Tegnforklaring
-                  </Typography>
-                  <div style={{ paddingLeft: 56 }}>
-                    <img
-                      alt="legend"
-                      onError={() => setHasLegend(false)}
-                      src={`${kartlag.kart.format.wms.url}?layer=${kartlag.kart.format.wms.layer}&request=GetLegendGraphic&format=image/png&version=1.3.0`}
-                    />
-                  </div>
-                </>
-              )}
-              {kartlag.legendeurl && (
-                <>
-                  <Typography id="range-slider" gutterBottom>
-                    Tegnforklaring
-                  </Typography>
-                  <div style={{ paddingLeft: 56 }}>
-                    <img
-                      alt="legend"
-                      src={kartlag.legendeurl}
-                      style={{ maxWidth: "90%" }}
-                    />
-                  </div>
                 </>
               )}
             </div>

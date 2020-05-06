@@ -179,7 +179,7 @@ class Leaflet extends React.Component {
           transparent: true,
           crs: L.CRS[srs],
           format: "image/png",
-          opacity: al.opacity
+          opacity: underlag.opacity
         });
         this.wms[layerName] = layer;
         this.map.addLayer(layer);

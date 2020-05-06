@@ -1,14 +1,6 @@
-import Geonorge from "./Geonorge";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
-import {
-  OpenInNew,
-  VisibilityOutlined,
-  Link,
-  Description,
-  Layers,
-  VisibilityOffOutlined
-} from "@material-ui/icons";
+import { VisibilityOutlined, VisibilityOffOutlined } from "@material-ui/icons";
 import {
   Typography,
   Slider,
@@ -34,7 +26,6 @@ const ForvaltningsUnderElement = ({
   const erSynlig = kartlag.turnedon;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
-  const [hasLegend, setHasLegend] = useState(true);
   if (!tittel) return null;
   let kode = "underlag." + kartlag_key + ".";
 
@@ -80,38 +71,40 @@ const ForvaltningsUnderElement = ({
         // Underelementet
       >
         <div className="collapsed_container">
-          {kartlag.kart && kartlag.kart.format.wms && (
-            <div>
-              {hasLegend && (
-                <>
-                  <Typography id="range-slider" gutterBottom>
-                    Tegnforklaring
-                  </Typography>
-                  <div style={{ paddingLeft: 56 }}>
-                    <img
-                      alt="legend"
-                      onError={() => setHasLegend(false)}
-                      src={`${kartlag.kart.format.wms.url}?layer=${kartlag.kart.format.wms.layer}&request=GetLegendGraphic&format=image/png&version=1.3.0`}
-                    />
-                  </div>
-                </>
-              )}
-              {kartlag.legendeurl && (
-                <>
-                  <Typography id="range-slider" gutterBottom>
-                    Tegnforklaring
-                  </Typography>
-                  <div style={{ paddingLeft: 56 }}>
-                    <img
-                      alt="legend"
-                      src={kartlag.legendeurl}
-                      style={{ maxWidth: "90%" }}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
-          )}
+          <div>
+            <h4>Gjennomsiktighet</h4>
+            <Slider
+              value={100 * kartlag.opacity}
+              step={1}
+              min={0}
+              max={100}
+              onChange={(e, v) => {
+                onUpdateLayerProp(
+                  kartlag_owner_key,
+                  kode + "opacity",
+                  v / 100.0
+                );
+              }}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              getAriaValueText={opacity => opacity + " %"}
+            />
+
+            {kartlag.legendeurl && (
+              <>
+                <Typography id="range-slider" gutterBottom>
+                  Tegnforklaring
+                </Typography>
+                <div style={{ paddingLeft: 56 }}>
+                  <img
+                    alt="legend"
+                    src={kartlag.legendeurl}
+                    style={{ maxWidth: "90%" }}
+                  />
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </Collapse>
     </>
