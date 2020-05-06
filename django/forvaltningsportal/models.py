@@ -59,21 +59,20 @@ class Kartlag(models.Model):
     def __str__(self):
         return self.tittel
 
-class UnderKartlag(models.Model):
+class Sublag(models.Model):
     tittel = models.CharField(max_length=200)
-    wmsurl = models.CharField(max_length=500, blank=True)
     wmslayer = models.CharField(max_length=100, blank=True)
     legendeurl = models.CharField(max_length=500, blank=True)
     publiser = models.BooleanField(default=False)
-    turnedon = models.BooleanField(default=False)
-    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, null=True, blank=True,related_name="underkartlag")
+    erSynlig = models.BooleanField(default=False)
+    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
     def __str__(self):
         return self.tittel
 
 @receiver(post_save, sender=Kartlag)
-@receiver(post_save, sender=UnderKartlag)
+@receiver(post_save, sender=Sublag)
 @receiver(post_delete, sender=Kartlag)
-@receiver(post_delete, sender=UnderKartlag)
+@receiver(post_delete, sender=Sublag)
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
@@ -83,21 +82,19 @@ def createJSON(sender, instance, **kwargs):
             'tittel': kartlag.tittel
         }
 
-        if kartlag.underkartlag.count():
-            alle_underlag = kartlag.underkartlag.all()
+        if kartlag.sublag.count():
+            alle_underlag = kartlag.sublag.all()
             underlag = {}
             for lag in alle_underlag:
                 lag_json = {}
                 if lag.tittel:
                     lag_json['tittel'] = lag.tittel
-                if lag.wmsurl:
-                    lag_json['wmsurl'] = lag.wmsurl
                 if lag.wmslayer:
                     lag_json['wmslayer'] = lag.wmslayer
                 if lag.legendeurl:
                     lag_json['legendeurl'] = lag.legendeurl
 
-                lag_json['turnedon'] = lag.turnedon
+                lag_json['erSynlig'] = lag.erSynlig
 
                 underlag[lag.id] = lag_json
             dict[kartlag.id]['underlag'] = underlag

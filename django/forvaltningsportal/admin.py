@@ -1,16 +1,16 @@
 from django.contrib import admin
 from .models import *
 
-class UnderKartlagInline(admin.StackedInline):
-    model = UnderKartlag
+class SublagInline(admin.StackedInline):
+    model = Sublag
 
 class KartlagAdmin(admin.ModelAdmin):
     inlines = [
-        UnderKartlagInline,
+        SublagInline,
     ]
 
 admin.site.register(Tema)
-admin.site.register(UnderKartlag)
+admin.site.register(Sublag)
 admin.site.register(Kartlag,KartlagAdmin)
 admin.site.register(Tag)
 admin.site.register(Dataeier)
