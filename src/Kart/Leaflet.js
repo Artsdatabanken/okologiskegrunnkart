@@ -185,7 +185,7 @@ class Leaflet extends React.Component {
         this.map.addLayer(layer);
       }
       layer.setUrl(url);
-      layer.setOpacity(al.opacity);
+      layer.setOpacity(underlag.opacity);
     } else {
       if (layer) {
         this.map.removeLayer(layer);
