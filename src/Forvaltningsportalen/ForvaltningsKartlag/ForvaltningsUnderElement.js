@@ -13,22 +13,17 @@ import {
 
 const ForvaltningsUnderElement = ({
   kartlag,
-  erAktivtLag,
   onUpdateLayerProp,
-  handleShowCurrent,
-  show_current,
   kartlag_key,
   kartlag_owner_key,
-  valgt,
-  element
+  valgt
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
-  if (!tittel) return null;
   let kode = "underlag." + kartlag_key + ".";
-
+  if (!tittel) return null;
   return (
     <>
       <ListItem
@@ -44,11 +39,8 @@ const ForvaltningsUnderElement = ({
           <IconButton
             className="visibility_button"
             onClick={e => {
-              onUpdateLayerProp(
-                kartlag_owner_key,
-                kode + "turnedon",
-                !erSynlig
-              );
+              kartlag.erSynlig = !kartlag.erSynlig;
+              onUpdateLayerProp(kartlag_owner_key, "underlag", kartlag);
               e.stopPropagation();
             }}
           >
