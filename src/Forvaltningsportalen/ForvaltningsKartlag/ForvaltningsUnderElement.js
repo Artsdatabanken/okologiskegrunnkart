@@ -39,8 +39,11 @@ const ForvaltningsUnderElement = ({
           <IconButton
             className="visibility_button"
             onClick={e => {
-              kartlag.erSynlig = !kartlag.erSynlig;
-              onUpdateLayerProp(kartlag_owner_key, "underlag", kartlag);
+              onUpdateLayerProp(
+                kartlag_owner_key,
+                kode + "erSynlig",
+                !kartlag.erSynlig
+              );
               e.stopPropagation();
             }}
           >
