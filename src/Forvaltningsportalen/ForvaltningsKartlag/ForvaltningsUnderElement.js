@@ -23,7 +23,7 @@ const ForvaltningsUnderElement = ({
   element
 }) => {
   let tittel = kartlag.tittel;
-  const erSynlig = kartlag.turnedon;
+  const erSynlig = kartlag.erSynlig;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
   if (!tittel) return null;

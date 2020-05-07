@@ -171,7 +171,7 @@ class Leaflet extends React.Component {
   syncUnderlag(layerName, al, underlag) {
     if (!underlag.wmsurl) return;
     var layer = this.wms[layerName];
-    if (al.erSynlig && underlag.turnedon) {
+    if (al.erSynlig && underlag.erSynlig) {
       const { url, srs } = this.makeWmsUrl(al.wmsurl);
       if (!layer) {
         layer = L.tileLayer.wms("", {
