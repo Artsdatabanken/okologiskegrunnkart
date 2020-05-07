@@ -39,7 +39,6 @@ const ForvaltningsGruppering = ({
             key={element.id}
             kartlag_key={element.id}
             kartlag={element}
-            key={element.id}
             onUpdateLayerProp={onUpdateLayerProp}
           />
         );

@@ -40,20 +40,17 @@ class Type(models.Model):
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
     wmsurl = models.CharField(max_length=500, blank=True)
-    wmslayer = models.CharField(max_length=100, blank=True)
     faktaark = models.CharField(max_length=500, blank=True)
     produktark = models.CharField(max_length=500, blank=True)
     klikkurl = models.CharField(max_length=500, blank=True)
     klikktekst = models.CharField(max_length=500, blank=True)
     geonorgeurl = models.CharField(max_length=500, blank=True)
-    legendeurl = models.CharField(max_length=500, blank=True)
     publiser = models.BooleanField(default=False)
     type = models.ForeignKey(
         Type, on_delete=models.SET_NULL, null=True, blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
     tema = models.ForeignKey(
         Tema, on_delete=models.SET_NULL, null=True, blank=True)
-
     tag = models.ManyToManyField(Tag, blank=True)
 
     def __str__(self):

@@ -10,7 +10,6 @@ class KartlagAdmin(admin.ModelAdmin):
     ]
 
 admin.site.register(Tema)
-admin.site.register(Sublag)
 admin.site.register(Kartlag,KartlagAdmin)
 admin.site.register(Tag)
 admin.site.register(Dataeier)
