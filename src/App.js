@@ -49,7 +49,6 @@ class App extends React.Component {
     Object.entries(kartlag).forEach(([key, k]) => {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
-      k.underlag = { 0: { ...k, erSynlig: true }, ...(k.underlag || {}) };
     });
     this.setState({ kartlag });
   }
