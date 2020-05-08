@@ -1,6 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
 import json
 
@@ -37,17 +37,14 @@ class Type(models.Model):
     def __str__(self):
         return self.tittel
 
-
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
     wmsurl = models.CharField(max_length=500, blank=True)
-    wmslayer = models.CharField(max_length=100, blank=True)
     faktaark = models.CharField(max_length=500, blank=True)
     produktark = models.CharField(max_length=500, blank=True)
     klikkurl = models.CharField(max_length=500, blank=True)
     klikktekst = models.CharField(max_length=500, blank=True)
     geonorgeurl = models.CharField(max_length=500, blank=True)
-    legendeurl = models.CharField(max_length=500, blank=True)
     publiser = models.BooleanField(default=False)
     type = models.ForeignKey(
         Type, on_delete=models.SET_NULL, null=True, blank=True)
@@ -59,8 +56,20 @@ class Kartlag(models.Model):
     def __str__(self):
         return self.tittel
 
+class Sublag(models.Model):
+    tittel = models.CharField(max_length=200)
+    wmslayer = models.CharField(max_length=100, blank=True)
+    legendeurl = models.CharField(max_length=500, blank=True)
+    publiser = models.BooleanField(default=False)
+    erSynlig = models.BooleanField(default=False)
+    hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
+    def __str__(self):
+        return self.tittel
 
 @receiver(post_save, sender=Kartlag)
+@receiver(post_save, sender=Sublag)
+@receiver(post_delete, sender=Kartlag)
+@receiver(post_delete, sender=Sublag)
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
@@ -70,6 +79,24 @@ def createJSON(sender, instance, **kwargs):
             'tittel': kartlag.tittel
         }
 
+        if kartlag.sublag.count():
+            alle_underlag = kartlag.sublag.all()
+            underlag = {}
+            for lag in alle_underlag:
+                lag_json = {}
+                if lag.tittel:
+                    lag_json['tittel'] = lag.tittel
+                if lag.wmslayer:
+                    lag_json['wmslayer'] = lag.wmslayer
+                if lag.legendeurl:
+                    lag_json['legendeurl'] = lag.legendeurl
+
+                lag_json['erSynlig'] = lag.erSynlig
+
+                underlag[lag.id] = lag_json
+            dict[kartlag.id]['underlag'] = underlag
+
+            #print(underlag)
         if kartlag.dataeier.logourl:
             dict[kartlag.id]['logourl'] = kartlag.dataeier.logourl
         if kartlag.dataeier.url:
