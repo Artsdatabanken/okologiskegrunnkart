@@ -219,3 +219,18 @@ h4.container_header {
   left: auto;
   right: 2px;
 }
+
+.collapsed_container .underlag {
+  width: 100%;
+  padding: 10px;
+  background: #f7f7f7;
+  border-bottom: 1px solid #f0f0f0;
+  display: block;
+  text-align: left;
+  padding-left: 40px;
+}
+
+.underlag svg {
+  padding-right: 15px;
+  vertical-align: middle;
+}
