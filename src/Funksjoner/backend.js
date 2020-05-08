@@ -23,25 +23,9 @@ class Backend {
   }
 
   static async hentStedsnavn(lng, lat, zoom) {
-    /*
-    let ostLL = lng - 0.01;
-    let ostUR = lng + 0.01;
-    let nordLL = lat - 0.01;
-    let nordUR = lat + 0.01;
-    */
     return this.getPromise(
       `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
-      //`http://localhost:3000/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
-      //      `https://stedsnavn.artsdatabanken.no/v1/punkt?lng=${lng}&lat=${lat}`
     );
-    /*
-    `https://www.norgeskart.no/ws/elev.py?lat=${lat}&lon=${lng}&epsg=4326`
-    https://ws.geonorge.no/SKWS3Index/ssr/json/sok?antPerSide=5000&epsgKode=4326&side=0&ostLL=${ostLL}&nordLL=${nordLL}&ostUR=${ostUR}&nordUR=${nordUR}
-    `https://ws.geonorge.no/adresser/v1/punktsok?radius=15000&lat=${lat}&lon=${lng}&treffPerSide=10`
-    return this.getPromise(
-
-    );
-    */
   }
 
   static async hentSteder(bokstav) {
