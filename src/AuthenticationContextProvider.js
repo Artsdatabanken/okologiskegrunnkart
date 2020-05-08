@@ -7,8 +7,7 @@ const url = "https://artskart.artsdatabanken.no/appapi/api/token/gettoken";
 const thirtyMinutes = 30 * 60 * 1000;
 
 async function downloadToken() {
-  window.setInterval(downloadToken, thirtyMinutes);
-  //console.log(new Date());
+  window.setTimeout(downloadToken, thirtyMinutes);
   try {
     const result = await fetch(url);
     const t = await result.text();
