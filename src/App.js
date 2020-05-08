@@ -291,9 +291,9 @@ class App extends React.Component {
     this.handleLayersSøk(lng, lat, valgteLag);
   };
 
-  hentInfoAlleLag = async (lng, lat) => {
+  hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
-    this.handleStedsNavn(lng, lat);
+    this.handleStedsNavn(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, false);
   };
 

@@ -113,7 +113,7 @@ class Leaflet extends React.Component {
 
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
-    this.props.handleLokalitetUpdate(lng, lat);
+    this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
   };
 
   handleInfobox = bool => {
