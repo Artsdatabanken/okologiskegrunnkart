@@ -7,6 +7,7 @@
     "download": "node node_modules/lastejobb/lastejobb stages/download",
     "kartverket_dtm": "node node_modules/lastejobb/lastejobb stages/kartverket_dtm",
     "kartverket_stedsnavn": "node node_modules/lastejobb/lastejobb stages/kartverket_stedsnavn",
+    "kartverket_dtm": "node node_modules/lastejobb/lastejobb stages/kartverket_dtm",
     "build": "npm run download && npm run kartverket_stedsnavn",
     "deploy": "node node_modules/lastejobb/lastejobb stages/deploy"
   },
