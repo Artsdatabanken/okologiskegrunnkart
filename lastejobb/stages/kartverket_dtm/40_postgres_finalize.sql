@@ -4,11 +4,12 @@ DELETE FROM datasett WHERE datasettkode='DTM';
 
 -- Sett inn nye
 INSERT INTO datasett VALUES ('DTM', 'Terrengmodell');
-INSERT INTO kart (datasettkode, id, navn, bbox, geom)
-SELECT 
-    'DTM' as kortkode, 
-    DTMmunenummer, 
-    ((navn::json)->0->>'navn') AS navn, 
-    ST_Extent(wkb_geometry) AS bbox, wkb_geometry AS geom 
-FROM import.DTMmune
-GROUP BY DTMmune.DTMmunenummer, navn, wkb_geometry;
+
+CREATE OR REPLACE FUNCTION elevasjon(lng numeric, lat numeric)
+RETURNS float
+  AS $$
+SELECT ST_Value(rast, ST_Transform(ST_SetSRID(ST_MakePoint(lng, lat),4326),25833))
+ FROM dtm
+ INNER JOIN ST_Transform(ST_SetSRID(ST_MakePoint(lng, lat),4326),25833) AS geom 
+  ON ST_Intersects(dtm.rast, geom)
+$$ LANGUAGE SQL IMMUTABLE;
