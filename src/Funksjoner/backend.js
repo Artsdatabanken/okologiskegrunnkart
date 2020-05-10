@@ -77,7 +77,7 @@ class Backend {
           if (response.status !== 200)
             return reject("HTTP status " + response.status);
           response.text().then(text => {
-            const api = text[0] === "{" ? json_api : wms_api;
+            const api = "{[".indexOf(text[0]) >= 0 ? json_api : wms_api;
             var res = api.parse(text);
             res = res.FIELDS || res;
             res = collapseLayerFeature(res);
