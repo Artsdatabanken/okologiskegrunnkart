@@ -38,7 +38,7 @@
 }
 
 .all_layer_results {
-  margin-top: 58px;
+  margin-top: 90px;
   z-index: 200;
 }
 
@@ -73,6 +73,8 @@
   vertical-align: text-top;
   margin-right: 5px;
   height: 18px;
+
+  color: grey;
 }
 
 .coordinates {
@@ -107,4 +109,28 @@
 
 .expand_header button {
   margin: auto;
+}
+
+.text_type {
+  font-size: 10pt;
+  display: block;
+  text-transform: capitalize;
+}
+
+.text_type:first-child {
+  font-size: 14pt;
+}
+
+.text_type:first-child svg {
+  vertical-align: sub;
+}
+
+@media only screen and (max-width: 768px) {
+  .text_type:first-child {
+    font-size: 12px;
+  }
+
+  .text_type {
+    max-width: calc(100% - 40px);
+  }
 }
