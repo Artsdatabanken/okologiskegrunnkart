@@ -1,0 +1,18 @@
+{
+  "name": "forvaltningsportal-lastejobb",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "download": "node node_modules/lastejobb/lastejobb stages/download",
+    "kartverket_stedsnavn": "node node_modules/lastejobb/lastejobb stages/kartverket_stedsnavn",
+    "build": "npm run download && npm run kartverket_stedsnavn",
+    "deploy": "node node_modules/lastejobb/lastejobb stages/deploy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "lastejobb": "^3.6.0"
+  }
+}
