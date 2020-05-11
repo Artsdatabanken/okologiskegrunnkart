@@ -9,7 +9,7 @@ function lookup(o, path) {
   if (!path) return JSON.stringify(o);
   const segments = path.split(".");
   for (var segment of segments) {
-    if (!o[segment]) {
+    if (o[segment] === undefined) {
       console.warn(path, segment + " mangler i ", o);
       return null;
     }
@@ -35,7 +35,7 @@ function mapComponent(c) {
 const Klikktekst = ({ input, formatstring = "" }) => {
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
-
+  console.log(input, formatstring);
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
