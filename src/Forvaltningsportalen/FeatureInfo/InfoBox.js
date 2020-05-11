@@ -1,6 +1,5 @@
 import React from "react";
-import LocationSearching from "@material-ui/icons/LocationSearching";
-import { Close } from "@material-ui/icons";
+import { Close, MyLocation, Terrain, Place } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 
@@ -35,8 +34,26 @@ const InfoBox = ({
 
         {sted && (
           <span className="infotitle">
-            <LocationSearching />
-            {sted && sted.navn}
+            {sted && (
+              <span>
+                <span className="text_type">
+                  <MyLocation />
+                  Sted: <b>{sted.komplettskrivemåte[0]}</b>
+                </span>
+                <span className="text_type">
+                  <Terrain />
+                  Områdetype: <b>{sted.navneobjekttype}</b>
+                </span>
+                <span className="text_type">
+                  <Place />
+                  Kommune: <b>{sted.kommunenavn[0]}</b>{" "}
+                </span>
+                <span className="text_type">
+                  <Place />
+                  Fylke: <b>{sted.fylkesnavn[0]}</b>{" "}
+                </span>
+              </span>
+            )}
           </span>
         )}
         <br />
