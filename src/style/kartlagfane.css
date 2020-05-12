@@ -230,6 +230,8 @@ h4.container_header {
 .underlag div:first-child {
   padding-left: 15px;
   padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .underlag_collapse div:first-child {
