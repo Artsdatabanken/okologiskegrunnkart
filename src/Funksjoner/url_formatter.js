@@ -1,5 +1,3 @@
-var qs = require("qs");
-
 export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
@@ -19,16 +17,17 @@ export default function url_formatter(formatstring = "", variables) {
     return "";
   });
 
-  const url = parts.join("");
-  var uo = qs.parse(url);
-  if (uo.request === "GetFeatureInfo") {
+  var url = new URL(parts.join(""));
+  const params = new URLSearchParams(url.search);
+  if (params.get("request") === "GetFeatureInfo") {
     // Force xy of featureinfo to center of bbox
-    uo.x = 128;
-    uo.y = 128;
-    uo.width = 255;
-    uo.height = 255;
+    params.set("x", 128);
+    params.set("y", 128);
+    params.set("width", 255);
+    params.set("height", 255);
   }
-  return url;
+  url.search = params.toString();
+  return url.toString();
 }
 
 function lookup(o, path) {
