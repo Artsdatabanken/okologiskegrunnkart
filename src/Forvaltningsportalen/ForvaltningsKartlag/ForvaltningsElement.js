@@ -114,13 +114,6 @@ const ForvaltningsElement = ({
                     <ListItemText primary="Produktark" />
                     {kartlag.produktark && (
                       <>
-                        <OpenInNew
-                          className="iconbutton"
-                          onClick={e => {
-                            window.open(kartlag.produktark);
-                          }}
-                        />
-
                         {openFakta ? (
                           <ExpandLess
                             className="iconbutton"
@@ -136,6 +129,12 @@ const ForvaltningsElement = ({
                             }}
                           />
                         )}
+                        <OpenInNew
+                          className="iconbutton"
+                          onClick={e => {
+                            window.open(kartlag.produktark);
+                          }}
+                        />
                       </>
                     )}
                   </ListItem>

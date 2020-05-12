@@ -60,6 +60,7 @@ const ForvaltningsUnderElement = ({
       </ListItem>
 
       <Collapse
+        className="underlag_collapse"
         in={open}
         timeout="auto"
         unmountOnExit
