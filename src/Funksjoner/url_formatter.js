@@ -1,3 +1,5 @@
+var qs = require("qs");
+
 export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
@@ -18,6 +20,14 @@ export default function url_formatter(formatstring = "", variables) {
   });
 
   const url = parts.join("");
+  var uo = qs.parse(url);
+  // Force xy of featureinfo to center of bbox
+  if (uo.x) {
+    uo.x = 128;
+    uo.y = 128;
+    uo.width = 255;
+    uo.height = 255;
+  }
   return url;
 }
 
