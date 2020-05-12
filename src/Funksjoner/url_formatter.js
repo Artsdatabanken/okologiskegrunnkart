@@ -21,8 +21,8 @@ export default function url_formatter(formatstring = "", variables) {
 
   const url = parts.join("");
   var uo = qs.parse(url);
-  // Force xy of featureinfo to center of bbox
-  if (uo.x) {
+  if (uo.request === "GetFeatureInfo") {
+    // Force xy of featureinfo to center of bbox
     uo.x = 128;
     uo.y = 128;
     uo.width = 255;
