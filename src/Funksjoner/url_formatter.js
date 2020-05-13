@@ -17,8 +17,17 @@ export default function url_formatter(formatstring = "", variables) {
     return "";
   });
 
-  const url = parts.join("");
-  return url;
+  var url = new URL(parts.join(""));
+  const params = new URLSearchParams(url.search);
+  if (params.get("request") === "GetFeatureInfo") {
+    // Force xy of featureinfo to center of bbox
+    params.set("x", 128);
+    params.set("y", 128);
+    params.set("width", 255);
+    params.set("height", 255);
+  }
+  url.search = params.toString();
+  return url.toString();
 }
 
 function lookup(o, path) {
