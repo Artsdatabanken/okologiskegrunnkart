@@ -18,7 +18,7 @@ ALTER TABLE stedsnavn CLUSTER ON stedsnavn_geom_idx;
 -- REST API function 
 -- http://localhost:3000/rpc/stedsnavn?lat=63&lng=10.5&zoom=6
 
-CREATE OR REPLACE FUNCTION stedsnavn_zoom_til_minpri(zoom numeric)
+CREATE OR REPLACE FUNCTION stedsnavn_zoom_til_minpri(zoom real)
 RETURNS character(10) AS $$
 	SELECT CASE 
 		WHEN zoom<3 THEN 'viktighetN'
@@ -39,7 +39,7 @@ $$ LANGUAGE SQL;
 --       SELECT * FROM stedsnavn_zoom_til_minpri(zoom+3)
 --$$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION stedsnavn_zoom_til_maxpri(zoom numeric)
+CREATE OR REPLACE FUNCTION stedsnavn_zoom_til_maxpri(zoom real)
 RETURNS character(10) AS $$
 	SELECT CASE 
 		WHEN zoom<3 THEN 'viktighetL'
@@ -57,7 +57,7 @@ RETURNS character(10) AS $$
     END;
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION stedsnavn(lng numeric, lat numeric, zoom numeric)
+CREATE OR REPLACE FUNCTION stedsnavn(lng real, lat real, zoom real)
 RETURNS TABLE (
 	stedsnummer integer,
     "komplettskrivemåte" character varying[],
