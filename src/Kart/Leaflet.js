@@ -7,6 +7,7 @@ import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
+import getClickParams from "./getClickParams";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -111,7 +112,7 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.marker);
   }
 
-  getBackendData = async (lng, lat, e) => {
+  getBackendData = async (lng, lat) => {
     this.props.handleExtensiveInfo(true);
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
   };
@@ -143,9 +144,11 @@ class Leaflet extends React.Component {
       icon: this.icon
     }).addTo(this.map);
     this.props.history.push(
+      // TODO: Denne hjelper ikke så mye når den ikke har noen effekt ved lasting fresh
       "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
     );
-    this.props.handleValgteLag(latlng.lng, latlng.lat, this.map.getZoom());
+    const params = getClickParams(this.map, latlng);
+    this.props.handleValgteLag(params);
   };
 
   updateMap(props) {

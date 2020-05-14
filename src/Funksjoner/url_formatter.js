@@ -1,10 +1,7 @@
 export default function url_formatter(formatstring = "", variables) {
+  if (!formatstring) return null;
   if (variables.loading) return null;
   if (variables.error) return null;
-
-  const delta = 0.01;
-  variables.bbox = `${variables.lng - delta},${variables.lat -
-    delta},${variables.lng + delta},${variables.lat + delta}`;
 
   const matches = formatstring.matchAll(
     /\{(?<variable>[^{]*?)\}|(?<literal>[^<{]+)/g
@@ -17,15 +14,9 @@ export default function url_formatter(formatstring = "", variables) {
     return "";
   });
 
+  if (parts.length <= 0) console.log("parts", formatstring, variables);
   var url = new URL(parts.join(""));
   const params = new URLSearchParams(url.search);
-  if (params.get("request") === "GetFeatureInfo") {
-    // Force xy of featureinfo to center of bbox
-    params.set("x", 128);
-    params.set("y", 128);
-    params.set("width", 255);
-    params.set("height", 255);
-  }
   url.search = params.toString();
   return url.toString();
 }
@@ -43,4 +34,17 @@ function lookup(o, path) {
   }
   if (typeof o === "string") return o;
   return JSON.stringify(o);
+}
+
+export function wmsurlformatter(wmsurl = "", variables, layers) {
+  if (!wmsurl) return null;
+  var url = new URL(wmsurl);
+  const layerNames = layers.map(e => e.wmslayer);
+  const params = new URLSearchParams(url.search);
+  params.set("layers", layerNames[0]);
+  params.set("query_layers", layerNames.join(","));
+  if (!params.get("version")) params.set("version", "1.3.0");
+  for (var key of Object.keys(variables)) params.set(key, variables[key]);
+  url.search = params.toString();
+  return url.toString();
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import url_formatter from "./Funksjoner/url_formatter";
+import { wmsurlformatter } from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
@@ -237,30 +237,30 @@ class App extends React.Component {
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
-      console.log(sted);
       this.setState({
         sted: sted.length > 0 ? sted[0] : null
       });
     });
   };
 
-  handleLayersSøk = (lng, lat, valgteLag) => {
+  handleLayersSøk = (params, bareValgteLag) => {
     let looplist = this.state.kartlag;
-    if (valgteLag) {
-      looplist = valgteLag;
-    }
-    // Denne henter utvalgte lag baser på listen layers
     var layersresultat = {};
     Object.keys(looplist).forEach(key => {
-      if (!looplist[key].klikkurl) return;
+      const layer = looplist[key];
+      if (!layer.klikkurl && !layer.wmsurl) return;
+      if (!layer.wmsurl) return; // TEMP
       layersresultat[key] = { loading: true };
     });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
-      var url = url_formatter(layer.klikkurl, { lat, lng });
-      url = url.replace(256, 255);
-      url = url.replace(256, 255);
+      if (!layer.erSynlig && bareValgteLag) return;
+      const underlag = Object.values(layer.underlag).filter(
+        layer => !bareValgteLag || layer.erSynlig
+      );
+      if (underlag.length <= 0) return;
+      var url = wmsurlformatter(layer.wmsurl, params, underlag);
       backend
         .getFeatureInfo(url)
         .then(res => {
@@ -280,7 +280,9 @@ class App extends React.Component {
     });
   };
 
-  hentInfoValgteLag = async (lng, lat, zoom) => {
+  hentInfoValgteLag = async params => {
+    this.setState({ params });
+    const { lng, lat, zoom } = params;
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
@@ -288,13 +290,13 @@ class App extends React.Component {
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, valgteLag);
+    this.handleLayersSøk(params, true);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, false);
+    this.handleLayersSøk(this.state.params, false);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
