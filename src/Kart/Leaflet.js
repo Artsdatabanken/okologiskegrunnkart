@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 
@@ -25,7 +25,7 @@ class Leaflet extends React.Component {
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
-    markerTool: true,
+    markerType: "klikk",
     showInfobox: false,
     coordinates_area: null
   };
@@ -121,7 +121,7 @@ class Leaflet extends React.Component {
   };
 
   handleClick = e => {
-    if (!this.state.markerTool) return;
+    if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
@@ -233,7 +233,7 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        {this.state.markerTool === true && this.state.showInfobox && (
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
           <InfoBox
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -245,23 +245,32 @@ class Leaflet extends React.Component {
             onUpdateLayerProp={this.props.onUpdateLayerProp}
           />
         )}
-        <button
-          className={
-            this.state.markerTool === true
-              ? "map_button active currentlyhidden"
-              : "map_button currentlyhidden"
-          }
-          title="Marker tool"
-          alt="Marker tool"
-          onClick={e => {
-            console.log("Already chosen marker tool");
-            this.setState({
-              markerTool: !this.state.markerTool
-            });
-          }}
-        >
-          <WhereToVote />
-        </button>
+        <div className="marker_type_button_container">
+          <button
+            className={this.state.markerType === "klikk" ? "active" : ""}
+            title="Marker tool"
+            alt="Marker tool"
+            onClick={e => {
+              this.setState({
+                markerType: "klikk"
+              });
+            }}
+          >
+            <WhereToVote />
+          </button>
+          <button
+            className={this.state.markerType === "polygon" ? "active" : ""}
+            title="Polygon tool"
+            alt="Polygon tool"
+            onClick={e => {
+              this.setState({
+                markerType: "polygon"
+              });
+            }}
+          >
+            <Gesture />
+          </button>
+        </div>
 
         <div
           style={{ zIndex: -100, cursor: "default" }}
