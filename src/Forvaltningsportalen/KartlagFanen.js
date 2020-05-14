@@ -57,18 +57,31 @@ const KartlagFanen = props => {
             </div>
           ) : (
             <div>
-              {props.polygon ? (
+              {props.polyline ? (
                 <h3 className="container_header">Polygon</h3>
               ) : (
                 <h3 className="container_header">Kartlag</h3>
               )}
 
               <div className="scroll_area">
-                {props.polygon && (
+                {props.polyline && (
                   <>
                     <button>Skjul/vis</button>
-                    <b> Navn på Polygon </b> <button>Ferdig</button>
-                    <button>Fjern</button>
+                    <b> Navn på Polygon </b>
+                    <button
+                      onClick={e => {
+                        props.addPolygon(props.polyline);
+                      }}
+                    >
+                      Ferdig
+                    </button>
+                    <button
+                      onClick={e => {
+                        props.addPolygon(null);
+                      }}
+                    >
+                      Fjern
+                    </button>
                     <h3 className="container_header">Kartlag</h3>
                   </>
                 )}
