@@ -5,6 +5,7 @@ DELETE FROM datasett WHERE datasettkode='DTM';
 -- Sett inn nye
 INSERT INTO datasett VALUES ('DTM', 'Terrengmodell');
 
+
 CREATE OR REPLACE FUNCTION elevasjon(lng numeric, lat numeric)
 RETURNS float
   AS $$
