@@ -27,7 +27,8 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     showInfobox: false,
-    coordinates_area: null
+    coordinates_area: null,
+    polygon: []
   };
 
   componentDidMount() {
@@ -121,6 +122,24 @@ class Leaflet extends React.Component {
   };
 
   handleClick = e => {
+    if (this.state.markerType === "polygon") {
+      let polygon_list = this.state.polygon;
+      const latlng = e.leaflet_event.latlng;
+      polygon_list.push([latlng.lat, latlng.lng]);
+
+      this.setState({
+        polygon: polygon_list
+      });
+
+      if (polygon_list.length < 2) {
+        // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+        const latlng2 = { lat: latlng.lat + 0.0001, lng: latlng.lng + 0.0001 };
+        polygon_list.push([latlng2.lat, latlng2.lng]);
+      }
+
+      L.polygon(polygon_list, { color: "red" }).addTo(this.map);
+    }
+
     if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
     const latlng = e.leaflet_event.latlng;
