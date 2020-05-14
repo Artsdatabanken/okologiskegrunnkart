@@ -31,7 +31,8 @@ class App extends React.Component {
       valgtLag: null,
       searchResultPage: false,
       kartlagSearchResults: null,
-      geoSearchResults: null
+      geoSearchResults: null,
+      polygon: null
     };
   }
 
@@ -86,6 +87,7 @@ class App extends React.Component {
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      addPolygon={this.addPolygon}
                       zoomcoordinates={this.state.zoomcoordinates}
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
@@ -114,6 +116,7 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      polygon={this.state.polygon}
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}
                       kartlagSearchResults={this.state.kartlagSearchResults}
@@ -170,6 +173,10 @@ class App extends React.Component {
 
   addValgtLag = valgtLag => {
     this.setState({ valgtLag: valgtLag });
+  };
+
+  addPolygon = polygon => {
+    this.setState({ polygon: polygon });
   };
 
   removeValgtLag = () => {

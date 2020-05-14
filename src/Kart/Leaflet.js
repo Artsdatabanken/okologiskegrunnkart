@@ -144,6 +144,8 @@ class Leaflet extends React.Component {
         color: "red",
         lineJoin: "round"
       }).addTo(this.map);
+
+      this.props.addPolygon(polygon_list);
     }
 
     if (this.state.markerType !== "klikk") return;
