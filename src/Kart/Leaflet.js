@@ -136,8 +136,14 @@ class Leaflet extends React.Component {
         const latlng2 = { lat: latlng.lat + 0.0001, lng: latlng.lng + 0.0001 };
         polygon_list.push([latlng2.lat, latlng2.lng]);
       }
+      if (this.polygon) {
+        this.map.removeLayer(this.polygon);
+      }
 
-      L.polygon(polygon_list, { color: "red" }).addTo(this.map);
+      this.polygon = L.polygon(polygon_list, {
+        color: "red",
+        lineJoin: "round"
+      }).addTo(this.map);
     }
 
     if (this.state.markerType !== "klikk") return;
