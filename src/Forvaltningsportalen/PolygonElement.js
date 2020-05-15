@@ -66,6 +66,7 @@ const PolygonElement = ({
           onClick={e => {
             addPolygon(null);
             addPolyline([]);
+            hideAndShowPolygon(true);
           }}
         >
           <Delete /> Fjern
