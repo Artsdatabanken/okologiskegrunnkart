@@ -116,6 +116,11 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.polygon);
   }
 
+  removePolyline() {
+    if (!this.polyline) return;
+    this.map.removeLayer(this.polyline);
+  }
+
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
@@ -131,19 +136,6 @@ class Leaflet extends React.Component {
       const latlng = e.leaflet_event.latlng;
       polygon_list.push([latlng.lat, latlng.lng]);
       this.props.addPolyline(polygon_list);
-      if (this.polyline) {
-        this.map.removeLayer(this.polyline);
-      }
-      if (polygon_list.length < 2) {
-        // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
-        const latlng2 = { lat: latlng.lat + 0.0001, lng: latlng.lng + 0.0001 };
-        polygon_list.push([latlng2.lat, latlng2.lng]);
-      }
-
-      this.polyline = L.polyline(polygon_list, {
-        color: "red",
-        lineJoin: "round"
-      }).addTo(this.map);
     }
 
     if (this.state.markerType !== "klikk") return;
@@ -231,6 +223,25 @@ class Leaflet extends React.Component {
   }
 
   render() {
+    if (this.props.polyline && this.props.polyline.length > 0) {
+      this.removePolyline();
+      let polygon_list = this.props.polyline;
+      if (polygon_list.length < 2) {
+        // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+        if (polygon_list[0]) {
+          polygon_list.push([
+            polygon_list[0][0] + 0.0001,
+            polygon_list[0][1] + 0.0001
+          ]);
+        }
+      }
+      this.polyline = L.polyline(polygon_list, {
+        color: "red",
+        lineJoin: "round"
+      }).addTo(this.map);
+    } else {
+      this.removePolyline();
+    }
     if (this.props.polygon) {
       this.removePolygon();
       this.polygon = L.polygon(this.props.polygon, {
@@ -320,7 +331,6 @@ class Leaflet extends React.Component {
           onClick={() => {
             //this.props.handleFullscreen(false);
             //this.handleLocate();
-            console.log("geolocate button clicked");
           }}
         >
           <LocationSearching />

@@ -78,6 +78,7 @@ const KartlagFanen = props => {
                     <button
                       onClick={e => {
                         props.addPolygon(null);
+                        props.addPolyline(null);
                       }}
                     >
                       Fjern

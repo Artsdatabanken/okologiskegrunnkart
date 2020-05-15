@@ -185,8 +185,6 @@ class App extends React.Component {
   };
 
   addPolygon = polygon => {
-    console.log("adding polygon");
-    console.log(polygon);
     this.setState({ polygon: polygon });
   };
 
@@ -222,7 +220,6 @@ class App extends React.Component {
 
   handleGeoSelection = geostring => {
     if (geostring.ssrId) {
-      console.log("fra stedsnavnregister");
       let mincoord = [
         parseFloat(geostring.aust) - 1,
         parseFloat(geostring.nord) - 1
@@ -255,7 +252,6 @@ class App extends React.Component {
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
-      console.log(sted);
       this.setState({
         sted: sted.length > 0 ? sted[0] : null
       });

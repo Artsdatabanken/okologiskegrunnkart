@@ -162,13 +162,12 @@ class SearchBar extends React.Component {
               if (e.key === "ArrowDown") {
                 if (document.getElementsByClassName("searchbar_item")) {
                   if (e.keyCode === 40) {
-                    console.log("gå ned");
                     document
                       .getElementsByClassName("searchbar_item")[0]
                       .focus();
                   }
                 } else {
-                  console.log("nothjing to see her");
+                  console.log("nothing to see here");
                 }
               }
             }}
