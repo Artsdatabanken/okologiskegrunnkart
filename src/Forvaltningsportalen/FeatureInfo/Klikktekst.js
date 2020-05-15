@@ -35,7 +35,6 @@ function mapComponent(c) {
 const Klikktekst = ({ input, formatstring = "" }) => {
   if (input.error) return "Får ikke kontakt med leverandør";
   if (input.loading) return "...'";
-  console.log(input, formatstring);
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );

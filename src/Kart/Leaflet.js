@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import Tangram from "tangram";
 import { createScene, updateScene } from "./scene/scene";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 
@@ -25,7 +25,7 @@ class Leaflet extends React.Component {
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
-    markerTool: true,
+    markerType: "klikk",
     showInfobox: false,
     coordinates_area: null
   };
@@ -111,6 +111,16 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.marker);
   }
 
+  removePolygon() {
+    if (!this.polygon) return;
+    this.map.removeLayer(this.polygon);
+  }
+
+  removePolyline() {
+    if (!this.polyline) return;
+    this.map.removeLayer(this.polyline);
+  }
+
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
@@ -121,7 +131,17 @@ class Leaflet extends React.Component {
   };
 
   handleClick = e => {
-    if (!this.state.markerTool) return;
+    if (this.state.markerType === "polygon") {
+      if (!this.props.polygon) {
+        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
+        let polygon_list = this.props.polyline;
+        const latlng = e.leaflet_event.latlng;
+        polygon_list.push([latlng.lat, latlng.lng]);
+        this.props.addPolyline(polygon_list);
+      }
+    }
+
+    if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
     const latlng = e.leaflet_event.latlng;
     this.removeMarker();
@@ -206,6 +226,38 @@ class Leaflet extends React.Component {
   }
 
   render() {
+    if (this.props.polyline && this.props.polyline.length > 0) {
+      this.removePolyline();
+      if (this.props.showPolygon) {
+        let polygon_list = this.props.polyline;
+        if (polygon_list.length < 2) {
+          // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+          if (polygon_list[0]) {
+            polygon_list.push([
+              polygon_list[0][0] + 0.0001,
+              polygon_list[0][1] + 0.0001
+            ]);
+          }
+        }
+        this.polyline = L.polyline(polygon_list, {
+          color: "red",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    } else {
+      this.removePolyline();
+    }
+    if (this.props.polygon) {
+      this.removePolygon();
+      if (this.props.showPolygon) {
+        this.polygon = L.polygon(this.props.polygon, {
+          color: "blue",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    } else {
+      this.removePolygon();
+    }
     if (this.props.zoomcoordinates) {
       this.removeMarker();
       this.marker = L.marker(
@@ -233,7 +285,7 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        {this.state.markerTool === true && this.state.showInfobox && (
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
           <InfoBox
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -245,23 +297,32 @@ class Leaflet extends React.Component {
             onUpdateLayerProp={this.props.onUpdateLayerProp}
           />
         )}
-        <button
-          className={
-            this.state.markerTool === true
-              ? "map_button active currentlyhidden"
-              : "map_button currentlyhidden"
-          }
-          title="Marker tool"
-          alt="Marker tool"
-          onClick={e => {
-            console.log("Already chosen marker tool");
-            this.setState({
-              markerTool: !this.state.markerTool
-            });
-          }}
-        >
-          <WhereToVote />
-        </button>
+        <div className="marker_type_button_container">
+          <button
+            className={this.state.markerType === "klikk" ? "active" : ""}
+            title="Marker tool"
+            alt="Marker tool"
+            onClick={e => {
+              this.setState({
+                markerType: "klikk"
+              });
+            }}
+          >
+            <WhereToVote />
+          </button>
+          <button
+            className={this.state.markerType === "polygon" ? "active" : ""}
+            title="Polygon tool"
+            alt="Polygon tool"
+            onClick={e => {
+              this.setState({
+                markerType: "polygon"
+              });
+            }}
+          >
+            <Gesture />
+          </button>
+        </div>
 
         <div
           style={{ zIndex: -100, cursor: "default" }}
@@ -277,7 +338,6 @@ class Leaflet extends React.Component {
           onClick={() => {
             //this.props.handleFullscreen(false);
             //this.handleLocate();
-            console.log("geolocate button clicked");
           }}
         >
           <LocationSearching />

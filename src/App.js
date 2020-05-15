@@ -31,7 +31,10 @@ class App extends React.Component {
       valgtLag: null,
       searchResultPage: false,
       kartlagSearchResults: null,
-      geoSearchResults: null
+      geoSearchResults: null,
+      polygon: null,
+      polyline: [],
+      showPolygon: true
     };
   }
 
@@ -86,6 +89,9 @@ class App extends React.Component {
                       aktivtFormat={basiskart.kart.aktivtFormat}
                     />
                     <Kart
+                      addPolygon={this.addPolygon}
+                      addPolyline={this.addPolyline}
+                      showPolygon={this.state.showPolygon}
                       zoomcoordinates={this.state.zoomcoordinates}
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
@@ -114,6 +120,12 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      polygon={this.state.polygon}
+                      addPolygon={this.addPolygon}
+                      hideAndShowPolygon={this.hideAndShowPolygon}
+                      showPolygon={this.state.showPolygon}
+                      polyline={this.state.polyline}
+                      addPolyline={this.addPolyline}
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}
                       kartlagSearchResults={this.state.kartlagSearchResults}
@@ -172,6 +184,18 @@ class App extends React.Component {
     this.setState({ valgtLag: valgtLag });
   };
 
+  addPolyline = polyline => {
+    this.setState({ polyline: polyline });
+  };
+
+  addPolygon = polygon => {
+    this.setState({ polygon: polygon });
+  };
+
+  hideAndShowPolygon = showPolygon => {
+    this.setState({ showPolygon: showPolygon });
+  };
+
   removeValgtLag = () => {
     this.setState({ valgtLag: null });
   };
@@ -204,7 +228,6 @@ class App extends React.Component {
 
   handleGeoSelection = geostring => {
     if (geostring.ssrId) {
-      console.log("fra stedsnavnregister");
       let mincoord = [
         parseFloat(geostring.aust) - 1,
         parseFloat(geostring.nord) - 1
@@ -237,7 +260,6 @@ class App extends React.Component {
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
-      console.log(sted);
       this.setState({
         sted: sted.length > 0 ? sted[0] : null
       });
