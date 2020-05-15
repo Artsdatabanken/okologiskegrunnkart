@@ -245,3 +245,26 @@ h4.container_header {
   padding-right: 15px;
   vertical-align: middle;
 }
+
+.polygonbutton {
+  padding: 5px;
+  margin-left: 2px;
+  font-size: 12pt;
+}
+
+.polygonbutton svg {
+  vertical-align: middle;
+  height: 20px;
+}
+
+.polygonbutton.done {
+  background: #baf2b3;
+}
+
+.polygonbutton.remove {
+  background: #ffd3cf;
+}
+
+.polygonbutton.edit {
+  background: #d5f1f5;
+}

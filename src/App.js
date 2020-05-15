@@ -33,7 +33,8 @@ class App extends React.Component {
       kartlagSearchResults: null,
       geoSearchResults: null,
       polygon: null,
-      polyline: []
+      polyline: [],
+      showPolygon: true
     };
   }
 
@@ -90,6 +91,7 @@ class App extends React.Component {
                     <Kart
                       addPolygon={this.addPolygon}
                       addPolyline={this.addPolyline}
+                      showPolygon={this.state.showPolygon}
                       zoomcoordinates={this.state.zoomcoordinates}
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
@@ -120,6 +122,8 @@ class App extends React.Component {
                       {...this.state}
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
+                      hideAndShowPolygon={this.hideAndShowPolygon}
+                      showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
                       addPolyline={this.addPolyline}
                       setSearchResultPage={this.setSearchResultPage}
@@ -186,6 +190,10 @@ class App extends React.Component {
 
   addPolygon = polygon => {
     this.setState({ polygon: polygon });
+  };
+
+  hideAndShowPolygon = showPolygon => {
+    this.setState({ showPolygon: showPolygon });
   };
 
   removeValgtLag = () => {

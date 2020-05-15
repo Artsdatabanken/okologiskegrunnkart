@@ -3,6 +3,7 @@ import React from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import TreffListe from "./SearchBar/TreffListe";
+import PolygonElement from "./PolygonElement";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
@@ -57,46 +58,23 @@ const KartlagFanen = props => {
             </div>
           ) : (
             <div>
-              {props.polyline ? (
+              {props.polyline.length > 0 || props.polygon ? (
                 <h3 className="container_header">Polygon</h3>
               ) : (
                 <h3 className="container_header">Kartlag</h3>
               )}
 
               <div className="scroll_area">
-                {props.polyline && (
-                  <>
-                    <button>Skjul/vis</button>
-                    <b> Mitt Polygon </b>
-                    <button
-                      onClick={e => {
-                        props.addPolygon(props.polyline);
-                        props.addPolyline([]);
-                      }}
-                    >
-                      Ferdig
-                    </button>
-
-                    <button
-                      onClick={e => {
-                        props.addPolygon(null);
-                        props.addPolyline(props.polygon);
-                      }}
-                    >
-                      Rediger
-                    </button>
-                    <button
-                      onClick={e => {
-                        props.addPolygon(null);
-                        props.addPolyline([]);
-                      }}
-                    >
-                      Fjern
-                    </button>
-                    <h3 className="container_header">Kartlag</h3>
-                  </>
+                {(props.polyline.length > 0 || props.polygon) && (
+                  <PolygonElement
+                    polygon={props.polygon}
+                    polyline={props.polyline}
+                    showPolygon={props.showPolygon}
+                    hideAndShowPolygon={props.hideAndShowPolygon}
+                    addPolygon={props.addPolygon}
+                    addPolyline={props.addPolyline}
+                  />
                 )}
-
                 <ForvaltningsKartlag
                   show_current={props.show_current}
                   handleShowCurrent={props.handleShowCurrent}

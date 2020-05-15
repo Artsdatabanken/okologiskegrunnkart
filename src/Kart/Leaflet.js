@@ -228,29 +228,33 @@ class Leaflet extends React.Component {
   render() {
     if (this.props.polyline && this.props.polyline.length > 0) {
       this.removePolyline();
-      let polygon_list = this.props.polyline;
-      if (polygon_list.length < 2) {
-        // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
-        if (polygon_list[0]) {
-          polygon_list.push([
-            polygon_list[0][0] + 0.0001,
-            polygon_list[0][1] + 0.0001
-          ]);
+      if (this.props.showPolygon) {
+        let polygon_list = this.props.polyline;
+        if (polygon_list.length < 2) {
+          // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+          if (polygon_list[0]) {
+            polygon_list.push([
+              polygon_list[0][0] + 0.0001,
+              polygon_list[0][1] + 0.0001
+            ]);
+          }
         }
+        this.polyline = L.polyline(polygon_list, {
+          color: "red",
+          lineJoin: "round"
+        }).addTo(this.map);
       }
-      this.polyline = L.polyline(polygon_list, {
-        color: "red",
-        lineJoin: "round"
-      }).addTo(this.map);
     } else {
       this.removePolyline();
     }
     if (this.props.polygon) {
       this.removePolygon();
-      this.polygon = L.polygon(this.props.polygon, {
-        color: "blue",
-        lineJoin: "round"
-      }).addTo(this.map);
+      if (this.props.showPolygon) {
+        this.polygon = L.polygon(this.props.polygon, {
+          color: "blue",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
     } else {
       this.removePolygon();
     }
