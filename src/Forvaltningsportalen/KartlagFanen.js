@@ -67,18 +67,28 @@ const KartlagFanen = props => {
                 {props.polyline && (
                   <>
                     <button>Skjul/vis</button>
-                    <b> Navn på Polygon </b>
+                    <b> Mitt Polygon </b>
                     <button
                       onClick={e => {
                         props.addPolygon(props.polyline);
+                        props.addPolyline([]);
                       }}
                     >
                       Ferdig
                     </button>
+
                     <button
                       onClick={e => {
                         props.addPolygon(null);
-                        props.addPolyline(null);
+                        props.addPolyline(props.polygon);
+                      }}
+                    >
+                      Rediger
+                    </button>
+                    <button
+                      onClick={e => {
+                        props.addPolygon(null);
+                        props.addPolyline([]);
                       }}
                     >
                       Fjern

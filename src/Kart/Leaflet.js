@@ -132,10 +132,13 @@ class Leaflet extends React.Component {
 
   handleClick = e => {
     if (this.state.markerType === "polygon") {
-      let polygon_list = this.props.polyline;
-      const latlng = e.leaflet_event.latlng;
-      polygon_list.push([latlng.lat, latlng.lng]);
-      this.props.addPolyline(polygon_list);
+      if (!this.props.polygon) {
+        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
+        let polygon_list = this.props.polyline;
+        const latlng = e.leaflet_event.latlng;
+        polygon_list.push([latlng.lat, latlng.lng]);
+        this.props.addPolyline(polygon_list);
+      }
     }
 
     if (this.state.markerType !== "klikk") return;
