@@ -18,7 +18,6 @@ export default function url_formatter(formatstring = "", variables) {
   });
 
   var url = parts.join("");
-  console.log(url);
   if (!url) {
     console.warn(
       `Ugyldig url fra formatstring '${formatstring}', variables ${JSON.stringify(
