@@ -111,12 +111,8 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['produktark'] = kartlag.produktark
         if kartlag.geonorgeurl:
             dict[kartlag.id]['geonorgeurl'] = kartlag.geonorgeurl
-        if kartlag.legendeurl:
-            dict[kartlag.id]['legendeurl'] = kartlag.legendeurl
         if kartlag.wmsurl:
             dict[kartlag.id]['wmsurl'] = kartlag.wmsurl
-        if kartlag.wmslayer:
-            dict[kartlag.id]['wmslayer'] = kartlag.wmslayer
         if kartlag.klikkurl:
             dict[kartlag.id]['klikkurl'] = kartlag.klikkurl
         if kartlag.klikktekst:
