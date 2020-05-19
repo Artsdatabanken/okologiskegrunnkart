@@ -34,6 +34,29 @@ class Backend {
     );
   }
 
+  static async hentKnrBnrGnr(knr, gnr, bnr) {
+    let url = "https://ws.geonorge.no/adresser/v1/sok?";
+    if (knr) {
+      url += "kommunenummer=" + knr.replace(/[^0-9]/g, "");
+    }
+    if (gnr) {
+      if (knr) {
+        url += "&";
+      }
+      url += "gardsnummer==" + gnr.replace(/[^0-9]/g, "");
+    }
+    if (bnr) {
+      if (gnr || knr & !gnr) {
+        url += "&";
+      }
+      url += "bruksnummer==" + bnr.replace(/[^0-9]/g, "");
+    }
+
+    url += "&treffPerSide=20&side=0";
+    console.log(url);
+    return this.getPromise(url);
+  }
+
   static async getFeatureInfo(url) {
     const boringkeys = [
       "gml:boundedBy",

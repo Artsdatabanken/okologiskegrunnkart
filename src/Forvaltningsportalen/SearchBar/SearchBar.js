@@ -83,6 +83,28 @@ class SearchBar extends React.Component {
       });
     }
 
+    if (searchTerm.indexOf("knr" || "bnr" || "gnr") !== -1) {
+      console.log(searchTerm);
+      let knr = null;
+      let gnr = null;
+      let bnr = null;
+      let list = searchTerm.split(",");
+
+      for (let i in list) {
+        if (list[i].indexOf("knr") !== -1) {
+          knr = list[i].split("=")[1];
+        } else if (list[i].indexOf("gnr") !== -1) {
+          gnr = list[i].split("=")[1];
+        } else if (list[i].indexOf("bnr") !== -1) {
+          bnr = list[i].split("=")[1];
+        }
+      }
+
+      backend.hentKnrBnrGnr(knr, gnr, bnr).then(resultat => {
+        console.log(resultat);
+      });
+    }
+
     backend.hentSteder(searchTerm).then(resultat => {
       let max_items = 5;
       if (resultpage) {
