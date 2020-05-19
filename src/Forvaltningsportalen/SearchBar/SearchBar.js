@@ -8,7 +8,11 @@ class SearchBar extends React.Component {
     treffliste_sted: null,
     fylker: null,
     kommuner: null,
-    isSearching: false
+    isSearching: false,
+    treffliste_knrgnrbnr: null,
+    treffliste_knr: null,
+    treffliste_gnr: null,
+    treffliste_bnr: null
   };
 
   handleRemoveTreffliste = () => {
@@ -106,32 +110,52 @@ class SearchBar extends React.Component {
         }
       }
 
-      backend.hentKnrBnrGnr(knr, gnr, bnr).then(resultat => {
-        console.log(resultat);
+      backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+        this.setState({
+          treffliste_knrgnrbnr: resultat,
+          treffliste_knr: null,
+          treffliste_gnr: null,
+          treffliste_bnr: null
+        });
       });
     } else if (!isNaN(searchTerm)) {
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
-      backend.hentKnrBnrGnr(searchTerm, null, null).then(resultat => {
-        console.log(resultat);
+
+      // Her burde vi nok heller søke i ssr tenker jeg :)
+      backend.hentKnrGnrBnr(searchTerm, null, null).then(resultat => {
+        this.setState({
+          treffliste_knr: resultat,
+          treffliste_gnr: null,
+          treffliste_bnr: null,
+          treffliste_knrgnrbnr: null
+        });
       });
-      backend.hentKnrBnrGnr(null, searchTerm, null).then(resultat => {
-        console.log(resultat);
+      backend.hentKnrGnrBnr(null, searchTerm, null).then(resultat => {
+        this.setState({
+          treffliste_knr: null,
+          treffliste_gnr: resultat,
+          treffliste_bnr: null,
+          treffliste_knrgnrbnr: null
+        });
       });
-      backend.hentKnrBnrGnr(null, null, searchTerm).then(resultat => {
-        console.log(resultat);
+      backend.hentKnrGnrBnr(null, null, searchTerm).then(resultat => {
+        this.setState({
+          treffliste_knr: null,
+          treffliste_gnr: null,
+          treffliste_bnr: resultat,
+          treffliste_knrgnrbnr: null
+        });
       });
-      console.log("trig");
     } else {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
 
       let numbercheck = searchTerm.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");
+      numbercheck = numbercheck.replace(/;/g, "-");
+      numbercheck = numbercheck.replace(/,/g, "-");
       let checknr = numbercheck.replace(/-/g, "");
-      console.log("running");
-      console.log(checknr);
       if (!isNaN(checknr)) {
         let list = numbercheck.split("-");
-        console.log(list);
         if (list[0]) {
           knr = list[0];
         }
@@ -141,9 +165,13 @@ class SearchBar extends React.Component {
         if (list[2]) {
           bnr = list[2];
         }
-        console.log(knr, gnr, bnr);
-        backend.hentKnrBnrGnr(knr, gnr, bnr).then(resultat => {
-          console.log(resultat);
+        backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+          this.setState({
+            treffliste_knrgnrbnr: resultat,
+            treffliste_knr: null,
+            treffliste_gnr: null,
+            treffliste_bnr: null
+          });
         });
       }
     }
@@ -277,6 +305,10 @@ class SearchBar extends React.Component {
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
             treffliste_sted={this.state.treffliste_sted}
+            treffliste_knr={this.state.treffliste_knr}
+            treffliste_gnr={this.state.treffliste_gnr}
+            treffliste_bnr={this.state.treffliste_bnr}
+            treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
             removeValgtLag={this.props.removeValgtLag}
             addValgtLag={this.props.addValgtLag}
             handleGeoSelection={this.props.handleGeoSelection}

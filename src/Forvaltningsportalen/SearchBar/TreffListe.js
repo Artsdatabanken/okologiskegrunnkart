@@ -3,6 +3,11 @@ import React from "react";
 const TreffListe = props => {
   let treffliste_lokalt = props.treffliste_lokalt;
   let treffliste_sted = props.treffliste_sted;
+  let treffliste_knrgnrbnr = props.treffliste_knrgnrbnr;
+  let treffliste_knr = props.treffliste_knr;
+  let treffliste_gnr = props.treffliste_gnr;
+  let treffliste_bnr = props.treffliste_bnr;
+  let knrgnrbnr = treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser;
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
   let warning = kartlaglength + stedlength > 0;
@@ -35,6 +40,48 @@ const TreffListe = props => {
 
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
+      {knrgnrbnr &&
+        knrgnrbnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+                props.handleGeoSelection(item);
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {item.postnummer} {item.poststed}{" "}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
+              </span>
+            </li>
+          );
+        })}
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";

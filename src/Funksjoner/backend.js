@@ -34,7 +34,7 @@ class Backend {
     );
   }
 
-  static async hentKnrBnrGnr(knr, gnr, bnr) {
+  static async hentKnrGnrBnr(knr, gnr, bnr) {
     let url = "https://ws.geonorge.no/adresser/v1/sok?";
     if (knr) {
       url += "kommunenummer=" + knr.replace(/[^0-9]/g, "");
@@ -53,7 +53,6 @@ class Backend {
     }
 
     url += "&treffPerSide=20&side=0";
-    console.log(url);
     return this.getPromise(url);
   }
 
