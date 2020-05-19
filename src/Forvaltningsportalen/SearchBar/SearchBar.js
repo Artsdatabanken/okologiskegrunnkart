@@ -83,17 +83,19 @@ class SearchBar extends React.Component {
       });
     }
 
+    /* Kommunenummer, gårdsnummer og bruksnummer */
+    let knr = null;
+    let gnr = null;
+    let bnr = null;
+
     if (
       searchTerm.indexOf("knr") !== -1 ||
       searchTerm.indexOf("bnr") !== -1 ||
       searchTerm.indexOf("gnr") !== -1
     ) {
-      console.log(searchTerm);
-      let knr = null;
-      let gnr = null;
-      let bnr = null;
-      let list = searchTerm.split(",");
+      // Hvis alt er skrevet på ønsket format = direkte oppslag
 
+      let list = searchTerm.split(",");
       for (let i in list) {
         if (list[i].indexOf("knr") !== -1) {
           knr = list[i].split("=")[1];
@@ -108,6 +110,7 @@ class SearchBar extends React.Component {
         console.log(resultat);
       });
     } else if (!isNaN(searchTerm)) {
+      // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       backend.hentKnrBnrGnr(searchTerm, null, null).then(resultat => {
         console.log(resultat);
       });
@@ -117,8 +120,32 @@ class SearchBar extends React.Component {
       backend.hentKnrBnrGnr(null, null, searchTerm).then(resultat => {
         console.log(resultat);
       });
+      console.log("trig");
     } else {
-      console.log("isnt number");
+      // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
+
+      let numbercheck = searchTerm.replace(/ /g, "-");
+      numbercheck = numbercheck.replace(/\//g, "-");
+      let checknr = numbercheck.replace(/-/g, "");
+      console.log("running");
+      console.log(checknr);
+      if (!isNaN(checknr)) {
+        let list = numbercheck.split("-");
+        console.log(list);
+        if (list[0]) {
+          knr = list[0];
+        }
+        if (list[1]) {
+          gnr = list[1];
+        }
+        if (list[2]) {
+          bnr = list[2];
+        }
+        console.log(knr, gnr, bnr);
+        backend.hentKnrBnrGnr(knr, gnr, bnr).then(resultat => {
+          console.log(resultat);
+        });
+      }
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
