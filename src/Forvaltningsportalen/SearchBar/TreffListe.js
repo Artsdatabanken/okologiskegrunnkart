@@ -8,6 +8,7 @@ const TreffListe = props => {
   let treffliste_gnr = props.treffliste_gnr;
   let treffliste_bnr = props.treffliste_bnr;
   let knrgnrbnr = treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser;
+  let knr = treffliste_knr && treffliste_knr.adresser[0];
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
   let warning = kartlaglength + stedlength > 0;
@@ -38,8 +39,44 @@ const TreffListe = props => {
     }
   }
 
+  console.log("treffliste_knr", treffliste_knr);
+  console.log("knr", knr);
+
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
+      {knr && (
+        <li
+          id="0"
+          tabIndex="0"
+          className="searchbar_item"
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              //Enterpressed
+              if (!props.isSearchResultPage) {
+                props.removeValgtLag();
+                props.handleRemoveTreffliste();
+                document.getElementById("searchfield").value = "";
+              }
+              props.handleGeoSelection(knr);
+            } else {
+              movefocus(e, 0);
+            }
+          }}
+          onClick={() => {
+            if (!props.isSearchResultPage) {
+              props.removeValgtLag();
+              props.handleRemoveTreffliste();
+              document.getElementById("searchfield").value = "";
+            }
+            props.handleGeoSelection(knr);
+          }}
+        >
+          <span className="itemname">{knr.kommunenavn} </span>
+          <span className="itemtype">Kommune</span>
+          <span className="itemnr">{knr.kommunenummer}</span>
+        </li>
+      )}
+
       {knrgnrbnr &&
         knrgnrbnr.map((item, index) => {
           let itemname = item.adressetekst || "";

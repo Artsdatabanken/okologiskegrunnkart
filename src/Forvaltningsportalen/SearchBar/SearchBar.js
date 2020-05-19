@@ -124,26 +124,20 @@ class SearchBar extends React.Component {
       // Her burde vi nok heller søke i ssr tenker jeg :)
       backend.hentKnrGnrBnr(searchTerm, null, null).then(resultat => {
         this.setState({
-          treffliste_knr: resultat,
-          treffliste_gnr: null,
-          treffliste_bnr: null,
-          treffliste_knrgnrbnr: null
+          treffliste_knrgnrbnr: null,
+          treffliste_knr: resultat
         });
       });
       backend.hentKnrGnrBnr(null, searchTerm, null).then(resultat => {
         this.setState({
-          treffliste_knr: null,
-          treffliste_gnr: resultat,
-          treffliste_bnr: null,
-          treffliste_knrgnrbnr: null
+          treffliste_knrgnrbnr: null,
+          treffliste_gnr: resultat
         });
       });
       backend.hentKnrGnrBnr(null, null, searchTerm).then(resultat => {
         this.setState({
-          treffliste_knr: null,
-          treffliste_gnr: null,
-          treffliste_bnr: resultat,
-          treffliste_knrgnrbnr: null
+          treffliste_knrgnrbnr: null,
+          treffliste_bnr: resultat
         });
       });
     } else {
