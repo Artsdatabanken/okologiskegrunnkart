@@ -43,13 +43,13 @@ class Backend {
       if (knr) {
         url += "&";
       }
-      url += "gardsnummer==" + gnr.replace(/[^0-9]/g, "");
+      url += "gardsnummer=" + gnr.replace(/[^0-9]/g, "");
     }
     if (bnr) {
       if (gnr || knr & !gnr) {
         url += "&";
       }
-      url += "bruksnummer==" + bnr.replace(/[^0-9]/g, "");
+      url += "bruksnummer=" + bnr.replace(/[^0-9]/g, "");
     }
 
     url += "&treffPerSide=20&side=0";

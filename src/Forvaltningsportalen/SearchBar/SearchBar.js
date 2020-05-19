@@ -83,7 +83,11 @@ class SearchBar extends React.Component {
       });
     }
 
-    if (searchTerm.indexOf("knr" || "bnr" || "gnr") !== -1) {
+    if (
+      searchTerm.indexOf("knr") !== -1 ||
+      searchTerm.indexOf("bnr") !== -1 ||
+      searchTerm.indexOf("gnr") !== -1
+    ) {
       console.log(searchTerm);
       let knr = null;
       let gnr = null;
@@ -103,6 +107,18 @@ class SearchBar extends React.Component {
       backend.hentKnrBnrGnr(knr, gnr, bnr).then(resultat => {
         console.log(resultat);
       });
+    } else if (!isNaN(searchTerm)) {
+      backend.hentKnrBnrGnr(searchTerm, null, null).then(resultat => {
+        console.log(resultat);
+      });
+      backend.hentKnrBnrGnr(null, searchTerm, null).then(resultat => {
+        console.log(resultat);
+      });
+      backend.hentKnrBnrGnr(null, null, searchTerm).then(resultat => {
+        console.log(resultat);
+      });
+    } else {
+      console.log("isnt number");
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
