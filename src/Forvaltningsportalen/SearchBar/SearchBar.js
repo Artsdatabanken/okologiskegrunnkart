@@ -2,6 +2,7 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
+import hentSteder from "./Funksjoner/hentSteder";
 class SearchBar extends React.Component {
   state = {
     treffliste_lokalt: null,
@@ -32,7 +33,7 @@ class SearchBar extends React.Component {
       this.setState({ isSearching: false });
       return null;
     }
-    let countermax = 5;
+    let countermax = 50;
     if (resultpage) {
       this.props.setSearchResultPage(true);
       this.setState({ isSearching: false });
