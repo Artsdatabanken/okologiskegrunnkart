@@ -28,6 +28,12 @@ class Backend {
     );
   }
 
+  static async hentKommune(knr) {
+    return this.getPromise(
+      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=t*&fylkeKommuneListe=${knr}&antPerSide=1&epsgKode=4326`
+    );
+  }
+
   static async hentSteder(bokstav) {
     return this.getPromise(
       `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=50&eksakteForst=true&epsgKode=4326`

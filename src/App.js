@@ -81,7 +81,6 @@ class App extends React.Component {
                       addValgtLag={this.addValgtLag}
                       removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      handleRemoveTreffliste={this.handleRemoveTreffliste}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartVelger

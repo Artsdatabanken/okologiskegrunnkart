@@ -19,7 +19,11 @@ class SearchBar extends React.Component {
     this.setState({
       treffliste_sted: null,
       treffliste_lokalt: null,
-      isSearching: false
+      isSearching: false,
+      treffliste_knrgnrbnr: null,
+      treffliste_knr: null,
+      treffliste_gnr: null,
+      treffliste_bnr: null
     });
   };
 
@@ -98,6 +102,7 @@ class SearchBar extends React.Component {
       searchTerm.indexOf("gnr") !== -1
     ) {
       // Hvis alt er skrevet på ønsket format = direkte oppslag
+      console.log("direkte oppslag knr-gnr-bnr");
 
       let list = searchTerm.split(",");
       for (let i in list) {
@@ -119,10 +124,14 @@ class SearchBar extends React.Component {
         });
       });
     } else if (!isNaN(searchTerm)) {
+      console.log("utelukkende ett nummer");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
 
       // Her burde vi nok heller søke i ssr tenker jeg :)
-      backend.hentKnrGnrBnr(searchTerm, null, null).then(resultat => {
+      backend.hentKommune(searchTerm).then(resultat => {
+        if (resultat["stedsnavn"]) {
+          resultat["stedsnavn"]["knr"] = searchTerm;
+        }
         this.setState({
           treffliste_knrgnrbnr: null,
           treffliste_knr: resultat
@@ -141,6 +150,7 @@ class SearchBar extends React.Component {
         });
       });
     } else {
+      console.log("ingen nummersjekk bestod ikke");
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
 
       let numbercheck = searchTerm.replace(/ /g, "-");
@@ -149,6 +159,7 @@ class SearchBar extends React.Component {
       numbercheck = numbercheck.replace(/,/g, "-");
       let checknr = numbercheck.replace(/-/g, "");
       if (!isNaN(checknr)) {
+        console.log("oppryddet streng er en nummerliste");
         let list = numbercheck.split("-");
         if (list[0]) {
           knr = list[0];
@@ -166,6 +177,13 @@ class SearchBar extends React.Component {
             treffliste_gnr: null,
             treffliste_bnr: null
           });
+        });
+      } else {
+        this.setState({
+          treffliste_knrgnrbnr: null,
+          treffliste_knr: null,
+          treffliste_gnr: null,
+          treffliste_bnr: null
         });
       }
     }

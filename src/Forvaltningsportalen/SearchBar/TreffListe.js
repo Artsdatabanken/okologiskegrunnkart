@@ -7,10 +7,11 @@ const TreffListe = props => {
   let treffliste_knr = props.treffliste_knr;
   let treffliste_gnr = props.treffliste_gnr;
   let treffliste_bnr = props.treffliste_bnr;
-  let knrgnrbnr = treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser;
-  let knr = treffliste_knr && treffliste_knr.adresser[0];
-  let bnr = treffliste_bnr && treffliste_bnr.adresser;
-  let gnr = treffliste_gnr && treffliste_gnr.adresser;
+  let knrgnrbnr =
+    (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) || null;
+  let knr = (treffliste_knr && treffliste_knr.stedsnavn) || null;
+  let bnr = (treffliste_bnr && treffliste_bnr.adresser) || null;
+  let gnr = (treffliste_gnr && treffliste_gnr.adresser) || null;
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
   //let warning = kartlaglength + stedlength > 0;
@@ -43,168 +44,6 @@ const TreffListe = props => {
 
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
-      {knr && (
-        <li
-          id="0"
-          tabIndex="0"
-          className="searchbar_item"
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              //Enterpressed
-              if (!props.isSearchResultPage) {
-                props.removeValgtLag();
-                props.handleRemoveTreffliste();
-                document.getElementById("searchfield").value = "";
-              }
-              props.handleGeoSelection(knr);
-            } else {
-              movefocus(e, 0);
-            }
-          }}
-          onClick={() => {
-            if (!props.isSearchResultPage) {
-              props.removeValgtLag();
-              props.handleRemoveTreffliste();
-              document.getElementById("searchfield").value = "";
-            }
-            props.handleGeoSelection(knr);
-          }}
-        >
-          <span className="itemname">{knr.kommunenavn} </span>
-          <span className="itemtype">Kommune</span>
-          <span className="itemnr">{knr.kommunenummer}</span>
-        </li>
-      )}
-
-      {gnr &&
-        gnr.map((item, index) => {
-          let itemname = item.adressetekst || "";
-          let itemnr = index;
-          return (
-            <li
-              id={index}
-              tabIndex="0"
-              className="searchbar_item"
-              key={itemnr}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.removeValgtLag();
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }
-                props.handleGeoSelection(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                {" "}
-                GNR - {item.postnummer} {item.poststed}
-              </span>
-              <span className="itemnr">
-                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}
-              </span>
-            </li>
-          );
-        })}
-
-      {bnr &&
-        bnr.map((item, index) => {
-          let itemname = item.adressetekst || "";
-          let itemnr = index;
-          return (
-            <li
-              id={index}
-              tabIndex="0"
-              className="searchbar_item"
-              key={itemnr}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.removeValgtLag();
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }
-                props.handleGeoSelection(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                BNR - {item.postnummer} {item.poststed}
-              </span>
-              <span className="itemnr">
-                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
-              </span>
-            </li>
-          );
-        })}
-
-      {knrgnrbnr &&
-        knrgnrbnr.map((item, index) => {
-          let itemname = item.adressetekst || "";
-          let itemnr = index;
-          return (
-            <li
-              id={index}
-              tabIndex="0"
-              className="searchbar_item"
-              key={itemnr}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.removeValgtLag();
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }
-                props.handleGeoSelection(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                {item.postnummer} {item.poststed}{" "}
-              </span>
-              <span className="itemnr">
-                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
-              </span>
-            </li>
-          );
-        })}
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";
@@ -292,6 +131,116 @@ const TreffListe = props => {
             </li>
           );
         })}
+      {knr && (
+        <li
+          id="0"
+          tabIndex="0"
+          className="searchbar_item"
+          onClick={() => {
+            if (!props.isSearchResultPage) {
+              props.removeValgtLag();
+              props.handleRemoveTreffliste();
+              document.getElementById("searchfield").value = "";
+            }
+            props.handleGeoSelection(knr);
+          }}
+        >
+          <span className="itemname">{knr.kommunenavn} </span>
+          <span className="itemtype">Kommune</span>
+          <span className="itemnr">
+            <b>{knr.knr}</b>
+          </span>
+        </li>
+      )}
+      {knrgnrbnr &&
+        knrgnrbnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {item.postnummer} {item.poststed}{" "}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
+              </span>
+            </li>
+          );
+        })}
+      {gnr &&
+        gnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {" "}
+                GNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - <b>{item.gardsnummer}</b> -{" "}
+                {item.bruksnummer}
+              </span>
+            </li>
+          );
+        })}
+
+      {bnr &&
+        bnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                BNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} -{" "}
+                <b>{item.bruksnummer}</b>
+              </span>
+            </li>
+          );
+        })}
+
       {/*warning ? (
         <li className="searchbar_item infobutton">
           <span className="itemname">

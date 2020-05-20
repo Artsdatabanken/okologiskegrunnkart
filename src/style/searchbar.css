@@ -143,6 +143,12 @@
   font-size: 8pt;
 }
 
+.itemtype b,
+.itemnr b {
+  color: black;
+  font-weight: 500;
+}
+
 .searchbar_item.infobutton {
   background: #c1c1c1;
 }
