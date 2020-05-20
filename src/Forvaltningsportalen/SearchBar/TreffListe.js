@@ -9,9 +9,11 @@ const TreffListe = props => {
   let treffliste_bnr = props.treffliste_bnr;
   let knrgnrbnr = treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser;
   let knr = treffliste_knr && treffliste_knr.adresser[0];
+  let bnr = treffliste_bnr && treffliste_bnr.adresser;
+  let gnr = treffliste_gnr && treffliste_gnr.adresser;
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let warning = kartlaglength + stedlength > 0;
+  //let warning = kartlaglength + stedlength > 0;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -38,9 +40,6 @@ const TreffListe = props => {
       }
     }
   }
-
-  console.log("treffliste_knr", treffliste_knr);
-  console.log("knr", knr);
 
   return (
     <ul className="treffliste" id="treffliste" tabIndex="0">
@@ -76,6 +75,93 @@ const TreffListe = props => {
           <span className="itemnr">{knr.kommunenummer}</span>
         </li>
       )}
+
+      {gnr &&
+        gnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+                props.handleGeoSelection(item);
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {" "}
+                GNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}
+              </span>
+            </li>
+          );
+        })}
+
+      {bnr &&
+        bnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let itemnr = index;
+          return (
+            <li
+              id={index}
+              tabIndex="0"
+              className="searchbar_item"
+              key={itemnr}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.removeValgtLag();
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  }
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                }
+                props.handleGeoSelection(item);
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                BNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
+              </span>
+            </li>
+          );
+        })}
 
       {knrgnrbnr &&
         knrgnrbnr.map((item, index) => {
@@ -206,7 +292,7 @@ const TreffListe = props => {
             </li>
           );
         })}
-      {warning ? (
+      {/*warning ? (
         <li className="searchbar_item infobutton">
           <span className="itemname">
             {stedlength >= 5 && (
@@ -224,7 +310,7 @@ const TreffListe = props => {
         <li className="searchbar_item infobutton">
           <span className="itemname">Ingen treff</span>
         </li>
-      )}
+      )*/}
     </ul>
   );
 };
