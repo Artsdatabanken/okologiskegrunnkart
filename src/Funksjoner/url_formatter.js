@@ -17,7 +17,16 @@ export default function url_formatter(formatstring = "", variables) {
     return "";
   });
 
-  var url = new URL(parts.join(""));
+  var url = parts.join("");
+  if (!url) {
+    console.warn(
+      `Ugyldig url fra formatstring '${formatstring}', variables ${JSON.stringify(
+        variables
+      )}`
+    );
+    return null;
+  }
+  url = new URL(url);
   const params = new URLSearchParams(url.search);
   if (params.get("request") === "GetFeatureInfo") {
     // Force xy of featureinfo to center of bbox
