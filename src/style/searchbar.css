@@ -73,6 +73,8 @@
   margin-top: -4px;
   padding-left: 0px;
   max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
   border: 1px solid grey;
 }
 

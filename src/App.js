@@ -226,6 +226,7 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
+    console.log("clacketty");
     if (geostring.ssrId) {
       let mincoord = [
         parseFloat(geostring.aust) - 1,
@@ -239,6 +240,24 @@ class App extends React.Component {
         parseFloat(geostring.aust),
         parseFloat(geostring.nord)
       ];
+      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    } else {
+      console.log(geostring.representasjonspunkt);
+      let koordinater = geostring.representasjonspunkt;
+
+      let mincoord = [
+        parseFloat(koordinater.lon) - 1,
+        parseFloat(koordinater.lat) - 1
+      ];
+      let maxcoord = [
+        parseFloat(koordinater.lon) + 1,
+        parseFloat(koordinater.lat) + 1
+      ];
+      let centercoord = [
+        parseFloat(koordinater.lon),
+        parseFloat(koordinater.lat)
+      ];
+
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     }
   };

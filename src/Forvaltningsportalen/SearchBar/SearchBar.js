@@ -2,7 +2,6 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import hentSteder from "./Funksjoner/hentSteder";
 class SearchBar extends React.Component {
   state = {
     treffliste_lokalt: null,
@@ -268,9 +267,13 @@ class SearchBar extends React.Component {
               if (e.key === "ArrowDown") {
                 if (document.getElementsByClassName("searchbar_item")) {
                   if (e.keyCode === 40) {
-                    document
-                      .getElementsByClassName("searchbar_item")[0]
-                      .focus();
+                    if (document.getElementsByClassName("searchbar_item")[0]) {
+                      document
+                        .getElementsByClassName("searchbar_item")[0]
+                        .focus();
+                    } else {
+                      console.log("nothing to scroll to");
+                    }
                   }
                 } else {
                   console.log("nothing to see here");

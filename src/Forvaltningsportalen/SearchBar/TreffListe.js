@@ -22,6 +22,9 @@ const TreffListe = props => {
   let bnrlength = 0;
   let knrlength = 0;
 
+  let totalt_antall_treff_bnr,
+    totalt_antall_treff_gnr = 0;
+
   if (treffliste_knr && treffliste_knr.stedsnavn) {
     knr = treffliste_knr.stedsnavn;
     knrlength = 1;
@@ -30,11 +33,15 @@ const TreffListe = props => {
   if (treffliste_bnr && treffliste_bnr.adresser) {
     bnr = treffliste_bnr.adresser;
     bnrlength = bnr.length;
+    totalt_antall_treff_bnr = treffliste_bnr.metadata.totaltAntallTreff;
+    console.log(totalt_antall_treff_bnr);
   }
 
   if (treffliste_gnr && treffliste_gnr.adresser) {
     gnr = treffliste_gnr.adresser;
     gnrlength = gnr.length;
+    totalt_antall_treff_gnr = treffliste_gnr.metadata.totaltAntallTreff;
+    console.log(totalt_antall_treff_gnr);
   }
 
   if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
@@ -51,7 +58,6 @@ const TreffListe = props => {
     knrlength;
 
   function movefocus(e, index) {
-    console.log("triggered");
     if (e.keyCode === 27) {
       if (props.handleRemoveTreffliste) {
         props.handleRemoveTreffliste();
@@ -67,8 +73,6 @@ const TreffListe = props => {
         console.log(index < total_length - 1);
         if (index < total_length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
-        } else {
-          console.log("not doing stuff");
         }
       }
       // oppoverpil
@@ -84,7 +88,16 @@ const TreffListe = props => {
   }
 
   return (
-    <ul className="treffliste" id="treffliste" tabIndex="0">
+    <ul
+      className="treffliste"
+      id="treffliste"
+      tabIndex="0"
+      onKeyDown={e => {
+        if (e.keyCode === 40 || e.keyCode === 38) {
+          e.preventDefault();
+        }
+      }}
+    >
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";
@@ -191,8 +204,9 @@ const TreffListe = props => {
                   } else {
                     props.setSearchResultPage(false);
                   }
-                  props.removeValgtLag();
-                  props.addValgtLag(item);
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
                 } else {
                   movefocus(e, full_index);
                 }
@@ -202,6 +216,7 @@ const TreffListe = props => {
                   props.removeValgtLag();
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
+                  props.handleGeoSelection(item);
                 }
               }}
             >
@@ -276,8 +291,9 @@ const TreffListe = props => {
                   } else {
                     props.setSearchResultPage(false);
                   }
-                  props.removeValgtLag();
-                  props.addValgtLag(item);
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
                 } else {
                   movefocus(e, full_index);
                 }
@@ -287,6 +303,8 @@ const TreffListe = props => {
                   props.removeValgtLag();
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
+                  console.log("clickety");
+                  props.handleGeoSelection(item);
                 }
               }}
             >
@@ -328,8 +346,9 @@ const TreffListe = props => {
                   } else {
                     props.setSearchResultPage(false);
                   }
-                  props.removeValgtLag();
-                  props.addValgtLag(item);
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
                 } else {
                   movefocus(e, full_index);
                 }
@@ -339,6 +358,7 @@ const TreffListe = props => {
                   props.removeValgtLag();
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
+                  props.handleGeoSelection(item);
                 }
               }}
             >
