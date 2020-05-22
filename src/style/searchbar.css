@@ -72,6 +72,10 @@
   z-index: 2;
   margin-top: -4px;
   padding-left: 0px;
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid grey;
 }
 
 @media only screen and (max-width: 768px) {
@@ -137,6 +141,12 @@
 
 .searchbar_local_item_container span {
   font-size: 8pt;
+}
+
+.itemtype b,
+.itemnr b {
+  color: black;
+  font-weight: 500;
 }
 
 .searchbar_item.infobutton {

@@ -3,9 +3,59 @@ import React from "react";
 const TreffListe = props => {
   let treffliste_lokalt = props.treffliste_lokalt;
   let treffliste_sted = props.treffliste_sted;
+  let treffliste_knrgnrbnr = props.treffliste_knrgnrbnr;
+  let treffliste_knr = props.treffliste_knr;
+  let treffliste_gnr = props.treffliste_gnr;
+  let treffliste_bnr = props.treffliste_bnr;
+
+  // De faktiske listene å iterere - initialisering
+  let knrgnrbnr = null;
+  let knr = null;
+  let bnr = null;
+  let gnr = null;
+
+  // Lengder på ting:
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let warning = kartlaglength + stedlength > 0;
+  let knrgnrbnrlength = 0;
+  let gnrlength = 0;
+  let bnrlength = 0;
+  let knrlength = 0;
+
+  let totalt_antall_treff_bnr,
+    totalt_antall_treff_gnr = 0;
+
+  if (treffliste_knr && treffliste_knr.stedsnavn) {
+    knr = treffliste_knr.stedsnavn;
+    knrlength = 1;
+  }
+
+  if (treffliste_bnr && treffliste_bnr.adresser) {
+    bnr = treffliste_bnr.adresser;
+    bnrlength = bnr.length;
+    totalt_antall_treff_bnr = treffliste_bnr.metadata.totaltAntallTreff;
+    console.log(totalt_antall_treff_bnr);
+  }
+
+  if (treffliste_gnr && treffliste_gnr.adresser) {
+    gnr = treffliste_gnr.adresser;
+    gnrlength = gnr.length;
+    totalt_antall_treff_gnr = treffliste_gnr.metadata.totaltAntallTreff;
+    console.log(totalt_antall_treff_gnr);
+  }
+
+  if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
+    knrgnrbnr = treffliste_knrgnrbnr.adresser;
+    knrgnrbnrlength = knrgnrbnr.length;
+  }
+
+  let total_length =
+    stedlength +
+    kartlaglength +
+    knrgnrbnrlength +
+    gnrlength +
+    bnrlength +
+    knrlength;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -19,7 +69,11 @@ const TreffListe = props => {
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
-        document.getElementsByClassName("searchbar_item")[index + 1].focus();
+        console.log(index, total_length - 1);
+        console.log(index < total_length - 1);
+        if (index < total_length - 1) {
+          document.getElementsByClassName("searchbar_item")[index + 1].focus();
+        }
       }
       // oppoverpil
       if (e.keyCode === 38) {
@@ -34,7 +88,16 @@ const TreffListe = props => {
   }
 
   return (
-    <ul className="treffliste" id="treffliste" tabIndex="0">
+    <ul
+      className="treffliste"
+      id="treffliste"
+      tabIndex="0"
+      onKeyDown={e => {
+        if (e.keyCode === 40 || e.keyCode === 38) {
+          e.preventDefault();
+        }
+      }}
+    >
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
           let itemname = item.stedsnavn || "";
@@ -43,9 +106,9 @@ const TreffListe = props => {
           return (
             <li
               id={index}
+              key={index}
               tabIndex="0"
               className="searchbar_item"
-              key={itemnr}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
                   //Enterpressed
@@ -86,8 +149,8 @@ const TreffListe = props => {
             <li
               tabIndex="0"
               id={full_index}
+              key={full_index}
               className="searchbar_item"
-              key={item.id}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
                   //Enterpressed
@@ -122,25 +185,194 @@ const TreffListe = props => {
             </li>
           );
         })}
-      {warning ? (
-        <li className="searchbar_item infobutton">
-          <span className="itemname">
-            {stedlength >= 5 && (
-              <>
-                Trykk enter/søk for å se flere geografiske treff
-                <br />
-              </>
-            )}
-
-            {kartlaglength >= 5 &&
-              "Trykk enter/søk for å se flere treff i kartlag"}
+      {knrgnrbnr &&
+        knrgnrbnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let full_index = kartlaglength + stedlength + index;
+          return (
+            <li
+              id={full_index}
+              key={full_index}
+              tabIndex="0"
+              className="searchbar_item"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  } else {
+                    props.setSearchResultPage(false);
+                  }
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, full_index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                  props.handleGeoSelection(item);
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {item.postnummer} {item.poststed}{" "}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
+              </span>
+            </li>
+          );
+        })}
+      {knr && (
+        <li
+          id={kartlaglength + stedlength + knrgnrbnrlength + knrlength}
+          key={kartlaglength + stedlength + knrgnrbnrlength + knrlength}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              //Enterpressed
+              if (!props.isSearchResultPage) {
+                props.handleRemoveTreffliste();
+                document.getElementById("searchfield").value = "";
+              } else {
+                props.setSearchResultPage(false);
+              }
+              props.removeValgtLag();
+              //props.addValgtLag(item);
+            } else {
+              movefocus(
+                e,
+                kartlaglength + stedlength + knrgnrbnrlength + knrlength
+              );
+            }
+          }}
+          tabIndex="0"
+          className="searchbar_item"
+          onClick={() => {
+            if (!props.isSearchResultPage) {
+              props.removeValgtLag();
+              props.handleRemoveTreffliste();
+              document.getElementById("searchfield").value = "";
+            }
+            props.handleGeoSelection(knr);
+          }}
+        >
+          <span className="itemname">{knr.kommunenavn} </span>
+          <span className="itemtype">Kommune</span>
+          <span className="itemnr">
+            <b>{knr.knr}</b>
           </span>
         </li>
-      ) : (
-        <li className="searchbar_item infobutton">
-          <span className="itemname">Ingen treff</span>
-        </li>
       )}
+
+      {gnr &&
+        gnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let full_index =
+            kartlaglength + stedlength + knrgnrbnrlength + knrlength + index;
+          return (
+            <li
+              id={full_index}
+              key={full_index}
+              tabIndex="0"
+              className="searchbar_item"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  } else {
+                    props.setSearchResultPage(false);
+                  }
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, full_index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                  console.log("clickety");
+                  props.handleGeoSelection(item);
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                {" "}
+                GNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - <b>{item.gardsnummer}</b> -{" "}
+                {item.bruksnummer}
+              </span>
+            </li>
+          );
+        })}
+
+      {bnr &&
+        bnr.map((item, index) => {
+          let itemname = item.adressetekst || "";
+          let full_index =
+            kartlaglength +
+            stedlength +
+            knrgnrbnrlength +
+            knrlength +
+            gnrlength +
+            index;
+          return (
+            <li
+              id={full_index}
+              key={full_index}
+              tabIndex="0"
+              className="searchbar_item"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  //Enterpressed
+                  if (!props.isSearchResultPage) {
+                    props.handleRemoveTreffliste();
+                    document.getElementById("searchfield").value = "";
+                  } else {
+                    props.setSearchResultPage(false);
+                  }
+                  //props.removeValgtLag();
+                  //props.addValgtLag(item);
+                  props.handleGeoSelection(item);
+                } else {
+                  movefocus(e, full_index);
+                }
+              }}
+              onClick={() => {
+                if (!props.isSearchResultPage) {
+                  props.removeValgtLag();
+                  props.handleRemoveTreffliste();
+                  document.getElementById("searchfield").value = "";
+                  props.handleGeoSelection(item);
+                }
+              }}
+            >
+              <span className="itemname">{itemname} </span>
+              <span className="itemtype">
+                BNR - {item.postnummer} {item.poststed}
+              </span>
+              <span className="itemnr">
+                {item.kommunenummer} - {item.gardsnummer} -{" "}
+                <b>{item.bruksnummer}</b>
+              </span>
+            </li>
+          );
+        })}
     </ul>
   );
 };
