@@ -121,6 +121,16 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.polyline);
   }
 
+  removeStartPoint() {
+    if (!this.starpoint) return;
+    this.map.removeLayer(this.startpoint);
+  }
+
+  removeEndPoint() {
+    if (!this.endpoint) return;
+    this.map.removeLayer(this.endpoint);
+  }
+
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
@@ -242,6 +252,20 @@ class Leaflet extends React.Component {
         this.polyline = L.polyline(polygon_list, {
           color: "red",
           lineJoin: "round"
+        }).addTo(this.map);
+
+        var inactiveIcon = L.divIcon({ className: "inactive_point" });
+        var activeIcon = L.divIcon({ className: "active_point" });
+        this.removeStartPoint();
+
+        this.startpoint = L.marker(polygon_list[0], {
+          icon: inactiveIcon
+        }).addTo(this.map);
+        let length = polygon_list.length - 1 || 0;
+
+        this.removeEndPoint();
+        this.endpoint = L.marker(polygon_list[length], {
+          icon: activeIcon
         }).addTo(this.map);
       }
     } else {
