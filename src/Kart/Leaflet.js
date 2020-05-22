@@ -8,6 +8,9 @@ import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 
+var inactiveIcon = L.divIcon({ className: "inactive_point" });
+var activeIcon = L.divIcon({ className: "active_point" });
+
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -27,7 +30,8 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     showInfobox: false,
-    coordinates_area: null
+    coordinates_area: null,
+    editable: true
   };
 
   componentDidMount() {
@@ -140,8 +144,36 @@ class Leaflet extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
+  clickInactivePoint = e => {
+    if (this.state.editable === true) {
+      console.log("gonna make polygon ");
+      this.props.addPolygon(this.props.polyline);
+      this.props.addPolyline([]);
+      this.removeEndPoint();
+      this.removeStartPoint();
+      this.setState({ editable: false });
+    } else {
+      console.log("gonna make it editable again ");
+      this.setState({ editable: true });
+    }
+    // Så lenge vi ikke har en aktiv og passive state for tegning av linje vil endepkt tegnes.
+  };
+
+  clickActivePoint = e => {
+    console.log("gonna inactivate the polyline ");
+    this.setState({ editable: false });
+    this.removeEndPoint();
+
+    const latlng = e.latlng;
+    this.endpoint = L.marker([latlng.lat, latlng.lng], {
+      icon: inactiveIcon
+    })
+      .on("click", this.clickInactivePoint)
+      .addTo(this.map);
+  };
+
   handleClick = e => {
-    if (this.state.markerType === "polygon") {
+    if (this.state.markerType === "polygon" && this.state.editable === true) {
       if (!this.props.polygon) {
         // Hvis polygon er satt, har personen klikket på ferdig-knappen.
         let polygon_list = this.props.polyline;
@@ -254,19 +286,21 @@ class Leaflet extends React.Component {
           lineJoin: "round"
         }).addTo(this.map);
 
-        var inactiveIcon = L.divIcon({ className: "inactive_point" });
-        var activeIcon = L.divIcon({ className: "active_point" });
         this.removeStartPoint();
 
         this.startpoint = L.marker(polygon_list[0], {
           icon: inactiveIcon
-        }).addTo(this.map);
+        })
+          .on("click", this.clickInactivePoint)
+          .addTo(this.map);
         let length = polygon_list.length - 1 || 0;
 
         this.removeEndPoint();
         this.endpoint = L.marker(polygon_list[length], {
           icon: activeIcon
-        }).addTo(this.map);
+        })
+          .on("click", this.clickActivePoint)
+          .addTo(this.map);
       }
     } else {
       this.removePolyline();
