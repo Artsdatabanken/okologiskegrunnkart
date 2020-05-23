@@ -1,12 +1,12 @@
-function drawAll() {
+function drawAll({ kode, order }) {
   return {
-    google: {
+    [kode]: {
       draw: {
-        googleshade: {
-          order: 0
+        [kode]: {
+          order: order
         }
       },
-      data: { source: "bakgrunnskart" }
+      data: { source: kode }
     }
   };
 }
@@ -19,19 +19,12 @@ function lagSource({ url, zoom }, drawArgs) {
   };
 }
 
-function lagStyle(format) {
+function lagStyle(format, { kode, blendmode }) {
   return {
-    name: "googleshade",
+    name: kode,
     value: {
       base: "raster",
-      shaders: {
-        blocks: {
-          color: `
-            color.rgb = sampleRaster(0).rgb;
-            color.a=1.0;
-    `
-        }
-      }
+      blend: blendmode
     }
   };
 }

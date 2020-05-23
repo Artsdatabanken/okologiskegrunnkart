@@ -12,9 +12,19 @@ export default function byggLag(lag, config, token) {
     bbox: lag.bbox,
     aktivtFormat: lag.kart.aktivtFormat,
     format: lag.kart.format,
-    opacity: lag.opacity || "1",
     token,
     blendmode: lag.blendmode || "overlay"
+  };
+
+  lagTegner(drawArgs, config);
+  drawArgs = {
+    kode: "egk",
+    bbox: lag.bbox,
+    aktivtFormat: "egk",
+    format: lag.kart.format,
+    order: 0,
+    token,
+    blendmode: "multiply"
   };
 
   lagTegner(drawArgs, config);
