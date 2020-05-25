@@ -126,7 +126,7 @@ class Leaflet extends React.Component {
   }
 
   removeStartPoint() {
-    if (!this.starpoint) return;
+    if (!this.startpoint) return;
     this.map.removeLayer(this.startpoint);
   }
 
@@ -146,21 +146,33 @@ class Leaflet extends React.Component {
 
   clickInactivePoint = e => {
     if (this.state.editable === true) {
-      console.log("gonna make polygon ");
+      console.log("Connecting dots, making polygon.");
+      console.log("Midlertidig uredigerbar...");
       this.props.addPolygon(this.props.polyline);
       this.props.addPolyline([]);
       this.removeEndPoint();
       this.removeStartPoint();
       this.setState({ editable: false });
     } else {
-      console.log("gonna make it editable again ");
+      console.log("CLICKED THE INACTIVE POINT");
+      if (
+        e.latlng.lat === this.props.polyline[0][0] &&
+        e.latlng.lng === this.props.polyline[0][1]
+      ) {
+        let polygon_list = this.props.polyline.reverse();
+        this.props.addPolyline(polygon_list);
+      } else {
+        console.log("trykket på endpoint");
+      }
       this.setState({ editable: true });
     }
     // Så lenge vi ikke har en aktiv og passive state for tegning av linje vil endepkt tegnes.
   };
 
   clickActivePoint = e => {
-    console.log("gonna inactivate the polyline ");
+    console.log("CLICKED THE ACTIVE POINT");
+    console.log("Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!");
+
     this.setState({ editable: false });
     this.removeEndPoint();
 
@@ -272,27 +284,31 @@ class Leaflet extends React.Component {
       this.removePolyline();
       if (this.props.showPolygon) {
         let polygon_list = this.props.polyline;
+
         if (polygon_list.length < 2) {
+          console.log("forstørrer punkt siden vi ikke har punkt");
           // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
           if (polygon_list[0]) {
+            console.log("forutsatt at vi har punkt");
             polygon_list.push([
               polygon_list[0][0] + 0.0001,
               polygon_list[0][1] + 0.0001
             ]);
           }
         }
+
         this.polyline = L.polyline(polygon_list, {
           color: "red",
           lineJoin: "round"
         }).addTo(this.map);
 
         this.removeStartPoint();
-
         this.startpoint = L.marker(polygon_list[0], {
           icon: inactiveIcon
         })
           .on("click", this.clickInactivePoint)
           .addTo(this.map);
+
         let length = polygon_list.length - 1 || 0;
 
         this.removeEndPoint();
