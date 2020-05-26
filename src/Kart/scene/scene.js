@@ -11,7 +11,7 @@ function createScene(props) {
     },
     layers: {},
     styles: createStyles(),
-    scene: { background: {} }
+    scene: { background: { color: [1, 1, 1, 1] } }
   };
   updateScene(config, props);
   return config;
@@ -20,6 +20,7 @@ function createScene(props) {
 function updateScene(config, props) {
   if (!config) return; // not yet loaded
   lagAktiveLag({ bk: props.bakgrunnskart }, config, props.token);
+
   return config;
 }
 

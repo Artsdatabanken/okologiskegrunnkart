@@ -13,6 +13,7 @@ export default {
   raster_ruter: ruter, // Arter
   osm_lys: openStreetMap,
   osm_mørk: openStreetMap,
+  egk: raster_tiles,
   gebco: raster_tiles,
   norgeibilder: raster_tiles,
   topo4: raster_tiles,

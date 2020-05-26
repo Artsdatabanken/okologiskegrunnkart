@@ -15,5 +15,6 @@ export default function lagTegner(drawArgs, config) {
     config.styles[style.name] = style.value;
   }
   config.sources[drawArgs.kode] = source;
-  config.layers = Object.assign(config.layers, renderer.drawAll(drawArgs));
+  const layer = renderer.drawAll(drawArgs);
+  config.layers = Object.assign(config.layers, layer);
 }
