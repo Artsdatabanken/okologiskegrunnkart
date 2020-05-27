@@ -17,7 +17,6 @@ const TreffListe = props => {
   // Lengder på ting:
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let knrgnrbnrlength = 0;
   let gnrlength = 0;
   let knrlength = 0;
 
@@ -52,11 +51,14 @@ const TreffListe = props => {
 
   if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
     knrgnrbnr = treffliste_knrgnrbnr.adresser;
-    knrgnrbnrlength = knrgnrbnr.length;
+    for (let i in knrgnrbnr) {
+      knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
+    }
+    gnr = gnr.concat(knrgnrbnr);
+    gnrlength = gnr.length;
   }
 
-  let total_length =
-    stedlength + kartlaglength + knrgnrbnrlength + gnrlength + knrlength;
+  let total_length = stedlength + kartlaglength + gnrlength + knrlength;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -186,55 +188,10 @@ const TreffListe = props => {
             </li>
           );
         })}
-      {knrgnrbnr &&
-        knrgnrbnr.map((item, index) => {
-          let itemname = item.adressetekst || "";
-          let full_index = kartlaglength + stedlength + index;
-          return (
-            <li
-              id={full_index}
-              key={full_index}
-              tabIndex="0"
-              className="searchbar_item"
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  } else {
-                    props.setSearchResultPage(false);
-                  }
-                  //props.removeValgtLag();
-                  //props.addValgtLag(item);
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, full_index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                  props.handleGeoSelection(item);
-                }
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                {item.postnummer} {item.poststed}{" "}
-              </span>
-              <span className="itemnr">
-                {item.kommunenummer} - {item.gardsnummer} - {item.bruksnummer}{" "}
-              </span>
-            </li>
-          );
-        })}
       {knr && (
         <li
-          id={kartlaglength + stedlength + knrgnrbnrlength + knrlength}
-          key={kartlaglength + stedlength + knrgnrbnrlength + knrlength}
+          id={kartlaglength + stedlength + knrlength}
+          key={kartlaglength + stedlength + knrlength}
           onKeyDown={e => {
             if (e.keyCode === 13) {
               //Enterpressed
@@ -247,10 +204,7 @@ const TreffListe = props => {
               props.removeValgtLag();
               //props.addValgtLag(item);
             } else {
-              movefocus(
-                e,
-                kartlaglength + stedlength + knrgnrbnrlength + knrlength
-              );
+              movefocus(e, kartlaglength + stedlength + knrlength);
             }
           }}
           tabIndex="0"
@@ -276,8 +230,7 @@ const TreffListe = props => {
         gnr.map((item, index) => {
           let itemname = item.adressetekst || "";
           let trefftype = item.trefftype || "annet treff";
-          let full_index =
-            kartlaglength + stedlength + knrgnrbnrlength + knrlength + index;
+          let full_index = kartlaglength + stedlength + knrlength + index;
           return (
             <li
               id={full_index}
