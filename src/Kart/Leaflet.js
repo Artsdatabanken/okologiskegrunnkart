@@ -10,7 +10,7 @@ delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
 class Leaflet extends React.Component {
@@ -25,31 +25,34 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     showInfobox: false,
-    coordinates_area: null
+    coordinates_area: null,
   };
 
   componentDidMount() {
     const options = {
       zoomControl: false,
       inertia: true,
-      minZoom: 3
+      minZoom: 3,
     };
 
     let map = L.map(this.mapEl, options);
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
-    map.on("drag", e => {
+    map.on("click", (e) => {
+      this.handleClick(e);
+    });
+    map.on("drag", (e) => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
     });
-    map.on("zoomend", e => {
+    map.on("zoomend", (e) => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
     });
-    map.on("resize", e => {
+    map.on("resize", (e) => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
       }
@@ -64,7 +67,7 @@ class Leaflet extends React.Component {
     this.icon = L.icon({
       iconUrl: "/marker/pdoc.png",
       iconSize: [38, 51],
-      iconAnchor: [19, 41]
+      iconAnchor: [19, 41],
     });
   }
   erEndret(prevProps) {
@@ -90,7 +93,7 @@ class Leaflet extends React.Component {
   removeMarker() {
     this.setState({
       sted: null,
-      data: null
+      data: null,
     });
     if (!this.marker) return;
     this.map.removeLayer(this.marker);
@@ -111,16 +114,16 @@ class Leaflet extends React.Component {
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
   };
 
-  handleInfobox = bool => {
+  handleInfobox = (bool) => {
     this.setState({ showInfobox: bool });
   };
 
-  handleClick = e => {
+  handleClick = (e) => {
     if (this.state.markerType === "polygon") {
       if (!this.props.polygon) {
         // Hvis polygon er satt, har personen klikket på ferdig-knappen.
         let polygon_list = this.props.polyline;
-        const latlng = e.leaflet_event.latlng;
+        const latlng = e.latlng;
         polygon_list.push([latlng.lat, latlng.lng]);
         this.props.addPolyline(polygon_list);
       }
@@ -128,12 +131,12 @@ class Leaflet extends React.Component {
 
     if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
-    const latlng = e.leaflet_event.latlng;
+    const latlng = e.latlng;
     this.removeMarker();
     this.setState({
       showInfobox: true,
       coordinates_area: latlng,
-      layerevent: e.leaflet_event.layerPoint
+      layerevent: e.layerPoint,
     });
 
     let urlparams = (this.props.path || "").split("?");
@@ -145,7 +148,7 @@ class Leaflet extends React.Component {
     }
 
     this.marker = L.marker([latlng.lat, latlng.lng], {
-      icon: this.icon
+      icon: this.icon,
     }).addTo(this.map);
     this.props.history.push(
       "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
@@ -163,7 +166,7 @@ class Leaflet extends React.Component {
     const config = this.props.bakgrunnskart;
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
-        gkt: this.props.token
+        gkt: this.props.token,
       }).addTo(this.map);
     if (!this.bakgrunnskart)
       this.bakgrunnskart = L.tileLayer("", { gkt: this.props.token }).addTo(
@@ -173,11 +176,11 @@ class Leaflet extends React.Component {
   }
 
   syncWmsLayers(aktive) {
-    Object.keys(aktive).forEach(akey => {
+    Object.keys(aktive).forEach((akey) => {
       const al = aktive[akey];
       const layerName = "wms_" + akey;
       if (al.underlag) {
-        Object.keys(al.underlag).forEach(underlagsnøkkel => {
+        Object.keys(al.underlag).forEach((underlagsnøkkel) => {
           const nøkkel = layerName + ":" + underlagsnøkkel;
           this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
         });
@@ -196,7 +199,7 @@ class Leaflet extends React.Component {
           transparent: true,
           crs: L.CRS[srs],
           format: "image/png",
-          opacity: underlag.opacity
+          opacity: underlag.opacity,
         });
         this.wms[layerName] = layer;
         this.map.addLayer(layer);
@@ -231,13 +234,13 @@ class Leaflet extends React.Component {
           if (polygon_list[0]) {
             polygon_list.push([
               polygon_list[0][0] + 0.0001,
-              polygon_list[0][1] + 0.0001
+              polygon_list[0][1] + 0.0001,
             ]);
           }
         }
         this.polyline = L.polyline(polygon_list, {
           color: "red",
-          lineJoin: "round"
+          lineJoin: "round",
         }).addTo(this.map);
       }
     } else {
@@ -248,7 +251,7 @@ class Leaflet extends React.Component {
       if (this.props.showPolygon) {
         this.polygon = L.polygon(this.props.polygon, {
           color: "blue",
-          lineJoin: "round"
+          lineJoin: "round",
         }).addTo(this.map);
       }
     } else {
@@ -259,22 +262,22 @@ class Leaflet extends React.Component {
       this.marker = L.marker(
         [
           this.props.zoomcoordinates.centercoord[1],
-          this.props.zoomcoordinates.centercoord[0]
+          this.props.zoomcoordinates.centercoord[0],
         ],
         {
-          icon: this.icon
+          icon: this.icon,
         }
       ).addTo(this.map);
 
       let new_bounds = [
         [
           this.props.zoomcoordinates.maxcoord[1],
-          this.props.zoomcoordinates.maxcoord[0]
+          this.props.zoomcoordinates.maxcoord[0],
         ],
         [
           this.props.zoomcoordinates.mincoord[1],
-          this.props.zoomcoordinates.mincoord[0]
-        ]
+          this.props.zoomcoordinates.mincoord[0],
+        ],
       ];
       this.map.fitBounds(new_bounds);
       this.props.handleRemoveZoomCoordinates();
@@ -298,9 +301,9 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
             alt="Marker tool"
-            onClick={e => {
+            onClick={(e) => {
               this.setState({
-                markerType: "klikk"
+                markerType: "klikk",
               });
             }}
           >
@@ -310,9 +313,9 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"
-            onClick={e => {
+            onClick={(e) => {
               this.setState({
-                markerType: "polygon"
+                markerType: "polygon",
               });
             }}
           >
@@ -322,7 +325,7 @@ class Leaflet extends React.Component {
 
         <div
           style={{ zIndex: -100, cursor: "default" }}
-          ref={ref => {
+          ref={(ref) => {
             this.mapEl = ref;
           }}
         />
