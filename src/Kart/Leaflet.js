@@ -43,6 +43,9 @@ class Leaflet extends React.Component {
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
+    map.on("click", e => {
+      this.handleClick(e);
+    });
     map.on("drag", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
@@ -174,7 +177,7 @@ class Leaflet extends React.Component {
       if (!this.props.polygon) {
         // Hvis polygon er satt, har personen klikket på ferdig-knappen.
         let polygon_list = this.props.polyline;
-        const latlng = e.leaflet_event.latlng;
+        const latlng = e.latlng;
         polygon_list.push([latlng.lat, latlng.lng]);
         this.props.addPolyline(polygon_list);
       }
@@ -182,12 +185,12 @@ class Leaflet extends React.Component {
 
     if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
-    const latlng = e.leaflet_event.latlng;
+    const latlng = e.latlng;
     this.removeMarker();
     this.setState({
       showInfobox: true,
       coordinates_area: latlng,
-      layerevent: e.leaflet_event.layerPoint
+      layerevent: e.layerPoint
     });
 
     let urlparams = (this.props.path || "").split("?");
