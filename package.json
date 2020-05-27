@@ -31,8 +31,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-use": "^12.10.0",
-    "recompose": "^0.30.0",
-    "tangram": "^0.19.1"
+    "recompose": "^0.30.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
