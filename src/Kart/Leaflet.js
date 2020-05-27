@@ -2,8 +2,6 @@ import L from "leaflet";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-//import Tangram from "tangram";
-//import { createScene, updateScene } from "./scene/scene";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
@@ -63,21 +61,6 @@ class Leaflet extends React.Component {
     L.control.zoom({ position: "topright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
-    /* TANGRAM
-    let def = {
-      scene: createScene(this.props),
-      events: {
-        hover: function (selection) { },
-        click: this.handleClick,
-        drag: this.handleDrag
-      },
-      attribution: '<a href="https://artsdatabanken.no">Artsdatabanken</a>'
-    };
-
-    this.layer = Tangram.leafletLayer(def);
-    this.map.addLayer(this.layer);
-    this.layer.loadScene(this.layer.scene)
-    */
     this.icon = L.icon({
       iconUrl: "/marker/pdoc.png",
       iconSize: [38, 51],
@@ -172,10 +155,6 @@ class Leaflet extends React.Component {
 
   updateMap(props) {
     if (!this.props.token) return; // not yet loaded
-    // TANGRAM:if (!this.layer.scene.config) return; // not yet loaded
-    // TANGRAM: updateScene(this.layer.scene.config, props);
-    // TANGRAM: this.layer.scene.updateConfig({ rebuild: true });
-
     this.updateBaseMap();
     this.syncWmsLayers(props.aktiveLag);
   }
