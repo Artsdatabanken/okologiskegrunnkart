@@ -17,14 +17,14 @@ const TreffListe = props => {
   // Lengder på ting:
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
-  let gnrlength = 0;
-  let knrlength = 0;
-
-  //let totalt_antall_treff_gnr = 0;
+  let list_items = [];
+  let list_length = 0;
 
   if (treffliste_knr && treffliste_knr.stedsnavn) {
     knr = treffliste_knr.stedsnavn;
-    knrlength = 1;
+    knr["trefftype"] = "Kommune";
+    list_items = list_items.concat(knr);
+    list_length = list_items.length;
   }
 
   if (treffliste_gnr && treffliste_gnr.adresser) {
@@ -32,12 +32,8 @@ const TreffListe = props => {
     for (let i in gnr) {
       gnr[i]["trefftype"] = "GNR";
     }
-    gnrlength = gnr.length;
-    //  totalt_antall_treff_gnr = treffliste_gnr.metadata.totaltAntallTreff;
-  } else {
-    gnr = [];
-    gnrlength = 0;
-    //  totalt_antall_treff_gnr = 0;
+    list_items = list_items.concat(gnr);
+    list_length = list_items.length;
   }
 
   if (treffliste_bnr && treffliste_bnr.adresser) {
@@ -45,8 +41,8 @@ const TreffListe = props => {
     for (let i in bnr) {
       bnr[i]["trefftype"] = "BNR";
     }
-    gnr = gnr.concat(bnr);
-    gnrlength = gnr.length;
+    list_items = list_items.concat(bnr);
+    list_length = list_items.length;
   }
 
   if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
@@ -54,11 +50,11 @@ const TreffListe = props => {
     for (let i in knrgnrbnr) {
       knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
     }
-    gnr = gnr.concat(knrgnrbnr);
-    gnrlength = gnr.length;
+    list_items = list_items.concat(knrgnrbnr);
+    list_length = list_items.length;
   }
 
-  let total_length = stedlength + kartlaglength + gnrlength + knrlength;
+  let total_length = stedlength + kartlaglength + list_length;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -72,8 +68,8 @@ const TreffListe = props => {
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
-        console.log(index, total_length - 1);
-        console.log(index < total_length - 1);
+        //console.log(index, total_length - 1);
+        //console.log(index < total_length - 1);
         if (index < total_length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
         }
@@ -188,49 +184,17 @@ const TreffListe = props => {
             </li>
           );
         })}
-      {knr && (
-        <li
-          id={kartlaglength + stedlength + knrlength}
-          key={kartlaglength + stedlength + knrlength}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              //Enterpressed
-              if (!props.isSearchResultPage) {
-                props.handleRemoveTreffliste();
-                document.getElementById("searchfield").value = "";
-              } else {
-                props.setSearchResultPage(false);
-              }
-              props.removeValgtLag();
-              //props.addValgtLag(item);
-            } else {
-              movefocus(e, kartlaglength + stedlength + knrlength);
-            }
-          }}
-          tabIndex="0"
-          className="searchbar_item"
-          onClick={() => {
-            if (!props.isSearchResultPage) {
-              props.removeValgtLag();
-              props.handleRemoveTreffliste();
-              document.getElementById("searchfield").value = "";
-            }
-            props.handleGeoSelection(knr);
-          }}
-        >
-          <span className="itemname">{knr.kommunenavn} </span>
-          <span className="itemtype">Kommune</span>
-          <span className="itemnr">
-            <b>{knr.knr}</b>
-          </span>
-        </li>
-      )}
 
-      {gnr &&
-        gnr.map((item, index) => {
+      {list_items &&
+        list_items.map((item, index) => {
           let itemname = item.adressetekst || "";
+          if (item.trefftype === "Kommune") {
+            console.log(item);
+            itemname = item.kommunenavn || "finner ikke kommunenavnet??";
+          }
           let trefftype = item.trefftype || "annet treff";
-          let full_index = kartlaglength + stedlength + knrlength + index;
+          let full_index = kartlaglength + stedlength + index;
+
           return (
             <li
               id={full_index}
@@ -256,31 +220,41 @@ const TreffListe = props => {
                   props.removeValgtLag();
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
-                  props.handleGeoSelection(item);
+                  if (trefftype === "Kommune") {
+                    props.handleGeoSelection(knr);
+                  } else {
+                    props.handleGeoSelection(item);
+                  }
                 }
               }}
             >
               <span className="itemname">{itemname} </span>
               <span className="itemtype">
-                {trefftype} - {item.postnummer} {item.poststed}
+                {trefftype} {item.postnummer} {item.poststed}
               </span>
               <span className="itemnr">
-                {trefftype === "KNR" ? (
-                  <b>{item.kommunenummer}</b>
+                {trefftype === "Kommune" ? (
+                  <b>{knr.knr}</b>
                 ) : (
-                  <>{item.kommunenummer}</>
-                )}
-                -
-                {trefftype === "GNR" ? (
-                  <b>{item.gardsnummer}</b>
-                ) : (
-                  <>{item.gardsnummer}</>
-                )}
-                -
-                {trefftype === "BNR" ? (
-                  <b>{item.bruksnummer}</b>
-                ) : (
-                  <>{item.bruksnummer}</>
+                  <>
+                    {trefftype === "KNR" ? (
+                      <b>{item.kommunenummer}</b>
+                    ) : (
+                      <>{item.kommunenummer}</>
+                    )}
+                    -
+                    {trefftype === "GNR" ? (
+                      <b>{item.gardsnummer}</b>
+                    ) : (
+                      <>{item.gardsnummer}</>
+                    )}
+                    -
+                    {trefftype === "BNR" ? (
+                      <b>{item.bruksnummer}</b>
+                    ) : (
+                      <>{item.bruksnummer}</>
+                    )}
+                  </>
                 )}
               </span>
             </li>
