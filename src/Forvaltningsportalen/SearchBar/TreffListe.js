@@ -27,6 +27,23 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
+  if (treffliste_sted) {
+    for (let i in treffliste_sted) {
+      treffliste_sted[i]["trefftype"] = "Stedsnavn";
+    }
+    list_items = list_items.concat(treffliste_sted);
+    list_length = list_items.length;
+  }
+
+  if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
+    knrgnrbnr = treffliste_knrgnrbnr.adresser;
+    for (let i in knrgnrbnr) {
+      knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
+    }
+    list_items = list_items.concat(knrgnrbnr);
+    list_length = list_items.length;
+  }
+
   if (treffliste_knr && treffliste_knr.stedsnavn) {
     knr = treffliste_knr.stedsnavn;
     knr["trefftype"] = "Kommune";
@@ -49,15 +66,6 @@ const TreffListe = props => {
       bnr[i]["trefftype"] = "BNR";
     }
     list_items = list_items.concat(bnr);
-    list_length = list_items.length;
-  }
-
-  if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
-    knrgnrbnr = treffliste_knrgnrbnr.adresser;
-    for (let i in knrgnrbnr) {
-      knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
-    }
-    list_items = list_items.concat(knrgnrbnr);
     list_length = list_items.length;
   }
 
@@ -104,63 +112,29 @@ const TreffListe = props => {
         }
       }}
     >
-      {stedlength > 0 &&
-        treffliste_sted.map((item, index) => {
-          console.log(item);
-          let itemname = item.stedsnavn || "";
-          let itemtype = item.navnetype || "";
-          let itemnr = item.ssrId || "";
-          return (
-            <li
-              id={index}
-              key={index}
-              tabIndex="0"
-              className="searchbar_item"
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.removeValgtLag();
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  }
-                  props.handleGeoSelection(item);
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                }
-                props.handleGeoSelection(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">{itemtype} </span>
-              <span className="itemnr">{itemnr} </span>
-            </li>
-          );
-        })}
-
       {list_items &&
         list_items.map((item, index) => {
           let itemname = item.adressetekst || "";
           let trefftype = item.trefftype || "annet treff";
-          //let tema = item.tema || null;
+          let itemtype = item.navnetype || "";
+          let itemnr = "";
           if (item.trefftype === "Kommune") {
-            itemname = item.kommunenavn || "finner ikke kommunenavnet??";
+            itemname = item.kommunenavn || "finner ikke kommunenavnet";
+            itemnr = knr.knr || "";
           } else if (item.trefftype === "Kartlag") {
             itemname = item.tittel;
+            itemnr = item.tema || "Kartlag";
+          } else if (item.trefftype === "Stedsnavn") {
+            itemname = item.stedsnavn || "finner ikke stedsnavn";
+            itemtype = item.navnetype || "";
+            itemnr = item.ssrId || "";
           }
           let full_index = stedlength + index;
 
           return (
             <li
-              id={full_index}
-              key={full_index}
+              id={index}
+              key={index}
               tabIndex="0"
               className="searchbar_item"
               onKeyDown={e => {
@@ -205,11 +179,20 @@ const TreffListe = props => {
             >
               <span className="itemname">{itemname} </span>
               <span className="itemtype">
-                {trefftype} {item.postnummer} {item.poststed}
+                {trefftype}{" "}
+                {trefftype === "Stedsnavn" ? (
+                  <>{itemtype} </>
+                ) : (
+                  <>
+                    {item.postnummer} {item.poststed}
+                  </>
+                )}
               </span>
               <span className="itemnr">
-                {trefftype === "Kommune" ? (
-                  <b>{knr.knr}</b>
+                {trefftype === "Kommune" ||
+                trefftype === "Stedsnavn" ||
+                trefftype === "Kartlag" ? (
+                  <>{itemnr}</>
                 ) : (
                   <>
                     {trefftype === "KNR" ? (
