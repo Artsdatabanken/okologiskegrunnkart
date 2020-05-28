@@ -129,7 +129,7 @@ class SearchBar extends React.Component {
 
       // Her burde vi nok heller søke i ssr tenker jeg :)
       backend.hentKommune(searchTerm).then(resultat => {
-        if (resultat["stedsnavn"]) {
+        if (resultat && resultat["stedsnavn"]) {
           resultat["stedsnavn"]["knr"] = searchTerm;
         }
         this.setState({

@@ -1,61 +1,39 @@
 import React from "react";
 
 const TreffListe = props => {
-  // Lengder på ting:
   let list_items = [];
-  let list_length = 0;
 
-  if (props.treffliste_lokalt) {
-    let treffliste_lokalt = props.treffliste_lokalt;
-    for (let i in treffliste_lokalt) {
-      treffliste_lokalt[i]["trefftype"] = "Kartlag";
+  function addToList(inputlist, type, criteria) {
+    if (inputlist) {
+      let list_to_update = inputlist;
+      if (criteria) {
+        if (inputlist[criteria]) {
+          list_to_update = inputlist[criteria];
+        } else {
+          return list_items;
+        }
+      }
+
+      for (let i in list_to_update) {
+        list_to_update[i]["trefftype"] = type;
+      }
+      return list_items.concat(list_to_update);
     }
-    list_items = list_items.concat(treffliste_lokalt);
-    list_length = list_items.length;
+    return list_items;
   }
 
-  if (props.treffliste_sted) {
-    let treffliste_sted = props.treffliste_sted;
-    for (let i in treffliste_sted) {
-      treffliste_sted[i]["trefftype"] = "Stedsnavn";
-    }
-    list_items = list_items.concat(treffliste_sted);
-    list_length = list_items.length;
-  }
-
-  if (props.treffliste_knrgnrbnr && props.treffliste_knrgnrbnr.adresser) {
-    let knrgnrbnr = props.treffliste_knrgnrbnr.adresser;
-    for (let i in knrgnrbnr) {
-      knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
-    }
-    list_items = list_items.concat(knrgnrbnr);
-    list_length = list_items.length;
-  }
+  list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
+  list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
+  list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
 
   if (props.treffliste_knr && props.treffliste_knr.stedsnavn) {
     let knr = props.treffliste_knr.stedsnavn;
     knr["trefftype"] = "Kommune";
     list_items = list_items.concat(knr);
-    list_length = list_items.length;
   }
 
-  if (props.treffliste_gnr && props.treffliste_gnr.adresser) {
-    let gnr = props.treffliste_gnr.adresser;
-    for (let i in gnr) {
-      gnr[i]["trefftype"] = "GNR";
-    }
-    list_items = list_items.concat(gnr);
-    list_length = list_items.length;
-  }
-
-  if (props.treffliste_bnr && props.treffliste_bnr.adresser) {
-    let bnr = props.treffliste_bnr.adresser;
-    for (let i in bnr) {
-      bnr[i]["trefftype"] = "BNR";
-    }
-    list_items = list_items.concat(bnr);
-    list_length = list_items.length;
-  }
+  list_items = addToList(props.treffliste_gnr, "GNR", "adresser");
+  list_items = addToList(props.treffliste_bnr, "BNR", "adresser");
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -71,7 +49,7 @@ const TreffListe = props => {
       if (e.keyCode === 40) {
         //console.log(index, list_length - 1);
         //console.log(index < list_length - 1);
-        if (index < list_length - 1) {
+        if (index < list_items.length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
         }
       }
