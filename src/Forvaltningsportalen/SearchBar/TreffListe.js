@@ -16,9 +16,16 @@ const TreffListe = props => {
 
   // Lengder på ting:
   let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
-  let kartlaglength = (treffliste_lokalt && treffliste_lokalt.length) || 0;
   let list_items = [];
   let list_length = 0;
+
+  if (treffliste_lokalt) {
+    for (let i in treffliste_lokalt) {
+      treffliste_lokalt[i]["trefftype"] = "Kartlag";
+    }
+    list_items = list_items.concat(treffliste_lokalt);
+    list_length = list_items.length;
+  }
 
   if (treffliste_knr && treffliste_knr.stedsnavn) {
     knr = treffliste_knr.stedsnavn;
@@ -54,7 +61,7 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
-  let total_length = stedlength + kartlaglength + list_length;
+  let total_length = stedlength + list_length;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -99,6 +106,7 @@ const TreffListe = props => {
     >
       {stedlength > 0 &&
         treffliste_sted.map((item, index) => {
+          console.log(item);
           let itemname = item.stedsnavn || "";
           let itemtype = item.navnetype || "";
           let itemnr = item.ssrId || "";
@@ -137,63 +145,17 @@ const TreffListe = props => {
           );
         })}
 
-      {kartlaglength > 0 &&
-        treffliste_lokalt.map((item, index) => {
-          let full_index = index + stedlength;
-          let itemname = item.tittel;
-          let itemtype = "Kartlag";
-          let itemowner = item.dataeier;
-          let tema = item.tema || "";
-          return (
-            <li
-              tabIndex="0"
-              id={full_index}
-              key={full_index}
-              className="searchbar_item"
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  } else {
-                    props.setSearchResultPage(false);
-                  }
-                  props.removeValgtLag();
-                  props.addValgtLag(item);
-                } else {
-                  movefocus(e, full_index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                } else {
-                  props.setSearchResultPage(false);
-                }
-                props.removeValgtLag();
-                props.addValgtLag(item);
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                {itemtype}, {itemowner}{" "}
-              </span>
-              <span className="itemnr">{tema}</span>
-            </li>
-          );
-        })}
-
       {list_items &&
         list_items.map((item, index) => {
           let itemname = item.adressetekst || "";
-          if (item.trefftype === "Kommune") {
-            console.log(item);
-            itemname = item.kommunenavn || "finner ikke kommunenavnet??";
-          }
           let trefftype = item.trefftype || "annet treff";
-          let full_index = kartlaglength + stedlength + index;
+          //let tema = item.tema || null;
+          if (item.trefftype === "Kommune") {
+            itemname = item.kommunenavn || "finner ikke kommunenavnet??";
+          } else if (item.trefftype === "Kartlag") {
+            itemname = item.tittel;
+          }
+          let full_index = stedlength + index;
 
           return (
             <li
@@ -210,20 +172,33 @@ const TreffListe = props => {
                   } else {
                     props.setSearchResultPage(false);
                   }
-                  props.handleGeoSelection(item);
+                  if (trefftype === "Kartlag") {
+                    props.removeValgtLag();
+                    props.addValgtLag(item);
+                  } else {
+                    props.handleGeoSelection(item);
+                  }
                 } else {
                   movefocus(e, full_index);
                 }
               }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
-                  props.removeValgtLag();
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
                   if (trefftype === "Kommune") {
                     props.handleGeoSelection(knr);
+                  } else if (trefftype === "Kartlag") {
+                    props.removeValgtLag();
+                    props.addValgtLag(item);
                   } else {
                     props.handleGeoSelection(item);
+                  }
+                } else {
+                  if (trefftype === "Kartlag") {
+                    props.setSearchResultPage(false);
+                    props.removeValgtLag();
+                    props.addValgtLag(item);
                   }
                 }
               }}
