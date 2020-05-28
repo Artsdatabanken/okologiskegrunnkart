@@ -1,25 +1,12 @@
 import React from "react";
 
 const TreffListe = props => {
-  let treffliste_lokalt = props.treffliste_lokalt;
-  let treffliste_sted = props.treffliste_sted;
-  let treffliste_knrgnrbnr = props.treffliste_knrgnrbnr;
-  let treffliste_knr = props.treffliste_knr;
-  let treffliste_gnr = props.treffliste_gnr;
-  let treffliste_bnr = props.treffliste_bnr;
-
-  // De faktiske listene å iterere - initialisering
-  let knrgnrbnr = null;
-  let knr = null;
-  let bnr = null;
-  let gnr = null;
-
   // Lengder på ting:
-  let stedlength = (treffliste_sted && treffliste_sted.length) || 0;
   let list_items = [];
   let list_length = 0;
 
-  if (treffliste_lokalt) {
+  if (props.treffliste_lokalt) {
+    let treffliste_lokalt = props.treffliste_lokalt;
     for (let i in treffliste_lokalt) {
       treffliste_lokalt[i]["trefftype"] = "Kartlag";
     }
@@ -27,7 +14,8 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
-  if (treffliste_sted) {
+  if (props.treffliste_sted) {
+    let treffliste_sted = props.treffliste_sted;
     for (let i in treffliste_sted) {
       treffliste_sted[i]["trefftype"] = "Stedsnavn";
     }
@@ -35,8 +23,8 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
-  if (treffliste_knrgnrbnr && treffliste_knrgnrbnr.adresser) {
-    knrgnrbnr = treffliste_knrgnrbnr.adresser;
+  if (props.treffliste_knrgnrbnr && props.treffliste_knrgnrbnr.adresser) {
+    let knrgnrbnr = props.treffliste_knrgnrbnr.adresser;
     for (let i in knrgnrbnr) {
       knrgnrbnr[i]["trefftype"] = "knrgnrbnr";
     }
@@ -44,15 +32,15 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
-  if (treffliste_knr && treffliste_knr.stedsnavn) {
-    knr = treffliste_knr.stedsnavn;
+  if (props.treffliste_knr && props.treffliste_knr.stedsnavn) {
+    let knr = props.treffliste_knr.stedsnavn;
     knr["trefftype"] = "Kommune";
     list_items = list_items.concat(knr);
     list_length = list_items.length;
   }
 
-  if (treffliste_gnr && treffliste_gnr.adresser) {
-    gnr = treffliste_gnr.adresser;
+  if (props.treffliste_gnr && props.treffliste_gnr.adresser) {
+    let gnr = props.treffliste_gnr.adresser;
     for (let i in gnr) {
       gnr[i]["trefftype"] = "GNR";
     }
@@ -60,16 +48,14 @@ const TreffListe = props => {
     list_length = list_items.length;
   }
 
-  if (treffliste_bnr && treffliste_bnr.adresser) {
-    bnr = treffliste_bnr.adresser;
+  if (props.treffliste_bnr && props.treffliste_bnr.adresser) {
+    let bnr = props.treffliste_bnr.adresser;
     for (let i in bnr) {
       bnr[i]["trefftype"] = "BNR";
     }
     list_items = list_items.concat(bnr);
     list_length = list_items.length;
   }
-
-  let total_length = stedlength + list_length;
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
@@ -83,9 +69,9 @@ const TreffListe = props => {
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
-        //console.log(index, total_length - 1);
-        //console.log(index < total_length - 1);
-        if (index < total_length - 1) {
+        //console.log(index, list_length - 1);
+        //console.log(index < list_length - 1);
+        if (index < list_length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
         }
       }
@@ -120,7 +106,7 @@ const TreffListe = props => {
           let itemnr = "";
           if (item.trefftype === "Kommune") {
             itemname = item.kommunenavn || "finner ikke kommunenavnet";
-            itemnr = knr.knr || "";
+            itemnr = item.knr || "";
           } else if (item.trefftype === "Kartlag") {
             itemname = item.tittel;
             itemnr = item.tema || "Kartlag";
@@ -129,8 +115,6 @@ const TreffListe = props => {
             itemtype = item.navnetype || "";
             itemnr = item.ssrId || "";
           }
-          let full_index = stedlength + index;
-
           return (
             <li
               id={index}
@@ -153,16 +137,14 @@ const TreffListe = props => {
                     props.handleGeoSelection(item);
                   }
                 } else {
-                  movefocus(e, full_index);
+                  movefocus(e, index);
                 }
               }}
               onClick={() => {
                 if (!props.isSearchResultPage) {
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
-                  if (trefftype === "Kommune") {
-                    props.handleGeoSelection(knr);
-                  } else if (trefftype === "Kartlag") {
+                  if (trefftype === "Kartlag") {
                     props.removeValgtLag();
                     props.addValgtLag(item);
                   } else {
