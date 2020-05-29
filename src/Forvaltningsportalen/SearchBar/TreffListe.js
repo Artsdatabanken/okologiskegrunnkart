@@ -2,6 +2,7 @@ import React from "react";
 
 const TreffListe = props => {
   let list_items = [];
+  let max_list_length = 20;
 
   function addToList(inputlist, type, criteria) {
     if (inputlist) {
@@ -22,6 +23,14 @@ const TreffListe = props => {
     return list_items;
   }
 
+  if (!props.isSearchResultPage) {
+    list_items = addToList(
+      [{ searchTerm: props.searchTerm }],
+      "Søkeelement",
+      null
+    );
+    max_list_length = 200;
+  }
   list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
   list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
   list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
@@ -65,9 +74,13 @@ const TreffListe = props => {
     }
   }
 
+  list_items = list_items.slice(0, max_list_length);
+
   return (
     <ul
-      className="treffliste"
+      className={
+        props.isSearchResultPage ? "treffliste searchresultpage" : "treffliste"
+      }
       id="treffliste"
       tabIndex="0"
       onKeyDown={e => {
@@ -78,6 +91,34 @@ const TreffListe = props => {
     >
       {list_items &&
         list_items.map((item, index) => {
+          if (item.trefftype === "Søkeelement") {
+            return (
+              <li
+                id={index}
+                key={index}
+                tabIndex="0"
+                className="searchbar_item  search_all"
+                onKeyDown={e => {
+                  if (e.keyCode === 13) {
+                    //Enterpressed
+                    props.handleRemoveTreffliste();
+                    props.handleSearchButton();
+                  } else {
+                    movefocus(e, index);
+                  }
+                }}
+                onClick={() => {
+                  props.handleRemoveTreffliste();
+                  props.handleSearchButton();
+                }}
+              >
+                <span className="itemname">
+                  Søk etter "{props.searchTerm}"{" "}
+                </span>
+              </li>
+            );
+          }
+
           let itemname = item.adressetekst || "";
           let trefftype = item.trefftype || "annet treff";
           let itemtype = item.navnetype || "";
