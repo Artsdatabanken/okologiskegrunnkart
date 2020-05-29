@@ -12,7 +12,8 @@ class SearchBar extends React.Component {
     treffliste_knrgnrbnr: null,
     treffliste_knr: null,
     treffliste_gnr: null,
-    treffliste_bnr: null
+    treffliste_bnr: null,
+    searchTerm: null
   };
 
   handleRemoveTreffliste = () => {
@@ -27,18 +28,32 @@ class SearchBar extends React.Component {
     });
   };
 
+  handleSearchButton = () => {
+    this.handleSearchBar(document.getElementById("searchfield").value, true);
+    document.getElementById("searchfield").value = "";
+  };
+
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
-      this.setState({ isSearching: false });
+      this.setState({
+        isSearching: false,
+        searchTerm: null
+      });
       return null;
     }
     let countermax = 50;
     if (resultpage) {
       this.props.setSearchResultPage(true);
-      this.setState({ isSearching: false });
+      this.setState({
+        isSearching: false,
+        searchTerm: null
+      });
       countermax = 15;
     } else {
-      this.setState({ isSearching: true });
+      this.setState({
+        isSearching: true,
+        searchTerm: searchTerm
+      });
     }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
@@ -124,11 +139,9 @@ class SearchBar extends React.Component {
         });
       });
     } else if (!isNaN(searchTerm)) {
-      console.log("utelukkende ett nummer");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
-
-      // Her burde vi nok heller søke i ssr tenker jeg :)
       backend.hentKommune(searchTerm).then(resultat => {
+        // henter kommune fra ssr
         if (resultat && resultat["stedsnavn"]) {
           resultat["stedsnavn"]["knr"] = searchTerm;
         }
@@ -150,7 +163,6 @@ class SearchBar extends React.Component {
         });
       });
     } else {
-      console.log("ingen nummersjekk bestod ikke");
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
 
       let numbercheck = searchTerm.replace(/ /g, "-");
@@ -159,7 +171,6 @@ class SearchBar extends React.Component {
       numbercheck = numbercheck.replace(/,/g, "-");
       let checknr = numbercheck.replace(/-/g, "");
       if (!isNaN(checknr)) {
-        console.log("oppryddet streng er en nummerliste");
         let list = numbercheck.split("-");
         if (list[0]) {
           knr = list[0];
@@ -284,15 +295,11 @@ class SearchBar extends React.Component {
             }}
             onKeyPress={e => {
               if (e.key === "Enter") {
-                this.handleSearchBar(
-                  document.getElementById("searchfield").value,
-                  true
-                );
-
-                document.getElementById("searchfield").value = "";
+                this.handleSearchButton();
               }
             }}
           />
+
           {this.state.isSearching && (
             <button
               className="x"
@@ -307,11 +314,7 @@ class SearchBar extends React.Component {
           )}
           <button
             onClick={() => {
-              this.handleSearchBar(
-                document.getElementById("searchfield").value,
-                true
-              );
-              document.getElementById("searchfield").value = "";
+              this.handleSearchButton();
             }}
           >
             søk
@@ -319,7 +322,9 @@ class SearchBar extends React.Component {
         </div>
         {this.state.isSearching && (
           <TreffListe
+            searchTerm={this.state.searchTerm}
             handleSearchBar={this.handleSearchBar}
+            handleSearchButton={this.handleSearchButton}
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
             treffliste_sted={this.state.treffliste_sted}

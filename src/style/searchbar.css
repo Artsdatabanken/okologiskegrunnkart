@@ -64,7 +64,6 @@
 }
 
 .treffliste {
-  width: 100%;
   width: 350px;
   margin-left: 10px;
   margin-right: auto;
@@ -83,6 +82,17 @@
   .searchbar {
     max-width: calc(100% - 60px);
   }
+}
+
+.treffliste.searchresultpage {
+  width: 100%;
+  margin: 0px;
+  margin-top: 0px;
+  height: auto;
+  max-height: none;
+  overflow-y: auto;
+  border: none;
+  box-sizing: border-box;
 }
 
 .treffliste .searchbar_item {
@@ -127,6 +137,15 @@
 .itemname {
   width: 100%;
   font-size: 10pt;
+}
+
+.treffliste .searchbar_item.search_all {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.search_all .itemname {
+  font-size: 12pt;
 }
 
 .itemtype,
