@@ -9,17 +9,7 @@ const KartlagFanen = props => {
   return (
     <div className="kartlag_fanen">
       {props.searchResultPage ? (
-        <div className="valgtLag">
-          <button
-            className="listheadingbutton"
-            onClick={e => {
-              props.setSearchResultPage(false);
-            }}
-          >
-            <KeyboardBackspace />
-            <span>Tilbake</span>
-          </button>
-        </div>
+        <></>
       ) : (
         <>
           {props.valgtLag ? (
