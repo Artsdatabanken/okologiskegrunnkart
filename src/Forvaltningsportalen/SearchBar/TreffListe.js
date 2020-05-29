@@ -1,8 +1,8 @@
 import React from "react";
-
+import { KeyboardBackspace } from "@material-ui/icons";
 const TreffListe = props => {
   let list_items = [];
-  let max_list_length = 20;
+  let max_list_length = 200;
 
   function addToList(inputlist, type, criteria) {
     if (inputlist) {
@@ -23,14 +23,15 @@ const TreffListe = props => {
     return list_items;
   }
 
-  if (!props.isSearchResultPage) {
+  if (!props.searchResultPage) {
     list_items = addToList(
       [{ searchTerm: props.searchTerm }],
       "Søkeelement",
       null
     );
-    max_list_length = 200;
+    max_list_length = 20;
   }
+
   list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
   list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
   list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
@@ -77,149 +78,150 @@ const TreffListe = props => {
   list_items = list_items.slice(0, max_list_length);
 
   return (
-    <ul
-      className={
-        props.isSearchResultPage ? "treffliste searchresultpage" : "treffliste"
-      }
-      id="treffliste"
-      tabIndex="0"
-      onKeyDown={e => {
-        if (e.keyCode === 40 || e.keyCode === 38) {
-          e.preventDefault();
+    <>
+      {props.searchResultPage && (
+        <div className="valgtLag">
+          <button
+            className="listheadingbutton"
+            onClick={e => {
+              props.setSearchResultPage(false);
+            }}
+          >
+            <KeyboardBackspace />
+            <span>Tilbake</span>
+          </button>
+        </div>
+      )}
+      <ul
+        className={
+          props.searchResultPage ? "treffliste searchresultpage" : "treffliste"
         }
-      }}
-    >
-      {list_items &&
-        list_items.map((item, index) => {
-          if (item.trefftype === "Søkeelement") {
+        id="treffliste"
+        tabIndex="0"
+        onKeyDown={e => {
+          if (e.keyCode === 40 || e.keyCode === 38) {
+            e.preventDefault();
+          }
+        }}
+      >
+        {list_items &&
+          list_items.map((item, index) => {
+            if (item.trefftype === "Søkeelement") {
+              return (
+                <li
+                  id={index}
+                  key={index}
+                  tabIndex="0"
+                  className="searchbar_item  search_all"
+                  onKeyDown={e => {
+                    if (e.keyCode === 13) {
+                      //Enterpressed
+                      props.handleSearchButton();
+                    } else {
+                      movefocus(e, index);
+                    }
+                  }}
+                  onClick={() => {
+                    props.handleSearchButton();
+                  }}
+                >
+                  <span className="itemname">
+                    Søk etter "{props.searchTerm}"{" "}
+                  </span>
+                </li>
+              );
+            }
+
+            let itemname = item.adressetekst || "";
+            let trefftype = item.trefftype || "annet treff";
+            let itemtype = item.navnetype || "";
+            let itemnr = "";
+            if (item.trefftype === "Kommune") {
+              itemname = item.kommunenavn || "finner ikke kommunenavnet";
+              itemnr = item.knr || "";
+            } else if (item.trefftype === "Kartlag") {
+              itemname = item.tittel;
+              itemnr = item.tema || "Kartlag";
+            } else if (item.trefftype === "Stedsnavn") {
+              itemname = item.stedsnavn || "finner ikke stedsnavn";
+              itemtype = item.navnetype || "";
+              itemnr = item.ssrId || "";
+            }
+
+            function onActivate() {
+              if (props.searchResultPage) {
+                props.setSearchResultPage(false);
+              }
+              props.handleRemoveTreffliste();
+              props.removeValgtLag();
+              document.getElementById("searchfield").value = "";
+              if (trefftype === "Kartlag") {
+                props.addValgtLag(item);
+              } else {
+                props.handleGeoSelection(item);
+              }
+            }
+
             return (
               <li
                 id={index}
                 key={index}
                 tabIndex="0"
-                className="searchbar_item  search_all"
+                className="searchbar_item"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    //Enterpressed
-                    props.handleRemoveTreffliste();
-                    props.handleSearchButton();
+                    onActivate();
                   } else {
                     movefocus(e, index);
                   }
                 }}
                 onClick={() => {
-                  props.handleRemoveTreffliste();
-                  props.handleSearchButton();
+                  onActivate();
                 }}
               >
-                <span className="itemname">
-                  Søk etter "{props.searchTerm}"{" "}
+                <span className="itemname">{itemname} </span>
+                <span className="itemtype">
+                  {trefftype}{" "}
+                  {trefftype === "Stedsnavn" ? (
+                    <>{itemtype} </>
+                  ) : (
+                    <>
+                      {item.postnummer} {item.poststed}
+                    </>
+                  )}
+                </span>
+                <span className="itemnr">
+                  {trefftype === "Kommune" ||
+                  trefftype === "Stedsnavn" ||
+                  trefftype === "Kartlag" ? (
+                    <>{itemnr}</>
+                  ) : (
+                    <>
+                      {trefftype === "KNR" ? (
+                        <b>{item.kommunenummer}</b>
+                      ) : (
+                        <>{item.kommunenummer}</>
+                      )}
+                      -
+                      {trefftype === "GNR" ? (
+                        <b>{item.gardsnummer}</b>
+                      ) : (
+                        <>{item.gardsnummer}</>
+                      )}
+                      -
+                      {trefftype === "BNR" ? (
+                        <b>{item.bruksnummer}</b>
+                      ) : (
+                        <>{item.bruksnummer}</>
+                      )}
+                    </>
+                  )}
                 </span>
               </li>
             );
-          }
-
-          let itemname = item.adressetekst || "";
-          let trefftype = item.trefftype || "annet treff";
-          let itemtype = item.navnetype || "";
-          let itemnr = "";
-          if (item.trefftype === "Kommune") {
-            itemname = item.kommunenavn || "finner ikke kommunenavnet";
-            itemnr = item.knr || "";
-          } else if (item.trefftype === "Kartlag") {
-            itemname = item.tittel;
-            itemnr = item.tema || "Kartlag";
-          } else if (item.trefftype === "Stedsnavn") {
-            itemname = item.stedsnavn || "finner ikke stedsnavn";
-            itemtype = item.navnetype || "";
-            itemnr = item.ssrId || "";
-          }
-          return (
-            <li
-              id={index}
-              key={index}
-              tabIndex="0"
-              className="searchbar_item"
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  //Enterpressed
-                  if (!props.isSearchResultPage) {
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                  } else {
-                    props.setSearchResultPage(false);
-                  }
-                  if (trefftype === "Kartlag") {
-                    props.removeValgtLag();
-                    props.addValgtLag(item);
-                  } else {
-                    props.handleGeoSelection(item);
-                  }
-                } else {
-                  movefocus(e, index);
-                }
-              }}
-              onClick={() => {
-                if (!props.isSearchResultPage) {
-                  props.handleRemoveTreffliste();
-                  document.getElementById("searchfield").value = "";
-                  if (trefftype === "Kartlag") {
-                    props.removeValgtLag();
-                    props.addValgtLag(item);
-                  } else {
-                    props.handleGeoSelection(item);
-                  }
-                } else {
-                  if (trefftype === "Kartlag") {
-                    props.setSearchResultPage(false);
-                    props.removeValgtLag();
-                    props.addValgtLag(item);
-                  }
-                }
-              }}
-            >
-              <span className="itemname">{itemname} </span>
-              <span className="itemtype">
-                {trefftype}{" "}
-                {trefftype === "Stedsnavn" ? (
-                  <>{itemtype} </>
-                ) : (
-                  <>
-                    {item.postnummer} {item.poststed}
-                  </>
-                )}
-              </span>
-              <span className="itemnr">
-                {trefftype === "Kommune" ||
-                trefftype === "Stedsnavn" ||
-                trefftype === "Kartlag" ? (
-                  <>{itemnr}</>
-                ) : (
-                  <>
-                    {trefftype === "KNR" ? (
-                      <b>{item.kommunenummer}</b>
-                    ) : (
-                      <>{item.kommunenummer}</>
-                    )}
-                    -
-                    {trefftype === "GNR" ? (
-                      <b>{item.gardsnummer}</b>
-                    ) : (
-                      <>{item.gardsnummer}</>
-                    )}
-                    -
-                    {trefftype === "BNR" ? (
-                      <b>{item.bruksnummer}</b>
-                    ) : (
-                      <>{item.bruksnummer}</>
-                    )}
-                  </>
-                )}
-              </span>
-            </li>
-          );
-        })}
-    </ul>
+          })}
+      </ul>
+    </>
   );
 };
 

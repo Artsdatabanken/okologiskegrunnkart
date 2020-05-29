@@ -320,8 +320,10 @@ class SearchBar extends React.Component {
             søk
           </button>
         </div>
-        {this.state.isSearching && (
+        {(this.state.isSearching || this.props.searchResultPage) && (
           <TreffListe
+            setSearchResultPage={this.props.setSearchResultPage}
+            searchResultPage={this.props.searchResultPage}
             searchTerm={this.state.searchTerm}
             handleSearchBar={this.handleSearchBar}
             handleSearchButton={this.handleSearchButton}

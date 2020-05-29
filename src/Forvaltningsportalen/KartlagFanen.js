@@ -2,7 +2,6 @@ import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
-import TreffListe from "./SearchBar/TreffListe";
 import PolygonElement from "./PolygonElement";
 
 import { KeyboardBackspace } from "@material-ui/icons";
@@ -10,29 +9,7 @@ const KartlagFanen = props => {
   return (
     <div className="kartlag_fanen">
       {props.searchResultPage ? (
-        <div className="valgtLag">
-          <button
-            className="listheadingbutton"
-            onClick={e => {
-              props.setSearchResultPage(false);
-            }}
-          >
-            <KeyboardBackspace />
-            <span>Tilbake</span>
-          </button>
-          <div className="scroll_area">
-            <TreffListe
-              isSearchResultPage={true}
-              treffliste_sted={props.geoSearchResults}
-              treffliste_lokalt={props.kartlagSearchResults}
-              removeValgtLag={props.removeValgtLag}
-              addValgtLag={props.addValgtLag}
-              handleGeoSelection={props.handleGeoSelection}
-              handleRemoveTreffliste={console.log("trengs ikke")}
-              setSearchResultPage={props.setSearchResultPage}
-            />
-          </div>
-        </div>
+        <></>
       ) : (
         <>
           {props.valgtLag ? (
