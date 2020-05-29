@@ -85,14 +85,23 @@
 }
 
 .treffliste.searchresultpage {
+  position: absolute;
   width: 100%;
   margin: 0px;
   margin-top: 0px;
   height: auto;
-  max-height: none;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
   border: none;
   box-sizing: border-box;
+  margin-top: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .treffliste.searchresultpage {
+    max-height: calc(50vh - 100px);
+    max-width: 100%;
+  }
 }
 
 .treffliste .searchbar_item {

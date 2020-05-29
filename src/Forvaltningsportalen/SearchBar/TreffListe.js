@@ -2,7 +2,7 @@ import React from "react";
 
 const TreffListe = props => {
   let list_items = [];
-  let max_list_length = 20;
+  let max_list_length = 200;
 
   function addToList(inputlist, type, criteria) {
     if (inputlist) {
@@ -23,14 +23,15 @@ const TreffListe = props => {
     return list_items;
   }
 
-  if (!props.isSearchResultPage) {
+  if (!props.searchResultPage) {
     list_items = addToList(
       [{ searchTerm: props.searchTerm }],
       "Søkeelement",
       null
     );
-    max_list_length = 200;
+    max_list_length = 20;
   }
+
   list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
   list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
   list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
@@ -79,7 +80,7 @@ const TreffListe = props => {
   return (
     <ul
       className={
-        props.isSearchResultPage ? "treffliste searchresultpage" : "treffliste"
+        props.searchResultPage ? "treffliste searchresultpage" : "treffliste"
       }
       id="treffliste"
       tabIndex="0"
@@ -101,14 +102,12 @@ const TreffListe = props => {
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
                     //Enterpressed
-                    props.handleRemoveTreffliste();
                     props.handleSearchButton();
                   } else {
                     movefocus(e, index);
                   }
                 }}
                 onClick={() => {
-                  props.handleRemoveTreffliste();
                   props.handleSearchButton();
                 }}
               >
@@ -143,7 +142,7 @@ const TreffListe = props => {
               onKeyDown={e => {
                 if (e.keyCode === 13) {
                   //Enterpressed
-                  if (!props.isSearchResultPage) {
+                  if (!props.searchResultPage) {
                     props.handleRemoveTreffliste();
                     document.getElementById("searchfield").value = "";
                   } else {
@@ -160,7 +159,7 @@ const TreffListe = props => {
                 }
               }}
               onClick={() => {
-                if (!props.isSearchResultPage) {
+                if (!props.searchResultPage) {
                   props.handleRemoveTreffliste();
                   document.getElementById("searchfield").value = "";
                   if (trefftype === "Kartlag") {
@@ -170,8 +169,8 @@ const TreffListe = props => {
                     props.handleGeoSelection(item);
                   }
                 } else {
+                  props.setSearchResultPage(false);
                   if (trefftype === "Kartlag") {
-                    props.setSearchResultPage(false);
                     props.removeValgtLag();
                     props.addValgtLag(item);
                   }

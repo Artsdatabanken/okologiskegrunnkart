@@ -30,8 +30,6 @@ class App extends React.Component {
       zoomcoordinates: null,
       valgtLag: null,
       searchResultPage: false,
-      kartlagSearchResults: null,
-      geoSearchResults: null,
       polygon: null,
       polyline: [],
       showPolygon: true
@@ -74,6 +72,7 @@ class App extends React.Component {
                   <>
                     <SearchBar
                       setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
                       setKartlagSearchResults={this.setKartlagSearchResults}
                       setGeoSearchResults={this.setGeoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
