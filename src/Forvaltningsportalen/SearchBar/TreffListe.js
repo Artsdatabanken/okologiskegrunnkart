@@ -147,6 +147,21 @@ const TreffListe = props => {
               itemtype = item.navnetype || "";
               itemnr = item.ssrId || "";
             }
+
+            function onActivate() {
+              if (props.searchResultPage) {
+                props.setSearchResultPage(false);
+              }
+              props.handleRemoveTreffliste();
+              props.removeValgtLag();
+              document.getElementById("searchfield").value = "";
+              if (trefftype === "Kartlag") {
+                props.addValgtLag(item);
+              } else {
+                props.handleGeoSelection(item);
+              }
+            }
+
             return (
               <li
                 id={index}
@@ -155,40 +170,13 @@ const TreffListe = props => {
                 className="searchbar_item"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    //Enterpressed
-                    if (!props.searchResultPage) {
-                      props.handleRemoveTreffliste();
-                      document.getElementById("searchfield").value = "";
-                    } else {
-                      props.setSearchResultPage(false);
-                    }
-                    if (trefftype === "Kartlag") {
-                      props.removeValgtLag();
-                      props.addValgtLag(item);
-                    } else {
-                      props.handleGeoSelection(item);
-                    }
+                    onActivate();
                   } else {
                     movefocus(e, index);
                   }
                 }}
                 onClick={() => {
-                  if (!props.searchResultPage) {
-                    props.handleRemoveTreffliste();
-                    document.getElementById("searchfield").value = "";
-                    if (trefftype === "Kartlag") {
-                      props.removeValgtLag();
-                      props.addValgtLag(item);
-                    } else {
-                      props.handleGeoSelection(item);
-                    }
-                  } else {
-                    props.setSearchResultPage(false);
-                    if (trefftype === "Kartlag") {
-                      props.removeValgtLag();
-                      props.addValgtLag(item);
-                    }
-                  }
+                  onActivate();
                 }}
               >
                 <span className="itemname">{itemname} </span>
