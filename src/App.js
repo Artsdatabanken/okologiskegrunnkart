@@ -70,22 +70,6 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <SearchBar
-                      setSearchResultPage={this.setSearchResultPage}
-                      searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={this.setKartlagSearchResults}
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.addValgtLag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                    />
                     <Kart
                       addPolygon={this.addPolygon}
                       addPolyline={this.addPolyline}
@@ -115,6 +99,22 @@ class App extends React.Component {
                       valgteLag={this.state.valgteLag}
                       token={token}
                       {...this.state}
+                    />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleSetBakgrunnskart}
+                      aktivtFormat={basiskart.kart.aktivtFormat}
+                    />
+                    <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
+                      kartlag={this.state.kartlag}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartlagFanen
                       {...this.state}

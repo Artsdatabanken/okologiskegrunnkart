@@ -22,3 +22,21 @@
     z-index: 0;
   }
 }
+
+.marker_type_button_container > button {
+  margin: 1px;
+}
+.marker_type_button_container > button:focus {
+  border: 2px solid blue;
+  margin: 0;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  padding: 1px;
+}
+.leaflet-control-zoom-in:focus,
+.leaflet-control-zoom-out:focus {
+  border: 1px solid blue;
+  padding: 0;
+}
