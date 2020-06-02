@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Paper,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-} from "@material-ui/core";
+import { Paper, ListItem, ListItemText } from "@material-ui/core";
 
 import TextField2 from "./TextField2";
 import klikktekst from "./FeatureInfo/Klikktekst";
