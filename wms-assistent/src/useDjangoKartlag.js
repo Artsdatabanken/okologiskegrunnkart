@@ -1,7 +1,8 @@
 import { useState } from "react";
 
 // Gjør automatisk oppdatering av Django via Form
-const url = `/admin/forvaltningsportal/wmshelper/${doc._id}/change/`;
+const url = (layerNum) =>
+  `/admin/forvaltningsportal/wmshelper/${layerNum}/change/`;
 
 async function requestDjangoFormToken(layerNum) {
   const resp = await fetch(url);
@@ -17,10 +18,9 @@ function encode(value) {
 }
 
 async function update(doc) {
-  console.log("doocc", doc);
   const csrfmiddlewaretoken = await requestDjangoFormToken(doc._id);
   console.log("csrfmiddlewaretoken", csrfmiddlewaretoken);
-  const resp = await fetch(url, {
+  await fetch(url(doc._id), {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
