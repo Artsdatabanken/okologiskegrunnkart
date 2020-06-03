@@ -32,38 +32,38 @@
 .window_scrollable,
 .all_layer_results_scrollable {
   display: inline-block;
-  max-height: 245px;
+  max-height: 290px;
   overflow-y: auto;
   width: 100%;
 }
 
 .all_layer_results {
-  margin-top: 150px;
+  margin-top: 165px;
   z-index: 200;
 }
 
 @media only screen and (max-width: 768px) {
   .infobox,
   .all_layer_results {
+    margin-top: 0;
     width: 100%;
     max-height: calc(50vh - 20px);
   }
 
   .all_layer_results {
     min-height: 50px;
-    max-height: calc(50vh - 80px);
+    max-height: calc(50vh - 20px);
   }
 
   .window_scrollable,
   .all_layer_results_scrollable {
     display: inline-block;
-    max-height: calc(50vh - 150px);
     overflow-y: auto;
     width: 100%;
   }
 
   .all_layer_results_scrollable {
-    max-height: calc(50vh - 188px);
+    max-height: calc(50vh - 100px);
   }
 }
 

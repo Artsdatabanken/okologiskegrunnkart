@@ -48,6 +48,15 @@ const InfoBox = ({
                 </span>
                 <span className="text_type">
                   <Home />
+                  {`Adresse: `}
+                  <b>
+                    {adresse && adresse.adressetekst
+                      ? adresse.adressetekst
+                      : "-"}
+                  </b>
+                </span>
+                <span className="text_type">
+                  <Home />
                   {`Gårdsnummer: `}
                   <b>
                     {adresse && adresse.gardsnummer ? adresse.gardsnummer : "-"}

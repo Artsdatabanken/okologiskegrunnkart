@@ -284,8 +284,10 @@ class App extends React.Component {
     });
   };
 
-  handlePunktSok = (lng, lat, radius) => {
+  handlePunktSok = (lng, lat, zoom) => {
     // returnerer punkt søk
+    console.log(zoom);
+    const radius = 50;
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
       const adresse = punktSok.adresser.sort((a, b) =>
         a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
@@ -340,14 +342,14 @@ class App extends React.Component {
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, 50);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, 50);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, false);
   };
 
