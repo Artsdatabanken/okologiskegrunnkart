@@ -96,7 +96,8 @@ class Sublag(models.Model):
 @receiver(post_save, sender=Sublag)
 @receiver(post_delete, sender=Kartlag)
 @receiver(post_delete, sender=Sublag)
-@receiver(post_save, sender=WmsHelper)
+# Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
+#@receiver(post_save, sender=WmsHelper)
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
@@ -164,8 +165,9 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['tags'] = list
 
         # kartlag-fil for bruk i wms-hjelpeverktøy
-    with open("./forvaltningsportal/static/kartlag.json", "w", encoding='utf8') as file:
-        json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
+        # Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
+    #with open("./forvaltningsportal/static/kartlag.json", "w", encoding='utf8') as file:
+        #json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
         # kartlag-fil for innsynsløsning
     with open("../public/kartlag.json", "w", encoding='utf8') as file:
         json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
