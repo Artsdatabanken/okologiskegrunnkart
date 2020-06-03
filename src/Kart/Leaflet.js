@@ -124,7 +124,6 @@ class Leaflet extends React.Component {
     const leafletLink = document.querySelector(
       ".leaflet-control-attribution a"
     );
-    console.log(leafletLink);
     if (leafletLink) {
       leafletLink.setAttribute("target", "_blank");
       leafletLink.setAttribute("rel", "noopener noreferrer");
