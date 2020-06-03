@@ -286,8 +286,7 @@ class App extends React.Component {
 
   handlePunktSok = (lng, lat, zoom) => {
     // returnerer punkt søk
-    console.log(zoom);
-    const radius = 50;
+    const radius = Math.round(16500 / Math.pow(zoom, 2));
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
       const adresse = punktSok.adresser.sort((a, b) =>
         a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
