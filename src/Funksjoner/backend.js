@@ -1,5 +1,6 @@
 import json_api from "./json_api";
 import wms_api from "./wms_api";
+import { getFeatureInfoUrl } from "./url_formatter";
 
 class Backend {
   static async getPromise(url) {
@@ -62,7 +63,9 @@ class Backend {
     return this.getPromise(url);
   }
 
-  static async getFeatureInfo(url) {
+  static async getFeatureInfo(layer, coords) {
+    var url = getFeatureInfoUrl(layer, coords);
+
     const boringkeys = [
       "gml:boundedBy",
       "gml:Box",
@@ -76,26 +79,33 @@ class Backend {
       "version"
     ];
 
+    // TODO: Fjernes når alle lag er oppdatert i django
     function collapseLayerFeature(i) {
       const layerKey = Object.keys(i).find(e => e.endsWith("_layer"));
       if (!layerKey) return i;
       i = i[layerKey];
       const featureKey = Object.keys(i).find(e => e.endsWith("_feature"));
       if (!featureKey) return i;
-      return i[featureKey];
+      return { ...i, ...i[featureKey] };
     }
 
+    const firstChar2Format = {
+      "[": json_api,
+      "{": json_api,
+      "<": wms_api
+    };
     return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => {
           if (response.status !== 200)
             return reject("HTTP status " + response.status);
           response.text().then(text => {
-            const api = "{[".indexOf(text[0]) >= 0 ? json_api : wms_api;
+            const api = firstChar2Format[text[0]] || json_api;
             var res = api.parse(text);
             res = res.FIELDS || res;
             res = collapseLayerFeature(res);
             for (var key of boringkeys) delete res[key];
+            console.log("res", text, res);
             resolve(res);
           });
         })

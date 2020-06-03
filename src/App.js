@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
@@ -291,17 +290,14 @@ class App extends React.Component {
     // Denne henter utvalgte lag baser på listen layers
     var layersresultat = {};
     Object.keys(looplist).forEach(key => {
-      if (!looplist[key].klikkurl) return;
-      layersresultat[key] = { loading: true };
+      if (looplist[key].klikkurl || looplist[key].wmsinfoformat)
+        layersresultat[key] = { loading: true };
     });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
-      var url = url_formatter(layer.klikkurl, { lat, lng });
-      url = url.replace(256, 255);
-      url = url.replace(256, 255);
       backend
-        .getFeatureInfo(url)
+        .getFeatureInfo(layer, { lng, lat })
         .then(res => {
           if (res.ServiceException) {
             res.error = res.ServiceException;
