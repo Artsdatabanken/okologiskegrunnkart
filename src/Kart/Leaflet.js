@@ -118,14 +118,16 @@ class Leaflet extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
-  removeTabIndexes = () => {
+  openLinksInNewTab = () => {
     // Remove default leaflet link in map so it
     // isn't selectable with tabs navigation
     const leafletLink = document.querySelector(
       ".leaflet-control-attribution a"
     );
+    console.log(leafletLink);
     if (leafletLink) {
-      leafletLink.setAttribute("tabindex", "-1");
+      leafletLink.setAttribute("target", "_blank");
+      leafletLink.setAttribute("rel", "noopener noreferrer");
     }
   };
 
@@ -236,7 +238,7 @@ class Leaflet extends React.Component {
   }
 
   render() {
-    this.removeTabIndexes();
+    this.openLinksInNewTab();
     if (this.props.polyline && this.props.polyline.length > 0) {
       this.removePolyline();
       if (this.props.showPolygon) {
