@@ -64,7 +64,6 @@
 }
 
 .treffliste {
-  width: 100%;
   width: 350px;
   margin-left: 10px;
   margin-right: auto;
@@ -82,6 +81,26 @@
   .treffliste,
   .searchbar {
     max-width: calc(100% - 60px);
+  }
+}
+
+.treffliste.searchresultpage {
+  position: absolute;
+  background: #f0f0f0;
+  width: 100%;
+  margin: 0px;
+  margin-top: 0px;
+  height: calc(100vh - 90px);
+  max-height: calc(100vh - 90px);
+  overflow-y: auto;
+  border: none;
+  box-sizing: border-box;
+}
+
+@media only screen and (max-width: 768px) {
+  .treffliste.searchresultpage {
+    max-height: calc(50vh - 90px);
+    max-width: 100%;
   }
 }
 
@@ -106,6 +125,14 @@
   border-bottom-left-radius: 3px;
 }
 
+.treffliste.searchresultpage .searchbar_item {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border: 0;
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+}
+
 .treffliste li span {
   display: inline-block;
   padding-left: 5px;
@@ -116,10 +143,12 @@
   border: 0;
 }
 
+.treffliste.searchresultpage .searchbar_item:hover,
+.treffliste.searchresultpage .searchbar_item:focus,
 .treffliste li:hover,
 .treffliste li:focus {
   background: black;
-  color: white;
+  color: #eeeeee;
   /*outline: none;*/
   cursor: pointer;
 }
@@ -127,6 +156,15 @@
 .itemname {
   width: 100%;
   font-size: 10pt;
+}
+
+.treffliste .searchbar_item.search_all {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.search_all .itemname {
+  font-size: 12pt;
 }
 
 .itemtype,
