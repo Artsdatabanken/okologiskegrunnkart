@@ -118,6 +118,15 @@ class Leaflet extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
+  removeTabIndexes = () => {
+    const leafletLink = document.querySelector(
+      ".leaflet-control-attribution a"
+    );
+    if (leafletLink) {
+      leafletLink.setAttribute("tabindex", "-1");
+    }
+  };
+
   handleClick = e => {
     if (this.state.markerType === "polygon") {
       if (!this.props.polygon) {
@@ -225,6 +234,7 @@ class Leaflet extends React.Component {
   }
 
   render() {
+    this.removeTabIndexes();
     if (this.props.polyline && this.props.polyline.length > 0) {
       this.removePolyline();
       if (this.props.showPolygon) {
