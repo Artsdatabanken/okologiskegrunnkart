@@ -1,5 +1,5 @@
 import React from "react";
-import { Close, MyLocation, Terrain, Place } from "@material-ui/icons";
+import { Close, MyLocation, Terrain, Place, Home } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 
@@ -11,7 +11,8 @@ const InfoBox = ({
   onUpdateLayerProp,
   layersresultat,
   valgteLag,
-  sted
+  sted,
+  adresse
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
@@ -37,19 +38,42 @@ const InfoBox = ({
               <span>
                 <span className="text_type">
                   <MyLocation />
-                  Sted: <b>{sted.komplettskrivemåte[0]}</b>
+                  {`Sted: `}
+                  <b>{`${sted.komplettskrivemåte[0]}`}</b>
                 </span>
                 <span className="text_type">
                   <Terrain />
-                  Områdetype: <b>{sted.navneobjekttype}</b>
+                  {`Områdetype: `}
+                  <b>{`${sted.navneobjekttype}`}</b>
+                </span>
+                <span className="text_type">
+                  <Home />
+                  {`Gårdsnummer: `}
+                  <b>
+                    {adresse && adresse.gardsnummer ? adresse.gardsnummer : "-"}
+                  </b>
+                </span>
+                <span className="text_type">
+                  <Home />
+                  {`Bruksnummer: `}
+                  <b>
+                    {adresse && adresse.bruksnummer ? adresse.bruksnummer : "-"}
+                  </b>
                 </span>
                 <span className="text_type">
                   <Place />
-                  Kommune: <b>{sted.kommunenavn[0]}</b>{" "}
+                  {`Kommune: `}
+                  <b>{sted.kommunenavn[0]}</b>
                 </span>
                 <span className="text_type">
                   <Place />
-                  Fylke: <b>{sted.fylkesnavn[0]}</b>{" "}
+                  {`Kommunenr.: `}
+                  <b>{sted.kommunenummer}</b>
+                </span>
+                <span className="text_type">
+                  <Place />
+                  {`Fylke: `}
+                  <b>{sted.fylkesnavn[0]}</b>
                 </span>
               </span>
             )}
