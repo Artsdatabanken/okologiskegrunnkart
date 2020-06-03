@@ -90,6 +90,15 @@
   z-index: 100;
 }
 
+.close_button:focus {
+  border: 2px solid blue;
+}
+
+/* åpne ekstra info knapp */
+.search_layers:focus {
+  border: 2px solid blue;
+}
+
 /* Underelementets innhold  */
 .generic_element div {
   margin-left: auto;

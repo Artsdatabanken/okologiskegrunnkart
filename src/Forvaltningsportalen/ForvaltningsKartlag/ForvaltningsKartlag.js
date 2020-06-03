@@ -14,6 +14,33 @@ class ForvaltningsKartlag extends React.Component {
     showFilter: false
   };
 
+  filterData = (event, element) => {
+    let filterlist = this.state.filterlist;
+    if (event.target.checked) {
+      filterlist.push(element);
+    } else {
+      const index = filterlist.indexOf(element);
+      if (index > -1) {
+        filterlist.splice(index, 1);
+      }
+    }
+    this.setState({
+      filterlist: filterlist
+    });
+  };
+
+  hideHiddendelements = event => {
+    if (event.target.checked) {
+      this.setState({
+        hideHidden: true
+      });
+    } else {
+      this.setState({
+        hideHidden: false
+      });
+    }
+  };
+
   render() {
     const { onUpdateLayerProp } = this.props;
     let lag = this.props.kartlag;
@@ -83,20 +110,15 @@ class ForvaltningsKartlag extends React.Component {
                       <input
                         type="checkbox"
                         onChange={e => {
-                          let filterlist = this.state.filterlist;
-                          if (e.target.checked) {
-                            filterlist.push(element);
-                          } else {
-                            const index = filterlist.indexOf(element);
-                            if (index > -1) {
-                              filterlist.splice(index, 1);
-                            }
-                          }
-                          this.setState({
-                            filterlist: filterlist
-                          });
+                          this.filterData(e, element);
                         }}
                         id=""
+                        onKeyPress={e => {
+                          if (e.key === "Enter") {
+                            e.target.checked = !e.target.checked;
+                            this.filterData(e, element);
+                          }
+                        }}
                       />
                       <label>{element}</label>
                     </div>
@@ -110,14 +132,12 @@ class ForvaltningsKartlag extends React.Component {
                     <input
                       type="checkbox"
                       onChange={e => {
-                        if (e.target.checked) {
-                          this.setState({
-                            hideHidden: true
-                          });
-                        } else {
-                          this.setState({
-                            hideHidden: false
-                          });
+                        this.hideHiddendelements(e);
+                      }}
+                      onKeyPress={e => {
+                        if (e.key === "Enter") {
+                          e.target.checked = !e.target.checked;
+                          this.hideHiddendelements(e);
                         }
                       }}
                     />
