@@ -298,18 +298,6 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        {this.state.markerType === "klikk" && this.state.showInfobox && (
-          <InfoBox
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            layersresultat={this.props.layersresultat}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            handleInfobox={this.handleInfobox}
-            onUpdateLayerProp={this.props.onUpdateLayerProp}
-          />
-        )}
         <div className="marker_type_button_container">
           <button
             className={this.state.markerType === "klikk" ? "active" : ""}
@@ -355,6 +343,18 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
+          <InfoBox
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
+            handleInfobox={this.handleInfobox}
+            onUpdateLayerProp={this.props.onUpdateLayerProp}
+          />
+        )}
       </>
     );
   }
