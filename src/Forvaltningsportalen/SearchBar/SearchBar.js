@@ -8,29 +8,52 @@ class SearchBar extends React.Component {
     treffliste_sted: null,
     fylker: null,
     kommuner: null,
-    isSearching: false
+    isSearching: false,
+    treffliste_knrgnrbnr: null,
+    treffliste_knr: null,
+    treffliste_gnr: null,
+    treffliste_bnr: null,
+    searchTerm: null
   };
 
   handleRemoveTreffliste = () => {
     this.setState({
       treffliste_sted: null,
       treffliste_lokalt: null,
-      isSearching: false
+      isSearching: false,
+      treffliste_knrgnrbnr: null,
+      treffliste_knr: null,
+      treffliste_gnr: null,
+      treffliste_bnr: null
     });
+  };
+
+  handleSearchButton = () => {
+    this.handleSearchBar(document.getElementById("searchfield").value, true);
+    document.getElementById("searchfield").value = "";
   };
 
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
-      this.setState({ isSearching: false });
+      this.setState({
+        isSearching: false,
+        searchTerm: null
+      });
       return null;
     }
-    let countermax = 5;
+    let countermax = 50;
     if (resultpage) {
       this.props.setSearchResultPage(true);
-      this.setState({ isSearching: false });
+      this.setState({
+        isSearching: false,
+        searchTerm: null
+      });
       countermax = 15;
     } else {
-      this.setState({ isSearching: true });
+      this.setState({
+        isSearching: true,
+        searchTerm: searchTerm
+      });
     }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
@@ -83,6 +106,99 @@ class SearchBar extends React.Component {
       });
     }
 
+    /* Kommunenummer, gårdsnummer og bruksnummer */
+    let knr = null;
+    let gnr = null;
+    let bnr = null;
+
+    if (
+      searchTerm.indexOf("knr") !== -1 ||
+      searchTerm.indexOf("bnr") !== -1 ||
+      searchTerm.indexOf("gnr") !== -1
+    ) {
+      // Hvis alt er skrevet på ønsket format = direkte oppslag
+      console.log("direkte oppslag knr-gnr-bnr");
+
+      let list = searchTerm.split(",");
+      for (let i in list) {
+        if (list[i].indexOf("knr") !== -1) {
+          knr = list[i].split("=")[1];
+        } else if (list[i].indexOf("gnr") !== -1) {
+          gnr = list[i].split("=")[1];
+        } else if (list[i].indexOf("bnr") !== -1) {
+          bnr = list[i].split("=")[1];
+        }
+      }
+
+      backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+        this.setState({
+          treffliste_knrgnrbnr: resultat,
+          treffliste_knr: null,
+          treffliste_gnr: null,
+          treffliste_bnr: null
+        });
+      });
+    } else if (!isNaN(searchTerm)) {
+      // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
+      backend.hentKommune(searchTerm).then(resultat => {
+        // henter kommune fra ssr
+        if (resultat && resultat["stedsnavn"]) {
+          resultat["stedsnavn"]["knr"] = searchTerm;
+        }
+        this.setState({
+          treffliste_knrgnrbnr: null,
+          treffliste_knr: resultat
+        });
+      });
+      backend.hentKnrGnrBnr(null, searchTerm, null).then(resultat => {
+        this.setState({
+          treffliste_knrgnrbnr: null,
+          treffliste_gnr: resultat
+        });
+      });
+      backend.hentKnrGnrBnr(null, null, searchTerm).then(resultat => {
+        this.setState({
+          treffliste_knrgnrbnr: null,
+          treffliste_bnr: resultat
+        });
+      });
+    } else {
+      // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
+
+      let numbercheck = searchTerm.replace(/ /g, "-");
+      numbercheck = numbercheck.replace(/\//g, "-");
+      numbercheck = numbercheck.replace(/;/g, "-");
+      numbercheck = numbercheck.replace(/,/g, "-");
+      let checknr = numbercheck.replace(/-/g, "");
+      if (!isNaN(checknr)) {
+        let list = numbercheck.split("-");
+        if (list[0]) {
+          knr = list[0];
+        }
+        if (list[1]) {
+          gnr = list[1];
+        }
+        if (list[2]) {
+          bnr = list[2];
+        }
+        backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+          this.setState({
+            treffliste_knrgnrbnr: resultat,
+            treffliste_knr: null,
+            treffliste_gnr: null,
+            treffliste_bnr: null
+          });
+        });
+      } else {
+        this.setState({
+          treffliste_knrgnrbnr: null,
+          treffliste_knr: null,
+          treffliste_gnr: null,
+          treffliste_bnr: null
+        });
+      }
+    }
+
     backend.hentSteder(searchTerm).then(resultat => {
       let max_items = 5;
       if (resultpage) {
@@ -107,7 +223,9 @@ class SearchBar extends React.Component {
         } else {
           if (Object.keys(resultatliste).length < max_items) {
             resultatliste[id] = entries[i];
-            resultatliste[id].ssrpri = i || 100;
+            if (resultatliste[id]) {
+              resultatliste[id].ssrpri = i || 100;
+            }
           }
         }
       }
@@ -162,27 +280,26 @@ class SearchBar extends React.Component {
               if (e.key === "ArrowDown") {
                 if (document.getElementsByClassName("searchbar_item")) {
                   if (e.keyCode === 40) {
-                    console.log("gå ned");
-                    document
-                      .getElementsByClassName("searchbar_item")[0]
-                      .focus();
+                    if (document.getElementsByClassName("searchbar_item")[0]) {
+                      document
+                        .getElementsByClassName("searchbar_item")[0]
+                        .focus();
+                    } else {
+                      console.log("nothing to scroll to");
+                    }
                   }
                 } else {
-                  console.log("nothjing to see her");
+                  console.log("nothing to see here");
                 }
               }
             }}
             onKeyPress={e => {
               if (e.key === "Enter") {
-                this.handleSearchBar(
-                  document.getElementById("searchfield").value,
-                  true
-                );
-
-                document.getElementById("searchfield").value = "";
+                this.handleSearchButton();
               }
             }}
           />
+
           {this.state.isSearching && (
             <button
               className="x"
@@ -197,22 +314,26 @@ class SearchBar extends React.Component {
           )}
           <button
             onClick={() => {
-              this.handleSearchBar(
-                document.getElementById("searchfield").value,
-                true
-              );
-              document.getElementById("searchfield").value = "";
+              this.handleSearchButton();
             }}
           >
             søk
           </button>
         </div>
-        {this.state.isSearching && (
+        {(this.state.isSearching || this.props.searchResultPage) && (
           <TreffListe
+            setSearchResultPage={this.props.setSearchResultPage}
+            searchResultPage={this.props.searchResultPage}
+            searchTerm={this.state.searchTerm}
             handleSearchBar={this.handleSearchBar}
+            handleSearchButton={this.handleSearchButton}
             treffliste={this.state.treffliste}
             treffliste_lokalt={this.state.treffliste_lokalt}
             treffliste_sted={this.state.treffliste_sted}
+            treffliste_knr={this.state.treffliste_knr}
+            treffliste_gnr={this.state.treffliste_gnr}
+            treffliste_bnr={this.state.treffliste_bnr}
+            treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
             removeValgtLag={this.props.removeValgtLag}
             addValgtLag={this.props.addValgtLag}
             handleGeoSelection={this.props.handleGeoSelection}

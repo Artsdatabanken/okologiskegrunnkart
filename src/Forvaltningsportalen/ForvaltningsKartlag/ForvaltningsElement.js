@@ -77,7 +77,7 @@ const ForvaltningsElement = ({
                 let lag = kartlag.underlag[sublag];
 
                 return (
-                  <div className="underlag" key={kartlag_key}>
+                  <div className="underlag" key={sublag}>
                     <ForvaltningsUnderElement
                       kartlag={lag}
                       kartlag_owner_key={kartlag_key}

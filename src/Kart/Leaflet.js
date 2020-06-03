@@ -2,9 +2,7 @@ import L from "leaflet";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import Tangram from "tangram";
-import { createScene, updateScene } from "./scene/scene";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import "../style/leaflet.css";
 import getClickParams from "./getClickParams";
@@ -26,7 +24,7 @@ class Leaflet extends React.Component {
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
-    markerTool: true,
+    markerType: "klikk",
     showInfobox: false,
     coordinates_area: null
   };
@@ -42,6 +40,9 @@ class Leaflet extends React.Component {
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
+    map.on("click", e => {
+      this.handleClick(e);
+    });
     map.on("drag", e => {
       if (!e.hard) {
         this.props.onMapBoundsChange(map.getBounds());
@@ -64,19 +65,6 @@ class Leaflet extends React.Component {
     L.control.zoom({ position: "topright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
-    let def = {
-      scene: createScene(this.props),
-      events: {
-        hover: function(selection) {},
-        click: this.handleClick,
-        drag: this.handleDrag
-      },
-      attribution: '<a href="https://artsdatabanken.no">Artsdatabanken</a>'
-    };
-
-    this.layer = Tangram.leafletLayer(def);
-    this.map.addLayer(this.layer);
-    // this.layer.loadScene(this.layer.scene)
     this.icon = L.icon({
       iconUrl: "/marker/pdoc.png",
       iconSize: [38, 51],
@@ -112,6 +100,16 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.marker);
   }
 
+  removePolygon() {
+    if (!this.polygon) return;
+    this.map.removeLayer(this.polygon);
+  }
+
+  removePolyline() {
+    if (!this.polyline) return;
+    this.map.removeLayer(this.polyline);
+  }
+
   getBackendData = async (lng, lat) => {
     this.props.handleExtensiveInfo(true);
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
@@ -121,15 +119,37 @@ class Leaflet extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
+  openLinksInNewTab = () => {
+    // Remove default leaflet link in map so it
+    // isn't selectable with tabs navigation
+    const leafletLink = document.querySelector(
+      ".leaflet-control-attribution a"
+    );
+    if (leafletLink) {
+      leafletLink.setAttribute("target", "_blank");
+      leafletLink.setAttribute("rel", "noopener noreferrer");
+    }
+  };
+
   handleClick = e => {
-    if (!this.state.markerTool) return;
+    if (this.state.markerType === "polygon") {
+      if (!this.props.polygon) {
+        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
+        let polygon_list = this.props.polyline;
+        const latlng = e.latlng;
+        polygon_list.push([latlng.lat, latlng.lng]);
+        this.props.addPolyline(polygon_list);
+      }
+    }
+
+    if (this.state.markerType !== "klikk") return;
     this.props.handleExtensiveInfo(false);
-    const latlng = e.leaflet_event.latlng;
+    const latlng = e.latlng;
     this.removeMarker();
     this.setState({
       showInfobox: true,
       coordinates_area: latlng,
-      layerevent: e.leaflet_event.layerPoint
+      layerevent: e.layerPoint
     });
 
     let urlparams = (this.props.path || "").split("?");
@@ -153,10 +173,21 @@ class Leaflet extends React.Component {
 
   updateMap(props) {
     if (!this.props.token) return; // not yet loaded
-    if (!this.layer.scene.config) return; // not yet loaded
-    updateScene(this.layer.scene.config, props);
-    this.layer.scene.updateConfig({ rebuild: true });
+    this.updateBaseMap();
     this.syncWmsLayers(props.aktiveLag);
+  }
+
+  updateBaseMap() {
+    const config = this.props.bakgrunnskart;
+    if (!this.bakgrunnskart_egk)
+      this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
+        gkt: this.props.token
+      }).addTo(this.map);
+    if (!this.bakgrunnskart)
+      this.bakgrunnskart = L.tileLayer("", { gkt: this.props.token }).addTo(
+        this.map
+      );
+    this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
 
   syncWmsLayers(aktive) {
@@ -209,6 +240,39 @@ class Leaflet extends React.Component {
   }
 
   render() {
+    this.openLinksInNewTab();
+    if (this.props.polyline && this.props.polyline.length > 0) {
+      this.removePolyline();
+      if (this.props.showPolygon) {
+        let polygon_list = this.props.polyline;
+        if (polygon_list.length < 2) {
+          // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+          if (polygon_list[0]) {
+            polygon_list.push([
+              polygon_list[0][0] + 0.0001,
+              polygon_list[0][1] + 0.0001
+            ]);
+          }
+        }
+        this.polyline = L.polyline(polygon_list, {
+          color: "red",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    } else {
+      this.removePolyline();
+    }
+    if (this.props.polygon) {
+      this.removePolygon();
+      if (this.props.showPolygon) {
+        this.polygon = L.polygon(this.props.polygon, {
+          color: "blue",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    } else {
+      this.removePolygon();
+    }
     if (this.props.zoomcoordinates) {
       this.removeMarker();
       this.marker = L.marker(
@@ -236,35 +300,32 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        {this.state.markerTool === true && this.state.showInfobox && (
-          <InfoBox
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            layersresultat={this.props.layersresultat}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            handleInfobox={this.handleInfobox}
-            onUpdateLayerProp={this.props.onUpdateLayerProp}
-          />
-        )}
-        <button
-          className={
-            this.state.markerTool === true
-              ? "map_button active currentlyhidden"
-              : "map_button currentlyhidden"
-          }
-          title="Marker tool"
-          alt="Marker tool"
-          onClick={e => {
-            console.log("Already chosen marker tool");
-            this.setState({
-              markerTool: !this.state.markerTool
-            });
-          }}
-        >
-          <WhereToVote />
-        </button>
+        <div className="marker_type_button_container">
+          <button
+            className={this.state.markerType === "klikk" ? "active" : ""}
+            title="Marker tool"
+            alt="Marker tool"
+            onClick={e => {
+              this.setState({
+                markerType: "klikk"
+              });
+            }}
+          >
+            <WhereToVote />
+          </button>
+          <button
+            className={this.state.markerType === "polygon" ? "active" : ""}
+            title="Polygon tool"
+            alt="Polygon tool"
+            onClick={e => {
+              this.setState({
+                markerType: "polygon"
+              });
+            }}
+          >
+            <Gesture />
+          </button>
+        </div>
 
         <div
           style={{ zIndex: -100, cursor: "default" }}
@@ -280,11 +341,22 @@ class Leaflet extends React.Component {
           onClick={() => {
             //this.props.handleFullscreen(false);
             //this.handleLocate();
-            console.log("geolocate button clicked");
           }}
         >
           <LocationSearching />
         </button>
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
+          <InfoBox
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
+            handleInfobox={this.handleInfobox}
+            onUpdateLayerProp={this.props.onUpdateLayerProp}
+          />
+        )}
       </>
     );
   }

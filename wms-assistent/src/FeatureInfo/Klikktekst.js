@@ -1,16 +1,18 @@
 import React from "react";
 
-const Test = props => {
+const Test = (props) => {
   return <div>Test v={props.v}</div>;
 };
 
-function lookup(o, path) {
+function lookup(o, path, warn) {
   if (o.loading || o.error || Object.keys(o).length === 0) return;
   if (!path) return JSON.stringify(o);
   const segments = path.split(".");
   for (var segment of segments) {
     if (o[segment] === undefined) {
-      console.warn(path, segment + " mangler i ", o);
+      warn.push(
+        path + ": " + segment + " mangler i " + Object.keys(o).join(",")
+      );
       return null;
     }
     o = o[segment];
@@ -32,29 +34,29 @@ function mapComponent(c) {
   return { type, props };
 }
 
-const Klikktekst = ({ input, formatstring = "" }) => {
-  if (input.error) return "Får ikke kontakt med leverandør";
-  if (input.loading) return "...'";
+const klikktekst = (input, formatstring = "") => {
+  if (!input) return { verdier: [] };
+  if (input.error) return { warn: [input.error] };
+  if (input.loading) return { verdier: "..." };
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
   var hits = Array.from(matches);
-  hits = hits.map(e => {
+  hits = hits.map((e) => {
     const r = e.groups;
     r.component = mapComponent(r.component);
     return r;
   });
 
-  return (
-    <>
-      {hits.map(e => {
-        if (e.component) return React.createElement(Test, e.component.props);
-        if (e.variable) return lookup(input, e.variable);
-        if (e.literal) return e.literal;
-        return null;
-      })}
-    </>
-  );
+  const warn = [];
+  const verdier = hits.map((e) => {
+    if (e.component) return React.createElement(Test, e.component.props);
+    if (e.variable) return lookup(input, e.variable, warn);
+    if (e.literal) return e.literal;
+    return null;
+  });
+
+  return { warn, verdier: verdier || [] };
 };
 
-export default Klikktekst;
+export default klikktekst;

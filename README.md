@@ -32,3 +32,11 @@ Dette prosjektet har en wiki, se den her:
 Les mer på vår wiki:
 
 - https://github.com/Artsdatabanken/forvaltningsportal/wiki/Django-og-Kartlagfila
+
+## Start app in localhost
+
+Follow these steps:
+
+- Run `npm install`
+- Run `npm start`
+- Get the example map data `kartlag.json` from `https://forvaltningsportal.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).

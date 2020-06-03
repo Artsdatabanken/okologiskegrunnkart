@@ -30,8 +30,9 @@ class App extends React.Component {
       zoomcoordinates: null,
       valgtLag: null,
       searchResultPage: false,
-      kartlagSearchResults: null,
-      geoSearchResults: null
+      polygon: null,
+      polyline: [],
+      showPolygon: true
     };
   }
 
@@ -69,23 +70,10 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <SearchBar
-                      setSearchResultPage={this.setSearchResultPage}
-                      setKartlagSearchResults={this.setKartlagSearchResults}
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.addValgtLag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      handleRemoveTreffliste={this.handleRemoveTreffliste}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                    />
                     <Kart
+                      addPolygon={this.addPolygon}
+                      addPolyline={this.addPolyline}
+                      showPolygon={this.state.showPolygon}
                       zoomcoordinates={this.state.zoomcoordinates}
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
@@ -112,8 +100,41 @@ class App extends React.Component {
                       token={token}
                       {...this.state}
                     />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleSetBakgrunnskart}
+                      aktivtFormat={basiskart.kart.aktivtFormat}
+                    />
+                    <FeatureInfo
+                      {...this.state}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      resultat={this.state.resultat}
+                      layersresultat={this.state.layersresultat}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      coordinates_area={{
+                        lat: this.state.lat,
+                        lng: this.state.lng
+                      }}
+                    />
+                    <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
+                      kartlag={this.state.kartlag}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                    />
                     <KartlagFanen
                       {...this.state}
+                      polygon={this.state.polygon}
+                      addPolygon={this.addPolygon}
+                      hideAndShowPolygon={this.hideAndShowPolygon}
+                      showPolygon={this.state.showPolygon}
+                      polyline={this.state.polyline}
+                      addPolyline={this.addPolyline}
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}
                       kartlagSearchResults={this.state.kartlagSearchResults}
@@ -129,17 +150,6 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
-                    />
-                    <FeatureInfo
-                      {...this.state}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      resultat={this.state.resultat}
-                      layersresultat={this.state.layersresultat}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      coordinates_area={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                      }}
                     />
                   </>
                 );
@@ -170,6 +180,18 @@ class App extends React.Component {
 
   addValgtLag = valgtLag => {
     this.setState({ valgtLag: valgtLag });
+  };
+
+  addPolyline = polyline => {
+    this.setState({ polyline: polyline });
+  };
+
+  addPolygon = polygon => {
+    this.setState({ polygon: polygon });
+  };
+
+  hideAndShowPolygon = showPolygon => {
+    this.setState({ showPolygon: showPolygon });
   };
 
   removeValgtLag = () => {
@@ -203,8 +225,8 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
+    console.log("clacketty");
     if (geostring.ssrId) {
-      console.log("fra stedsnavnregister");
       let mincoord = [
         parseFloat(geostring.aust) - 1,
         parseFloat(geostring.nord) - 1
@@ -217,6 +239,24 @@ class App extends React.Component {
         parseFloat(geostring.aust),
         parseFloat(geostring.nord)
       ];
+      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    } else {
+      console.log(geostring.representasjonspunkt);
+      let koordinater = geostring.representasjonspunkt;
+
+      let mincoord = [
+        parseFloat(koordinater.lon) - 1,
+        parseFloat(koordinater.lat) - 1
+      ];
+      let maxcoord = [
+        parseFloat(koordinater.lon) + 1,
+        parseFloat(koordinater.lat) + 1
+      ];
+      let centercoord = [
+        parseFloat(koordinater.lon),
+        parseFloat(koordinater.lat)
+      ];
+
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     }
   };

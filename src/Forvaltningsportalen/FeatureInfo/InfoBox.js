@@ -22,6 +22,7 @@ const InfoBox = ({
     <div className="infobox_container">
       <div className="infobox">
         <button
+          tabIndex="0"
           className="close_button"
           onClick={e => {
             handleInfobox(false);
@@ -77,6 +78,7 @@ const InfoBox = ({
             })}
         </div>
         <button
+          tabIndex="0"
           className="search_layers"
           title="Marker tool"
           alt="Marker tool"
