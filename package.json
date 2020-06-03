@@ -60,8 +60,7 @@
     "rules": {
       "react-hooks/exhaustive-deps": 2,
       "react-hooks/rules-of-hooks": 2,
-      "jsx-a11y/alt-text": 1,
-      "jsx-a11y/tabindex-no-positive": 0
+      "jsx-a11y/alt-text": 1
     }
   },
   "husky": {
