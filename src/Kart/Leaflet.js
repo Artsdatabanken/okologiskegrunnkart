@@ -119,6 +119,8 @@ class Leaflet extends React.Component {
   };
 
   removeTabIndexes = () => {
+    // Remove default leaflet link in map so it
+    // isn't selectable with tabs navigation
     const leafletLink = document.querySelector(
       ".leaflet-control-attribution a"
     );
