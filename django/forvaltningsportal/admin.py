@@ -14,3 +14,6 @@ admin.site.register(Kartlag,KartlagAdmin)
 admin.site.register(Tag)
 admin.site.register(Dataeier)
 admin.site.register(Type)
+
+# Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
+#admin.site.register(WmsHelper)

@@ -39,22 +39,48 @@ class Type(models.Model):
 
 class Kartlag(models.Model):
     tittel = models.CharField(max_length=200)
-    wmsurl = models.CharField(max_length=500, blank=True)
+    geonorgeurl = models.CharField(max_length=500, blank=True)
     faktaark = models.CharField(max_length=500, blank=True)
     produktark = models.CharField(max_length=500, blank=True)
-    klikkurl = models.CharField(max_length=500, blank=True)
-    klikktekst = models.CharField(max_length=500, blank=True)
-    geonorgeurl = models.CharField(max_length=500, blank=True)
-    publiser = models.BooleanField(default=False)
-    type = models.ForeignKey(
-        Type, on_delete=models.SET_NULL, null=True, blank=True)
     dataeier = models.ForeignKey(Dataeier, on_delete=models.CASCADE)
     tema = models.ForeignKey(
         Tema, on_delete=models.SET_NULL, null=True, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
+    publiser = models.BooleanField(default=False)
+    wmsurl = models.CharField(max_length=500, blank=True)
+    wmsversion = models.CharField(max_length=500, blank=True)
+    projeksjon = models.CharField(max_length=500, blank=True)
+    wmsinfolayers = models.CharField(max_length=500, blank=True)
+    testkoordinater = models.CharField(max_length=500, blank=True)
+    wmsinfoformat = models.CharField(max_length=500, blank=True)
+    klikkurl = models.CharField(max_length=500, blank=True)
+    klikktekst = models.CharField(max_length=500, blank=True)
+    klikktekst2 = models.CharField(max_length=500, blank=True)
+    type = models.ForeignKey(
+        Type, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return self.tittel
+
+# Brukes av "wms-assistent" for å få tilgang til de felt den skal oppdatere i Django
+class WmsHelper(models.Model):
+    tittel = models.CharField(max_length=200, blank=True, null=True)
+    wmsurl = models.CharField(max_length=500, blank=True)
+    wmsversion = models.CharField(max_length=500, blank=True)
+    projeksjon = models.CharField(max_length=500, blank=True)
+    wmsinfolayers = models.CharField(max_length=500, blank=True)
+    testkoordinater = models.CharField(max_length=500, blank=True)
+    wmsinfoformat = models.CharField(max_length=500, blank=True)
+    klikkurl = models.CharField(max_length=500, blank=True)
+    klikktekst = models.CharField(max_length=500, blank=True)
+    klikktekst2 = models.CharField(max_length=500, blank=True)
+
+    def __str__(self):
+        return self.tittel
+
+    class Meta:
+        db_table = 'forvaltningsportal_kartlag'
+        managed = False
 
 class Sublag(models.Model):
     tittel = models.CharField(max_length=200)
@@ -70,6 +96,8 @@ class Sublag(models.Model):
 @receiver(post_save, sender=Sublag)
 @receiver(post_delete, sender=Kartlag)
 @receiver(post_delete, sender=Sublag)
+# Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
+#@receiver(post_save, sender=WmsHelper)
 def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
@@ -113,10 +141,22 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['geonorgeurl'] = kartlag.geonorgeurl
         if kartlag.wmsurl:
             dict[kartlag.id]['wmsurl'] = kartlag.wmsurl
+        if kartlag.wmsversion:
+            dict[kartlag.id]['wmsversion'] = kartlag.wmsversion
+        if kartlag.projeksjon:
+            dict[kartlag.id]['projeksjon'] = kartlag.projeksjon
+        if kartlag.wmsinfoformat:
+            dict[kartlag.id]['wmsinfoformat'] = kartlag.wmsinfoformat
+        if kartlag.wmsinfolayers:
+            dict[kartlag.id]['wmsinfolayers'] = kartlag.wmsinfolayers
+        if kartlag.testkoordinater:
+            dict[kartlag.id]['testkoordinater'] = kartlag.testkoordinater
         if kartlag.klikkurl:
             dict[kartlag.id]['klikkurl'] = kartlag.klikkurl
         if kartlag.klikktekst:
             dict[kartlag.id]['klikktekst'] = kartlag.klikktekst
+        if kartlag.klikktekst:
+            dict[kartlag.id]['klikktekst2'] = kartlag.klikktekst2
 
         if kartlag.tag:
             list = []
@@ -124,6 +164,10 @@ def createJSON(sender, instance, **kwargs):
                 list.append(tag.tittel)
             dict[kartlag.id]['tags'] = list
 
-        # og så legg til nye felt, som tags osv
+        # kartlag-fil for bruk i wms-hjelpeverktøy
+        # Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
+    #with open("./forvaltningsportal/static/kartlag.json", "w", encoding='utf8') as file:
+        #json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
+        # kartlag-fil for innsynsløsning
     with open("../public/kartlag.json", "w", encoding='utf8') as file:
         json.dump(dict, file, indent=4, sort_keys=True, ensure_ascii=False)
