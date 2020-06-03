@@ -29,6 +29,10 @@
   padding: 0px;
   z-index: 1;
 }
+.change_map_icon:focus,
+.change_map_button:focus {
+  border: 2px solid blue;
+}
 
 .change_map_button {
   margin-left: 5px;

@@ -19,6 +19,7 @@ const FeatureInfo = ({
     <div className="infobox_container">
       <div className="all_layer_results">
         <button
+          tabIndex="0"
           className="close_button"
           onClick={e => {
             handleExtensiveInfo(false);
