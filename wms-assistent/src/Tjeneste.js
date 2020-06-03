@@ -101,16 +101,18 @@ const Tjeneste = ({ doc, onUpdate, onSave, feature, setFeature }) => {
           setFeature={setFeature}
         />
         {false && <Tags tags={doc.tags} />}
-        <Button
-          style={{ width: "100%", marginTop: 16, marginBottom: 16 }}
-          onClick={onSave}
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<SaveIcon />}
-        >
-          Oppdater feltene under i Django
-        </Button>
+        {false && (
+          <Button
+            style={{ width: "100%", marginTop: 16, marginBottom: 16 }}
+            onClick={onSave}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<SaveIcon />}
+          >
+            Oppdater feltene under i Django
+          </Button>
+        )}
       </div>
     </form>
   );
