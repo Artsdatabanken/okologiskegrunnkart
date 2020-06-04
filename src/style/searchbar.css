@@ -246,11 +246,40 @@
   color: white;
   font-size: 26px;
   font-weight: bold;
-  padding: 20px 25px;
+  padding: 18px 25px;
 }
 
-.help-close-button {
-  cursor: pointer;
+@media only screen and (max-width: 768px) {
+  .help-modal-title {
+    padding: 15px 20px;
+    font-size: 24px;
+  }
+}
+
+.close-modal-button {
+  padding: 2px;
+  display: flex;
+  background-color: #697f8a;
+  color: white;
+  border: 2px solid white;
+}
+
+@media only screen and (max-width: 768px) {
+  .close-modal-button {
+    padding: 0;
+  }
+}
+
+.close-modal-button:hover {
+  padding: 2px;
+  display: flex;
+  background-color: #4b616c;
+  color: white;
+}
+
+.close-modal-button:focus {
+  background-color: #4b616c;
+  border-color: blue;
 }
 
 .help-modal-content {
@@ -258,6 +287,12 @@
   flex-flow: column;
   align-items: flex-start;
   padding: 15px 25px;
+}
+
+@media only screen and (max-width: 768px) {
+  .help-modal-content {
+    padding: 15px 20px;
+  }
 }
 
 .help-text-line-header {
