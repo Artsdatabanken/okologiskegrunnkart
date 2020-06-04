@@ -36,7 +36,7 @@ const FeatureInfo = ({
         </ListItem>
 
         <div className="all_layer_results_scrollable">
-          <List dense="true">
+          <List dense={true}>
             {layersresultat !== undefined &&
               Object.keys(layersresultat).map(key => {
                 return (

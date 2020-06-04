@@ -40,6 +40,8 @@ const InfoBox = ({
     return "-";
   };
 
+  console.log(layersresultat);
+
   return (
     <div className="infobox_container">
       <div className="infobox">
