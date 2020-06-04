@@ -2,6 +2,8 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
+import { Modal } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 class SearchBar extends React.Component {
   state = {
     treffliste_lokalt: null,
@@ -13,7 +15,9 @@ class SearchBar extends React.Component {
     treffliste_knr: null,
     treffliste_gnr: null,
     treffliste_bnr: null,
-    searchTerm: null
+    searchTerm: null,
+    showHelpModal: false,
+    manual: ""
   };
 
   handleRemoveTreffliste = () => {
@@ -262,96 +266,154 @@ class SearchBar extends React.Component {
     this.wrapperRef = node;
   };
 
+  openHelp = () => {
+    // returnerer brukermanualen fra wiki
+    backend.getUserManualWiki().then(manual => {
+      this.setState({ showHelpModal: true, manual });
+    });
+  };
+
+  closeHelpModal = () => {
+    this.setState({ showHelpModal: false });
+  };
+
+  formattedManual = () => {
+    if (!this.state.manual || this.state.manual === "") {
+      return [];
+    }
+    const array = this.state.manual.split(/\r?\n/);
+    const items = [];
+    for (const [index, value] of array.entries()) {
+      if (!value || value === "") {
+        continue;
+      } else if (value.startsWith("## ")) {
+        items.push(
+          <p key={index} className="help-text-line-header">
+            {value.substring(3, value.length)}
+          </p>
+        );
+      } else {
+        items.push(
+          <p key={index} className="help-text-line">
+            {value}
+          </p>
+        );
+      }
+    }
+    return items;
+  };
+
   render() {
     return (
-      <div className="searchbar_container" ref={this.setWrapperRef}>
-        <div className="searchbar">
-          <input
-            className="searchbarfield"
-            id="searchfield"
-            type="text"
-            autoComplete="off"
-            placeholder="søk etter kartlag eller område..."
-            onFocus={e => this.handleSearchBar(e.target.value)}
-            onChange={e => {
-              this.handleSearchBar(e.target.value);
-            }}
-            onKeyDown={e => {
-              if (e.key === "ArrowDown") {
-                if (document.getElementsByClassName("searchbar_item")) {
-                  if (e.keyCode === 40) {
-                    if (document.getElementsByClassName("searchbar_item")[0]) {
-                      document
-                        .getElementsByClassName("searchbar_item")[0]
-                        .focus();
-                    } else {
-                      console.log("nothing to scroll to");
+      <>
+        <div className="searchbar_container" ref={this.setWrapperRef}>
+          <div className="searchbar">
+            <input
+              className="searchbarfield"
+              id="searchfield"
+              type="text"
+              autoComplete="off"
+              placeholder="søk etter kartlag eller område..."
+              onFocus={e => this.handleSearchBar(e.target.value)}
+              onChange={e => {
+                this.handleSearchBar(e.target.value);
+              }}
+              onKeyDown={e => {
+                if (e.key === "ArrowDown") {
+                  if (document.getElementsByClassName("searchbar_item")) {
+                    if (e.keyCode === 40) {
+                      if (
+                        document.getElementsByClassName("searchbar_item")[0]
+                      ) {
+                        document
+                          .getElementsByClassName("searchbar_item")[0]
+                          .focus();
+                      } else {
+                        console.log("nothing to scroll to");
+                      }
                     }
+                  } else {
+                    console.log("nothing to see here");
                   }
-                } else {
-                  console.log("nothing to see here");
                 }
-              }
-            }}
-            onKeyPress={e => {
-              if (e.key === "Enter") {
-                this.handleSearchButton();
-              }
-            }}
-          />
+              }}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  this.handleSearchButton();
+                }
+              }}
+            />
 
-          {this.state.isSearching && (
+            {this.state.isSearching && (
+              <button
+                className="x"
+                onClick={() => {
+                  this.handleRemoveTreffliste();
+                  this.handleSearchBar(null);
+                  document.getElementById("searchfield").value = "";
+                }}
+              >
+                x
+              </button>
+            )}
             <button
-              className="x"
               onClick={() => {
-                this.handleRemoveTreffliste();
-                this.handleSearchBar(null);
-                document.getElementById("searchfield").value = "";
+                this.handleSearchButton();
               }}
             >
-              x
+              søk
             </button>
+          </div>
+          {(this.state.isSearching || this.props.searchResultPage) && (
+            <TreffListe
+              setSearchResultPage={this.props.setSearchResultPage}
+              searchResultPage={this.props.searchResultPage}
+              searchTerm={this.state.searchTerm}
+              handleSearchBar={this.handleSearchBar}
+              handleSearchButton={this.handleSearchButton}
+              treffliste={this.state.treffliste}
+              treffliste_lokalt={this.state.treffliste_lokalt}
+              treffliste_sted={this.state.treffliste_sted}
+              treffliste_knr={this.state.treffliste_knr}
+              treffliste_gnr={this.state.treffliste_gnr}
+              treffliste_bnr={this.state.treffliste_bnr}
+              treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+              removeValgtLag={this.props.removeValgtLag}
+              addValgtLag={this.props.addValgtLag}
+              handleGeoSelection={this.props.handleGeoSelection}
+              handleRemoveTreffliste={this.handleRemoveTreffliste}
+            />
           )}
+
           <button
-            onClick={() => {
-              this.handleSearchButton();
+            className="help_button"
+            onClick={e => {
+              this.openHelp();
             }}
           >
-            søk
+            ?
           </button>
         </div>
-        {(this.state.isSearching || this.props.searchResultPage) && (
-          <TreffListe
-            setSearchResultPage={this.props.setSearchResultPage}
-            searchResultPage={this.props.searchResultPage}
-            searchTerm={this.state.searchTerm}
-            handleSearchBar={this.handleSearchBar}
-            handleSearchButton={this.handleSearchButton}
-            treffliste={this.state.treffliste}
-            treffliste_lokalt={this.state.treffliste_lokalt}
-            treffliste_sted={this.state.treffliste_sted}
-            treffliste_knr={this.state.treffliste_knr}
-            treffliste_gnr={this.state.treffliste_gnr}
-            treffliste_bnr={this.state.treffliste_bnr}
-            treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
-            removeValgtLag={this.props.removeValgtLag}
-            addValgtLag={this.props.addValgtLag}
-            handleGeoSelection={this.props.handleGeoSelection}
-            handleRemoveTreffliste={this.handleRemoveTreffliste}
-          />
-        )}
 
-        <button
-          className="help_button"
-          onClick={e => {
-            window.open(
-              "https://github.com/Artsdatabanken/forvaltningsportal/wiki/Brukermanual"
-            );
-          }}
+        <Modal
+          open={this.state.showHelpModal}
+          onClose={this.closeHelpModal}
+          className="help-modal-body"
         >
-          ?
-        </button>
-      </div>
+          <div className="help-modal-wrapper">
+            <div className="help-modal-title">
+              <div>Brukermanual</div>
+              <Close
+                className="help-close-button"
+                onClick={e => {
+                  this.closeHelpModal();
+                }}
+              />
+            </div>
+            <div className="help-modal-content">{this.formattedManual()}</div>
+          </div>
+        </Modal>
+      </>
     );
   }
 }
