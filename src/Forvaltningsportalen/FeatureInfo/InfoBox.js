@@ -19,6 +19,27 @@ const InfoBox = ({
 
   // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
 
+  const hentAdresse = adresse => {
+    if (adresse && adresse.adressetekst) {
+      return adresse.adressetekst;
+    }
+    return "-";
+  };
+
+  const hentGardsnummer = adresse => {
+    if (adresse && adresse.gardsnummer) {
+      return adresse.gardsnummer;
+    }
+    return "-";
+  };
+
+  const hentBruksnummer = adresse => {
+    if (adresse && adresse.bruksnummer) {
+      return adresse.bruksnummer;
+    }
+    return "-";
+  };
+
   return (
     <div className="infobox_container">
       <div className="infobox">
@@ -47,27 +68,9 @@ const InfoBox = ({
                   <b>{`${sted.navneobjekttype}`}</b>
                 </span>
                 <span className="text_type">
-                  <Home />
-                  {`Adresse: `}
-                  <b>
-                    {adresse && adresse.adressetekst
-                      ? adresse.adressetekst
-                      : "-"}
-                  </b>
-                </span>
-                <span className="text_type">
-                  <Home />
-                  {`Gårdsnummer: `}
-                  <b>
-                    {adresse && adresse.gardsnummer ? adresse.gardsnummer : "-"}
-                  </b>
-                </span>
-                <span className="text_type">
-                  <Home />
-                  {`Bruksnummer: `}
-                  <b>
-                    {adresse && adresse.bruksnummer ? adresse.bruksnummer : "-"}
-                  </b>
+                  <Place />
+                  {`Fylke: `}
+                  <b>{sted.fylkesnavn[0]}</b>
                 </span>
                 <span className="text_type">
                   <Place />
@@ -75,14 +78,18 @@ const InfoBox = ({
                   <b>{sted.kommunenavn[0]}</b>
                 </span>
                 <span className="text_type">
-                  <Place />
-                  {`Kommunenr.: `}
-                  <b>{sted.kommunenummer}</b>
+                  <Home />
+                  {`Matrikkel: `}
+                  <b>
+                    {`${sted.kommunenummer}/${hentGardsnummer(
+                      adresse
+                    )}/${hentBruksnummer(adresse)}`}
+                  </b>
                 </span>
                 <span className="text_type">
-                  <Place />
-                  {`Fylke: `}
-                  <b>{sted.fylkesnavn[0]}</b>
+                  <Home />
+                  {`Adresse: `}
+                  <b>{hentAdresse(adresse)}</b>
                 </span>
               </span>
             )}
