@@ -78,6 +78,55 @@
   }
 }
 
+/* list items in info box */
+.generic-element-primary-text {
+  display: block;
+  font-size: 12pt;
+  color: #6d6d6d;
+}
+.generic-element-data-owner {
+  display: block;
+  font-size: 10pt;
+  color: grey;
+}
+.window_scrollable > .generic_element > .MuiListItem-root {
+  padding: 0 16px;
+}
+.all_layer_results_scrollable
+  > .MuiList-root
+  > .generic_element
+  > .MuiListItem-root {
+  padding: 0 16px;
+}
+
+@media only screen and (max-width: 768px) {
+  .generic-element-secondary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-primary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-data-owner {
+    font-size: 9.5pt;
+    margin: 1px 0 !important;
+  }
+  .window_scrollable
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
+  }
+  .all_layer_results_scrollable
+    > .MuiList-root
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
+  }
+}
+
 /* Overskriften */
 .infotitle svg {
   display: inline-block;
@@ -90,6 +139,12 @@
 
 .coordinates {
   color: grey;
+  padding: 15px 0 10px 0;
+}
+@media only screen and (max-width: 768px) {
+  .coordinates {
+    padding: 10px 0 10px 0;
+  }
 }
 
 /* Knapper i boksene  */
@@ -106,6 +161,12 @@
 }
 
 /* åpne ekstra info knapp */
+.search-layers-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+}
 .search_layers:focus {
   border: 2px solid blue;
 }
