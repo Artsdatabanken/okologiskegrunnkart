@@ -13,7 +13,7 @@
   position: absolute;
   left: 10px;
   bottom: 20px;
-  z-index: 1000;
+  z-index: 100;
   border-radius: 3px;
   border: 1px solid #9f9f9f;
 }
@@ -28,6 +28,10 @@
   text-align: center;
   padding: 0px;
   z-index: 1;
+}
+.change_map_icon:focus,
+.change_map_button:focus {
+  border: 2px solid blue;
 }
 
 .change_map_button {

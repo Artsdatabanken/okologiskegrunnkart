@@ -19,6 +19,7 @@ const FeatureInfo = ({
     <div className="infobox_container">
       <div className="all_layer_results">
         <button
+          tabIndex="0"
           className="close_button"
           onClick={e => {
             handleExtensiveInfo(false);
@@ -35,7 +36,7 @@ const FeatureInfo = ({
         </ListItem>
 
         <div className="all_layer_results_scrollable">
-          <List>
+          <List dense="true">
             {layersresultat !== undefined &&
               Object.keys(layersresultat).map(key => {
                 return (

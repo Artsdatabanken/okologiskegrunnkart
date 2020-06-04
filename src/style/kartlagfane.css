@@ -268,3 +268,7 @@ h4.container_header {
 .polygonbutton.edit {
   background: #d5f1f5;
 }
+
+.polygonbutton:focus {
+  border: 2px solid blue;
+}

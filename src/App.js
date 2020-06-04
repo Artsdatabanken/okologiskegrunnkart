@@ -70,22 +70,6 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <SearchBar
-                      setSearchResultPage={this.setSearchResultPage}
-                      searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={this.setKartlagSearchResults}
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.addValgtLag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                    />
                     <Kart
                       addPolygon={this.addPolygon}
                       addPolyline={this.addPolyline}
@@ -111,10 +95,38 @@ class App extends React.Component {
                       onMapMove={context.onMapMove}
                       history={history}
                       sted={this.state.sted}
+                      adresse={this.state.adresse}
                       layersresultat={this.state.layersresultat}
                       valgteLag={this.state.valgteLag}
                       token={token}
                       {...this.state}
+                    />
+                    <KartVelger
+                      onUpdateLayerProp={this.handleSetBakgrunnskart}
+                      aktivtFormat={basiskart.kart.aktivtFormat}
+                    />
+                    <FeatureInfo
+                      {...this.state}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      resultat={this.state.resultat}
+                      layersresultat={this.state.layersresultat}
+                      handleExtensiveInfo={this.handleExtensiveInfo}
+                      coordinates_area={{
+                        lat: this.state.lat,
+                        lng: this.state.lng
+                      }}
+                    />
+                    <SearchBar
+                      setSearchResultPage={this.setSearchResultPage}
+                      searchResultPage={this.state.searchResultPage}
+                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setGeoSearchResults={this.setGeoSearchResults}
+                      handleGeoSelection={this.handleGeoSelection}
+                      kartlag={this.state.kartlag}
+                      addValgtLag={this.addValgtLag}
+                      removeValgtLag={this.removeValgtLag}
+                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartlagFanen
                       {...this.state}
@@ -139,17 +151,6 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
-                    />
-                    <FeatureInfo
-                      {...this.state}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      resultat={this.state.resultat}
-                      layersresultat={this.state.layersresultat}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      coordinates_area={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                      }}
                     />
                   </>
                 );
@@ -283,6 +284,19 @@ class App extends React.Component {
     });
   };
 
+  handlePunktSok = (lng, lat, zoom) => {
+    // returnerer punkt søk
+    const radius = Math.round(16500 / Math.pow(zoom, 2));
+    backend.hentPunktSok(lng, lat, radius).then(punktSok => {
+      const adresse = punktSok.adresser.sort((a, b) =>
+        a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+      );
+      this.setState({
+        adresse: adresse.length > 0 ? adresse[0] : null
+      });
+    });
+  };
+
   handleLayersSøk = (lng, lat, valgteLag) => {
     let looplist = this.state.kartlag;
     if (valgteLag) {
@@ -327,12 +341,14 @@ class App extends React.Component {
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat, zoom);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, false);
   };
 

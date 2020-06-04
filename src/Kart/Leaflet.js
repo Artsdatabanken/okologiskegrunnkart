@@ -23,6 +23,7 @@ class Leaflet extends React.Component {
     showPopup: false,
     buttonUrl: null,
     sted: null,
+    adresse: null,
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
@@ -97,6 +98,7 @@ class Leaflet extends React.Component {
   removeMarker() {
     this.setState({
       sted: null,
+      adresse: null,
       data: null
     });
     if (!this.marker) return;
@@ -130,6 +132,18 @@ class Leaflet extends React.Component {
 
   handleInfobox = bool => {
     this.setState({ showInfobox: bool });
+  };
+
+  openLinksInNewTab = () => {
+    // Remove default leaflet link in map so it
+    // isn't selectable with tabs navigation
+    const leafletLink = document.querySelector(
+      ".leaflet-control-attribution a"
+    );
+    if (leafletLink) {
+      leafletLink.setAttribute("target", "_blank");
+      leafletLink.setAttribute("rel", "noopener noreferrer");
+    }
   };
 
   clickInactivePoint = e => {
@@ -279,6 +293,7 @@ class Leaflet extends React.Component {
   }
 
   render() {
+    this.openLinksInNewTab();
     if (this.props.polyline && this.props.polyline.length > 0) {
       this.removePolyline();
       if (this.props.showPolygon) {
@@ -358,18 +373,6 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        {this.state.markerType === "klikk" && this.state.showInfobox && (
-          <InfoBox
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            layersresultat={this.props.layersresultat}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            handleInfobox={this.handleInfobox}
-            onUpdateLayerProp={this.props.onUpdateLayerProp}
-          />
-        )}
         <div className="marker_type_button_container">
           <button
             className={this.state.markerType === "klikk" ? "active" : ""}
@@ -415,6 +418,19 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
+          <InfoBox
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
+            adresse={this.props.adresse}
+            handleInfobox={this.handleInfobox}
+            onUpdateLayerProp={this.props.onUpdateLayerProp}
+          />
+        )}
       </>
     );
   }

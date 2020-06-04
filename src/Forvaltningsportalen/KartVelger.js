@@ -77,7 +77,11 @@ const KartVelger = props => {
       </div>
       <div className="map_ref">
         {tilgjengelige_data[props.aktivtFormat].navn} |{" "}
-        <a href={tilgjengelige_data[props.aktivtFormat].url}>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={tilgjengelige_data[props.aktivtFormat].url}
+        >
           {tilgjengelige_data[props.aktivtFormat].dataeier}{" "}
         </a>
       </div>
