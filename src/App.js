@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
-import url_formatter from "./Funksjoner/url_formatter";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
@@ -95,6 +94,7 @@ class App extends React.Component {
                       onMapMove={context.onMapMove}
                       history={history}
                       sted={this.state.sted}
+                      adresse={this.state.adresse}
                       layersresultat={this.state.layersresultat}
                       valgteLag={this.state.valgteLag}
                       token={token}
@@ -283,6 +283,19 @@ class App extends React.Component {
     });
   };
 
+  handlePunktSok = (lng, lat, zoom) => {
+    // returnerer punkt søk
+    const radius = Math.round(16500 / Math.pow(zoom, 2));
+    backend.hentPunktSok(lng, lat, radius).then(punktSok => {
+      const adresse = punktSok.adresser.sort((a, b) =>
+        a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+      );
+      this.setState({
+        adresse: adresse.length > 0 ? adresse[0] : null
+      });
+    });
+  };
+
   handleLayersSøk = (lng, lat, valgteLag) => {
     let looplist = this.state.kartlag;
     if (valgteLag) {
@@ -291,17 +304,14 @@ class App extends React.Component {
     // Denne henter utvalgte lag baser på listen layers
     var layersresultat = {};
     Object.keys(looplist).forEach(key => {
-      if (!looplist[key].klikkurl) return;
+      if (!looplist[key].klikktekst) return;
       layersresultat[key] = { loading: true };
     });
     this.setState({ layersresultat: layersresultat });
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
-      var url = url_formatter(layer.klikkurl, { lat, lng });
-      url = url.replace(256, 255);
-      url = url.replace(256, 255);
       backend
-        .getFeatureInfo(url)
+        .getFeatureInfo(layer, { lat, lng })
         .then(res => {
           if (res.ServiceException) {
             res.error = res.ServiceException;
@@ -327,12 +337,14 @@ class App extends React.Component {
     }
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat, zoom);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
+    this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, false);
   };
 
