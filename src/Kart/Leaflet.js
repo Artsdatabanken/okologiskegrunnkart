@@ -20,6 +20,7 @@ class Leaflet extends React.Component {
     showPopup: false,
     buttonUrl: null,
     sted: null,
+    adresse: null,
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
@@ -93,6 +94,7 @@ class Leaflet extends React.Component {
   removeMarker() {
     this.setState({
       sted: null,
+      adresse: null,
       data: null
     });
     if (!this.marker) return;
@@ -350,6 +352,7 @@ class Leaflet extends React.Component {
             layersresultat={this.props.layersresultat}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
+            adresse={this.props.adresse}
             handleInfobox={this.handleInfobox}
             onUpdateLayerProp={this.props.onUpdateLayerProp}
           />

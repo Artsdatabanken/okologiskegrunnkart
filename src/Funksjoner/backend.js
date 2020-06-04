@@ -63,9 +63,14 @@ class Backend {
     return this.getPromise(url);
   }
 
+  static async hentPunktSok(lng, lat, radius) {
+    return this.getPromise(
+      `https://ws.geonorge.no/adresser/v1/punktsok?radius=${radius}&lat=${lat}&lon=${lng}`
+    );
+  }
+
   static async getFeatureInfo(layer, coords) {
     var url = getFeatureInfoUrl(layer, coords);
-
     const boringkeys = [
       "gml:boundedBy",
       "gml:Box",
