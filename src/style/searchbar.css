@@ -273,12 +273,12 @@
 .close-modal-button:hover {
   padding: 2px;
   display: flex;
-  background-color: #4b616c;
+  background-color: #415762;
   color: white;
 }
 
 .close-modal-button:focus {
-  background-color: #4b616c;
+  background-color: #415762;
   border-color: blue;
 }
 
