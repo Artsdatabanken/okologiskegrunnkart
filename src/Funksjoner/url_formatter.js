@@ -1,3 +1,40 @@
+export function getFeatureInfoUrl(layer, coords) {
+  if (layer.klikkurl)
+    // Generic API
+    return url_formatter(layer.klikkurl, coords);
+
+  return getWmsFeatureUrl(layer, coords);
+}
+
+function getWmsFeatureUrl(layer, coords) {
+  const url = new URL(layer.wmsurl);
+  const params = url.searchParams;
+
+  const delta = 0.01;
+  const bbox = `${coords.lng - delta},${coords.lat - delta},${coords.lng +
+    delta},${coords.lat + delta}`;
+
+  const layers = Object.values(layer.underlag)
+    .filter(l => l.erSynlig && l.wmslayer)
+    .map(l => l.wmslayer)
+    .join(",");
+
+  params.set("request", "GetFeatureInfo");
+  params.set("version", layer.wmsversion || "1.1.0");
+  params.set("service", "WMS");
+  params.set("x", 128);
+  params.set("y", 128);
+  params.set("width", 255);
+  params.set("height", 255);
+  params.set("layers", layers);
+  params.set("query_layers", layers);
+  params.set("info_format", layer.wmsinfoformat || "application/vnd.ogc.gml");
+  params.set("crs", "EPSG:4326");
+  params.set("srs", "EPSG:4326");
+  params.set("bbox", bbox);
+  return url.toString();
+}
+
 export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
@@ -28,13 +65,6 @@ export default function url_formatter(formatstring = "", variables) {
   }
   url = new URL(url);
   const params = new URLSearchParams(url.search);
-  if (params.get("request") === "GetFeatureInfo") {
-    // Force xy of featureinfo to center of bbox
-    params.set("x", 128);
-    params.set("y", 128);
-    params.set("width", 255);
-    params.set("height", 255);
-  }
   url.search = params.toString();
   return url.toString();
 }
