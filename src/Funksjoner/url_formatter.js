@@ -19,11 +19,12 @@ function getWmsFeatureUrl(layer, coords) {
     .map(l => l.wmslayer)
     .join(",");
 
+  const erv130 = layer.wmsversion === "1.3.0";
   params.set("request", "GetFeatureInfo");
   params.set("version", layer.wmsversion || "1.1.0");
   params.set("service", "WMS");
-  params.set("x", 128);
-  params.set("y", 128);
+  params.set(erv130 ? "i" : "x", 128);
+  params.set(erv130 ? "j" : "y", 128);
   params.set("width", 255);
   params.set("height", 255);
   params.set("layers", layers);
