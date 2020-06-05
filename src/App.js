@@ -10,7 +10,7 @@ import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
-import { sortObject } from "./Funksjoner/sortObject";
+import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 
 class App extends React.Component {
@@ -47,7 +47,10 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
-    const sortedKartlag = sortObject(kartlag);
+    // Sort kartlag object aplhabetically based on title
+    // When kartlag is received from django backend, this can be sorted
+    // directly in the backend and this function can be removed
+    const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
@@ -63,11 +66,6 @@ class App extends React.Component {
     const { history } = this.props;
     const path = this.props.location.pathname;
     const basiskart = this.state.bakgrunnskart;
-    // console.log(this.state.valgtLag);
-    // console.log(this.state.valgteLag);
-    // console.log(this.state.layersresultat);
-    // console.log(this.state.kartlag);
-
     return (
       <SettingsContext.Consumer>
         {context => {
