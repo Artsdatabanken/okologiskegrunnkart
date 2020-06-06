@@ -66,27 +66,11 @@ const GeneriskElement = props => {
             flex: 1
           }}
         >
-          <div>
+          <div className="generic-element-secondary-text">
             {resultat.loading ? <LoadingPlaceholder /> : secondary_text}
           </div>
-          <div
-            style={{
-              display: "block",
-              fontSize: "12pt",
-              color: "#6d6d6d"
-            }}
-          >
-            {primary_text}
-          </div>
-          <div
-            style={{
-              display: "block",
-              fontSize: "10pt",
-              color: "grey"
-            }}
-          >
-            {kartlag.dataeier}
-          </div>
+          <div className="generic-element-primary-text">{primary_text}</div>
+          <div className="generic-element-data-owner">{kartlag.dataeier}</div>
         </div>
 
         {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
