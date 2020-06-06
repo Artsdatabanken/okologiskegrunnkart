@@ -19,6 +19,22 @@ class Backend {
     }
   }
 
+  static async getPromiseText(url) {
+    try {
+      const response = await fetch(url, {
+        method: "get",
+        headers: {
+          Accept: "application/json"
+        }
+      });
+      const json = await response.text();
+      return json;
+    } catch (e) {
+      console.error(url, e);
+      return null;
+    }
+  }
+
   static async hentLokalFil(filnavn) {
     return this.getPromise("/" + filnavn);
   }
@@ -38,6 +54,12 @@ class Backend {
   static async hentSteder(bokstav) {
     return this.getPromise(
       `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=50&eksakteForst=true&epsgKode=4326`
+    );
+  }
+
+  static async getUserManualWiki() {
+    return this.getPromiseText(
+      `https://raw.githubusercontent.com/wiki/Artsdatabanken/forvaltningsportal/Brukermanual.md`
     );
   }
 
