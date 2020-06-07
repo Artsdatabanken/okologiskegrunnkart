@@ -31,7 +31,8 @@ class App extends React.Component {
       searchResultPage: false,
       polygon: null,
       polyline: [],
-      showPolygon: true
+      showPolygon: true,
+      editable: true
     };
   }
 
@@ -70,6 +71,8 @@ class App extends React.Component {
                 return (
                   <>
                     <Kart
+                      handleEditable={this.handleEditable}
+                      editable={this.state.editable}
                       addPolygon={this.addPolygon}
                       addPolyline={this.addPolyline}
                       showPolygon={this.state.showPolygon}
@@ -132,6 +135,7 @@ class App extends React.Component {
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
                       hideAndShowPolygon={this.hideAndShowPolygon}
+                      handleEditable={this.handleEditable}
                       showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
                       addPolyline={this.addPolyline}
@@ -192,6 +196,10 @@ class App extends React.Component {
 
   hideAndShowPolygon = showPolygon => {
     this.setState({ showPolygon: showPolygon });
+  };
+
+  handleEditable = editable => {
+    this.setState({ editable: editable });
   };
 
   removeValgtLag = () => {

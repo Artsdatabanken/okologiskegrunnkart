@@ -29,8 +29,7 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     showInfobox: false,
-    coordinates_area: null,
-    editable: true
+    coordinates_area: null
   };
 
   componentDidMount() {
@@ -147,35 +146,33 @@ class Leaflet extends React.Component {
   };
 
   clickInactivePoint = e => {
-    if (this.state.editable === true) {
-      console.log("Connecting dots, making polygon.");
-      console.log("Midlertidig uredigerbar...");
+    if (this.props.editable === true) {
+      //console.log("Connecting dots, making polygon.");
+      // console.log("Midlertidig uredigerbar...");
       this.props.addPolygon(this.props.polyline);
       this.props.addPolyline([]);
       this.removeEndPoint();
       this.removeStartPoint();
-      this.setState({ editable: false });
+      this.props.handleEditable(false);
     } else {
-      console.log("CLICKED THE INACTIVE POINT");
+      // "CLICKED THE INACTIVE POINT"
       if (
         e.latlng.lat === this.props.polyline[0][0] &&
         e.latlng.lng === this.props.polyline[0][1]
       ) {
         let polygon_list = this.props.polyline.reverse();
         this.props.addPolyline(polygon_list);
-      } else {
-        console.log("trykket på endpoint");
       }
-      this.setState({ editable: true });
+      this.props.handleEditable(true);
     }
     // Så lenge vi ikke har en aktiv og passive state for tegning av linje vil endepkt tegnes.
   };
 
   clickActivePoint = e => {
-    console.log("CLICKED THE ACTIVE POINT");
-    console.log("Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!");
+    //console.log("CLICKED THE ACTIVE POINT");
+    //console.log("Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!");
 
-    this.setState({ editable: false });
+    this.props.handleEditable(false);
     this.removeEndPoint();
 
     const latlng = e.latlng;
@@ -186,27 +183,25 @@ class Leaflet extends React.Component {
       .addTo(this.map);
   };
 
-  handleClick = e => {
-    if (this.state.markerType === "polygon" && this.state.editable === true) {
-      if (!this.props.polygon) {
-        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
-        let polygon_list = this.props.polyline;
-        const latlng = e.latlng;
-        polygon_list.push([latlng.lat, latlng.lng]);
-        this.props.addPolyline(polygon_list);
-      }
-    }
+  markerClick(e) {
+    // Klikkevent for når markørtoolen er valgt
 
-    if (this.state.markerType !== "klikk") return;
-    this.props.handleExtensiveInfo(false);
-    const latlng = e.latlng;
+    // Oppdatering av kartmarkøren
     this.removeMarker();
+    this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
+      icon: this.icon
+    }).addTo(this.map);
+
+    // Oppdatering av infoboksen
+    this.props.handleExtensiveInfo(false);
     this.setState({
       showInfobox: true,
-      coordinates_area: latlng,
+      coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
+    this.props.handleValgteLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
 
+    // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";
     for (let i in urlparams) {
@@ -214,14 +209,34 @@ class Leaflet extends React.Component {
         newurlstring += "?" + urlparams[i];
       }
     }
-
-    this.marker = L.marker([latlng.lat, latlng.lng], {
-      icon: this.icon
-    }).addTo(this.map);
     this.props.history.push(
-      "?lng=" + latlng.lng + "&lat=" + latlng.lat + newurlstring
+      "?lng=" + e.latlng.lng + "&lat=" + e.latlng.lat + newurlstring
     );
-    this.props.handleValgteLag(latlng.lng, latlng.lat, this.map.getZoom());
+  }
+
+  polygonToolClick(e) {
+    if (this.props.editable === true) {
+      if (!this.props.polygon) {
+        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
+        let polygon_list = this.props.polyline;
+        const latlng = e.latlng;
+        polygon_list.push([latlng.lat, latlng.lng]);
+        this.props.addPolyline(polygon_list);
+      } else {
+        console.log("polygon exists");
+      }
+    } else {
+      console.log("is not editable");
+    }
+  }
+
+  handleClick = e => {
+    if (this.state.markerType === "polygon") {
+      this.polygonToolClick(e);
+    } else if (this.state.markerType === "klikk") {
+      this.markerClick(e);
+    }
+    return;
   };
 
   updateMap(props) {
@@ -294,58 +309,66 @@ class Leaflet extends React.Component {
 
   render() {
     this.openLinksInNewTab();
-    if (this.props.polyline && this.props.polyline.length > 0) {
-      this.removePolyline();
-      if (this.props.showPolygon) {
-        let polygon_list = this.props.polyline;
 
-        if (polygon_list.length < 2) {
-          console.log("forstørrer punkt siden vi ikke har punkt");
-          // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
-          if (polygon_list[0]) {
-            console.log("forutsatt at vi har punkt");
-            polygon_list.push([
-              polygon_list[0][0] + 0.0001,
-              polygon_list[0][1] + 0.0001
-            ]);
+    if (this.props.polyline || this.props.polygon) {
+      // Starter med å fjerne forrige figur for å unngå duplikater
+      this.removePolyline();
+      this.removePolygon();
+      this.removeEndPoint();
+      this.removeStartPoint();
+
+      if (!this.props.polygon && this.props.polyline.length < 1) {
+        // I dette tilfellet mangler både polylinje og polygon
+        // Da bør vi sette edit til true.
+      } else if (this.props.polyline && this.props.polyline.length > 0) {
+        // I dette tilfellet har vi utelukkende en polylinje å tegne opp
+
+        this.removePolyline();
+        if (this.props.showPolygon) {
+          let polygon_list = this.props.polyline;
+          if (polygon_list.length < 2) {
+            //console.log("forstørrer punkt siden vi ikke har punkt");
+            // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
+            if (polygon_list[0]) {
+              //console.log("forutsatt at vi har punkt");
+              polygon_list.push([
+                polygon_list[0][0] + 0.0001,
+                polygon_list[0][1] + 0.0001
+              ]);
+            }
           }
+
+          this.polyline = L.polyline(polygon_list, {
+            color: "red",
+            lineJoin: "round"
+          }).addTo(this.map);
+
+          this.startpoint = L.marker(polygon_list[0], {
+            icon: inactiveIcon
+          })
+            .on("click", this.clickInactivePoint)
+            .addTo(this.map);
+
+          let length = polygon_list.length - 1 || 0;
+
+          this.endpoint = L.marker(polygon_list[length], {
+            icon: activeIcon
+          })
+            .on("click", this.clickActivePoint)
+            .addTo(this.map);
         }
-
-        this.polyline = L.polyline(polygon_list, {
-          color: "red",
-          lineJoin: "round"
-        }).addTo(this.map);
-
-        this.removeStartPoint();
-        this.startpoint = L.marker(polygon_list[0], {
-          icon: inactiveIcon
-        })
-          .on("click", this.clickInactivePoint)
-          .addTo(this.map);
-
-        let length = polygon_list.length - 1 || 0;
-
-        this.removeEndPoint();
-        this.endpoint = L.marker(polygon_list[length], {
-          icon: activeIcon
-        })
-          .on("click", this.clickActivePoint)
-          .addTo(this.map);
+      } else if (this.props.polygon) {
+        // I dette tilfellet har vi utelukkende et polygon å tegne opp
+        this.removePolygon();
+        if (this.props.showPolygon) {
+          this.polygon = L.polygon(this.props.polygon, {
+            color: "blue",
+            lineJoin: "round"
+          }).addTo(this.map);
+        }
       }
-    } else {
-      this.removePolyline();
     }
-    if (this.props.polygon) {
-      this.removePolygon();
-      if (this.props.showPolygon) {
-        this.polygon = L.polygon(this.props.polygon, {
-          color: "blue",
-          lineJoin: "round"
-        }).addTo(this.map);
-      }
-    } else {
-      this.removePolygon();
-    }
+
     if (this.props.zoomcoordinates) {
       this.removeMarker();
       this.marker = L.marker(
