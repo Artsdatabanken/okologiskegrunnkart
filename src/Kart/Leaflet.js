@@ -147,15 +147,14 @@ class Leaflet extends React.Component {
 
   clickInactivePoint = e => {
     if (this.props.editable === true) {
-      //console.log("Connecting dots, making polygon.");
-      // console.log("Midlertidig uredigerbar...");
+      // Setter sammen punktene til et polygon, og gjør den uredigerbar.
       this.props.addPolygon(this.props.polyline);
       this.props.addPolyline([]);
       this.removeEndPoint();
       this.removeStartPoint();
       this.props.handleEditable(false);
     } else {
-      // "CLICKED THE INACTIVE POINT"
+      // Klikk på inaktivt punkt:
       if (
         e.latlng.lat === this.props.polyline[0][0] &&
         e.latlng.lng === this.props.polyline[0][1]
@@ -165,12 +164,11 @@ class Leaflet extends React.Component {
       }
       this.props.handleEditable(true);
     }
-    // Så lenge vi ikke har en aktiv og passive state for tegning av linje vil endepkt tegnes.
   };
 
   clickActivePoint = e => {
-    //console.log("CLICKED THE ACTIVE POINT");
-    //console.log("Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!");
+    // CLICKED THE ACTIVE POINT
+    // Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!
 
     this.props.handleEditable(false);
     this.removeEndPoint();
@@ -184,8 +182,6 @@ class Leaflet extends React.Component {
   };
 
   markerClick(e) {
-    // Klikkevent for når markørtoolen er valgt
-
     // Oppdatering av kartmarkøren
     this.removeMarker();
     this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
@@ -217,16 +213,13 @@ class Leaflet extends React.Component {
   polygonToolClick(e) {
     if (this.props.editable === true) {
       if (!this.props.polygon) {
-        // Hvis polygon er satt, har personen klikket på ferdig-knappen.
+        // Hvis polygon er satt, har personen klikket på ferdig-knappen,
+        // og polylinje skal da ikke oppdateres.
         let polygon_list = this.props.polyline;
         const latlng = e.latlng;
         polygon_list.push([latlng.lat, latlng.lng]);
         this.props.addPolyline(polygon_list);
-      } else {
-        console.log("polygon exists");
       }
-    } else {
-      console.log("is not editable");
     }
   }
 
@@ -310,6 +303,7 @@ class Leaflet extends React.Component {
   render() {
     this.openLinksInNewTab();
 
+    // Polygontegning og Polylinjetegning
     if (this.props.polyline || this.props.polygon) {
       // Starter med å fjerne forrige figur for å unngå duplikater
       this.removePolyline();
@@ -317,40 +311,29 @@ class Leaflet extends React.Component {
       this.removeEndPoint();
       this.removeStartPoint();
 
-      if (!this.props.polygon && this.props.polyline.length < 1) {
-        // I dette tilfellet mangler både polylinje og polygon
-        // Da bør vi sette edit til true.
-      } else if (this.props.polyline && this.props.polyline.length > 0) {
+      if (this.props.polyline && this.props.polyline.length > 0) {
         // I dette tilfellet har vi utelukkende en polylinje å tegne opp
-
-        this.removePolyline();
         if (this.props.showPolygon) {
           let polygon_list = this.props.polyline;
-          if (polygon_list.length < 2) {
-            //console.log("forstørrer punkt siden vi ikke har punkt");
-            // Midelertidig hack inntil jeg får fiksa et startpunkt i steden.
-            if (polygon_list[0]) {
-              //console.log("forutsatt at vi har punkt");
-              polygon_list.push([
-                polygon_list[0][0] + 0.0001,
-                polygon_list[0][1] + 0.0001
-              ]);
-            }
+
+          // Tegn polylinjen:
+          if (polygon_list.length > 1) {
+            // Må ha mer enn et punkt for å tegne ei linje!
+            this.polyline = L.polyline(polygon_list, {
+              color: "red",
+              lineJoin: "round"
+            }).addTo(this.map);
           }
 
-          this.polyline = L.polyline(polygon_list, {
-            color: "red",
-            lineJoin: "round"
-          }).addTo(this.map);
-
+          // Tegn startspunktet på linjen
           this.startpoint = L.marker(polygon_list[0], {
             icon: inactiveIcon
           })
             .on("click", this.clickInactivePoint)
             .addTo(this.map);
 
+          // Tegn sluttpunktet på linjen
           let length = polygon_list.length - 1 || 0;
-
           this.endpoint = L.marker(polygon_list[length], {
             icon: activeIcon
           })
@@ -359,7 +342,6 @@ class Leaflet extends React.Component {
         }
       } else if (this.props.polygon) {
         // I dette tilfellet har vi utelukkende et polygon å tegne opp
-        this.removePolygon();
         if (this.props.showPolygon) {
           this.polygon = L.polygon(this.props.polygon, {
             color: "blue",
@@ -369,6 +351,7 @@ class Leaflet extends React.Component {
       }
     }
 
+    // Opptegning av markør
     if (this.props.zoomcoordinates) {
       this.removeMarker();
       this.marker = L.marker(
@@ -381,6 +364,7 @@ class Leaflet extends React.Component {
         }
       ).addTo(this.map);
 
+      // Zooming av kart?
       let new_bounds = [
         [
           this.props.zoomcoordinates.maxcoord[1],

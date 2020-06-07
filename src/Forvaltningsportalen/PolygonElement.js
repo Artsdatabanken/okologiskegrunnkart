@@ -46,6 +46,7 @@ const PolygonElement = ({
             onClick={e => {
               addPolygon(null);
               addPolyline(polygon);
+              handleEditable(true);
             }}
           >
             <Create /> Rediger
