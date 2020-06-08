@@ -205,14 +205,20 @@ class SearchBar extends React.Component {
         max_items = 50;
       }
       let entries = resultat.stedsnavn;
-      let resultatliste = {};
-      for (let i in entries) {
-        let id = entries[i].ssrId;
+      const resultatliste = {};
+      // If only one entrie is returned from backend, this is
+      // returned as an object, not as array of objects.
+      // In that case, convert to array
+      if (!Array.isArray(entries)) {
+        entries = [].push(entries);
+      }
+      for (const i in entries) {
+        const id = entries[i].ssrId;
         if (resultatliste[id]) {
-          let gammel = resultatliste[id];
-          let ny = entries[i];
-          let variasjon = {};
-          for (let j in gammel) {
+          const gammel = resultatliste[id];
+          const ny = entries[i];
+          const variasjon = {};
+          for (const j in gammel) {
             if (gammel[j] !== ny[j]) {
               if (j !== "variasjon") {
                 variasjon[j] = [gammel[j], ny[j]];
@@ -229,9 +235,9 @@ class SearchBar extends React.Component {
           }
         }
       }
-      let prioritertliste = {};
+      const prioritertliste = {};
       for (let i in resultatliste) {
-        let element = resultatliste[i];
+        const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
       if (resultpage) {
