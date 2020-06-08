@@ -276,11 +276,11 @@ h4.container_header {
 /* Side bar button */
 .toggle-side-bar-wrapper {
   position: absolute;
-  top: 34px;
-  right: -32px;
+  top: 40px;
+  right: -36px;
 }
 .toggle-side-bar-wrapper.side-bar-open {
-  right: 377px;
+  right: 372px;
 }
 .toggle-side-bar-button {
   transform: rotate(-90deg);
@@ -288,7 +288,9 @@ h4.container_header {
   border-bottom-left-radius: 0;
   border-bottom: 0;
   background-color: lightgrey;
-  width: 90px;
+  border-color: grey;
+  width: 100px;
+  font-size: 15px;
 }
 .toggle-side-bar-button:focus {
   border: 2px solid blue;
