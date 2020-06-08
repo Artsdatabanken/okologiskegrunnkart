@@ -4,7 +4,7 @@ import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
 
-import { KeyboardBackspace, ThreeDRotationSharp } from "@material-ui/icons";
+import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
   return (
     <>
