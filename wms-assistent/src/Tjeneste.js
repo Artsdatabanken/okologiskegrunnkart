@@ -29,13 +29,12 @@ const Tjeneste = ({ doc, onUpdate, onSave, feature, setFeature }) => {
           />
         )}
         <TextField2
-          title="Kartdata / WMS / API URL"
+          title="WMS URL"
           dockey="wmsurl"
           doc={doc}
           onUpdate={onUpdate}
         />
         <Warnings doc={doc} />
-        {false && <Capabilities caps={doc.wms_capabilities} />}
         <TextField2
           title="WMS version"
           dockey="wmsversion"
@@ -45,6 +44,12 @@ const Tjeneste = ({ doc, onUpdate, onSave, feature, setFeature }) => {
         <TextField2
           title="Projeksjon"
           dockey="crs"
+          doc={doc}
+          onUpdate={onUpdate}
+        />
+        <TextField2
+          title="API URL (hvis tom brukes WMS url)"
+          dockey="klikkurl"
           doc={doc}
           onUpdate={onUpdate}
         />
@@ -129,7 +134,7 @@ const Tags = ({ tags }) => {
   return (
     <>
       <ListSubheader>Tags</ListSubheader>
-      {(tags || []).map((tag) => (
+      {(tags || []).map(tag => (
         <Chip
           label={tag}
           key={tag}

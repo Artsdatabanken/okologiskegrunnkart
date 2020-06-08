@@ -1,16 +1,16 @@
 import React from "react";
 import { CircularProgress } from "@material-ui/core";
 import { useCallback, useEffect, useState } from "react";
-import getCapabilities from "./probe";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
-import getFeatureInfo from "./probe";
+import { getFeatureInfo, getCapabilities } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Tjeneste from "./Tjeneste";
 import useDjangoKartlag from "./useDjangoKartlag";
 import KartlagList from "./KartlagList";
 import KartlagListItem from "./KartlagListItem";
 import { plukkForetrukketFormat, selectCrs, computeLegendUrl } from "./wms";
+import url_formatter from "./FeatureInfo/url_formatter";
 
 const kartlagUrl =
   window.location.hostname === "localhost"
@@ -21,7 +21,7 @@ export default function TjenesteContainer() {
   const { writeUpdate } = useDjangoKartlag();
   const location = useLocation();
   const [feature, setFeature] = useState();
-  const [doc, setDoc] = useState();
+  const [doc, setDoc] = useState({});
   const [kartlag, setKartlag] = useState();
 
   const params = new URLSearchParams(location.search);
@@ -37,7 +37,7 @@ export default function TjenesteContainer() {
       const doc = kartlag[id] || { error: "Finner ikke kartlag #" + id };
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
-      Object.values(doc.underlag).forEach((ul) => (ul.queryable = true)); // HACK
+      Object.values(doc.underlag).forEach(ul => (ul.queryable = true)); // HACK
       console.log("underlag", doc.underlag);
 
       setDoc(doc);
@@ -49,10 +49,10 @@ export default function TjenesteContainer() {
   const underlag = doc?.underlag;
 
   const updateCallback = useCallback(
-    (capabilities) => {
+    capabilities => {
       const layer = {
         ...doc,
-        wms_capabilities: capabilities,
+        wms_capabilities: capabilities
       };
       const capability = capabilities.Capability;
       const service = capabilities.Service || {};
@@ -74,9 +74,10 @@ export default function TjenesteContainer() {
           layer.wmsinfoformat = plukkForetrukketFormat(
             capability.Request.GetFeatureInfo.Format
           );
-        layer.underlag = []; //layer.underlag || []
-        if (false) fyllPåUnderlag(capability.Layer, layer.underlag);
-        //console.log('nyeunderlag', layer.underlag)
+        //layer.underlag = []; //layer.underlag || []
+        layer.wmslayers = [];
+        fyllPåUnderlag(capability.Layer, layer.wmslayers);
+        console.log("nyeunderlag", layer.underlag);
       }
       setDoc(layer);
     },
@@ -104,34 +105,42 @@ export default function TjenesteContainer() {
     async function doprobe() {
       if (!doc || !doc.wmsurl) return null;
       if (!testkoords) return null;
+      const delta = 0.01;
+      const koords = doc.testkoordinater.split(",").map(e => parseFloat(e));
+      if (koords.length !== 2) return;
+      const [lat, lng] = koords;
+      const bbox = [lng - delta, lat - delta, lng + delta, lat + delta];
       try {
-        const uri = new URL(doc.wmsurl);
-        uri.searchParams.set("request", "GetFeatureInfo");
-        uri.searchParams.set("service", "WMS");
-        uri.searchParams.set("version", doc.wmsversion);
-        const koords = doc.testkoordinater.split(",").map((e) => parseFloat(e));
-        const delta = 0.01;
-        if (koords.length !== 2) return;
-        const [lat, lng] = koords;
-        const bbox = [lng - delta, lat - delta, lng + delta, lat + delta];
-        uri.searchParams.set("bbox", bbox.join(","));
-        uri.searchParams.set("x", 128);
-        uri.searchParams.set("y", 128);
-        uri.searchParams.set("width", 255);
-        uri.searchParams.set("height", 255);
-        console.log("underlag", doc.underlag);
-        const enabledLayers = doc.underlag
-          .filter((lag) => lag.queryable)
-          .map((lag) => lag.wmslayer);
-        console.log("querylayers", enabledLayers);
-        uri.searchParams.set("layers", enabledLayers);
-        uri.searchParams.set("query_layers", enabledLayers);
-        uri.searchParams.set("info_format", doc.wmsinfoformat);
-        uri.searchParams.set("crs", "EPSG:4326");
-        uri.searchParams.set("srs", "EPSG:4326");
-        //            uri.searchParams.set('layers', enabledLayers.join(','))
-        doc.klikk_testurl = uri.toString();
-        console.log(doc.klikk_testurl);
+        console.log("klikkurl", doc.klikkurl);
+        if (doc.klikkurl) {
+          const variables = { lng: lat, lat: lng, zoom: 10 };
+          doc.klikk_testurl = url_formatter(doc.klikkurl, variables);
+          console.log(doc.klikk_testurl);
+        } else {
+          // WMS
+          const uri = new URL(doc.wmsurl);
+          uri.searchParams.set("request", "GetFeatureInfo");
+          uri.searchParams.set("service", "WMS");
+          uri.searchParams.set("version", doc.wmsversion);
+          uri.searchParams.set("bbox", bbox.join(","));
+          uri.searchParams.set("x", 128);
+          uri.searchParams.set("y", 128);
+          uri.searchParams.set("width", 255);
+          uri.searchParams.set("height", 255);
+          console.log("underlag", doc.underlag);
+          const enabledLayers = doc.underlag
+            .filter(lag => lag.queryable)
+            .map(lag => lag.wmslayer);
+          console.log("querylayers", enabledLayers);
+          uri.searchParams.set("layers", enabledLayers);
+          uri.searchParams.set("query_layers", enabledLayers);
+          uri.searchParams.set("info_format", doc.wmsinfoformat);
+          uri.searchParams.set("crs", "EPSG:4326");
+          uri.searchParams.set("srs", "EPSG:4326");
+          //            uri.searchParams.set('layers', enabledLayers.join(','))
+          doc.klikk_testurl = uri.toString();
+        }
+        console.log("klikk_testurl", doc.klikk_testurl);
         const r = await getFeatureInfo(doc.klikk_testurl);
         delete r.url;
         delete r.status;
@@ -147,7 +156,7 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
-  }, [doc, wmsversion, testkoords, underlag]);
+  }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
 
   if (!doc) return <CircularProgress />;
   return (
@@ -169,7 +178,7 @@ export default function TjenesteContainer() {
           _top: 0,
           _overflowX: "hidden",
           boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-          _overflowY: "scroll",
+          _overflowY: "scroll"
         }}
       >
         <Switch>
@@ -197,14 +206,14 @@ export default function TjenesteContainer() {
           />
         </Switch>
         {sub === "kartlag" && <KartlagList kartlag={kartlag} />}
-        {sub && sub.indexOf("klikktekst") === 0 && (
+        {sub && sub.length > 0 && (
           <FeaturePicker
             feature={feature}
-            linje={sub === "klikktekst" ? 1 : 2}
+            variabel={sub}
             doc={doc}
             picker={sub}
             onUpdate={handleUpdate}
-            onClick={(v) => {
+            onClick={v => {
               handleUpdate(sub, (doc[sub] || "") + " {" + v + "}");
             }}
           ></FeaturePicker>
@@ -220,7 +229,7 @@ function fyllPåUnderlag(layer, underlag) {
       erSynlig: false,
       wmslayer: layer.Name,
       tittel: layer.Title,
-      queryable: layer.queryable,
+      queryable: layer.queryable
     });
   if (!layer.Layer) return;
   var ll = layer.Layer;

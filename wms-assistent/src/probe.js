@@ -1,17 +1,27 @@
-import XML from "pixl-xml";
+import json_api from "./FeatureInfo/json_api";
+import wms_api from "./FeatureInfo/wms_api";
+
+// Naive format detection
+const firstChar2Format = {
+  "[": json_api,
+  "{": json_api,
+  "<": wms_api
+};
 
 export async function probe(url) {
   var r = { url: url };
   try {
-    //console.log('probing', r)
     const response = await fetch(url);
     var contentType = response.headers.get("content-type");
     contentType = contentType.split(";")[0];
+    r.contentType = contentType;
+    const text = await response.text();
+    const api = firstChar2Format[text[0]] || json_api;
+    var res = api.parse(text);
+    res = res.FIELDS || res;
+    r.response = res;
     r.status = response.status;
     r.statusText = response.statusText;
-    r.contentType = contentType;
-    r.response = response;
-    //console.log('probed', r)
   } catch (e) {
     r.status = 600;
     r.statusText = e.message;
@@ -23,19 +33,16 @@ async function probe_wms(uri) {
   var r = await probe(uri.toString());
   if (r.status === 200) {
     const response = r.response;
-    delete r.response;
-    const text = await response.text();
-    const doc = XML.parse(text);
-    if (doc.ServiceException) {
-      r.status = doc.ServiceException.code;
-      r.statusText = doc.ServiceException._Data;
+    if (response.ServiceException) {
+      r.status = response.ServiceException.code;
+      r.statusText = response.ServiceException._Data;
     }
-    r = { ...r, ...doc };
   }
-  return r;
+
+  return { ...r.response, ...r };
 }
 
-async function getCapabilities(url) {
+export async function getCapabilities(url) {
   try {
     var uri = new URL(url);
   } catch (e) {
@@ -54,7 +61,9 @@ export async function getFeatureInfo(url) {
   } catch (e) {
     return { status: 900, statusText: e.message };
   }
-  return probe_wms(uri);
+  if ((uri.searchParams.get("service") || "").toUpperCase() == "WMS")
+    return await probe_wms(uri);
+  const r = await probe(uri);
+  console.log("xxxxr", r);
+  return r.response || r;
 }
-
-export default getCapabilities;

@@ -62,7 +62,7 @@ export default function url_formatter(formatstring = "", variables) {
     variables.lat
   ]);
   const pixelSizeMeters = getPixelSizeMeters(variables.lat, variables.zoom);
-  delta = pixelSizeMeters * 5; // ~5 pixel radius hitbox
+  delta = pixelSizeMeters * 4;
   const w = x - delta;
   const e = x + delta;
   const n = y + delta;
