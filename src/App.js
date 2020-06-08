@@ -112,6 +112,7 @@ class App extends React.Component {
                     <KartVelger
                       onUpdateLayerProp={this.handleSetBakgrunnskart}
                       aktivtFormat={basiskart.kart.aktivtFormat}
+                      showSideBar={this.state.showSideBar}
                     />
                     <FeatureInfo
                       {...this.state}

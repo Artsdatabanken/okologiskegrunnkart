@@ -295,3 +295,18 @@ h4.container_header {
 .toggle-side-bar-button:focus {
   border: 2px solid blue;
 }
+
+@media only screen and (max-width: 768px) {
+  .toggle-side-bar-wrapper {
+    transform: rotate(0deg);
+    top: calc(100vh - 28px);
+    right: calc(50vw - 50px);
+  }
+  .toggle-side-bar-wrapper.side-bar-open {
+    top: calc(50vh - 28px);
+    right: calc(50vw - 50px);
+  }
+  .toggle-side-bar-button {
+    transform: rotate(0deg);
+  }
+}
