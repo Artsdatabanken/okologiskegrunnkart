@@ -1,5 +1,5 @@
 import React from "react";
-import { Pagination, TreeView } from "@material-ui/lab";
+import { TreeView } from "@material-ui/lab";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
@@ -55,7 +55,7 @@ const FeaturePicker = ({
             </IconButton>
           )}
           <Typography variant="h5">
-            Klikk i kart, resultat for {doc.tittel}
+            {doc.tittel} - {variabel}
           </Typography>
           <div style={{ margin: 16 }}>
             <TextField2
