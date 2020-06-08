@@ -272,3 +272,24 @@ h4.container_header {
 .polygonbutton:focus {
   border: 2px solid blue;
 }
+
+/* Side bar button */
+.toggle-side-bar-wrapper {
+  position: absolute;
+  top: 34px;
+  right: -32px;
+}
+.toggle-side-bar-wrapper.side-bar-open {
+  right: 377px;
+}
+.toggle-side-bar-button {
+  transform: rotate(-90deg);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom: 0;
+  background-color: lightgrey;
+  width: 90px;
+}
+.toggle-side-bar-button:focus {
+  border: 2px solid blue;
+}

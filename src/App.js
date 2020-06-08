@@ -32,7 +32,8 @@ class App extends React.Component {
       searchResultPage: false,
       polygon: null,
       polyline: [],
-      showPolygon: true
+      showPolygon: true,
+      showSideBar: true
     };
   }
 
@@ -131,6 +132,7 @@ class App extends React.Component {
                       removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      showSideBar={this.state.showSideBar}
                     />
                     <KartlagFanen
                       {...this.state}
@@ -155,6 +157,8 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
+                      showSideBar={this.state.showSideBar}
+                      toggleSideBar={this.toggleSideBar}
                     />
                   </>
                 );
@@ -292,12 +296,14 @@ class App extends React.Component {
     // returnerer punkt søk
     const radius = Math.round(16500 / Math.pow(zoom, 2));
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
-      const adresse = punktSok.adresser.sort((a, b) =>
-        a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
-      );
-      this.setState({
-        adresse: adresse.length > 0 ? adresse[0] : null
-      });
+      if (punktSok && punktSok.adresser) {
+        const adresse = punktSok.adresser.sort((a, b) =>
+          a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+        );
+        this.setState({
+          adresse: adresse.length > 0 ? adresse[0] : null
+        });
+      }
     });
   };
 
@@ -367,6 +373,10 @@ class App extends React.Component {
     this.setState({
       bakgrunnskart: Object.assign({}, bakgrunnskart)
     });
+  };
+
+  toggleSideBar = () => {
+    this.setState({ showSideBar: !this.state.showSideBar });
   };
 
   static contextType = SettingsContext;
