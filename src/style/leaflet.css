@@ -57,8 +57,11 @@
   padding: 0;
 }
 
-/* zoom buttons */
+/* zoom buttons and leaflet link */
 .leaflet-control-zoom.side-bar-open {
+  margin-right: 408px;
+}
+.leaflet-control-attribution.side-bar-open {
   margin-right: 408px;
 }
 
@@ -66,5 +69,9 @@
   .leaflet-control-zoom.side-bar-open {
     margin-bottom: 50vh;
     margin-right: 10px;
+  }
+  .leaflet-control-attribution.side-bar-open {
+    margin-bottom: 50vh;
+    margin-right: 0;
   }
 }
