@@ -18,25 +18,32 @@
 /* Infoboksen og Søk i alle lag-boksen */
 .infobox {
   z-index: 150;
+  max-height: 600px;
 }
-
+.all_layer_results {
+  max-height: 400px;
+}
 .infobox,
 .all_layer_results {
   position: relative;
   margin-left: auto;
   margin-right: auto;
   max-width: 600px;
-  max-height: 400px;
   background: #eeeeee;
   text-align: center;
   padding: 10px;
   border: 1px solid #666;
 }
 
+.window_scrollable {
+  max-height: 290px;
+}
+.all_layer_results_scrollable {
+  max-height: 320px;
+}
 .window_scrollable,
 .all_layer_results_scrollable {
   display: inline-block;
-  max-height: 290px;
   overflow-y: auto;
   width: 100%;
 }
@@ -53,10 +60,8 @@
     width: 100%;
     max-height: calc(50vh - 20px);
   }
-
   .all_layer_results {
     min-height: 50px;
-    max-height: calc(50vh - 20px);
   }
 
   .window_scrollable,
@@ -65,9 +70,60 @@
     overflow-y: auto;
     width: 100%;
   }
-
+  .window_scrollable {
+    max-height: calc(50vh - 230px);
+  }
   .all_layer_results_scrollable {
-    max-height: calc(50vh - 100px);
+    max-height: calc(50vh - 90px);
+  }
+}
+
+/* list items in info box */
+.generic-element-primary-text {
+  display: block;
+  font-size: 12pt;
+  color: #6d6d6d;
+}
+.generic-element-data-owner {
+  display: block;
+  font-size: 10pt;
+  color: grey;
+}
+.window_scrollable > .generic_element > .MuiListItem-root {
+  padding: 0 16px;
+}
+.all_layer_results_scrollable
+  > .MuiList-root
+  > .generic_element
+  > .MuiListItem-root {
+  padding: 0 16px;
+}
+
+@media only screen and (max-width: 768px) {
+  .generic-element-secondary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-primary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-data-owner {
+    font-size: 9.5pt;
+    margin: 1px 0 !important;
+  }
+  .window_scrollable
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
+  }
+  .all_layer_results_scrollable
+    > .MuiList-root
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
   }
 }
 
@@ -83,6 +139,12 @@
 
 .coordinates {
   color: grey;
+  padding: 15px 0 10px 0;
+}
+@media only screen and (max-width: 768px) {
+  .coordinates {
+    padding: 10px 0 10px 0;
+  }
 }
 
 /* Knapper i boksene  */
@@ -99,6 +161,12 @@
 }
 
 /* åpne ekstra info knapp */
+.search-layers-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+}
 .search_layers:focus {
   border: 2px solid blue;
 }

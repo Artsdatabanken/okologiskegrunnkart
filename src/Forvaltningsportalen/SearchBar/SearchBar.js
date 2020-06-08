@@ -2,6 +2,8 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
+import { Modal } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 class SearchBar extends React.Component {
   state = {
     treffliste_lokalt: null,
@@ -13,7 +15,9 @@ class SearchBar extends React.Component {
     treffliste_knr: null,
     treffliste_gnr: null,
     treffliste_bnr: null,
-    searchTerm: null
+    searchTerm: null,
+    showHelpModal: false,
+    manual: ""
   };
 
   handleRemoveTreffliste = () => {
@@ -268,6 +272,43 @@ class SearchBar extends React.Component {
     this.wrapperRef = node;
   };
 
+  openHelp = () => {
+    // returnerer brukermanualen fra wiki
+    backend.getUserManualWiki().then(manual => {
+      this.setState({ showHelpModal: true, manual });
+    });
+  };
+
+  closeHelpModal = () => {
+    this.setState({ showHelpModal: false });
+  };
+
+  formattedManual = () => {
+    if (!this.state.manual || this.state.manual === "") {
+      return [];
+    }
+    const array = this.state.manual.split(/\r?\n/);
+    const items = [];
+    for (const [index, value] of array.entries()) {
+      if (!value || value === "") {
+        continue;
+      } else if (value.startsWith("## ")) {
+        items.push(
+          <p key={index} className="help-text-line-header">
+            {value.substring(3, value.length)}
+          </p>
+        );
+      } else {
+        items.push(
+          <p key={index} className="help-text-line">
+            {value}
+          </p>
+        );
+      }
+    }
+    return items;
+  };
+
   render() {
     return (
       <>
@@ -354,15 +395,35 @@ class SearchBar extends React.Component {
             <button
               className="help_button"
               onClick={e => {
-                window.open(
-                  "https://github.com/Artsdatabanken/forvaltningsportal/wiki/Brukermanual"
-                );
+                this.openHelp();
               }}
             >
               ?
             </button>
           </div>
         )}
+
+        <Modal
+          open={this.state.showHelpModal}
+          onClose={this.closeHelpModal}
+          className="help-modal-body"
+        >
+          <div className="help-modal-wrapper">
+            <div className="help-modal-title">
+              <div>Brukermanual</div>
+              <button
+                tabIndex="0"
+                className="close-modal-button"
+                onClick={e => {
+                  this.closeHelpModal();
+                }}
+              >
+                <Close />
+              </button>
+            </div>
+            <div className="help-modal-content">{this.formattedManual()}</div>
+          </div>
+        </Modal>
       </>
     );
   }

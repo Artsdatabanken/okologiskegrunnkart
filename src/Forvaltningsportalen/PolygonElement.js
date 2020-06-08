@@ -18,6 +18,7 @@ const PolygonElement = ({
   polyline,
   showPolygon,
   hideAndShowPolygon,
+  handleEditable,
   addPolygon,
   addPolyline
 }) => {
@@ -45,6 +46,7 @@ const PolygonElement = ({
             onClick={e => {
               addPolygon(null);
               addPolyline(polygon);
+              handleEditable(true);
             }}
           >
             <Create /> Rediger
@@ -67,6 +69,7 @@ const PolygonElement = ({
             addPolygon(null);
             addPolyline([]);
             hideAndShowPolygon(true);
+            handleEditable(true);
           }}
         >
           <Delete /> Fjern

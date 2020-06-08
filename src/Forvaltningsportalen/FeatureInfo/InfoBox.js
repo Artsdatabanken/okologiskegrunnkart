@@ -95,13 +95,7 @@ const InfoBox = ({
             )}
           </span>
         )}
-        <br />
-        {coordinates_area && (
-          <span className="coordinates">
-            {coords}
-            <br />
-          </span>
-        )}
+        {coordinates_area && <div className="coordinates">{coords}</div>}
         <div className="window_scrollable">
           {layersresultat !== undefined &&
             Object.keys(layersresultat).map(key => {
@@ -117,21 +111,23 @@ const InfoBox = ({
               );
             })}
         </div>
-        <button
-          tabIndex="0"
-          className="search_layers"
-          title="Marker tool"
-          alt="Marker tool"
-          onClick={e => {
-            getBackendData(
-              coordinates_area.lng,
-              coordinates_area.lat,
-              layerevent
-            );
-          }}
-        >
-          Søk informasjon for alle lag i dette punktet
-        </button>
+        <div className="search-layers-button-wrapper">
+          <button
+            tabIndex="0"
+            className="search_layers"
+            title="Marker tool"
+            alt="Marker tool"
+            onClick={e => {
+              getBackendData(
+                coordinates_area.lng,
+                coordinates_area.lat,
+                layerevent
+              );
+            }}
+          >
+            Søk informasjon for alle lag i dette punktet
+          </button>
+        </div>
       </div>
     </div>
   );

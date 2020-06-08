@@ -64,6 +64,7 @@ const KartlagFanen = props => {
                         polyline={props.polyline}
                         showPolygon={props.showPolygon}
                         hideAndShowPolygon={props.hideAndShowPolygon}
+                        handleEditable={props.handleEditable}
                         addPolygon={props.addPolygon}
                         addPolyline={props.addPolyline}
                       />

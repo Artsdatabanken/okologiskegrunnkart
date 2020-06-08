@@ -7,6 +7,7 @@
 
 /* Kartets plassering */
 .leaflet-container {
+  background: #e2f4ff;
   position: absolute;
   left: 0;
   top: 0;
@@ -22,6 +23,20 @@
     height: 50%;
     z-index: 0;
   }
+}
+
+.inactive_point {
+  border-radius: 50%;
+  background: grey;
+  width: 40px;
+  height: 40px;
+}
+
+.active_point {
+  border-radius: 50%;
+  background: blue;
+  width: 40px;
+  height: 40px;
 }
 
 .marker_type_button_container > button {
