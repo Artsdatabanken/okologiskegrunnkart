@@ -1,3 +1,5 @@
+import proj4 from "proj4";
+
 export function getFeatureInfoUrl(layer, coords) {
   if (layer.klikkurl)
     // Generic API
@@ -36,13 +38,36 @@ function getWmsFeatureUrl(layer, coords) {
   return url.toString();
 }
 
+function getPixelSizeMeters(lat, zoom) {
+  const pixelsPerTile = 256;
+  const numTiles = Math.pow(2, zoom);
+  const EARTH_CIRCUMFERENCE_METERS = 40075000;
+  const metersPerTile =
+    (Math.cos((lat / 180) * Math.PI) * EARTH_CIRCUMFERENCE_METERS) / numTiles;
+  return metersPerTile / pixelsPerTile;
+}
+
 export default function url_formatter(formatstring = "", variables) {
   if (variables.loading) return null;
   if (variables.error) return null;
 
-  const delta = 0.01;
+  var delta = 0.01;
   variables.bbox = `${variables.lng - delta},${variables.lat -
     delta},${variables.lng + delta},${variables.lat + delta}`;
+
+  var geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+  var utm33Projection = "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+  const [x, y] = proj4(geographicProjection, utm33Projection, [
+    variables.lng,
+    variables.lat
+  ]);
+  const pixelSizeMeters = getPixelSizeMeters(variables.lat, variables.zoom);
+  delta = pixelSizeMeters * 4;
+  const w = x - delta;
+  const e = x + delta;
+  const n = y + delta;
+  const s = y - delta;
+  variables.bbox33 = `POLYGON ((${w} ${s},${w} ${n},${e} ${n},${e} ${s},${w} ${s}))`;
 
   const matches = formatstring.matchAll(
     /\{(?<variable>[^{]*?)\}|(?<literal>[^<{]+)/g

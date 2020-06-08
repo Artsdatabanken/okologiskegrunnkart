@@ -10,7 +10,7 @@ import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import LoadingPlaceholder from "./LoadingPlaceholder";
 import { CircularProgress } from "@material-ui/core";
-import Klikktekst from "./Klikktekst";
+import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 
 const GeneriskElement = props => {
@@ -19,19 +19,13 @@ const GeneriskElement = props => {
 
   let kartlag = props.kartlag[props.element];
   if (!kartlag) return null;
+  const faktaark_url = url_formatter(kartlag.faktaark, {
+    ...props.coordinates_area,
+    ...props.resultat
+  });
 
-  let primary_text = "fant ingen match i kartlag";
-  let secondary_text = "fant ingen for området";
-  let url = props.element.url || "";
-  // egentlig en sjekk for om den finnes i kartlag (tidligere meta-filen)
-  primary_text = kartlag.tittel || "mangler tittel";
-  const pos = props.coordinates_area;
-  url = url_formatter(kartlag.faktaark, { ...pos, ...props.resultat });
-  secondary_text = (
-    <Klikktekst input={resultat} formatstring={kartlag.klikktekst} />
-  );
-  primary_text = kartlag.tittel || primary_text;
-
+  const primaryText = formatterKlikktekst(kartlag.klikktekst, resultat);
+  const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
   return (
     <div
       style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
@@ -67,20 +61,27 @@ const GeneriskElement = props => {
           }}
         >
           <div className="generic-element-secondary-text">
-            {resultat.loading ? <LoadingPlaceholder /> : secondary_text}
+            {resultat.loading ? (
+              <LoadingPlaceholder />
+            ) : primaryText.harData ? (
+              primaryText.elementer
+            ) : (
+              "Ingen treff"
+            )}
           </div>
-          <div className="generic-element-primary-text">{primary_text}</div>
+          <div className="generic-element-primary-text">
+            {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
+          </div>
           <div className="generic-element-data-owner">{kartlag.dataeier}</div>
         </div>
-
-        {url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+        {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
-      {url && (
+      {faktaark_url && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           <ExpandedHeader
             visible={props.visible}
             geonorge={props.geonorge}
-            url={url}
+            url={faktaark_url}
             type={kartlag.type}
           />
           {kartlag.type !== "naturtype" && (
@@ -95,7 +96,7 @@ const GeneriskElement = props => {
                 overflow: "none"
               }}
               title="Faktaark"
-              src={url}
+              src={faktaark_url}
             />
           )}
         </Collapse>
