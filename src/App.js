@@ -316,7 +316,7 @@ class App extends React.Component {
     });
   };
 
-  handleLayersSøk = (lng, lat, valgteLag) => {
+  handleLayersSøk = (lng, lat, zoom, valgteLag) => {
     let looplist = this.state.kartlag;
     if (valgteLag) {
       looplist = valgteLag;
@@ -331,7 +331,7 @@ class App extends React.Component {
     Object.keys(layersresultat).forEach(key => {
       const layer = looplist[key];
       backend
-        .getFeatureInfo(layer, { lat, lng })
+        .getFeatureInfo(layer, { lat, lng, zoom })
         .then(res => {
           if (res.ServiceException) {
             res.error = res.ServiceException;
@@ -358,14 +358,14 @@ class App extends React.Component {
     this.setState({ valgteLag: valgteLag });
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, valgteLag);
+    this.handleLayersSøk(lng, lat, zoom, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, false);
+    this.handleLayersSøk(lng, lat, zoom, false);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {

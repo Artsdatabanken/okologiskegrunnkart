@@ -1,5 +1,5 @@
 import React from "react";
-import { Pagination, TreeView } from "@material-ui/lab";
+import { TreeView } from "@material-ui/lab";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
@@ -21,16 +21,23 @@ const useStyles = makeStyles({
     bottom: 0,
     left: 0,
     padding: 16,
-    overflow: "scroll",
+    overflow: "scroll"
   },
   root: {
     xheight: 240,
     flexGrow: 1,
-    maxWidth: 400,
-  },
+    maxWidth: 400
+  }
 });
 
-const FeaturePicker = ({ feature, onClick, picker, linje, doc, onUpdate }) => {
+const FeaturePicker = ({
+  feature,
+  onClick,
+  picker,
+  variabel,
+  doc,
+  onUpdate
+}) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -48,25 +55,17 @@ const FeaturePicker = ({ feature, onClick, picker, linje, doc, onUpdate }) => {
             </IconButton>
           )}
           <Typography variant="h5">
-            Klikk i kart, resultat for {doc.tittel}
+            {doc.tittel} - {variabel}
           </Typography>
-          <Pagination
-            page={linje}
-            onChange={(e, v) =>
-              history.push(`?id=${doc._id}&sub=klikktekst${v === 2 ? "2" : ""}`)
-            }
-            count={2}
-            shape="rounded"
-          />
           <div style={{ margin: 16 }}>
             <TextField2
-              title={`Formatstreng linje ${linje}`}
+              title={`Formatstreng for ${variabel}`}
               dockey={picker}
               doc={doc}
               onUpdate={onUpdate}
             />
             {resultat.warn &&
-              resultat.warn.map((warning) => (
+              resultat.warn.map(warning => (
                 <Alert key={warning} severity="warning">
                   {warning}
                 </Alert>
@@ -74,7 +73,7 @@ const FeaturePicker = ({ feature, onClick, picker, linje, doc, onUpdate }) => {
           </div>
 
           <Typography variant="h6">
-            Klikk på node for å legge til i visning for linje {linje}:
+            Klikk på node for å legge til i visning for {variabel}:
           </Typography>
           <Typography variant="body2">
             GetFeatureInfo {doc.testkoordinater}
@@ -100,7 +99,7 @@ function RecursiveTreeView({ parentkey, o, onClick }) {
   console.log("parentkey", parentkey, "o", o);
   return (
     <>
-      {Object.keys(o || {}).map((key) => {
+      {Object.keys(o || {}).map(key => {
         const full = parentkey ? parentkey + "." + key : key;
         const value = o[key];
         if (typeof value === "string")
@@ -109,7 +108,7 @@ function RecursiveTreeView({ parentkey, o, onClick }) {
               key={key}
               nodeId={full}
               label={key + " = " + o[key]}
-              onClick={(e) => onClick(full)}
+              onClick={e => onClick(full)}
             />
           );
         return (

@@ -22,14 +22,16 @@ const Warnings = ({ doc }) => {
         </Alert>
       )}
       {Service && Service.Title ? (
-        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-          Gyldig "Capabilities" document
-        </Alert>
+        <>
+          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+            Gyldig "Capabilities" document
+          </Alert>
+          {!selectCrs(caps.Capability) && (
+            <Alert severity="error">Mangler brukbar projeksjon</Alert>
+          )}
+        </>
       ) : (
         <Alert severity="error">No service in capabilities</Alert>
-      )}
-      {!selectCrs(caps.Capability) && (
-        <Alert severity="error">Mangler brukbar projeksjon</Alert>
       )}
     </>
   );
@@ -39,7 +41,7 @@ const Tags = ({ tags }) => {
   return (
     <>
       <ListSubheader>Tags</ListSubheader>
-      {(tags || []).map((tag) => (
+      {(tags || []).map(tag => (
         <Chip
           label={tag}
           key={tag}

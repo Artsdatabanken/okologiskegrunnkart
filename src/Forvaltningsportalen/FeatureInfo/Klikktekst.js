@@ -10,7 +10,7 @@ function lookup(o, path) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (o[segment] === undefined) {
-      console.warn(path, segment + " mangler i ", o);
+      //      console.warn(path, segment + " mangler i ", o);
       return null;
     }
     o = o[segment];
@@ -32,29 +32,33 @@ function mapComponent(c) {
   return { type, props };
 }
 
-const Klikktekst = ({ input, formatstring = "" }) => {
-  if (input.error) return "Får ikke kontakt med leverandør";
-  if (input.loading) return "...'";
+const formatterKlikktekst = (formatstring = "", input) => {
+  if (input.error) return { harData: false, elementer: "Får ikke kontakt" };
+  if (input.loading)
+    return {
+      harData: false
+    };
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
-  var hits = Array.from(matches);
-  hits = hits.map(e => {
+  var elementer = Array.from(matches);
+  elementer = elementer.map(e => {
     const r = e.groups;
     r.component = mapComponent(r.component);
     return r;
   });
 
-  return (
-    <>
-      {hits.map(e => {
-        if (e.component) return React.createElement(Test, e.component.props);
-        if (e.variable) return lookup(input, e.variable);
-        if (e.literal) return e.literal;
-        return null;
-      })}
-    </>
-  );
+  elementer = elementer.map(e => {
+    if (e.component) return React.createElement(Test, e.component.props);
+    if (e.variable) return lookup(input, e.variable);
+    if (e.literal) return e.literal;
+    return null;
+  });
+  const harData = elementer.every(e => e !== null);
+  return {
+    harData,
+    elementer
+  };
 };
 
-export default Klikktekst;
+export default formatterKlikktekst;

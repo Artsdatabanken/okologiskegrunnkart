@@ -3,7 +3,7 @@ import { Paper, ListItem, ListItemText } from "@material-ui/core";
 
 import TextField2 from "./TextField2";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import AddCircleIcon from "@material-ui/icons/AddCircleOutline";
+import CreateIcon from "@material-ui/icons/Create";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 
@@ -22,6 +22,16 @@ const KlikkIKart = ({ doc, onUpdate, feature }) => {
         onUpdate={onUpdate}
       />
       <TextField2
+        title="Faktaark URL"
+        dockey="faktaark"
+        doc={doc}
+        onUpdate={onUpdate}
+        onIconClick={() => {
+          history.push(`?id=${doc._id}&sub=faktaark`);
+        }}
+        icon={<CreateIcon />}
+      />
+      <TextField2
         title="Formatstreng linje 1"
         dockey="klikktekst"
         doc={doc}
@@ -29,10 +39,10 @@ const KlikkIKart = ({ doc, onUpdate, feature }) => {
         onIconClick={() => {
           history.push(`?id=${doc._id}&sub=klikktekst`);
         }}
-        icon={<AddCircleIcon />}
+        icon={<CreateIcon />}
       />
       {linje1.warn &&
-        linje1.warn.map((warning) => (
+        linje1.warn.map(warning => (
           <Alert key={warning} severity="warning">
             {warning}
           </Alert>
@@ -45,10 +55,10 @@ const KlikkIKart = ({ doc, onUpdate, feature }) => {
         onIconClick={() => {
           history.push(`?id=${doc._id}&sub=klikktekst2`);
         }}
-        icon={<AddCircleIcon />}
+        icon={<CreateIcon />}
       />
       {linje2.warn &&
-        linje2.warn.map((warning) => (
+        linje2.warn.map(warning => (
           <Alert key={warning} severity="warning">
             {warning}
           </Alert>
@@ -62,7 +72,7 @@ const KlikkIKart = ({ doc, onUpdate, feature }) => {
           right: 48,
           width: 392,
           border: "1px solid #999",
-          backgroundColor: "rgb(237, 237, 237)",
+          backgroundColor: "rgb(237, 237, 237)"
         }}
       >
         <ListItem>
