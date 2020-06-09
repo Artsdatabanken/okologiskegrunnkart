@@ -89,6 +89,10 @@ class Sublag(models.Model):
     publiser = models.BooleanField(default=False)
     erSynlig = models.BooleanField(default=False)
     hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
+    queryable = models.BooleanField(default=False)
+    minscaledenominator = models.PositiveIntegerField(null=True, blank=True)
+    maxscaledenominator = models.PositiveIntegerField(null=True, blank=True)
+
     def __str__(self):
         return self.tittel
 
@@ -111,20 +115,23 @@ def createJSON(sender, instance, **kwargs):
             alle_underlag = kartlag.sublag.all()
             underlag = {}
             for lag in alle_underlag:
-                lag_json = {}
-                if lag.tittel:
-                    lag_json['tittel'] = lag.tittel
-                if lag.wmslayer:
-                    lag_json['wmslayer'] = lag.wmslayer
-                if lag.legendeurl:
-                    lag_json['legendeurl'] = lag.legendeurl
-
-                lag_json['erSynlig'] = lag.erSynlig
-
-                underlag[lag.id] = lag_json
+                if lag.publiser:
+                    lag_json = {}
+                    if lag.tittel:
+                        lag_json['tittel'] = lag.tittel
+                    if lag.wmslayer:
+                        lag_json['wmslayer'] = lag.wmslayer
+                    if lag.legendeurl:
+                        lag_json['legendeurl'] = lag.legendeurl
+                    
+                    lag_json['queryable'] = lag.queryable
+                    lag_json['minscaledenominator'] = lag.minscaledenominator
+                    lag_json['maxscaledenominator'] = lag.maxscaledenominator
+                    lag_json['erSynlig'] = lag.erSynlig
+                    underlag[lag.id] = lag_json
+            
             dict[kartlag.id]['underlag'] = underlag
 
-            #print(underlag)
         if kartlag.dataeier.logourl:
             dict[kartlag.id]['logourl'] = kartlag.dataeier.logourl
         if kartlag.dataeier.url:
