@@ -272,3 +272,41 @@ h4.container_header {
 .polygonbutton:focus {
   border: 2px solid blue;
 }
+
+/* Side bar button */
+.toggle-side-bar-wrapper {
+  position: absolute;
+  top: 40px;
+  right: -36px;
+}
+.toggle-side-bar-wrapper.side-bar-open {
+  right: 372px;
+}
+.toggle-side-bar-button {
+  transform: rotate(-90deg);
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-bottom: 0;
+  background-color: lightgrey;
+  border-color: grey;
+  width: 100px;
+  font-size: 15px;
+}
+.toggle-side-bar-button:focus {
+  border: 2px solid blue;
+}
+
+@media only screen and (max-width: 768px) {
+  .toggle-side-bar-wrapper {
+    transform: rotate(0deg);
+    top: calc(100vh - 28px);
+    right: calc(50vw - 50px);
+  }
+  .toggle-side-bar-wrapper.side-bar-open {
+    top: calc(50vh - 28px);
+    right: calc(50vw - 50px);
+  }
+  .toggle-side-bar-button {
+    transform: rotate(0deg);
+  }
+}

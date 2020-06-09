@@ -30,7 +30,9 @@ const KartVelger = props => {
   return (
     <>
       <div
-        className="change_map_buttons"
+        className={`change_map_buttons${
+          props.showSideBar ? " side-bar-open" : ""
+        }`}
         style={{
           background: open ? "white" : "transparent",
           borderColor: open ? "#9f9f9f" : "transparent"
@@ -75,8 +77,10 @@ const KartVelger = props => {
           </div>
         )}
       </div>
-      <div className="map_ref">
-        {tilgjengelige_data[props.aktivtFormat].navn} |{" "}
+      <div className={`map_ref${props.showSideBar ? " side-bar-open" : ""}`}>
+        <div className="map-active-format-text">
+          {tilgjengelige_data[props.aktivtFormat].navn} |{" "}
+        </div>
         <a
           target="_blank"
           rel="noopener noreferrer"
