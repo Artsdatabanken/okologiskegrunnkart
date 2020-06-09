@@ -140,7 +140,6 @@ export default function TjenesteContainer() {
           //            uri.searchParams.set('layers', enabledLayers.join(','))
           doc.klikk_testurl = uri.toString();
         }
-        console.log("klikk_testurl", doc.klikk_testurl);
         const r = await getFeatureInfo(doc.klikk_testurl);
         delete r.url;
         delete r.status;
