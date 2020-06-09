@@ -209,14 +209,20 @@ class SearchBar extends React.Component {
         max_items = 50;
       }
       let entries = resultat.stedsnavn;
-      let resultatliste = {};
-      for (let i in entries) {
-        let id = entries[i].ssrId;
+      const resultatliste = {};
+      // If only one entrie is returned from backend, this is
+      // returned as an object, not as array of objects.
+      // In that case, convert to array
+      if (!Array.isArray(entries)) {
+        entries = [].push(entries);
+      }
+      for (const i in entries) {
+        const id = entries[i].ssrId;
         if (resultatliste[id]) {
-          let gammel = resultatliste[id];
-          let ny = entries[i];
-          let variasjon = {};
-          for (let j in gammel) {
+          const gammel = resultatliste[id];
+          const ny = entries[i];
+          const variasjon = {};
+          for (const j in gammel) {
             if (gammel[j] !== ny[j]) {
               if (j !== "variasjon") {
                 variasjon[j] = [gammel[j], ny[j]];
@@ -233,9 +239,9 @@ class SearchBar extends React.Component {
           }
         }
       }
-      let prioritertliste = {};
+      const prioritertliste = {};
       for (let i in resultatliste) {
-        let element = resultatliste[i];
+        const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
       if (resultpage) {
@@ -306,94 +312,96 @@ class SearchBar extends React.Component {
   render() {
     return (
       <>
-        <div className="searchbar_container" ref={this.setWrapperRef}>
-          <div className="searchbar">
-            <input
-              className="searchbarfield"
-              id="searchfield"
-              type="text"
-              autoComplete="off"
-              placeholder="søk etter kartlag eller område..."
-              onFocus={e => this.handleSearchBar(e.target.value)}
-              onChange={e => {
-                this.handleSearchBar(e.target.value);
-              }}
-              onKeyDown={e => {
-                if (e.key === "ArrowDown") {
-                  if (document.getElementsByClassName("searchbar_item")) {
-                    if (e.keyCode === 40) {
-                      if (
-                        document.getElementsByClassName("searchbar_item")[0]
-                      ) {
-                        document
-                          .getElementsByClassName("searchbar_item")[0]
-                          .focus();
-                      } else {
-                        console.log("nothing to scroll to");
+        {this.props.showSideBar && (
+          <div className="searchbar_container" ref={this.setWrapperRef}>
+            <div className="searchbar">
+              <input
+                className="searchbarfield"
+                id="searchfield"
+                type="text"
+                autoComplete="off"
+                placeholder="søk etter kartlag eller område..."
+                onFocus={e => this.handleSearchBar(e.target.value)}
+                onChange={e => {
+                  this.handleSearchBar(e.target.value);
+                }}
+                onKeyDown={e => {
+                  if (e.key === "ArrowDown") {
+                    if (document.getElementsByClassName("searchbar_item")) {
+                      if (e.keyCode === 40) {
+                        if (
+                          document.getElementsByClassName("searchbar_item")[0]
+                        ) {
+                          document
+                            .getElementsByClassName("searchbar_item")[0]
+                            .focus();
+                        } else {
+                          console.log("nothing to scroll to");
+                        }
                       }
+                    } else {
+                      console.log("nothing to see here");
                     }
-                  } else {
-                    console.log("nothing to see here");
                   }
-                }
-              }}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  this.handleSearchButton();
-                }
-              }}
-            />
+                }}
+                onKeyPress={e => {
+                  if (e.key === "Enter") {
+                    this.handleSearchButton();
+                  }
+                }}
+              />
 
-            {this.state.isSearching && (
+              {this.state.isSearching && (
+                <button
+                  className="x"
+                  onClick={() => {
+                    this.handleRemoveTreffliste();
+                    this.handleSearchBar(null);
+                    document.getElementById("searchfield").value = "";
+                  }}
+                >
+                  x
+                </button>
+              )}
               <button
-                className="x"
                 onClick={() => {
-                  this.handleRemoveTreffliste();
-                  this.handleSearchBar(null);
-                  document.getElementById("searchfield").value = "";
+                  this.handleSearchButton();
                 }}
               >
-                x
+                søk
               </button>
+            </div>
+            {(this.state.isSearching || this.props.searchResultPage) && (
+              <TreffListe
+                setSearchResultPage={this.props.setSearchResultPage}
+                searchResultPage={this.props.searchResultPage}
+                searchTerm={this.state.searchTerm}
+                handleSearchBar={this.handleSearchBar}
+                handleSearchButton={this.handleSearchButton}
+                treffliste={this.state.treffliste}
+                treffliste_lokalt={this.state.treffliste_lokalt}
+                treffliste_sted={this.state.treffliste_sted}
+                treffliste_knr={this.state.treffliste_knr}
+                treffliste_gnr={this.state.treffliste_gnr}
+                treffliste_bnr={this.state.treffliste_bnr}
+                treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+                removeValgtLag={this.props.removeValgtLag}
+                addValgtLag={this.props.addValgtLag}
+                handleGeoSelection={this.props.handleGeoSelection}
+                handleRemoveTreffliste={this.handleRemoveTreffliste}
+              />
             )}
+
             <button
-              onClick={() => {
-                this.handleSearchButton();
+              className="help_button"
+              onClick={e => {
+                this.openHelp();
               }}
             >
-              søk
+              ?
             </button>
           </div>
-          {(this.state.isSearching || this.props.searchResultPage) && (
-            <TreffListe
-              setSearchResultPage={this.props.setSearchResultPage}
-              searchResultPage={this.props.searchResultPage}
-              searchTerm={this.state.searchTerm}
-              handleSearchBar={this.handleSearchBar}
-              handleSearchButton={this.handleSearchButton}
-              treffliste={this.state.treffliste}
-              treffliste_lokalt={this.state.treffliste_lokalt}
-              treffliste_sted={this.state.treffliste_sted}
-              treffliste_knr={this.state.treffliste_knr}
-              treffliste_gnr={this.state.treffliste_gnr}
-              treffliste_bnr={this.state.treffliste_bnr}
-              treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
-              removeValgtLag={this.props.removeValgtLag}
-              addValgtLag={this.props.addValgtLag}
-              handleGeoSelection={this.props.handleGeoSelection}
-              handleRemoveTreffliste={this.handleRemoveTreffliste}
-            />
-          )}
-
-          <button
-            className="help_button"
-            onClick={e => {
-              this.openHelp();
-            }}
-          >
-            ?
-          </button>
-        </div>
+        )}
 
         <Modal
           open={this.state.showHelpModal}
