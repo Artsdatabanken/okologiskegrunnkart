@@ -42,15 +42,16 @@ class KartlagAPIView(APIView):
             url = kartlag.wmsurl
             if url is None:
                 continue
-            # kartlag = Kartlag.objects.get(wmsurl=url)
-            print(kartlag)
+            
+            print('------------------------------------------')
+            print('Kartlag: ', kartlag)
             print(url)
 
             root = self.get_xml_data(url)
             if root is None:
                 continue
 
-            # Find out if tags start with {http://www.opengis.net/wms}
+            # Find out if tags start with namespace {http://www.opengis.net/wms}
             for layer in root.iter('*'):
                 if layer.tag.startswith('{http://www.opengis.net/wms}'):
                     extrainfo = '{http://www.opengis.net/wms}'
@@ -92,10 +93,31 @@ class KartlagAPIView(APIView):
                             queryable = True
                         else:
                             queryable = False
-                        # print(title)
+
+                        # Get min zoom limit
+                        min_zoom_xml = item.find('{}MinScaleDenominator'.format(extrainfo))
+                        min_zoom = None
+                        if min_zoom_xml is not None:
+                            min_zoom = min_zoom_xml.text
+                            try:
+                                min_zoom = int(min_zoom)
+                            except Exception:
+                                min_zoom = None
+                        
+                        # Get max zoom limit
+                        max_zoom_xml = item.find('{}MaxScaleDenominator'.format(extrainfo))
+                        max_zoom = None
+                        if max_zoom_xml is not None:
+                            max_zoom = max_zoom_xml.text
+                            try:
+                                max_zoom = int(max_zoom)
+                            except Exception:
+                                max_zoom = None
+                        
+                        # Print data to show progress in console
                         print('------------')
                         print(name)
-                        # print(queryable)
+
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
                             if queryset.count() > 1:
@@ -105,6 +127,8 @@ class KartlagAPIView(APIView):
                                 
                             sublag = Sublag.objects.get(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
                             sublag.queryable = queryable
+                            sublag.minscaledenominator = min_zoom
+                            sublag.maxscaledenominator = max_zoom
                             sublag.save()
                             
                         else:
@@ -113,7 +137,9 @@ class KartlagAPIView(APIView):
                                 tittel=title,
                                 legendeurl='',
                                 hovedkartlag=kartlag,
-                                queryable=queryable
+                                queryable=queryable,
+                                minscaledenominator=min_zoom,
+                                maxscaledenominator=max_zoom
                             )
                 # Find wms version
                 if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
