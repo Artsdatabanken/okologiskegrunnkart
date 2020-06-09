@@ -10,6 +10,7 @@ import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
+import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 
 class App extends React.Component {
@@ -32,6 +33,7 @@ class App extends React.Component {
       polygon: null,
       polyline: [],
       showPolygon: true,
+      showSideBar: true,
       editable: true
     };
   }
@@ -47,11 +49,15 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
-    Object.entries(kartlag).forEach(([key, k]) => {
+    // Sort kartlag object aplhabetically based on title
+    // When kartlag is received from django backend, this can be sorted
+    // directly in the backend and this function can be removed
+    const sortedKartlag = sortKartlag(kartlag);
+    Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
-    this.setState({ kartlag });
+    this.setState({ kartlag: sortedKartlag });
   }
 
   componentDidMount() {
@@ -106,6 +112,7 @@ class App extends React.Component {
                     <KartVelger
                       onUpdateLayerProp={this.handleSetBakgrunnskart}
                       aktivtFormat={basiskart.kart.aktivtFormat}
+                      showSideBar={this.state.showSideBar}
                     />
                     <FeatureInfo
                       {...this.state}
@@ -129,6 +136,7 @@ class App extends React.Component {
                       removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      showSideBar={this.state.showSideBar}
                     />
                     <KartlagFanen
                       {...this.state}
@@ -154,6 +162,8 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
+                      showSideBar={this.state.showSideBar}
+                      toggleSideBar={this.toggleSideBar}
                     />
                   </>
                 );
@@ -295,12 +305,14 @@ class App extends React.Component {
     // returnerer punkt søk
     const radius = Math.round(16500 / Math.pow(zoom, 2));
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
-      const adresse = punktSok.adresser.sort((a, b) =>
-        a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
-      );
-      this.setState({
-        adresse: adresse.length > 0 ? adresse[0] : null
-      });
+      if (punktSok && punktSok.adresser) {
+        const adresse = punktSok.adresser.sort((a, b) =>
+          a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+        );
+        this.setState({
+          adresse: adresse.length > 0 ? adresse[0] : null
+        });
+      }
     });
   };
 
@@ -370,6 +382,10 @@ class App extends React.Component {
     this.setState({
       bakgrunnskart: Object.assign({}, bakgrunnskart)
     });
+  };
+
+  toggleSideBar = () => {
+    this.setState({ showSideBar: !this.state.showSideBar });
   };
 
   static contextType = SettingsContext;

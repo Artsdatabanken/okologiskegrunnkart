@@ -145,6 +145,42 @@ class Leaflet extends React.Component {
     }
   };
 
+  positionZoomButtons = () => {
+    // If side is open, the buttons need to be repositioned
+    const leafletLink = document.querySelector(".leaflet-control-zoom");
+    if (
+      leafletLink &&
+      this.props.showSideBar &&
+      leafletLink.className.indexOf("side-bar-open") === -1
+    ) {
+      leafletLink.classList.add("side-bar-open");
+    } else if (
+      leafletLink &&
+      !this.props.showSideBar &&
+      leafletLink.className.indexOf("side-bar-open") >= 0
+    ) {
+      leafletLink.classList.remove("side-bar-open");
+    }
+  };
+
+  positionleafletLink = () => {
+    // If side is open, the link needs to be repositioned
+    const leafletLink = document.querySelector(".leaflet-control-attribution");
+    if (
+      leafletLink &&
+      this.props.showSideBar &&
+      leafletLink.className.indexOf("side-bar-open") === -1
+    ) {
+      leafletLink.classList.add("side-bar-open");
+    } else if (
+      leafletLink &&
+      !this.props.showSideBar &&
+      leafletLink.className.indexOf("side-bar-open") >= 0
+    ) {
+      leafletLink.classList.remove("side-bar-open");
+    }
+  };
+
   clickInactivePoint = e => {
     if (this.props.editable === true) {
       // Setter sammen punktene til et polygon, og gjør den uredigerbar.
@@ -302,7 +338,8 @@ class Leaflet extends React.Component {
 
   render() {
     this.openLinksInNewTab();
-
+    this.positionZoomButtons();
+    this.positionleafletLink();
     // Polygontegning og Polylinjetegning
     if (this.props.polyline || this.props.polygon) {
       // Starter med å fjerne forrige figur for å unngå duplikater
