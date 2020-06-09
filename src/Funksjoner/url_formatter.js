@@ -101,7 +101,7 @@ function lookup(o, path) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (!o[segment]) {
-      console.warn(path, segment + " mangler i ", o);
+      //console.warn(path, segment + " mangler i ", o);
       return null;
     }
     o = o[segment];
