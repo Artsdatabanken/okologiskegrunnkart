@@ -89,6 +89,8 @@ class Sublag(models.Model):
     publiser = models.BooleanField(default=False)
     erSynlig = models.BooleanField(default=False)
     hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
+    queryable = models.BooleanField(default=False)
+
     def __str__(self):
         return self.tittel
 
