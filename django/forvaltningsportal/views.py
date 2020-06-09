@@ -31,11 +31,6 @@ class KartlagAPIView(APIView):
             return None
 
     def get(self, request: Request, *args, **kwargs):
-        # url = 'http://geo.ngu.no/mapserver/MarinGrenseWMS3?REQUEST=GetCapabilities&SERVICE=WMS'
-        # url = 'https://wms.nibio.no/cgi-bin/skogbruksplan?request=GetCapabilities&service=WMS&version=1.1.0'
-        # url = 'http://geo.ngu.no/mapserver/LosmasserWMS?language=nor&srs=EPSG:900913&request=GetCapabilities&service=WMS'
-        # url = 'https://kart.ra.no/arcgis/services/Distribusjon/Kulturminner20180301/MapServer/WMSServer?request=GetCapabilities&service=WMS'
-        # url = 'https://wms.nibio.no/cgi-bin/ar5?request=GetCapabilities&service=WMS'
 
         all_kartlag = Kartlag.objects.all()
         for kartlag in all_kartlag:
@@ -43,9 +38,10 @@ class KartlagAPIView(APIView):
             if url is None:
                 continue
             
-            print('------------------------------------------')
-            print('Kartlag: ', kartlag)
-            print(url)
+            # # Print data to show progress in console
+            # print('------------------------------------------')
+            # print('Kartlag: ', kartlag)
+            # print(url)
 
             root = self.get_xml_data(url)
             if root is None:
@@ -114,9 +110,9 @@ class KartlagAPIView(APIView):
                             except Exception:
                                 max_zoom = None
                         
-                        # Print data to show progress in console
-                        print('------------')
-                        print(name)
+                        # # Print data to show progress in console
+                        # print('------------')
+                        # print(name)
 
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
