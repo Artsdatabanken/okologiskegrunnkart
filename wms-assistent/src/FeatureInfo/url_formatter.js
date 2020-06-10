@@ -17,7 +17,7 @@ function getWmsFeatureUrl(layer, coords) {
     delta},${coords.lat + delta}`;
 
   const layers = Object.values(layer.underlag)
-    .filter(l => l.erSynlig && l.wmslayer)
+    .filter(l => l.queryable && l.wmslayer)
     .map(l => l.wmslayer)
     .join(",");
 
