@@ -39,21 +39,15 @@ class KartlagAPIView(APIView):
                 continue
             
             # # Print data to show progress in console
+            if url != 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS':
+                continue
             # print('------------------------------------------')
             # print('Kartlag: ', kartlag)
             # print(url)
 
             root = self.get_xml_data(url)
             if root is None:
-                continue
-
-            # Find out if tags start with namespace {http://www.opengis.net/wms}
-            for layer in root.iter('*'):
-                if layer.tag.startswith('{http://www.opengis.net/wms}'):
-                    extrainfo = '{http://www.opengis.net/wms}'
-                else:
-                    extrainfo = ''
-                break
+                continue      
 
             # Define relevant variables
             projection_list = ['EPSG:3857', 'EPSG:900913']
@@ -76,8 +70,10 @@ class KartlagAPIView(APIView):
                 infoformat = kartlag.wmsinfoformat
             
             # Loop over all elements
+            extrainfo = ''
             for item in root.iter('*'):
-                # Find layers
+                # Find namespace and use as extrainfo
+                extrainfo = root.tag.split('}')[0] + '}'
                 if item.tag == '{}Layer'.format(extrainfo):
                     queryable_str = item.get('queryable')
                     name = item.find('{}Name'.format(extrainfo))
@@ -141,9 +137,11 @@ class KartlagAPIView(APIView):
                 if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
                     or item.tag == '{}WMT_MS_Capabilities'.format(extrainfo)):
                     version = item.get('version')
+                    # Replace only if field is empty
                     if version is not None:
-                        kartlag.wmsversion = version
-                        kartlag.save()
+                        if not kartlag.wmsversion or kartlag.wmsversion == '':
+                            kartlag.wmsversion = version
+                            kartlag.save()
 
                 # Find projection
                 if projection is None:
