@@ -276,7 +276,7 @@ h4.container_header {
 /* Side bar button */
 .toggle-side-bar-wrapper {
   position: absolute;
-  top: 40px;
+  top: 90px;
   right: -36px;
 }
 .toggle-side-bar-wrapper.side-bar-open {

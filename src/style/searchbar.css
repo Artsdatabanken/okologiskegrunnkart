@@ -1,12 +1,12 @@
 .searchbar_container {
   position: absolute;
-  height: 0px;
+  height: 50px;
   overflow: visible;
   right: 0px;
   top: 0px;
   width: 408px;
   z-index: 200;
-  background: lightgrey;
+  background: #697f8a;
 }
 
 @media only screen and (max-width: 768px) {

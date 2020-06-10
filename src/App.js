@@ -142,7 +142,6 @@ class App extends React.Component {
                       removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      showSideBar={this.state.showSideBar}
                     />
                     <KartlagFanen
                       {...this.state}
