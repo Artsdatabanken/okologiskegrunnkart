@@ -39,15 +39,13 @@ class App extends React.Component {
   }
 
   async lastNedKartlag() {
-    // var kartlag = await backend.hentLokalFil("kartlag.json");
+    // Get kartlag.json file from server as default
     let kartlag = await backend.hentLokalFil(
       "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
     );
-    console.log(kartlag);
-    // Get local kartlag.json File. Typically when runnign localhost
+    // Get local kartlag.json file when not possible from server
     if (!kartlag) {
       kartlag = await backend.hentLokalFil("/kartlag.json");
-      console.log(kartlag);
     }
     // If none of the above work, load the preview file
     if (!kartlag) {
@@ -61,7 +59,6 @@ class App extends React.Component {
     }
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
-    console.log(sortedKartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
