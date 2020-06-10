@@ -40,3 +40,12 @@ Follow these steps:
 - Run `npm install`
 - Run `npm start`
 - Get the example map data `kartlag.json` from `https://forvaltningsportal.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).
+
+## Update database layers and sublayers
+
+Follow these steps:
+
+- Log in as superuser in the admin panel `https://forvaltningsportaladmin.artsdatabanken.no/admin/`
+- Run the following HTTP request: `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
+
+You will receive a timeout error `504 Gateway Time-out` after 30 seconds. This, however, will not affect the update script which will contionue running in the background.

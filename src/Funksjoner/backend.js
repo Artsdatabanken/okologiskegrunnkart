@@ -36,7 +36,7 @@ class Backend {
   }
 
   static async hentLokalFil(filnavn) {
-    return this.getPromise("/" + filnavn);
+    return this.getPromise(filnavn);
   }
 
   static async hentStedsnavn(lng, lat, zoom) {

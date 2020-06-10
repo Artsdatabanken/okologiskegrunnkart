@@ -39,19 +39,25 @@ class App extends React.Component {
   }
 
   async lastNedKartlag() {
-    var kartlag = await backend.hentLokalFil("kartlag.json");
+    // Get kartlag.json file from server as default
+    let kartlag = await backend.hentLokalFil(
+      "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
+    );
+    // Get local kartlag.json file when not possible from server
+    if (!kartlag) {
+      kartlag = await backend.hentLokalFil("/kartlag.json");
+    }
+    // If none of the above work, load the preview file
     if (!kartlag) {
       console.error(
         "Du har ikke opprettet databasen og hentet ned datadump, og blir derfor vist et testdatasett."
       );
-      kartlag = await backend.hentLokalFil("kartlag_preview.json");
+      kartlag = await backend.hentLokalFil("/kartlag_preview.json");
       console.error(
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
     // Sort kartlag object aplhabetically based on title
-    // When kartlag is received from django backend, this can be sorted
-    // directly in the backend and this function can be removed
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.opacity = 0.8;

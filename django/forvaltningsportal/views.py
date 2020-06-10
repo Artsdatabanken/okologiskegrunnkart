@@ -43,17 +43,22 @@ class KartlagAPIView(APIView):
             # print('Kartlag: ', kartlag)
             # print(url)
 
+            # Add parameters to wmsurl if they are not included
+            number_symbol = url.count('?')
+            if number_symbol == 0:
+                url = url + '?request=GetCapabilities&service=WMS'
+                kartlag.wmsurl = url
+                kartlag.save()
+            elif number_symbol == 1:
+                url_list = url.split('?')
+                if url_list[1] == '':
+                    url = url + 'request=GetCapabilities&service=WMS'
+                    kartlag.wmsurl = url
+                    kartlag.save()
+
             root = self.get_xml_data(url)
             if root is None:
-                continue
-
-            # Find out if tags start with namespace {http://www.opengis.net/wms}
-            for layer in root.iter('*'):
-                if layer.tag.startswith('{http://www.opengis.net/wms}'):
-                    extrainfo = '{http://www.opengis.net/wms}'
-                else:
-                    extrainfo = ''
-                break
+                continue      
 
             # Define relevant variables
             projection_list = ['EPSG:3857', 'EPSG:900913']
@@ -63,12 +68,12 @@ class KartlagAPIView(APIView):
                 projection = kartlag.projeksjon
 
             format_list = [
-            "application/vnd.ogc.gml",
-            "application/vnd.ogc.wms_xml",
-            "text/xml",
-            "application/vnd.esri.wms_featureinfo_xml",
-            "application/vnd.esri.wms_raw_xml",
-            "application/geojson",
+                "application/vnd.ogc.gml",
+                "application/vnd.ogc.wms_xml",
+                "text/xml",
+                "application/vnd.esri.wms_featureinfo_xml",
+                "application/vnd.esri.wms_raw_xml",
+                "application/geojson",
             ]
             if kartlag.wmsinfoformat not in format_list:
                 infoformat = None
@@ -76,8 +81,48 @@ class KartlagAPIView(APIView):
                 infoformat = kartlag.wmsinfoformat
             
             # Loop over all elements
+            extrainfo = ''
             for item in root.iter('*'):
-                # Find layers
+                # Find namespace and use as extrainfo
+                extrainfo = root.tag.split('}')[0] + '}'
+
+                # Find wms version
+                if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
+                    or item.tag == '{}WMT_MS_Capabilities'.format(extrainfo)):
+                    version = item.get('version')
+                    # Replace only if field is empty
+                    if version is not None:
+                        if not kartlag.wmsversion or kartlag.wmsversion == '':
+                            kartlag.wmsversion = version
+                            kartlag.save()
+
+                # Find projection
+                if projection is None:
+                    all_projections = item.text
+                    for proj in projection_list:
+                        if all_projections is not None and proj in all_projections:
+                            projection = proj
+                            kartlag.projeksjon = proj
+                            kartlag.save()
+                            break
+
+                # Find format
+                if infoformat is None and item.tag == '{}GetFeatureInfo'.format(extrainfo):
+                    all_formats = item.findall('{}Format'.format(extrainfo))
+                    # Make list will all available formats in XML
+                    available_formats = []
+                    for form in all_formats:
+                        available_formats.append(form.text)
+                    # Select preferred format if this is found in available formats
+                    if len(available_formats) > 0:
+                        for def_format in format_list:
+                            if def_format in available_formats:
+                                infoformat = def_format
+                                kartlag.wmsinfoformat = def_format
+                                kartlag.save()
+                                break
+
+                # Get all sublayers
                 if item.tag == '{}Layer'.format(extrainfo):
                     queryable_str = item.get('queryable')
                     name = item.find('{}Name'.format(extrainfo))
@@ -89,6 +134,16 @@ class KartlagAPIView(APIView):
                             queryable = True
                         else:
                             queryable = False
+                        
+                        # Get leyend url and add parameters
+                        legendeurl = kartlag.wmsurl
+                        number_symbol = url.count('?')
+                        parameters = '?version={}&service=WMS&request=GetLegendGraphic&layer={}&format=image/png'.format(kartlag.wmsversion, name)
+                        if number_symbol == 0:
+                            legendeurl = legendeurl + parameters
+                        elif number_symbol == 1:
+                            url_list = url.split('?')
+                            legendeurl = url_list[0] + parameters
 
                         # Get min zoom limit
                         min_zoom_xml = item.find('{}MinScaleDenominator'.format(extrainfo))
@@ -125,47 +180,20 @@ class KartlagAPIView(APIView):
                             sublag.queryable = queryable
                             sublag.minscaledenominator = min_zoom
                             sublag.maxscaledenominator = max_zoom
+                            if sublag.legendeurl != legendeurl:
+                                sublag.legendeurl = legendeurl
                             sublag.save()
                             
                         else:
                             Sublag.objects.create(
                                 wmslayer=name,
                                 tittel=title,
-                                legendeurl='',
+                                legendeurl=legendeurl,
                                 hovedkartlag=kartlag,
                                 queryable=queryable,
                                 minscaledenominator=min_zoom,
                                 maxscaledenominator=max_zoom
                             )
-                # Find wms version
-                if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
-                    or item.tag == '{}WMT_MS_Capabilities'.format(extrainfo)):
-                    version = item.get('version')
-                    if version is not None:
-                        kartlag.wmsversion = version
-                        kartlag.save()
-
-                # Find projection
-                if projection is None:
-                    all_projections = item.text
-                    for proj in projection_list:
-                        if all_projections is not None and proj in all_projections:
-                            projection = proj
-                            kartlag.projeksjon = proj
-                            kartlag.save()
-                            break
-
-
-                # Find format
-                if infoformat is None and item.tag == '{}Format'.format(extrainfo):
-                    all_formats = item.text
-                    for form in format_list:
-                        if all_formats is not None and form in all_formats:
-                            infoformat = form
-                            kartlag.wmsinfoformat = form
-                            kartlag.save()
-                            break
-
 
         return Response(status=status.HTTP_200_OK)
 
@@ -198,7 +226,6 @@ class KartlagOpenAPIView(APIView):
     def get(self, request: Request, *args, **kwargs):
 
         layers = Kartlag.objects.all()
-        print(layers)
 
         return Response(status=status.HTTP_200_OK)
         
