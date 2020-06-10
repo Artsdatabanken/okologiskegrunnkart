@@ -39,11 +39,24 @@ class KartlagAPIView(APIView):
                 continue
             
             # Print data to show progress in console
-            if url != 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS':
+            if url != 'https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?':
                 continue
             print('------------------------------------------')
             print('Kartlag: ', kartlag)
             print(url)
+
+            # Add parameters to wmsurl if they are not included
+            number_symbol = url.count('?')
+            if number_symbol == 0:
+                url = url + '?request=GetCapabilities&service=WMS'
+                kartlag.wmsurl = url
+                kartlag.save()
+            elif number_symbol == 1:
+                url_list = url.split('?')
+                if url_list[1] == '':
+                    url = url + 'request=GetCapabilities&service=WMS'
+                    kartlag.wmsurl = url
+                    kartlag.save()
 
             root = self.get_xml_data(url)
             if root is None:
