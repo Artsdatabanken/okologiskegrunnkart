@@ -38,12 +38,12 @@ class KartlagAPIView(APIView):
             if url is None:
                 continue
             
-            # # Print data to show progress in console
+            # Print data to show progress in console
             if url != 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS':
                 continue
-            # print('------------------------------------------')
-            # print('Kartlag: ', kartlag)
-            # print(url)
+            print('------------------------------------------')
+            print('Kartlag: ', kartlag)
+            print(url)
 
             root = self.get_xml_data(url)
             if root is None:
@@ -57,12 +57,12 @@ class KartlagAPIView(APIView):
                 projection = kartlag.projeksjon
 
             format_list = [
-            "application/vnd.ogc.gml",
-            "application/vnd.ogc.wms_xml",
-            "text/xml",
-            "application/vnd.esri.wms_featureinfo_xml",
-            "application/vnd.esri.wms_raw_xml",
-            "application/geojson",
+                "application/vnd.ogc.gml",
+                "application/vnd.ogc.wms_xml",
+                "text/xml",
+                "application/vnd.esri.wms_featureinfo_xml",
+                "application/vnd.esri.wms_raw_xml",
+                "application/geojson",
             ]
             if kartlag.wmsinfoformat not in format_list:
                 infoformat = None
@@ -106,9 +106,9 @@ class KartlagAPIView(APIView):
                             except Exception:
                                 max_zoom = None
                         
-                        # # Print data to show progress in console
-                        # print('------------')
-                        # print(name)
+                        # Print data to show progress in console
+                        print('------------')
+                        print(name)
 
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
@@ -153,16 +153,22 @@ class KartlagAPIView(APIView):
                             kartlag.save()
                             break
 
-
+                
                 # Find format
-                if infoformat is None and item.tag == '{}Format'.format(extrainfo):
-                    all_formats = item.text
-                    for form in format_list:
-                        if all_formats is not None and form in all_formats:
-                            infoformat = form
-                            kartlag.wmsinfoformat = form
-                            kartlag.save()
-                            break
+                if infoformat is None and item.tag == '{}GetFeatureInfo'.format(extrainfo):
+                    all_formats = item.findall('{}Format'.format(extrainfo))
+                    # Make list will all available formats in XML
+                    available_formats = []
+                    for form in all_formats:
+                        available_formats.append(form.text)
+                    # Select preferred format if this is found in available formats
+                    if len(available_formats) > 0:
+                        for def_format in format_list:
+                            if def_format in available_formats:
+                                infoformat = def_format
+                                kartlag.wmsinfoformat = def_format
+                                kartlag.save()
+                                break
 
 
         return Response(status=status.HTTP_200_OK)
