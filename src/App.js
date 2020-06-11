@@ -34,6 +34,7 @@ class App extends React.Component {
       polyline: [],
       showPolygon: true,
       showSideBar: true,
+      sideBarAnimationClass: null,
       editable: true
     };
   }
@@ -168,6 +169,7 @@ class App extends React.Component {
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
                       showSideBar={this.state.showSideBar}
+                      sideBarAnimationClass={this.state.sideBarAnimationClass}
                       toggleSideBar={this.toggleSideBar}
                     />
                   </>
@@ -390,7 +392,24 @@ class App extends React.Component {
   };
 
   toggleSideBar = () => {
-    this.setState({ showSideBar: !this.state.showSideBar });
+    if (this.state.showSideBar) {
+      this.setState({ sideBarAnimationClass: " hide-sidebar-animation" });
+      setTimeout(() => {
+        this.setState({
+          showSideBar: !this.state.showSideBar
+        });
+      }, 550);
+    } else {
+      this.setState({
+        showSideBar: !this.state.showSideBar,
+        sideBarAnimationClass: " show-sidebar-animation"
+      });
+      setTimeout(() => {
+        this.setState({
+          sideBarAnimationClass: null
+        });
+      }, 5000);
+    }
   };
 
   static contextType = SettingsContext;

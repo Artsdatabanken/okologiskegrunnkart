@@ -23,7 +23,13 @@ const KartlagFanen = props => {
         </button>
       </div>
       {props.showSideBar && (
-        <div className="kartlag_fanen">
+        <div
+          className={`kartlag_fanen${
+            props.sideBarAnimationClass === " show-sidebar-animation"
+              ? " closed"
+              : ""
+          }${props.sideBarAnimationClass ? props.sideBarAnimationClass : ""}`}
+        >
           {props.searchResultPage ? (
             <></>
           ) : (
