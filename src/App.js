@@ -3,7 +3,7 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-import FeatureInfo from "./Forvaltningsportalen/FeatureInfo";
+// import FeatureInfo from "./Forvaltningsportalen/FeatureInfo/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
@@ -24,7 +24,6 @@ class App extends React.Component {
       fitBounds: null,
       navigation_history: [],
       showCurrent: true,
-      showFullscreen: false,
       spraak: "nb",
       showExtensiveInfo: true,
       zoomcoordinates: null,
@@ -120,7 +119,7 @@ class App extends React.Component {
                       aktivtFormat={basiskart.kart.aktivtFormat}
                       showSideBar={this.state.showSideBar}
                     />
-                    <FeatureInfo
+                    {/* <FeatureInfo
                       {...this.state}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       resultat={this.state.resultat}
@@ -130,7 +129,7 @@ class App extends React.Component {
                         lat: this.state.lat,
                         lng: this.state.lng
                       }}
-                    />
+                    /> */}
                     <SearchBar
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}

@@ -262,6 +262,7 @@
   background-color: #697f8a;
   color: white;
   border: 2px solid white;
+  margin-left: 10px;
 }
 
 @media only screen and (max-width: 768px) {

@@ -79,7 +79,7 @@
 }
 
 /* list items in info box */
-.generic-element-primary-text {
+/* .generic-element-primary-text {
   display: block;
   font-size: 12pt;
   color: #6d6d6d;
@@ -88,7 +88,7 @@
   display: block;
   font-size: 10pt;
   color: grey;
-}
+} */
 .window_scrollable > .generic_element > .MuiListItem-root {
   padding: 0 16px;
 }
@@ -100,7 +100,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .generic-element-secondary-text {
+  /* .generic-element-secondary-text {
     font-size: 11pt;
     margin: 1px 0 !important;
   }
@@ -111,7 +111,7 @@
   .generic-element-data-owner {
     font-size: 9.5pt;
     margin: 1px 0 !important;
-  }
+  } */
   .window_scrollable
     > .generic_element
     > .MuiListItem-root
@@ -214,6 +214,298 @@
   }
 
   .text_type {
+    max-width: calc(100% - 40px);
+    font-size: 13px;
+  }
+}
+
+/* --------------------------------------------------------------------------------- */
+/* ---------------------- NEW INFOBOX COMPONENT ON THE SIDE ------------------------ */
+/* --------------------------------------------------------------------------------- */
+
+/* Topp-anker for infoboksen på side som justeres i forhold til Kartlagfanens bredde */
+.infobox-container-side {
+  position: absolute;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  width: 350px;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  /* background: white; */
+  background: #eeeeee;
+}
+
+@media only screen and (max-width: 768px) {
+  .infobox-container-side {
+    position: absolute;
+    top: 0px;
+    padding: 10px;
+    height: 1px;
+    width: 100%;
+  }
+}
+
+/* Main container infobox side panel */
+.infobox-side {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 600px;
+}
+.all-layer-results-side {
+  max-height: 400px;
+}
+.infobox-side,
+.all-laye-results-side {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* Infobox title */
+.infobox-title-wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  background-color: #697f8a;
+  color: white;
+  padding: 18px 15px 15px 10px;
+}
+.infobox-title-content {
+  display: flex;
+  justify-content: flex-start;
+}
+.infobox-title-text {
+  margin-left: 10px;
+  text-align: left;
+}
+.infobox-title-text-primary {
+  font-size: 20px;
+  font-weight: 550;
+  text-transform: capitalize;
+}
+.infobox-title-text-secondary {
+  font-size: 16px;
+  text-transform: capitalize;
+}
+.close-infobox-button {
+  padding: 0;
+  display: flex;
+  background-color: #697f8a;
+  color: white;
+  border: 2px solid white;
+  margin-left: 10px;
+}
+.close-infobox-button:hover {
+  padding: 0;
+  display: flex;
+  background-color: #415762;
+  color: white;
+}
+.close-infobox-button:focus {
+  background-color: #415762;
+  border-color: blue;
+}
+
+/* Selected point description */
+.infobox-content {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px 0 10px;
+}
+.infobox-text-wrapper {
+  display: flex;
+  align-items: flex-start;
+  text-transform: capitalize;
+  padding-bottom: 10px;
+  font-size: 16px;
+}
+.infobox-text-wrapper svg {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-right: 10px;
+  height: 20px;
+  color: grey;
+}
+.infobox-text-multiple {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.infobox-text-primary {
+  margin-top: 1px;
+}
+.infobox-text-secondary {
+  color: grey;
+  font-size: 14px;
+  margin-top: 2px;
+}
+
+/* List with selected layers */
+.window-scrollable-side {
+  max-height: 290px;
+}
+.all-layer-results-scrollable-side {
+  max-height: 320px;
+}
+.window-scrollable-side,
+.all-layer-results-scrollable-side {
+  display: inline-block;
+  overflow-y: auto;
+  width: 100%;
+}
+.all-layer-results-side {
+  margin-top: 135px;
+  z-index: 200;
+}
+
+@media only screen and (max-width: 768px) {
+  .infobox-side,
+  .all-layer-results-side {
+    margin-top: 0;
+    width: 100%;
+    max-height: calc(50vh - 20px);
+  }
+  .all-layer-results-side {
+    min-height: 50px;
+  }
+
+  .window-scrollable-side,
+  .all-layer-results-scrollable-side {
+    display: inline-block;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .window-scrollable-side {
+    max-height: calc(50vh - 230px);
+  }
+  .all-layer-results-scrollable-side {
+    max-height: calc(50vh - 90px);
+  }
+}
+
+/* list items in info box */
+.generic-element-primary-text {
+  display: block;
+  font-size: 12pt;
+  color: #6d6d6d;
+}
+.generic-element-data-owner {
+  display: block;
+  font-size: 10pt;
+  color: grey;
+}
+.window-scrollable-side > .generic_element > .MuiListItem-root {
+  padding: 0 16px;
+}
+.all-layer-results-scrollable-side
+  > .MuiList-root
+  > .generic_element
+  > .MuiListItem-root {
+  padding: 0 16px;
+}
+
+@media only screen and (max-width: 768px) {
+  .generic-element-secondary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-primary-text {
+    font-size: 11pt;
+    margin: 1px 0 !important;
+  }
+  .generic-element-data-owner {
+    font-size: 9.5pt;
+    margin: 1px 0 !important;
+  }
+  .window-scrollable-side
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
+  }
+  .all-layer-results-scrollable-side
+    > .MuiList-root
+    > .generic_element
+    > .MuiListItem-root
+    > .MuiListItemIcon-root {
+    min-width: 45px;
+  }
+}
+
+/* Knapper i boksene  */
+.close_button {
+  text-align: center;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
+}
+
+.close_button:focus {
+  border: 2px solid blue;
+}
+
+/* åpne ekstra info knapp */
+.search-layers-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 5px;
+}
+.search_layers:focus {
+  border: 2px solid blue;
+}
+
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+
+/* Felt øverst et åpnet underelement  */
+.expand_header {
+  float: left;
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+}
+
+.expand_header button {
+  margin: auto;
+}
+
+.infobox-text {
+  font-size: 16px;
+  display: block;
+  text-transform: capitalize;
+  text-align: left;
+  margin: 5px 0;
+}
+
+/* .infobox-text:first-child {
+  font-size: 14pt;
+  margin-bottom: 6px;
+} */
+
+.infobox-text:first-child svg {
+  vertical-align: sub;
+}
+
+@media only screen and (max-width: 768px) {
+  /* .infobox-text:first-child {
+    font-size: 15px;
+    margin-bottom: 5px;
+  } */
+
+  .infobox-text {
     max-width: calc(100% - 40px);
     font-size: 13px;
   }

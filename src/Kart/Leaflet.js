@@ -3,7 +3,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
-import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
+// import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
+import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
@@ -462,7 +463,7 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {this.state.markerType === "klikk" && this.state.showInfobox && (
+        {/* {this.state.markerType === "klikk" && this.state.showInfobox && (
           <InfoBox
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -473,6 +474,20 @@ class Leaflet extends React.Component {
             adresse={this.props.adresse}
             handleInfobox={this.handleInfobox}
             onUpdateLayerProp={this.props.onUpdateLayerProp}
+          />
+        )} */}
+        {this.state.markerType === "klikk" && this.state.showInfobox && (
+          <InfoboxSide
+            coordinates_area={this.state.coordinates_area}
+            layerevent={this.state.layerevent}
+            getBackendData={this.getBackendData}
+            layersresultat={this.props.layersresultat}
+            valgteLag={this.props.valgteLag}
+            sted={this.props.sted}
+            adresse={this.props.adresse}
+            handleInfobox={this.handleInfobox}
+            onUpdateLayerProp={this.props.onUpdateLayerProp}
+            {...this.props}
           />
         )}
       </>
