@@ -374,8 +374,8 @@ class App extends React.Component {
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
-    this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, zoom);
+    // this.handleStedsNavn(lng, lat, zoom);
+    // this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, zoom, false);
   };
 

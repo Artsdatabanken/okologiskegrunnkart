@@ -1,41 +1,33 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Close, Layers } from "@material-ui/icons";
+import { Layers } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 
 const DetailedInfo = ({
   showExtensiveInfo,
   kartlag,
-  handleExtensiveInfo,
   coordinates_area,
   onUpdateLayerProp,
   layersresultat
 }) => {
-  if (!showExtensiveInfo) return null;
+  let title = "Resultat fra valgte kartlag";
+  if (showExtensiveInfo) {
+    title = "Resultat fra alle kartlag";
+  }
   if (!coordinates_area.lat) return null;
   return (
     <div className="detailed-info-container-side">
-      <div className="all-layer-results-side">
-        <button
-          tabIndex="0"
-          className="close_button"
-          onClick={e => {
-            handleExtensiveInfo(false);
-          }}
-        >
-          <Close />
-        </button>
-
-        <ListItem>
+      <div className="layer-results-side">
+        <ListItem id="layer-results-header">
           <ListItemIcon>
             <Layers />
           </ListItemIcon>
-          <ListItemText primary={"Resultat fra alle kartlag"} />
+          <ListItemText primary={title} />
         </ListItem>
 
-        <div className="all-layer-results-scrollable-side">
+        <div className="layer-results-scrollable-side">
           <List dense={true}>
             {layersresultat !== undefined &&
               Object.keys(layersresultat).map(key => {

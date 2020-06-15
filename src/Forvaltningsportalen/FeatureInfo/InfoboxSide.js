@@ -1,11 +1,19 @@
 import React from "react";
-import { Close, MyLocation, Place, Home, Flag } from "@material-ui/icons";
-import { Terrain } from "@material-ui/icons";
+import {
+  Close,
+  MyLocation,
+  Place,
+  Home,
+  Flag,
+  Terrain,
+  Layers
+} from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
+import CustomSwitch from "../../Common/CustomSwitch";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
-import { Switch } from "@material-ui/core";
 
 const InfoBox = ({
   coordinates_area,
@@ -17,7 +25,6 @@ const InfoBox = ({
   valgteLag,
   sted,
   adresse,
-  handleForvaltningsLayerProp,
   resultat,
   kartlag,
   showExtensiveInfo,
@@ -136,38 +143,28 @@ const InfoBox = ({
             </div>
           </div>
         )}
-        <div className="window_scrollable">
-          {layersresultat !== undefined &&
-            Object.keys(layersresultat).map(key => {
-              return (
-                <GeneriskElement
-                  onUpdateLayerProp={onUpdateLayerProp}
-                  coordinates_area={coordinates_area}
-                  key={key}
-                  kartlag={valgteLag}
-                  resultat={layersresultat[key]}
-                  element={key}
-                />
-              );
-            })}
-        </div>
         <div className="search-layers-button-wrapper">
-          <Switch
+          <span className="infobox-switch-text">Valgte kartlag</span>
+          <CustomSwitch
+            tabIndex="0"
             id="search-layers-toggle"
             checked={showExtensiveInfo}
             onChange={toggleAllLayers}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                toggleAllLayers();
+              }
+            }}
           />
-          Søk informasjon for alle lag i dette punktet
+          <span className="infobox-switch-text">Alle kartlag</span>
         </div>
         <DetailedInfo
           showExtensiveInfo={showExtensiveInfo}
-          kartlag={kartlag}
-          handleExtensiveInfo={handleExtensiveInfo}
+          kartlag={showExtensiveInfo ? kartlag : valgteLag}
           coordinates_area={coordinates_area}
           onUpdateLayerProp={onUpdateLayerProp}
           layersresultat={layersresultat}
           resultat={resultat}
-          handleForvaltningsLayerProp={handleForvaltningsLayerProp}
         />
       </div>
     </div>
