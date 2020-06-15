@@ -333,11 +333,13 @@
 }
 .infobox-text-primary {
   margin-top: 1px;
+  text-align: left;
 }
 .infobox-text-secondary {
   color: grey;
   font-size: 14px;
   margin-top: 2px;
+  text-align: left;
 }
 
 /* List with selected layers */
