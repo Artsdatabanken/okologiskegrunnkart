@@ -67,11 +67,11 @@
 
 @media only screen and (max-width: 768px) {
   .leaflet-control-zoom.side-bar-open {
-    margin-bottom: 50vh;
+    margin-bottom: 45vh;
     margin-right: 10px;
   }
   .leaflet-control-attribution.side-bar-open {
-    margin-bottom: 50vh;
+    margin-bottom: 45vh;
     margin-right: 0;
   }
 }
