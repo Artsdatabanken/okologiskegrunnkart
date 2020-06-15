@@ -315,13 +315,13 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 20px 10px 0 10px;
+  padding: 10px 10px 0 10px;
 }
 .infobox-text-wrapper {
   display: flex;
   align-items: flex-start;
   text-transform: capitalize;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   font-size: 16px;
 }
 .infobox-text-wrapper svg {

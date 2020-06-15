@@ -1,21 +1,11 @@
 import React from "react";
 import { Close, MyLocation, Place, Home, Flag } from "@material-ui/icons";
 import { Terrain } from "@material-ui/icons";
-import { withStyles } from "@material-ui/core/styles";
-import { Tooltip } from "@material-ui/core";
+import CustomTooltip from "../../Common/CustomTooltip";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
-
-const styles = {
-  tooltip: {
-    backgroundColor: "#000000",
-    fontSize: "12px",
-    position: "relative",
-    left: "-5px"
-  }
-};
-const CustomTooltip = withStyles(styles)(Tooltip);
+import { Switch } from "@material-ui/core";
 
 const InfoBox = ({
   coordinates_area,
@@ -37,7 +27,7 @@ const InfoBox = ({
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
   // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
-  console.log(sted);
+  // console.log(sted);
 
   const hentAdresse = adresse => {
     if (adresse && adresse.adressetekst) {
@@ -168,9 +158,18 @@ const InfoBox = ({
                 layerevent
               );
             }}
-          >
-            Søk informasjon for alle lag i dette punktet
-          </button>
+          />
+          {/* <Switch
+            id="search-layers-toggle"
+            onChange={e => {
+              getBackendData(
+                coordinates_area.lng,
+                coordinates_area.lat,
+                layerevent
+              );
+            }}
+          /> */}
+          Søk informasjon for alle lag i dette punktet
         </div>
         <DetailedInfo
           showExtensiveInfo={showExtensiveInfo}
