@@ -66,6 +66,9 @@
 }
 
 @media only screen and (max-width: 768px) {
+  .marker_type_button_container {
+    margin-top: 50px;
+  }
   .leaflet-control-zoom.side-bar-open {
     margin-bottom: 45vh;
     margin-right: 10px;
