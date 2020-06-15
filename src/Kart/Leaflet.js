@@ -468,7 +468,7 @@ class Leaflet extends React.Component {
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
             getBackendData={this.getBackendData}
-            layersresultat={this.props.layersresultat}
+            layersResult={this.props.layersResult}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             adresse={this.props.adresse}
@@ -481,7 +481,8 @@ class Leaflet extends React.Component {
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
             getBackendData={this.getBackendData}
-            layersresultat={this.props.layersresultat}
+            layersResult={this.props.layersResult}
+            allLayersResult={this.props.allLayersResult}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             adresse={this.props.adresse}

@@ -11,7 +11,7 @@ const FeatureInfo = ({
   handleExtensiveInfo,
   coordinates_area,
   onUpdateLayerProp,
-  layersresultat
+  layersResult
 }) => {
   if (!showExtensiveInfo) return null;
   if (!coordinates_area.lat) return null;
@@ -37,15 +37,15 @@ const FeatureInfo = ({
 
         <div className="all_layer_results_scrollable">
           <List dense={true}>
-            {layersresultat !== undefined &&
-              Object.keys(layersresultat).map(key => {
+            {layersResult !== undefined &&
+              Object.keys(layersResult).map(key => {
                 return (
                   <GeneriskElement
                     onUpdateLayerProp={onUpdateLayerProp}
                     coordinates_area={coordinates_area}
                     key={key}
                     kartlag={kartlag}
-                    resultat={layersresultat[key]}
+                    resultat={layersResult[key]}
                     element={key}
                   />
                 );

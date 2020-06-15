@@ -249,6 +249,7 @@
   flex-direction: column;
   width: 100%;
   max-height: 600px;
+  background-color: #eee;
 }
 .all-layer-results-side {
   max-height: 400px;

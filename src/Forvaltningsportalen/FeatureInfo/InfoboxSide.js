@@ -5,13 +5,10 @@ import {
   Place,
   Home,
   Flag,
-  Terrain,
-  Layers
+  Terrain
 } from "@material-ui/icons";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
 import CustomSwitch from "../../Common/CustomSwitch";
-import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
 
@@ -21,7 +18,8 @@ const InfoBox = ({
   getBackendData,
   handleInfobox,
   onUpdateLayerProp,
-  layersresultat,
+  layersResult,
+  allLayersResult,
   valgteLag,
   sted,
   adresse,
@@ -163,7 +161,7 @@ const InfoBox = ({
           kartlag={showExtensiveInfo ? kartlag : valgteLag}
           coordinates_area={coordinates_area}
           onUpdateLayerProp={onUpdateLayerProp}
-          layersresultat={layersresultat}
+          layersResult={showExtensiveInfo ? allLayersResult : layersResult}
           resultat={resultat}
         />
       </div>

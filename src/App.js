@@ -35,7 +35,9 @@ class App extends React.Component {
       showSideBar: true,
       editable: true,
       sted: null,
-      adresse: null
+      adresse: null,
+      layersResult: {},
+      allLayersResult: {}
     };
   }
 
@@ -111,7 +113,8 @@ class App extends React.Component {
                       history={history}
                       sted={this.state.sted}
                       adresse={this.state.adresse}
-                      layersresultat={this.state.layersresultat}
+                      layersResult={this.state.layersResult}
+                      allLayersResult={this.state.allLayersResult}
                       valgteLag={this.state.valgteLag}
                       token={token}
                       {...this.state}
@@ -125,7 +128,7 @@ class App extends React.Component {
                       {...this.state}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       resultat={this.state.resultat}
-                      layersresultat={this.state.layersresultat}
+                      layersResult={this.state.layersResult}
                       handleExtensiveInfo={this.handleExtensiveInfo}
                       coordinates_area={{
                         lat: this.state.lat,
@@ -287,14 +290,12 @@ class App extends React.Component {
 
   handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
-    console.log(this.state.lat);
-    console.log(lat);
     if (this.state.lat !== lat || this.state.lng !== lng) {
       this.setState({
         lat,
-        lng
-        // sted: null,
-        // wms1: null
+        lng,
+        layersResult: {},
+        allLayersResult: {}
       });
     }
   };
@@ -326,19 +327,27 @@ class App extends React.Component {
     });
   };
 
-  handleLayersSøk = (lng, lat, zoom, valgteLag) => {
+  handleLayersSearch = (lng, lat, zoom, valgteLag) => {
+    const emptylayersResult =
+      Object.keys(this.state.layersResult).length === 0 &&
+      this.state.layersResult.constructor === Object;
+
+    if (!emptylayersResult) {
+      return;
+    }
+
     let looplist = this.state.kartlag;
     if (valgteLag) {
       looplist = valgteLag;
     }
     // Denne henter utvalgte lag baser på listen layers
-    var layersresultat = {};
+    var layersResult = {};
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].klikktekst) return;
-      layersresultat[key] = { loading: true };
+      layersResult[key] = { loading: true };
     });
-    this.setState({ layersresultat: layersresultat });
-    Object.keys(layersresultat).forEach(key => {
+    this.setState({ layersResult: layersResult });
+    Object.keys(layersResult).forEach(key => {
       const layer = looplist[key];
       backend
         .getFeatureInfo(layer, { lat, lng, zoom })
@@ -347,14 +356,52 @@ class App extends React.Component {
             res.error = res.ServiceException;
             delete res.ServiceException;
           }
-          let layersresultat = this.state.layersresultat;
-          layersresultat[key] = res;
-          this.setState(layersresultat);
+          let layersResult = this.state.layersResult;
+          layersResult[key] = res;
+          this.setState(layersResult);
         })
         .catch(e => {
-          let layersresultat = this.state.layersresultat;
-          layersresultat[key] = { error: e.message || key };
-          this.setState(layersresultat);
+          let layersResult = this.state.layersResult;
+          layersResult[key] = { error: e.message || key };
+          this.setState(layersResult);
+        });
+    });
+  };
+
+  handleAllLayersSearch = (lng, lat, zoom) => {
+    const emptylayersResult =
+      Object.keys(this.state.allLayersResult).length === 0 &&
+      this.state.allLayersResult.constructor === Object;
+
+    if (!emptylayersResult) {
+      return;
+    }
+
+    let looplist = this.state.kartlag;
+    // Denne henter utvalgte lag baser på listen layers
+    var allLayersResult = {};
+    Object.keys(looplist).forEach(key => {
+      if (!looplist[key].klikktekst) return;
+      allLayersResult[key] = { loading: true };
+    });
+    this.setState({ allLayersResult: allLayersResult });
+    Object.keys(allLayersResult).forEach(key => {
+      const layer = looplist[key];
+      backend
+        .getFeatureInfo(layer, { lat, lng, zoom })
+        .then(res => {
+          if (res.ServiceException) {
+            res.error = res.ServiceException;
+            delete res.ServiceException;
+          }
+          let allLayersResult = this.state.allLayersResult;
+          allLayersResult[key] = res;
+          this.setState(allLayersResult);
+        })
+        .catch(e => {
+          let allLayersResult = this.state.allLayersResult;
+          allLayersResult[key] = { error: e.message || key };
+          this.setState(allLayersResult);
         });
     });
   };
@@ -369,14 +416,12 @@ class App extends React.Component {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, zoom, valgteLag);
+    this.handleLayersSearch(lng, lat, zoom, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
     this.handleLatLng(lng, lat);
-    // this.handleStedsNavn(lng, lat, zoom);
-    // this.handlePunktSok(lng, lat, zoom);
-    this.handleLayersSøk(lng, lat, zoom, false);
+    this.handleAllLayersSearch(lng, lat, zoom);
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
