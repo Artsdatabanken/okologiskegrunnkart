@@ -33,6 +33,7 @@ class App extends React.Component {
       polyline: [],
       showPolygon: true,
       showSideBar: true,
+      showInfobox: false,
       editable: true,
       sted: null,
       adresse: null,
@@ -117,12 +118,15 @@ class App extends React.Component {
                       allLayersResult={this.state.allLayersResult}
                       valgteLag={this.state.valgteLag}
                       token={token}
+                      showInfobox={this.state.showInfobox}
+                      handleInfobox={this.handleInfobox}
                       {...this.state}
                     />
                     <KartVelger
                       onUpdateLayerProp={this.handleSetBakgrunnskart}
                       aktivtFormat={basiskart.kart.aktivtFormat}
                       showSideBar={this.state.showSideBar}
+                      showInfobox={this.state.showInfobox}
                     />
                     {/* <FeatureInfo
                       {...this.state}
@@ -442,6 +446,10 @@ class App extends React.Component {
 
   toggleSideBar = () => {
     this.setState({ showSideBar: !this.state.showSideBar });
+  };
+
+  handleInfobox = bool => {
+    this.setState({ showInfobox: bool });
   };
 
   static contextType = SettingsContext;

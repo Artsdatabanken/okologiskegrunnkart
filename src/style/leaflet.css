@@ -39,6 +39,15 @@
   height: 40px;
 }
 
+/* Marker type buttons */
+.marker_type_button_container {
+  margin-left: 0;
+}
+
+.marker_type_button_container.infobox-open {
+  margin-left: 352px;
+}
+
 .marker_type_button_container > button {
   margin: 1px;
 }
@@ -68,6 +77,7 @@
 @media only screen and (max-width: 768px) {
   .marker_type_button_container {
     margin-top: 50px;
+    margin-left: 0;
   }
   .leaflet-control-zoom.side-bar-open {
     margin-bottom: 45vh;

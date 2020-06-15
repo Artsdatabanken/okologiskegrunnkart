@@ -29,7 +29,6 @@ class Leaflet extends React.Component {
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
-    showInfobox: false,
     coordinates_area: null
   };
 
@@ -130,10 +129,6 @@ class Leaflet extends React.Component {
     this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
   };
 
-  handleInfobox = bool => {
-    this.setState({ showInfobox: bool });
-  };
-
   openLinksInNewTab = () => {
     // Remove default leaflet link in map so it
     // isn't selectable with tabs navigation
@@ -228,10 +223,10 @@ class Leaflet extends React.Component {
     // Oppdatering av infoboksen
     this.props.handleExtensiveInfo(false);
     this.setState({
-      showInfobox: true,
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
+    this.props.handleInfobox(true);
     this.props.handleValgteLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
 
     // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
@@ -337,6 +332,14 @@ class Leaflet extends React.Component {
     return { url, srs: srs && srs.groups.srs.replace(":", "") };
   }
 
+  markerButtonClass() {
+    let name = "marker_type_button_container";
+    if (this.props.showInfobox) {
+      name = name + " infobox-open";
+    }
+    return name;
+  }
+
   render() {
     this.openLinksInNewTab();
     this.positionZoomButtons();
@@ -418,7 +421,7 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        <div className="marker_type_button_container">
+        <div className={this.markerButtonClass()}>
           <button
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
@@ -463,7 +466,7 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {/* {this.state.markerType === "klikk" && this.state.showInfobox && (
+        {/* {this.state.markerType === "klikk" && this.props.showInfobox && (
           <InfoBox
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -476,7 +479,7 @@ class Leaflet extends React.Component {
             onUpdateLayerProp={this.props.onUpdateLayerProp}
           />
         )} */}
-        {this.state.markerType === "klikk" && this.state.showInfobox && (
+        {this.state.markerType === "klikk" && this.props.showInfobox && (
           <InfoboxSide
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -486,7 +489,7 @@ class Leaflet extends React.Component {
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             adresse={this.props.adresse}
-            handleInfobox={this.handleInfobox}
+            handleInfobox={this.props.handleInfobox}
             onUpdateLayerProp={this.props.onUpdateLayerProp}
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
