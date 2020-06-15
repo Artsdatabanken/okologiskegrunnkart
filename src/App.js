@@ -33,7 +33,9 @@ class App extends React.Component {
       polyline: [],
       showPolygon: true,
       showSideBar: true,
-      editable: true
+      editable: true,
+      sted: null,
+      adresse: null
     };
   }
 
@@ -285,12 +287,16 @@ class App extends React.Component {
 
   handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
-    this.setState({
-      lat,
-      lng,
-      sted: null,
-      wms1: null
-    });
+    console.log(this.state.lat);
+    console.log(lat);
+    if (this.state.lat !== lat || this.state.lng !== lng) {
+      this.setState({
+        lat,
+        lng
+        // sted: null,
+        // wms1: null
+      });
+    }
   };
 
   handleStedsNavn = (lng, lat, zoom) => {
@@ -360,6 +366,7 @@ class App extends React.Component {
       if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
     }
     this.setState({ valgteLag: valgteLag });
+    this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
     this.handleLayersSøk(lng, lat, zoom, valgteLag);
