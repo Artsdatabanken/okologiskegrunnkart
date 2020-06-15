@@ -487,6 +487,8 @@ class Leaflet extends React.Component {
             adresse={this.props.adresse}
             handleInfobox={this.handleInfobox}
             onUpdateLayerProp={this.props.onUpdateLayerProp}
+            showExtensiveInfo={this.props.showExtensiveInfo}
+            handleExtensiveInfo={this.props.handleExtensiveInfo}
             {...this.props}
           />
         )}

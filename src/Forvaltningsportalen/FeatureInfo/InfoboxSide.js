@@ -19,16 +19,14 @@ const InfoBox = ({
   adresse,
   handleForvaltningsLayerProp,
   resultat,
-  showExtensiveInfo,
   kartlag,
+  showExtensiveInfo,
   handleExtensiveInfo
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
   // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
-  // console.log(sted);
-
   const hentAdresse = adresse => {
     if (adresse && adresse.adressetekst) {
       return adresse.adressetekst;
@@ -48,6 +46,14 @@ const InfoBox = ({
       return adresse.bruksnummer;
     }
     return "-";
+  };
+
+  const toggleAllLayers = () => {
+    const fetchData = !showExtensiveInfo;
+    handleExtensiveInfo(!showExtensiveInfo);
+    if (fetchData) {
+      getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
+    }
   };
 
   return (
@@ -146,29 +152,11 @@ const InfoBox = ({
             })}
         </div>
         <div className="search-layers-button-wrapper">
-          <button
-            tabIndex="0"
-            className="search_layers"
-            title="Marker tool"
-            alt="Marker tool"
-            onClick={e => {
-              getBackendData(
-                coordinates_area.lng,
-                coordinates_area.lat,
-                layerevent
-              );
-            }}
-          />
-          {/* <Switch
+          <Switch
             id="search-layers-toggle"
-            onChange={e => {
-              getBackendData(
-                coordinates_area.lng,
-                coordinates_area.lat,
-                layerevent
-              );
-            }}
-          /> */}
+            checked={showExtensiveInfo}
+            onChange={toggleAllLayers}
+          />
           Søk informasjon for alle lag i dette punktet
         </div>
         <DetailedInfo
