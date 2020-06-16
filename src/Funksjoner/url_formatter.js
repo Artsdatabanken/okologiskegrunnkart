@@ -82,11 +82,11 @@ export default function url_formatter(formatstring = "", variables) {
 
   var url = parts.join("");
   if (!url) {
-    console.warn(
-      `Ugyldig url fra formatstring '${formatstring}', variables ${JSON.stringify(
-        variables
-      )}`
-    );
+    // console.warn(
+    //   `Ugyldig url fra formatstring '${formatstring}', variables ${JSON.stringify(
+    //     variables
+    //   )}`
+    // );
     return null;
   }
   url = new URL(url);

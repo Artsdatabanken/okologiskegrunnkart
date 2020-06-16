@@ -9,7 +9,7 @@ const InfoBox = ({
   getBackendData,
   handleInfobox,
   onUpdateLayerProp,
-  layersresultat,
+  layersResult,
   valgteLag,
   sted,
   adresse
@@ -97,15 +97,15 @@ const InfoBox = ({
         )}
         {coordinates_area && <div className="coordinates">{coords}</div>}
         <div className="window_scrollable">
-          {layersresultat !== undefined &&
-            Object.keys(layersresultat).map(key => {
+          {layersResult !== undefined &&
+            Object.keys(layersResult).map(key => {
               return (
                 <GeneriskElement
                   onUpdateLayerProp={onUpdateLayerProp}
                   coordinates_area={coordinates_area}
                   key={key}
                   kartlag={valgteLag}
-                  resultat={layersresultat[key]}
+                  resultat={layersResult[key]}
                   element={key}
                 />
               );

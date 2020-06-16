@@ -16,8 +16,10 @@
   .kartlag_fanen {
     border-top: 1px solid lightgrey;
     width: 100%;
-    height: 50%;
-    top: 50%;
+    height: 45vh;
+    top: 55vh;
+    padding-top: 0;
+    background-color: #eee;
   }
 }
 
@@ -276,7 +278,7 @@ h4.container_header {
 /* Side bar button */
 .toggle-side-bar-wrapper {
   position: absolute;
-  top: 40px;
+  top: 90px;
   right: -36px;
 }
 .toggle-side-bar-wrapper.side-bar-open {
@@ -303,7 +305,7 @@ h4.container_header {
     right: calc(50vw - 50px);
   }
   .toggle-side-bar-wrapper.side-bar-open {
-    top: calc(50vh - 28px);
+    top: calc(55vh - 28px);
     right: calc(50vw - 50px);
   }
   .toggle-side-bar-button {

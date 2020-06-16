@@ -312,96 +312,94 @@ class SearchBar extends React.Component {
   render() {
     return (
       <>
-        {this.props.showSideBar && (
-          <div className="searchbar_container" ref={this.setWrapperRef}>
-            <div className="searchbar">
-              <input
-                className="searchbarfield"
-                id="searchfield"
-                type="text"
-                autoComplete="off"
-                placeholder="søk etter kartlag eller område..."
-                onFocus={e => this.handleSearchBar(e.target.value)}
-                onChange={e => {
-                  this.handleSearchBar(e.target.value);
-                }}
-                onKeyDown={e => {
-                  if (e.key === "ArrowDown") {
-                    if (document.getElementsByClassName("searchbar_item")) {
-                      if (e.keyCode === 40) {
-                        if (
-                          document.getElementsByClassName("searchbar_item")[0]
-                        ) {
-                          document
-                            .getElementsByClassName("searchbar_item")[0]
-                            .focus();
-                        } else {
-                          console.log("nothing to scroll to");
-                        }
+        <div className="searchbar_container" ref={this.setWrapperRef}>
+          <div className="searchbar">
+            <input
+              className="searchbarfield"
+              id="searchfield"
+              type="text"
+              autoComplete="off"
+              placeholder="søk etter kartlag eller område..."
+              onFocus={e => this.handleSearchBar(e.target.value)}
+              onChange={e => {
+                this.handleSearchBar(e.target.value);
+              }}
+              onKeyDown={e => {
+                if (e.key === "ArrowDown") {
+                  if (document.getElementsByClassName("searchbar_item")) {
+                    if (e.keyCode === 40) {
+                      if (
+                        document.getElementsByClassName("searchbar_item")[0]
+                      ) {
+                        document
+                          .getElementsByClassName("searchbar_item")[0]
+                          .focus();
+                      } else {
+                        console.log("nothing to scroll to");
                       }
-                    } else {
-                      console.log("nothing to see here");
                     }
+                  } else {
+                    console.log("nothing to see here");
                   }
-                }}
-                onKeyPress={e => {
-                  if (e.key === "Enter") {
-                    this.handleSearchButton();
-                  }
-                }}
-              />
-
-              {this.state.isSearching && (
-                <button
-                  className="x"
-                  onClick={() => {
-                    this.handleRemoveTreffliste();
-                    this.handleSearchBar(null);
-                    document.getElementById("searchfield").value = "";
-                  }}
-                >
-                  x
-                </button>
-              )}
-              <button
-                onClick={() => {
+                }
+              }}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
                   this.handleSearchButton();
+                }
+              }}
+            />
+
+            {this.state.isSearching && (
+              <button
+                className="x"
+                onClick={() => {
+                  this.handleRemoveTreffliste();
+                  this.handleSearchBar(null);
+                  document.getElementById("searchfield").value = "";
                 }}
               >
-                søk
+                x
               </button>
-            </div>
-            {(this.state.isSearching || this.props.searchResultPage) && (
-              <TreffListe
-                setSearchResultPage={this.props.setSearchResultPage}
-                searchResultPage={this.props.searchResultPage}
-                searchTerm={this.state.searchTerm}
-                handleSearchBar={this.handleSearchBar}
-                handleSearchButton={this.handleSearchButton}
-                treffliste={this.state.treffliste}
-                treffliste_lokalt={this.state.treffliste_lokalt}
-                treffliste_sted={this.state.treffliste_sted}
-                treffliste_knr={this.state.treffliste_knr}
-                treffliste_gnr={this.state.treffliste_gnr}
-                treffliste_bnr={this.state.treffliste_bnr}
-                treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
-                removeValgtLag={this.props.removeValgtLag}
-                addValgtLag={this.props.addValgtLag}
-                handleGeoSelection={this.props.handleGeoSelection}
-                handleRemoveTreffliste={this.handleRemoveTreffliste}
-              />
             )}
-
             <button
-              className="help_button"
-              onClick={e => {
-                this.openHelp();
+              onClick={() => {
+                this.handleSearchButton();
               }}
             >
-              ?
+              søk
             </button>
           </div>
-        )}
+          {(this.state.isSearching || this.props.searchResultPage) && (
+            <TreffListe
+              setSearchResultPage={this.props.setSearchResultPage}
+              searchResultPage={this.props.searchResultPage}
+              searchTerm={this.state.searchTerm}
+              handleSearchBar={this.handleSearchBar}
+              handleSearchButton={this.handleSearchButton}
+              treffliste={this.state.treffliste}
+              treffliste_lokalt={this.state.treffliste_lokalt}
+              treffliste_sted={this.state.treffliste_sted}
+              treffliste_knr={this.state.treffliste_knr}
+              treffliste_gnr={this.state.treffliste_gnr}
+              treffliste_bnr={this.state.treffliste_bnr}
+              treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+              removeValgtLag={this.props.removeValgtLag}
+              addValgtLag={this.props.addValgtLag}
+              handleGeoSelection={this.props.handleGeoSelection}
+              handleRemoveTreffliste={this.handleRemoveTreffliste}
+            />
+          )}
+
+          <button
+            className="help_button"
+            onClick={e => {
+              this.openHelp();
+            }}
+          >
+            ?
+          </button>
+        </div>
 
         <Modal
           open={this.state.showHelpModal}

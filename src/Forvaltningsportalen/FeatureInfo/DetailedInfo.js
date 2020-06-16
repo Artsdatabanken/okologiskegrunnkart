@@ -1,51 +1,47 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Close, Layers } from "@material-ui/icons";
+import { Layers } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 
-const FeatureInfo = ({
+const DetailedInfo = ({
   showExtensiveInfo,
   kartlag,
-  handleExtensiveInfo,
   coordinates_area,
   onUpdateLayerProp,
-  layersresultat
+  layersResult
 }) => {
-  if (!showExtensiveInfo) return null;
+  let title = "Ingen kartlag valgt";
+  const emptyKartlag =
+    Object.keys(kartlag).length === 0 && kartlag.constructor === Object;
+  if (showExtensiveInfo && !emptyKartlag) {
+    title = "Resultat fra alle kartlag";
+  } else if (!showExtensiveInfo && !emptyKartlag) {
+    title = "Resultat fra valgte kartlag";
+  }
   if (!coordinates_area.lat) return null;
   return (
-    <div className="infobox_container">
-      <div className="all_layer_results">
-        <button
-          tabIndex="0"
-          className="close_button"
-          onClick={e => {
-            handleExtensiveInfo(false);
-          }}
-        >
-          <Close />
-        </button>
-
-        <ListItem>
+    <div className="detailed-info-container-side">
+      <div className="layer-results-side">
+        <ListItem id="layer-results-header">
           <ListItemIcon>
             <Layers />
           </ListItemIcon>
-          <ListItemText primary={"Resultat fra alle kartlag"} />
+          <ListItemText primary={title} />
         </ListItem>
 
-        <div className="all_layer_results_scrollable">
+        <div className="layer-results-scrollable-side">
           <List dense={true}>
-            {layersresultat !== undefined &&
-              Object.keys(layersresultat).map(key => {
+            {layersResult !== undefined &&
+              Object.keys(layersResult).map(key => {
                 return (
                   <GeneriskElement
                     onUpdateLayerProp={onUpdateLayerProp}
                     coordinates_area={coordinates_area}
                     key={key}
                     kartlag={kartlag}
-                    resultat={layersresultat[key]}
+                    resultat={layersResult[key]}
                     element={key}
                   />
                 );
@@ -57,4 +53,4 @@ const FeatureInfo = ({
   );
 };
 
-export default withRouter(FeatureInfo);
+export default withRouter(DetailedInfo);
