@@ -46,3 +46,10 @@ ALLOWED_HOSTS = ["*"]
 ## Deployment
 
 Filer fra denne katalogen django, deployes til katalogen som er mappet inn i _forvaltningsporta-django_ container.
+
+## Build and deploy docker image
+
+```bash
+docker build -t artsdatabanken/forvaltningsportal-django .
+docker push artsdatabanken/forvaltningsportal-django:latest
+```
