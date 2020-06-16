@@ -31,17 +31,17 @@ class KartlagAPIView(APIView):
             return None
 
     def get(self, request: Request, *args, **kwargs):
-
         all_kartlag = Kartlag.objects.all()
+
         for kartlag in all_kartlag:
             url = kartlag.wmsurl
             if url is None:
                 continue
             
-            # # Print data to show progress in console
-            # print('------------------------------------------')
-            # print('Kartlag: ', kartlag)
-            # print(url)
+            # Print data to show progress in console
+            print('------------------------------------------')
+            print('Kartlag: ', kartlag)
+            print(url)
 
             # Add parameters to wmsurl if they are not included
             number_symbol = url.count('?')
@@ -58,7 +58,7 @@ class KartlagAPIView(APIView):
 
             root = self.get_xml_data(url)
             if root is None:
-                continue      
+                continue
 
             # Define relevant variables
             projection_list = ['EPSG:3857', 'EPSG:900913']
@@ -84,7 +84,9 @@ class KartlagAPIView(APIView):
             extrainfo = ''
             for item in root.iter('*'):
                 # Find namespace and use as extrainfo
-                extrainfo = root.tag.split('}')[0] + '}'
+                hasNamespace = item.tag.count('}') > 0
+                if hasNamespace:
+                    extrainfo = item.tag.split('}')[0] + '}'
 
                 # Find wms version
                 if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
@@ -165,9 +167,9 @@ class KartlagAPIView(APIView):
                             except Exception:
                                 max_zoom = None
                         
-                        # # Print data to show progress in console
-                        # print('------------')
-                        # print(name)
+                        # Print data to show progress in console
+                        print('------------')
+                        print(name)
 
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
@@ -182,6 +184,11 @@ class KartlagAPIView(APIView):
                             sublag.maxscaledenominator = max_zoom
                             if sublag.legendeurl != legendeurl:
                                 sublag.legendeurl = legendeurl
+                            print(sublag.erSynlig)
+                            if sublag.erSynlig:
+                                print('Changing visibility and suggested')
+                                sublag.suggested = True
+                                sublag.erSynlig = False
                             sublag.save()
                             
                         else:
@@ -228,15 +235,5 @@ class KartlagOpenAPIView(APIView):
         layers = Kartlag.objects.all()
 
         return Response(status=status.HTTP_200_OK)
-        
-    # def delete(self, request: Request, facility_id: str, template_id=None, *args, **kwargs):
-    #     if not template_id:
-    #         # Missing required data
-    #         return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
-    #     template = SafetyTemplate.objects.get(id=template_id)
-    #     template.delete()
-
-    #     return Response(status=status.HTTP_202_ACCEPTED)
 
 kartlag_open_api_view = KartlagOpenAPIView.as_view()
