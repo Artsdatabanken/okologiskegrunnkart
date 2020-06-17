@@ -38,10 +38,10 @@ class KartlagAPIView(APIView):
             if url is None:
                 continue
             
-            # # Print data to show progress in console
-            # print('------------------------------------------')
-            # print('Kartlag: ', kartlag)
-            # print(url)
+            # Print data to show progress in console
+            print('------------------------------------------')
+            print('Kartlag: ', kartlag)
+            print(url)
 
             # Add parameters to wmsurl if they are not included
             number_symbol = url.count('?')
@@ -65,7 +65,7 @@ class KartlagAPIView(APIView):
                 continue
 
             # Define relevant variables
-            projection_list = ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+            projection_list = ['EPSG:4326', 'EPSG:3857', 'EPSG:900913'] # EPSG:4326 is preferred for GetFeatureInfo
             if kartlag.projeksjon != projection_list[0]:
                 projection = None
             else:
@@ -108,14 +108,16 @@ class KartlagAPIView(APIView):
                             kartlag.save()
 
                 # Find projection
-                if projection is None:
-                    all_projections = item.text
-                    for proj in projection_list:
-                        if all_projections is not None and proj in all_projections:
-                            projection = proj
-                            kartlag.projeksjon = proj
-                            kartlag.save()
-                            break
+                if (item.tag == '{}CRS'.format(extrainfo)
+                    or item.tag == '{}SRS'.format(extrainfo)):
+                    if projection is None or projection != 'EPSG:4326':
+                        all_projections = item.text
+                        for proj in projection_list:
+                            if all_projections is not None and proj in all_projections:
+                                projection = proj
+                                kartlag.projeksjon = proj
+                                kartlag.save()
+                                break
 
                 # Find format
                 if infoformat is None and item.tag == '{}GetFeatureInfo'.format(extrainfo):
@@ -203,9 +205,9 @@ class KartlagAPIView(APIView):
                                     max_zoom = None
 
                         
-                        # # Print data to show progress in console
-                        # print('------------')
-                        # print(name)
+                        # Print data to show progress in console
+                        print('------------')
+                        print(name)
 
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
