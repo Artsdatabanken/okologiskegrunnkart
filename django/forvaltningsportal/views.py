@@ -55,14 +55,18 @@ class KartlagAPIView(APIView):
                     url = url + 'request=GetCapabilities&service=WMS'
                     kartlag.wmsurl = url
                     kartlag.save()
+                elif 'version=' in url_list[1]:
+                    url = url_list[0] + '?request=GetCapabilities&service=WMS'
+                    kartlag.wmsurl = url
+                    kartlag.save()
 
             root = self.get_xml_data(url)
             if root is None:
                 continue
 
             # Define relevant variables
-            projection_list = ['EPSG:3857', 'EPSG:900913']
-            if kartlag.projeksjon not in projection_list:
+            projection_list = ['EPSG:4326', 'EPSG:3857', 'EPSG:900913']
+            if kartlag.projeksjon != projection_list[0]:
                 projection = None
             else:
                 projection = kartlag.projeksjon
@@ -92,9 +96,14 @@ class KartlagAPIView(APIView):
                 if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
                     or item.tag == '{}WMT_MS_Capabilities'.format(extrainfo)):
                     version = item.get('version')
-                    # Replace only if field is empty
+                    
                     if version is not None:
+                        # Replace if field is empty
                         if not kartlag.wmsversion or kartlag.wmsversion == '':
+                            kartlag.wmsversion = version
+                            kartlag.save()
+                        # Replace if old version is stored and new version is available
+                        if kartlag.wmsversion == '1.1.0' and version == '1.3.0':
                             kartlag.wmsversion = version
                             kartlag.save()
 
@@ -141,12 +150,20 @@ class KartlagAPIView(APIView):
                         legendeurl = kartlag.wmsurl
                         number_symbol = url.count('?')
                         parameters = '?version={}&service=WMS&request=GetLegendGraphic&layer={}&format=image/png'.format(kartlag.wmsversion, name)
+                        if kartlag.wmsversion == '1.3.0':
+                            parameters = parameters + '&sld_version=1.1.0'
                         if number_symbol == 0:
                             legendeurl = legendeurl + parameters
                         elif number_symbol == 1:
                             url_list = url.split('?')
                             legendeurl = url_list[0] + parameters
 
+                        # Find if it is a parent layer
+                        parent = False
+                        first_child = item.find('{}Layer'.format(extrainfo))
+                        if first_child is not None:
+                            parent = True
+                        
                         # Get min zoom limit
                         min_zoom_xml = item.find('{}MinScaleDenominator'.format(extrainfo))
                         min_zoom = None
@@ -156,7 +173,16 @@ class KartlagAPIView(APIView):
                                 min_zoom = int(min_zoom)
                             except Exception:
                                 min_zoom = None
-                        
+                        # Get first child's min zoom
+                        elif min_zoom_xml is None and parent:
+                            min_zoom_xml = first_child.find('{}MinScaleDenominator'.format(extrainfo))
+                            if min_zoom_xml is not None:
+                                min_zoom = min_zoom_xml.text
+                                try:
+                                    min_zoom = int(min_zoom)
+                                except Exception:
+                                    min_zoom = None
+
                         # Get max zoom limit
                         max_zoom_xml = item.find('{}MaxScaleDenominator'.format(extrainfo))
                         max_zoom = None
@@ -166,6 +192,16 @@ class KartlagAPIView(APIView):
                                 max_zoom = int(max_zoom)
                             except Exception:
                                 max_zoom = None
+                        # Get first child's max zoom
+                        elif max_zoom_xml is None and parent:
+                            max_zoom_xml = first_child.find('{}MaxScaleDenominator'.format(extrainfo))
+                            if max_zoom_xml is not None:
+                                max_zoom = max_zoom_xml.text
+                                try:
+                                    max_zoom = int(max_zoom)
+                                except Exception:
+                                    max_zoom = None
+
                         
                         # # Print data to show progress in console
                         # print('------------')
@@ -224,14 +260,3 @@ class KartlagAPIView(APIView):
     #     return Response(status=status.HTTP_202_ACCEPTED)
 
 kartlag_api_view = KartlagAPIView.as_view()
-
-class KartlagOpenAPIView(APIView):
-    queryset = Kartlag.objects.all()
-
-    def get(self, request: Request, *args, **kwargs):
-
-        layers = Kartlag.objects.all()
-
-        return Response(status=status.HTTP_200_OK)
-
-kartlag_open_api_view = KartlagOpenAPIView.as_view()
