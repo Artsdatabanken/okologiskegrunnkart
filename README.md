@@ -14,6 +14,8 @@
 - [Webklient](https://forvaltningsportal.artsdatabanken.no)
 - [Webklient testversion](https://forvaltningsportal.test.artsdatabanken.no)
 - [Administrasjonsverktøy](https://forvaltningsportaladmin.artsdatabanken.no/admin/)
+- [Wms-hjelper for å legge inn klikk url til underlag](https://forvaltningsportaladmin.artsdatabanken.no/static/index.html)
+- [Kartlag.json file](https://forvaltningsportal.test.artsdatabanken.no/kartlag.json)
 
 ## Wiki
 
@@ -41,9 +43,17 @@ Follow these steps:
 - Run `npm start`
 - Get the example map data `kartlag.json` from `https://forvaltningsportal.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).
 
-## Update database layers and sublayers
+## Update automatically database layers and sublayers
 
-Follow these steps:
+Follow these steps.
+
+Localhost:
+
+- Make sure you have django running locally.
+- Log in as superuser in the admin panel `http://localhost:8000/admin/`
+- Run the following HTTP request: `http://localhost:8000/api/v1/kartlag/fill/data/`
+
+Test environment:
 
 - Log in as superuser in the admin panel `https://forvaltningsportaladmin.artsdatabanken.no/admin/`
 - Run the following HTTP request: `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
