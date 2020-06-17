@@ -37,24 +37,4 @@ const Warnings = ({ doc }) => {
   );
 };
 
-const Tags = ({ tags }) => {
-  return (
-    <>
-      <ListSubheader>Tags</ListSubheader>
-      {(tags || []).map(tag => (
-        <Chip
-          label={tag}
-          key={tag}
-          style={{ margin: 4 }}
-          clickable
-          color="primary"
-          onDelete={() => {}}
-          deleteIcon={<DoneIcon />}
-          onClick={() => {}}
-        />
-      ))}
-    </>
-  );
-};
-
 export default Warnings;
