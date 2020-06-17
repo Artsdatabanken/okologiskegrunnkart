@@ -38,10 +38,10 @@ class KartlagAPIView(APIView):
             if url is None:
                 continue
             
-            # Print data to show progress in console
-            print('------------------------------------------')
-            print('Kartlag: ', kartlag)
-            print(url)
+            # # Print data to show progress in console
+            # print('------------------------------------------')
+            # print('Kartlag: ', kartlag)
+            # print(url)
 
             # Add parameters to wmsurl if they are not included
             number_symbol = url.count('?')
@@ -205,9 +205,9 @@ class KartlagAPIView(APIView):
                                     max_zoom = None
 
                         
-                        # Print data to show progress in console
-                        print('------------')
-                        print(name)
+                        # # Print data to show progress in console
+                        # print('------------')
+                        # print(name)
 
                         if Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name)).exists():
                             queryset = Sublag.objects.filter(Q(hovedkartlag=kartlag) & Q(wmslayer=name))
