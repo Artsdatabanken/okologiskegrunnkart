@@ -13,9 +13,7 @@ import { plukkForetrukketFormat, selectCrs, computeLegendUrl } from "./wms";
 import url_formatter from "./FeatureInfo/url_formatter";
 
 const kartlagUrl =
-  window.location.hostname === "localhost"
-    ? "/kartlag.json"
-    : "https://forvaltningsportaladmin.artsdatabanken.no/static/kartlag.json";
+  "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
   const { writeUpdate } = useDjangoKartlag();
