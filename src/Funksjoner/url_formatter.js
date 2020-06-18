@@ -12,29 +12,39 @@ function getWmsFeatureUrl(layer, coords) {
   const url = new URL(layer.wmsurl);
   const params = url.searchParams;
 
-  const delta = 0.01;
-  const bbox = `${coords.lng - delta},${coords.lat - delta},${coords.lng +
-    delta},${coords.lat + delta}`;
-
   const layers = Object.values(layer.underlag)
     .filter(l => l.queryable && l.wmslayer)
     .map(l => l.wmslayer)
     .join(",");
 
   const erv130 = layer.wmsversion === "1.3.0";
+  const delta = 0.01;
+
+  let bbox;
+  if (erv130) {
+    bbox = `${coords.lat - delta},${coords.lng - delta},${coords.lat +
+      delta},${coords.lng + delta}`;
+  } else {
+    bbox = `${coords.lng - delta},${coords.lat - delta},${coords.lng +
+      delta},${coords.lat + delta}`;
+  }
+
   params.set("request", "GetFeatureInfo");
   params.set("version", layer.wmsversion || "1.1.0");
   params.set("service", "WMS");
-  params.set(erv130 ? "i" : "x", 128);
-  params.set(erv130 ? "j" : "y", 128);
+  params.set("x", 128);
+  params.set("y", 128);
   params.set("width", 255);
   params.set("height", 255);
   params.set("layers", layers);
   params.set("query_layers", layers);
   params.set("info_format", layer.wmsinfoformat || "application/vnd.ogc.gml");
-  params.set("crs", "EPSG:4326");
-  params.set("srs", "EPSG:4326");
+  params.set("crs", layer.projeksjon || "EPSG:4326");
+  params.set("srs", layer.projeksjon || "EPSG:4326");
   params.set("bbox", bbox);
+  console.log(erv130);
+  console.log(bbox);
+  console.log(url.toString());
   return url.toString();
 }
 

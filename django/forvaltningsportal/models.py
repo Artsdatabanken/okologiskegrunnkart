@@ -92,6 +92,7 @@ class Sublag(models.Model):
     queryable = models.BooleanField(default=False)
     minscaledenominator = models.PositiveIntegerField(null=True, blank=True)
     maxscaledenominator = models.PositiveIntegerField(null=True, blank=True)
+    suggested = models.BooleanField(default=False)
 
     def __str__(self):
         return self.tittel
@@ -128,6 +129,7 @@ def createJSON(sender, instance, **kwargs):
                     lag_json['minscaledenominator'] = lag.minscaledenominator
                     lag_json['maxscaledenominator'] = lag.maxscaledenominator
                     lag_json['erSynlig'] = lag.erSynlig
+                    lag_json['suggested'] = lag.suggested
                     underlag[lag.id] = lag_json
             
             dict[kartlag.id]['underlag'] = underlag
