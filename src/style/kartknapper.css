@@ -18,6 +18,10 @@
   border: 1px solid #9f9f9f;
 }
 
+.change_map_buttons.infobox-open {
+  margin-left: 352px;
+}
+
 .change_map_icon,
 .change_map_button {
   border-radius: 3px;
@@ -48,16 +52,15 @@
 
 @media only screen and (max-width: 768px) {
   .change_map_buttons {
-    bottom: calc(0% + 20px);
+    bottom: calc(0vh + 20px);
   }
   .change_map_buttons.side-bar-open {
-    bottom: calc(50% + 20px);
+    bottom: calc(45vh + 20px);
   }
 }
 
 .map_ref {
   position: absolute;
-  display: block;
   background: #b3b3b3;
   font-size: 8pt;
   padding: 2px;
@@ -67,14 +70,21 @@
   overflow: hidden;
   max-width: 100%;
   max-height: 17px;
+  display: flex;
+}
+.map_ref.infobox-open {
+  margin-left: 352px;
+}
+.map-active-format-text {
+  margin-right: 3px;
 }
 
 @media only screen and (max-width: 768px) {
   .map_ref {
-    bottom: 0%;
+    bottom: 0vh;
   }
   .map_ref.side-bar-open {
-    bottom: 50%;
+    bottom: 45vh;
   }
   .map-active-format-text {
     display: none;

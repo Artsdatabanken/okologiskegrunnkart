@@ -1,18 +1,18 @@
 .searchbar_container {
   position: absolute;
-  height: 0px;
+  height: 50px;
   overflow: visible;
   right: 0px;
   top: 0px;
   width: 408px;
   z-index: 200;
-  background: lightgrey;
+  background: #697f8a;
 }
 
 @media only screen and (max-width: 768px) {
   .searchbar_container {
     width: 100%;
-    top: 50%;
+    top: 0;
   }
 }
 
@@ -262,6 +262,7 @@
   background-color: #697f8a;
   color: white;
   border: 2px solid white;
+  margin-left: 10px;
 }
 
 @media only screen and (max-width: 768px) {

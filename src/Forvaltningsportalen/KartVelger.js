@@ -27,12 +27,33 @@ const imgs = [gebco, topo4, topo4graatone];
 const KartVelger = props => {
   const [open, setOpen] = useState(false);
   var current = tilgjengelige.indexOf(props.aktivtFormat);
+
+  const mapButtonClass = () => {
+    let name = "change_map_buttons";
+    if (props.showSideBar) {
+      name = name + " side-bar-open";
+    }
+    if (props.showInfobox) {
+      name = name + " infobox-open";
+    }
+    return name;
+  };
+
+  const mapRefClass = () => {
+    let name = "map_ref";
+    if (props.showSideBar) {
+      name = name + " side-bar-open";
+    }
+    if (props.showInfobox) {
+      name = name + " infobox-open";
+    }
+    return name;
+  };
+
   return (
     <>
       <div
-        className={`change_map_buttons${
-          props.showSideBar ? " side-bar-open" : ""
-        }`}
+        className={mapButtonClass()}
         style={{
           background: open ? "white" : "transparent",
           borderColor: open ? "#9f9f9f" : "transparent"
@@ -77,16 +98,16 @@ const KartVelger = props => {
           </div>
         )}
       </div>
-      <div className={`map_ref${props.showSideBar ? " side-bar-open" : ""}`}>
+      <div className={mapRefClass()}>
         <div className="map-active-format-text">
-          {tilgjengelige_data[props.aktivtFormat].navn} |{" "}
+          {`${tilgjengelige_data[props.aktivtFormat].navn} |`}
         </div>
         <a
           target="_blank"
           rel="noopener noreferrer"
           href={tilgjengelige_data[props.aktivtFormat].url}
         >
-          {tilgjengelige_data[props.aktivtFormat].dataeier}{" "}
+          {tilgjengelige_data[props.aktivtFormat].dataeier}
         </a>
       </div>
     </>
