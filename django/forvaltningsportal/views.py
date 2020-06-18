@@ -65,8 +65,8 @@ class KartlagAPIView(APIView):
                 continue
 
             # Define relevant variables
-            projection_list = ['EPSG:4326', 'EPSG:3857', 'EPSG:900913'] # EPSG:4326 is preferred for GetFeatureInfo
-            if kartlag.projeksjon != projection_list[0]:
+            projection_list = ['EPSG:3857', 'EPSG:900913'] # EPSG:3857 is preferred for GetFeatureInfo
+            if kartlag.projeksjon not in projection_list:
                 projection = None
             else:
                 projection = kartlag.projeksjon
@@ -110,7 +110,7 @@ class KartlagAPIView(APIView):
                 # Find projection
                 if (item.tag == '{}CRS'.format(extrainfo)
                     or item.tag == '{}SRS'.format(extrainfo)):
-                    if projection is None or projection != 'EPSG:4326':
+                    if projection is None or projection != projection_list[0]:
                         all_projections = item.text
                         for proj in projection_list:
                             if all_projections is not None and proj in all_projections:
@@ -172,7 +172,7 @@ class KartlagAPIView(APIView):
                         if min_zoom_xml is not None:
                             min_zoom = min_zoom_xml.text
                             try:
-                                min_zoom = int(min_zoom)
+                                min_zoom = int(float(min_zoom))
                             except Exception:
                                 min_zoom = None
                         # Get first child's min zoom
@@ -181,7 +181,7 @@ class KartlagAPIView(APIView):
                             if min_zoom_xml is not None:
                                 min_zoom = min_zoom_xml.text
                                 try:
-                                    min_zoom = int(min_zoom)
+                                    min_zoom = int(float(min_zoom))
                                 except Exception:
                                     min_zoom = None
 
@@ -191,7 +191,7 @@ class KartlagAPIView(APIView):
                         if max_zoom_xml is not None:
                             max_zoom = max_zoom_xml.text
                             try:
-                                max_zoom = int(max_zoom)
+                                max_zoom = int(float(max_zoom))
                             except Exception:
                                 max_zoom = None
                         # Get first child's max zoom
@@ -200,7 +200,7 @@ class KartlagAPIView(APIView):
                             if max_zoom_xml is not None:
                                 max_zoom = max_zoom_xml.text
                                 try:
-                                    max_zoom = int(max_zoom)
+                                    max_zoom = int(float(max_zoom))
                                 except Exception:
                                     max_zoom = None
 
