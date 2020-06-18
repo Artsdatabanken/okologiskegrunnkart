@@ -300,7 +300,8 @@ class Leaflet extends React.Component {
   syncUnderlag(layerName, al, underlag) {
     var layer = this.wms[layerName];
     if (al.erSynlig && underlag.erSynlig) {
-      const { url, srs } = this.makeWmsUrl(al.wmsurl);
+      const url = this.makeWmsUrl(al.wmsurl);
+      const srs = al.projeksjon.replace(":", "");
       if (!layer) {
         layer = L.tileLayer.wms("", {
           layers: underlag.wmslayer,
@@ -327,9 +328,8 @@ class Leaflet extends React.Component {
     url = url.replace(/service=WMS/gi, "");
     url = url.replace(/[&?]*$/gi, "");
     url = url.replace("{gkt}", this.props.token);
-    var srs = url.match(/srs=(?<srs>[^&]+)/i);
     url = url.replace(/srs=(?<srs>[^&]+)/i, "");
-    return { url, srs: srs && srs.groups.srs.replace(":", "") };
+    return url;
   }
 
   markerButtonClass() {
