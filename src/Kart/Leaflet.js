@@ -301,7 +301,10 @@ class Leaflet extends React.Component {
     var layer = this.wms[layerName];
     if (al.erSynlig && underlag.erSynlig) {
       const url = this.makeWmsUrl(al.wmsurl);
-      const srs = al.projeksjon.replace(":", "");
+      let srs = "EPSG3857";
+      if (al.projeksjon) {
+        srs = al.projeksjon.replace(":", "");
+      }
       if (!layer) {
         layer = L.tileLayer.wms("", {
           layers: underlag.wmslayer,
