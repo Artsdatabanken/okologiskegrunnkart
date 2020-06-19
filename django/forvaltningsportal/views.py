@@ -32,12 +32,14 @@ class KartlagAPIView(APIView):
 
     def get(self, request: Request, *args, **kwargs):
         all_kartlag = Kartlag.objects.all()
+        layers_success_request = []
+        sublayers_list = []
 
         for kartlag in all_kartlag:
             url = kartlag.wmsurl
             if url is None:
                 continue
-            
+
             # # Print data to show progress in console
             # print('------------------------------------------')
             # print('Kartlag: ', kartlag)
@@ -96,6 +98,9 @@ class KartlagAPIView(APIView):
                 if (item.tag == '{}WMS_Capabilities'.format(extrainfo)
                     or item.tag == '{}WMT_MS_Capabilities'.format(extrainfo)):
                     version = item.get('version')
+
+                    # Add layer to list of layers with successful response
+                    layers_success_request.append(kartlag)
                     
                     if version is not None:
                         # Replace if field is empty
@@ -143,6 +148,10 @@ class KartlagAPIView(APIView):
                     if name is not None and title is not None:
                         title = title.text
                         name = name.text
+
+                        # Create list with all sublayers
+                        sublayers_list.append(name)
+
                         if queryable_str == '1':
                             queryable = True
                         else:
@@ -237,6 +246,19 @@ class KartlagAPIView(APIView):
                                 minscaledenominator=min_zoom,
                                 maxscaledenominator=max_zoom
                             )
+        
+        # Cleanup database. Remove sublayers which are not
+        # found in any of the layers capabilities
+        sublayers_to_remove = Sublag.objects.filter(hovedkartlag__in=layers_success_request).exclude(wmslayer__in=sublayers_list)
+        for sublayer in sublayers_to_remove:
+            # print('-------------------------------------------')
+            # print('Deleting')
+            # print(sublayer)
+            # print(sublayer.wmslayer)
+            # print('Plublished: ', sublayer.publiser)
+            # print('Suggested: ', sublayer.suggested)
+            # print('-------------------------------------------')
+            sublayer.delete()
 
         return Response(status=status.HTTP_200_OK)
 
