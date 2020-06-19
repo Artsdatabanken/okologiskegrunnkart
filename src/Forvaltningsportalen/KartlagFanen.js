@@ -3,6 +3,7 @@ import React from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
+import TegnforklaringToggle from "./TegnforklaringToggle";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
@@ -51,13 +52,15 @@ const KartlagFanen = props => {
                 </div>
               ) : (
                 <div>
-                  {props.polyline.length > 0 || props.polygon ? (
-                    <h3 className="container_header">Polygon</h3>
-                  ) : (
-                    <h3 className="container_header">Kartlag</h3>
-                  )}
-
                   <div className="scroll_area">
+                    <TegnforklaringToggle></TegnforklaringToggle>
+
+                    {props.polyline.length > 0 || props.polygon ? (
+                      <h3 className="container_header">Polygon</h3>
+                    ) : (
+                      <h3 className="container_header">Kartlag</h3>
+                    )}
+
                     {(props.polyline.length > 0 || props.polygon) && (
                       <PolygonElement
                         polygon={props.polygon}

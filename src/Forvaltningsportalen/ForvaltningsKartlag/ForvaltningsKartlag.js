@@ -3,7 +3,6 @@ import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { ExpandLess, ExpandMore, FilterList } from "@material-ui/icons";
 import { List } from "@material-ui/core";
-import TegnforklaringToggle from "./TegnforklaringToggle";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
@@ -88,7 +87,6 @@ class ForvaltningsKartlag extends React.Component {
               <span>Listeinnstillinger og filtere</span>
               {this.state.showFilter ? <ExpandLess /> : <ExpandMore />}
             </button>
-            <TegnforklaringToggle></TegnforklaringToggle>
 
             {this.state.showFilter && (
               <div className="sort_chooser_container">

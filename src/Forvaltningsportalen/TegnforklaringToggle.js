@@ -10,6 +10,7 @@ const TegnforklaringToggle = () => {
   const visible = search.get("tegnforklaring") !== null;
   return (
     <ListItem
+      style={{ backgroundColor: "#eee" }}
       button
       onClick={() => {
         const loc = history.location;
@@ -17,7 +18,6 @@ const TegnforklaringToggle = () => {
         if (visible) search.delete("tegnforklaring");
         else search.set("tegnforklaring", "");
         loc.search = search.toString();
-        console.log(search.toString());
         history.push(loc);
       }}
     >
