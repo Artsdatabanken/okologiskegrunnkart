@@ -55,25 +55,25 @@ const Tegnforklaring = ({ layers }) => {
               sublayer={ul}
             />
           ));
-        if (items.length > 0)
-          return (
-            <div
-              key={layer.id}
-              style={{ marginBottom: 16, cursor: "pointer" }}
-              onClick={() => {
-                const loc = history.location;
-                const search = new URLSearchParams(loc.search);
-                search.set("kartlag", layer.id);
-                loc.search = search.toString();
-                history.push(loc);
-              }}
-            >
-              <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
-              <Grid container direction="row" spacing={4}>
-                {items}
-              </Grid>
-            </div>
-          );
+        if (items.length <= 0) return null;
+        return (
+          <div
+            key={layer.tittel}
+            style={{ marginBottom: 16, cursor: "pointer" }}
+            onClick={() => {
+              const loc = history.location;
+              const search = new URLSearchParams(loc.search);
+              search.set("kartlag", layer.id);
+              loc.search = search.toString();
+              history.push(loc);
+            }}
+          >
+            <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
+            <Grid container direction="row" spacing={4}>
+              {items}
+            </Grid>
+          </div>
+        );
       })}
     </Paper>
   );

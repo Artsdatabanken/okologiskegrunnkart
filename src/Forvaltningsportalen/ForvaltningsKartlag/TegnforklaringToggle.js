@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  ListItemSecondaryAction
-} from "@material-ui/core";
+import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
