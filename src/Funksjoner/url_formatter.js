@@ -39,12 +39,9 @@ function getWmsFeatureUrl(layer, coords) {
   params.set("layers", layers);
   params.set("query_layers", layers);
   params.set("info_format", layer.wmsinfoformat || "application/vnd.ogc.gml");
-  params.set("crs", layer.projeksjon || "EPSG:4326");
-  params.set("srs", layer.projeksjon || "EPSG:4326");
+  params.set("crs", "EPSG:4326"); // Default for GetFeatureInfo
+  params.set("srs", "EPSG:4326");
   params.set("bbox", bbox);
-  console.log(erv130);
-  console.log(bbox);
-  console.log(url.toString());
   return url.toString();
 }
 
