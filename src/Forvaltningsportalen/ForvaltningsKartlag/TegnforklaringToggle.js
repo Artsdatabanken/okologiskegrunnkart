@@ -11,20 +11,23 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const TegnforklaringToggle = () => {
   const history = useHistory();
+  const search = new URLSearchParams(history.location.search);
+  const visible = search.get("tegnforklaring") !== null;
   return (
     <ListItem
       button
       onClick={() => {
         const loc = history.location;
         const search = new URLSearchParams(history.location.search);
-        search.set("tegnforklaring", "");
+        if (visible) search.delete("tegnforklaring");
+        else search.set("tegnforklaring", "");
         loc.search = search.toString();
         console.log(search.toString());
         history.push(loc);
       }}
     >
       <ListItemAvatar>
-        {true ? (
+        {visible ? (
           <Visibility style={{ color: "#555" }} />
         ) : (
           <VisibilityOff style={{ color: "#ccc" }} />
