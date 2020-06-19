@@ -35,7 +35,6 @@ const Tegnforklaring = ({ layers }) => {
       <IconButton
         onClick={() => {
           const loc = history.location;
-          console.log(loc);
           const search = new URLSearchParams(loc.search);
           search.delete("tegnforklaring");
           loc.search = search.toString();
@@ -49,13 +48,24 @@ const Tegnforklaring = ({ layers }) => {
       {Object.values(layers).map(layer => {
         const items = Object.values(layer.underlag || {})
           .filter(ul => ul.erSynlig)
-          .map(ul => <LegendItem key={ul.id} layer={layer} sublayer={ul} />);
+          .map(ul => (
+            <LegendItem
+              key={layer.tittel + "_" + ul.tittel}
+              layer={layer}
+              sublayer={ul}
+            />
+          ));
         if (items.length > 0)
           return (
             <div
+              key={layer.id}
               style={{ marginBottom: 16, cursor: "pointer" }}
               onClick={() => {
-                history.push();
+                const loc = history.location;
+                const search = new URLSearchParams(loc.search);
+                search.set("kartlag", layer.id);
+                loc.search = search.toString();
+                history.push(loc);
               }}
             >
               <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
@@ -71,12 +81,13 @@ const Tegnforklaring = ({ layers }) => {
 
 const LegendItem = ({ sublayer }) => {
   if (!sublayer.legendeurl) return null;
+  console.log({ sublayer });
   return (
-    <Grid item style={{ _paddingBottom: 16 }}>
+    <Grid key={sublayer.tittel} item style={{ _paddingBottom: 16 }}>
       <figcaption>
         <Typography variant="caption">{sublayer.tittel}</Typography>
       </figcaption>
-      <img key={sublayer.id} alt="tegnforklaring" src={sublayer.legendeurl} />
+      <img alt="tegnforklaring" src={sublayer.legendeurl} />
     </Grid>
   );
 };
