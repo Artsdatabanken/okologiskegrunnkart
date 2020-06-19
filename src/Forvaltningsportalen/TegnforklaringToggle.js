@@ -1,5 +1,10 @@
 import React from "react";
-import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
+import {
+  ListItem,
+  Switch,
+  ListItemAvatar,
+  ListItemText
+} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
@@ -22,11 +27,13 @@ const TegnforklaringToggle = () => {
       }}
     >
       <ListItemAvatar>
-        {visible ? (
-          <Visibility style={{ color: "#555" }} />
-        ) : (
-          <VisibilityOff style={{ color: "#ccc" }} />
-        )}
+        <Switch checked={visible}></Switch>
+        {false &&
+          (visible ? (
+            <Visibility style={{ color: "#555" }} />
+          ) : (
+            <VisibilityOff style={{ color: "#ccc" }} />
+          ))}
       </ListItemAvatar>
       <ListItemText primary="Tegnforklaring" secondary="" />
     </ListItem>
