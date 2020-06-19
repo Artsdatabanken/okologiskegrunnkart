@@ -81,7 +81,6 @@ const Tegnforklaring = ({ layers }) => {
 
 const LegendItem = ({ sublayer }) => {
   if (!sublayer.legendeurl) return null;
-  console.log({ sublayer });
   return (
     <Grid key={sublayer.tittel} item style={{ _paddingBottom: 16 }}>
       <figcaption>
