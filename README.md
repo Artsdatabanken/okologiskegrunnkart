@@ -59,3 +59,9 @@ Test environment:
 - Run the following HTTP request: `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
 
 You will receive a timeout error `504 Gateway Time-out` after 30 seconds. This, however, will not affect the update script which will contionue running in the background.
+
+## Processing images
+
+```ash
+mogrify -resize "48x48" -border 5 -bordercolor transparent logo.png
+```

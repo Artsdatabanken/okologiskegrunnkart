@@ -187,7 +187,7 @@ const ForvaltningsElement = ({
                     <ListItemIcon>
                       {kartlag.logourl ? (
                         <img
-                          src={kartlag.logourl}
+                          src={"/logo/" + kartlag.dataeier + ".png"}
                           style={{ maxWidth: "24px" }}
                           alt=""
                         />

@@ -5,7 +5,7 @@ const Geonorge = () => (
     width="24"
     height="24"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 55 55"
+    viewBox="-6 0 55 55"
   >
     <polygon id="svg_4" points="20.9,30.4 20.9,54.5 0,42.4" fill="#4D4D4F" />
     <polygon
