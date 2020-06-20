@@ -7,9 +7,12 @@ import {
   Link,
   Description,
   Layers,
+  Category as CategoryIcon,
+  Done as DoneIcon,
   VisibilityOffOutlined
 } from "@material-ui/icons";
 import {
+  Chip,
   IconButton,
   ListItemIcon,
   Collapse,
@@ -22,6 +25,8 @@ const ForvaltningsElement = ({
   kartlag,
   onUpdateLayerProp,
   kartlag_key,
+  tagFilter,
+  onFilterTag,
   valgt
 }) => {
   let tittel = kartlag.tittel;
@@ -31,7 +36,7 @@ const ForvaltningsElement = ({
   const [open, setOpen] = useState(startstate);
   const [openFakta, setOpenFakta] = useState(false);
   if (!tittel) return null;
-  let tags = kartlag.tags || null;
+  let tags = kartlag.tags || [];
 
   return (
     <>
@@ -90,17 +95,41 @@ const ForvaltningsElement = ({
             </>
           )}
 
-          {tags && (
-            <div className="tags_container">
-              <h4>Emneknagger</h4>
-              {tags.map((element, index) => {
-                return (
-                  <div className="tags" key={index}>
-                    {element}
-                  </div>
-                );
-              })}
-            </div>
+          {tags.length > 0 && (
+            <>
+              <ListItem button>
+                <ListItemIcon>
+                  <CategoryIcon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={tags.join(", ")}
+                  secondary="Tema"
+                ></ListItemText>
+              </ListItem>
+              {false && (
+                <div className="tags_container">
+                  <h4>Emneknagger</h4>
+                  {tags.map(tag => {
+                    return (
+                      <Chip
+                        style={{ margin: 4 }}
+                        key={tag}
+                        label={tag}
+                        clickable
+                        color={tagFilter[tag] ? "primary" : "default"}
+                        onClick={() => {
+                          onFilterTag(tag, !tagFilter[tag]);
+                        }}
+                        onDelete={() => {
+                          onFilterTag(tag, false);
+                        }}
+                        deleteIcon={tagFilter[tag] ? null : <DoneIcon />}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </>
           )}
 
           {kartlag.kart && kartlag.kart.format.wms && (
