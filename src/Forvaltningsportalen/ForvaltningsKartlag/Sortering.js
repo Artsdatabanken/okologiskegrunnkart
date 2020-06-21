@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { Sort as SortIcon, Check } from "@material-ui/icons";
 import {
-  Sort as SortIcon,
-  SortByAlpha,
-  Category,
-  Business,
-  Check
-} from "@material-ui/icons";
-import { ListSubheader, Chip, IconButton, List } from "@material-ui/core";
+  ListSubheader,
+  Chip,
+  IconButton,
+  List,
+  Paper
+} from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import WavesIcon from "@material-ui/icons/Waves";
+import useOnClickOutside from "../useOnClickOutside";
 
 const StyledMenu = withStyles({
   paper: {
@@ -23,11 +24,11 @@ const StyledMenu = withStyles({
     elevation={0}
     getContentAnchorEl={null}
     anchorOrigin={{
-      vertical: "bottom",
+      vertical: "top",
       horizontal: "center"
     }}
     transformOrigin={{
-      vertical: "top",
+      vertical: "bottom",
       horizontal: "center"
     }}
     {...props}
@@ -47,6 +48,8 @@ const StyledMenuItem = withStyles(theme => ({
 
 export default function Sortering({ sort, onChangeSort }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const menuRef = useRef(null);
+  useOnClickOutside(menuRef, () => handleClose());
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -68,7 +71,7 @@ export default function Sortering({ sort, onChangeSort }) {
   };
 
   return (
-    <div>
+    <>
       <IconButton
         aria-controls="customized-menu"
         aria-haspopup="true"
@@ -79,22 +82,25 @@ export default function Sortering({ sort, onChangeSort }) {
       >
         <SortIcon></SortIcon>
       </IconButton>
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        {Object.keys(sorteringsmåter).map(måte => (
-          <StyledMenuItem key={måte} onClick={() => handleSelect(måte)}>
-            <ListItemIcon>
-              {måte === sort && <Check fontSize="small" />}
-            </ListItemIcon>
-            <ListItemText primary={sorteringsmåter[måte]} />
-          </StyledMenuItem>
-        ))}
-      </StyledMenu>
-    </div>
+      <Paper elevation={3}>
+        <StyledMenu
+          forwardRef="menu"
+          id="customized-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          {Object.keys(sorteringsmåter).map(måte => (
+            <StyledMenuItem key={måte} onClick={() => handleSelect(måte)}>
+              <ListItemIcon>
+                {måte === sort && <Check fontSize="small" />}
+              </ListItemIcon>
+              <ListItemText primary={sorteringsmåter[måte]} />
+            </StyledMenuItem>
+          ))}
+        </StyledMenu>
+      </Paper>
+    </>
   );
 }

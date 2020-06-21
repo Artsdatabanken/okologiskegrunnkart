@@ -1,6 +1,9 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import { KeyboardBackspace } from "@material-ui/icons";
 const TreffListe = props => {
+  const history = useHistory();
   let list_items = [];
   let max_list_length = 200;
 
@@ -153,10 +156,9 @@ const TreffListe = props => {
                 props.setSearchResultPage(false);
               }
               props.handleRemoveTreffliste();
-              props.removeValgtLag();
               document.getElementById("searchfield").value = "";
               if (trefftype === "Kartlag") {
-                props.addValgtLag(item);
+                history.push("/kartlag/" + item.id);
               } else {
                 props.handleGeoSelection(item);
               }

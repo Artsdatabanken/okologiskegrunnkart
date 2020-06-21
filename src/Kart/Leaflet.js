@@ -488,7 +488,6 @@ class Leaflet extends React.Component {
             layerevent={this.state.layerevent}
             getBackendData={this.getBackendData}
             layersResult={this.props.layersResult}
-            allLayersResult={this.props.allLayersResult}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             adresse={this.props.adresse}

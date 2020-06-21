@@ -10,7 +10,7 @@ const LoadingPlaceholder = () => (
     ></rect>
     <defs>
       <clipPath id="yt9yg06-diff">
-        <rect width="37" height="3" x="0" y="0.5" rx="1"></rect>
+        <rect width="80" height="4" x="0" y="0.5" rx="1"></rect>
       </clipPath>
       <linearGradient id="animertFarge">
         <stop offset="-1.384" stopColor="#d5d6d7">

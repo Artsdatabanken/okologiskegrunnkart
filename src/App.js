@@ -12,6 +12,8 @@ import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
+import formatterKlikktekst from "./Forvaltningsportalen/FeatureInfo/Klikktekst";
+import url_formatter from "./Funksjoner/url_formatter";
 
 class App extends React.Component {
   constructor(props) {
@@ -36,9 +38,8 @@ class App extends React.Component {
       showInfobox: false,
       editable: true,
       sted: null,
-      adresse: null,
-      layersResult: {},
-      allLayersResult: {}
+      adresse: {},
+      layersResult: {}
     };
   }
 
@@ -115,7 +116,6 @@ class App extends React.Component {
                       sted={this.state.sted}
                       adresse={this.state.adresse}
                       layersResult={this.state.layersResult}
-                      allLayersResult={this.state.allLayersResult}
                       valgteLag={this.state.valgteLag}
                       token={token}
                       showInfobox={this.state.showInfobox}
@@ -128,17 +128,6 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
-                    {/* <FeatureInfo
-                      {...this.state}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      resultat={this.state.resultat}
-                      layersResult={this.state.layersResult}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      coordinates_area={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                      }}
-                    /> */}
                     <SearchBar
                       setSearchResultPage={this.setSearchResultPage}
                       searchResultPage={this.state.searchResultPage}
@@ -146,13 +135,12 @@ class App extends React.Component {
                       setGeoSearchResults={this.setGeoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
                       kartlag={this.state.kartlag}
-                      addValgtLag={this.addValgtLag}
-                      removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartlagFanen
                       {...this.state}
+                      layersResult={this.state.layersResult}
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
                       hideAndShowPolygon={this.hideAndShowPolygon}
@@ -165,8 +153,6 @@ class App extends React.Component {
                       kartlagSearchResults={this.state.kartlagSearchResults}
                       geoSearchResults={this.state.geoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
-                      addValgtLag={this.addValgtLag}
-                      removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
                       path={path}
                       history={history}
@@ -206,7 +192,7 @@ class App extends React.Component {
   };
 
   addValgtLag = valgtLag => {
-    this.setState({ valgtLag: valgtLag });
+    this.setState({ valgtLag });
   };
 
   addPolyline = polyline => {
@@ -256,7 +242,6 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
-    console.log("clacketty");
     if (geostring.ssrId) {
       let mincoord = [
         parseFloat(geostring.aust) - 1,
@@ -272,7 +257,6 @@ class App extends React.Component {
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     } else {
-      console.log(geostring.representasjonspunkt);
       let koordinater = geostring.representasjonspunkt;
 
       let mincoord = [
@@ -298,8 +282,7 @@ class App extends React.Component {
       this.setState({
         lat,
         lng,
-        layersResult: {},
-        allLayersResult: {}
+        layersResult: {}
       });
     }
   };
@@ -317,17 +300,18 @@ class App extends React.Component {
   };
 
   handlePunktSok = (lng, lat, zoom) => {
-    // returnerer punkt søk
     const radius = Math.round(16500 / Math.pow(zoom, 2));
+    this.setState({
+      adresse: { loading: true }
+    });
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
-      if (punktSok && punktSok.adresser) {
-        const adresse = punktSok.adresser.sort((a, b) =>
-          a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
-        );
-        this.setState({
-          adresse: adresse.length > 0 ? adresse[0] : null
-        });
-      }
+      if (!punktSok || !punktSok.adresser) this.setState({ adresse: {} });
+      const adresse = punktSok.adresser.sort((a, b) =>
+        a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+      );
+      this.setState({
+        adresse: adresse.length > 0 ? adresse[0] : {}
+      });
     });
   };
 
@@ -345,68 +329,57 @@ class App extends React.Component {
       looplist = valgteLag;
     }
     // Denne henter utvalgte lag baser på listen layers
-    var layersResult = {};
+    this.setState({ layersResult: {} });
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].klikktekst) return;
-      layersResult[key] = { loading: true };
     });
-    this.setState({ layersResult: layersResult });
-    Object.keys(layersResult).forEach(key => {
-      const layer = looplist[key];
-      backend
-        .getFeatureInfo(layer, { lat, lng, zoom })
-        .then(res => {
-          if (res.ServiceException) {
-            res.error = res.ServiceException;
-            delete res.ServiceException;
-          }
-          let layersResult = this.state.layersResult;
-          layersResult[key] = res;
-          this.setState(layersResult);
-        })
-        .catch(e => {
-          let layersResult = this.state.layersResult;
-          layersResult[key] = { error: e.message || key };
-          this.setState(layersResult);
-        });
+    Object.keys(looplist).forEach(key => {
+      const kartlag = looplist[key];
+      this.getFeatureInfo(kartlag, key, lat, lng, zoom);
     });
   };
 
-  handleAllLayersSearch = (lng, lat, zoom) => {
-    const emptylayersResult =
-      Object.keys(this.state.allLayersResult).length === 0 &&
-      this.state.allLayersResult.constructor === Object;
+  async getFeatureInfo(kartlag, key, lat, lng, zoom) {
+    var layersResult = this.state.layersResult;
+    layersResult[key] = { loading: true, secondary: kartlag.tittel };
+    this.setState({ layersResult });
+    backend
+      .getFeatureInfo(kartlag, { lat, lng, zoom })
+      .then(res => {
+        if (res.ServiceException) {
+          res.error = res.ServiceException;
+          if (res.error._Data) res.error = res.error._Data;
+          delete res.ServiceException;
+        }
+        let layersResult = this.state.layersResult;
 
-    if (!emptylayersResult) {
-      return;
-    }
-
-    let looplist = this.state.kartlag;
-    // Denne henter utvalgte lag baser på listen layers
-    var allLayersResult = {};
-    Object.keys(looplist).forEach(key => {
-      if (!looplist[key].klikktekst) return;
-      allLayersResult[key] = { loading: true };
-    });
-    this.setState({ allLayersResult: allLayersResult });
-    Object.keys(allLayersResult).forEach(key => {
-      const layer = looplist[key];
-      backend
-        .getFeatureInfo(layer, { lat, lng, zoom })
-        .then(res => {
-          if (res.ServiceException) {
-            res.error = res.ServiceException;
-            delete res.ServiceException;
-          }
-          let allLayersResult = this.state.allLayersResult;
-          allLayersResult[key] = res;
-          this.setState(allLayersResult);
-        })
-        .catch(e => {
-          let allLayersResult = this.state.allLayersResult;
-          allLayersResult[key] = { error: e.message || key };
-          this.setState(allLayersResult);
+        const faktaark_url = url_formatter(kartlag.faktaark, {
+          lat,
+          lng,
+          zoom,
+          ...res
         });
+
+        var primary = formatterKlikktekst(kartlag.klikktekst, res);
+        var secondary =
+          formatterKlikktekst(kartlag.klikktekst2, res) || kartlag.tittel;
+        if (res.error) primary = "Noe gikk feil..";
+        res = { primary, secondary, faktaark_url, error: res.error };
+        layersResult[key] = res;
+        this.setState(layersResult);
+      })
+      .catch(e => {
+        let layersResult = this.state.layersResult;
+        layersResult[key] = { error: e.message || key };
+        this.setState(layersResult);
+      });
+  }
+
+  handleAllLayersSearch = (lng, lat, zoom) => {
+    this.setState({ layersResult: {} });
+    Object.keys(this.state.kartlag).forEach(key => {
+      const layer = this.state.kartlag[key];
+      this.getFeatureInfo(layer, key, lat, lng, zoom);
     });
   };
 

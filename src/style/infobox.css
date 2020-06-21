@@ -30,7 +30,7 @@
   margin-right: auto;
   max-width: 600px;
   background: #eeeeee;
-  text-align: center;
+  _text-align: center;
   padding: 10px;
   border: 1px solid #666;
 }
@@ -89,13 +89,13 @@
   font-size: 10pt;
   color: grey;
 } */
-.window_scrollable > .generic_element > .MuiListItem-root {
+.window_scrollable > .generic_element > ._MuiListItem-root {
   padding: 0 16px;
 }
 .all_layer_results_scrollable
-  > .MuiList-root
+  > ._MuiList-root
   > .generic_element
-  > .MuiListItem-root {
+  > ._MuiListItem-root {
   padding: 0 16px;
 }
 
@@ -114,15 +114,15 @@
   } */
   .window_scrollable
     > .generic_element
-    > .MuiListItem-root
-    > .MuiListItemIcon-root {
+    > ._MuiListItem-root
+    > ._MuiListItemIcon-root {
     min-width: 45px;
   }
   .all_layer_results_scrollable
-    > .MuiList-root
+    > ._MuiList-root
     > .generic_element
-    > .MuiListItem-root
-    > .MuiListItemIcon-root {
+    > ._MuiListItem-root
+    > ._MuiListItemIcon-root {
     min-width: 45px;
   }
 }
@@ -248,17 +248,16 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-height: 600px;
+  max-height: 100%;
   background-color: #eee;
 }
 .all-layer-results-side {
   max-height: 400px;
 }
-.infobox-side,
-.all-laye-results-side {
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
+.infobox-side {
+  _width: 100%;
+  _max-width: 600px;
+  _text-align: center;
 }
 
 /* Infobox title */
@@ -267,6 +266,7 @@
   align-items: flex-start;
   justify-content: space-between;
   background-color: #697f8a;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
   color: white;
   padding: 18px 15px 15px 10px;
 }
@@ -285,25 +285,13 @@
 }
 .infobox-title-text-secondary {
   font-size: 16px;
-  text-transform: capitalize;
 }
 .close-infobox-button {
   padding: 0;
   display: flex;
-  background-color: #697f8a;
-  color: white;
-  border: 2px solid white;
-  margin-left: 10px;
-}
-.close-infobox-button:hover {
-  padding: 0;
-  display: flex;
-  background-color: #415762;
-  color: white;
-}
-.close-infobox-button:focus {
-  background-color: #415762;
-  border-color: blue;
+  position: "absolute";
+  right: -10px;
+  top: -12px;
 }
 
 /* Selected point description */
@@ -315,7 +303,7 @@
 .infobox-text-wrapper {
   display: flex;
   align-items: flex-start;
-  text-transform: capitalize;
+  _text-transform: capitalize;
   padding-bottom: 5px;
   font-size: 16px;
 }
@@ -342,16 +330,12 @@
   text-align: left;
 }
 
-/* List with selected layers */
-.detailed-info-container-side {
-  background-color: #eee;
-}
 .layer-results-scrollable-side {
-  max-height: calc(100vh - 360px);
+  _max-height: 100vh;
   display: inline-block;
   overflow-y: auto;
   width: 100%;
-  padding: 0 5px;
+  _padding: 0 5px;
 }
 .layer-results-side {
   display: flex;
@@ -374,8 +358,8 @@
   .layer-results-scrollable-side {
     display: inline-block;
     overflow-y: auto;
-    width: 100%;
-    max-height: calc(100vh - 300px);
+    width: calc(100% - 8px);
+    max-height: 100vh;
   }
 }
 
@@ -391,10 +375,10 @@
   color: grey;
 }
 .layer-results-scrollable-side
-  > .MuiList-root
+  > ._MuiList-root
   > .generic_element
-  > .MuiListItem-root {
-  padding: 0 16px;
+  > ._MuiListItem-root {
+  _padding: 0 16px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -411,10 +395,10 @@
     margin: 1px 0 !important;
   }
   .layer-results-scrollable-side
-    > .MuiList-root
+    > ._MuiList-root
     > .generic_element
-    > .MuiListItem-root
-    > .MuiListItemIcon-root {
+    > ._MuiListItem-root
+    > ._MuiListItemIcon-root {
     min-width: 45px;
   }
 }

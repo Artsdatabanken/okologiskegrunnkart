@@ -2,8 +2,15 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Modal } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { IconButton, Modal, TextField } from "@material-ui/core";
+import {
+  ArrowBack,
+  Search as SearchIcon,
+  Menu as MenuIcon,
+  Close as CloseIcon
+} from "@material-ui/icons";
+import { withRouter } from "react-router-dom";
+
 class SearchBar extends React.Component {
   state = {
     treffliste_lokalt: null,
@@ -204,6 +211,7 @@ class SearchBar extends React.Component {
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
+      if (!resultat) return;
       let max_items = 5;
       if (resultpage) {
         max_items = 50;
@@ -314,15 +322,32 @@ class SearchBar extends React.Component {
       <>
         <div className="searchbar_container" ref={this.setWrapperRef}>
           <div className="searchbar">
-            <input
-              className="searchbarfield"
+            <IconButton
+              _style={{ _position: "absolute", left: 0, top: 0 }}
+              onClick={() => {
+                if (this.props.location.pathname == "/") alert("burger time");
+                else this.props.history.goBack();
+              }}
+            >
+              {this.props.location.pathname != "/" ? (
+                <ArrowBack />
+              ) : (
+                <MenuIcon />
+              )}
+            </IconButton>
+            <TextField
+              placeholder="Søk i økologisk grunnkart..."
+              autoComplete={false}
+              style={{ top: 8, _display: "flex" }}
+              InputProps={{ disableUnderline: true }}
               id="searchfield"
               type="text"
-              autoComplete="off"
-              placeholder="søk etter kartlag eller område..."
               onFocus={e => this.handleSearchBar(e.target.value)}
-              onChange={e => {
-                this.handleSearchBar(e.target.value);
+              onChange={e => this.handleSearchBar(e.target.value)}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  this.handleSearchButton();
+                }
               }}
               onKeyDown={e => {
                 if (e.key === "ArrowDown") {
@@ -343,32 +368,20 @@ class SearchBar extends React.Component {
                   }
                 }
               }}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  this.handleSearchButton();
-                }
-              }}
             />
 
-            {this.state.isSearching && (
-              <button
-                className="x"
-                onClick={() => {
+            <IconButton
+              onClick={() => {
+                if (this.state.isSearching) {
                   this.handleRemoveTreffliste();
                   this.handleSearchBar(null);
                   document.getElementById("searchfield").value = "";
-                }}
-              >
-                x
-              </button>
-            )}
-            <button
-              onClick={() => {
-                this.handleSearchButton();
+                } else this.handleSearchButton();
               }}
+              style={{ position: "absolute", right: 8, top: 0 }}
             >
-              søk
-            </button>
+              {this.state.isSearching ? <CloseIcon /> : <SearchIcon />}
+            </IconButton>
           </div>
           {(this.state.isSearching || this.props.searchResultPage) && (
             <TreffListe
@@ -391,14 +404,11 @@ class SearchBar extends React.Component {
             />
           )}
 
-          <button
-            className="help_button"
-            onClick={e => {
-              this.openHelp();
-            }}
-          >
-            ?
-          </button>
+          {false && (
+            <button className="help_button" onClick={() => this.openHelp()}>
+              ?
+            </button>
+          )}
         </div>
 
         <Modal
@@ -412,11 +422,9 @@ class SearchBar extends React.Component {
               <button
                 tabIndex="0"
                 className="close-modal-button"
-                onClick={e => {
-                  this.closeHelpModal();
-                }}
+                onClick={() => this.closeHelpModal()}
               >
-                <Close />
+                <CloseIcon />
               </button>
             </div>
             <div className="help-modal-content">{this.formattedManual()}</div>
@@ -427,4 +435,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);

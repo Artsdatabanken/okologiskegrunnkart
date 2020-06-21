@@ -37,7 +37,6 @@ const ForvaltningsUnderElement = ({
       >
         <ListItemIcon onClick={e => e.stopPropagation()}>
           <IconButton
-            className="visibility_button"
             onClick={e => {
               onUpdateLayerProp(
                 kartlag_owner_key,
@@ -55,8 +54,6 @@ const ForvaltningsUnderElement = ({
           </IconButton>
         </ListItemIcon>
         <ListItemText primary={tittel.nb || tittel} />
-
-        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
 
       <Collapse

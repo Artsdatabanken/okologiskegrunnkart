@@ -3,7 +3,7 @@ import { Tooltip } from "@material-ui/core";
 
 const styles = {
   tooltip: {
-    backgroundColor: "#000000",
+    backgroundColor: "rgba(0,0,0,0.8)",
     fontSize: "12px",
     position: "relative",
     left: "-5px"

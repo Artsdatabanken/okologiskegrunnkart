@@ -2,9 +2,12 @@ import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
+import { Switch, Route } from "react-router-dom";
 import PolygonElement from "./PolygonElement";
+import { KeyboardBackspace, ArrowRight, ArrowLeft } from "@material-ui/icons";
+import { Button, Paper } from "@material-ui/core";
+import Kartlag from "./Kartlag";
 
-import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
   return (
     <>
@@ -13,77 +16,70 @@ const KartlagFanen = props => {
           props.showSideBar ? " side-bar-open" : ""
         }`}
       >
-        <button
+        <Button
+          size="small"
+          variant="contained"
           className="toggle-side-bar-button"
           onClick={() => {
             props.toggleSideBar();
           }}
+          style={{
+            backgroundColor: "rgba(255,255,255,0.9)",
+            borderRadius: 0,
+            paddingTop: 12,
+            paddingRight: 0,
+            paddingBottom: 12,
+            paddingLeft: 0,
+            minWidth: 0
+          }}
         >
-          {props.showSideBar ? "Skjul kartlag" : "Vis kartlag"}
-        </button>
+          {props.showSideBar ? (
+            <ArrowRight style={{ color: "#555" }}></ArrowRight>
+          ) : (
+            <ArrowLeft style={{ color: "#555" }}></ArrowLeft>
+          )}
+        </Button>
       </div>
       {props.showSideBar && (
-        <div className="kartlag_fanen">
+        <Paper elevation={3} className="kartlag_fanen">
           {props.searchResultPage ? (
             <></>
           ) : (
-            <>
-              {props.valgtLag ? (
-                <div className="valgtLag">
-                  <button
-                    className="listheadingbutton"
-                    onClick={e => {
-                      props.removeValgtLag();
-                    }}
-                  >
-                    <KeyboardBackspace />
-                    <span>Tilbake</span>
-                  </button>
-                  <div className="scroll_area">
-                    <ForvaltningsElement
-                      valgt={true}
-                      kartlag_key={props.valgtLag.id}
-                      kartlag={props.valgtLag}
-                      key={props.valgtLag.id}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
+            <div className="scroll_area">
+              <Switch>
+                <Route path="/kartlag/:id">
+                  <Kartlag
+                    kartlag={props.kartlag}
+                    punkt={props.layersResult}
+                    onUpdateLayerProp={props.onUpdateLayerProp}
+                  />
+                </Route>
+                <Route path="/">
+                  {(props.polyline.length > 0 || props.polygon) && (
+                    <PolygonElement
+                      polygon={props.polygon}
+                      polyline={props.polyline}
+                      showPolygon={props.showPolygon}
+                      hideAndShowPolygon={props.hideAndShowPolygon}
+                      handleEditable={props.handleEditable}
+                      addPolygon={props.addPolygon}
+                      addPolyline={props.addPolyline}
                     />
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  {props.polyline.length > 0 || props.polygon ? (
-                    <h3 className="container_header">Polygon</h3>
-                  ) : (
-                    <h3 className="container_header">Kartlag</h3>
                   )}
-
-                  <div className="scroll_area">
-                    {(props.polyline.length > 0 || props.polygon) && (
-                      <PolygonElement
-                        polygon={props.polygon}
-                        polyline={props.polyline}
-                        showPolygon={props.showPolygon}
-                        hideAndShowPolygon={props.hideAndShowPolygon}
-                        handleEditable={props.handleEditable}
-                        addPolygon={props.addPolygon}
-                        addPolyline={props.addPolyline}
-                      />
-                    )}
-                    <ForvaltningsKartlag
-                      show_current={props.show_current}
-                      handleShowCurrent={props.handleShowCurrent}
-                      kartlag={props.kartlag}
-                      navigation_history={props.navigation_history}
-                      onFitBounds={props.handleFitBounds}
-                      history={props.history}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
-                    />
-                  </div>
-                </div>
-              )}
-            </>
+                  <ForvaltningsKartlag
+                    show_current={props.show_current}
+                    handleShowCurrent={props.handleShowCurrent}
+                    kartlag={props.kartlag}
+                    navigation_history={props.navigation_history}
+                    onFitBounds={props.handleFitBounds}
+                    history={props.history}
+                    onUpdateLayerProp={props.onUpdateLayerProp}
+                  />
+                </Route>
+              </Switch>
+            </div>
           )}
-        </div>
+        </Paper>
       )}
     </>
   );

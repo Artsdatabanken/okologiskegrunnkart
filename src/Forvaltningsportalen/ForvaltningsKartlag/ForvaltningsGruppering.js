@@ -29,7 +29,6 @@ const ForvaltningsGruppering = ({
   });
 
   if (kartlag.length <= 0) return null;
-  console.log({ element });
   return (
     <>
       <ListSubheader disableSticky>{element}</ListSubheader>

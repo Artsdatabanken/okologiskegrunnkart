@@ -1,5 +1,11 @@
 import React from "react";
-import { Close, MyLocation, Terrain, Place, Home } from "@material-ui/icons";
+import {
+  Close as CloseIcon,
+  MyLocation,
+  Terrain,
+  Place,
+  Home
+} from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 
@@ -50,7 +56,7 @@ const InfoBox = ({
             handleInfobox(false);
           }}
         >
-          <Close />
+          <CloseIcon />
         </button>
 
         {sted && (

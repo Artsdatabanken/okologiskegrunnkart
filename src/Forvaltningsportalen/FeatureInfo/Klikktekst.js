@@ -33,11 +33,8 @@ function mapComponent(c) {
 }
 
 const formatterKlikktekst = (formatstring = "", input) => {
-  if (input.error) return { harData: false, elementer: "Får ikke kontakt" };
-  if (input.loading)
-    return {
-      harData: false
-    };
+  if (input.error) return null;
+  if (input.loading) return null;
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
@@ -55,10 +52,7 @@ const formatterKlikktekst = (formatstring = "", input) => {
     return null;
   });
   const harData = elementer.every(e => e !== null);
-  return {
-    harData,
-    elementer
-  };
+  return harData ? elementer.join("") : null;
 };
 
 export default formatterKlikktekst;

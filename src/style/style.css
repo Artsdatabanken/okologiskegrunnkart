@@ -39,8 +39,8 @@ button.active {
   background: grey;
 }
 
-input,
-select {
+_input,
+_select {
   border-radius: 3px;
   padding: 5px;
   border: 1px solid #808080;

@@ -1,10 +1,10 @@
 import React from "react";
-import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { Done as DoneIcon, Sort as SortIcon } from "@material-ui/icons";
 import { ListSubheader, Chip, Typography, List } from "@material-ui/core";
 import TemaPicker from "./TemaPicker";
 import Sortering from "./Sortering";
+import Filtrering from "./Filtrering";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
@@ -67,108 +67,99 @@ class ForvaltningsKartlag extends React.Component {
     }
 
     return (
-      <SettingsContext.Consumer>
-        {context => (
+      <>
+        {this.state.showFilter && (
           <>
-            {this.state.showFilter && (
-              <>
-                <ListSubheader>Filter</ListSubheader>
-                <div className="sort_chooser_container">
-                  <h4>Fritekst</h4>
-                  <input
-                    type="text"
-                    onChange={e => {
-                      if (e.target.value) {
-                        this.setState({
-                          searchTerm: e.target.value.toLowerCase()
-                        });
-                      }
-                    }}
-                  />
+            <ListSubheader disableSticky>Filter</ListSubheader>
+            <div className="sort_chooser_container">
+              <h4>Fritekst</h4>
+              <input
+                type="text"
+                onChange={e => {
+                  if (e.target.value) {
+                    this.setState({
+                      searchTerm: e.target.value.toLowerCase()
+                    });
+                  }
+                }}
+              />
 
-                  <TemaPicker
-                    taglist={taglist}
-                    tagFilter={this.state.tagFilter}
-                    onFilterTag={this.handleFilterTag}
-                  />
-                  <div className="tags_container">
-                    {taglist.map(tag => {
-                      return (
-                        <Chip
-                          style={{ margin: 4 }}
-                          key={tag}
-                          label={tag}
-                          clickable
-                          color={
-                            this.state.tagFilter[tag] ? "primary" : "default"
-                          }
-                          onClick={() => {
-                            this.handleFilterTag(
-                              tag,
-                              !this.state.tagFilter[tag]
-                            );
-                          }}
-                          onDelete={() => {
-                            this.handleFilterTag(tag, false);
-                          }}
-                          deleteIcon={
-                            this.state.tagFilter[tag] ? null : <DoneIcon />
-                          }
-                        />
-                      );
-                    })}
-                  </div>
-
-                  <h4> Filtrer bort skjulte element </h4>
-                  <div className="toggle">
-                    <span>av</span>
-                    <label className="switch">
-                      <input
-                        type="checkbox"
-                        onChange={e => {
-                          this.hideHiddendelements(e);
-                        }}
-                        onKeyPress={e => {
-                          if (e.key === "Enter") {
-                            e.target.checked = !e.target.checked;
-                            this.hideHiddendelements(e);
-                          }
-                        }}
-                      />
-                      <span className="slider"></span>
-                    </label>
-                    <span>på</span>
-                  </div>
-                </div>
-              </>
-            )}
-
-            <List>
-              <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
-              <Typography style={{ marginLeft: 16, marginTop: 8 }} variant="h6">
-                Kartlag sortert{" "}
-                {sortKey === "alfabetisk" ? "alfabetisk" : "etter " + sortKey}
-              </Typography>
-              {Object.keys(sorted)
-                .sort()
-                .map(element => {
+              <div className="tags_container">
+                {taglist.map(tag => {
                   return (
-                    <ForvaltningsGruppering
-                      searchTerm={this.state.searchTerm}
-                      hideHidden={this.state.hideHidden}
-                      tagFilter={this.state.tagFilter}
-                      onFilterTag={this.handleFilterTag}
-                      kartlag={sorted[element]}
-                      element={element}
-                      key={element}
-                      onUpdateLayerProp={onUpdateLayerProp}
+                    <Chip
+                      style={{ margin: 4 }}
+                      key={tag}
+                      label={tag}
+                      clickable
+                      color={this.state.tagFilter[tag] ? "primary" : "default"}
+                      onClick={() => {
+                        this.handleFilterTag(tag, !this.state.tagFilter[tag]);
+                      }}
+                      onDelete={() => {
+                        this.handleFilterTag(tag, false);
+                      }}
+                      deleteIcon={
+                        this.state.tagFilter[tag] ? null : <DoneIcon />
+                      }
                     />
                   );
                 })}
-            </List>
+              </div>
+
+              <h4> Filtrer bort skjulte element </h4>
+              <div className="toggle">
+                <span>av</span>
+                <label className="switch">
+                  <input
+                    type="checkbox"
+                    onChange={e => {
+                      this.hideHiddendelements(e);
+                    }}
+                    onKeyPress={e => {
+                      if (e.key === "Enter") {
+                        e.target.checked = !e.target.checked;
+                        this.hideHiddendelements(e);
+                      }
+                    }}
+                  />
+                  <span className="slider"></span>
+                </label>
+                <span>på</span>
+              </div>
+            </div>
           </>
         )}
-      </SettingsContext.Consumer>
+
+        <List>
+          <Filtrering
+            taglist={taglist}
+            tagFilter={this.state.tagFilter}
+            onFilterTag={this.handleFilterTag}
+          />
+          <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
+          <Typography style={{ marginLeft: 16, marginTop: 8 }} variant="h6">
+            Kartlag sortert{" "}
+            {sortKey === "alfabetisk" ? "alfabetisk" : "etter " + sortKey}
+          </Typography>
+          {Object.keys(sorted)
+            .sort()
+            .map(element => {
+              return (
+                <ForvaltningsGruppering
+                  searchTerm={this.state.searchTerm}
+                  hideHidden={this.state.hideHidden}
+                  tagFilter={this.state.tagFilter}
+                  onFilterTag={this.handleFilterTag}
+                  kartlag={sorted[element]}
+                  element={element}
+                  key={element}
+                  onUpdateLayerProp={onUpdateLayerProp}
+                />
+              );
+            })}
+        </List>
+      </>
     );
   }
 }

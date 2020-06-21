@@ -1,16 +1,17 @@
 .searchbar_container {
   position: absolute;
-  height: 50px;
+  height: 48px;
   overflow: visible;
-  right: 0px;
-  top: 0px;
-  width: 408px;
+  right: 8px;
+  top: 8px;
+  margin-left: 0px;
+  width: 397px;
   z-index: 200;
-  background: #697f8a;
 }
 
 @media only screen and (max-width: 768px) {
   .searchbar_container {
+    float: left;
     width: 100%;
     top: 0;
   }
@@ -18,29 +19,31 @@
 
 .searchbar {
   position: relative;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: auto;
-  width: 350px;
+  float: left;
+  _margin-top: 10px;
+  _margin-left: 10px;
+  _margin-right: auto;
   background: white;
-  border-radius: 3px;
-  text-align: center;
-  display: inline-block;
-  height: 31px;
-  border: 1px solid black;
+  _display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+  border-radius: 8px;
+  width: 392px;
+  height: 48px;
+  _border-bottom: 1px solid transparent;
+  _padding: 12px 104px 11px 64px;
 }
 
-.searchbar button {
+._searchbar button {
   width: 50px;
   float: right;
   border: 0px;
-  border-left: 1px solid black;
+  _border-left: 1px solid black;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
-  font-size: 12pt;
+  _font-size: 12pt;
 }
 
-.searchbar .x {
+._searchbar .x {
   position: absolute;
   right: 50px;
   width: 30px;
@@ -49,11 +52,11 @@
   border-radius: 0px;
 }
 
-.searchbar .x:hover {
+._searchbar .x:hover {
   background: grey;
 }
 
-.searchbar input {
+._searchbar _input {
   border: 0px;
   font-size: 12pt;
   float: left;
