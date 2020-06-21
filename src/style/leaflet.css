@@ -52,6 +52,7 @@
 /* zoom buttons and leaflet link */
 .leaflet-control-zoom.side-bar-open {
   margin-right: 412px;
+  bottom: -24px;
 }
 .leaflet-control-attribution.side-bar-open {
   margin-right: 0px;

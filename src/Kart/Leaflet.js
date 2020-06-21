@@ -65,7 +65,7 @@ class Leaflet extends React.Component {
       [this.props.latitude, this.props.longitude],
       this.props.zoom * 1.8
     );
-    L.control.zoom({ position: "topright" }).addTo(map);
+    L.control.zoom({ position: "bottomright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
     this.icon = L.icon({
