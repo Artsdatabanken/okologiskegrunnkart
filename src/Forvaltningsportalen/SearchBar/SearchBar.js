@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { IconButton, Modal, TextField } from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 import {
   ArrowBack,
   Search as SearchIcon,
@@ -23,8 +23,7 @@ class SearchBar extends React.Component {
     treffliste_gnr: null,
     treffliste_bnr: null,
     searchTerm: null,
-    showHelpModal: false,
-    manual: ""
+    showHelpModal: false
   };
 
   handleRemoveTreffliste = () => {
@@ -280,52 +279,15 @@ class SearchBar extends React.Component {
     this.wrapperRef = node;
   };
 
-  openHelp = () => {
-    // returnerer brukermanualen fra wiki
-    backend.getUserManualWiki().then(manual => {
-      this.setState({ showHelpModal: true, manual });
-    });
-  };
-
-  closeHelpModal = () => {
-    this.setState({ showHelpModal: false });
-  };
-
-  formattedManual = () => {
-    if (!this.state.manual || this.state.manual === "") {
-      return [];
-    }
-    const array = this.state.manual.split(/\r?\n/);
-    const items = [];
-    for (const [index, value] of array.entries()) {
-      if (!value || value === "") {
-        continue;
-      } else if (value.startsWith("## ")) {
-        items.push(
-          <p key={index} className="help-text-line-header">
-            {value.substring(3, value.length)}
-          </p>
-        );
-      } else {
-        items.push(
-          <p key={index} className="help-text-line">
-            {value}
-          </p>
-        );
-      }
-    }
-    return items;
-  };
-
   render() {
     return (
       <>
         <div className="searchbar_container" ref={this.setWrapperRef}>
           <div className="searchbar">
             <IconButton
-              _style={{ _position: "absolute", left: 0, top: 0 }}
               onClick={() => {
-                if (this.props.location.pathname == "/") alert("burger time");
+                if (this.props.location.pathname == "/")
+                  this.props.history.push("/hjelp");
                 else this.props.history.goBack();
               }}
             >
@@ -410,26 +372,6 @@ class SearchBar extends React.Component {
             </button>
           )}
         </div>
-
-        <Modal
-          open={this.state.showHelpModal}
-          onClose={this.closeHelpModal}
-          className="help-modal-body"
-        >
-          <div className="help-modal-wrapper">
-            <div className="help-modal-title">
-              <div>Brukermanual</div>
-              <button
-                tabIndex="0"
-                className="close-modal-button"
-                onClick={() => this.closeHelpModal()}
-              >
-                <CloseIcon />
-              </button>
-            </div>
-            <div className="help-modal-content">{this.formattedManual()}</div>
-          </div>
-        </Modal>
       </>
     );
   }

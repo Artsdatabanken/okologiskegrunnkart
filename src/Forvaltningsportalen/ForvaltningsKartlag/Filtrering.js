@@ -1,5 +1,4 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
 import {
   FilterList as SortIcon,
   SortByAlpha,
@@ -7,7 +6,7 @@ import {
   Business,
   Check
 } from "@material-ui/icons";
-import { ListSubheader, Chip, IconButton, List } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";

@@ -8,6 +8,7 @@ import {
 import { useHistory } from "react-router-dom";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import { ReactComponent as LegendToggle } from "./LegendToggle.svg";
 
 const TegnforklaringToggle = () => {
   const history = useHistory();
@@ -18,21 +19,17 @@ const TegnforklaringToggle = () => {
       button
       onClick={() => {
         const loc = history.location;
-        const search = new URLSearchParams(history.location.search);
-        if (visible) search.delete("tegnforklaring");
-        else search.set("tegnforklaring", "");
-        loc.search = search.toString();
+        //const search = new URLSearchParams(history.location.search);
+        loc.pathname = "/tegnforklaring";
+        //        if (visible) search.delete("tegnforklaring");
+        //        else search.set("tegnforklaring", "");
+        //loc.search = search.toString();
         history.push(loc);
       }}
     >
       <ListItemAvatar>
-        <Switch checked={visible}></Switch>
-        {false &&
-          (visible ? (
-            <Visibility style={{ color: "#555" }} />
-          ) : (
-            <VisibilityOff style={{ color: "#ccc" }} />
-          ))}
+        {false && <Switch checked={visible}></Switch>}
+        <LegendToggle style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
       </ListItemAvatar>
       <ListItemText primary="Tegnforklaring" secondary="" />
     </ListItem>

@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-// import FeatureInfo from "./Forvaltningsportalen/FeatureInfo/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
@@ -14,7 +13,6 @@ import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import formatterKlikktekst from "./Forvaltningsportalen/FeatureInfo/Klikktekst";
 import url_formatter from "./Funksjoner/url_formatter";
-import Tegnforklaring from "./Tegnforklaring";
 
 class App extends React.Component {
   constructor(props) {
@@ -129,9 +127,6 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
-                    <Tegnforklaring
-                      layers={this.state.kartlag}
-                    ></Tegnforklaring>
                     <SearchBar
                       onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}

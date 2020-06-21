@@ -6,6 +6,7 @@ import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 // import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
+import { withRouter } from "react-router-dom";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -28,7 +29,6 @@ class Leaflet extends React.Component {
     data: null,
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
-    markerType: "klikk",
     coordinates_area: null
   };
 
@@ -256,9 +256,10 @@ class Leaflet extends React.Component {
   }
 
   handleClick = e => {
-    if (this.state.markerType === "polygon") {
+    const markerType = this.getMarkerType();
+    if (markerType === "polygon") {
       this.polygonToolClick(e);
-    } else if (this.state.markerType === "klikk") {
+    } else if (markerType === "klikk") {
       this.markerClick(e);
     }
     return;
@@ -334,15 +335,12 @@ class Leaflet extends React.Component {
     return url;
   }
 
-  markerButtonClass() {
-    let name = "marker_type_button_container";
-    if (this.props.showInfobox) {
-      name = name + " infobox-open";
-    }
-    return name;
+  getMarkerType() {
+    return this.props.location.pathname === "/ny/tegn" ? "polygon" : "klikk";
   }
 
   render() {
+    const markerType = this.getMarkerType();
     this.openLinksInNewTab();
     this.positionZoomButtons();
     this.positionleafletLink();
@@ -423,33 +421,6 @@ class Leaflet extends React.Component {
     }
     return (
       <>
-        <div className={this.markerButtonClass()}>
-          <button
-            className={this.state.markerType === "klikk" ? "active" : ""}
-            title="Marker tool"
-            alt="Marker tool"
-            onClick={e => {
-              this.setState({
-                markerType: "klikk"
-              });
-            }}
-          >
-            <WhereToVote />
-          </button>
-          <button
-            className={this.state.markerType === "polygon" ? "active" : ""}
-            title="Polygon tool"
-            alt="Polygon tool"
-            onClick={e => {
-              this.setState({
-                markerType: "polygon"
-              });
-            }}
-          >
-            <Gesture />
-          </button>
-        </div>
-
         <div
           style={{ zIndex: -100, cursor: "default" }}
           ref={ref => {
@@ -457,31 +428,7 @@ class Leaflet extends React.Component {
           }}
         />
 
-        <button
-          className="map_button currentlyhidden"
-          alt="Geolokalisering"
-          title="Geolokalisering"
-          onClick={() => {
-            //this.props.handleFullscreen(false);
-            //this.handleLocate();
-          }}
-        >
-          <LocationSearching />
-        </button>
-        {/* {this.state.markerType === "klikk" && this.props.showInfobox && (
-          <InfoBox
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            layersResult={this.props.layersResult}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            adresse={this.props.adresse}
-            handleInfobox={this.handleInfobox}
-            onUpdateLayerProp={this.props.onUpdateLayerProp}
-          />
-        )} */}
-        {this.state.markerType === "klikk" && this.props.showInfobox && (
+        {markerType === "klikk" && this.props.showInfobox && (
           <InfoboxSide
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
@@ -506,4 +453,4 @@ class Leaflet extends React.Component {
   }
 }
 
-export default Leaflet;
+export default withRouter(Leaflet);

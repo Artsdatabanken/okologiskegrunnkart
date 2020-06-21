@@ -39,23 +39,6 @@
   height: 40px;
 }
 
-/* Marker type buttons */
-.marker_type_button_container {
-  margin-left: 0;
-}
-
-.marker_type_button_container.infobox-open {
-  margin-left: 352px;
-}
-
-.marker_type_button_container > button {
-  margin: 1px;
-}
-.marker_type_button_container > button:focus {
-  border: 2px solid blue;
-  margin: 0;
-}
-
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
   padding: 1px;
@@ -68,10 +51,10 @@
 
 /* zoom buttons and leaflet link */
 .leaflet-control-zoom.side-bar-open {
-  margin-right: 408px;
+  margin-right: 412px;
 }
 .leaflet-control-attribution.side-bar-open {
-  margin-right: 408px;
+  margin-right: 0px;
 }
 
 @media only screen and (max-width: 768px) {

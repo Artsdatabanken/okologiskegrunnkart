@@ -1,13 +1,17 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
 import "../style/kartlagfane.css";
-import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import { Switch, Route } from "react-router-dom";
 import PolygonElement from "./PolygonElement";
-import { KeyboardBackspace, ArrowRight, ArrowLeft } from "@material-ui/icons";
+import { ArrowRight, ArrowLeft } from "@material-ui/icons";
 import { Button, Paper } from "@material-ui/core";
 import Kartlag from "./Kartlag";
 import TegnforklaringToggle from "./TegnforklaringToggle";
+import Tegnforklaring from "./Tegnforklaring";
+import NyttKartlag from "./NyttKartlag";
+import NyttKartlagType from "./NyttKartlagType";
+import NyTegn from "./NyTegn";
+import Hjelp from "./Hjelp";
 
 const KartlagFanen = props => {
   return (
@@ -47,8 +51,13 @@ const KartlagFanen = props => {
             <></>
           ) : (
             <div className="scroll_area">
-              <TegnforklaringToggle />
               <Switch>
+                <Route path="/hjelp">
+                  <Hjelp />
+                </Route>
+                <Route path="/tegnforklaring" exact={false} strict={false}>
+                  <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
+                </Route>
                 <Route path="/kartlag/:id">
                   <Kartlag
                     kartlag={props.kartlag}
@@ -56,7 +65,23 @@ const KartlagFanen = props => {
                     onUpdateLayerProp={props.onUpdateLayerProp}
                   />
                 </Route>
+                <Route path="/ny/tegn">
+                  <NyTegn
+                    polygon={props.polygon}
+                    polyline={props.polyline}
+                    showPolygon={props.showPolygon}
+                    hideAndShowPolygon={props.hideAndShowPolygon}
+                    handleEditable={props.handleEditable}
+                    addPolygon={props.addPolygon}
+                    addPolyline={props.addPolyline}
+                  />
+                </Route>
+                <Route path="/ny">
+                  <NyttKartlagType />
+                </Route>
                 <Route path="/">
+                  <NyttKartlag />
+                  <TegnforklaringToggle />
                   {(props.polyline.length > 0 || props.polygon) && (
                     <PolygonElement
                       polygon={props.polygon}

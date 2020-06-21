@@ -75,7 +75,6 @@ const PolygonElement = ({
           <Delete /> Fjern
         </button>
       </ListItem>
-      <h3 className="container_header">Kartlag</h3>
     </>
   );
 };

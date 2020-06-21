@@ -3,13 +3,14 @@
 /* Selve panelet */
 
 .kartlag_fanen {
-  padding-top: 56px;
+  padding-top: 64px;
   position: absolute;
   _height: 100%;
   right: 0px;
   top: 0px;
   width: 408px;
   bottom: 0px;
+  overflow-y: auto;
   _padding-top: 50px;
   _background-color: #697f8a;
 }
@@ -30,12 +31,10 @@
 }
 
 .scroll_area {
-  _background: #eee;
-  _max-height: calc(100% - 56px);
-  overflow-y: auto;
+  _overflow-y: auto;
   width: 100%;
   height: 100%;
-  padding-top: 10px;
+  _padding-top: 10px;
 }
 
 @media only screen and (max-width: 768px) {

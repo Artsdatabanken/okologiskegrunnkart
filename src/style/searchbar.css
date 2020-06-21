@@ -224,14 +224,6 @@
   justify-content: center;
 }
 
-.help-modal-wrapper {
-  background-color: white;
-  width: 50vw;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-  max-height: 95vh;
-  overflow-y: auto;
-}
-
 @media only screen and (max-width: 768px) {
   .help-modal-wrapper {
     width: 100vw;
@@ -287,10 +279,7 @@
 }
 
 .help-modal-content {
-  display: flex;
-  flex-flow: column;
-  align-items: flex-start;
-  padding: 15px 25px;
+  padding: 24px;
 }
 
 @media only screen and (max-width: 768px) {
