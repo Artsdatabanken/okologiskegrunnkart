@@ -31,9 +31,11 @@ const Hjelp = () => {
 
   return (
     <div>
-      <div className="help-modal-title">
-        <div>Brukermanual</div>
-      </div>
+      {false && (
+        <div className="help-modal-title">
+          <div>Brukermanual</div>
+        </div>
+      )}
       <div className="help-modal-content">{manual}</div>
     </div>
   );

@@ -62,7 +62,7 @@ const KartlagFanen = props => {
           ) : (
             <div className="scroll_area">
               <Switch>
-                <Route path="/hjelp">
+                <Route path="/brukermanual">
                   <Hjelp />
                 </Route>
                 <Route path="/tegnforklaring" exact={false} strict={false}>

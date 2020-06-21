@@ -287,21 +287,20 @@ class SearchBar extends React.Component {
   };
 
   render() {
-    console.log({ term: this.state.searchTerm });
     const pathname = this.props.location.pathname;
     return (
       <div className="searchbar_container" ref={this.setWrapperRef}>
         <div className="searchbar">
           <IconButton
             onClick={() => {
-              if (pathname === "/") this.props.history.push("/hjelp");
+              if (pathname === "/") this.props.history.push("/brukermanual");
               else this.props.history.goBack();
             }}
           >
-            {pathname != "/" ? <ArrowBack /> : <MenuIcon />}
+            {pathname !== "/" ? <ArrowBack /> : <MenuIcon />}
           </IconButton>
           <TextField
-            placeholder={true ? pathname : "Søk i økologisk grunnkart..."}
+            placeholder={prettify(pathname)}
             _defaultValue={pathname}
             value={this.state.searchTerm}
             autoComplete={false}
@@ -371,4 +370,10 @@ class SearchBar extends React.Component {
   }
 }
 
+function prettify(path) {
+  if (path.length < 2) return "Søk i økologisk grunnkart...";
+  path = path.substring(1).split("/");
+  path = path.map(s => s[0].toUpperCase() + s.substring(1).toLowerCase());
+  return path.join(" ");
+}
 export default withRouter(SearchBar);
