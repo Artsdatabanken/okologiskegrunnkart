@@ -15,7 +15,6 @@ const TegnforklaringToggle = () => {
   const visible = search.get("tegnforklaring") !== null;
   return (
     <ListItem
-      style={{ backgroundColor: "#eee" }}
       button
       onClick={() => {
         const loc = history.location;

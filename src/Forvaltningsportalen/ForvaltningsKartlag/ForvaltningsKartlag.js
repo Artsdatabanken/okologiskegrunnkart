@@ -66,11 +66,25 @@ class ForvaltningsKartlag extends React.Component {
       sorted[criteria] = new_list;
     }
 
+    const tags = taglist
+      .filter(tag => this.state.tagFilter[tag])
+      .map(tag => (
+        <Chip
+          style={{ margin: 4 }}
+          key={tag}
+          label={tag}
+          clickable
+          color={this.state.tagFilter[tag] ? "primary" : "default"}
+          onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
+          onDelete={() => this.handleFilterTag(tag, false)}
+          deleteIcon={this.state.tagFilter[tag] ? null : <DoneIcon />}
+        />
+      ));
+
     return (
       <>
-        {this.state.showFilter && (
+        {false && this.state.showFilter && (
           <>
-            <ListSubheader disableSticky>Filter</ListSubheader>
             <div className="sort_chooser_container">
               <h4>Fritekst</h4>
               <input
@@ -83,29 +97,6 @@ class ForvaltningsKartlag extends React.Component {
                   }
                 }}
               />
-
-              <div className="tags_container">
-                {taglist.map(tag => {
-                  return (
-                    <Chip
-                      style={{ margin: 4 }}
-                      key={tag}
-                      label={tag}
-                      clickable
-                      color={this.state.tagFilter[tag] ? "primary" : "default"}
-                      onClick={() => {
-                        this.handleFilterTag(tag, !this.state.tagFilter[tag]);
-                      }}
-                      onDelete={() => {
-                        this.handleFilterTag(tag, false);
-                      }}
-                      deleteIcon={
-                        this.state.tagFilter[tag] ? null : <DoneIcon />
-                      }
-                    />
-                  );
-                })}
-              </div>
 
               <h4> Filtrer bort skjulte element </h4>
               <div className="toggle">
@@ -138,10 +129,19 @@ class ForvaltningsKartlag extends React.Component {
             onFilterTag={this.handleFilterTag}
           />
           <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
-          <Typography style={{ marginLeft: 16, marginTop: 8 }} variant="h6">
+          <ListSubheader disableSticky>
             Kartlag sortert{" "}
             {sortKey === "alfabetisk" ? "alfabetisk" : "etter " + sortKey}
-          </Typography>
+            {tags.length > 0 && <span> med tema</span>}
+          </ListSubheader>
+
+          <div
+            style={{ marginLeft: 24, marginRight: 24 }}
+            _className="tags_container"
+          >
+            {tags.length > 0 && <Typography variant="body2">{tags}</Typography>}
+          </div>
+
           {Object.keys(sorted)
             .sort()
             .map(element => {
