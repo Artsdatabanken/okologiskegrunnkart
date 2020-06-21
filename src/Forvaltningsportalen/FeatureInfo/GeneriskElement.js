@@ -25,7 +25,6 @@ const GeneriskElement = props => {
     >
       {false && (
         <ListItemIcon
-          _className="visibility_button"
           onClick={e => {
             props.onUpdateLayerProp(kartlag.id, "erSynlig", !kartlag.erSynlig);
           }}

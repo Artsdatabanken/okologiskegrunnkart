@@ -1,31 +1,42 @@
 import React from "react";
-import { useParams, useHistory } from "react-router";
+import { useParams } from "react-router";
 import "../style/kartknapper.css";
 import "../style/kartlagfane.css";
-import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
-import { KeyboardBackspace } from "@material-ui/icons";
-import ExpandedHeader from "./FeatureInfo/ExpandedHeader";
+import Geonorge from "./ForvaltningsKartlag/Geonorge";
+import {
+  OpenInNew,
+  Link,
+  Description,
+  Layers,
+  Category as CategoryIcon,
+  Done as DoneIcon
+} from "@material-ui/icons";
+import {
+  Chip,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
+import ForvaltningsUnderElement from "./ForvaltningsKartlag/ForvaltningsUnderElement";
+import ExpandedHeader from "../Forvaltningsportalen/FeatureInfo/ExpandedHeader";
 
-const Kartlag = ({ kartlag, punkt, onUpdateLayerProp }) => {
+const Kartlag = ({
+  kartlag: alleKartlag,
+  punkt,
+  onUpdateLayerProp,
+  tagFilter,
+  onFilterTag
+}) => {
   let { id } = useParams();
-  const history = useHistory();
   console.log({ kartlag, id, punkt });
-  const valgtLag = kartlag[id];
-  if (!valgtLag) return null;
+  const kartlag = alleKartlag[id];
+  if (!kartlag) return null;
+  let tags = kartlag.tags || [];
   return (
     <div>
       Kartlag {id}
       <div className="valgtLag">
-        <button
-          className="listheadingbutton"
-          onClick={e => {
-            history.push("/");
-          }}
-        >
-          <KeyboardBackspace />
-          <span>Tilbake</span>
-        </button>
-
         {punkt.faktaark_url && (
           <>
             <ExpandedHeader
@@ -51,13 +62,118 @@ const Kartlag = ({ kartlag, punkt, onUpdateLayerProp }) => {
             )}
           </>
         )}
-        <ForvaltningsElement
-          valgt={true}
-          kartlag_key={id}
-          kartlag={valgtLag}
-          key={valgtLag.id}
-          onUpdateLayerProp={onUpdateLayerProp}
-        />
+        {kartlag.underlag && (
+          <>
+            {Object.keys(kartlag.underlag).map(sublag => {
+              let lag = kartlag.underlag[sublag];
+
+              return (
+                <div key={sublag}>
+                  <ForvaltningsUnderElement
+                    kartlag={lag}
+                    kartlag_owner_key={id}
+                    kartlag_key={sublag}
+                    onUpdateLayerProp={onUpdateLayerProp}
+                  />
+                </div>
+              );
+            })}
+          </>
+        )}
+
+        {tags.length > 0 && (
+          <>
+            <ListItem button>
+              <ListItemIcon>
+                <CategoryIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={tags.join(", ")}
+                secondary="Tema"
+              ></ListItemText>
+            </ListItem>
+            {false && (
+              <div _className="tags_container">
+                <h4>Emneknagger</h4>
+                {tags.map(tag => {
+                  return (
+                    <Chip
+                      style={{ margin: 4 }}
+                      key={tag}
+                      label={tag}
+                      clickable
+                      color={tagFilter[tag] ? "primary" : "default"}
+                      onClick={() => {
+                        onFilterTag(tag, !tagFilter[tag]);
+                      }}
+                      onDelete={() => {
+                        onFilterTag(tag, false);
+                      }}
+                      deleteIcon={tagFilter[tag] ? null : <DoneIcon />}
+                    />
+                  );
+                })}
+              </div>
+            )}
+          </>
+        )}
+
+        {kartlag.kart && kartlag.kart.format.wms && (
+          <>
+            {kartlag.produktark && (
+              <>
+                <ListItem button>
+                  <ListItemIcon>
+                    <Description />
+                  </ListItemIcon>
+                  <ListItemText primary="Produktark" />
+                </ListItem>
+              </>
+            )}
+
+            <ListItem
+              button
+              onClick={e => {
+                window.open(kartlag.geonorgeurl || "https://www.geonorge.no/");
+              }}
+            >
+              <ListItemIcon>
+                <Geonorge />
+              </ListItemIcon>
+              <ListItemText primary="Datasettet på Geonorge.no" />
+              <ListItemSecondaryAction>
+                <OpenInNew style={{ color: "#555" }} />
+              </ListItemSecondaryAction>
+            </ListItem>
+
+            {kartlag.dataeier && (
+              <>
+                <ListItem
+                  button
+                  onClick={e => {
+                    if (kartlag.kildeurl) {
+                      window.open(kartlag.kildeurl);
+                    }
+                  }}
+                >
+                  <ListItemIcon>
+                    {kartlag.logourl ? (
+                      <img
+                        src={"/logo/" + kartlag.dataeier + ".png"}
+                        style={{ maxWidth: "24px" }}
+                        alt=""
+                      />
+                    ) : (
+                      <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={kartlag.dataeier} />
+                  {kartlag.kildeurl && <OpenInNew />}
+                </ListItem>
+              </>
+            )}
+          </>
+        )}
       </div>
     </div>
   );

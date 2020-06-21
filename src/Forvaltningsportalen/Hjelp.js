@@ -1,4 +1,3 @@
-import { IconButton, Modal, TextField } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import backend from "../Funksjoner/backend";
 

@@ -4,7 +4,6 @@ import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
-import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
@@ -64,6 +63,7 @@ class App extends React.Component {
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
+      k.id = key;
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
@@ -127,20 +127,6 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
-                    <SearchBar
-                      onSelectSearchResult={this.handleSelectSearchResult}
-                      searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={
-                        this.handleSetKartlagSearchResult
-                      }
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
                     <KartlagFanen
                       {...this.state}
                       layersResult={this.state.layersResult}
@@ -156,8 +142,6 @@ class App extends React.Component {
                       kartlagSearchResults={this.state.kartlagSearchResults}
                       geoSearchResults={this.state.geoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
                       path={path}
                       history={history}
@@ -200,11 +184,6 @@ class App extends React.Component {
     this.setState({ valgtLag });
   };
 
-  handleNavigateToKartlag = valgtLag => {
-    this.props.history.push("/kartlag/" + valgtLag.id.trim());
-    this.setState({ valgtLag: valgtLag });
-  };
-
   addPolyline = polyline => {
     this.setState({ polyline: polyline });
   };
@@ -219,10 +198,6 @@ class App extends React.Component {
 
   handleEditable = editable => {
     this.setState({ editable: editable });
-  };
-
-  removeValgtLag = () => {
-    this.setState({ valgtLag: null });
   };
 
   handleSelectSearchResult = searchResultPage => {

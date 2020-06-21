@@ -214,33 +214,6 @@ h4.container_header {
   right: 2px;
 }
 
-.collapsed_container .underlag {
-  width: 100%;
-  background: #f7f7f7;
-  border-bottom: 1px solid #f0f0f0;
-  display: block;
-  text-align: left;
-}
-
-.underlag div:first-child {
-  padding-left: 15px;
-  padding-right: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-}
-
-.underlag_collapse div:first-child {
-  background: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 0px;
-}
-
-.underlag svg {
-  padding-right: 15px;
-  vertical-align: middle;
-}
-
 .polygonbutton {
   padding: 5px;
   margin-left: 2px;

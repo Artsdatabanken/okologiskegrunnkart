@@ -12,10 +12,20 @@ import NyttKartlag from "./NyttKartlag";
 import NyttKartlagType from "./NyttKartlagType";
 import NyTegn from "./NyTegn";
 import Hjelp from "./Hjelp";
+import SearchBar from "./SearchBar/SearchBar";
 
 const KartlagFanen = props => {
   return (
     <>
+      <SearchBar
+        onSelectSearchResult={props.onSelectSearchResult}
+        searchResultPage={props.searchResultPage}
+        setKartlagSearchResults={props.setKartlagSearchResults}
+        setGeoSearchResults={props.setGeoSearchResults}
+        handleGeoSelection={props.handleGeoSelection}
+        kartlag={props.kartlag}
+        onUpdateLayerProp={props.onUpdateLayerProp}
+      />
       <div
         className={`toggle-side-bar-wrapper${
           props.showSideBar ? " side-bar-open" : ""

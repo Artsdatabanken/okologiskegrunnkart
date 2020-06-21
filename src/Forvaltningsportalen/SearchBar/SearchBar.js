@@ -43,6 +43,12 @@ class SearchBar extends React.Component {
     document.getElementById("searchfield").value = "";
   };
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.location.pathname !== this.props.location.pathname) {
+      this.setState({ searchTerm: "" });
+    }
+  }
+
   handleSearchBar = (searchTerm, resultpage) => {
     if (!searchTerm) {
       this.setState({
@@ -72,24 +78,25 @@ class SearchBar extends React.Component {
 
     function searchForKey(criteria, counter, lag, searchTerm) {
       let treffliste_lokalt = [];
-      for (let i in lag) {
+      for (let id in lag) {
         if (counter >= countermax) {
           break;
         } else {
-          if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria];
+          if (lag[id][criteria]) {
+            let lagstring = lag[id][criteria];
             if (criteria === "tags") {
-              lagstring = JSON.stringify(lag[i][criteria]);
+              lagstring = JSON.stringify(lag[id][criteria]);
             }
             lagstring = lagstring.toLowerCase();
             if (lagstring.indexOf(searchTerm) !== -1) {
-              let element = lag[i];
+              let element = lag[id];
               treffliste_lokalt.push(element);
               counter += 1;
             }
           }
         }
       }
+      console.log({ treffliste_lokalt });
       return [treffliste_lokalt, counter];
     }
 
@@ -280,99 +287,86 @@ class SearchBar extends React.Component {
   };
 
   render() {
+    console.log({ term: this.state.searchTerm });
+    const pathname = this.props.location.pathname;
     return (
-      <>
-        <div className="searchbar_container" ref={this.setWrapperRef}>
-          <div className="searchbar">
-            <IconButton
-              onClick={() => {
-                if (this.props.location.pathname == "/")
-                  this.props.history.push("/hjelp");
-                else this.props.history.goBack();
-              }}
-            >
-              {this.props.location.pathname != "/" ? (
-                <ArrowBack />
-              ) : (
-                <MenuIcon />
-              )}
-            </IconButton>
-            <TextField
-              placeholder="Søk i økologisk grunnkart..."
-              autoComplete={false}
-              style={{ top: 8, _display: "flex" }}
-              InputProps={{ disableUnderline: true }}
-              id="searchfield"
-              type="text"
-              onFocus={e => this.handleSearchBar(e.target.value)}
-              onChange={e => this.handleSearchBar(e.target.value)}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  this.handleSearchButton();
-                }
-              }}
-              onKeyDown={e => {
-                if (e.key === "ArrowDown") {
-                  if (document.getElementsByClassName("searchbar_item")) {
-                    if (e.keyCode === 40) {
-                      if (
-                        document.getElementsByClassName("searchbar_item")[0]
-                      ) {
-                        document
-                          .getElementsByClassName("searchbar_item")[0]
-                          .focus();
-                      } else {
-                        console.log("nothing to scroll to");
-                      }
+      <div className="searchbar_container" ref={this.setWrapperRef}>
+        <div className="searchbar">
+          <IconButton
+            onClick={() => {
+              if (pathname === "/") this.props.history.push("/hjelp");
+              else this.props.history.goBack();
+            }}
+          >
+            {pathname != "/" ? <ArrowBack /> : <MenuIcon />}
+          </IconButton>
+          <TextField
+            placeholder={true ? pathname : "Søk i økologisk grunnkart..."}
+            _defaultValue={pathname}
+            value={this.state.searchTerm}
+            autoComplete={false}
+            style={{ top: 8, _display: "flex" }}
+            InputProps={{ disableUnderline: true }}
+            id="searchfield"
+            type="text"
+            onFocus={e => this.handleSearchBar(e.target.value)}
+            onChange={e => this.handleSearchBar(e.target.value)}
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+                this.handleSearchButton();
+              }
+            }}
+            onKeyDown={e => {
+              if (e.key === "ArrowDown") {
+                if (document.getElementsByClassName("searchbar_item")) {
+                  if (e.keyCode === 40) {
+                    if (document.getElementsByClassName("searchbar_item")[0]) {
+                      document
+                        .getElementsByClassName("searchbar_item")[0]
+                        .focus();
+                    } else {
+                      console.log("nothing to scroll to");
                     }
-                  } else {
-                    console.log("nothing to see here");
                   }
+                } else {
+                  console.log("nothing to see here");
                 }
-              }}
-            />
+              }
+            }}
+          />
 
-            <IconButton
-              onClick={() => {
-                if (this.state.isSearching) {
-                  this.handleRemoveTreffliste();
-                  this.handleSearchBar(null);
-                  document.getElementById("searchfield").value = "";
-                } else this.handleSearchButton();
-              }}
-              style={{ position: "absolute", right: 8, top: 0 }}
-            >
-              {this.state.isSearching ? <CloseIcon /> : <SearchIcon />}
-            </IconButton>
-          </div>
-          {(this.state.isSearching || this.props.searchResultPage) && (
-            <TreffListe
-              onSelectSearchResult={this.props.onSelectSearchResult}
-              searchResultPage={this.props.searchResultPage}
-              searchTerm={this.state.searchTerm}
-              handleSearchBar={this.handleSearchBar}
-              onSearchButton={this.handleSearchButton}
-              treffliste={this.state.treffliste}
-              treffliste_lokalt={this.state.treffliste_lokalt}
-              treffliste_sted={this.state.treffliste_sted}
-              treffliste_knr={this.state.treffliste_knr}
-              treffliste_gnr={this.state.treffliste_gnr}
-              treffliste_bnr={this.state.treffliste_bnr}
-              treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
-              removeValgtLag={this.props.removeValgtLag}
-              addValgtLag={this.props.addValgtLag}
-              handleGeoSelection={this.props.handleGeoSelection}
-              handleRemoveTreffliste={this.handleRemoveTreffliste}
-            />
-          )}
-
-          {false && (
-            <button className="help_button" onClick={() => this.openHelp()}>
-              ?
-            </button>
-          )}
+          <IconButton
+            onClick={() => {
+              if (this.state.isSearching) {
+                this.handleRemoveTreffliste();
+                this.handleSearchBar(null);
+                document.getElementById("searchfield").value = "";
+              } else this.handleSearchButton();
+            }}
+            style={{ position: "absolute", right: 8, top: 0 }}
+          >
+            {this.state.isSearching ? <CloseIcon /> : <SearchIcon />}
+          </IconButton>
         </div>
-      </>
+        {(this.state.isSearching || this.props.searchResultPage) && (
+          <TreffListe
+            onSelectSearchResult={this.props.onSelectSearchResult}
+            searchResultPage={this.props.searchResultPage}
+            searchTerm={this.state.searchTerm}
+            handleSearchBar={this.handleSearchBar}
+            onSearchButton={this.handleSearchButton}
+            treffliste={this.state.treffliste}
+            treffliste_lokalt={this.state.treffliste_lokalt}
+            treffliste_sted={this.state.treffliste_sted}
+            treffliste_knr={this.state.treffliste_knr}
+            treffliste_gnr={this.state.treffliste_gnr}
+            treffliste_bnr={this.state.treffliste_bnr}
+            treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+            handleGeoSelection={this.props.handleGeoSelection}
+            handleRemoveTreffliste={this.handleRemoveTreffliste}
+          />
+        )}
+      </div>
     );
   }
 }

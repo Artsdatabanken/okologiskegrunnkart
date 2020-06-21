@@ -135,10 +135,7 @@ class ForvaltningsKartlag extends React.Component {
             {tags.length > 0 && <span> med tema</span>}
           </ListSubheader>
 
-          <div
-            style={{ marginLeft: 24, marginRight: 24 }}
-            _className="tags_container"
-          >
+          <div style={{ marginLeft: 24, marginRight: 24 }}>
             {tags.length > 0 && <Typography variant="body2">{tags}</Typography>}
           </div>
 
