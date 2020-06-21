@@ -52,7 +52,7 @@ const TreffListe = props => {
     if (e.keyCode === 27) {
       if (props.handleRemoveTreffliste) {
         props.handleRemoveTreffliste();
-        props.handleSearchBar(null);
+        props.onSearchBar(null);
         document.getElementById("searchfield").value = "";
         document.getElementById("searchfield").focus();
       }
@@ -87,7 +87,7 @@ const TreffListe = props => {
           <button
             className="listheadingbutton"
             onClick={e => {
-              props.setSearchResultPage(false);
+              props.onSelectSearchResult(false);
             }}
           >
             <KeyboardBackspace />
@@ -119,13 +119,13 @@ const TreffListe = props => {
                   onKeyDown={e => {
                     if (e.keyCode === 13) {
                       //Enterpressed
-                      props.handleSearchButton();
+                      props.onSearchButton();
                     } else {
                       movefocus(e, index);
                     }
                   }}
                   onClick={() => {
-                    props.handleSearchButton();
+                    props.onSearchButton();
                   }}
                 >
                   <span className="itemname">
@@ -153,7 +153,7 @@ const TreffListe = props => {
 
             function onActivate() {
               if (props.searchResultPage) {
-                props.setSearchResultPage(false);
+                props.onSelectSearchResult(false);
               }
               props.handleRemoveTreffliste();
               document.getElementById("searchfield").value = "";

@@ -7,6 +7,7 @@ import PolygonElement from "./PolygonElement";
 import { KeyboardBackspace, ArrowRight, ArrowLeft } from "@material-ui/icons";
 import { Button, Paper } from "@material-ui/core";
 import Kartlag from "./Kartlag";
+import TegnforklaringToggle from "./TegnforklaringToggle";
 
 const KartlagFanen = props => {
   return (
@@ -46,6 +47,7 @@ const KartlagFanen = props => {
             <></>
           ) : (
             <div className="scroll_area">
+              <TegnforklaringToggle />
               <Switch>
                 <Route path="/kartlag/:id">
                   <Kartlag

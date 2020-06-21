@@ -14,6 +14,7 @@ import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import formatterKlikktekst from "./Forvaltningsportalen/FeatureInfo/Klikktekst";
 import url_formatter from "./Funksjoner/url_formatter";
+import Tegnforklaring from "./Tegnforklaring";
 
 class App extends React.Component {
   constructor(props) {
@@ -128,13 +129,20 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
+                    <Tegnforklaring
+                      layers={this.state.kartlag}
+                    ></Tegnforklaring>
                     <SearchBar
-                      setSearchResultPage={this.setSearchResultPage}
+                      onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={this.setKartlagSearchResults}
+                      setKartlagSearchResults={
+                        this.handleSetKartlagSearchResult
+                      }
                       setGeoSearchResults={this.setGeoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
                       kartlag={this.state.kartlag}
+                      addValgtLag={this.handleNavigateToKartlag}
+                      removeValgtLag={this.removeValgtLag}
                       handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
@@ -148,11 +156,13 @@ class App extends React.Component {
                       showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
                       addPolyline={this.addPolyline}
-                      setSearchResultPage={this.setSearchResultPage}
+                      onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
                       kartlagSearchResults={this.state.kartlagSearchResults}
                       geoSearchResults={this.state.geoSearchResults}
                       handleGeoSelection={this.handleGeoSelection}
+                      addValgtLag={this.handleNavigateToKartlag}
+                      removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
                       path={path}
                       history={history}
@@ -195,6 +205,11 @@ class App extends React.Component {
     this.setState({ valgtLag });
   };
 
+  handleNavigateToKartlag = valgtLag => {
+    this.props.history.push("/kartlag/" + valgtLag.id.trim());
+    this.setState({ valgtLag: valgtLag });
+  };
+
   addPolyline = polyline => {
     this.setState({ polyline: polyline });
   };
@@ -215,7 +230,8 @@ class App extends React.Component {
     this.setState({ valgtLag: null });
   };
 
-  setSearchResultPage = searchResultPage => {
+  handleSelectSearchResult = searchResultPage => {
+    console.log("search", { searchResultPage });
     this.setState({ searchResultPage: searchResultPage });
   };
 
@@ -223,7 +239,8 @@ class App extends React.Component {
     this.setState({ geoSearchResults: geoSearchResults });
   };
 
-  setKartlagSearchResults = kartlagSearchResults => {
+  handleSetKartlagSearchResult = kartlagSearchResults => {
+    console.log("klsearch", { kartlagSearchResults });
     this.setState({ kartlagSearchResults: kartlagSearchResults });
   };
 
