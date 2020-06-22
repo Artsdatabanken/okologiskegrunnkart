@@ -1,15 +1,16 @@
 import { useState } from "react";
 
 // Gjør automatisk oppdatering av Django via Form
-const url = (layerNum) =>
+const url = layerNum =>
   `/admin/forvaltningsportal/wmshelper/${layerNum}/change/`;
 
-async function requestDjangoFormToken(layerNum) {
+async function requestDjangoFormToken() {
   const resp = await fetch(url);
   const html = await resp.text();
   const csrfmiddlewaretoken = html.match(
     /csrfmiddlewaretoken.*?value="(.*?)"/i
   );
+  if (!csrfmiddlewaretoken) return alert("Logg inn i django, prøv så igjen..");
   return csrfmiddlewaretoken[1];
 }
 
@@ -23,7 +24,7 @@ async function update(doc) {
   await fetch(url(doc._id), {
     method: "POST",
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
+      "Content-Type": "application/x-www-form-urlencoded"
     },
     body: `csrfmiddlewaretoken=${csrfmiddlewaretoken}&tittel=${
       doc.tittel
@@ -37,13 +38,13 @@ async function update(doc) {
       doc.klikktekst
     )}&klikktekst2=${encode(
       doc.klikktekst2
-    )}&_continue=Save+and+continue+editing`,
+    )}&_continue=Save+and+continue+editing`
   });
 }
 
 function useDjangoKartlag() {
   const [isLoading, setLoading] = useState(false);
-  const writeUpdate = async (doc) => {
+  const writeUpdate = async doc => {
     setLoading(true);
     console.log("writeUpdate");
     await update(doc);
