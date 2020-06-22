@@ -2,7 +2,6 @@ import L from "leaflet";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 // import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
@@ -300,7 +299,7 @@ class Leaflet extends React.Component {
 
   syncUnderlag(layerName, al, underlag) {
     var layer = this.wms[layerName];
-    if (al.erSynlig && underlag.erSynlig) {
+    if (underlag.opacity > 0) {
       const url = this.makeWmsUrl(al.wmsurl);
       let srs = "EPSG3857";
       if (al.projeksjon) {
@@ -336,7 +335,9 @@ class Leaflet extends React.Component {
   }
 
   getMarkerType() {
-    return this.props.location.pathname === "/ny/tegn" ? "polygon" : "klikk";
+    return this.props.location.pathname === "/tegn/kartlag"
+      ? "polygon"
+      : "klikk";
   }
 
   render() {

@@ -10,14 +10,17 @@ const NyttKartLag = () => {
       button
       onClick={() => {
         const loc = history.location;
-        loc.pathname = "/ny";
+        loc.pathname = "/nytt/kartlag";
         history.push(loc);
       }}
     >
       <ListItemAvatar>
         <AddIcon style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
       </ListItemAvatar>
-      <ListItemText primary="Nytt kartlag..." secondary="" />
+      <ListItemText
+        primary="Nytt kartlag..."
+        secondary="Bedre som knapp kanskje"
+      />
     </ListItem>
   );
 };

@@ -13,39 +13,131 @@ import {
 } from "@material-ui/icons";
 import {
   Chip,
+  List,
   ListItemIcon,
   ListItemSecondaryAction,
   ListItem,
-  ListItemText
+  ListItemText,
+  Typography,
+  ListSubheader
 } from "@material-ui/core";
 import ForvaltningsUnderElement from "./ForvaltningsKartlag/ForvaltningsUnderElement";
 import ExpandedHeader from "../Forvaltningsportalen/FeatureInfo/ExpandedHeader";
 
-const Kartlag = ({
-  kartlag: alleKartlag,
-  punkt,
-  onUpdateLayerProp,
-  tagFilter,
-  onFilterTag
-}) => {
-  let { id } = useParams();
-  console.log({ kartlag, id, punkt });
-  const kartlag = alleKartlag[id];
+const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
+  let { tittel } = useParams();
+  const kartlag = Object.values(alleKartlag).find(
+    layer => layer.tittel === tittel
+  );
   if (!kartlag) return null;
+  const id = kartlag.id;
   let tags = kartlag.tags || [];
+  const featureinfo = punkt[id] || {};
+  console.log({ featureinfo });
   return (
     <div>
-      Kartlag {id}
-      <div className="valgtLag">
-        {punkt.faktaark_url && (
-          <>
-            <ExpandedHeader
-              visible={true}
-              geonorge={kartlag.geonorge}
-              url={punkt.faktaark_url}
-              type={kartlag.type}
+      <div style={{ marginLeft: 24, marginRight: 24 }}>
+        <Typography variant="body2">
+          TODO: AR5 står for arealressurskart i målestokk 1:5000. AR5 er et
+          detaljert, nasjonalt heldekkende datasett og den beste kilden til
+          informasjon om landets arealressurser. Datasettet deler inn
+          landarealet etter arealtype, skogbonitet, treslag og grunnforhold.
+        </Typography>
+        {tags.map(tag => {
+          return (
+            <Chip
+              style={{ marginRight: 8, marginBottom: 8 }}
+              key={tag}
+              label={tag}
+              clickable
+              color={"default"}
+              onClick={() => {
+                //onFilterTag(tag, !tagFilter[tag]);
+              }}
             />
-            {kartlag.type !== "naturtype" && (
+          );
+        })}
+      </div>
+      <List style={{ marginLeft: 32 }}>
+        {kartlag.produktark && (
+          <ListItem
+            dense
+            button
+            onClick={() => {
+              window.open(kartlag.produktark);
+            }}
+          >
+            <ListItemIcon>
+              <Description />
+            </ListItemIcon>
+            <ListItemText primary="Produktark" />
+            <ListItemSecondaryAction>
+              <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
+            </ListItemSecondaryAction>
+          </ListItem>
+        )}
+        {kartlag.dataeier && (
+          <>
+            <ListItem
+              dense
+              button
+              onClick={() => {
+                if (kartlag.kildeurl) {
+                  window.open(kartlag.kildeurl);
+                }
+              }}
+            >
+              <ListItemIcon>
+                {kartlag.logourl ? (
+                  <img
+                    src={"/logo/" + kartlag.dataeier + ".png"}
+                    style={{ maxWidth: "24px" }}
+                    alt=""
+                  />
+                ) : (
+                  <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                )}
+              </ListItemIcon>
+              <ListItemText primary={kartlag.dataeier} />
+              <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
+            </ListItem>
+          </>
+        )}
+        <ListItem
+          dense
+          button
+          onClick={e => {
+            window.open(kartlag.geonorgeurl || "https://www.geonorge.no/");
+          }}
+        >
+          <ListItemIcon>
+            <Geonorge />
+          </ListItemIcon>
+          <ListItemText primary="Datasettet på Geonorge.no" />
+          <ListItemSecondaryAction>
+            <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </List>
+
+      {featureinfo.primary && (
+        <>
+          <ListSubheader>På markør</ListSubheader>
+          <ListItem>
+            <ListItemText
+              primary={featureinfo.primary}
+              secondary={featureinfo.secondary}
+            ></ListItemText>
+          </ListItem>
+          {featureinfo.faktaark_url && (
+            <>
+              {" "}
+              <ExpandedHeader
+                visible={true}
+                geonorge={kartlag.geonorge}
+                url={featureinfo.faktaark_url}
+                type={kartlag.type}
+              />
               <iframe
                 allowtransparency="true"
                 style={{
@@ -57,124 +149,28 @@ const Kartlag = ({
                   overflow: "none"
                 }}
                 title="Faktaark"
-                src={punkt.faktaark_url}
+                src={featureinfo.faktaark_url}
               />
-            )}
-          </>
-        )}
-        {kartlag.underlag && (
-          <>
-            {Object.keys(kartlag.underlag).map(sublag => {
-              let lag = kartlag.underlag[sublag];
+            </>
+          )}
+        </>
+      )}
 
-              return (
-                <div key={sublag}>
-                  <ForvaltningsUnderElement
-                    kartlag={lag}
-                    kartlag_owner_key={id}
-                    kartlag_key={sublag}
-                    onUpdateLayerProp={onUpdateLayerProp}
-                  />
-                </div>
-              );
-            })}
-          </>
-        )}
+      <ListSubheader>Kartlag</ListSubheader>
+      {Object.keys(kartlag.underlag).map(sublag => {
+        let lag = kartlag.underlag[sublag];
 
-        {tags.length > 0 && (
-          <>
-            <ListItem button>
-              <ListItemIcon>
-                <CategoryIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={tags.join(", ")}
-                secondary="Tema"
-              ></ListItemText>
-            </ListItem>
-            {false && (
-              <div _className="tags_container">
-                <h4>Emneknagger</h4>
-                {tags.map(tag => {
-                  return (
-                    <Chip
-                      style={{ margin: 4 }}
-                      key={tag}
-                      label={tag}
-                      clickable
-                      color={tagFilter[tag] ? "primary" : "default"}
-                      onClick={() => {
-                        onFilterTag(tag, !tagFilter[tag]);
-                      }}
-                      onDelete={() => {
-                        onFilterTag(tag, false);
-                      }}
-                      deleteIcon={tagFilter[tag] ? null : <DoneIcon />}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </>
-        )}
-
-        {kartlag.kart && kartlag.kart.format.wms && (
-          <>
-            {kartlag.produktark && (
-              <>
-                <ListItem button>
-                  <ListItemIcon>
-                    <Description />
-                  </ListItemIcon>
-                  <ListItemText primary="Produktark" />
-                </ListItem>
-              </>
-            )}
-
-            <ListItem
-              button
-              onClick={e => {
-                window.open(kartlag.geonorgeurl || "https://www.geonorge.no/");
-              }}
-            >
-              <ListItemIcon>
-                <Geonorge />
-              </ListItemIcon>
-              <ListItemText primary="Datasettet på Geonorge.no" />
-              <ListItemSecondaryAction>
-                <OpenInNew style={{ color: "#555" }} />
-              </ListItemSecondaryAction>
-            </ListItem>
-
-            {kartlag.dataeier && (
-              <>
-                <ListItem
-                  button
-                  onClick={e => {
-                    if (kartlag.kildeurl) {
-                      window.open(kartlag.kildeurl);
-                    }
-                  }}
-                >
-                  <ListItemIcon>
-                    {kartlag.logourl ? (
-                      <img
-                        src={"/logo/" + kartlag.dataeier + ".png"}
-                        style={{ maxWidth: "24px" }}
-                        alt=""
-                      />
-                    ) : (
-                      <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={kartlag.dataeier} />
-                  {kartlag.kildeurl && <OpenInNew />}
-                </ListItem>
-              </>
-            )}
-          </>
-        )}
-      </div>
+        return (
+          <div key={sublag}>
+            <ForvaltningsUnderElement
+              kartlag={lag}
+              kartlag_owner_key={id}
+              kartlag_key={sublag}
+              onUpdateLayerProp={onUpdateLayerProp}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };

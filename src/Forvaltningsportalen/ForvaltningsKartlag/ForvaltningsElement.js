@@ -15,7 +15,7 @@ const ForvaltningsElement = ({ kartlag }) => {
         button
         onClick={() => {
           const loc = history.location;
-          loc.pathname = "/kartlag/" + kartlag.id;
+          loc.pathname = "/kartlag/" + kartlag.tittel;
           history.push(loc);
         }}
       >

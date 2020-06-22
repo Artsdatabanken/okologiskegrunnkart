@@ -17,15 +17,17 @@ import SearchBar from "./SearchBar/SearchBar";
 const KartlagFanen = props => {
   return (
     <>
-      <SearchBar
-        onSelectSearchResult={props.onSelectSearchResult}
-        searchResultPage={props.searchResultPage}
-        setKartlagSearchResults={props.setKartlagSearchResults}
-        setGeoSearchResults={props.setGeoSearchResults}
-        handleGeoSelection={props.handleGeoSelection}
-        kartlag={props.kartlag}
-        onUpdateLayerProp={props.onUpdateLayerProp}
-      />
+      {props.showSideBar && (
+        <SearchBar
+          onSelectSearchResult={props.onSelectSearchResult}
+          searchResultPage={props.searchResultPage}
+          setKartlagSearchResults={props.setKartlagSearchResults}
+          setGeoSearchResults={props.setGeoSearchResults}
+          handleGeoSelection={props.handleGeoSelection}
+          kartlag={props.kartlag}
+          onUpdateLayerProp={props.onUpdateLayerProp}
+        />
+      )}
       <div
         className={`toggle-side-bar-wrapper${
           props.showSideBar ? " side-bar-open" : ""
@@ -68,14 +70,14 @@ const KartlagFanen = props => {
                 <Route path="/tegnforklaring" exact={false} strict={false}>
                   <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
                 </Route>
-                <Route path="/kartlag/:id">
+                <Route path="/kartlag/:tittel">
                   <Kartlag
                     kartlag={props.kartlag}
                     punkt={props.layersResult}
                     onUpdateLayerProp={props.onUpdateLayerProp}
                   />
                 </Route>
-                <Route path="/ny/tegn">
+                <Route path="/tegn/kartlag">
                   <NyTegn
                     polygon={props.polygon}
                     polyline={props.polyline}
@@ -86,7 +88,7 @@ const KartlagFanen = props => {
                     addPolyline={props.addPolyline}
                   />
                 </Route>
-                <Route path="/ny">
+                <Route path="/nytt/kartlag">
                   <NyttKartlagType />
                 </Route>
                 <Route path="/">

@@ -24,7 +24,7 @@ const ForvaltningsGruppering = ({
         return false;
       }
     }
-    if (hideHidden && !element.erSynlig) return false;
+    if (hideHidden && element.opacity === 0) return false;
     return true;
   });
 

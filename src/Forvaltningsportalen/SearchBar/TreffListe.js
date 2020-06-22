@@ -159,7 +159,7 @@ const TreffListe = props => {
               document.getElementById("searchfield").value = "";
               if (trefftype === "Kartlag") {
                 console.log({ item });
-                history.push("/kartlag/" + item.id);
+                history.push("/kartlag/" + item.tittel);
               } else {
                 props.handleGeoSelection(item);
               }

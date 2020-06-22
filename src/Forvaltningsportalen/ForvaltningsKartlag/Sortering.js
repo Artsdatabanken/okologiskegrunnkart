@@ -1,18 +1,10 @@
 import React, { useRef } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Sort as SortIcon, Check } from "@material-ui/icons";
-import {
-  ListSubheader,
-  Chip,
-  IconButton,
-  List,
-  Paper
-} from "@material-ui/core";
+import { Sort as SortIcon } from "@material-ui/icons";
+import { IconButton, Paper } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import WavesIcon from "@material-ui/icons/Waves";
 import useOnClickOutside from "../useOnClickOutside";
 
 const StyledMenu = withStyles({
@@ -82,9 +74,8 @@ export default function Sortering({ sort, onChangeSort }) {
       >
         <SortIcon></SortIcon>
       </IconButton>
-      <Paper elevation={3}>
+      <Paper elevation={3} ref={menuRef}>
         <StyledMenu
-          forwardRef="menu"
           id="customized-menu"
           anchorEl={anchorEl}
           keepMounted
@@ -93,9 +84,6 @@ export default function Sortering({ sort, onChangeSort }) {
         >
           {Object.keys(sorteringsmåter).map(måte => (
             <StyledMenuItem key={måte} onClick={() => handleSelect(måte)}>
-              <ListItemIcon>
-                {måte === sort && <Check fontSize="small" />}
-              </ListItemIcon>
               <ListItemText primary={sorteringsmåter[måte]} />
             </StyledMenuItem>
           ))}

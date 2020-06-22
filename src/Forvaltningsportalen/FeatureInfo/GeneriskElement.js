@@ -21,27 +21,8 @@ const GeneriskElement = props => {
     <ListItem
       divider
       button
-      onClick={() => history.push("/kartlag/" + kartlag.id)}
+      onClick={() => history.push("/kartlag/" + kartlag.tittel)}
     >
-      {false && (
-        <ListItemIcon
-          onClick={e => {
-            props.onUpdateLayerProp(kartlag.id, "erSynlig", !kartlag.erSynlig);
-          }}
-        >
-          {resultat.loading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              {resultat.error ? (
-                <ErrorOutline />
-              ) : (
-                <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
-              )}
-            </>
-          )}
-        </ListItemIcon>
-      )}
       <ListItemText
         primary={
           resultat.loading ? (

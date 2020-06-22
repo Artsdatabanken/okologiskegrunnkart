@@ -5,39 +5,40 @@ import { useHistory } from "react-router-dom";
 const Tegnforklaring = ({ layers }) => {
   const history = useHistory();
   return (
-    <div style={{ margin: 24 }}>
-      <Typography variant="h5">Tegnforklaring</Typography>
-      {Object.keys(layers).map(id => {
-        const layer = layers[id];
-        const items = Object.values(layer.underlag || {})
-          .filter(ul => ul.erSynlig)
-          .map(ul => (
-            <LegendItem
-              key={layer.tittel + "_" + ul.tittel}
-              layer={layer}
-              sublayer={ul}
-            />
-          ));
-        if (items.length <= 0) return null;
-        console.log(layer);
-        return (
-          <div
-            key={layer.tittel}
-            style={{ marginBottom: 16, cursor: "pointer" }}
-            onClick={() => {
-              const loc = history.location;
-              loc.pathname = "/kartlag/" + id;
-              history.push(loc);
-            }}
-          >
-            <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
-            <Grid container direction="row" spacing={4}>
-              {items}
-            </Grid>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <ListSubheader>Tegnforklaring for aktiverte kartlag</ListSubheader>
+      <div style={{ margin: 24 }}>
+        {Object.keys(layers).map(id => {
+          const layer = layers[id];
+          const items = Object.values(layer.underlag || {})
+            .filter(ul => ul.opacity > 0)
+            .map(ul => (
+              <LegendItem
+                key={layer.tittel + "_" + ul.tittel}
+                layer={layer}
+                sublayer={ul}
+              />
+            ));
+          if (items.length <= 0) return null;
+          return (
+            <div
+              key={layer.tittel}
+              style={{ marginBottom: 16, cursor: "pointer" }}
+              onClick={() => {
+                const loc = history.location;
+                loc.pathname = "/kartlag/" + layer.tittel;
+                history.push(loc);
+              }}
+            >
+              <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
+              <Grid container direction="row" spacing={4}>
+                {items}
+              </Grid>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

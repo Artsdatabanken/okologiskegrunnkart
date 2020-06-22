@@ -1,8 +1,7 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { Done as DoneIcon, Sort as SortIcon } from "@material-ui/icons";
+import { Done as DoneIcon } from "@material-ui/icons";
 import { ListSubheader, Chip, Typography, List } from "@material-ui/core";
-import TemaPicker from "./TemaPicker";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 

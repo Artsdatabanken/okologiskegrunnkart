@@ -3,6 +3,7 @@ import {
   VisibilityOutlined,
   VisibilityOffOutlined,
   Delete,
+  Gesture,
   Create,
   Done
 } from "@material-ui/icons";
@@ -26,54 +27,9 @@ const PolygonElement = ({
     <>
       <ListItem>
         <ListItemIcon onClick={e => e.stopPropagation()}>
-          <IconButton
-            className="visibility_button"
-            onClick={e => {
-              hideAndShowPolygon(!showPolygon);
-            }}
-          >
-            {showPolygon ? (
-              <VisibilityOutlined style={{ color: "#333" }} />
-            ) : (
-              <VisibilityOffOutlined style={{ color: "#aaa" }} />
-            )}
-          </IconButton>
+          <Gesture style={{ color: "rgba(0,0,0,0.54)" }} />
         </ListItemIcon>
         <ListItemText primary="Mitt Polygon" />
-        {polygon ? (
-          <button
-            className="polygonbutton edit"
-            onClick={e => {
-              addPolygon(null);
-              addPolyline(polygon);
-              handleEditable(true);
-            }}
-          >
-            <Create /> Rediger
-          </button>
-        ) : (
-          <button
-            className="polygonbutton done"
-            onClick={e => {
-              addPolygon(polyline);
-              addPolyline([]);
-            }}
-          >
-            <Done /> Ferdig
-          </button>
-        )}
-
-        <button
-          className="polygonbutton remove"
-          onClick={e => {
-            addPolygon(null);
-            addPolyline([]);
-            hideAndShowPolygon(true);
-            handleEditable(true);
-          }}
-        >
-          <Delete /> Fjern
-        </button>
       </ListItem>
     </>
   );

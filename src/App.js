@@ -64,7 +64,7 @@ class App extends React.Component {
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.id = key;
-      k.opacity = 0.8;
+      k.opacity = 0;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
     });
     this.setState({ kartlag: sortedKartlag });
@@ -374,7 +374,10 @@ class App extends React.Component {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
-      if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
+      const lag = kartlag[i];
+      // TODO: Some layers don't have underlag, eks høydedata
+      if (Object.values(lag.underlag || {}).some(ul => ul.opacity > 0))
+        valgteLag[i] = lag;
     }
     this.setState({ valgteLag: valgteLag });
     this.handleLatLng(lng, lat);
@@ -389,6 +392,7 @@ class App extends React.Component {
   };
 
   handleForvaltningsLayerProp = (layer, key, value) => {
+    console.log({ layer, key, value });
     let nye_lag = this.state.kartlag;
     setValue(nye_lag[layer], key, value);
     this.setState({

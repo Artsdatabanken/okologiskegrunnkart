@@ -83,6 +83,7 @@ const InfoBox = ({
                   <MyLocation />
                 ) : (
                   <img
+                    alt=""
                     width={32}
                     height={48}
                     style={{ transform: "rotate(-15deg)" }}

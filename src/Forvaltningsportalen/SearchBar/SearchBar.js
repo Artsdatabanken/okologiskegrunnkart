@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
     treffliste_knr: null,
     treffliste_gnr: null,
     treffliste_bnr: null,
-    searchTerm: null,
+    searchTerm: "",
     showHelpModal: false
   };
 
@@ -301,10 +301,9 @@ class SearchBar extends React.Component {
           </IconButton>
           <TextField
             placeholder={prettify(pathname)}
-            _defaultValue={pathname}
             value={this.state.searchTerm}
-            autoComplete={false}
-            style={{ top: 8, _display: "flex" }}
+            autoComplete="off"
+            style={{ width: 290, top: 8, _display: "flex" }}
             InputProps={{ disableUnderline: true }}
             id="searchfield"
             type="text"

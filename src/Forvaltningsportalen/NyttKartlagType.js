@@ -9,25 +9,29 @@ const NyttKartLagType = () => {
   const history = useHistory();
   return (
     <>
-      <LagType history={history} url={"tegn"} primaryText="Tegn i kartet..." />
       <LagType
         history={history}
-        url={"lastopp"}
-        primaryText="Last opp fil..."
+        url={"/tegn/kartlag"}
+        primaryText="Tegn i kartet..."
       />
       <LagType
         history={history}
-        url={"wms"}
-        primaryText="Bruk en WMS server..."
+        url={"/lastopp/kartlag"}
+        primaryText="Last opp fil... (TODO)"
+      />
+      <LagType
+        history={history}
+        url={"/kartlag/fra/wms"}
+        primaryText="Bruk en WMS server... (TODO)"
       />
     </>
   );
 };
 
 const Components = {
-  lastopp: PublishIcon,
-  wms: CloudIcon,
-  tegn: CreateIcon
+  "/lastopp/kartlag": PublishIcon,
+  "/kartlag/fra/wms": CloudIcon,
+  "/tegn/kartlag": CreateIcon
 };
 
 const LagType = ({ history, url, primaryText }) => {
@@ -37,7 +41,7 @@ const LagType = ({ history, url, primaryText }) => {
       button
       onClick={() => {
         const loc = history.location;
-        loc.pathname = "/ny/" + url;
+        loc.pathname = url;
         history.push(loc);
       }}
     >
