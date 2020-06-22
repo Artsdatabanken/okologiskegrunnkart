@@ -1,22 +1,16 @@
 import Geonorge from "./Geonorge";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
+import { OpenInNew, Link, Description, Layers } from "@material-ui/icons";
 import {
-  OpenInNew,
-  VisibilityOutlined,
-  Link,
-  Description,
-  Layers,
-  VisibilityOffOutlined
-} from "@material-ui/icons";
-import {
-  IconButton,
   ListItemIcon,
   Collapse,
   ListItem,
   ListItemText
 } from "@material-ui/core";
 import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
+import CustomIcon from "../../Common/CustomIcon";
+import Badge from "@material-ui/core/Badge";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -25,7 +19,6 @@ const ForvaltningsElement = ({
   valgt
 }) => {
   let tittel = kartlag.tittel;
-  let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
@@ -44,20 +37,28 @@ const ForvaltningsElement = ({
           }
         }}
       >
-        <ListItemIcon onClick={e => e.stopPropagation()}>
-          <IconButton
-            className="visibility_button"
-            onClick={e => {
-              onUpdateLayerProp(kode, "erSynlig", !erSynlig);
-              e.stopPropagation();
-            }}
-          >
-            {erSynlig ? (
-              <VisibilityOutlined style={{ color: "#333" }} />
-            ) : (
-              <VisibilityOffOutlined style={{ color: "#aaa" }} />
-            )}
-          </IconButton>
+        <ListItemIcon>
+          <div className="layer-list-element-icon">
+            <Badge badgeContent={4} color="secondary">
+              {erSynlig ? (
+                <CustomIcon
+                  id="kartlag"
+                  icon={kartlag.tema}
+                  size={30}
+                  color={"#666"}
+                  tooltipText={kartlag.tema}
+                />
+              ) : (
+                <CustomIcon
+                  id="kartlag"
+                  icon={kartlag.tema}
+                  size={30}
+                  color={"#aaa"}
+                  tooltipText={kartlag.tema}
+                />
+              )}
+            </Badge>
+          </div>
         </ListItemIcon>
         <ListItemText primary={tittel.nb || tittel} />
 

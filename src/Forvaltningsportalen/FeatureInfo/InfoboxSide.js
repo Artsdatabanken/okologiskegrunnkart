@@ -7,7 +7,7 @@ import {
   Flag,
   Terrain
 } from "@material-ui/icons";
-import CustomTooltip from "../../Common/CustomTooltip";
+import TooltipRight from "../../Common/TooltipRight";
 import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
@@ -66,9 +66,9 @@ const InfoBox = ({
       <div className="infobox-side">
         <div className="infobox-title-wrapper">
           <div className="infobox-title-content">
-            <CustomTooltip placement="right" title="Sted / Områdetype">
+            <TooltipRight placement="right" title="Sted / Områdetype">
               <MyLocation />
-            </CustomTooltip>
+            </TooltipRight>
             <div className="infobox-title-text">
               <div className="infobox-title-text-primary">
                 {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
@@ -92,9 +92,9 @@ const InfoBox = ({
         {sted && (
           <div className="infobox-content">
             <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
+              <TooltipRight placement="right" title="Fylke / Fylkesnr.">
                 <Terrain />
-              </CustomTooltip>
+              </TooltipRight>
               <div className="infobox-text-multiple">
                 <div className="infobox-text-primary">{sted.fylkesnavn[0]}</div>
                 <div className="infobox-text-secondary">
@@ -103,9 +103,9 @@ const InfoBox = ({
               </div>
             </div>
             <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Kommune / Kommunenr.">
+              <TooltipRight placement="right" title="Kommune / Kommunenr.">
                 <Flag />
-              </CustomTooltip>
+              </TooltipRight>
               <div className="infobox-text-multiple">
                 <div className="infobox-text-primary">
                   {sted.kommunenavn[0]}
@@ -116,12 +116,12 @@ const InfoBox = ({
               </div>
             </div>
             <div className="infobox-text-wrapper">
-              <CustomTooltip
+              <TooltipRight
                 placement="right"
                 title="Adresse / Gårdsnr. / Bruksnr."
               >
                 <Home />
-              </CustomTooltip>
+              </TooltipRight>
               <div className="infobox-text-multiple">
                 <div className="infobox-text-primary">
                   {hentAdresse(adresse)}
@@ -132,9 +132,9 @@ const InfoBox = ({
               </div>
             </div>
             <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Koordinater">
+              <TooltipRight placement="right" title="Koordinater">
                 <Place />
-              </CustomTooltip>
+              </TooltipRight>
               <div className="infobox-text-primary">
                 {coordinates_area ? coords : "--° N --° Ø"}
               </div>

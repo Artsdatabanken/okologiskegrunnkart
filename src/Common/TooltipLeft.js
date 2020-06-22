@@ -6,10 +6,10 @@ const styles = {
     backgroundColor: "#000000",
     fontSize: "12px",
     position: "relative",
-    left: "-5px"
+    left: "5px"
   }
 };
 
-const CustomTooltip = withStyles(styles)(Tooltip);
+const TooltipLeft = withStyles(styles)(Tooltip);
 
-export default CustomTooltip;
+export default TooltipLeft;

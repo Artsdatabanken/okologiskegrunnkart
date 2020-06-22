@@ -312,3 +312,18 @@ h4.container_header {
     transform: rotate(0deg);
   }
 }
+
+/* Layer icons */
+/* .layer-icon-wrapper {
+  background-color: grey;
+  border-radius: 17px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.layer-list-element-icon {
+  padding: 10px 0 10px 5px;
+}
