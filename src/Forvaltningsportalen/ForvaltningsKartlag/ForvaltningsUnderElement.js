@@ -9,19 +9,30 @@ import {
   ListItemText
 } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
+import { withinZoomRange } from "../../Funksjoner/withinZoomRange";
 
 const ForvaltningsUnderElement = ({
   kartlag,
   onUpdateLayerProp,
   kartlag_key,
   kartlag_owner_key,
-  valgt
+  valgt,
+  zoom
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
+  const minScaleDenominator = kartlag.minscaledenominator;
+  const maxScaleDenominator = kartlag.maxscaledenominator;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
   let kode = "underlag." + kartlag_key + ".";
+
+  const disabledToggle = !withinZoomRange(
+    zoom,
+    minScaleDenominator,
+    maxScaleDenominator
+  );
+
   if (!tittel) return null;
   return (
     <>
@@ -58,7 +69,7 @@ const ForvaltningsUnderElement = ({
                 e.stopPropagation();
               }
             }}
-            disabled={false}
+            disabled={disabledToggle}
           />
         </ListItemIcon>
         <ListItemText primary={tittel.nb || tittel} />

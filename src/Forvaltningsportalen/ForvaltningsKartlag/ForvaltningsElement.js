@@ -16,7 +16,8 @@ const ForvaltningsElement = ({
   kartlag,
   onUpdateLayerProp,
   kartlag_key,
-  valgt
+  valgt,
+  zoom
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
@@ -85,6 +86,7 @@ const ForvaltningsElement = ({
                       kartlag_owner_key={kartlag_key}
                       kartlag_key={sublag}
                       onUpdateLayerProp={onUpdateLayerProp}
+                      zoom={zoom}
                     />
                   </div>
                 );

@@ -19,7 +19,7 @@ const styles = {
         "& + $track": {
           opacity: 1,
           backgroundColor: "rgba(0, 0, 0, 0.12)", // Grey
-          borderColor: "rgba(0, 0, 0, 0.01)" // Grey
+          borderColor: "rgba(0, 0, 0, 0.02)" // Grey
         }
       },
       "& + $track": {
