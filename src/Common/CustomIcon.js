@@ -8,10 +8,10 @@ const CustomIcon = ({ icon, size, styling, color, id, tooltipText }) => {
     <>
       {tooltipText ? (
         <TooltipLeft placement="left" title={tooltipText}>
-          <div id={id || "id"} class="layer-icon-wrapper">
+          <div id={id || "id"} className="layer-icon-wrapper">
             <svg
               id="id"
-              class="custom-icon"
+              className="custom-icon"
               width={size}
               height={size}
               viewBox="0 0 24 24"
@@ -23,10 +23,10 @@ const CustomIcon = ({ icon, size, styling, color, id, tooltipText }) => {
           </div>
         </TooltipLeft>
       ) : (
-        <div id={id || "id"} class="layer-icon-wrapper">
+        <div id={id || "id"} className="layer-icon-wrapper">
           <svg
             id="id"
-            class="custom-icon"
+            className="custom-icon"
             width={size}
             height={size}
             viewBox="0 0 24 24"

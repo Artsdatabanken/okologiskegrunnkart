@@ -39,7 +39,7 @@ const ForvaltningsElement = ({
       >
         <ListItemIcon>
           <div className="layer-list-element-icon">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={kartlag.numberVisible || 0} color="secondary">
               {erSynlig ? (
                 <CustomIcon
                   id="kartlag"

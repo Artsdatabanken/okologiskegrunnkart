@@ -431,6 +431,23 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.kartlag;
     setValue(nye_lag[layer], key, value);
+
+    let layerVisible = false;
+    let numberVisible = 0;
+    for (const sublayerId in nye_lag[layer].underlag) {
+      if (nye_lag[layer].underlag[sublayerId].erSynlig) {
+        layerVisible = true;
+        numberVisible += 1;
+      }
+    }
+    if (layerVisible) {
+      setValue(nye_lag[layer], "erSynlig", true);
+      setValue(nye_lag[layer], "numberVisible", numberVisible);
+    } else {
+      setValue(nye_lag[layer], "erSynlig", false);
+      setValue(nye_lag[layer], "numberVisible", numberVisible);
+    }
+
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
