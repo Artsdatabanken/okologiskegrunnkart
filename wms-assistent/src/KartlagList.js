@@ -5,7 +5,7 @@ import {
   ListItemAvatar,
   ListItemText,
   ListSubheader,
-  ListItemSecondaryAction,
+  ListItemSecondaryAction
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import LayersIcon from "@material-ui/icons/Layers";
@@ -18,7 +18,7 @@ const KartlagList = ({ kartlag }) => {
   return (
     <List>
       <ListSubheader>Kartlag</ListSubheader>
-      {Object.keys(kartlag).map((k) => {
+      {Object.keys(kartlag).map(k => {
         const lag = kartlag[k];
         const aok =
           lag.wmsurl && lag.wmsversion && lag.projeksjon && lag.wmsinfoformat;
@@ -27,6 +27,7 @@ const KartlagList = ({ kartlag }) => {
             <ListItemAvatar>
               <LayersIcon></LayersIcon>
             </ListItemAvatar>
+            <ListItemText primary={kartlag[k].tittel} secondary="Kartlag" />
             <ListItemSecondaryAction>
               {aok ? (
                 <CheckIcon style={{ color: "#3e3" }} />
@@ -34,7 +35,6 @@ const KartlagList = ({ kartlag }) => {
                 <ReportIcon style={{ color: "#ea0" }} />
               )}
             </ListItemSecondaryAction>
-            <ListItemText primary={kartlag[k].tittel} secondary="Kartlag" />
           </ListItem>
         );
       })}

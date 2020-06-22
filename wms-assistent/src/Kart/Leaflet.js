@@ -8,7 +8,7 @@ delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
 class Leaflet extends React.Component {
@@ -17,7 +17,7 @@ class Leaflet extends React.Component {
     const options = {
       zoomControl: true,
       inertia: true,
-      minZoom: 3,
+      minZoom: 3
     };
 
     let map = L.map(this.mapEl, options);
@@ -29,11 +29,11 @@ class Leaflet extends React.Component {
       [this.props.latitude, this.props.longitude],
       this.props.zoom * 1.8
     );
-    map.on("click", (e) => {
+    map.on("click", e => {
       const latlng = e.latlng;
       this.props.onClick(latlng.lng, latlng.lat, this.map.getZoom());
     });
-    map.on("load", (e) => {
+    map.on("load", e => {
       setTimeout(() => {
         map.invalidateSize();
       }, 0);
@@ -93,7 +93,7 @@ class Leaflet extends React.Component {
   }
 
   updateMarker(koords) {
-    const tc = (koords || "").split(",").map((e) => parseFloat(e));
+    const tc = (koords || "").split(",").map(e => parseFloat(e));
     if (tc.length !== 2) return;
     try {
       const latlng = new LatLng(tc[1], tc[0]);
@@ -103,41 +103,31 @@ class Leaflet extends React.Component {
     }
   }
 
-  syncUnderlag(config, underlag) {
+  syncUnderlag(layer, underlag) {
     if (!underlag) return;
-    const wmsurl = new URL(config.wmsurl);
+    const wmsurl = new URL(layer.wmsurl);
+    let srs = "EPSG3857";
+    if (layer.projeksjon) {
+      srs = layer.projeksjon.replace(":", "");
+    }
     const search = wmsurl.searchParams;
     search.delete("request");
     search.delete("service");
     search.delete("version");
-    var layer = this.wms[underlag.wmslayer];
-    if (underlag.erSynlig) {
-      if (!layer) {
-        layer = L.tileLayer.wms(wmsurl.toString(), {
-          layers: underlag.wmslayer,
-          transparent: true,
-          crs: config.crs === "EPSG:3857" ? L.CRS.EPSG3857 : L.CRS.EPSG900913,
-          format: "image/png",
-          opacity: 0.95,
-        });
-        this.wms[underlag.wmslayer] = layer;
-        //console.log('layer', layer)
-        this.map.addLayer(layer);
-      }
-      layer.setOpacity(underlag.opacity);
+    // Vis alle?    if (!underlag.suggested) return
+    var tilelayer = this.wms[underlag.wmslayer];
+    if (!tilelayer) {
+      tilelayer = L.tileLayer.wms(wmsurl.toString(), {
+        layers: underlag.wmslayer,
+        transparent: true,
+        crs: L.CRS[srs],
+        format: "image/png",
+        opacity: 0.95
+      });
+      this.wms[underlag.wmslayer] = tilelayer;
+      this.map.addLayer(tilelayer);
     }
-  }
-
-  syncWmsLayers(config) {
-    if (!config || !config.underlag) return;
-    const keys = config.underlag.reduce((acc, e) => {
-      if (e.erSynlig) acc[e.wmslayer] = true;
-      return acc;
-    }, {});
-    Object.keys(this.wms).forEach((key) => {
-      if (!keys[key]) this.map.removeLayer(this.wms[key]);
-    });
-    for (var ul of config.underlag) this.syncUnderlag(config, ul);
+    //    tilelayer.setOpacity(1.0)//underlag.opacity);
   }
 
   makeWmsUrl(url) {
@@ -145,16 +135,27 @@ class Leaflet extends React.Component {
     url = url.replace(/service=WMS/gi, "");
     url = url.replace(/[&?]*$/gi, "");
     url = url.replace("{gkt}", this.props.token);
-    var srs = url.match(/srs=(?<srs>[^&]+)/i);
     url = url.replace(/srs=(?<srs>[^&]+)/i, "");
-    return { url, srs: srs && srs.groups.srs.replace(":", "") };
+    return url;
+  }
+
+  syncWmsLayers(config) {
+    if (!config || !config.underlag) return;
+    const keys = config.underlag.reduce((acc, e) => {
+      if (e.suggested) acc[e.wmslayer] = true;
+      return acc;
+    }, {});
+    Object.keys(this.wms).forEach(key => {
+      if (!keys[key]) this.map.removeLayer(this.wms[key]);
+    });
+    for (var ul of config.underlag) this.syncUnderlag(config, ul);
   }
 
   render() {
     return (
       <div
         style={{ zIndex: -100, cursor: "default" }}
-        ref={(ref) => {
+        ref={ref => {
           this.mapEl = ref;
         }}
       />
