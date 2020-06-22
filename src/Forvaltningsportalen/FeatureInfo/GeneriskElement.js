@@ -31,7 +31,7 @@ const GeneriskElement = props => {
             resultat.primary || "Ingen treff"
           )
         }
-        secondary={resultat.secondary}
+        secondary={resultat.secondary || kartlag.tittel}
       />
       {resultat.error && (
         <ListItemSecondaryAction>
