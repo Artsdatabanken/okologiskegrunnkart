@@ -43,27 +43,31 @@
 }
 
 /* Overskriftene i panelet */
-
 .container_header {
   background: #eee;
   border-top: 1px solid lightgrey;
   margin: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
   border-bottom: 1px solid grey;
   font-weight: 400;
-  padding-top: 10px;
-  padding-bottom: 10px;
   text-align: center;
+  padding: 10px 15px;
 }
 
 /* Overskrift på grupperte element*/
-h4.container_header {
+/* h4.container_header {
   margin-left: 25px;
   margin-right: 25px;
   text-align: left;
   border-bottom: 1px solid lightgrey;
   padding-bottom: 5px;
+} */
+
+/* Overskrift på grupperte element*/
+h4.container_header {
+  border-top: 1px solid #ccc;
+  text-align: left;
+  border-bottom: none;
+  padding-left: 20px;
 }
 
 /* Tittelboksen bruker Listitems fra Material-Ui, uten endringer */
@@ -324,6 +328,13 @@ h4.container_header {
   justify-content: center;
 } */
 
+#layer-list-item {
+  border-top: 1px solid #ccc;
+}
 .layer-list-element-icon {
-  padding: 10px 0 10px 5px;
+  padding: 8px 0 8px 5px;
+}
+#list-element-sublayer {
+  padding-top: 2px;
+  padding-bottom: 2px;
 }

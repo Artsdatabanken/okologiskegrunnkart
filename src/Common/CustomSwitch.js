@@ -10,14 +10,22 @@ const styles = {
   },
   switchBase: {
     padding: 14.5,
-    color: "#808080", // Gray
+    color: "#aaa", // Gray
     "&$checked": {
       transform: "translateX(18px)",
-      color: "rgba(34, 170, 34, 1)", // White
+      color: "rgba(34, 170, 34, 1)", // Green
+      "&$disabled": {
+        color: "rgb(189, 189, 189)", // Grey
+        "& + $track": {
+          opacity: 1,
+          backgroundColor: "rgba(0, 0, 0, 0.12)", // Grey
+          borderColor: "rgba(0, 0, 0, 0.01)" // Grey
+        }
+      },
       "& + $track": {
         opacity: 1,
-        backgroundColor: "rgba(34, 170, 34, 0.2)",
-        borderColor: "#000000"
+        backgroundColor: "rgba(34, 170, 34, 0.2)", // Green
+        borderColor: "#999"
       }
     }
   },
@@ -27,13 +35,14 @@ const styles = {
     boxShadow: "none"
   },
   track: {
-    border: `1px solid grey`,
+    border: `1px solid #ccc`,
     borderRadius: 20 / 2,
     height: 18,
     opacity: 1,
     backgroundColor: "#FFFFFF" // White
   },
-  checked: {}
+  checked: {},
+  disabled: {}
 };
 
 const CustomSwitch = withStyles(styles)(Switch);

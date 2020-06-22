@@ -1,15 +1,14 @@
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
-import { VisibilityOutlined, VisibilityOffOutlined } from "@material-ui/icons";
 import {
   Typography,
   Slider,
-  IconButton,
   ListItemIcon,
   Collapse,
   ListItem,
   ListItemText
 } from "@material-ui/core";
+import CustomSwitch from "../../Common/CustomSwitch";
 
 const ForvaltningsUnderElement = ({
   kartlag,
@@ -28,6 +27,7 @@ const ForvaltningsUnderElement = ({
     <>
       <ListItem
         // Elementet som inneholder tittel, visningsøye og droppned-knapp
+        id="list-element-sublayer"
         button
         onClick={() => {
           if (!valgt) {
@@ -36,9 +36,11 @@ const ForvaltningsUnderElement = ({
         }}
       >
         <ListItemIcon onClick={e => e.stopPropagation()}>
-          <IconButton
-            className="visibility_button"
-            onClick={e => {
+          <CustomSwitch
+            tabIndex="0"
+            id="visiblility-sublayer-toggle"
+            checked={erSynlig}
+            onChange={e => {
               onUpdateLayerProp(
                 kartlag_owner_key,
                 kode + "erSynlig",
@@ -46,13 +48,18 @@ const ForvaltningsUnderElement = ({
               );
               e.stopPropagation();
             }}
-          >
-            {erSynlig ? (
-              <VisibilityOutlined style={{ color: "#333" }} />
-            ) : (
-              <VisibilityOffOutlined style={{ color: "#aaa" }} />
-            )}
-          </IconButton>
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                onUpdateLayerProp(
+                  kartlag_owner_key,
+                  kode + "erSynlig",
+                  !kartlag.erSynlig
+                );
+                e.stopPropagation();
+              }
+            }}
+            disabled={false}
+          />
         </ListItemIcon>
         <ListItemText primary={tittel.nb || tittel} />
 

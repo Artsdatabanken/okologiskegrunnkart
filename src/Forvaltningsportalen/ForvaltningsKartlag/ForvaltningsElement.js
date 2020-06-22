@@ -30,6 +30,7 @@ const ForvaltningsElement = ({
     <>
       <ListItem
         // Elementet som inneholder tittel, visningsøye og droppned-knapp
+        id="layer-list-item"
         button
         onClick={() => {
           if (!valgt) {
