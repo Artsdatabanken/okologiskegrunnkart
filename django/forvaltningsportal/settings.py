@@ -147,8 +147,9 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_REPLACE_HTTPS_REFERER = True
 
 CORS_ORIGIN_WHITELIST = (
-    'https://forvaltningsportal.artsdatabanken.no'
-    'https://forvaltningsportal.test.artsdatabanken.no'
+    'https://forvaltningsportal.artsdatabanken.no',
+    'https://forvaltningsportal.test.artsdatabanken.no',
+    'https://forvaltningsportaladmin.artsdatabanken.no/static/index.html',
     'http://127.0.0.1:3000',
     'http://localhost:3000',
     'http://localhost:8000',
