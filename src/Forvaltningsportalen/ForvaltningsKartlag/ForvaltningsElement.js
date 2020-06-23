@@ -1,31 +1,27 @@
 import Geonorge from "./Geonorge";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
+import { OpenInNew, Link, Description, Layers } from "@material-ui/icons";
 import {
-  OpenInNew,
-  VisibilityOutlined,
-  Link,
-  Description,
-  Layers,
-  VisibilityOffOutlined
-} from "@material-ui/icons";
-import {
-  IconButton,
   ListItemIcon,
   Collapse,
   ListItem,
   ListItemText
 } from "@material-ui/core";
 import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
+import CustomIcon from "../../Common/CustomIcon";
+import DisabledTooltip from "../../Common/DisabledTooltip";
+import Badge from "@material-ui/core/Badge";
+import { zoomRangeLayer } from "../../Funksjoner/zoomRange";
 
 const ForvaltningsElement = ({
   kartlag,
   onUpdateLayerProp,
   kartlag_key,
-  valgt
+  valgt,
+  zoom
 }) => {
   let tittel = kartlag.tittel;
-  let kode = kartlag_key;
   const erSynlig = kartlag.erSynlig;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
@@ -33,36 +29,93 @@ const ForvaltningsElement = ({
   if (!tittel) return null;
   let tags = kartlag.tags || null;
 
+  const { disabled, description } = zoomRangeLayer(
+    zoom,
+    kartlag.underlag || {}
+  );
+
   return (
     <>
-      <ListItem
-        // Elementet som inneholder tittel, visningsøye og droppned-knapp
-        button
-        onClick={() => {
-          if (!valgt) {
-            setOpen(!open);
-          }
-        }}
-      >
-        <ListItemIcon onClick={e => e.stopPropagation()}>
-          <IconButton
-            className="visibility_button"
-            onClick={e => {
-              onUpdateLayerProp(kode, "erSynlig", !erSynlig);
-              e.stopPropagation();
+      {disabled ? (
+        <DisabledTooltip
+          id="tooltip-zoom-layer"
+          placement="left"
+          title={description}
+        >
+          <ListItem
+            // Elementet som inneholder tittel, visningsøye og droppned-knapp
+            id="layer-list-item"
+            button
+            onClick={() => {
+              if (!valgt) {
+                setOpen(!open);
+              }
             }}
           >
-            {erSynlig ? (
-              <VisibilityOutlined style={{ color: "#333" }} />
-            ) : (
-              <VisibilityOffOutlined style={{ color: "#aaa" }} />
-            )}
-          </IconButton>
-        </ListItemIcon>
-        <ListItemText primary={tittel.nb || tittel} />
-
-        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-      </ListItem>
+            <ListItemIcon>
+              <div className="layer-list-element-icon">
+                <Badge
+                  className="badge-disabled"
+                  badgeContent={kartlag.numberVisible || 0}
+                  color="primary"
+                >
+                  <CustomIcon
+                    id="kartlag"
+                    icon={kartlag.tema}
+                    size={30}
+                    color={"#ccc"}
+                  />
+                </Badge>
+              </div>
+            </ListItemIcon>
+            <ListItemText
+              className="layer-disabled"
+              primary={tittel.nb || tittel}
+            />
+            {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+          </ListItem>
+        </DisabledTooltip>
+      ) : (
+        <ListItem
+          // Elementet som inneholder tittel, visningsøye og droppned-knapp
+          id="layer-list-item"
+          button
+          onClick={() => {
+            if (!valgt) {
+              setOpen(!open);
+            }
+          }}
+        >
+          <ListItemIcon>
+            <div className="layer-list-element-icon">
+              <Badge
+                badgeContent={kartlag.numberVisible || 0}
+                color="secondary"
+              >
+                {erSynlig ? (
+                  <CustomIcon
+                    id="kartlag"
+                    icon={kartlag.tema}
+                    size={30}
+                    color={"#666"}
+                    tooltipText={kartlag.tema}
+                  />
+                ) : (
+                  <CustomIcon
+                    id="kartlag"
+                    icon={kartlag.tema}
+                    size={30}
+                    color={"#999"}
+                    tooltipText={kartlag.tema}
+                  />
+                )}
+              </Badge>
+            </div>
+          </ListItemIcon>
+          <ListItemText primary={tittel.nb || tittel} />
+          {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+        </ListItem>
+      )}
 
       <Collapse
         in={open}
@@ -83,6 +136,7 @@ const ForvaltningsElement = ({
                       kartlag_owner_key={kartlag_key}
                       kartlag_key={sublag}
                       onUpdateLayerProp={onUpdateLayerProp}
+                      zoom={zoom}
                     />
                   </div>
                 );

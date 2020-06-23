@@ -82,6 +82,10 @@ class Leaflet extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const currentZoom = this.map.getZoom();
+    if (this.props.zoom !== currentZoom) {
+      this.props.handleZoomChange(currentZoom);
+    }
     if (this.props.bounds !== prevProps.bounds) {
       const bounds = this.props.bounds;
       if (bounds) {

@@ -43,27 +43,31 @@
 }
 
 /* Overskriftene i panelet */
-
 .container_header {
   background: #eee;
   border-top: 1px solid lightgrey;
   margin: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
   border-bottom: 1px solid grey;
   font-weight: 400;
-  padding-top: 10px;
-  padding-bottom: 10px;
   text-align: center;
+  padding: 10px 15px;
 }
 
 /* Overskrift på grupperte element*/
-h4.container_header {
+/* h4.container_header {
   margin-left: 25px;
   margin-right: 25px;
   text-align: left;
   border-bottom: 1px solid lightgrey;
   padding-bottom: 5px;
+} */
+
+/* Overskrift på grupperte element*/
+h4.container_header {
+  border-top: 1px solid #ccc;
+  text-align: left;
+  border-bottom: none;
+  padding-left: 20px;
 }
 
 /* Tittelboksen bruker Listitems fra Material-Ui, uten endringer */
@@ -311,4 +315,36 @@ h4.container_header {
   .toggle-side-bar-button {
     transform: rotate(0deg);
   }
+}
+
+/* Layer icons */
+#layer-list-item {
+  border-top: 1px solid #ccc;
+}
+.layer-list-element-icon {
+  padding: 8px 0 8px 5px;
+}
+#list-element-sublayer {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.layer-disabled {
+  color: #aaa;
+}
+#tooltip-zoom-layer .MuiTooltip-tooltip {
+  left: 25px;
+}
+#layer-icon-tooltip .MuiTooltip-tooltip {
+  left: 5px;
+}
+.badge-disabled > .MuiBadge-colorPrimary {
+  background-color: #aaa !important;
+}
+
+/* Sublayer format */
+.sublayer-disabled {
+  color: #aaa;
+}
+#tooltip-zoom-sublayer .MuiTooltip-tooltip {
+  left: 40px;
 }
