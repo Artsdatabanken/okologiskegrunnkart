@@ -4,13 +4,16 @@ from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import UpdateAPIView
 
-from .models import Kartlag, Sublag
+from .models import Kartlag
 
 from .permissions import IsSuperuser
 
 import requests
 import xml.etree.ElementTree as ET
+
+from .serializers import KartlagSerializer
 
 # from xml.etree.ElementTree import fromstring, ElementTree
 
@@ -262,25 +265,21 @@ class KartlagAPIView(APIView):
 
         return Response(status=status.HTTP_200_OK)
 
-    # def post(self, request: Request, *args, **kwargs):
-    #     # Need to fix CSRF
-    #     layers = Kartlag.objects.all()
-    #     print(layers)
-
-    #     website = self.get_xml_data()
-    #     print(website)
-    #     print(website.text)
-
-    #     return Response(status=status.HTTP_200_OK)
-        
-    # def delete(self, request: Request, facility_id: str, template_id=None, *args, **kwargs):
-    #     if not template_id:
-    #         # Missing required data
-    #         return Response(status=status.HTTP_422_UNPROCESSABLE_ENTITY)
-
-    #     template = SafetyTemplate.objects.get(id=template_id)
-    #     template.delete()
-
-    #     return Response(status=status.HTTP_202_ACCEPTED)
-
 kartlag_api_view = KartlagAPIView.as_view()
+
+
+class KartlagUpdateAPIView(UpdateAPIView):
+    permission_classes = (IsSuperuser, )
+    serializer_class = KartlagSerializer
+    queryset = Kartlag.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+kartlag_update_api_view = KartlagUpdateAPIView.as_view()

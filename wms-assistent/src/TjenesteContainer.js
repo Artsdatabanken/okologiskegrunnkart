@@ -6,17 +6,19 @@ import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo, getCapabilities } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Tjeneste from "./Tjeneste";
-import useDjangoKartlag from "./useDjangoKartlag";
+// import useDjangoKartlag from "./useDjangoKartlag";
 import KartlagList from "./KartlagList";
 import KartlagListItem from "./KartlagListItem";
 import { plukkForetrukketFormat, selectCrs, computeLegendUrl } from "./wms";
 import url_formatter from "./FeatureInfo/url_formatter";
 
+import backend from "./Funksjoner/backend";
+
 const kartlagUrl =
   "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
-  const { writeUpdate } = useDjangoKartlag();
+  // const { writeUpdate } = useDjangoKartlag();
   const location = useLocation();
   const [feature, setFeature] = useState();
   const [doc, setDoc] = useState({});
@@ -36,7 +38,7 @@ export default function TjenesteContainer() {
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
       Object.values(doc.underlag).forEach(ul => (ul.queryable = true)); // HACK
-      console.log("underlag", doc.underlag);
+      // console.log("underlag", doc.underlag);
 
       setDoc(doc);
     };
@@ -45,6 +47,12 @@ export default function TjenesteContainer() {
 
   const testkoords = doc?.testkoordinater;
   const underlag = doc?.underlag;
+
+  const writeUpdate = () => {
+    backend.updateLayer(doc._id, doc).then(response => {
+      console.log(response);
+    });
+  };
 
   const updateCallback = useCallback(
     capabilities => {
@@ -66,16 +74,15 @@ export default function TjenesteContainer() {
           layer.dataeier ||
           service.ContactInformation?.ContactPersonPrimary?.ContactOrganization;
         layer.wmsversion = capabilities.version;
-        //                layer.legendurl = layer.legendurl || computeLegendUrl(layer)
+
         layer.crs = selectCrs(capability);
         if (!layer.wmsinfoformat)
           layer.wmsinfoformat = plukkForetrukketFormat(
             capability.Request.GetFeatureInfo.Format
           );
-        //layer.underlag = []; //layer.underlag || []
         layer.wmslayers = [];
         fyllPåUnderlag(capability.Layer, layer.wmslayers);
-        console.log("nyeunderlag", layer.underlag);
+        // console.log("nyeunderlag", layer.underlag);
       }
       setDoc(layer);
     },
@@ -94,8 +101,8 @@ export default function TjenesteContainer() {
 
   const handleUpdate = (k, v) => {
     const newDoc = { ...doc, [k]: v };
-    console.log("onUpdate", k, v);
-    console.log("newdoc", newDoc);
+    // console.log("onUpdate", k, v);
+    // console.log("newdoc", newDoc);
     setDoc(newDoc);
   };
 
@@ -113,7 +120,7 @@ export default function TjenesteContainer() {
         if (doc.klikkurl) {
           const variables = { lng: lat, lat: lng, zoom: 10 };
           doc.klikk_testurl = url_formatter(doc.klikkurl, variables);
-          console.log(doc.klikk_testurl);
+          // console.log(doc.klikk_testurl);
         } else {
           // WMS
           const uri = new URL(doc.wmsurl);
@@ -125,17 +132,16 @@ export default function TjenesteContainer() {
           uri.searchParams.set("y", 128);
           uri.searchParams.set("width", 255);
           uri.searchParams.set("height", 255);
-          console.log("underlag", doc.underlag);
+          // console.log("underlag", doc.underlag);
           const enabledLayers = doc.underlag
             .filter(lag => lag.queryable)
             .map(lag => lag.wmslayer);
-          console.log("querylayers", enabledLayers);
+          // console.log("querylayers", enabledLayers);
           uri.searchParams.set("layers", enabledLayers);
           uri.searchParams.set("query_layers", enabledLayers);
           uri.searchParams.set("info_format", doc.wmsinfoformat);
           uri.searchParams.set("crs", "EPSG:4326");
           uri.searchParams.set("srs", "EPSG:4326");
-          //            uri.searchParams.set('layers', enabledLayers.join(','))
           doc.klikk_testurl = uri.toString();
         }
         const r = await getFeatureInfo(doc.klikk_testurl);
