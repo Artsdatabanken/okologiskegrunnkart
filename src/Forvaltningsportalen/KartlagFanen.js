@@ -46,6 +46,7 @@ const KartlagFanen = props => {
                       kartlag={props.valgtLag}
                       key={props.valgtLag.id}
                       onUpdateLayerProp={props.onUpdateLayerProp}
+                      zoom={props.zoom}
                     />
                   </div>
                 </div>
@@ -77,6 +78,7 @@ const KartlagFanen = props => {
                       onFitBounds={props.handleFitBounds}
                       history={props.history}
                       onUpdateLayerProp={props.onUpdateLayerProp}
+                      zoom={props.zoom}
                     />
                   </div>
                 </div>

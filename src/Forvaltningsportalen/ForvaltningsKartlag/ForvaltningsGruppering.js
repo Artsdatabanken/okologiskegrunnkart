@@ -10,7 +10,8 @@ const ForvaltningsGruppering = ({
   show_current,
   hideHidden,
   searchTerm,
-  element
+  element,
+  zoom
 }) => {
   return (
     <>
@@ -40,6 +41,7 @@ const ForvaltningsGruppering = ({
             kartlag_key={element.id}
             kartlag={element}
             onUpdateLayerProp={onUpdateLayerProp}
+            zoom={zoom}
           />
         );
       })}

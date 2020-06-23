@@ -38,7 +38,8 @@ class App extends React.Component {
       sted: null,
       adresse: null,
       layersResult: {},
-      allLayersResult: {}
+      allLayersResult: {},
+      zoom: 3.1
     };
   }
 
@@ -106,7 +107,8 @@ class App extends React.Component {
                       bounds={this.state.fitBounds}
                       latitude={65.4}
                       longitude={15.8}
-                      zoom={3.1}
+                      zoom={this.state.zoom}
+                      handleZoomChange={this.handleZoomChange}
                       aktiveLag={this.state.kartlag}
                       bakgrunnskart={this.state.bakgrunnskart}
                       onMapBoundsChange={this.handleActualBoundsChange}
@@ -177,6 +179,7 @@ class App extends React.Component {
                       kartlag={this.state.kartlag}
                       showSideBar={this.state.showSideBar}
                       toggleSideBar={this.toggleSideBar}
+                      zoom={this.state.zoom}
                     />
                   </>
                 );
@@ -431,6 +434,23 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layer, key, value) => {
     let nye_lag = this.state.kartlag;
     setValue(nye_lag[layer], key, value);
+
+    let layerVisible = false;
+    let numberVisible = 0;
+    for (const sublayerId in nye_lag[layer].underlag) {
+      if (nye_lag[layer].underlag[sublayerId].erSynlig) {
+        layerVisible = true;
+        numberVisible += 1;
+      }
+    }
+    if (layerVisible) {
+      setValue(nye_lag[layer], "erSynlig", true);
+      setValue(nye_lag[layer], "numberVisible", numberVisible);
+    } else {
+      setValue(nye_lag[layer], "erSynlig", false);
+      setValue(nye_lag[layer], "numberVisible", numberVisible);
+    }
+
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
@@ -450,6 +470,10 @@ class App extends React.Component {
 
   handleInfobox = bool => {
     this.setState({ showInfobox: bool });
+  };
+
+  handleZoomChange = number => {
+    this.setState({ zoom: number });
   };
 
   static contextType = SettingsContext;
