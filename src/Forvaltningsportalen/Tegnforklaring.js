@@ -6,7 +6,9 @@ const Tegnforklaring = ({ layers }) => {
   const history = useHistory();
   return (
     <>
-      <ListSubheader>Tegnforklaring for aktiverte kartlag</ListSubheader>
+      <ListSubheader disableSticky>
+        Tegnforklaring for aktiverte kartlag
+      </ListSubheader>
       <div style={{ margin: 24 }}>
         {Object.keys(layers).map(id => {
           const layer = layers[id];
