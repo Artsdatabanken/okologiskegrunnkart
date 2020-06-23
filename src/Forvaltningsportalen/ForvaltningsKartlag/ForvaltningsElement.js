@@ -59,21 +59,12 @@ const ForvaltningsElement = ({
                   badgeContent={kartlag.numberVisible || 0}
                   color="primary"
                 >
-                  {erSynlig ? (
-                    <CustomIcon
-                      id="kartlag"
-                      icon={kartlag.tema}
-                      size={30}
-                      color={"#666"}
-                    />
-                  ) : (
-                    <CustomIcon
-                      id="kartlag"
-                      icon={kartlag.tema}
-                      size={30}
-                      color={"#ccc"}
-                    />
-                  )}
+                  <CustomIcon
+                    id="kartlag"
+                    icon={kartlag.tema}
+                    size={30}
+                    color={"#ccc"}
+                  />
                 </Badge>
               </div>
             </ListItemIcon>
@@ -114,7 +105,7 @@ const ForvaltningsElement = ({
                     id="kartlag"
                     icon={kartlag.tema}
                     size={30}
-                    color={"#A9A9A9"}
+                    color={"#999"}
                     tooltipText={kartlag.tema}
                   />
                 )}
