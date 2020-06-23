@@ -1,13 +1,17 @@
 import React from "react";
 import iconsJson from "./Icons.json";
-import TooltipLeft from "./TooltipLeft";
+import CustomTooltip from "./CustomTooltip";
 
 const CustomIcon = ({ icon, size, styling, color, id, tooltipText }) => {
   const pathString = iconsJson[icon];
   return (
     <>
       {tooltipText ? (
-        <TooltipLeft placement="left" title={tooltipText}>
+        <CustomTooltip
+          id="layer-icon-tooltip"
+          placement="left"
+          title={tooltipText}
+        >
           <div id={id || "id"} className="layer-icon-wrapper">
             <svg
               id="id"
@@ -21,7 +25,7 @@ const CustomIcon = ({ icon, size, styling, color, id, tooltipText }) => {
               <path id="id" style={styling} d={pathString || ""} />
             </svg>
           </div>
-        </TooltipLeft>
+        </CustomTooltip>
       ) : (
         <div id={id || "id"} className="layer-icon-wrapper">
           <svg

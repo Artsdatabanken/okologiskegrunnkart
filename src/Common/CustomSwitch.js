@@ -10,7 +10,7 @@ const styles = {
   },
   switchBase: {
     padding: 14.5,
-    color: "#aaa", // Gray
+    color: "#aaa", // Grey
     "&$checked": {
       transform: "translateX(18px)",
       color: "rgba(34, 170, 34, 1)", // Green

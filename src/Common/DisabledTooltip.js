@@ -3,13 +3,13 @@ import { Tooltip } from "@material-ui/core";
 
 const styles = {
   tooltip: {
-    backgroundColor: "#000000",
+    backgroundColor: "grey",
     fontSize: "12px",
     position: "relative",
-    left: "5px"
+    left: "-5px"
   }
 };
 
-const TooltipLeft = withStyles(styles)(Tooltip);
+const DisabledTooltip = withStyles(styles)(Tooltip);
 
-export default TooltipLeft;
+export default DisabledTooltip;

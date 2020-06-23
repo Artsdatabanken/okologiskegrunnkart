@@ -9,7 +9,8 @@ import {
   ListItemText
 } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
-import { withinZoomRange } from "../../Funksjoner/withinZoomRange";
+import { zoomRangeSublayer } from "../../Funksjoner/zoomRange";
+import DisabledTooltip from "../../Common/DisabledTooltip";
 
 const ForvaltningsUnderElement = ({
   kartlag,
@@ -27,7 +28,7 @@ const ForvaltningsUnderElement = ({
   const [open, setOpen] = useState(startstate);
   let kode = "underlag." + kartlag_key + ".";
 
-  const disabledToggle = !withinZoomRange(
+  const { disabled, description } = zoomRangeSublayer(
     zoom,
     minScaleDenominator,
     maxScaleDenominator
@@ -36,46 +37,78 @@ const ForvaltningsUnderElement = ({
   if (!tittel) return null;
   return (
     <>
-      <ListItem
-        // Elementet som inneholder tittel, visningsøye og droppned-knapp
-        id="list-element-sublayer"
-        button
-        onClick={() => {
-          if (!valgt) {
-            setOpen(!open);
-          }
-        }}
-      >
-        <ListItemIcon onClick={e => e.stopPropagation()}>
-          <CustomSwitch
-            tabIndex="0"
-            id="visiblility-sublayer-toggle"
-            checked={erSynlig}
-            onChange={e => {
-              onUpdateLayerProp(
-                kartlag_owner_key,
-                kode + "erSynlig",
-                !kartlag.erSynlig
-              );
-              e.stopPropagation();
+      {disabled ? (
+        <DisabledTooltip
+          id="tooltip-zoom-sublayer"
+          placement="left"
+          title={description}
+        >
+          <ListItem
+            // Elementet som inneholder tittel, visningsøye og droppned-knapp
+            id="list-element-sublayer"
+            button
+            onClick={() => {
+              if (!valgt) {
+                setOpen(!open);
+              }
             }}
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
+          >
+            <ListItemIcon onClick={e => e.stopPropagation()}>
+              <CustomSwitch
+                tabIndex="0"
+                id="visiblility-sublayer-toggle"
+                checked={erSynlig}
+                disabled={true}
+              />
+            </ListItemIcon>
+            <ListItemText
+              className="sublayer-disabled"
+              primary={tittel.nb || tittel}
+            />
+            {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+          </ListItem>
+        </DisabledTooltip>
+      ) : (
+        <ListItem
+          // Elementet som inneholder tittel, visningsøye og droppned-knapp
+          id="list-element-sublayer"
+          button
+          onClick={() => {
+            if (!valgt) {
+              setOpen(!open);
+            }
+          }}
+        >
+          <ListItemIcon onClick={e => e.stopPropagation()}>
+            <CustomSwitch
+              tabIndex="0"
+              id="visiblility-sublayer-toggle"
+              checked={erSynlig}
+              onChange={e => {
                 onUpdateLayerProp(
                   kartlag_owner_key,
                   kode + "erSynlig",
                   !kartlag.erSynlig
                 );
                 e.stopPropagation();
-              }
-            }}
-            disabled={disabledToggle}
-          />
-        </ListItemIcon>
-        <ListItemText primary={tittel.nb || tittel} />
-
-        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-      </ListItem>
+              }}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  onUpdateLayerProp(
+                    kartlag_owner_key,
+                    kode + "erSynlig",
+                    !kartlag.erSynlig
+                  );
+                  e.stopPropagation();
+                }
+              }}
+              disabled={false}
+            />
+          </ListItemIcon>
+          <ListItemText className="" primary={tittel.nb || tittel} />
+          {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+        </ListItem>
+      )}
 
       <Collapse
         className="underlag_collapse"

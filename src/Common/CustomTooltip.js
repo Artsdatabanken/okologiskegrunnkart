@@ -10,6 +10,6 @@ const styles = {
   }
 };
 
-const TooltipRight = withStyles(styles)(Tooltip);
+const CustomTooltip = withStyles(styles)(Tooltip);
 
-export default TooltipRight;
+export default CustomTooltip;

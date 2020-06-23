@@ -318,16 +318,6 @@ h4.container_header {
 }
 
 /* Layer icons */
-/* .layer-icon-wrapper {
-  background-color: grey;
-  border-radius: 17px;
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */
-
 #layer-list-item {
   border-top: 1px solid #ccc;
 }
@@ -337,4 +327,24 @@ h4.container_header {
 #list-element-sublayer {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+.layer-disabled {
+  color: #aaa;
+}
+#tooltip-zoom-layer .MuiTooltip-tooltip {
+  left: 25px;
+}
+#layer-icon-tooltip .MuiTooltip-tooltip {
+  left: 5px;
+}
+.badge-disabled > .MuiBadge-colorPrimary {
+  background-color: #aaa !important;
+}
+
+/* Sublayer format */
+.sublayer-disabled {
+  color: #aaa;
+}
+#tooltip-zoom-sublayer .MuiTooltip-tooltip {
+  left: 40px;
 }
