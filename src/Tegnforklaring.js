@@ -1,43 +1,19 @@
 import React from "react";
-import {
-  IconButton,
-  Grid,
-  Paper,
-  Typography,
-  ListSubheader
-} from "@material-ui/core";
-import { useLocation, useHistory } from "react-router-dom";
-import CloseIcon from "@material-ui/icons/Close";
+import { Grid, Typography, ListSubheader } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 import MapLegend from "./MapLegend";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
 
 const Tegnforklaring = ({ layers }) => {
   const history = useHistory();
-  const query = useQuery();
-
   return (
     <div
       style={{
-        overflowX: "hidden",
-        overflowY: "auto",
-        padding: 24
+        padding: 24,
+        backgroundColor: "#fff",
+        height: "100%",
+        overflowY: "auto"
       }}
     >
-      <IconButton
-        onClick={() => {
-          const loc = history.location;
-          const search = new URLSearchParams(loc.search);
-          search.delete("tegnforklaring");
-          loc.search = search.toString();
-          history.push(loc);
-        }}
-        style={{ zIndex: 100, position: "fixed", left: 352, top: 8 }}
-      >
-        <CloseIcon></CloseIcon>
-      </IconButton>
       <div style={{ display: "flex" }}>
         <MapLegend
           style={{
@@ -48,36 +24,39 @@ const Tegnforklaring = ({ layers }) => {
           Tegnforklaring
         </Typography>
       </div>
-      {Object.values(layers).map(layer => {
-        const items = Object.values(layer.underlag || {})
-          .filter(ul => ul.erSynlig)
-          .map(ul => (
-            <LegendItem
-              key={layer.tittel + "_" + ul.tittel}
-              layer={layer}
-              sublayer={ul}
-            />
-          ));
-        if (items.length <= 0) return null;
-        return (
-          <div
-            key={layer.tittel}
-            style={{ marginBottom: 16, cursor: "pointer" }}
-            onClick={() => {
-              const loc = history.location;
-              const search = new URLSearchParams(loc.search);
-              search.set("kartlag", layer.id);
-              loc.search = search.toString();
-              history.push(loc);
-            }}
-          >
-            <ListSubheader disableGutters>{layer.tittel}</ListSubheader>
-            <Grid container direction="row" spacing={4}>
-              {items}
-            </Grid>
-          </div>
-        );
-      })}
+      <div style={{ margin: 24 }}>
+        {Object.keys(layers).map(id => {
+          const layer = layers[id];
+          const items = Object.values(layer.underlag || {})
+            //    .filter(ul => ul.erSynlig)
+            .map(ul => (
+              <LegendItem
+                key={layer.tittel + "_" + ul.tittel}
+                layer={layer}
+                sublayer={ul}
+              />
+            ));
+          if (items.length <= 0) return null;
+          return (
+            <div
+              key={layer.tittel}
+              style={{ marginBottom: 16, cursor: "pointer" }}
+              onClick={() => {
+                const loc = history.location;
+                loc.pathname = "/kartlag/" + layer.tittel;
+                history.push(loc);
+              }}
+            >
+              <ListSubheader disableSticky disableGutters>
+                {layer.tittel}
+              </ListSubheader>
+              <Grid container direction="row" spacing={4}>
+                {items}
+              </Grid>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

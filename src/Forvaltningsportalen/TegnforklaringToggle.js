@@ -19,19 +19,20 @@ const TegnforklaringToggle = () => {
       button
       onClick={() => {
         const loc = history.location;
-        loc.pathname = "tegnforklaring";
+        loc.pathname = "/tegnforklaring";
         history.push(loc);
       }}
     >
-      <ListItemAvatar>
-        <Switch checked={visible}></Switch>
-        {false &&
+      <Switch checked={visible}></Switch>
+      {false && (
+        <ListItemAvatar>
           (visible ? (
-            <Visibility style={{ color: "#555" }} />
+          <Visibility style={{ color: "#555" }} />
           ) : (
-            <VisibilityOff style={{ color: "#ccc" }} />
-          ))}
-      </ListItemAvatar>
+          <VisibilityOff style={{ color: "#ccc" }} />
+          )){" "}
+        </ListItemAvatar>
+      )}
       <ListItemText primary="Tegnforklaring" secondary="" />
     </ListItem>
   );
