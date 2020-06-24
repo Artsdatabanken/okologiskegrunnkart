@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import UpdateAPIView
 
-from .models import Kartlag
+from .models import Kartlag, Sublag
 
 from .permissions import IsSuperuser
 
