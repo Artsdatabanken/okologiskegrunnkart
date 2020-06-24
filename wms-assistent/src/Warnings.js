@@ -1,7 +1,6 @@
 import React from "react";
-import { Chip, ListSubheader, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import DoneIcon from "@material-ui/icons/Done";
 import CheckIcon from "@material-ui/icons/Check";
 import { selectCrs } from "./wms";
 
