@@ -1,5 +1,6 @@
 import React from "react";
-import { Grid, Typography, ListSubheader } from "@material-ui/core";
+import { Grid, Typography, IconButton, ListSubheader } from "@material-ui/core";
+import { Close } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import MapLegend from "./MapLegend";
 
@@ -14,6 +15,22 @@ const Tegnforklaring = ({ layers }) => {
         overflowY: "auto"
       }}
     >
+      <IconButton
+        onClick={() => {
+          const loc = history.location;
+          loc.pathname = "/";
+          history.push(loc);
+        }}
+        style={{
+          zIndex: 100,
+          position: "relative",
+          float: "right",
+          right: -16,
+          top: -16
+        }}
+      >
+        <Close></Close>
+      </IconButton>
       <div style={{ display: "flex" }}>
         <MapLegend
           style={{
