@@ -33,6 +33,11 @@ const ForvaltningsElement = ({
     zoom,
     kartlag.underlag || {}
   );
+  // if (kartlag.tittel === "Livsmiljøer") {
+  //   console.log('Layer')
+  //   console.log(kartlag.underlag)
+  //   console.log(zoom)
+  // }
 
   return (
     <>
