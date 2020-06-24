@@ -63,7 +63,7 @@ const GeneriskElement = props => {
           <div className="generic-element-secondary-text">
             {resultat.loading ? (
               <LoadingPlaceholder />
-            ) : primaryText.harData ? (
+            ) : primaryText.harData && primaryText.elementer[0] ? (
               primaryText.elementer
             ) : (
               "Ingen treff"
