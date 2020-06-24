@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { useLocation, useHistory } from "react-router-dom";
 import CloseIcon from "@material-ui/icons/Close";
+import MapLegend from "./MapLegend";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -16,17 +17,10 @@ function useQuery() {
 const Tegnforklaring = ({ layers }) => {
   const history = useHistory();
   const query = useQuery();
-  if (query.get("tegnforklaring") == null) return null;
 
   return (
-    <Paper
-      elevation={3}
+    <div
       style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        width: 408,
         overflowX: "hidden",
         overflowY: "auto",
         padding: 24
@@ -44,7 +38,16 @@ const Tegnforklaring = ({ layers }) => {
       >
         <CloseIcon></CloseIcon>
       </IconButton>
-      <Typography variant="h5">Tegnforklaring</Typography>
+      <div style={{ display: "flex" }}>
+        <MapLegend
+          style={{
+            fill: "rgba(0,0,0,0.54)"
+          }}
+        />
+        <Typography style={{ marginLeft: 8 }} variant="body1">
+          Tegnforklaring
+        </Typography>
+      </div>
       {Object.values(layers).map(layer => {
         const items = Object.values(layer.underlag || {})
           .filter(ul => ul.erSynlig)
@@ -75,7 +78,7 @@ const Tegnforklaring = ({ layers }) => {
           </div>
         );
       })}
-    </Paper>
+    </div>
   );
 };
 

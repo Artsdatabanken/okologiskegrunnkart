@@ -19,10 +19,7 @@ const TegnforklaringToggle = () => {
       button
       onClick={() => {
         const loc = history.location;
-        const search = new URLSearchParams(history.location.search);
-        if (visible) search.delete("tegnforklaring");
-        else search.set("tegnforklaring", "");
-        loc.search = search.toString();
+        loc.pathname = "tegnforklaring";
         history.push(loc);
       }}
     >

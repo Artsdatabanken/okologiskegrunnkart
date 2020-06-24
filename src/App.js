@@ -12,7 +12,6 @@ import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
-import Tegnforklaring from "./Tegnforklaring";
 
 class App extends React.Component {
   constructor(props) {
@@ -142,9 +141,6 @@ class App extends React.Component {
                         lng: this.state.lng
                       }}
                     /> */}
-                    <Tegnforklaring
-                      layers={this.state.kartlag}
-                    ></Tegnforklaring>
                     <SearchBar
                       onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
