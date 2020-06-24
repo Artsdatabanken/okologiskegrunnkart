@@ -1,28 +1,29 @@
 import React from "react";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Snackbar } from "@material-ui/core";
 import { useCallback, useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo, getCapabilities } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Tjeneste from "./Tjeneste";
-// import useDjangoKartlag from "./useDjangoKartlag";
 import KartlagList from "./KartlagList";
 import KartlagListItem from "./KartlagListItem";
-import { plukkForetrukketFormat, selectCrs, computeLegendUrl } from "./wms";
+import { plukkForetrukketFormat, selectCrs } from "./wms";
 import url_formatter from "./FeatureInfo/url_formatter";
-
 import backend from "./Funksjoner/backend";
+import { Alert } from "@material-ui/lab";
 
 const kartlagUrl =
   "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
-  // const { writeUpdate } = useDjangoKartlag();
   const location = useLocation();
   const [feature, setFeature] = useState();
   const [doc, setDoc] = useState({});
   const [kartlag, setKartlag] = useState();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [showForbidden, setShowForbidden] = useState(false);
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || 1;
@@ -39,7 +40,6 @@ export default function TjenesteContainer() {
       doc.underlag = Object.values(doc.underlag || {});
       Object.values(doc.underlag).forEach(ul => (ul.queryable = true)); // HACK
       // console.log("underlag", doc.underlag);
-
       setDoc(doc);
     };
     dl();
@@ -49,9 +49,42 @@ export default function TjenesteContainer() {
   const underlag = doc?.underlag;
 
   const writeUpdate = () => {
-    backend.updateLayer(doc._id, doc).then(response => {
-      console.log(response);
+    backend.updateLayer(doc._id, doc).then(({ response, layer }) => {
+      if (response.ok) {
+        setShowSuccess(true);
+        const newLayer = {
+          ...kartlag[id],
+          klikktekst: layer.klikktekst || "",
+          klikktekst2: layer.klikktekst2 || "",
+          testkoordinater: layer.testkoordinater || "",
+          faktaark: layer.faktaark || ""
+        };
+        const newKartlag = { ...kartlag, [id]: newLayer };
+        setKartlag(newKartlag);
+      } else if (response.status === 403) {
+        setShowForbidden(true);
+      } else {
+        setShowError(true);
+      }
     });
+  };
+
+  const closeSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowSuccess(false);
+  };
+
+  const closeError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowError(false);
+  };
+
+  const closeForbidden = (event, reason) => {
+    setShowForbidden(false);
   };
 
   const updateCallback = useCallback(
@@ -222,6 +255,25 @@ export default function TjenesteContainer() {
           ></FeaturePicker>
         )}
       </div>
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={3000}
+        onClose={closeSuccess}
+      >
+        <Alert severity="success">Data lagret i databasen</Alert>
+      </Snackbar>
+      <Snackbar open={showError} autoHideDuration={3000} onClose={closeError}>
+        <Alert severity="error">Kunne ikke lagre data i databasen</Alert>
+      </Snackbar>
+      <Snackbar
+        open={showForbidden}
+        autoHideDuration={10000}
+        onClose={closeForbidden}
+      >
+        <Alert severity="error">
+          Ikke tillatt. Logg inn i django admin, prøv så igjen...
+        </Alert>
+      </Snackbar>
     </>
   );
 }

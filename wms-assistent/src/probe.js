@@ -61,7 +61,7 @@ export async function getFeatureInfo(url) {
   } catch (e) {
     return { status: 900, statusText: e.message };
   }
-  if ((uri.searchParams.get("service") || "").toUpperCase() == "WMS")
+  if ((uri.searchParams.get("service") || "").toUpperCase() === "WMS")
     return await probe_wms(uri);
   const r = await probe(uri);
   console.log("xxxxr", r);
