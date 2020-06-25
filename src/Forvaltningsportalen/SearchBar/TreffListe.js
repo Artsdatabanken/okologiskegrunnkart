@@ -32,7 +32,8 @@ const TreffListe = props => {
     max_list_length = 20;
   }
 
-  list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
+  list_items = addToList(props.treffliste_lag, "Kartlag", null);
+  list_items = addToList(props.treffliste_underlag, "Underlag", null);
   list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
   list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
 
@@ -155,7 +156,7 @@ const TreffListe = props => {
               props.handleRemoveTreffliste();
               props.removeValgtLag();
               document.getElementById("searchfield").value = "";
-              if (trefftype === "Kartlag") {
+              if (trefftype === "Kartlag" || trefftype === "Underlag") {
                 props.addValgtLag(item);
               } else {
                 props.handleGeoSelection(item);

@@ -6,7 +6,7 @@ import { Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 class SearchBar extends React.Component {
   state = {
-    treffliste_lokalt: null,
+    treffliste_lag: null,
     treffliste_sted: null,
     fylker: null,
     kommuner: null,
@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
   handleRemoveTreffliste = () => {
     this.setState({
       treffliste_sted: null,
-      treffliste_lokalt: null,
+      treffliste_lag: null,
       isSearching: false,
       treffliste_knrgnrbnr: null,
       treffliste_knr: null,
@@ -33,29 +33,83 @@ class SearchBar extends React.Component {
     });
   };
 
-  searchInLayers = (criteria, counter, searchTerm) => {
-    let treffliste = [];
+  // searchInLayer = (criteria, counter, searchTerm) => {
+  //   let treffliste = [];
+  //   const countermax = this.state.countermax;
+  //   const lag = this.props.kartlag;
+  //   for (let i in lag) {
+  //     if (counter >= countermax) {
+  //       break;
+  //     } else {
+  //       if (lag[i][criteria]) {
+  //         let lagstring = lag[i][criteria];
+  //         if (criteria === "tags") {
+  //           lagstring = JSON.stringify(lag[i][criteria]);
+  //         }
+  //         lagstring = lagstring.toLowerCase();
+  //         if (lagstring.indexOf(searchTerm) !== -1) {
+  //           let element = lag[i];
+  //           treffliste.push(element);
+  //           counter += 1;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   return { treffliste, counter };
+  // };
+
+  searchInLayer = (criteria, searchTerm, layer) => {
+    if (layer[criteria]) {
+      let lagstring = layer[criteria];
+      if (criteria === "tags") {
+        lagstring = JSON.stringify(layer[criteria]);
+      }
+      lagstring = lagstring.toLowerCase();
+      if (lagstring.indexOf(searchTerm) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  searchForKey = (criteria, counter, searchTerm) => {
+    const treffliste_lag = [];
+    const treffliste_underlag = [];
     const countermax = this.state.countermax;
-    const lag = this.props.kartlag;
-    for (let i in lag) {
+    const layers = this.props.kartlag;
+    // Search in layers
+    for (let i in layers) {
       if (counter >= countermax) {
         break;
       } else {
-        if (lag[i][criteria]) {
-          let lagstring = lag[i][criteria];
-          if (criteria === "tags") {
-            lagstring = JSON.stringify(lag[i][criteria]);
-          }
-          lagstring = lagstring.toLowerCase();
-          if (lagstring.indexOf(searchTerm) !== -1) {
-            let element = lag[i];
-            treffliste.push(element);
-            counter += 1;
+        const layer = layers[i];
+        const found = this.searchInLayer(criteria, searchTerm, layer);
+        if (found) {
+          treffliste_lag.push(layer);
+          counter += 1;
+        }
+        // Search in sublayers
+        const sublayers = layer.underlag;
+        if (!sublayers) continue;
+        for (let j in sublayers) {
+          if (counter >= countermax) {
+            break;
+          } else {
+            const found = this.searchInLayer(
+              criteria,
+              searchTerm,
+              sublayers[j]
+            );
+            if (found) {
+              const sublayer = { ...sublayers[j], id: j, parentId: i };
+              treffliste_underlag.push(sublayer);
+              counter += 1;
+            }
           }
         }
       }
     }
-    return { treffliste, counter };
+    return { treffliste_lag, treffliste_underlag, counter };
   };
 
   handleSearchButton = () => {
@@ -87,29 +141,44 @@ class SearchBar extends React.Component {
     }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
-    let treffliste_lokalt = [];
+    let treffliste_lag = [];
     let treffliste_underlag = [];
 
     if (searchTerm && searchTerm.length > 0) {
-      let title_search = this.searchInLayers("tittel", counter, searchTerm);
-      treffliste_lokalt = title_search.treffliste;
+      // Search in title
+      let title_search = this.searchForKey("tittel", counter, searchTerm);
+      treffliste_lag = title_search.treffliste_lag;
+      treffliste_underlag = title_search.treffliste_underlag;
       counter = title_search.counter;
-      let owner_search = this.searchInLayers("dataeier", counter, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(owner_search.treffliste);
+      // Search in data owner
+      let owner_search = this.searchForKey("dataeier", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(owner_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        owner_search.treffliste_underlag
+      );
       counter += owner_search.counter;
-      let theme_search = this.searchInLayers("tema", counter, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(theme_search.treffliste);
+      // Search in tema
+      let theme_search = this.searchForKey("tema", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(theme_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        theme_search.treffliste_underlag
+      );
       counter += theme_search.counter;
-      let tags_search = this.searchInLayers("tags", counter, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(tags_search.treffliste);
+      // Search in tags
+      let tags_search = this.searchForKey("tags", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(tags_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        tags_search.treffliste_underlag
+      );
       counter += tags_search.counter;
     }
 
     if (resultpage) {
-      this.props.setKartlagSearchResults(treffliste_lokalt);
+      this.props.setKartlagSearchResults(treffliste_lag);
     } else {
       this.setState({
-        treffliste_lokalt: treffliste_lokalt
+        treffliste_lag,
+        treffliste_underlag
       });
     }
 
@@ -381,7 +450,8 @@ class SearchBar extends React.Component {
               handleSearchBar={this.handleSearchBar}
               onSearchButton={this.handleSearchButton}
               treffliste={this.state.treffliste}
-              treffliste_lokalt={this.state.treffliste_lokalt}
+              treffliste_lag={this.state.treffliste_lag}
+              treffliste_underlag={this.state.treffliste_underlag}
               treffliste_sted={this.state.treffliste_sted}
               treffliste_knr={this.state.treffliste_knr}
               treffliste_gnr={this.state.treffliste_gnr}
