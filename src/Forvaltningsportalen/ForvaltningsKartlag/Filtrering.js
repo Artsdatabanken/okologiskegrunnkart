@@ -47,11 +47,9 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
             }}
             selected={tagFilter[tag]}
           >
-            {tagFilter[tag] && (
-              <ListItemIcon>
-                <DoneIcon fontSize="small" />
-              </ListItemIcon>
-            )}
+            <ListItemIcon>
+              {tagFilter[tag] ? <DoneIcon fontSize="small" /> : <div />}
+            </ListItemIcon>
             <ListItemText primary={tag} />
           </MenuItem>
         ))}
