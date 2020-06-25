@@ -1,8 +1,11 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
+import TegnforklaringLink from "../Tegnforklaring/TegnforklaringLink";
+import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
@@ -24,11 +27,14 @@ const KartlagFanen = props => {
       </div>
       {props.showSideBar && (
         <div className="kartlag_fanen">
-          {props.searchResultPage ? (
-            <></>
-          ) : (
-            <>
-              {props.valgtLag ? (
+          <Switch>
+            <Route path="/tegnforklaring" exact={false} strict={false}>
+              <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
+            </Route>
+            <Route path="/">
+              {props.searchResultPage ? (
+                <></>
+              ) : props.valgtLag ? (
                 <div className="valgtLag">
                   <button
                     className="listheadingbutton"
@@ -80,8 +86,8 @@ const KartlagFanen = props => {
                   </div>
                 </div>
               )}
-            </>
-          )}
+            </Route>
+          </Switch>
         </div>
       )}
     </>
