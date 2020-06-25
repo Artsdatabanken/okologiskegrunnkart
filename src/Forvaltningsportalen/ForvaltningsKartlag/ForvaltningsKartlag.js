@@ -120,6 +120,7 @@ class ForvaltningsKartlag extends React.Component {
           </div>
         </Paper>
         <List>
+          <TegnforklaringLink />
           {Object.keys(sorted)
             .reverse()
             .map(element => {
@@ -137,7 +138,6 @@ class ForvaltningsKartlag extends React.Component {
                 />
               );
             })}
-          <TegnforklaringLink />
         </List>
       </>
     );
