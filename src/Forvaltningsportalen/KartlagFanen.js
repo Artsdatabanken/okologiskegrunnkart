@@ -4,7 +4,6 @@ import { Route, Switch } from "react-router-dom";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
-import TegnforklaringLink from "../Tegnforklaring/TegnforklaringLink";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 
 import { KeyboardBackspace } from "@material-ui/icons";

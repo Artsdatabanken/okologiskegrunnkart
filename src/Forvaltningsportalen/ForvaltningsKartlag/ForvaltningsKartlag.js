@@ -4,6 +4,7 @@ import { Done as DoneIcon } from "@material-ui/icons";
 import { Paper, Chip, Typography, List } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
+import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
@@ -63,7 +64,7 @@ class ForvaltningsKartlag extends React.Component {
       .filter(tag => this.state.tagFilter[tag])
       .map(tag => (
         <Chip
-          style={{ marginLeft: 4, marginRight: 4 }}
+          style={{ marginLeft: 4, marginRight: 4, marginBottom: 4 }}
           key={tag}
           label={tag}
           clickable
@@ -76,24 +77,23 @@ class ForvaltningsKartlag extends React.Component {
 
     return (
       <>
-        <Filtrering
-          taglist={taglist}
-          tagFilter={this.state.tagFilter}
-          onFilterTag={this.handleFilterTag}
-        />
-        <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
-
         <Paper
           square
-          elevation={2}
+          elevation={1}
           style={{
-            backgroundColor: "#eee",
+            _backgroundColor: "#eee",
             paddingLeft: 16,
-            paddingTop: 8,
+            paddingTop: 0,
             paddingBottom: 12,
-            _boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 7px"
+            paddingRight: 4
           }}
         >
+          <Filtrering
+            taglist={taglist}
+            tagFilter={this.state.tagFilter}
+            onFilterTag={this.handleFilterTag}
+          />
+          <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
           <Typography variant="h6">Kartlag</Typography>
           <div>
             <Typography variant="body2">
@@ -137,6 +137,7 @@ class ForvaltningsKartlag extends React.Component {
                 />
               );
             })}
+          <TegnforklaringLink />
         </List>
       </>
     );

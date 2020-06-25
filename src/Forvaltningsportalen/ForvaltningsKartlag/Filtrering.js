@@ -28,7 +28,7 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
         onClick={handleClick}
         style={{ float: "right" }}
       >
-        <FilterIcon color="#888" />
+        <FilterIcon />
       </IconButton>
       <Menu
         id="filter-menu"
