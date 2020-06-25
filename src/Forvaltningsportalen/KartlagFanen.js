@@ -52,12 +52,9 @@ const KartlagFanen = props => {
                 </div>
               ) : (
                 <div>
-                  {props.polyline.length > 0 || props.polygon ? (
+                  {props.polyline.length > 0 && props.polygon && (
                     <h3 className="container_header">Polygon</h3>
-                  ) : (
-                    <h3 className="container_header">Kartlag</h3>
                   )}
-
                   <div className="scroll_area">
                     {(props.polyline.length > 0 || props.polygon) && (
                       <PolygonElement

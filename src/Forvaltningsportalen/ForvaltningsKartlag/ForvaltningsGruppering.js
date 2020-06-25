@@ -31,7 +31,7 @@ const ForvaltningsGruppering = ({
 
   if (kartlag.length <= 0) return null;
   return (
-    <>
+    <div style={{ marginBottom: 16 }}>
       <ListSubheader disableSticky>{element}</ListSubheader>
 
       {kartlag.map(element => {
@@ -47,7 +47,7 @@ const ForvaltningsGruppering = ({
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

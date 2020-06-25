@@ -1,7 +1,7 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { Done as DoneIcon } from "@material-ui/icons";
-import { ListSubheader, Chip, Typography, List } from "@material-ui/core";
+import { Paper, Chip, Typography, List } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 
@@ -23,6 +23,12 @@ class ForvaltningsKartlag extends React.Component {
 
   handleChangeSort = sortKey => {
     this.setState({ sortKey });
+  };
+
+  sortKeyToDescription = {
+    alfabetisk: "Alfabetisk",
+    tema: "Gruppert på tema",
+    dataeier: "Gruppert på dataeier"
   };
 
   render() {
@@ -57,12 +63,11 @@ class ForvaltningsKartlag extends React.Component {
       .filter(tag => this.state.tagFilter[tag])
       .map(tag => (
         <Chip
-          style={{ marginRight: 8, marginBottom: 8 }}
+          style={{ marginLeft: 4, marginRight: 4 }}
           key={tag}
           label={tag}
           clickable
           color="secondary"
-          _color={this.state.tagFilter[tag] ? "primary" : "default"}
           onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
           onDelete={() => this.handleFilterTag(tag, false)}
           deleteIcon={this.state.tagFilter[tag] ? null : <DoneIcon />}
@@ -71,44 +76,50 @@ class ForvaltningsKartlag extends React.Component {
 
     return (
       <>
-        <List>
-          <Filtrering
-            taglist={taglist}
-            tagFilter={this.state.tagFilter}
-            onFilterTag={this.handleFilterTag}
-          />
-          <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
+        <Filtrering
+          taglist={taglist}
+          tagFilter={this.state.tagFilter}
+          onFilterTag={this.handleFilterTag}
+        />
+        <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
 
-          <ListSubheader disableSticky>
-            Kartlag sortert{" "}
-            {sortKey === "alfabetisk" ? "alfabetisk" : "etter " + sortKey}
-            {tags.length > 0 && <span> med tema</span>}
-          </ListSubheader>
-
-          <div style={{ marginLeft: 24, marginRight: 24 }}>
-            {tags.length > 0 && (
-              <Typography variant="body2">
-                {tags.reduce((accu, elem) => {
-                  return accu === null
-                    ? [elem]
-                    : [
-                        ...accu,
-                        <div
-                          style={{
-                            display: "inline",
-                            verticalAlign: "text-bottom",
-                            marginRight: 8
-                          }}
-                        >
-                          og
-                        </div>,
-                        elem
-                      ];
-                }, null)}
-              </Typography>
-            )}
+        <Paper
+          square
+          elevation={2}
+          style={{
+            backgroundColor: "#eee",
+            paddingLeft: 16,
+            paddingTop: 8,
+            paddingBottom: 12,
+            _boxShadow: "rgba(0, 0, 0, 0.3) 0px 0px 7px"
+          }}
+        >
+          <Typography variant="h6">Kartlag</Typography>
+          <div>
+            <Typography variant="body2">
+              {this.sortKeyToDescription[sortKey]}
+              {tags.length > 0 && <span> & bare </span>}
+              {tags.reduce((accu, elem) => {
+                return accu === null
+                  ? [elem]
+                  : [
+                      ...accu,
+                      <div
+                        style={{
+                          display: "inline",
+                          verticalAlign: "text-bottom",
+                          marginRight: 8
+                        }}
+                      >
+                        og
+                      </div>,
+                      elem
+                    ];
+              }, null)}
+            </Typography>
           </div>
-
+        </Paper>
+        <List>
           {Object.keys(sorted)
             .reverse()
             .map(element => {
