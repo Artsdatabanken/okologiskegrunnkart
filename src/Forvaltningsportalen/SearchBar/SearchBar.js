@@ -17,7 +17,8 @@ class SearchBar extends React.Component {
     treffliste_bnr: null,
     searchTerm: null,
     showHelpModal: false,
-    manual: ""
+    manual: "",
+    countermax: 50
   };
 
   handleRemoveTreffliste = () => {
@@ -30,6 +31,31 @@ class SearchBar extends React.Component {
       treffliste_gnr: null,
       treffliste_bnr: null
     });
+  };
+
+  searchInLayers = (criteria, counter, searchTerm) => {
+    let treffliste = [];
+    const countermax = this.state.countermax;
+    const lag = this.props.kartlag;
+    for (let i in lag) {
+      if (counter >= countermax) {
+        break;
+      } else {
+        if (lag[i][criteria]) {
+          let lagstring = lag[i][criteria];
+          if (criteria === "tags") {
+            lagstring = JSON.stringify(lag[i][criteria]);
+          }
+          lagstring = lagstring.toLowerCase();
+          if (lagstring.indexOf(searchTerm) !== -1) {
+            let element = lag[i];
+            treffliste.push(element);
+            counter += 1;
+          }
+        }
+      }
+    }
+    return { treffliste, counter };
   };
 
   handleSearchButton = () => {
@@ -45,61 +71,38 @@ class SearchBar extends React.Component {
       });
       return null;
     }
-    let countermax = 50;
     if (resultpage) {
       this.props.setSearchResultPage(true);
       this.setState({
         isSearching: false,
-        searchTerm: null
+        searchTerm: null,
+        countermax: 15
       });
-      countermax = 15;
     } else {
       this.setState({
         isSearching: true,
-        searchTerm: searchTerm
+        searchTerm: searchTerm,
+        countermax: 50
       });
     }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
     let treffliste_lokalt = [];
-    let lag = this.props.kartlag;
-
-    function searchForKey(criteria, counter, lag, searchTerm) {
-      let treffliste_lokalt = [];
-      for (let i in lag) {
-        if (counter >= countermax) {
-          break;
-        } else {
-          if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria];
-            if (criteria === "tags") {
-              lagstring = JSON.stringify(lag[i][criteria]);
-            }
-            lagstring = lagstring.toLowerCase();
-            if (lagstring.indexOf(searchTerm) !== -1) {
-              let element = lag[i];
-              treffliste_lokalt.push(element);
-              counter += 1;
-            }
-          }
-        }
-      }
-      return [treffliste_lokalt, counter];
-    }
+    let treffliste_underlag = [];
 
     if (searchTerm && searchTerm.length > 0) {
-      let title_search = searchForKey("tittel", counter, lag, searchTerm);
-      treffliste_lokalt = title_search[0];
-      counter = title_search[1];
-      let owner_search = searchForKey("dataeier", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(owner_search[0]);
-      counter += owner_search[1];
-      let theme_search = searchForKey("tema", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
-      counter += theme_search[1];
-      let tags_search = searchForKey("tags", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(tags_search[0]);
-      counter += tags_search[1];
+      let title_search = this.searchInLayers("tittel", counter, searchTerm);
+      treffliste_lokalt = title_search.treffliste;
+      counter = title_search.counter;
+      let owner_search = this.searchInLayers("dataeier", counter, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(owner_search.treffliste);
+      counter += owner_search.counter;
+      let theme_search = this.searchInLayers("tema", counter, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(theme_search.treffliste);
+      counter += theme_search.counter;
+      let tags_search = this.searchInLayers("tags", counter, searchTerm);
+      treffliste_lokalt = treffliste_lokalt.concat(tags_search.treffliste);
+      counter += tags_search.counter;
     }
 
     if (resultpage) {
