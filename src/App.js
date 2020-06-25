@@ -39,7 +39,9 @@ class App extends React.Component {
       adresse: null,
       layersResult: {},
       allLayersResult: {},
-      zoom: 3.1
+      zoom: 3.1,
+      lat: null,
+      lng: null
     };
   }
 
@@ -175,7 +177,6 @@ class App extends React.Component {
                       show_current={this.state.showCurrent}
                       onFitBounds={this.handleFitBounds}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
                       showSideBar={this.state.showSideBar}
                       toggleSideBar={this.toggleSideBar}
@@ -259,7 +260,7 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
-    console.log("clacketty");
+    // console.log("clacketty");
     if (geostring.ssrId) {
       let mincoord = [
         parseFloat(geostring.aust) - 1,
@@ -275,7 +276,7 @@ class App extends React.Component {
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     } else {
-      console.log(geostring.representasjonspunkt);
+      // console.log(geostring.representasjonspunkt);
       let koordinater = geostring.representasjonspunkt;
 
       let mincoord = [
@@ -297,6 +298,7 @@ class App extends React.Component {
 
   handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
+    // Layer results are emptied when coordinates change (new click on map)
     if (this.state.lat !== lat || this.state.lng !== lng) {
       this.setState({
         lat,
@@ -335,26 +337,43 @@ class App extends React.Component {
   };
 
   handleLayersSearch = (lng, lat, zoom, valgteLag) => {
-    const emptylayersResult =
+    // If layersResult is not empty or is equal to valgteLag,
+    // do not update the state
+    const emptyLayersResult =
       Object.keys(this.state.layersResult).length === 0 &&
       this.state.layersResult.constructor === Object;
 
-    if (!emptylayersResult) {
+    const differenceLayersResult =
+      Object.keys(this.state.layersResult).length !==
+      Object.keys(valgteLag).length;
+
+    if (!emptyLayersResult && !differenceLayersResult) {
       return;
     }
 
-    let looplist = this.state.kartlag;
-    if (valgteLag) {
-      looplist = valgteLag;
-    }
     // Denne henter utvalgte lag baser på listen layers
-    var layersResult = {};
+    // This depends/assumes that layersResults are
+    // emptied when coordinates change
+    const looplist = valgteLag || {};
+    // let layersResult = {};
+    let layersResult = this.state.layersResult || {};
+
+    // Remove layer results that are not in selected layers
+    Object.keys(layersResult).forEach(key => {
+      if (!looplist[key]) {
+        delete layersResult[key];
+      }
+    });
+
+    // Add new layer results from selected layers
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].klikktekst) return;
+      if (layersResult[key]) return;
       layersResult[key] = { loading: true };
     });
     this.setState({ layersResult: layersResult });
     Object.keys(layersResult).forEach(key => {
+      if (!layersResult[key].loading) return;
       const layer = looplist[key];
       backend
         .getFeatureInfo(layer, { lat, lng, zoom })
@@ -427,6 +446,7 @@ class App extends React.Component {
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
+    this.setState({ lat: lat, lng: lng });
     this.handleLatLng(lng, lat);
     this.handleAllLayersSearch(lng, lat, zoom);
   };
@@ -454,6 +474,10 @@ class App extends React.Component {
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
+
+    if (this.state.lat && this.state.lng && this.state.showInfobox) {
+      this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
+    }
   };
 
   handleSetBakgrunnskart = (key, value) => {
