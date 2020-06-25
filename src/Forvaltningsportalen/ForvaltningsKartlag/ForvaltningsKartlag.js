@@ -1,67 +1,49 @@
 import React from "react";
-import { SettingsContext } from "../../SettingsContext";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { ExpandLess, ExpandMore, FilterList } from "@material-ui/icons";
-import { List } from "@material-ui/core";
+import { Done as DoneIcon } from "@material-ui/icons";
+import { ListSubheader, Chip, Typography, List } from "@material-ui/core";
+import Sortering from "./Sortering";
+import Filtrering from "./Filtrering";
 
 class ForvaltningsKartlag extends React.Component {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   state = {
-    sortcriteria: "ingen",
-    filterlist: [],
+    sortKey: "alfabetisk",
+    tagFilter: {},
     hideHidden: false,
     searchTerm: null,
     showFilter: false
   };
 
-  filterData = (event, element) => {
-    let filterlist = this.state.filterlist;
-    if (event.target.checked) {
-      filterlist.push(element);
-    } else {
-      const index = filterlist.indexOf(element);
-      if (index > -1) {
-        filterlist.splice(index, 1);
-      }
-    }
-    this.setState({
-      filterlist: filterlist
-    });
+  handleFilterTag = (tag, value) => {
+    let tagFilter = this.state.tagFilter;
+    tagFilter[tag] = value;
+    this.setState({ tagFilter });
   };
 
-  hideHiddendelements = event => {
-    if (event.target.checked) {
-      this.setState({
-        hideHidden: true
-      });
-    } else {
-      this.setState({
-        hideHidden: false
-      });
-    }
+  handleChangeSort = sortKey => {
+    this.setState({ sortKey });
   };
 
   render() {
     const { onUpdateLayerProp } = this.props;
     let lag = this.props.kartlag;
-    let sortcriteria = this.state.sortcriteria;
+    let sortKey = this.state.sortKey;
     let sorted = {};
 
     // Henter ut unike tags for checklistegenerering
-    let taglist = new Set();
-    for (let i in lag) {
-      let new_tags = lag[i]["tags"];
-      if (new_tags) {
-        for (let tag of new_tags) taglist.add(tag);
-      }
-    }
+    let taglist = {};
+    for (let i in lag)
+      for (let tag of lag[i]["tags"] || []) taglist[tag] = true;
+
+    taglist = Object.keys(taglist).sort();
 
     // Sorterer listen på valgt kriterie
     for (let item in lag) {
-      let criteria = lag[item][sortcriteria];
+      let criteria = lag[item][sortKey];
       let new_list = [];
       if (!criteria) {
-        criteria = "Ikke gruppert";
+        criteria = "";
       }
       if (sorted[criteria]) {
         new_list = sorted[criteria];
@@ -71,119 +53,81 @@ class ForvaltningsKartlag extends React.Component {
       sorted[criteria] = new_list;
     }
 
+    const tags = taglist
+      .filter(tag => this.state.tagFilter[tag])
+      .map(tag => (
+        <Chip
+          style={{ marginRight: 8, marginBottom: 8 }}
+          key={tag}
+          label={tag}
+          clickable
+          color="secondary"
+          _color={this.state.tagFilter[tag] ? "primary" : "default"}
+          onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
+          onDelete={() => this.handleFilterTag(tag, false)}
+          deleteIcon={this.state.tagFilter[tag] ? null : <DoneIcon />}
+        />
+      ));
+
     return (
-      <SettingsContext.Consumer>
-        {context => (
-          <>
-            <button
-              className="listheadingbutton"
-              onClick={e => {
-                this.setState({
-                  showFilter: !this.state.showFilter
-                });
-              }}
-            >
-              <FilterList />
-              <span>Listeinnstillinger og filtere</span>
-              {this.state.showFilter ? <ExpandLess /> : <ExpandMore />}
-            </button>
+      <>
+        <List>
+          <Filtrering
+            taglist={taglist}
+            tagFilter={this.state.tagFilter}
+            onFilterTag={this.handleFilterTag}
+          />
+          <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
 
-            {this.state.showFilter && (
-              <div className="sort_chooser_container">
-                <h4>Filtrer kartlag på søkestreng</h4>
-                <input
-                  type="text"
-                  onChange={e => {
-                    if (e.target.value) {
-                      this.setState({
-                        searchTerm: e.target.value.toLowerCase()
-                      });
-                    }
-                  }}
-                />
+          <ListSubheader disableSticky>
+            Kartlag sortert{" "}
+            {sortKey === "alfabetisk" ? "alfabetisk" : "etter " + sortKey}
+            {tags.length > 0 && <span> med tema</span>}
+          </ListSubheader>
 
-                <h4>Filtrering</h4>
-
-                {Array.from(taglist).map((element, index) => {
-                  return (
-                    <div className="filterobject" key={index}>
-                      <input
-                        type="checkbox"
-                        onChange={e => {
-                          this.filterData(e, element);
-                        }}
-                        id=""
-                        onKeyPress={e => {
-                          if (e.key === "Enter") {
-                            e.target.checked = !e.target.checked;
-                            this.filterData(e, element);
-                          }
-                        }}
-                      />
-                      <label>{element}</label>
-                    </div>
-                  );
-                })}
-
-                <h4> Filtrer bort skjulte element </h4>
-                <div className="toggle">
-                  <span>av</span>
-                  <label className="switch">
-                    <input
-                      type="checkbox"
-                      onChange={e => {
-                        this.hideHiddendelements(e);
-                      }}
-                      onKeyPress={e => {
-                        if (e.key === "Enter") {
-                          e.target.checked = !e.target.checked;
-                          this.hideHiddendelements(e);
-                        }
-                      }}
-                    />
-                    <span className="slider"></span>
-                  </label>
-                  <span>på</span>
-                </div>
-
-                <h4>Gruppering</h4>
-
-                <select
-                  id="sort_chooser"
-                  onChange={e => {
-                    this.setState({
-                      sortcriteria: e.target.value.toLowerCase()
-                    });
-                  }}
-                >
-                  <option value="ingen">Ingen gruppering</option>
-                  <option value="dataeier">Dataeier</option>
-                  <option value="tema">Tema</option>
-                </select>
-              </div>
+          <div style={{ marginLeft: 24, marginRight: 24 }}>
+            {tags.length > 0 && (
+              <Typography variant="body2">
+                {tags.reduce((accu, elem) => {
+                  return accu === null
+                    ? [elem]
+                    : [
+                        ...accu,
+                        <div
+                          style={{
+                            display: "inline",
+                            verticalAlign: "text-bottom",
+                            marginRight: 8
+                          }}
+                        >
+                          og
+                        </div>,
+                        elem
+                      ];
+                }, null)}
+              </Typography>
             )}
+          </div>
 
-            <List>
-              {Object.keys(sorted)
-                .reverse()
-                .map(element => {
-                  return (
-                    <ForvaltningsGruppering
-                      searchTerm={this.state.searchTerm}
-                      hideHidden={this.state.hideHidden}
-                      filterlist={this.state.filterlist}
-                      kartlag={sorted[element]}
-                      element={element}
-                      key={element}
-                      onUpdateLayerProp={onUpdateLayerProp}
-                      zoom={this.props.zoom}
-                    />
-                  );
-                })}
-            </List>
-          </>
-        )}
-      </SettingsContext.Consumer>
+          {Object.keys(sorted)
+            .reverse()
+            .map(element => {
+              return (
+                <ForvaltningsGruppering
+                  searchTerm={this.state.searchTerm}
+                  hideHidden={this.state.hideHidden}
+                  tagFilter={this.state.tagFilter}
+                  onFilterTag={this.handleFilterTag}
+                  kartlag={sorted[element]}
+                  element={element}
+                  key={element}
+                  onUpdateLayerProp={onUpdateLayerProp}
+                  zoom={this.props.zoom}
+                />
+              );
+            })}
+        </List>
+      </>
     );
   }
 }

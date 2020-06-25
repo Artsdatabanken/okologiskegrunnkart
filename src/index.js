@@ -47,7 +47,7 @@ class RootBoundary extends React.Component {
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: "#ddd" },
+    primary: { main: "#888" },
     secondary: { main: "#2a2" }
   },
   status: {
