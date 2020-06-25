@@ -81,6 +81,7 @@ const ForvaltningsElement = ({
           // Elementet som inneholder tittel, visningsøye og droppned-knapp
           id="layer-list-item"
           button
+          divider
           onClick={() => {
             if (!valgt) {
               setOpen(!open);
