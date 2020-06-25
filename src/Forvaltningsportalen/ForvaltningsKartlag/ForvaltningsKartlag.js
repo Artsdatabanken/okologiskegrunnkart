@@ -1,6 +1,5 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { Done as DoneIcon } from "@material-ui/icons";
 import { Paper, Chip, Typography, List } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
