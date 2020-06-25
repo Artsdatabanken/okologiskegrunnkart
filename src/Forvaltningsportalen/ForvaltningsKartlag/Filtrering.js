@@ -42,7 +42,7 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
           <MenuItem
             key={tag}
             onClick={() => {
-              onFilterTag(tag, true);
+              onFilterTag(tag, !tagFilter[tag]);
               handleClose();
             }}
             selected={tagFilter[tag]}
