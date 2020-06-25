@@ -1,26 +1,29 @@
 import React from "react";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Snackbar } from "@material-ui/core";
 import { useCallback, useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo, getCapabilities } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Tjeneste from "./Tjeneste";
-import useDjangoKartlag from "./useDjangoKartlag";
 import KartlagList from "./KartlagList";
 import KartlagListItem from "./KartlagListItem";
-import { plukkForetrukketFormat, selectCrs, computeLegendUrl } from "./wms";
+import { plukkForetrukketFormat, selectCrs } from "./wms";
 import url_formatter from "./FeatureInfo/url_formatter";
+import backend from "./Funksjoner/backend";
+import { Alert } from "@material-ui/lab";
 
 const kartlagUrl =
   "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
-  const { writeUpdate } = useDjangoKartlag();
   const location = useLocation();
   const [feature, setFeature] = useState();
   const [doc, setDoc] = useState({});
   const [kartlag, setKartlag] = useState();
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [showForbidden, setShowForbidden] = useState(false);
 
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || 1;
@@ -36,8 +39,7 @@ export default function TjenesteContainer() {
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
       Object.values(doc.underlag).forEach(ul => (ul.queryable = true)); // HACK
-      console.log("underlag", doc.underlag);
-
+      // console.log("underlag", doc.underlag);
       setDoc(doc);
     };
     dl();
@@ -45,6 +47,45 @@ export default function TjenesteContainer() {
 
   const testkoords = doc?.testkoordinater;
   const underlag = doc?.underlag;
+
+  const writeUpdate = () => {
+    backend.updateLayer(doc._id, doc).then(({ response, layer }) => {
+      if (response.ok) {
+        setShowSuccess(true);
+        const newLayer = {
+          ...kartlag[id],
+          klikktekst: layer.klikktekst || "",
+          klikktekst2: layer.klikktekst2 || "",
+          testkoordinater: layer.testkoordinater || "",
+          faktaark: layer.faktaark || ""
+        };
+        const newKartlag = { ...kartlag, [id]: newLayer };
+        setKartlag(newKartlag);
+      } else if (response.status === 403) {
+        setShowForbidden(true);
+      } else {
+        setShowError(true);
+      }
+    });
+  };
+
+  const closeSuccess = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowSuccess(false);
+  };
+
+  const closeError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowError(false);
+  };
+
+  const closeForbidden = (event, reason) => {
+    setShowForbidden(false);
+  };
 
   const updateCallback = useCallback(
     capabilities => {
@@ -66,16 +107,15 @@ export default function TjenesteContainer() {
           layer.dataeier ||
           service.ContactInformation?.ContactPersonPrimary?.ContactOrganization;
         layer.wmsversion = capabilities.version;
-        //                layer.legendurl = layer.legendurl || computeLegendUrl(layer)
+
         layer.crs = selectCrs(capability);
         if (!layer.wmsinfoformat)
           layer.wmsinfoformat = plukkForetrukketFormat(
             capability.Request.GetFeatureInfo.Format
           );
-        //layer.underlag = []; //layer.underlag || []
         layer.wmslayers = [];
         fyllPåUnderlag(capability.Layer, layer.wmslayers);
-        console.log("nyeunderlag", layer.underlag);
+        // console.log("nyeunderlag", layer.underlag);
       }
       setDoc(layer);
     },
@@ -94,8 +134,8 @@ export default function TjenesteContainer() {
 
   const handleUpdate = (k, v) => {
     const newDoc = { ...doc, [k]: v };
-    console.log("onUpdate", k, v);
-    console.log("newdoc", newDoc);
+    // console.log("onUpdate", k, v);
+    // console.log("newdoc", newDoc);
     setDoc(newDoc);
   };
 
@@ -113,7 +153,7 @@ export default function TjenesteContainer() {
         if (doc.klikkurl) {
           const variables = { lng: lat, lat: lng, zoom: 10 };
           doc.klikk_testurl = url_formatter(doc.klikkurl, variables);
-          console.log(doc.klikk_testurl);
+          // console.log(doc.klikk_testurl);
         } else {
           // WMS
           const uri = new URL(doc.wmsurl);
@@ -125,17 +165,16 @@ export default function TjenesteContainer() {
           uri.searchParams.set("y", 128);
           uri.searchParams.set("width", 255);
           uri.searchParams.set("height", 255);
-          console.log("underlag", doc.underlag);
+          // console.log("underlag", doc.underlag);
           const enabledLayers = doc.underlag
             .filter(lag => lag.queryable)
             .map(lag => lag.wmslayer);
-          console.log("querylayers", enabledLayers);
+          // console.log("querylayers", enabledLayers);
           uri.searchParams.set("layers", enabledLayers);
           uri.searchParams.set("query_layers", enabledLayers);
           uri.searchParams.set("info_format", doc.wmsinfoformat);
           uri.searchParams.set("crs", "EPSG:4326");
           uri.searchParams.set("srs", "EPSG:4326");
-          //            uri.searchParams.set('layers', enabledLayers.join(','))
           doc.klikk_testurl = uri.toString();
         }
         const r = await getFeatureInfo(doc.klikk_testurl);
@@ -216,6 +255,25 @@ export default function TjenesteContainer() {
           ></FeaturePicker>
         )}
       </div>
+      <Snackbar
+        open={showSuccess}
+        autoHideDuration={3000}
+        onClose={closeSuccess}
+      >
+        <Alert severity="success">Data lagret i databasen</Alert>
+      </Snackbar>
+      <Snackbar open={showError} autoHideDuration={3000} onClose={closeError}>
+        <Alert severity="error">Kunne ikke lagre data i databasen</Alert>
+      </Snackbar>
+      <Snackbar
+        open={showForbidden}
+        autoHideDuration={10000}
+        onClose={closeForbidden}
+      >
+        <Alert severity="error">
+          Ikke tillatt. Logg inn i django admin, prøv så igjen...
+        </Alert>
+      </Snackbar>
     </>
   );
 }

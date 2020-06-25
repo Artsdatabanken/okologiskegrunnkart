@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import (kartlag_api_view)
+from .views import (kartlag_api_view, kartlag_update_api_view)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/kartlag/fill/data/', kartlag_api_view),
+    path('api/v1/kartlag/<pk>/update/', kartlag_update_api_view, name='kartlag-update'),
 ]
