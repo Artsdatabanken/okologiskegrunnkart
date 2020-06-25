@@ -89,14 +89,19 @@ export default function TjenesteContainer() {
 
   const updateCallback = useCallback(
     capabilities => {
+      const updateDoc = layer => {
+        setDoc(doc => {
+          return { ...doc, ...layer };
+        });
+      };
+
       const layer = {
-        ...doc,
         wms_capabilities: capabilities
       };
       const capability = capabilities.Capability;
       const service = capabilities.Service || {};
       if (capability) {
-        const uri = new URL(layer.wmsurl);
+        const uri = new URL(wmsurl);
         uri.searchParams.delete("service");
         uri.searchParams.delete("request");
         layer.wmsurl = uri.toString();
@@ -117,7 +122,7 @@ export default function TjenesteContainer() {
         fyllPåUnderlag(capability.Layer, layer.wmslayers);
         // console.log("nyeunderlag", layer.underlag);
       }
-      setDoc(layer);
+      updateDoc(layer);
     },
     [wmsurl]
   );
