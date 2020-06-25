@@ -71,7 +71,7 @@ class ForvaltningsKartlag extends React.Component {
           color="secondary"
           onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
           onDelete={() => this.handleFilterTag(tag, false)}
-          deleteIcon={this.state.tagFilter[tag] ? null : <DoneIcon />}
+          deleteIcon={this.state.tagFilter[tag] ? <span /> : <DoneIcon />}
         />
       ));
 
@@ -81,7 +81,6 @@ class ForvaltningsKartlag extends React.Component {
           square
           elevation={1}
           style={{
-            _backgroundColor: "#eee",
             paddingLeft: 16,
             paddingTop: 0,
             paddingBottom: 12,
@@ -99,24 +98,25 @@ class ForvaltningsKartlag extends React.Component {
             <Typography variant="body2">
               {this.sortKeyToDescription[sortKey]}
               {tags.length > 0 && <span> & bare </span>}
-              {tags.reduce((accu, elem) => {
-                return accu === null
-                  ? [elem]
-                  : [
-                      ...accu,
-                      <div
-                        style={{
-                          display: "inline",
-                          verticalAlign: "text-bottom",
-                          marginRight: 8
-                        }}
-                      >
-                        og
-                      </div>,
-                      elem
-                    ];
-              }, null)}
             </Typography>
+            {tags.reduce((accu, elem, index) => {
+              return accu === null
+                ? [elem]
+                : [
+                    ...accu,
+                    <div
+                      key={index}
+                      style={{
+                        display: "inline",
+                        verticalAlign: "text-bottom",
+                        marginRight: 8
+                      }}
+                    >
+                      og
+                    </div>,
+                    elem
+                  ];
+            }, null)}
           </div>
         </Paper>
         <List>
