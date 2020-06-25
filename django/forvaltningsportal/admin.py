@@ -9,10 +9,12 @@ class KartlagAdmin(admin.ModelAdmin):
         SublagInline,
     ]
     search_fields = ['tittel']
+    readonly_fields = ('id',)
 
 class SublagAdmin(admin.ModelAdmin):
     model = Sublag
     search_fields = ['tittel', 'wmslayer']
+    readonly_fields = ('id',)
 
 admin.site.register(Tema)
 admin.site.register(Kartlag, KartlagAdmin)
