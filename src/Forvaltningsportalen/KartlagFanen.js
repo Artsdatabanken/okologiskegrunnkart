@@ -1,8 +1,11 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React from "react";
+import { Route, Switch } from "react-router-dom";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
+import TegnforklaringLink from "../Tegnforklaring/TegnforklaringLink";
+import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
@@ -24,67 +27,76 @@ const KartlagFanen = props => {
       </div>
       {props.showSideBar && (
         <div className="kartlag_fanen">
-          {props.searchResultPage ? (
-            <></>
-          ) : (
-            <>
-              {props.valgtLag ? (
-                <div className="valgtLag">
-                  <button
-                    className="listheadingbutton"
-                    onClick={e => {
-                      props.removeValgtLag();
-                    }}
-                  >
-                    <KeyboardBackspace />
-                    <span>Tilbake</span>
-                  </button>
-                  <div className="scroll_area">
-                    <ForvaltningsElement
-                      valgt={true}
-                      kartlag_key={props.valgtLag.id}
-                      kartlag={props.valgtLag}
-                      key={props.valgtLag.id}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
-                      zoom={props.zoom}
-                    />
-                  </div>
-                </div>
+          <Switch>
+            <Route path="/tegnforklaring" exact={false} strict={false}>
+              <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
+            </Route>
+            <Route path="/">
+              {props.searchResultPage ? (
+                <></>
               ) : (
-                <div>
-                  {props.polyline.length > 0 || props.polygon ? (
-                    <h3 className="container_header">Polygon</h3>
+                <>
+                  {props.valgtLag ? (
+                    <div className="valgtLag">
+                      <button
+                        className="listheadingbutton"
+                        onClick={e => {
+                          props.removeValgtLag();
+                        }}
+                      >
+                        <KeyboardBackspace />
+                        <span>Tilbake</span>
+                      </button>
+                      <div className="scroll_area">
+                        <ForvaltningsElement
+                          valgt={true}
+                          kartlag_key={props.valgtLag.id}
+                          kartlag={props.valgtLag}
+                          key={props.valgtLag.id}
+                          onUpdateLayerProp={props.onUpdateLayerProp}
+                          zoom={props.zoom}
+                        />
+                      </div>
+                    </div>
                   ) : (
-                    <h3 className="container_header">Kartlag</h3>
-                  )}
+                    <div>
+                      <div className="scroll_area">
+                        <TegnforklaringLink></TegnforklaringLink>
 
-                  <div className="scroll_area">
-                    {(props.polyline.length > 0 || props.polygon) && (
-                      <PolygonElement
-                        polygon={props.polygon}
-                        polyline={props.polyline}
-                        showPolygon={props.showPolygon}
-                        hideAndShowPolygon={props.hideAndShowPolygon}
-                        handleEditable={props.handleEditable}
-                        addPolygon={props.addPolygon}
-                        addPolyline={props.addPolyline}
-                      />
-                    )}
-                    <ForvaltningsKartlag
-                      show_current={props.show_current}
-                      handleShowCurrent={props.handleShowCurrent}
-                      kartlag={props.kartlag}
-                      navigation_history={props.navigation_history}
-                      onFitBounds={props.handleFitBounds}
-                      history={props.history}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
-                      zoom={props.zoom}
-                    />
-                  </div>
-                </div>
+                        {props.polyline.length > 0 || props.polygon ? (
+                          <h3 className="container_header">Polygon</h3>
+                        ) : (
+                          <h3 className="container_header">Kartlag</h3>
+                        )}
+
+                        {(props.polyline.length > 0 || props.polygon) && (
+                          <PolygonElement
+                            polygon={props.polygon}
+                            polyline={props.polyline}
+                            showPolygon={props.showPolygon}
+                            hideAndShowPolygon={props.hideAndShowPolygon}
+                            handleEditable={props.handleEditable}
+                            addPolygon={props.addPolygon}
+                            addPolyline={props.addPolyline}
+                          />
+                        )}
+                        <ForvaltningsKartlag
+                          show_current={props.show_current}
+                          handleShowCurrent={props.handleShowCurrent}
+                          kartlag={props.kartlag}
+                          navigation_history={props.navigation_history}
+                          onFitBounds={props.handleFitBounds}
+                          history={props.history}
+                          onUpdateLayerProp={props.onUpdateLayerProp}
+                          zoom={props.zoom}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
-            </>
-          )}
+            </Route>
+          </Switch>
         </div>
       )}
     </>

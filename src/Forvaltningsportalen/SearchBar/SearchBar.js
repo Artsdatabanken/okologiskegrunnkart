@@ -72,7 +72,7 @@ class SearchBar extends React.Component {
       return null;
     }
     if (resultpage) {
-      this.props.setSearchResultPage(true);
+      this.props.onSelectSearchResult(true);
       this.setState({
         isSearching: false,
         searchTerm: null,
@@ -375,11 +375,11 @@ class SearchBar extends React.Component {
           </div>
           {(this.state.isSearching || this.props.searchResultPage) && (
             <TreffListe
-              setSearchResultPage={this.props.setSearchResultPage}
+              onSelectSearchResult={this.props.onSelectSearchResult}
               searchResultPage={this.props.searchResultPage}
               searchTerm={this.state.searchTerm}
               handleSearchBar={this.handleSearchBar}
-              handleSearchButton={this.handleSearchButton}
+              onSearchButton={this.handleSearchButton}
               treffliste={this.state.treffliste}
               treffliste_lokalt={this.state.treffliste_lokalt}
               treffliste_sted={this.state.treffliste_sted}
