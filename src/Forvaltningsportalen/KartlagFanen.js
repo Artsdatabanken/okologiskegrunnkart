@@ -4,8 +4,8 @@ import { Route, Switch } from "react-router-dom";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
-import TegnforklaringToggle from "./TegnforklaringToggle";
-import Tegnforklaring from "../Tegnforklaring";
+import TegnforklaringLink from "../Tegnforklaring/TegnforklaringLink";
+import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 
 import { KeyboardBackspace } from "@material-ui/icons";
 const KartlagFanen = props => {
@@ -61,7 +61,7 @@ const KartlagFanen = props => {
                   ) : (
                     <div>
                       <div className="scroll_area">
-                        <TegnforklaringToggle></TegnforklaringToggle>
+                        <TegnforklaringLink></TegnforklaringLink>
 
                         {props.polyline.length > 0 || props.polygon ? (
                           <h3 className="container_header">Polygon</h3>

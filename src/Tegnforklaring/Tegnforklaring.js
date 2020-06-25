@@ -41,39 +41,37 @@ const Tegnforklaring = ({ layers }) => {
           Tegnforklaring
         </Typography>
       </div>
-      <div style={{ margin: 24 }}>
-        {Object.keys(layers).map(id => {
-          const layer = layers[id];
-          const items = Object.values(layer.underlag || {})
-            //    .filter(ul => ul.erSynlig)
-            .map(ul => (
-              <LegendItem
-                key={layer.tittel + "_" + ul.tittel}
-                layer={layer}
-                sublayer={ul}
-              />
-            ));
-          if (items.length <= 0) return null;
-          return (
-            <div
-              key={layer.tittel}
-              style={{ marginBottom: 16, cursor: "pointer" }}
-              onClick={() => {
-                const loc = history.location;
-                loc.pathname = "/kartlag/" + layer.tittel;
-                history.push(loc);
-              }}
-            >
-              <ListSubheader disableSticky disableGutters>
-                {layer.tittel}
-              </ListSubheader>
-              <Grid container direction="row" spacing={4}>
-                {items}
-              </Grid>
-            </div>
-          );
-        })}
-      </div>
+      {Object.keys(layers).map(id => {
+        const layer = layers[id];
+        const items = Object.values(layer.underlag || {})
+          .filter(ul => ul.erSynlig)
+          .map(ul => (
+            <LegendItem
+              key={layer.id + "_" + ul.tittel}
+              layer={layer}
+              sublayer={ul}
+            />
+          ));
+        if (items.length <= 0) return null;
+        return (
+          <div
+            key={layer.tittel}
+            style={{ marginBottom: 16, cursor: "pointer" }}
+            onClick={() => {
+              const loc = history.location;
+              loc.pathname = "/kartlag/" + layer.tittel;
+              history.push(loc);
+            }}
+          >
+            <ListSubheader disableSticky disableGutters>
+              {layer.tittel}
+            </ListSubheader>
+            <Grid container direction="row" spacing={4}>
+              {items}
+            </Grid>
+          </div>
+        );
+      })}
     </div>
   );
 };
