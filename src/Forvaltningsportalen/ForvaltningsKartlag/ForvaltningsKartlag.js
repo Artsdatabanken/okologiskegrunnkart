@@ -71,7 +71,6 @@ class ForvaltningsKartlag extends React.Component {
           color="secondary"
           onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
           onDelete={() => this.handleFilterTag(tag, false)}
-          deleteIcon={<DoneIcon />}
         />
       ));
 
