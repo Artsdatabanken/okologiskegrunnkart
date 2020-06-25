@@ -46,6 +46,7 @@ const ForvaltningsElement = ({
             // Elementet som inneholder tittel, visningsøye og droppned-knapp
             id="layer-list-item"
             button
+            divider
             onClick={() => {
               if (!valgt) {
                 setOpen(!open);
@@ -80,6 +81,7 @@ const ForvaltningsElement = ({
           // Elementet som inneholder tittel, visningsøye og droppned-knapp
           id="layer-list-item"
           button
+          divider
           onClick={() => {
             if (!valgt) {
               setOpen(!open);
@@ -229,30 +231,28 @@ const ForvaltningsElement = ({
               </ListItem>
 
               {kartlag.dataeier && (
-                <>
-                  <ListItem
-                    button
-                    onClick={e => {
-                      if (kartlag.kildeurl) {
-                        window.open(kartlag.kildeurl);
-                      }
-                    }}
-                  >
-                    <ListItemIcon>
-                      {kartlag.logourl ? (
-                        <img
-                          src={kartlag.logourl}
-                          style={{ maxWidth: "24px" }}
-                          alt=""
-                        />
-                      ) : (
-                        <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                      )}
-                    </ListItemIcon>
-                    <ListItemText primary={kartlag.dataeier} />
-                    {kartlag.kildeurl && <OpenInNew />}
-                  </ListItem>
-                </>
+                <ListItem
+                  button
+                  onClick={e => {
+                    if (kartlag.kildeurl) {
+                      window.open(kartlag.kildeurl);
+                    }
+                  }}
+                >
+                  <ListItemIcon>
+                    {kartlag.logourl ? (
+                      <img
+                        src={kartlag.logourl}
+                        style={{ maxWidth: "24px" }}
+                        alt=""
+                      />
+                    ) : (
+                      <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={kartlag.dataeier} />
+                  {kartlag.kildeurl && <OpenInNew />}
+                </ListItem>
               )}
             </div>
           )}
