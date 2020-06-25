@@ -237,7 +237,6 @@ class App extends React.Component {
   };
 
   handleSelectSearchResult = searchResultPage => {
-    console.log("search", { searchResultPage });
     this.setState({ searchResultPage: searchResultPage });
   };
 
@@ -246,7 +245,6 @@ class App extends React.Component {
   };
 
   handleSetKartlagSearchResult = kartlagSearchResults => {
-    console.log("klsearch", { kartlagSearchResults });
     this.setState({ kartlagSearchResults: kartlagSearchResults });
   };
 
