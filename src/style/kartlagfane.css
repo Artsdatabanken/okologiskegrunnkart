@@ -314,7 +314,9 @@ h4.container_header {
 
 /* Layer icons */
 .layer-list-element-icon {
+  padding: 8px 0 8px 5px;
 }
+
 #list-element-sublayer {
   padding-top: 2px;
   padding-bottom: 2px;
