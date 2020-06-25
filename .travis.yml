@@ -7,22 +7,12 @@ script:
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
   - npm run build
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
-before_deploy:
-  - git tag "$(date +'%Y%m%d-%H%M%S')-$(git log --format=%h -1)"
-#deploy:
-#  - provider: releases
-#    api_key: $GITHUB_TOKEN
-#    file_glob: true
-#    file: bundle.tar.gz
-#    on:
-#      branch: master
-#      repo: Artsdatabanken/nin-kart-frontend
-#    skip_cleanup: true
-# Trigge på nytt
+  - cd wms-assistent
+  - npm install
+  - npm run build
 after_success:
-  #  - npm run report-coverage
-  - ls -la ..
   - ./deploy.sh $BRANCH
+  - ./deploy_wms-assistent.sh $BRANCH
   - ./deploy_django.sh $BRANCH
 notifications:
   slack:
