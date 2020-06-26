@@ -76,6 +76,20 @@ const TreffListe = props => {
     }
   }
 
+  function onActivate(item, trefftype) {
+    if (props.searchResultPage) {
+      props.onSelectSearchResult(false);
+    }
+    props.handleRemoveTreffliste();
+    props.removeValgtLag();
+    document.getElementById("searchfield").value = "";
+    if (trefftype === "Kartlag" || trefftype === "Underlag") {
+      props.addValgtLag(item, trefftype);
+    } else {
+      props.handleGeoSelection(item);
+    }
+  }
+
   list_items = list_items.slice(0, max_list_length);
 
   return (
@@ -152,20 +166,6 @@ const TreffListe = props => {
               itemnr = item.ssrId || "";
             }
 
-            function onActivate() {
-              if (props.searchResultPage) {
-                props.onSelectSearchResult(false);
-              }
-              props.handleRemoveTreffliste();
-              props.removeValgtLag();
-              document.getElementById("searchfield").value = "";
-              if (trefftype === "Kartlag" || trefftype === "Underlag") {
-                props.addValgtLag(item, trefftype);
-              } else {
-                props.handleGeoSelection(item);
-              }
-            }
-
             return (
               <li
                 id={index}
@@ -174,13 +174,13 @@ const TreffListe = props => {
                 className="searchbar_item"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    onActivate();
+                    onActivate(item, trefftype);
                   } else {
                     movefocus(e, index);
                   }
                 }}
                 onClick={() => {
-                  onActivate();
+                  onActivate(item, trefftype);
                 }}
               >
                 <span className="itemname">{itemname} </span>
