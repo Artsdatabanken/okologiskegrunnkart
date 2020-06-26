@@ -11,8 +11,8 @@ tar --directory=wms-assistent -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
  then
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest2
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest2
+  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest3
+  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest3
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltnings-wms-assistent"}' $slackaddy
  else
   echo "This branch will not be deployed, since it's not the master branch."
