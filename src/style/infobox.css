@@ -364,6 +364,11 @@
   border-bottom: 1px solid grey;
 }
 
+#layer-results-header .MuiListItemIcon-root {
+  margin-left: 4px;
+  min-width: 52px;
+}
+
 @media only screen and (max-width: 768px) {
   .infobox-side,
   .layer-results-side {
@@ -377,6 +382,11 @@
     width: 100%;
     max-height: calc(100vh - 300px);
   }
+}
+
+/* List icons */
+#infobox-list-icon {
+  margin-left: 0;
 }
 
 /* list items in info box */
@@ -394,7 +404,7 @@
   > .MuiList-root
   > .generic_element
   > .MuiListItem-root {
-  padding: 0 16px;
+  padding: 0 12px;
 }
 
 @media only screen and (max-width: 768px) {

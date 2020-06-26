@@ -1,10 +1,4 @@
-import {
-  Visibility,
-  VisibilityOff,
-  ErrorOutline,
-  ExpandLess,
-  ExpandMore
-} from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
@@ -12,6 +6,7 @@ import LoadingPlaceholder from "./LoadingPlaceholder";
 import { CircularProgress } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
+import CustomIcon from "../../Common/CustomIcon";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -23,6 +18,13 @@ const GeneriskElement = props => {
     ...props.coordinates_area,
     ...props.resultat
   });
+
+  const isLargeIcon = (tema, error) => {
+    if (error) return false;
+    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
+      tema
+    );
+  };
 
   const primaryText = formatterKlikktekst(kartlag.klikktekst, resultat);
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
@@ -37,21 +39,18 @@ const GeneriskElement = props => {
           setOpen(!open);
         }}
       >
-        <ListItemIcon
-          className="visibility_button"
-          onClick={e => {
-            props.onUpdateLayerProp(kartlag.id, "erSynlig", !kartlag.erSynlig);
-          }}
-        >
+        <ListItemIcon className="visibility_button">
           {resultat.loading ? (
             <CircularProgress />
           ) : (
             <>
-              {resultat.error ? (
-                <ErrorOutline />
-              ) : (
-                <>{kartlag.erSynlig ? <Visibility /> : <VisibilityOff />}</>
-              )}
+              <CustomIcon
+                id="infobox-list-icon"
+                icon={resultat.error ? "alert-circle-outline" : kartlag.tema}
+                size={isLargeIcon(kartlag.tema, resultat.error) ? 30 : 26}
+                padding={isLargeIcon(kartlag.tema, resultat.error) ? 0 : 2}
+                color={"#777"}
+              />
             </>
           )}
         </ListItemIcon>
