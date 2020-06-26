@@ -32,7 +32,8 @@ const TreffListe = props => {
     max_list_length = 20;
   }
 
-  list_items = addToList(props.treffliste_lokalt, "Kartlag", null);
+  list_items = addToList(props.treffliste_lag, "Kartlag", null);
+  list_items = addToList(props.treffliste_underlag, "Underlag", null);
   list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
   list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
 
@@ -72,6 +73,20 @@ const TreffListe = props => {
           document.getElementsByClassName("searchbar_item")[index - 1].focus();
         }
       }
+    }
+  }
+
+  function onActivate(item, trefftype) {
+    if (props.searchResultPage) {
+      props.onSelectSearchResult(false);
+    }
+    props.handleRemoveTreffliste();
+    props.removeValgtLag();
+    document.getElementById("searchfield").value = "";
+    if (trefftype === "Kartlag" || trefftype === "Underlag") {
+      props.addValgtLag(item, trefftype);
+    } else {
+      props.handleGeoSelection(item);
     }
   }
 
@@ -142,24 +157,13 @@ const TreffListe = props => {
             } else if (item.trefftype === "Kartlag") {
               itemname = item.tittel;
               itemnr = item.tema || "Kartlag";
+            } else if (item.trefftype === "Underlag") {
+              itemname = item.tittel;
+              itemnr = item.tema || "Underlag";
             } else if (item.trefftype === "Stedsnavn") {
               itemname = item.stedsnavn || "finner ikke stedsnavn";
               itemtype = item.navnetype || "";
               itemnr = item.ssrId || "";
-            }
-
-            function onActivate() {
-              if (props.searchResultPage) {
-                props.onSelectSearchResult(false);
-              }
-              props.handleRemoveTreffliste();
-              props.removeValgtLag();
-              document.getElementById("searchfield").value = "";
-              if (trefftype === "Kartlag") {
-                props.addValgtLag(item);
-              } else {
-                props.handleGeoSelection(item);
-              }
             }
 
             return (
@@ -170,13 +174,13 @@ const TreffListe = props => {
                 className="searchbar_item"
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    onActivate();
+                    onActivate(item, trefftype);
                   } else {
                     movefocus(e, index);
                   }
                 }}
                 onClick={() => {
-                  onActivate();
+                  onActivate(item, trefftype);
                 }}
               >
                 <span className="itemname">{itemname} </span>
@@ -193,7 +197,8 @@ const TreffListe = props => {
                 <span className="itemnr">
                   {trefftype === "Kommune" ||
                   trefftype === "Stedsnavn" ||
-                  trefftype === "Kartlag" ? (
+                  trefftype === "Kartlag" ||
+                  trefftype === "Underlag" ? (
                     <>{itemnr}</>
                   ) : (
                     <>
