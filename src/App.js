@@ -391,10 +391,18 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layer, key, value) => {
-    console.log({ layer, key, value });
+  handleForvaltningsLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
-    setValue(nye_lag[layer], key, value);
+    const layer = nye_lag[layerkey];
+    setValue(layer, key, value);
+
+    let numberVisible = 0;
+    for (const sublayerId in layer.underlag) {
+      if (layer.underlag[sublayerId].erSynlig) numberVisible += 1;
+    }
+    layer.erSynlig = numberVisible > 0;
+    layer.numberVisible = numberVisible;
+
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });

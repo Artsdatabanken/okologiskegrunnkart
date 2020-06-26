@@ -1,7 +1,13 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import { PriorityHigh } from "@material-ui/icons";
-import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import {
+  Badge,
+  ListItemSecondaryAction,
+  ListItemIcon,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
 
 const ForvaltningsElement = ({ kartlag }) => {
   const history = useHistory();
@@ -23,6 +29,9 @@ const ForvaltningsElement = ({ kartlag }) => {
           <PriorityHigh style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
         </ListItemIcon>
         <ListItemText primary={tittel.nb || tittel} />
+        <ListItemSecondaryAction>
+          <Badge badgeContent={kartlag.numberVisible} color="primary"></Badge>
+        </ListItemSecondaryAction>
       </ListItem>
     </>
   );
