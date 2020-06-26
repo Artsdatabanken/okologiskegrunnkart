@@ -34,6 +34,12 @@ const ForvaltningsElement = ({
     kartlag.underlag || {}
   );
 
+  const isLargeIcon = tema => {
+    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
+      tema
+    );
+  };
+
   return (
     <>
       {disabled ? (
@@ -63,7 +69,8 @@ const ForvaltningsElement = ({
                   <CustomIcon
                     id="kartlag"
                     icon={kartlag.tema}
-                    size={30}
+                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                     color={"#ccc"}
                   />
                 </Badge>
@@ -98,7 +105,8 @@ const ForvaltningsElement = ({
                   <CustomIcon
                     id="kartlag"
                     icon={kartlag.tema}
-                    size={30}
+                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                     color={"#666"}
                     tooltipText={kartlag.tema}
                   />
@@ -106,7 +114,8 @@ const ForvaltningsElement = ({
                   <CustomIcon
                     id="kartlag"
                     icon={kartlag.tema}
-                    size={30}
+                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                     color={"#999"}
                     tooltipText={kartlag.tema}
                   />

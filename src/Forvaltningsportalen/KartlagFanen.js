@@ -25,7 +25,6 @@ const KartlagFanen = props => {
             props.toggleSideBar();
           }}
         >
-          {/* {props.showSideBar ? "Skjul kartlag" : "Vis kartlag"} */}
           {props.showSideBar ? (
             <CustomIcon id="show-layers-icon" icon="menu-right" size={30} />
           ) : (
