@@ -391,6 +391,10 @@
 #infobox-list-icon {
   margin-left: 0;
 }
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
+  font-size: 0.9rem;
+  font-weight: 575;
+}
 
 /* list items in info box */
 .generic-element-primary-text {

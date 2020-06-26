@@ -3,7 +3,7 @@ import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
 import LoadingPlaceholder from "./LoadingPlaceholder";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
@@ -19,8 +19,7 @@ const GeneriskElement = props => {
     ...props.resultat
   });
 
-  const isLargeIcon = (tema, error) => {
-    if (error) return false;
+  const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
     );
@@ -43,13 +42,27 @@ const GeneriskElement = props => {
           {resultat.loading ? (
             <CircularProgress size={30} />
           ) : (
-            <CustomIcon
-              id="infobox-list-icon"
-              icon={resultat.error ? "alert-circle-outline" : kartlag.tema}
-              size={isLargeIcon(kartlag.tema, resultat.error) ? 30 : 26}
-              padding={isLargeIcon(kartlag.tema, resultat.error) ? 0 : 2}
-              color={"#777"}
-            />
+            <>
+              {resultat.error ? (
+                <Badge badgeContent="!" color="error" overlap="circle">
+                  <CustomIcon
+                    id="infobox-list-icon"
+                    icon={kartlag.tema}
+                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                    color={"#777"}
+                  />
+                </Badge>
+              ) : (
+                <CustomIcon
+                  id="infobox-list-icon"
+                  icon={kartlag.tema}
+                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                  color={"#777"}
+                />
+              )}
+            </>
           )}
         </ListItemIcon>
         <div
@@ -62,6 +75,8 @@ const GeneriskElement = props => {
               <LoadingPlaceholder />
             ) : primaryText.harData && primaryText.elementer[0] ? (
               primaryText.elementer
+            ) : resultat.error ? (
+              "Kunne ikke hente data"
             ) : (
               "Ingen treff"
             )}
