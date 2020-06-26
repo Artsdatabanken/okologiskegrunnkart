@@ -385,6 +385,9 @@
 }
 
 /* List icons */
+.infobox-list-icon-wrapper > .MuiCircularProgress-root {
+  margin-right: 25px;
+}
 #infobox-list-icon {
   margin-left: 0;
 }

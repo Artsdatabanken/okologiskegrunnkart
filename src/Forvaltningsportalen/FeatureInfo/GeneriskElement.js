@@ -39,19 +39,17 @@ const GeneriskElement = props => {
           setOpen(!open);
         }}
       >
-        <ListItemIcon className="visibility_button">
+        <ListItemIcon className="infobox-list-icon-wrapper">
           {resultat.loading ? (
-            <CircularProgress />
+            <CircularProgress size={30} />
           ) : (
-            <>
-              <CustomIcon
-                id="infobox-list-icon"
-                icon={resultat.error ? "alert-circle-outline" : kartlag.tema}
-                size={isLargeIcon(kartlag.tema, resultat.error) ? 30 : 26}
-                padding={isLargeIcon(kartlag.tema, resultat.error) ? 0 : 2}
-                color={"#777"}
-              />
-            </>
+            <CustomIcon
+              id="infobox-list-icon"
+              icon={resultat.error ? "alert-circle-outline" : kartlag.tema}
+              size={isLargeIcon(kartlag.tema, resultat.error) ? 30 : 26}
+              padding={isLargeIcon(kartlag.tema, resultat.error) ? 0 : 2}
+              color={"#777"}
+            />
           )}
         </ListItemIcon>
         <div
