@@ -82,6 +82,9 @@ class Leaflet extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (this.props.zoomcoordinates) {
+      this.goToSelectedZoomCoordinates();
+    }
     const currentZoom = this.map.getZoom();
     if (this.props.zoom !== currentZoom) {
       this.props.handleZoomChange(currentZoom);
@@ -347,6 +350,34 @@ class Leaflet extends React.Component {
     return name;
   }
 
+  goToSelectedZoomCoordinates = () => {
+    // Opptegning av markør
+    this.removeMarker();
+    this.marker = L.marker(
+      [
+        this.props.zoomcoordinates.centercoord[1],
+        this.props.zoomcoordinates.centercoord[0]
+      ],
+      {
+        icon: this.icon
+      }
+    ).addTo(this.map);
+
+    // Zooming av kart?
+    let new_bounds = [
+      [
+        this.props.zoomcoordinates.maxcoord[1],
+        this.props.zoomcoordinates.maxcoord[0]
+      ],
+      [
+        this.props.zoomcoordinates.mincoord[1],
+        this.props.zoomcoordinates.mincoord[0]
+      ]
+    ];
+    this.map.fitBounds(new_bounds);
+    this.props.handleRemoveZoomCoordinates();
+  };
+
   render() {
     this.openLinksInNewTab();
     this.positionZoomButtons();
@@ -399,33 +430,6 @@ class Leaflet extends React.Component {
       }
     }
 
-    // Opptegning av markør
-    if (this.props.zoomcoordinates) {
-      this.removeMarker();
-      this.marker = L.marker(
-        [
-          this.props.zoomcoordinates.centercoord[1],
-          this.props.zoomcoordinates.centercoord[0]
-        ],
-        {
-          icon: this.icon
-        }
-      ).addTo(this.map);
-
-      // Zooming av kart?
-      let new_bounds = [
-        [
-          this.props.zoomcoordinates.maxcoord[1],
-          this.props.zoomcoordinates.maxcoord[0]
-        ],
-        [
-          this.props.zoomcoordinates.mincoord[1],
-          this.props.zoomcoordinates.mincoord[0]
-        ]
-      ];
-      this.map.fitBounds(new_bounds);
-      this.props.handleRemoveZoomCoordinates();
-    }
     return (
       <>
         <div className={this.markerButtonClass()}>
