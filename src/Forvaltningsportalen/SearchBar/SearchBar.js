@@ -33,31 +33,6 @@ class SearchBar extends React.Component {
     });
   };
 
-  // searchInLayer = (criteria, counter, searchTerm) => {
-  //   let treffliste = [];
-  //   const countermax = this.state.countermax;
-  //   const lag = this.props.kartlag;
-  //   for (let i in lag) {
-  //     if (counter >= countermax) {
-  //       break;
-  //     } else {
-  //       if (lag[i][criteria]) {
-  //         let lagstring = lag[i][criteria];
-  //         if (criteria === "tags") {
-  //           lagstring = JSON.stringify(lag[i][criteria]);
-  //         }
-  //         lagstring = lagstring.toLowerCase();
-  //         if (lagstring.indexOf(searchTerm) !== -1) {
-  //           let element = lag[i];
-  //           treffliste.push(element);
-  //           counter += 1;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return { treffliste, counter };
-  // };
-
   searchInLayer = (criteria, searchTerm, layer) => {
     if (layer[criteria]) {
       let lagstring = layer[criteria];
@@ -101,7 +76,12 @@ class SearchBar extends React.Component {
               sublayers[j]
             );
             if (found) {
-              const sublayer = { ...sublayers[j], id: j, parentId: i };
+              const sublayer = {
+                ...sublayers[j],
+                id: j,
+                parentId: i,
+                tema: layer.tema
+              };
               treffliste_underlag.push(sublayer);
               counter += 1;
             }
@@ -114,7 +94,7 @@ class SearchBar extends React.Component {
 
   handleSearchButton = () => {
     this.handleSearchBar(document.getElementById("searchfield").value, true);
-    document.getElementById("searchfield").value = "";
+    // document.getElementById("searchfield").value = "";
   };
 
   handleSearchBar = (searchTerm, resultpage) => {

@@ -143,6 +143,9 @@ const TreffListe = props => {
             } else if (item.trefftype === "Kartlag") {
               itemname = item.tittel;
               itemnr = item.tema || "Kartlag";
+            } else if (item.trefftype === "Underlag") {
+              itemname = item.tittel;
+              itemnr = item.tema || "Underlag";
             } else if (item.trefftype === "Stedsnavn") {
               itemname = item.stedsnavn || "finner ikke stedsnavn";
               itemtype = item.navnetype || "";
@@ -157,7 +160,7 @@ const TreffListe = props => {
               props.removeValgtLag();
               document.getElementById("searchfield").value = "";
               if (trefftype === "Kartlag" || trefftype === "Underlag") {
-                props.addValgtLag(item);
+                props.addValgtLag(item, trefftype);
               } else {
                 props.handleGeoSelection(item);
               }
@@ -194,7 +197,8 @@ const TreffListe = props => {
                 <span className="itemnr">
                   {trefftype === "Kommune" ||
                   trefftype === "Stedsnavn" ||
-                  trefftype === "Kartlag" ? (
+                  trefftype === "Kartlag" ||
+                  trefftype === "Underlag" ? (
                     <>{itemnr}</>
                   ) : (
                     <>
