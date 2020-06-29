@@ -515,6 +515,8 @@ class Leaflet extends React.Component {
             handleInfobox={this.props.handleInfobox}
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
+            loadingFeatures={this.props.loadingFeatures}
+            loadingPercent={this.props.loadingPercent}
             {...this.props}
           />
         )}

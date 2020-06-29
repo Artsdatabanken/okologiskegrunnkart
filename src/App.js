@@ -41,7 +41,10 @@ class App extends React.Component {
       allLayersResult: {},
       zoom: 3.1,
       lat: null,
-      lng: null
+      lng: null,
+      loadingFeatures: false,
+      finishedFeaturesSearch: 0,
+      loadingPercent: 0
     };
   }
 
@@ -123,6 +126,8 @@ class App extends React.Component {
                       token={token}
                       showInfobox={this.state.showInfobox}
                       handleInfobox={this.handleInfobox}
+                      loadingFeatures={this.state.loadingFeatures}
+                      loadingPercent={this.state.loadingPercent}
                       {...this.state}
                     />
                     <KartVelger
@@ -387,7 +392,19 @@ class App extends React.Component {
       if (layersResult[key]) return;
       layersResult[key] = { loading: true };
     });
-    this.setState({ layersResult: layersResult });
+
+    // Visualize the loading bar
+    if (Object.keys(valgteLag).length > 0) {
+      this.setState({ loadingFeatures: true });
+    }
+    const totalFeaturesSearch = Object.keys(layersResult).length;
+    this.setState({
+      layersResult: layersResult,
+      finishedFeaturesSearch: 0,
+      loadingPercent: 0
+    });
+
+    // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       if (!layersResult[key].loading) return;
       const layer = looplist[key];
@@ -399,13 +416,25 @@ class App extends React.Component {
             delete res.ServiceException;
           }
           let layersResult = this.state.layersResult;
+          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          let loadingPercent =
+            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           layersResult[key] = res;
-          this.setState(layersResult);
+          this.setState(layersResult, finishedFeaturesSearch, loadingPercent);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
         })
         .catch(e => {
           let layersResult = this.state.layersResult;
+          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          let loadingPercent =
+            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           layersResult[key] = { error: e.message || key };
-          this.setState(layersResult);
+          this.setState(layersResult, finishedFeaturesSearch, loadingPercent);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
         });
     });
   };
@@ -426,7 +455,17 @@ class App extends React.Component {
       if (!looplist[key].klikktekst) return;
       allLayersResult[key] = { loading: true };
     });
-    this.setState({ allLayersResult: allLayersResult });
+
+    // Visualize the loading bar
+    const totalFeaturesSearch = Object.keys(allLayersResult).length;
+    this.setState({
+      loadingFeatures: true,
+      allLayersResult: allLayersResult,
+      finishedFeaturesSearch: 0,
+      loadingPercent: 0
+    });
+
+    // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
       const layer = looplist[key];
       backend
@@ -437,13 +476,33 @@ class App extends React.Component {
             delete res.ServiceException;
           }
           let allLayersResult = this.state.allLayersResult;
+          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          let loadingPercent =
+            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           allLayersResult[key] = res;
-          this.setState(allLayersResult);
+          this.setState({
+            allLayersResult,
+            finishedFeaturesSearch,
+            loadingPercent
+          });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
         })
         .catch(e => {
           let allLayersResult = this.state.allLayersResult;
+          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          let loadingPercent =
+            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           allLayersResult[key] = { error: e.message || key };
-          this.setState(allLayersResult);
+          this.setState({
+            allLayersResult,
+            finishedFeaturesSearch,
+            loadingPercent
+          });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
         });
     });
   };

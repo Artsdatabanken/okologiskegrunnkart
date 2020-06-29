@@ -378,6 +378,16 @@
   }
 }
 
+/* Progress bar */
+.layer-results-scrollable-loader {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.MuiLinearProgress-barColorPrimary {
+  background-color: #1976d2 !important;
+}
+
 /* List icons */
 .infobox-list-icon-wrapper > .MuiCircularProgress-root {
   margin-right: 25px;

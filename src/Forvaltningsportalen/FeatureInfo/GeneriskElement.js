@@ -32,16 +32,14 @@ const GeneriskElement = props => {
       style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
       className="generic_element"
     >
-      <ListItem
-        button
-        onClick={() => {
-          setOpen(!open);
-        }}
-      >
-        <ListItemIcon className="infobox-list-icon-wrapper">
-          {resultat.loading ? (
-            <CircularProgress size={30} />
-          ) : (
+      {!resultat.loading && (
+        <ListItem
+          button
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          <ListItemIcon className="infobox-list-icon-wrapper">
             <>
               <Badge
                 badgeContent={resultat.error ? "!" : 0}
@@ -57,31 +55,37 @@ const GeneriskElement = props => {
                 />
               </Badge>
             </>
-          )}
-        </ListItemIcon>
-        <div
-          style={{
-            flex: 1
-          }}
-        >
-          <div className="generic-element-secondary-text">
-            {resultat.loading ? (
-              <LoadingPlaceholder />
-            ) : primaryText.harData && primaryText.elementer[0] ? (
-              primaryText.elementer
-            ) : resultat.error ? (
-              "Kunne ikke hente data"
-            ) : (
-              "Ingen treff"
-            )}
+          </ListItemIcon>
+          <div
+            style={{
+              flex: 1
+            }}
+          >
+            <div className="generic-element-secondary-text">
+              {primaryText && primaryText.harData && primaryText.elementer[0]
+                ? primaryText.elementer
+                : resultat.error
+                ? "Kunne ikke hente data"
+                : "Ingen treff"}
+              {/* {resultat.loading ? (
+                <LoadingPlaceholder />
+              ) : primaryText && primaryText.harData && primaryText.elementer[0] ? (
+                primaryText.elementer
+              ) : resultat.error ? (
+                "Kunne ikke hente data"
+              ) : (
+                "Ingen treff"
+              )} */}
+            </div>
+            <div className="generic-element-primary-text">
+              {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
+            </div>
+            <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
-          <div className="generic-element-primary-text">
-            {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
-          </div>
-          <div className="generic-element-data-owner">{kartlag.dataeier}</div>
-        </div>
-        {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-      </ListItem>
+          {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+        </ListItem>
+      )}
+
       {faktaark_url && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           <ExpandedHeader
