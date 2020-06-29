@@ -5,8 +5,10 @@ import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
-
 import { KeyboardBackspace } from "@material-ui/icons";
+import CustomIcon from "../Common/CustomIcon";
+import { Button } from "@material-ui/core";
+
 const KartlagFanen = props => {
   return (
     <>
@@ -15,14 +17,20 @@ const KartlagFanen = props => {
           props.showSideBar ? " side-bar-open" : ""
         }`}
       >
-        <button
-          className="toggle-side-bar-button"
+        <Button
+          id="toggle-side-bar-button"
+          variant="contained"
+          size="small"
           onClick={() => {
             props.toggleSideBar();
           }}
         >
-          {props.showSideBar ? "Skjul kartlag" : "Vis kartlag"}
-        </button>
+          <CustomIcon
+            id="show-layers-icon"
+            icon={props.showSideBar ? "menu-right" : "menu-left"}
+            size={30}
+          />
+        </Button>
       </div>
       {props.showSideBar && (
         <div className="kartlag_fanen">
