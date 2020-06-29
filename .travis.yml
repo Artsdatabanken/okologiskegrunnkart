@@ -10,6 +10,7 @@ script:
   - cd wms-assistent
   - npm install
   - npm run build
+  - cd ..
 after_success:
   - ./deploy.sh $BRANCH
   - ./deploy_wms-assistent.sh $BRANCH
