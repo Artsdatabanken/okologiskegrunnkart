@@ -110,4 +110,68 @@ function zoomRangeSublayer(zoom, minScaleDenominator, maxScaleDenominator) {
   return { disabled: true, description: "Utenfor zoomområdet - zoom ut" };
 }
 
-export { zoomRangeLayer, zoomRangeSublayer };
+function zoomRangeBadge(zoom, sublayers) {
+  // Find the highest 'maxscaledenominator' and lowest 'minscaledenominator'
+  // from all sublayers which are visible (i.e. selected by user)
+  // NOTE: if maxScaleDenominator is null, in any sublayer,
+  // max is set to 999999999 (unlimited)
+  let min = 999999999;
+  let max = 0;
+  let maxNull = false;
+  let visibleSublayers = {};
+  for (const sublayerId in sublayers) {
+    if (sublayers[sublayerId].erSynlig) {
+      visibleSublayers[sublayerId] = sublayers[sublayerId];
+    }
+    if (
+      sublayers[sublayerId].minscaledenominator < min &&
+      sublayers[sublayerId].erSynlig
+    ) {
+      min = sublayers[sublayerId].minscaledenominator;
+    }
+    if (
+      sublayers[sublayerId].maxscaledenominator > max &&
+      sublayers[sublayerId].erSynlig
+    ) {
+      max = sublayers[sublayerId].maxscaledenominator;
+    }
+    if (sublayers[sublayerId].maxscaledenominator === null) maxNull = true;
+  }
+  if (visibleSublayers.length === 0) return true;
+
+  if (!min || min === 999999999) min = 0;
+  if (!max || max === 0 || maxNull) max = 999999999;
+
+  // NOTE: Some scales from NIBIO seem to be wrong.
+  // Adjusted manually here (hopefully this will not
+  // affect other scale denominators)
+  if (max === 1000000) max = 1091960;
+  if (max === 500000) max = 545980;
+
+  // Asses if current map zoom is within all sublayers' scale range
+  let maxIndex = null;
+  let minIndex = null;
+  for (let i = 0; i < scaleArray.length; i++) {
+    if (!maxIndex && max > scaleArray[i]) {
+      maxIndex = i;
+    }
+  }
+  for (let i = scaleArray.length; i >= 0; i--) {
+    if (!minIndex && min < scaleArray[i]) {
+      minIndex = i;
+    }
+  }
+  if (!minIndex) {
+    minIndex = 20;
+  }
+  if (!maxIndex) {
+    maxIndex = 0;
+  }
+
+  if (zoom >= maxIndex && zoom <= minIndex) {
+    return false;
+  }
+  return true;
+}
+
+export { zoomRangeLayer, zoomRangeSublayer, zoomRangeBadge };

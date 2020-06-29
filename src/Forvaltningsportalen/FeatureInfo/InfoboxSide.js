@@ -53,11 +53,7 @@ const InfoBox = ({
   };
 
   const toggleAllLayers = () => {
-    const fetchData = !showExtensiveInfo;
-    handleExtensiveInfo(!showExtensiveInfo);
-    if (fetchData) {
-      getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
-    }
+    getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
   };
 
   return (
@@ -82,6 +78,7 @@ const InfoBox = ({
             className="close-infobox-button"
             onClick={e => {
               handleInfobox(false);
+              handleExtensiveInfo(false);
             }}
           >
             <Close />

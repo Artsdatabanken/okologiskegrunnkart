@@ -12,7 +12,7 @@ import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import DisabledTooltip from "../../Common/DisabledTooltip";
 import Badge from "@material-ui/core/Badge";
-import { zoomRangeLayer } from "../../Funksjoner/zoomRange";
+import { zoomRangeLayer, zoomRangeBadge } from "../../Funksjoner/zoomRange";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -34,6 +34,7 @@ const ForvaltningsElement = ({
     kartlag.underlag || {}
   );
 
+  const disabledBadge = zoomRangeBadge(zoom, kartlag.underlag || {});
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
@@ -64,7 +65,7 @@ const ForvaltningsElement = ({
                 <Badge
                   className="badge-disabled"
                   badgeContent={kartlag.numberVisible || 0}
-                  color="primary"
+                  color="secondary"
                 >
                   <CustomIcon
                     id="kartlag"
@@ -85,7 +86,7 @@ const ForvaltningsElement = ({
         </DisabledTooltip>
       ) : (
         <ListItem
-          // Elementet som inneholder tittel, visningsøye og droppned-knapp
+          // Elementet som inneholder tittel, ikon og droppned-knapp
           id="layer-list-item"
           button
           divider
@@ -98,6 +99,7 @@ const ForvaltningsElement = ({
           <ListItemIcon>
             <div className="layer-list-element-icon">
               <Badge
+                className={disabledBadge ? "badge-disabled" : ""}
                 badgeContent={kartlag.numberVisible || 0}
                 color="secondary"
               >
