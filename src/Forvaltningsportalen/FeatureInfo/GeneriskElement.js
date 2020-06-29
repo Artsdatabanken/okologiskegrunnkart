@@ -29,7 +29,7 @@ const GeneriskElement = props => {
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
   return (
     <div
-      style={{ backgroundColor: open ? "#fff" : "#eeeeee" }}
+      style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
       className="generic_element"
     >
       <ListItem

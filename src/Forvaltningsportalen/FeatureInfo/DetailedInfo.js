@@ -1,9 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { Layers } from "@material-ui/icons";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
+import CustomIcon from "../../Common/CustomIcon";
 
 const DetailedInfo = ({
   showExtensiveInfo,
@@ -25,7 +25,7 @@ const DetailedInfo = ({
       <div className="layer-results-side">
         <ListItem id="layer-results-header">
           <ListItemIcon>
-            <Layers />
+            <CustomIcon icon="layers" size={32} color="#777" padding={0} />
           </ListItemIcon>
           <ListItemText primary={title} />
         </ListItem>

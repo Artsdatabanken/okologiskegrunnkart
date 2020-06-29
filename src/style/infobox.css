@@ -365,8 +365,7 @@
 }
 
 #layer-results-header .MuiListItemIcon-root {
-  margin-left: 4px;
-  min-width: 52px;
+  min-width: 56px;
 }
 
 @media only screen and (max-width: 768px) {
