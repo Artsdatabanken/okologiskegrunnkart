@@ -330,7 +330,7 @@ h4.container_header {
 #layer-icon-tooltip .MuiTooltip-tooltip {
   left: 5px;
 }
-.badge-disabled > .MuiBadge-colorPrimary {
+.badge-disabled > .MuiBadge-colorSecondary {
   background-color: #aaa !important;
 }
 
