@@ -396,6 +396,11 @@
   font-weight: 575;
 }
 
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
+  /* background-color: #E13D3E; */
+  background-color: #777;
+}
+
 /* list items in info box */
 .generic-element-primary-text {
   display: block;

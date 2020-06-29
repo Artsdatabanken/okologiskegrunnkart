@@ -9,7 +9,6 @@ const DetailedInfo = ({
   showExtensiveInfo,
   kartlag,
   coordinates_area,
-  onUpdateLayerProp,
   layersResult
 }) => {
   let title = "Ingen kartlag valgt";
@@ -37,7 +36,6 @@ const DetailedInfo = ({
               Object.keys(layersResult).map(key => {
                 return (
                   <GeneriskElement
-                    onUpdateLayerProp={onUpdateLayerProp}
                     coordinates_area={coordinates_area}
                     key={key}
                     kartlag={kartlag}

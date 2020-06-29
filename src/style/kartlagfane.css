@@ -276,7 +276,7 @@ h4.container_header {
   border: 2px solid blue;
 }
 
-/* Side bar button */
+/* Side bar show/hide button */
 .toggle-side-bar-wrapper {
   position: absolute;
   top: 55px;

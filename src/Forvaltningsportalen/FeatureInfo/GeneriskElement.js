@@ -44,7 +44,7 @@ const GeneriskElement = props => {
           ) : (
             <>
               {resultat.error ? (
-                <Badge badgeContent="!" color="error" overlap="circle">
+                <Badge badgeContent="!" color="primary" overlap="circle">
                   <CustomIcon
                     id="infobox-list-icon"
                     icon={kartlag.tema}
