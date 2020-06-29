@@ -24,7 +24,8 @@ const InfoBox = ({
   adresse,
   resultat,
   kartlag,
-  showExtensiveInfo
+  showExtensiveInfo,
+  handleExtensiveInfo
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
@@ -77,6 +78,7 @@ const InfoBox = ({
             className="close-infobox-button"
             onClick={e => {
               handleInfobox(false);
+              handleExtensiveInfo(false);
             }}
           >
             <Close />
