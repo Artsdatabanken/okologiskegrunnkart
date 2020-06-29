@@ -11,8 +11,6 @@ tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
  then
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning"}' $slackaddy
  else
   echo "This branch will not be deployed, since it's not the master branch."
