@@ -10,7 +10,6 @@ const FeatureInfo = ({
   kartlag,
   handleExtensiveInfo,
   coordinates_area,
-  onUpdateLayerProp,
   layersResult
 }) => {
   if (!showExtensiveInfo) return null;
@@ -41,7 +40,6 @@ const FeatureInfo = ({
               Object.keys(layersResult).map(key => {
                 return (
                   <GeneriskElement
-                    onUpdateLayerProp={onUpdateLayerProp}
                     coordinates_area={coordinates_area}
                     key={key}
                     kartlag={kartlag}

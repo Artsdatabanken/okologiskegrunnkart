@@ -17,7 +17,6 @@ const InfoBox = ({
   layerevent,
   getBackendData,
   handleInfobox,
-  onUpdateLayerProp,
   layersResult,
   allLayersResult,
   valgteLag,
@@ -160,7 +159,6 @@ const InfoBox = ({
           showExtensiveInfo={showExtensiveInfo}
           kartlag={showExtensiveInfo ? kartlag : valgteLag}
           coordinates_area={coordinates_area}
-          onUpdateLayerProp={onUpdateLayerProp}
           layersResult={showExtensiveInfo ? allLayersResult : layersResult}
           resultat={resultat}
         />
