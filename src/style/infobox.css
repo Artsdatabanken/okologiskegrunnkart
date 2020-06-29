@@ -364,6 +364,10 @@
   border-bottom: 1px solid grey;
 }
 
+#layer-results-header .MuiListItemIcon-root {
+  min-width: 56px;
+}
+
 @media only screen and (max-width: 768px) {
   .infobox-side,
   .layer-results-side {
@@ -377,6 +381,23 @@
     width: 100%;
     max-height: calc(100vh - 300px);
   }
+}
+
+/* List icons */
+.infobox-list-icon-wrapper > .MuiCircularProgress-root {
+  margin-right: 25px;
+}
+#infobox-list-icon {
+  margin-left: 0;
+}
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
+  font-size: 0.9rem;
+  font-weight: 575;
+}
+
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
+  /* background-color: #E13D3E; */
+  background-color: #777;
 }
 
 /* list items in info box */
@@ -394,7 +415,7 @@
   > .MuiList-root
   > .generic_element
   > .MuiListItem-root {
-  padding: 0 16px;
+  padding: 0 12px;
 }
 
 @media only screen and (max-width: 768px) {

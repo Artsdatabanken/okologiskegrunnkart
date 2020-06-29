@@ -35,6 +35,11 @@ const ForvaltningsElement = ({
   );
 
   const disabledBadge = zoomRangeBadge(zoom, kartlag.underlag || {});
+  const isLargeIcon = tema => {
+    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
+      tema
+    );
+  };
 
   return (
     <>
@@ -65,7 +70,8 @@ const ForvaltningsElement = ({
                   <CustomIcon
                     id="kartlag"
                     icon={kartlag.tema}
-                    size={30}
+                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                     color={"#ccc"}
                   />
                 </Badge>
@@ -97,23 +103,14 @@ const ForvaltningsElement = ({
                 badgeContent={kartlag.numberVisible || 0}
                 color="secondary"
               >
-                {erSynlig ? (
-                  <CustomIcon
-                    id="kartlag"
-                    icon={kartlag.tema}
-                    size={30}
-                    color={"#666"}
-                    tooltipText={kartlag.tema}
-                  />
-                ) : (
-                  <CustomIcon
-                    id="kartlag"
-                    icon={kartlag.tema}
-                    size={30}
-                    color={"#999"}
-                    tooltipText={kartlag.tema}
-                  />
-                )}
+                <CustomIcon
+                  id="kartlag"
+                  icon={kartlag.tema}
+                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                  color={erSynlig ? "#666" : "#999"}
+                  tooltipText={kartlag.tema}
+                />
               </Badge>
             </div>
           </ListItemIcon>

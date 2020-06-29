@@ -99,7 +99,6 @@ class App extends React.Component {
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
                       }
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
                       handleAlleLag={this.hentInfoAlleLag}
