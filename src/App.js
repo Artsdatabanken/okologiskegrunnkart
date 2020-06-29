@@ -102,7 +102,7 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
-                      handleLokalitetUpdate={this.hentInfoAlleLag}
+                      handleAlleLag={this.hentInfoAlleLag}
                       handleValgteLag={this.hentInfoValgteLag}
                       forvaltningsportal={true}
                       show_current={this.state.showCurrent}
@@ -308,17 +308,22 @@ class App extends React.Component {
     }
   };
 
+  handleMapMarkerSearch = (lng, lat, zoom) => {
+    if (this.state.lat === lat && this.state.lng === lng) return;
+    this.handleLatLng(lng, lat);
+    this.handleStedsNavn(lng, lat, zoom);
+    this.handlePunktSok(lng, lat, zoom);
+  };
+
   handleLatLng = (lng, lat) => {
     // Denne henter koordinatet og dytter det som state. Uten det kommer man ingensted.
     // Layer results are emptied when coordinates change (new click on map)
-    if (this.state.lat !== lat || this.state.lng !== lng) {
-      this.setState({
-        lat,
-        lng,
-        layersResult: {},
-        allLayersResult: {}
-      });
-    }
+    this.setState({
+      lat,
+      lng,
+      layersResult: {},
+      allLayersResult: {}
+    });
   };
 
   handleStedsNavn = (lng, lat, zoom) => {
@@ -451,15 +456,12 @@ class App extends React.Component {
       if (kartlag[i].erSynlig) valgteLag[i] = kartlag[i];
     }
     this.setState({ valgteLag: valgteLag });
-    this.handleLatLng(lng, lat);
-    this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, zoom);
+    this.handleMapMarkerSearch(lng, lat, zoom);
     this.handleLayersSearch(lng, lat, zoom, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
-    this.setState({ lat: lat, lng: lng });
-    this.handleLatLng(lng, lat);
+    this.handleMapMarkerSearch(lng, lat, zoom);
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 

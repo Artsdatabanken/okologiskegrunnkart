@@ -133,7 +133,7 @@ class Leaflet extends React.Component {
 
   getBackendData = async (lng, lat, e) => {
     this.props.handleExtensiveInfo(true);
-    this.props.handleLokalitetUpdate(lng, lat, this.map.getZoom());
+    this.props.handleAlleLag(lng, lat, this.map.getZoom());
   };
 
   openLinksInNewTab = () => {
@@ -228,13 +228,21 @@ class Leaflet extends React.Component {
     }).addTo(this.map);
 
     // Oppdatering av infoboksen
-    this.props.handleExtensiveInfo(false);
+    // this.props.handleExtensiveInfo(false);
     this.setState({
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
     this.props.handleInfobox(true);
-    this.props.handleValgteLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
+    if (this.props.showExtensiveInfo) {
+      this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
+    } else {
+      this.props.handleValgteLag(
+        e.latlng.lng,
+        e.latlng.lat,
+        this.map.getZoom()
+      );
+    }
 
     // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
     let urlparams = (this.props.path || "").split("?");
