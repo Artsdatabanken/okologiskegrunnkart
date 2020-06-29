@@ -25,11 +25,11 @@ const KartlagFanen = props => {
             props.toggleSideBar();
           }}
         >
-          {props.showSideBar ? (
-            <CustomIcon id="show-layers-icon" icon="menu-right" size={30} />
-          ) : (
-            <CustomIcon id="show-layers-icon" icon="menu-left" size={30} />
-          )}
+          <CustomIcon
+            id="show-layers-icon"
+            icon={props.showSideBar ? "menu-right" : "menu-left"}
+            size={30}
+          />
         </Button>
       </div>
       {props.showSideBar && (

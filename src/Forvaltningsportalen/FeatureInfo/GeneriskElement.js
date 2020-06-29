@@ -43,17 +43,11 @@ const GeneriskElement = props => {
             <CircularProgress size={30} />
           ) : (
             <>
-              {resultat.error ? (
-                <Badge badgeContent="!" color="primary" overlap="circle">
-                  <CustomIcon
-                    id="infobox-list-icon"
-                    icon={kartlag.tema}
-                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                    color={"#777"}
-                  />
-                </Badge>
-              ) : (
+              <Badge
+                badgeContent={resultat.error ? "!" : 0}
+                color="primary"
+                overlap="circle"
+              >
                 <CustomIcon
                   id="infobox-list-icon"
                   icon={kartlag.tema}
@@ -61,7 +55,7 @@ const GeneriskElement = props => {
                   padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                   color={"#777"}
                 />
-              )}
+              </Badge>
             </>
           )}
         </ListItemIcon>
