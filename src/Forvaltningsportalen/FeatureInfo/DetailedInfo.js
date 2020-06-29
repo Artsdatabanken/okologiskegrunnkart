@@ -38,8 +38,6 @@ const DetailedInfo = ({
   }
   if (!coordinates_area.lat) return null;
 
-  console.log(loadingPercent);
-
   return (
     <div className="detailed-info-container-side">
       <div className="layer-results-side">
