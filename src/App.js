@@ -25,7 +25,7 @@ class App extends React.Component {
       navigation_history: [],
       showCurrent: true,
       spraak: "nb",
-      showExtensiveInfo: true,
+      showExtensiveInfo: false,
       zoomcoordinates: null,
       valgtLag: null,
       searchResultPage: false,
@@ -99,7 +99,6 @@ class App extends React.Component {
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
                       }
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
                       handleLokalitetUpdate={this.hentInfoAlleLag}
@@ -211,9 +210,20 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
-  handleNavigateToKartlag = valgtLag => {
+  handleNavigateToKartlag = (valgtLag, trefftype) => {
     this.props.history.push("/kartlag/" + valgtLag.id.trim());
-    this.setState({ valgtLag: valgtLag });
+    if (trefftype === "Underlag") {
+      const id = valgtLag.id;
+      const parentId = valgtLag.parentId;
+      const selectedUnderlayer = {
+        [id]: this.state.kartlag[parentId].underlag[id]
+      };
+      const selectedLayer = this.state.kartlag[parentId];
+      const selected = { ...selectedLayer, underlag: selectedUnderlayer };
+      this.setState({ valgtLag: selected });
+    } else {
+      this.setState({ valgtLag: valgtLag });
+    }
   };
 
   addPolyline = polyline => {
@@ -263,7 +273,6 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
-    // console.log("clacketty");
     if (geostring.ssrId) {
       let mincoord = [
         parseFloat(geostring.aust) - 1,
@@ -279,7 +288,6 @@ class App extends React.Component {
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     } else {
-      // console.log(geostring.representasjonspunkt);
       let koordinater = geostring.representasjonspunkt;
 
       let mincoord = [

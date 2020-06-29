@@ -8,7 +8,6 @@ const InfoBox = ({
   layerevent,
   getBackendData,
   handleInfobox,
-  onUpdateLayerProp,
   layersResult,
   valgteLag,
   sted,
@@ -101,7 +100,6 @@ const InfoBox = ({
             Object.keys(layersResult).map(key => {
               return (
                 <GeneriskElement
-                  onUpdateLayerProp={onUpdateLayerProp}
                   coordinates_area={coordinates_area}
                   key={key}
                   kartlag={valgteLag}

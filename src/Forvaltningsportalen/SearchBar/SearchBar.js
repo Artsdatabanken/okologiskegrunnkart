@@ -6,7 +6,7 @@ import { Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 class SearchBar extends React.Component {
   state = {
-    treffliste_lokalt: null,
+    treffliste_lag: null,
     treffliste_sted: null,
     fylker: null,
     kommuner: null,
@@ -17,13 +17,14 @@ class SearchBar extends React.Component {
     treffliste_bnr: null,
     searchTerm: null,
     showHelpModal: false,
-    manual: ""
+    manual: "",
+    countermax: 50
   };
 
   handleRemoveTreffliste = () => {
     this.setState({
       treffliste_sted: null,
-      treffliste_lokalt: null,
+      treffliste_lag: null,
       isSearching: false,
       treffliste_knrgnrbnr: null,
       treffliste_knr: null,
@@ -32,9 +33,68 @@ class SearchBar extends React.Component {
     });
   };
 
+  searchInLayer = (criteria, searchTerm, layer) => {
+    if (layer[criteria]) {
+      let lagstring = layer[criteria];
+      if (criteria === "tags") {
+        lagstring = JSON.stringify(layer[criteria]);
+      }
+      lagstring = lagstring.toLowerCase();
+      if (lagstring.indexOf(searchTerm) !== -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  searchForKey = (criteria, counter, searchTerm) => {
+    const treffliste_lag = [];
+    const treffliste_underlag = [];
+    const countermax = this.state.countermax;
+    const layers = this.props.kartlag;
+    // Search in layers
+    for (let i in layers) {
+      if (counter >= countermax) {
+        break;
+      } else {
+        const layer = layers[i];
+        const found = this.searchInLayer(criteria, searchTerm, layer);
+        if (found) {
+          treffliste_lag.push(layer);
+          counter += 1;
+        }
+        // Search in sublayers
+        const sublayers = layer.underlag;
+        if (!sublayers) continue;
+        for (let j in sublayers) {
+          if (counter >= countermax) {
+            break;
+          } else {
+            const found = this.searchInLayer(
+              criteria,
+              searchTerm,
+              sublayers[j]
+            );
+            if (found) {
+              const sublayer = {
+                ...sublayers[j],
+                id: j,
+                parentId: i,
+                tema: layer.tema
+              };
+              treffliste_underlag.push(sublayer);
+              counter += 1;
+            }
+          }
+        }
+      }
+    }
+    return { treffliste_lag, treffliste_underlag, counter };
+  };
+
   handleSearchButton = () => {
     this.handleSearchBar(document.getElementById("searchfield").value, true);
-    document.getElementById("searchfield").value = "";
+    // document.getElementById("searchfield").value = "";
   };
 
   handleSearchBar = (searchTerm, resultpage) => {
@@ -45,68 +105,60 @@ class SearchBar extends React.Component {
       });
       return null;
     }
-    let countermax = 50;
     if (resultpage) {
       this.props.onSelectSearchResult(true);
       this.setState({
         isSearching: false,
-        searchTerm: null
+        searchTerm: null,
+        countermax: 15
       });
-      countermax = 15;
     } else {
       this.setState({
         isSearching: true,
-        searchTerm: searchTerm
+        searchTerm: searchTerm,
+        countermax: 50
       });
     }
     searchTerm = searchTerm.toLowerCase();
     let counter = 0;
-    let treffliste_lokalt = [];
-    let lag = this.props.kartlag;
-
-    function searchForKey(criteria, counter, lag, searchTerm) {
-      let treffliste_lokalt = [];
-      for (let i in lag) {
-        if (counter >= countermax) {
-          break;
-        } else {
-          if (lag[i][criteria]) {
-            let lagstring = lag[i][criteria];
-            if (criteria === "tags") {
-              lagstring = JSON.stringify(lag[i][criteria]);
-            }
-            lagstring = lagstring.toLowerCase();
-            if (lagstring.indexOf(searchTerm) !== -1) {
-              let element = lag[i];
-              treffliste_lokalt.push(element);
-              counter += 1;
-            }
-          }
-        }
-      }
-      return [treffliste_lokalt, counter];
-    }
+    let treffliste_lag = [];
+    let treffliste_underlag = [];
 
     if (searchTerm && searchTerm.length > 0) {
-      let title_search = searchForKey("tittel", counter, lag, searchTerm);
-      treffliste_lokalt = title_search[0];
-      counter = title_search[1];
-      let owner_search = searchForKey("dataeier", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(owner_search[0]);
-      counter += owner_search[1];
-      let theme_search = searchForKey("tema", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(theme_search[0]);
-      counter += theme_search[1];
-      let tags_search = searchForKey("tags", counter, lag, searchTerm);
-      treffliste_lokalt = treffliste_lokalt.concat(tags_search[0]);
-      counter += tags_search[1];
+      // Search in title
+      let title_search = this.searchForKey("tittel", counter, searchTerm);
+      treffliste_lag = title_search.treffliste_lag;
+      treffliste_underlag = title_search.treffliste_underlag;
+      counter = title_search.counter;
+      // Search in data owner
+      let owner_search = this.searchForKey("dataeier", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(owner_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        owner_search.treffliste_underlag
+      );
+      counter += owner_search.counter;
+      // Search in tema
+      let theme_search = this.searchForKey("tema", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(theme_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        theme_search.treffliste_underlag
+      );
+      counter += theme_search.counter;
+      // Search in tags
+      let tags_search = this.searchForKey("tags", counter, searchTerm);
+      treffliste_lag = treffliste_lag.concat(tags_search.treffliste_lag);
+      treffliste_underlag = treffliste_underlag.concat(
+        tags_search.treffliste_underlag
+      );
+      counter += tags_search.counter;
     }
 
     if (resultpage) {
-      this.props.setKartlagSearchResults(treffliste_lokalt);
+      this.props.setKartlagSearchResults(treffliste_lag);
     } else {
       this.setState({
-        treffliste_lokalt: treffliste_lokalt
+        treffliste_lag,
+        treffliste_underlag
       });
     }
 
@@ -378,7 +430,8 @@ class SearchBar extends React.Component {
               handleSearchBar={this.handleSearchBar}
               onSearchButton={this.handleSearchButton}
               treffliste={this.state.treffliste}
-              treffliste_lokalt={this.state.treffliste_lokalt}
+              treffliste_lag={this.state.treffliste_lag}
+              treffliste_underlag={this.state.treffliste_underlag}
               treffliste_sted={this.state.treffliste_sted}
               treffliste_knr={this.state.treffliste_knr}
               treffliste_gnr={this.state.treffliste_gnr}
