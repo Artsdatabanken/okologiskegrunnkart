@@ -132,8 +132,15 @@ class Leaflet extends React.Component {
   }
 
   getBackendData = async (lng, lat, e) => {
-    this.props.handleExtensiveInfo(true);
-    this.props.handleAlleLag(lng, lat, this.map.getZoom());
+    const fetchAllData = !this.props.showExtensiveInfo;
+    this.props.handleExtensiveInfo(!this.props.showExtensiveInfo);
+    if (fetchAllData) {
+      this.props.handleExtensiveInfo(true);
+      this.props.handleAlleLag(lng, lat, this.map.getZoom());
+    } else {
+      this.props.handleExtensiveInfo(false);
+      this.props.handleValgteLag(lng, lat, this.map.getZoom());
+    }
   };
 
   openLinksInNewTab = () => {
@@ -510,7 +517,6 @@ class Leaflet extends React.Component {
             adresse={this.props.adresse}
             handleInfobox={this.props.handleInfobox}
             showExtensiveInfo={this.props.showExtensiveInfo}
-            handleExtensiveInfo={this.props.handleExtensiveInfo}
             {...this.props}
           />
         )}

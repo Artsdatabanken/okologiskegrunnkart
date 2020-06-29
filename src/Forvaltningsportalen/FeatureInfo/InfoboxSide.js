@@ -24,8 +24,7 @@ const InfoBox = ({
   adresse,
   resultat,
   kartlag,
-  showExtensiveInfo,
-  handleExtensiveInfo
+  showExtensiveInfo
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
@@ -53,11 +52,7 @@ const InfoBox = ({
   };
 
   const toggleAllLayers = () => {
-    const fetchData = !showExtensiveInfo;
-    handleExtensiveInfo(!showExtensiveInfo);
-    if (fetchData) {
-      getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
-    }
+    getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
   };
 
   return (
