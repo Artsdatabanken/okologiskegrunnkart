@@ -58,33 +58,32 @@ const InfoBox = ({
 
   return (
     <div className="infobox-container-side">
-      <div className="infobox-side">
-        <div className="infobox-title-wrapper">
-          <div className="infobox-title-content">
-            <CustomTooltip placement="right" title="Sted / Områdetype">
-              <MyLocation />
-            </CustomTooltip>
-            <div className="infobox-title-text">
-              <div className="infobox-title-text-primary">
-                {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
-              </div>
-              <div className="infobox-title-text-secondary">
-                {`${sted ? sted.navneobjekttype : "-"}`}
-              </div>
+      <div className="infobox-title-wrapper">
+        <div className="infobox-title-content">
+          <CustomTooltip placement="right" title="Sted / Områdetype">
+            <MyLocation />
+          </CustomTooltip>
+          <div className="infobox-title-text">
+            <div className="infobox-title-text-primary">
+              {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
+            </div>
+            <div className="infobox-title-text-secondary">
+              {`${sted ? sted.navneobjekttype : "-"}`}
             </div>
           </div>
-          <button
-            tabIndex="0"
-            className="close-infobox-button"
-            onClick={e => {
-              handleInfobox(false);
-              handleExtensiveInfo(false);
-            }}
-          >
-            <Close />
-          </button>
         </div>
-
+        <button
+          tabIndex="0"
+          className="close-infobox-button"
+          onClick={e => {
+            handleInfobox(false);
+            handleExtensiveInfo(false);
+          }}
+        >
+          <Close />
+        </button>
+      </div>
+      <div className="infobox-side">
         {sted && (
           <div className="infobox-content">
             <div className="infobox-text-wrapper">
