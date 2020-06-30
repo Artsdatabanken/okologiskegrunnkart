@@ -340,6 +340,12 @@ h4.container_header {
   background-color: #aaa !important;
 }
 
+#bookmark-icon.MuiListItemIcon-root {
+  max-width: 25px;
+  min-width: 25px;
+  margin-left: 10px;
+}
+
 /* Sublayer format */
 .sublayer-disabled {
   color: #aaa;
