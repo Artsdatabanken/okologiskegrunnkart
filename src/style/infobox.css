@@ -406,9 +406,9 @@
 }
 
 /* list items in info box */
-.generic-element-primary-text {
+.generic-element-secondary-text {
   display: block;
-  font-size: 12pt;
+  font-size: 11pt;
   color: #6d6d6d;
 }
 .generic-element-data-owner {
@@ -424,12 +424,12 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .generic-element-secondary-text {
+  .generic-element-primary-text {
     font-size: 11pt;
     margin: 1px 0 !important;
   }
-  .generic-element-primary-text {
-    font-size: 11pt;
+  .generic-element-secondary-text {
+    font-size: 10.5pt;
     margin: 1px 0 !important;
   }
   .generic-element-data-owner {
