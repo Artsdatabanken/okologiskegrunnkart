@@ -340,6 +340,9 @@ h4.container_header {
   background-color: #aaa !important;
 }
 
+#bookmark.layer-icon-wrapper {
+  margin-bottom: 2px;
+}
 #bookmark-icon.MuiListItemIcon-root {
   max-width: 25px;
   min-width: 25px;
