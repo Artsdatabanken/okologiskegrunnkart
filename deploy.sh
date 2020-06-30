@@ -5,15 +5,17 @@
 #- echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
 set -e
 BRANCH=$1
-FILENAME=forvaltningsportal_$BRANCH.tar.gz
+PUBLIC_URL=$2
+PULL_REQUEST=${PUBLIC_URL:1}
+FILENAME=forvaltningsportal_$PULL_REQUEST.tar.gz
 echo "Making archive..."
 tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
+sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
 if [ "${BRANCH}" == "master" ]
  then
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
   sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest  
-  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning"}' $slackaddy
  else
   echo "This branch will not be deployed, since it's not the master branch."
 fi
+curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning '$PULL_REQUEST'}"}' $slackaddy
