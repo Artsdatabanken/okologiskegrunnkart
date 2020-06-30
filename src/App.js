@@ -471,6 +471,7 @@ class App extends React.Component {
       allLayersResult[key] = { loading: true };
     });
     const totalFeaturesSearch = Object.keys(allLayersResult).length;
+    let finishedFeaturesSearch = 0;
 
     // Set an interval to update state
     const updateLayers = setInterval(this.setState({ allLayersResult }), 2000);
@@ -485,18 +486,16 @@ class App extends React.Component {
             res.error = res.ServiceException;
             delete res.ServiceException;
           }
-          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          finishedFeaturesSearch += 1;
           allLayersResult[key] = res;
-          this.setState({ finishedFeaturesSearch });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false, allLayersResult });
             clearInterval(updateLayers);
           }
         })
         .catch(e => {
-          let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+          finishedFeaturesSearch += 1;
           allLayersResult[key] = { error: e.message || key };
-          this.setState({ finishedFeaturesSearch });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false, allLayersResult });
             clearInterval(updateLayers);
@@ -510,7 +509,7 @@ class App extends React.Component {
     // Stop the interval after 10 seconds
     setTimeout(clearInterval(updateLayers), 10000);
     setTimeout(function() {
-      console.log("finished");
+      console.log("finished second time");
     }, 10000);
   };
 
