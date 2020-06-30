@@ -15,7 +15,7 @@ script:
   - cd ..
 
 after_success:
-  - ./deploy.sh $BRANCH $PUBLIC_URL
+  - ./deploy.sh $BRANCH
   - ./deploy_wms-assistent.sh $BRANCH
   - ./deploy_django.sh $BRANCH
 notifications:

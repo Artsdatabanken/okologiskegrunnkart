@@ -5,9 +5,8 @@
 #- echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
 BRANCH=$1
 PUBLIC_URL=$2
-PULL_REQUEST=${PUBLIC_URL:1}
-echo Pull request: $PULL_REQUEST
-FILENAME=forvaltningsportal_$PULL_REQUEST.tar.gz
+echo Pull request: $TRAVIS_PULL_REQUEST
+FILENAME=forvaltningsportal_$TRAVIS_PULL_REQUEST.tar.gz
 echo "Making archive..."
 tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
@@ -16,9 +15,9 @@ if [ "${BRANCH}" == "master" ]
   sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest  
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning master"}' $slackaddy
 fi
-if [ "$PULL_REQUEST" != "" ]
+if [ "$TRAVIS_PULL_REQUEST" != "false" ]
  then
   echo "Deploy ${FILENAME}"
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest_pr
+  sshpass -p $scp_pass scp -v -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest_pr
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning-pr"}' $slackaddy
 fi
