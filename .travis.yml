@@ -18,6 +18,7 @@ after_success:
   - ./deploy.sh $BRANCH
   - ./deploy_wms-assistent.sh $BRANCH
   - ./deploy_django.sh $BRANCH
+
 notifications:
   slack:
     on_success: change
