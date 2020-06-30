@@ -5,8 +5,10 @@ directories:
   - node_modules
 script:
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+  - export PUBLIC_URL=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo ""; else echo "/pr/forvaltningsportal_$TRAVIS_PULL_REQUEST"; fi)
+  - echo $PUBLIC_URL
   - npm run build
-  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, PR=$PR, BRANCH=$BRANCH"
+  - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, BRANCH=$BRANCH"
   - cd wms-assistent
   - npm install
   - npm run build
@@ -16,6 +18,7 @@ after_success:
   - ./deploy.sh $BRANCH
   - ./deploy_wms-assistent.sh $BRANCH
   - ./deploy_django.sh $BRANCH
+
 notifications:
   slack:
     on_success: change
