@@ -7,7 +7,7 @@ set -e
 BRANCH=$1
 FILENAME=forvaltningsportal_wms-assistent_$BRANCH.tar.gz
 echo "Making archive..."
-tar --directory=wms-assistent -zcf $FILENAME .
+tar --directory=wms-assistent/build -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
  then
