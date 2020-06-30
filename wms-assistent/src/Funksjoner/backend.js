@@ -22,7 +22,13 @@ class Backend {
   }
 
   static async updateLayer(id, data) {
-    const url = `http://localhost:8000/api/v1/kartlag/${id}/update/`;
+    let url = `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/${id}/update/`;
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      url = `http://localhost:8000/api/v1/kartlag/${id}/update/`;
+    }
     const body = JSON.stringify(data);
 
     try {
