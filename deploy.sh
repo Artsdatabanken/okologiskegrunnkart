@@ -7,7 +7,6 @@ set -e
 BRANCH=$1
 PUBLIC_URL=$2
 PULL_REQUEST=${PUBLIC_URL:1}
-echo Branch: $BRANCH
 echo Pull request: $PULL_REQUEST
 FILENAME=forvaltningsportal_$PULL_REQUEST.tar.gz
 echo "Making archive..."
