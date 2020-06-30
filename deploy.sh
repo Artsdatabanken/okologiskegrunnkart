@@ -15,11 +15,12 @@ tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
  then
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest  
+  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest  
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning master"}' $slackaddy
 fi
 if [ "$PULL_REQUEST" != "" ]
  then
-  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
-  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning '$PULL_REQUEST'"}' $slackaddy
+  echo "Deploy ${FILENAME}"
+  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest_pr
+  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning-pr"}' $slackaddy
 fi
