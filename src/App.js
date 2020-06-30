@@ -43,8 +43,7 @@ class App extends React.Component {
       lat: null,
       lng: null,
       loadingFeatures: false,
-      finishedFeaturesSearch: 0,
-      loadingPercent: 0
+      finishedFeaturesSearch: 0
     };
   }
 
@@ -127,7 +126,6 @@ class App extends React.Component {
                       showInfobox={this.state.showInfobox}
                       handleInfobox={this.handleInfobox}
                       loadingFeatures={this.state.loadingFeatures}
-                      loadingPercent={this.state.loadingPercent}
                       {...this.state}
                     />
                     <KartVelger
@@ -357,6 +355,178 @@ class App extends React.Component {
     });
   };
 
+  // // ---------- OPTION A DETERMINATED BAR ---------- //
+  // handleLayersSearch = (lng, lat, zoom, valgteLag) => {
+  //   // If layersResult is not empty or is equal to valgteLag,
+  //   // do not update the state
+  //   const emptyLayersResult =
+  //     Object.keys(this.state.layersResult).length === 0 &&
+  //     this.state.layersResult.constructor === Object;
+
+  //   const differenceLayersResult =
+  //     Object.keys(this.state.layersResult).length !==
+  //     Object.keys(valgteLag).length;
+
+  //   if (!emptyLayersResult && !differenceLayersResult) {
+  //     return;
+  //   }
+
+  //   // Denne henter utvalgte lag baser på listen layers
+  //   // This depends/assumes that layersResults are
+  //   // emptied when coordinates change
+  //   const looplist = valgteLag || {};
+  //   // let layersResult = {};
+  //   let layersResult = this.state.layersResult || {};
+
+  //   // Remove layer results that are not in selected layers
+  //   Object.keys(layersResult).forEach(key => {
+  //     if (!looplist[key]) {
+  //       delete layersResult[key];
+  //     }
+  //   });
+
+  //   // Add new layer results from selected layers
+  //   Object.keys(looplist).forEach(key => {
+  //     if (!looplist[key].klikktekst) return;
+  //     if (layersResult[key]) return;
+  //     layersResult[key] = { loading: true };
+  //   });
+
+  //   // Visualize the loading bar
+  //   if (Object.keys(valgteLag).length > 1) {
+  //     this.setState({ loadingFeatures: true });
+  //   }
+  //   const totalFeaturesSearch = Object.keys(layersResult).length;
+  //   this.setState({
+  //     layersResult: layersResult,
+  //     finishedFeaturesSearch: 0,
+  //     loadingPercent: 0
+  //   });
+
+  //   // Loop though object and send request
+  //   Object.keys(layersResult).forEach(key => {
+  //     if (!layersResult[key].loading) {
+  //       let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+  //       let loadingPercent =
+  //         (finishedFeaturesSearch / totalFeaturesSearch) * 100;
+  //       this.setState({
+  //         finishedFeaturesSearch,
+  //         loadingPercent
+  //       });
+  //       if (totalFeaturesSearch === finishedFeaturesSearch) {
+  //         this.setState({ loadingFeatures: false });
+  //       }
+  //       return;
+  //     }
+  //     const layer = looplist[key];
+  //     backend
+  //       .getFeatureInfo(layer, { lat, lng, zoom })
+  //       .then(res => {
+  //         if (res.ServiceException) {
+  //           res.error = res.ServiceException;
+  //           delete res.ServiceException;
+  //         }
+  //         let layersResult = this.state.layersResult;
+  //         let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+  //         let loadingPercent =
+  //           (finishedFeaturesSearch / totalFeaturesSearch) * 100;
+  //         layersResult[key] = res;
+  //         this.setState({
+  //           layersResult,
+  //           finishedFeaturesSearch,
+  //           loadingPercent
+  //         });
+  //         if (totalFeaturesSearch === finishedFeaturesSearch) {
+  //           this.setState({ loadingFeatures: false });
+  //         }
+  //       })
+  //       .catch(e => {
+  //         let layersResult = this.state.layersResult;
+  //         let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+  //         let loadingPercent =
+  //           (finishedFeaturesSearch / totalFeaturesSearch) * 100;
+  //         layersResult[key] = { error: e.message || key };
+  //         this.setState({
+  //           layersResult,
+  //           finishedFeaturesSearch,
+  //           loadingPercent
+  //         });
+  //         if (totalFeaturesSearch === finishedFeaturesSearch) {
+  //           this.setState({ loadingFeatures: false });
+  //         }
+  //       });
+  //   });
+  // };
+
+  // handleAllLayersSearch = (lng, lat, zoom) => {
+  //   const emptylayersResult =
+  //     Object.keys(this.state.allLayersResult).length === 0 &&
+  //     this.state.allLayersResult.constructor === Object;
+
+  //   if (!emptylayersResult) {
+  //     return;
+  //   }
+
+  //   let looplist = this.state.kartlag;
+  //   // Denne henter utvalgte lag baser på listen layers
+  //   var allLayersResult = {};
+  //   Object.keys(looplist).forEach(key => {
+  //     if (!looplist[key].klikktekst) return;
+  //     allLayersResult[key] = { loading: true };
+  //   });
+
+  //   // Visualize the loading bar
+  //   const totalFeaturesSearch = Object.keys(allLayersResult).length;
+  //   this.setState({
+  //     loadingFeatures: true,
+  //     allLayersResult: allLayersResult,
+  //     finishedFeaturesSearch: 0,
+  //     loadingPercent: 0
+  //   });
+
+  //   // Loop though object and send request
+  //   Object.keys(allLayersResult).forEach(key => {
+  //     const layer = looplist[key];
+  //     backend
+  //       .getFeatureInfo(layer, { lat, lng, zoom })
+  //       .then(res => {
+  //         if (res.ServiceException) {
+  //           res.error = res.ServiceException;
+  //           delete res.ServiceException;
+  //         }
+  //         let allLayersResult = this.state.allLayersResult;
+  //         let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+  //         let loadingPercent =
+  //           (finishedFeaturesSearch / totalFeaturesSearch) * 100;
+  //         allLayersResult[key] = res;
+  //         this.setState({
+  //           allLayersResult,
+  //           finishedFeaturesSearch,
+  //           loadingPercent
+  //         });
+  //         if (totalFeaturesSearch === finishedFeaturesSearch) {
+  //           this.setState({ loadingFeatures: false });
+  //         }
+  //       })
+  //       .catch(e => {
+  //         let allLayersResult = this.state.allLayersResult;
+  //         let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+  //         let loadingPercent =
+  //           (finishedFeaturesSearch / totalFeaturesSearch) * 100;
+  //         allLayersResult[key] = { error: e.message || key };
+  //         this.setState({
+  //           allLayersResult,
+  //           finishedFeaturesSearch,
+  //           loadingPercent
+  //         });
+  //         if (totalFeaturesSearch === finishedFeaturesSearch) {
+  //           this.setState({ loadingFeatures: false });
+  //         }
+  //       });
+  //   });
+  // };
+
+  // ---------- OPTION B INDETERMINATED BAR ---------- //
   handleLayersSearch = (lng, lat, zoom, valgteLag) => {
     // If layersResult is not empty or is equal to valgteLag,
     // do not update the state
@@ -400,13 +570,21 @@ class App extends React.Component {
     const totalFeaturesSearch = Object.keys(layersResult).length;
     this.setState({
       layersResult: layersResult,
-      finishedFeaturesSearch: 0,
-      loadingPercent: 0
+      finishedFeaturesSearch: 0
     });
 
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
-      if (!layersResult[key].loading) return;
+      if (!layersResult[key].loading) {
+        let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
+        this.setState({
+          finishedFeaturesSearch
+        });
+        if (totalFeaturesSearch === finishedFeaturesSearch) {
+          this.setState({ loadingFeatures: false });
+        }
+        return;
+      }
       const layer = looplist[key];
       backend
         .getFeatureInfo(layer, { lat, lng, zoom })
@@ -417,10 +595,11 @@ class App extends React.Component {
           }
           let layersResult = this.state.layersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
-          let loadingPercent =
-            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           layersResult[key] = res;
-          this.setState(layersResult, finishedFeaturesSearch, loadingPercent);
+          this.setState({
+            layersResult,
+            finishedFeaturesSearch
+          });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
           }
@@ -428,10 +607,11 @@ class App extends React.Component {
         .catch(e => {
           let layersResult = this.state.layersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
-          let loadingPercent =
-            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           layersResult[key] = { error: e.message || key };
-          this.setState(layersResult, finishedFeaturesSearch, loadingPercent);
+          this.setState({
+            layersResult,
+            finishedFeaturesSearch
+          });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
           }
@@ -461,8 +641,7 @@ class App extends React.Component {
     this.setState({
       loadingFeatures: true,
       allLayersResult: allLayersResult,
-      finishedFeaturesSearch: 0,
-      loadingPercent: 0
+      finishedFeaturesSearch: 0
     });
 
     // Loop though object and send request
@@ -477,13 +656,10 @@ class App extends React.Component {
           }
           let allLayersResult = this.state.allLayersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
-          let loadingPercent =
-            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           allLayersResult[key] = res;
           this.setState({
             allLayersResult,
-            finishedFeaturesSearch,
-            loadingPercent
+            finishedFeaturesSearch
           });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
@@ -492,13 +668,10 @@ class App extends React.Component {
         .catch(e => {
           let allLayersResult = this.state.allLayersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
-          let loadingPercent =
-            (finishedFeaturesSearch / totalFeaturesSearch) * 100;
           allLayersResult[key] = { error: e.message || key };
           this.setState({
             allLayersResult,
-            finishedFeaturesSearch,
-            loadingPercent
+            finishedFeaturesSearch
           });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });

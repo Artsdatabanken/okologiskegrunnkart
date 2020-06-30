@@ -24,8 +24,7 @@ const DetailedInfo = ({
   kartlag,
   coordinates_area,
   layersResult,
-  loadingFeatures,
-  loadingPercent
+  loadingFeatures
 }) => {
   const classes = useStyles();
   let title = "Ingen kartlag valgt";
@@ -49,13 +48,18 @@ const DetailedInfo = ({
         </ListItem>
 
         <div className="layer-results-scrollable-side">
-          {loadingFeatures && (
+          {/* {loadingFeatures && (
             <div className={classes.root}>
               <LinearProgress
                 variant="determinate"
                 value={loadingPercent}
                 color="primary"
               />
+            </div>
+          )} */}
+          {loadingFeatures && (
+            <div className={classes.root}>
+              <LinearProgress color="primary" />
             </div>
           )}
           <List dense={true}>

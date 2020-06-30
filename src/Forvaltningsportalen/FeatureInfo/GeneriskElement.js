@@ -2,8 +2,7 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-import LoadingPlaceholder from "./LoadingPlaceholder";
-import { CircularProgress, Badge } from "@material-ui/core";
+import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
@@ -67,15 +66,6 @@ const GeneriskElement = props => {
                 : resultat.error
                 ? "Kunne ikke hente data"
                 : "Ingen treff"}
-              {/* {resultat.loading ? (
-                <LoadingPlaceholder />
-              ) : primaryText && primaryText.harData && primaryText.elementer[0] ? (
-                primaryText.elementer
-              ) : resultat.error ? (
-                "Kunne ikke hente data"
-              ) : (
-                "Ingen treff"
-              )} */}
             </div>
             <div className="generic-element-primary-text">
               {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
