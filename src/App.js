@@ -548,7 +548,12 @@ class App extends React.Component {
       kartlag: Object.assign({}, nye_lag)
     });
 
-    if (this.state.lat && this.state.lng && this.state.showInfobox) {
+    if (
+      this.state.lat &&
+      this.state.lng &&
+      this.state.showInfobox &&
+      !this.state.showExtensiveInfo
+    ) {
       this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
     }
   };
