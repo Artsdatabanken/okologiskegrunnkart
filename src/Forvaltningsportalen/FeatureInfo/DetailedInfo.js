@@ -48,7 +48,7 @@ const DetailedInfo = ({
         </ListItem>
 
         <div className="layer-results-scrollable-side">
-          {/* {loadingFeatures && (
+          {loadingFeatures && (
             <div className={classes.root}>
               <LinearProgress color="primary" />
             </div>
@@ -66,8 +66,8 @@ const DetailedInfo = ({
                   />
                 );
               })}
-          </List> */}
-          {loadingFeatures ? (
+          </List>
+          {/* {loadingFeatures ? (
             <div className={classes.root}>
               <LinearProgress color="primary" />
             </div>
@@ -86,7 +86,7 @@ const DetailedInfo = ({
                   );
                 })}
             </List>
-          )}
+          )} */}
         </div>
       </div>
     </div>

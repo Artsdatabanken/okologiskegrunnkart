@@ -456,21 +456,24 @@ class App extends React.Component {
       return;
     }
 
-    let looplist = this.state.kartlag;
+    // Visualize the loading bar
+    this.setState({
+      // loadingFeatures: true,
+      allLayersResult: {},
+      finishedFeaturesSearch: 0
+    });
+
     // Denne henter utvalgte lag baser på listen layers
-    var allLayersResult = {};
+    let allLayersResult = {};
+    let looplist = this.state.kartlag;
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].klikktekst) return;
       allLayersResult[key] = { loading: true };
     });
-
-    // Visualize the loading bar
     const totalFeaturesSearch = Object.keys(allLayersResult).length;
-    this.setState({
-      loadingFeatures: true,
-      allLayersResult: allLayersResult,
-      finishedFeaturesSearch: 0
-    });
+
+    // Set an interval to update state
+    const updateLayers = setInterval(this.setState({ allLayersResult }), 2000);
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
@@ -482,30 +485,33 @@ class App extends React.Component {
             res.error = res.ServiceException;
             delete res.ServiceException;
           }
-          let allLayersResult = this.state.allLayersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
           allLayersResult[key] = res;
-          this.setState({
-            allLayersResult,
-            finishedFeaturesSearch
-          });
+          this.setState({ finishedFeaturesSearch });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            this.setState({ loadingFeatures: false });
+            this.setState({ loadingFeatures: false, allLayersResult });
+            clearInterval(updateLayers);
           }
         })
         .catch(e => {
-          let allLayersResult = this.state.allLayersResult;
           let finishedFeaturesSearch = this.state.finishedFeaturesSearch + 1;
           allLayersResult[key] = { error: e.message || key };
-          this.setState({
-            allLayersResult,
-            finishedFeaturesSearch
-          });
+          this.setState({ finishedFeaturesSearch });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            this.setState({ loadingFeatures: false });
+            this.setState({ loadingFeatures: false, allLayersResult });
+            clearInterval(updateLayers);
           }
         });
     });
+    // Visualize the loading bar after all request have been sent (i.e. initial delay)
+    if (this.state.finishedFeaturesSearch < totalFeaturesSearch) {
+      this.setState({ loadingFeatures: true });
+    }
+    // Stop the interval after 10 seconds
+    setTimeout(clearInterval(updateLayers), 10000);
+    setTimeout(function() {
+      console.log("finished");
+    }, 10000);
   };
 
   hentInfoValgteLag = async (lng, lat, zoom) => {
