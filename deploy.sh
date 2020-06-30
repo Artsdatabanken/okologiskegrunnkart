@@ -11,11 +11,13 @@ FILENAME=forvaltningsportal_$PULL_REQUEST.tar.gz
 echo "Making archive..."
 tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
-sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
 if [ "${BRANCH}" == "master" ]
  then
   sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$prod_dest  
- else
-  echo "This branch will not be deployed, since it's not the master branch."
+  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning master"}' $slackaddy
 fi
-curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning '$PULL_REQUEST'}"}' $slackaddy
+if [ "$PULL_REQUEST" != "" ]
+ then
+  sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest
+  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning '$PULL_REQUEST'"}' $slackaddy
+fi
