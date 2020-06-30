@@ -86,7 +86,7 @@ const ForvaltningsUnderElement = ({
               icon="check-decagram"
               size={20}
               padding={0}
-              color={disabled ? "#ccc" : "#666"}
+              color={disabled ? "#ccc" : erSynlig ? "#666" : "#999"}
             />
           </ListItemIcon>
         )}
