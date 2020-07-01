@@ -393,11 +393,19 @@ class App extends React.Component {
     const totalFeaturesSearch = Object.keys(layersResult).length;
     let finishedFeaturesSearch = 0;
 
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ layersResult });
+      }
+    }, 1500);
+
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       if (!layersResult[key].loading) {
         finishedFeaturesSearch += 1;
         if (totalFeaturesSearch === finishedFeaturesSearch) {
+          clearInterval(updateLayers);
           this.setState({ loadingFeatures: false });
         }
         return;
@@ -433,12 +441,6 @@ class App extends React.Component {
     ) {
       this.setState({ loadingFeatures: true });
     }
-    // Set an interval to update state
-    const updateLayers = setInterval(() => {
-      if (totalFeaturesSearch > finishedFeaturesSearch) {
-        this.setState({ layersResult });
-      }
-    }, 1500);
   };
 
   handleAllLayersSearch = (lng, lat, zoom) => {
@@ -464,6 +466,13 @@ class App extends React.Component {
     });
     const totalFeaturesSearch = Object.keys(allLayersResult).length;
     let finishedFeaturesSearch = 0;
+
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ allLayersResult });
+      }
+    }, 1500);
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
@@ -495,12 +504,6 @@ class App extends React.Component {
     if (totalFeaturesSearch > finishedFeaturesSearch) {
       this.setState({ loadingFeatures: true });
     }
-    // Set an interval to update state
-    const updateLayers = setInterval(() => {
-      if (totalFeaturesSearch > finishedFeaturesSearch) {
-        this.setState({ allLayersResult });
-      }
-    }, 1500);
   };
 
   hentInfoValgteLag = async (lng, lat, zoom) => {
