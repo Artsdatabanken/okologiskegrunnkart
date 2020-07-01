@@ -1,6 +1,6 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { Paper, Chip, Typography, List } from "@material-ui/core";
+import { Chip, Typography, List } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
@@ -63,7 +63,7 @@ class ForvaltningsKartlag extends React.Component {
       .filter(tag => this.state.tagFilter[tag])
       .map(tag => (
         <Chip
-          style={{ marginLeft: 4, marginRight: 4, marginBottom: 4 }}
+          style={{ margin: 2 }}
           key={tag}
           label={tag}
           clickable
@@ -75,48 +75,50 @@ class ForvaltningsKartlag extends React.Component {
 
     return (
       <>
-        <Paper
-          square
-          elevation={1}
-          style={{
-            paddingLeft: 16,
-            paddingTop: 0,
-            paddingBottom: 12,
-            paddingRight: 4
-          }}
-        >
-          <Filtrering
-            taglist={taglist}
-            tagFilter={this.state.tagFilter}
-            onFilterTag={this.handleFilterTag}
-          />
-          <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
-          <Typography variant="h6">Kartlag</Typography>
-          <div>
-            <Typography variant="body2">
-              {this.sortKeyToDescription[sortKey]}
-              {tags.length > 0 && <span> & bare </span>}
-            </Typography>
-            {tags.reduce((accu, elem, index) => {
-              return accu === null
-                ? [elem]
-                : [
-                    ...accu,
-                    <div
-                      key={index}
-                      style={{
-                        display: "inline",
-                        verticalAlign: "text-bottom",
-                        marginRight: 8
-                      }}
-                    >
-                      og
-                    </div>,
-                    elem
-                  ];
-            }, null)}
+        <div className="header-layers-menu">
+          <div className="sort-filter-layers-wrapper">
+            <div>
+              <Typography variant="h6">Kartlag</Typography>
+              <Typography variant="body2">
+                {this.sortKeyToDescription[sortKey]}
+              </Typography>
+            </div>
+            <div className="sort-filter-icons-wrapper">
+              <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
+              <Filtrering
+                taglist={taglist}
+                tagFilter={this.state.tagFilter}
+                onFilterTag={this.handleFilterTag}
+              />
+            </div>
           </div>
-        </Paper>
+          {tags && tags.length > 0 && (
+            <div className="selected-tags-wrapper">
+              <Typography id="filters-header" variant="body2">
+                Filtrer
+              </Typography>
+              {tags.reduce((accu, elem, index) => {
+                return accu === null
+                  ? [elem]
+                  : [
+                      ...accu,
+                      <div
+                        key={index}
+                        style={{
+                          display: "inline",
+                          verticalAlign: "text-bottom",
+                          padding: "0px 4px"
+                        }}
+                      >
+                        og
+                      </div>,
+                      elem
+                    ];
+              }, null)}
+            </div>
+          )}
+        </div>
+
         <List>
           <TegnforklaringLink />
           {Object.keys(sorted)

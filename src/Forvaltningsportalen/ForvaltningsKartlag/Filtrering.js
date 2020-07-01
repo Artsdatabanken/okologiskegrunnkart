@@ -19,14 +19,13 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
   };
 
   return (
-    <div>
+    <>
       <IconButton
         aria-controls="filter-menu"
         aria-haspopup="true"
         variant="contained"
         color="primary"
         onClick={handleClick}
-        style={{ float: "right" }}
       >
         <FilterIcon />
       </IconButton>
@@ -37,9 +36,18 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
         variant="menu"
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
+        transformOrigin={{
+          horizontal: "right"
+        }}
+        getContentAnchorEl={null}
       >
         {taglist.map(tag => (
           <MenuItem
+            id="filter-layers-menu-item"
             key={tag}
             onClick={() => {
               onFilterTag(tag, !tagFilter[tag]);
@@ -47,13 +55,13 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
             }}
             selected={tagFilter[tag]}
           >
-            <ListItemIcon>
+            <ListItemIcon id="filter-layers-menu-icon">
               {tagFilter[tag] ? <DoneIcon fontSize="small" /> : <div />}
             </ListItemIcon>
             <ListItemText primary={tag} />
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </>
   );
 }
