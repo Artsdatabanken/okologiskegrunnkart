@@ -25,7 +25,8 @@ const InfoBox = ({
   resultat,
   kartlag,
   showExtensiveInfo,
-  handleExtensiveInfo
+  handleExtensiveInfo,
+  loadingFeatures
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
@@ -157,6 +158,7 @@ const InfoBox = ({
           coordinates_area={coordinates_area}
           layersResult={showExtensiveInfo ? allLayersResult : layersResult}
           resultat={resultat}
+          loadingFeatures={loadingFeatures}
         />
       </div>
     </div>

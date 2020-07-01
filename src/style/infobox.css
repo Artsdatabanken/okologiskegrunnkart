@@ -163,15 +163,6 @@
   border: 2px solid blue;
 }
 
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-
 /* Felt øverst et åpnet underelement  */
 .expand_header {
   float: left;
@@ -348,21 +339,22 @@
 .layer-results-scrollable-side {
   display: inline-block;
   width: 100%;
-  padding: 0 5px;
+  /* padding: 0 5px; */
 }
 .layer-results-side {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
 #layer-results-header {
   border-top: 3px solid grey;
   border-bottom: 1px solid grey;
 }
-
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
+}
+#layers-results-list {
+  padding-top: 0;
 }
 
 @media only screen and (max-width: 768px) {
@@ -376,6 +368,29 @@
     overflow-y: auto;
     width: 100%;
   }
+}
+
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+.generic_element .MuiButtonBase-root {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Progress bar */
+.layer-results-scrollable-loader {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.MuiLinearProgress-barColorPrimary {
+  background-color: #1976d2 !important;
 }
 
 /* List icons */
@@ -396,9 +411,9 @@
 }
 
 /* list items in info box */
-.generic-element-primary-text {
+.generic-element-secondary-text {
   display: block;
-  font-size: 12pt;
+  font-size: 11pt;
   color: #6d6d6d;
 }
 .generic-element-data-owner {
@@ -414,12 +429,12 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .generic-element-secondary-text {
+  .generic-element-primary-text {
     font-size: 11pt;
     margin: 1px 0 !important;
   }
-  .generic-element-primary-text {
-    font-size: 11pt;
+  .generic-element-secondary-text {
+    font-size: 10.5pt;
     margin: 1px 0 !important;
   }
   .generic-element-data-owner {
@@ -460,15 +475,6 @@
 }
 .infobox-switch-text {
   font-size: 14px;
-}
-
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
 }
 
 /* Felt øverst et åpnet underelement  */

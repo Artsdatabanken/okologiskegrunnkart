@@ -2,8 +2,7 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState } from "react";
 import ExpandedHeader from "./ExpandedHeader";
-import LoadingPlaceholder from "./LoadingPlaceholder";
-import { CircularProgress, Badge } from "@material-ui/core";
+import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
@@ -27,21 +26,30 @@ const GeneriskElement = props => {
 
   const primaryText = formatterKlikktekst(kartlag.klikktekst, resultat);
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
+
+  let secondaryTextResults = false;
+  if (
+    secondaryText.harData &&
+    secondaryText.elementer.length > 0 &&
+    secondaryText.elementer[0]
+  ) {
+    secondaryTextResults = true;
+  }
+
   return (
     <div
       style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
       className="generic_element"
     >
-      <ListItem
-        button
-        onClick={() => {
-          setOpen(!open);
-        }}
-      >
-        <ListItemIcon className="infobox-list-icon-wrapper">
-          {resultat.loading ? (
-            <CircularProgress size={30} />
-          ) : (
+      {!resultat.loading && (
+        <ListItem
+          button
+          divider
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
+          <ListItemIcon className="infobox-list-icon-wrapper">
             <>
               <Badge
                 badgeContent={resultat.error ? "!" : 0}
@@ -57,31 +65,28 @@ const GeneriskElement = props => {
                 />
               </Badge>
             </>
-          )}
-        </ListItemIcon>
-        <div
-          style={{
-            flex: 1
-          }}
-        >
-          <div className="generic-element-secondary-text">
-            {resultat.loading ? (
-              <LoadingPlaceholder />
-            ) : primaryText.harData && primaryText.elementer[0] ? (
-              primaryText.elementer
-            ) : resultat.error ? (
-              "Kunne ikke hente data"
-            ) : (
-              "Ingen treff"
-            )}
+          </ListItemIcon>
+          <div
+            style={{
+              flex: 1
+            }}
+          >
+            <div className="generic-element-primary-text">
+              {primaryText && primaryText.harData && primaryText.elementer[0]
+                ? primaryText.elementer
+                : resultat.error
+                ? "Kunne ikke hente data"
+                : "Ingen treff"}
+            </div>
+            <div className="generic-element-secondary-text">
+              {secondaryTextResults ? secondaryText.elementer : kartlag.tittel}
+            </div>
+            <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
-          <div className="generic-element-primary-text">
-            {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
-          </div>
-          <div className="generic-element-data-owner">{kartlag.dataeier}</div>
-        </div>
-        {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-      </ListItem>
+          {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+        </ListItem>
+      )}
+
       {faktaark_url && (
         <Collapse in={open} timeout="auto" unmountOnExit>
           <ExpandedHeader
