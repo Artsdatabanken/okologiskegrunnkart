@@ -13,7 +13,7 @@ echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
  then
   sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest  
-  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning master"}' $slackaddy
+  curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning"}' $slackaddy
 fi
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]
  then
