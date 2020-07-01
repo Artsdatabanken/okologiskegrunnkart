@@ -14,8 +14,8 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: "100%",
-    marginTop: "5px"
+    width: "100%"
+    // marginTop: "5px"
   }
 }));
 
@@ -53,7 +53,7 @@ const DetailedInfo = ({
               <LinearProgress color="primary" />
             </div>
           )}
-          <List dense={true}>
+          <List id="layers-results-list" dense={true}>
             {layersResult !== undefined &&
               Object.keys(layersResult).map(key => {
                 return (
@@ -67,26 +67,6 @@ const DetailedInfo = ({
                 );
               })}
           </List>
-          {/* {loadingFeatures ? (
-            <div className={classes.root}>
-              <LinearProgress color="primary" />
-            </div>
-          ) : (
-            <List dense={true}>
-              {layersResult !== undefined &&
-                Object.keys(layersResult).map(key => {
-                  return (
-                    <GeneriskElement
-                      coordinates_area={coordinates_area}
-                      key={key}
-                      kartlag={kartlag}
-                      resultat={layersResult[key]}
-                      element={key}
-                    />
-                  );
-                })}
-            </List>
-          )} */}
         </div>
       </div>
     </div>

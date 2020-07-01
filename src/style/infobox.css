@@ -348,7 +348,7 @@
 .layer-results-scrollable-side {
   display: inline-block;
   width: 100%;
-  padding: 0 5px;
+  /* padding: 0 5px; */
 }
 .layer-results-side {
   display: flex;
@@ -363,6 +363,10 @@
 
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
+}
+
+#layers-results-list {
+  padding-top: 0;
 }
 
 @media only screen and (max-width: 768px) {
