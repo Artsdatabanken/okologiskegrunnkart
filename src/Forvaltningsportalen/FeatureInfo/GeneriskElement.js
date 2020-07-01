@@ -44,6 +44,7 @@ const GeneriskElement = props => {
       {!resultat.loading && (
         <ListItem
           button
+          divider
           onClick={() => {
             setOpen(!open);
           }}

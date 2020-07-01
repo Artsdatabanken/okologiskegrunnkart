@@ -412,17 +412,17 @@ class App extends React.Component {
           }
           finishedFeaturesSearch += 1;
           layersResult[key] = res;
-          this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            this.setState({ loadingFeatures: false });
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, layersResult });
           }
         })
         .catch(e => {
           finishedFeaturesSearch += 1;
           layersResult[key] = { error: e.message || key };
-          this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            this.setState({ loadingFeatures: false });
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, layersResult });
           }
         });
     });
@@ -433,6 +433,12 @@ class App extends React.Component {
     ) {
       this.setState({ loadingFeatures: true });
     }
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ layersResult });
+      }
+    }, 1500);
   };
 
   handleAllLayersSearch = (lng, lat, zoom) => {
@@ -493,7 +499,6 @@ class App extends React.Component {
     const updateLayers = setInterval(() => {
       if (totalFeaturesSearch > finishedFeaturesSearch) {
         this.setState({ allLayersResult });
-        console.log("Updating state");
       }
     }, 1500);
   };

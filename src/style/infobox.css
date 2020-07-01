@@ -163,15 +163,6 @@
   border: 2px solid blue;
 }
 
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-
 /* Felt øverst et åpnet underelement  */
 .expand_header {
   float: left;
@@ -355,16 +346,13 @@
   flex-direction: column;
   align-items: flex-start;
 }
-
 #layer-results-header {
   border-top: 3px solid grey;
   border-bottom: 1px solid grey;
 }
-
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
 }
-
 #layers-results-list {
   padding-top: 0;
 }
@@ -380,6 +368,19 @@
     overflow-y: auto;
     width: 100%;
   }
+}
+
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+.generic_element .MuiButtonBase-root {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /* Progress bar */
@@ -474,15 +475,6 @@
 }
 .infobox-switch-text {
   font-size: 14px;
-}
-
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
 }
 
 /* Felt øverst et åpnet underelement  */

@@ -53,7 +53,7 @@ const DetailedInfo = ({
               <LinearProgress color="primary" />
             </div>
           )}
-          <List id="layers-results-list" dense={true}>
+          <List id="layers-results-list">
             {layersResult !== undefined &&
               Object.keys(layersResult).map(key => {
                 return (
