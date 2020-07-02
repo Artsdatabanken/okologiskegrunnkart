@@ -109,7 +109,6 @@ const ForvaltningsElement = ({
                   size={isLargeIcon(kartlag.tema) ? 30 : 26}
                   padding={isLargeIcon(kartlag.tema) ? 0 : 2}
                   color={erSynlig ? "#666" : "#999"}
-                  tooltipText={kartlag.tema}
                 />
               </Badge>
             </div>

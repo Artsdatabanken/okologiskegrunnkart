@@ -11,6 +11,7 @@ import {
 import CustomSwitch from "../../Common/CustomSwitch";
 import { zoomRangeSublayer } from "../../Funksjoner/zoomRange";
 import DisabledTooltip from "../../Common/DisabledTooltip";
+import CustomIcon from "../../Common/CustomIcon";
 
 const ForvaltningsUnderElement = ({
   kartlag,
@@ -34,6 +35,66 @@ const ForvaltningsUnderElement = ({
     maxScaleDenominator
   );
 
+  const ListRow = React.forwardRef(function ListRow(props, ref) {
+    return (
+      <ListItem
+        // Elementet som inneholder tittel, switch og droppned-knapp
+        {...props}
+        ref={ref}
+        id="list-element-sublayer"
+        button
+        onClick={() => {
+          if (!valgt) {
+            setOpen(!open);
+          }
+        }}
+      >
+        <ListItemIcon onClick={e => e.stopPropagation()}>
+          <CustomSwitch
+            tabIndex="0"
+            id="visiblility-sublayer-toggle"
+            checked={erSynlig}
+            onChange={e => {
+              onUpdateLayerProp(
+                kartlag_owner_key,
+                kode + "erSynlig",
+                !kartlag.erSynlig
+              );
+              e.stopPropagation();
+            }}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                onUpdateLayerProp(
+                  kartlag_owner_key,
+                  kode + "erSynlig",
+                  !kartlag.erSynlig
+                );
+                e.stopPropagation();
+              }
+            }}
+            disabled={disabled}
+          />
+        </ListItemIcon>
+        <ListItemText
+          className={disabled ? "sublayer-disabled" : ""}
+          primary={tittel.nb || tittel}
+        />
+        {kartlag.suggested && (
+          <ListItemIcon id="bookmark-icon">
+            <CustomIcon
+              id="bookmark"
+              icon="check-decagram"
+              size={20}
+              padding={0}
+              color={disabled ? "#ccc" : erSynlig ? "#666" : "#999"}
+            />
+          </ListItemIcon>
+        )}
+        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+      </ListItem>
+    );
+  });
+
   if (!tittel) return null;
   return (
     <>
@@ -43,71 +104,10 @@ const ForvaltningsUnderElement = ({
           placement="left"
           title={description}
         >
-          <ListItem
-            // Elementet som inneholder tittel, visningsøye og droppned-knapp
-            id="list-element-sublayer"
-            button
-            onClick={() => {
-              if (!valgt) {
-                setOpen(!open);
-              }
-            }}
-          >
-            <ListItemIcon onClick={e => e.stopPropagation()}>
-              <CustomSwitch
-                tabIndex="0"
-                id="visiblility-sublayer-toggle"
-                checked={erSynlig}
-                disabled={true}
-              />
-            </ListItemIcon>
-            <ListItemText
-              className="sublayer-disabled"
-              primary={tittel.nb || tittel}
-            />
-            {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-          </ListItem>
+          <ListRow />
         </DisabledTooltip>
       ) : (
-        <ListItem
-          // Elementet som inneholder tittel, visningsøye og droppned-knapp
-          id="list-element-sublayer"
-          button
-          onClick={() => {
-            if (!valgt) {
-              setOpen(!open);
-            }
-          }}
-        >
-          <ListItemIcon onClick={e => e.stopPropagation()}>
-            <CustomSwitch
-              tabIndex="0"
-              id="visiblility-sublayer-toggle"
-              checked={erSynlig}
-              onChange={e => {
-                onUpdateLayerProp(
-                  kartlag_owner_key,
-                  kode + "erSynlig",
-                  !kartlag.erSynlig
-                );
-                e.stopPropagation();
-              }}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  onUpdateLayerProp(
-                    kartlag_owner_key,
-                    kode + "erSynlig",
-                    !kartlag.erSynlig
-                  );
-                  e.stopPropagation();
-                }
-              }}
-              disabled={false}
-            />
-          </ListItemIcon>
-          <ListItemText className="" primary={tittel.nb || tittel} />
-          {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-        </ListItem>
+        <ListRow />
       )}
 
       <Collapse

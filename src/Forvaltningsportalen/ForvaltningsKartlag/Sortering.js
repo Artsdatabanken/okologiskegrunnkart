@@ -35,7 +35,6 @@ export default function Sortering({ sort, onChangeSort }) {
         variant="contained"
         color="primary"
         onClick={handleClick}
-        style={{ float: "right" }}
       >
         <SortIcon></SortIcon>
       </IconButton>
@@ -47,9 +46,18 @@ export default function Sortering({ sort, onChangeSort }) {
           open={Boolean(anchorEl)}
           onClose={handleClose}
           variant="menu"
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "right"
+          }}
+          transformOrigin={{
+            horizontal: "right"
+          }}
+          getContentAnchorEl={null}
         >
           {Object.keys(sorteringsmåter).map(måte => (
             <MenuItem
+              id="sort-layers-menu-item"
               key={måte}
               onClick={() => handleSelect(måte)}
               selected={måte === sort}
