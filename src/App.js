@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-// import FeatureInfo from "./Forvaltningsportalen/FeatureInfo/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
@@ -133,17 +132,6 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
-                    {/* <FeatureInfo
-                      {...this.state}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      resultat={this.state.resultat}
-                      layersResult={this.state.layersResult}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      coordinates_area={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                      }}
-                    /> */}
                     <SearchBar
                       onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
