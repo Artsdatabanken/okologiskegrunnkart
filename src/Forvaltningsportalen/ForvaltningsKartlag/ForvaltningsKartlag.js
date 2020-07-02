@@ -63,11 +63,12 @@ class ForvaltningsKartlag extends React.Component {
       .filter(tag => this.state.tagFilter[tag])
       .map(tag => (
         <Chip
+          id="layers-filter-chips"
           style={{ margin: 2 }}
           key={tag}
           label={tag}
           clickable
-          color="secondary"
+          color="primary"
           onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
           onDelete={() => this.handleFilterTag(tag, false)}
         />
