@@ -23,10 +23,6 @@
   }
 }
 
-.valgtLag div:first-child {
-  background: white;
-}
-
 .scroll_area {
   background: #eee;
   max-height: calc(100% - 48px);
@@ -67,6 +63,8 @@ h4.container_header {
   padding-bottom: 10px;
   font-size: 12pt;
   display: flex;
+  align-items: center;
+  background-color: #ccc;
 }
 .listheadingbutton span {
   flex: 1;
@@ -151,7 +149,6 @@ h4.container_header {
   padding-right: 25px;
 }
 #layers-filter-chips.MuiChip-colorPrimary {
-  /* background-color: rgb(145, 163, 176); */
   background-color: #697f8a;
 }
 
@@ -186,8 +183,7 @@ h4.container_header {
 }
 .legend-title-text {
   margin-left: 10px;
-  font-size: 19px;
-  font-weight: 450;
+  font-size: 18px;
 }
 .legend-content-wrapper .MuiListSubheader-root {
   max-height: 40px;
@@ -204,6 +200,7 @@ h4.container_header {
   width: 44px;
   background-color: rgba(145, 163, 176, 0);
   border: none;
+  border-radius: 10px;
 }
 .close-legend-button-wrapper:hover {
   background-color: rgba(145, 163, 176, 0);
@@ -218,6 +215,7 @@ h4.container_header {
   background-color: rgba(145, 163, 176, 0.3);
   color: #333;
   border: 2px solid #333;
+  border-radius: 5px;
 }
 .close-legend-button:hover {
   background-color: rgba(145, 163, 176, 1);

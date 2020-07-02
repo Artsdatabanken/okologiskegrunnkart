@@ -10,7 +10,7 @@ const Tegnforklaring = ({ layers }) => {
     <div className="legend-wrapper">
       <div className="legend-title-wrapper">
         <div className="legend-title-content">
-          <CustomIcon icon="map-legend" size={26} color="#333" padding={2} />
+          <CustomIcon icon="map-legend" size={24} color="#333" padding={2} />
           <span className="legend-title-text">Tegnforklaring</span>
         </div>
         <button
@@ -26,6 +26,17 @@ const Tegnforklaring = ({ layers }) => {
             <Close />
           </div>
         </button>
+        {/* <IconButton
+          tabIndex="0"
+          style={{ color: "#333" }}
+          onClick={e => {
+            const loc = history.location;
+            loc.pathname = "/";
+            history.push(loc);
+          }}
+        >
+          <Close />
+        </IconButton> */}
       </div>
       <div className="legend-content-wrapper">
         {Object.keys(layers).map(id => {
