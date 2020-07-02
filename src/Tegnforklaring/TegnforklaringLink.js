@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import MapLegend from "./MapLegend";
+import CustomIcon from "../Common/CustomIcon";
 
 const TegnforklaringLink = () => {
   const history = useHistory();
@@ -15,7 +15,13 @@ const TegnforklaringLink = () => {
       }}
     >
       <ListItemIcon>
-        <MapLegend />
+        <CustomIcon
+          id="legend-icon"
+          icon="map-legend"
+          size={26}
+          padding={2}
+          color="#555"
+        />
       </ListItemIcon>
       <ListItemText primary="Tegnforklaring" secondary="" />
     </ListItem>

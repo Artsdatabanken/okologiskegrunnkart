@@ -119,8 +119,11 @@ class ForvaltningsKartlag extends React.Component {
           )}
         </div>
 
-        <List>
+        <div className="legend-link-wrapper">
           <TegnforklaringLink />
+        </div>
+
+        <List id="layers-list-wrapper">
           {Object.keys(sorted)
             .reverse()
             .map(element => {
