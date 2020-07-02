@@ -54,7 +54,7 @@ const formatterKlikktekst = (formatstring = "", input) => {
     if (e.literal) return e.literal;
     return null;
   });
-  const harData = elementer.every(e => e !== null);
+  const harData = elementer.some(e => e !== null);
   return {
     harData,
     elementer
