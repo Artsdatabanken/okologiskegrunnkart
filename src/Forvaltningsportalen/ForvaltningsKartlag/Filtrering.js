@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DoneIcon from "@material-ui/icons/Done";
+import BottomTooltip from "../../Common/BottomTooltip";
 
 export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -20,15 +21,21 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
 
   return (
     <>
-      <IconButton
-        aria-controls="filter-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
+      <BottomTooltip
+        id="tooltip-sort-filter-button"
+        placement="bottom"
+        title="Filtrer"
       >
-        <FilterIcon />
-      </IconButton>
+        <IconButton
+          aria-controls="filter-menu"
+          aria-haspopup="true"
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+        >
+          <FilterIcon />
+        </IconButton>
+      </BottomTooltip>
       <Menu
         id="filter-menu"
         anchorEl={anchorEl}

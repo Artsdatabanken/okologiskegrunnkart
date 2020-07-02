@@ -4,6 +4,7 @@ import { IconButton, Paper } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import BottomTooltip from "../../Common/BottomTooltip";
 
 export default function Sortering({ sort, onChangeSort }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -29,15 +30,21 @@ export default function Sortering({ sort, onChangeSort }) {
 
   return (
     <>
-      <IconButton
-        aria-controls="sort-menu"
-        aria-haspopup="true"
-        variant="contained"
-        color="primary"
-        onClick={handleClick}
+      <BottomTooltip
+        id="tooltip-sort-filter-button"
+        placement="bottom"
+        title="Sortere"
       >
-        <SortIcon></SortIcon>
-      </IconButton>
+        <IconButton
+          aria-controls="sort-menu"
+          aria-haspopup="true"
+          variant="contained"
+          color="primary"
+          onClick={handleClick}
+        >
+          <SortIcon></SortIcon>
+        </IconButton>
+      </BottomTooltip>
       <Paper elevation={3}>
         <Menu
           id="sort-menu"

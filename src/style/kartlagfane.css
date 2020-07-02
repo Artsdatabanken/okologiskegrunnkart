@@ -1,7 +1,6 @@
 /**** CSS for Kartlagfanen og alle dens underkomponenter *****/
 
 /* Selve panelet */
-
 .kartlag_fanen {
   position: absolute;
   height: 100%;
@@ -49,15 +48,6 @@
   font-weight: 400;
   padding-left: 16px;
 }
-
-/* Overskrift på grupperte element*/
-/* h4.container_header {
-  margin-left: 25px;
-  margin-right: 25px;
-  text-align: left;
-  border-bottom: 1px solid lightgrey;
-  padding-bottom: 5px;
-} */
 
 /* Overskrift på grupperte element*/
 h4.container_header {
@@ -152,7 +142,7 @@ h4.container_header {
   padding-right: 25px;
 }
 
-/* Selvbygget toggle-element */
+/* Selvbygget toggle-element - NOT USED FOR NOW - REMOVE? */
 .toggle {
   margin: 10px;
   font-size: 10pt;
