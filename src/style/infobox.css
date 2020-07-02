@@ -1,216 +1,5 @@
 /**** CSS for Kartlagfanen og alle dens underkomponenter *****/
 
-/* Topp-anker for infoboksen som justeres i forhold til Kartlagfanens bredde */
-.infobox_container {
-  position: absolute;
-  top: 0px;
-  width: calc(100% - 408px);
-  padding: 10px;
-  height: 1px;
-}
-
-@media only screen and (max-width: 768px) {
-  .infobox_container {
-    width: 100%;
-  }
-}
-
-/* Infoboksen og Søk i alle lag-boksen */
-.infobox {
-  z-index: 150;
-  max-height: 600px;
-}
-.all_layer_results {
-  max-height: 400px;
-}
-.infobox,
-.all_layer_results {
-  position: relative;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 600px;
-  background: #eeeeee;
-  text-align: center;
-  padding: 10px;
-  border: 1px solid #666;
-}
-
-.window_scrollable {
-  max-height: 290px;
-}
-.all_layer_results_scrollable {
-  max-height: 320px;
-}
-.window_scrollable,
-.all_layer_results_scrollable {
-  display: inline-block;
-  width: 100%;
-}
-
-.all_layer_results {
-  margin-top: 135px;
-  z-index: 200;
-}
-
-@media only screen and (max-width: 768px) {
-  .infobox,
-  .all_layer_results {
-    margin-top: 0;
-    width: 100%;
-    max-height: calc(50vh - 20px);
-  }
-  .all_layer_results {
-    min-height: 50px;
-  }
-
-  .window_scrollable,
-  .all_layer_results_scrollable {
-    display: inline-block;
-    width: 100%;
-  }
-  .window_scrollable {
-    max-height: calc(50vh - 230px);
-  }
-  .all_layer_results_scrollable {
-    max-height: calc(50vh - 90px);
-  }
-}
-
-/* list items in info box */
-/* .generic-element-primary-text {
-  display: block;
-  font-size: 12pt;
-  color: #6d6d6d;
-}
-.generic-element-data-owner {
-  display: block;
-  font-size: 10pt;
-  color: grey;
-} */
-.window_scrollable > .generic_element > .MuiListItem-root {
-  padding: 0 16px;
-}
-.all_layer_results_scrollable
-  > .MuiList-root
-  > .generic_element
-  > .MuiListItem-root {
-  padding: 0 16px;
-}
-
-@media only screen and (max-width: 768px) {
-  /* .generic-element-secondary-text {
-    font-size: 11pt;
-    margin: 1px 0 !important;
-  }
-  .generic-element-primary-text {
-    font-size: 11pt;
-    margin: 1px 0 !important;
-  }
-  .generic-element-data-owner {
-    font-size: 9.5pt;
-    margin: 1px 0 !important;
-  } */
-  .window_scrollable
-    > .generic_element
-    > .MuiListItem-root
-    > .MuiListItemIcon-root {
-    min-width: 45px;
-  }
-  .all_layer_results_scrollable
-    > .MuiList-root
-    > .generic_element
-    > .MuiListItem-root
-    > .MuiListItemIcon-root {
-    min-width: 45px;
-  }
-}
-
-/* Overskriften */
-.infotitle svg {
-  display: inline-block;
-  vertical-align: text-top;
-  margin-right: 5px;
-  height: 18px;
-
-  color: grey;
-}
-
-.coordinates {
-  color: grey;
-  padding: 15px 0 10px 0;
-}
-@media only screen and (max-width: 768px) {
-  .coordinates {
-    padding: 10px 0 10px 0;
-  }
-}
-
-/* Knapper i boksene  */
-.close_button {
-  text-align: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 100;
-}
-
-.close_button:focus {
-  border: 2px solid blue;
-}
-
-/* åpne ekstra info knapp */
-.search_layers:focus {
-  border: 2px solid blue;
-}
-
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-
-/* Felt øverst et åpnet underelement  */
-.expand_header {
-  float: left;
-  width: 100%;
-  padding: 5px;
-  text-align: center;
-}
-
-.expand_header button {
-  margin: auto;
-}
-
-.text_type {
-  font-size: 10pt;
-  display: block;
-  text-transform: capitalize;
-}
-
-.text_type:first-child {
-  font-size: 14pt;
-  margin-bottom: 6px;
-}
-
-.text_type:first-child svg {
-  vertical-align: sub;
-}
-
-@media only screen and (max-width: 768px) {
-  .text_type:first-child {
-    font-size: 15px;
-    margin-bottom: 5px;
-  }
-
-  .text_type {
-    max-width: calc(100% - 40px);
-    font-size: 13px;
-  }
-}
-
 /* --------------------------------------------------------------------------------- */
 /* ---------------------- NEW INFOBOX COMPONENT ON THE SIDE ------------------------ */
 /* --------------------------------------------------------------------------------- */
@@ -348,21 +137,21 @@
 .layer-results-scrollable-side {
   display: inline-block;
   width: 100%;
-  padding: 0 5px;
 }
 .layer-results-side {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
 #layer-results-header {
   border-top: 3px solid grey;
   border-bottom: 1px solid grey;
 }
-
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
+}
+#layers-results-list {
+  padding-top: 0;
 }
 
 @media only screen and (max-width: 768px) {
@@ -376,6 +165,29 @@
     overflow-y: auto;
     width: 100%;
   }
+}
+
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+.generic_element .MuiButtonBase-root {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Progress bar */
+.layer-results-scrollable-loader {
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+.MuiLinearProgress-barColorPrimary {
+  background-color: #1976d2 !important;
 }
 
 /* List icons */
@@ -396,9 +208,9 @@
 }
 
 /* list items in info box */
-.generic-element-primary-text {
+.generic-element-secondary-text {
   display: block;
-  font-size: 12pt;
+  font-size: 11pt;
   color: #6d6d6d;
 }
 .generic-element-data-owner {
@@ -414,12 +226,12 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .generic-element-secondary-text {
+  .generic-element-primary-text {
     font-size: 11pt;
     margin: 1px 0 !important;
   }
-  .generic-element-primary-text {
-    font-size: 11pt;
+  .generic-element-secondary-text {
+    font-size: 10.5pt;
     margin: 1px 0 !important;
   }
   .generic-element-data-owner {
@@ -462,15 +274,6 @@
   font-size: 14px;
 }
 
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-
 /* Felt øverst et åpnet underelement  */
 .expand_header {
   float: left;
@@ -478,11 +281,9 @@
   padding: 5px;
   text-align: center;
 }
-
 .expand_header button {
   margin: auto;
 }
-
 .infobox-text {
   font-size: 16px;
   display: block;
@@ -490,22 +291,11 @@
   text-align: left;
   margin: 5px 0;
 }
-
-/* .infobox-text:first-child {
-  font-size: 14pt;
-  margin-bottom: 6px;
-} */
-
 .infobox-text:first-child svg {
   vertical-align: sub;
 }
 
 @media only screen and (max-width: 768px) {
-  /* .infobox-text:first-child {
-    font-size: 15px;
-    margin-bottom: 5px;
-  } */
-
   .infobox-text {
     max-width: calc(100% - 40px);
     font-size: 13px;

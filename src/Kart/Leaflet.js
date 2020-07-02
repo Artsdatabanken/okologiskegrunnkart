@@ -3,7 +3,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
-// import InfoBox from "../Forvaltningsportalen/FeatureInfo/InfoBox";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 
@@ -489,33 +488,22 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {/* {this.state.markerType === "klikk" && this.props.showInfobox && (
-          <InfoBox
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            layersResult={this.props.layersResult}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            adresse={this.props.adresse}
-            handleInfobox={this.handleInfobox}
-            onUpdateLayerProp={this.props.onUpdateLayerProp}
-          />
-        )} */}
         {this.state.markerType === "klikk" && this.props.showInfobox && (
           <InfoboxSide
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
             getBackendData={this.getBackendData}
+            handleInfobox={this.props.handleInfobox}
             layersResult={this.props.layersResult}
             allLayersResult={this.props.allLayersResult}
             valgteLag={this.props.valgteLag}
             sted={this.props.sted}
             adresse={this.props.adresse}
-            handleInfobox={this.props.handleInfobox}
+            resultat={this.props.resultat}
+            kartlag={this.props.kartlag}
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
-            {...this.props}
+            loadingFeatures={this.props.loadingFeatures}
           />
         )}
       </>

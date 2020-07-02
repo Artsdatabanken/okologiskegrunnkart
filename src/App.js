@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-// import FeatureInfo from "./Forvaltningsportalen/FeatureInfo/FeatureInfo";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
@@ -41,7 +40,8 @@ class App extends React.Component {
       allLayersResult: {},
       zoom: 3.1,
       lat: null,
-      lng: null
+      lng: null,
+      loadingFeatures: false
     };
   }
 
@@ -123,6 +123,7 @@ class App extends React.Component {
                       token={token}
                       showInfobox={this.state.showInfobox}
                       handleInfobox={this.handleInfobox}
+                      loadingFeatures={this.state.loadingFeatures}
                       {...this.state}
                     />
                     <KartVelger
@@ -131,17 +132,6 @@ class App extends React.Component {
                       showSideBar={this.state.showSideBar}
                       showInfobox={this.state.showInfobox}
                     />
-                    {/* <FeatureInfo
-                      {...this.state}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      resultat={this.state.resultat}
-                      layersResult={this.state.layersResult}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      coordinates_area={{
-                        lat: this.state.lat,
-                        lng: this.state.lng
-                      }}
-                    /> */}
                     <SearchBar
                       onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
@@ -371,7 +361,6 @@ class App extends React.Component {
     // This depends/assumes that layersResults are
     // emptied when coordinates change
     const looplist = valgteLag || {};
-    // let layersResult = {};
     let layersResult = this.state.layersResult || {};
 
     // Remove layer results that are not in selected layers
@@ -380,6 +369,7 @@ class App extends React.Component {
         delete layersResult[key];
       }
     });
+    this.setState({ layersResult: layersResult });
 
     // Add new layer results from selected layers
     Object.keys(looplist).forEach(key => {
@@ -387,9 +377,27 @@ class App extends React.Component {
       if (layersResult[key]) return;
       layersResult[key] = { loading: true };
     });
-    this.setState({ layersResult: layersResult });
+
+    const totalFeaturesSearch = Object.keys(layersResult).length;
+    let finishedFeaturesSearch = 0;
+
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ layersResult });
+      }
+    }, 1500);
+
+    // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
-      if (!layersResult[key].loading) return;
+      if (!layersResult[key].loading) {
+        finishedFeaturesSearch += 1;
+        if (totalFeaturesSearch === finishedFeaturesSearch) {
+          clearInterval(updateLayers);
+          this.setState({ loadingFeatures: false });
+        }
+        return;
+      }
       const layer = looplist[key];
       backend
         .getFeatureInfo(layer, { lat, lng, zoom })
@@ -398,16 +406,29 @@ class App extends React.Component {
             res.error = res.ServiceException;
             delete res.ServiceException;
           }
-          let layersResult = this.state.layersResult;
+          finishedFeaturesSearch += 1;
           layersResult[key] = res;
-          this.setState(layersResult);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, layersResult });
+          }
         })
         .catch(e => {
-          let layersResult = this.state.layersResult;
+          finishedFeaturesSearch += 1;
           layersResult[key] = { error: e.message || key };
-          this.setState(layersResult);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, layersResult });
+          }
         });
     });
+    // Visualize the loading bar after all requests have been sent (i.e. initial delay)
+    if (
+      Object.keys(valgteLag).length > 0 &&
+      totalFeaturesSearch > finishedFeaturesSearch
+    ) {
+      this.setState({ loadingFeatures: true });
+    }
   };
 
   handleAllLayersSearch = (lng, lat, zoom) => {
@@ -419,14 +440,29 @@ class App extends React.Component {
       return;
     }
 
-    let looplist = this.state.kartlag;
+    // Reset the layer results
+    this.setState({
+      allLayersResult: {}
+    });
+
     // Denne henter utvalgte lag baser på listen layers
-    var allLayersResult = {};
+    let allLayersResult = {};
+    let looplist = this.state.kartlag;
     Object.keys(looplist).forEach(key => {
       if (!looplist[key].klikktekst) return;
       allLayersResult[key] = { loading: true };
     });
-    this.setState({ allLayersResult: allLayersResult });
+    const totalFeaturesSearch = Object.keys(allLayersResult).length;
+    let finishedFeaturesSearch = 0;
+
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ allLayersResult });
+      }
+    }, 1500);
+
+    // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
       const layer = looplist[key];
       backend
@@ -436,16 +472,26 @@ class App extends React.Component {
             res.error = res.ServiceException;
             delete res.ServiceException;
           }
-          let allLayersResult = this.state.allLayersResult;
+          finishedFeaturesSearch += 1;
           allLayersResult[key] = res;
-          this.setState(allLayersResult);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, allLayersResult });
+          }
         })
         .catch(e => {
-          let allLayersResult = this.state.allLayersResult;
+          finishedFeaturesSearch += 1;
           allLayersResult[key] = { error: e.message || key };
-          this.setState(allLayersResult);
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            clearInterval(updateLayers);
+            this.setState({ loadingFeatures: false, allLayersResult });
+          }
         });
     });
+    // Visualize the loading bar after all requests have been sent (i.e. initial delay)
+    if (totalFeaturesSearch > finishedFeaturesSearch) {
+      this.setState({ loadingFeatures: true });
+    }
   };
 
   hentInfoValgteLag = async (lng, lat, zoom) => {
@@ -488,7 +534,12 @@ class App extends React.Component {
       kartlag: Object.assign({}, nye_lag)
     });
 
-    if (this.state.lat && this.state.lng && this.state.showInfobox) {
+    if (
+      this.state.lat &&
+      this.state.lng &&
+      this.state.showInfobox &&
+      !this.state.showExtensiveInfo
+    ) {
       this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
     }
   };
