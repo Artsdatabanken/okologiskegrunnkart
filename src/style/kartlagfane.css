@@ -33,7 +33,7 @@
 
 @media only screen and (max-width: 768px) {
   .scroll_area {
-    height: calc(50vh - 96px);
+    height: calc(50vh);
   }
 }
 
