@@ -321,7 +321,10 @@ h4.container_header {
 #layer-icon-tooltip .MuiTooltip-tooltip {
   left: 5px;
 }
-.badge-disabled > .MuiBadge-colorSecondary {
+.badge-enabled > .MuiBadge-colorPrimary {
+  background-color: #22aa58 !important;
+}
+.badge-disabled > .MuiBadge-colorPrimary {
   background-color: #aaa !important;
 }
 
@@ -348,6 +351,9 @@ h4.container_header {
   display: flex;
   align-items: center;
   padding: 0 !important;
+}
+.opacity-slider-wrapper .MuiSlider-colorPrimary {
+  color: #22aa58;
 }
 #opacity-invisible-icon.MuiSvgIcon-colorPrimary {
   color: #ccc;

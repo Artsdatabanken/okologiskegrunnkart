@@ -65,7 +65,7 @@ const ForvaltningsElement = ({
                 <Badge
                   className="badge-disabled"
                   badgeContent={kartlag.numberVisible || 0}
-                  color="secondary"
+                  color="primary"
                 >
                   <CustomIcon
                     id="kartlag"
@@ -99,9 +99,9 @@ const ForvaltningsElement = ({
           <ListItemIcon>
             <div className="layer-list-element-icon">
               <Badge
-                className={disabledBadge ? "badge-disabled" : ""}
+                className={disabledBadge ? "badge-disabled" : "badge-enabled"}
                 badgeContent={kartlag.numberVisible || 0}
-                color="secondary"
+                color="primary"
               >
                 <CustomIcon
                   id="kartlag"
