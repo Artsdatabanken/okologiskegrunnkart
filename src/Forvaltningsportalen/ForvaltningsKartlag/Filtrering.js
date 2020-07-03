@@ -48,6 +48,7 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
           horizontal: "right"
         }}
         transformOrigin={{
+          vertical: "top",
           horizontal: "right"
         }}
         getContentAnchorEl={null}

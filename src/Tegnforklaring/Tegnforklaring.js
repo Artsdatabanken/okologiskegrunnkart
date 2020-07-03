@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, IconButton, ListSubheader } from "@material-ui/core";
+import { Grid, Typography, ListSubheader } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import CustomIcon from "../Common/CustomIcon";
@@ -26,17 +26,6 @@ const Tegnforklaring = ({ layers }) => {
             <Close />
           </div>
         </button>
-        {/* <IconButton
-          tabIndex="0"
-          style={{ color: "#333" }}
-          onClick={e => {
-            const loc = history.location;
-            loc.pathname = "/";
-            history.push(loc);
-          }}
-        >
-          <Close />
-        </IconButton> */}
       </div>
       <div className="legend-content-wrapper">
         {Object.keys(layers).map(id => {

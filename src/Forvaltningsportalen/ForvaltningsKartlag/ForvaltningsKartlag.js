@@ -64,7 +64,7 @@ class ForvaltningsKartlag extends React.Component {
       .map(tag => (
         <Chip
           id="layers-filter-chips"
-          style={{ margin: 2 }}
+          style={{ margin: "2px 0" }}
           key={tag}
           label={tag}
           clickable
@@ -108,7 +108,7 @@ class ForvaltningsKartlag extends React.Component {
                         style={{
                           display: "inline",
                           verticalAlign: "text-bottom",
-                          padding: "0px 4px"
+                          padding: "0px 5px"
                         }}
                       >
                         og

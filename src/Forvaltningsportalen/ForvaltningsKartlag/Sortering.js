@@ -58,6 +58,7 @@ export default function Sortering({ sort, onChangeSort }) {
             horizontal: "right"
           }}
           transformOrigin={{
+            vertical: "top",
             horizontal: "right"
           }}
           getContentAnchorEl={null}
