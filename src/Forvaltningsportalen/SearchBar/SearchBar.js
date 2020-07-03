@@ -371,7 +371,7 @@ class SearchBar extends React.Component {
               id="searchfield"
               type="text"
               autoComplete="off"
-              placeholder="søk etter kartlag eller område..."
+              placeholder="Søk etter kartlag eller område..."
               onFocus={e => this.handleSearchBar(e.target.value)}
               onChange={e => {
                 this.handleSearchBar(e.target.value);
@@ -419,7 +419,7 @@ class SearchBar extends React.Component {
                 this.handleSearchButton();
               }}
             >
-              søk
+              Søk
             </button>
           </div>
           {(this.state.isSearching || this.props.searchResultPage) && (

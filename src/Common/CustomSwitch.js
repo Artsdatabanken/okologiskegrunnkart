@@ -13,7 +13,7 @@ const styles = {
     color: "#aaa", // Grey
     "&$checked": {
       transform: "translateX(18px)",
-      color: "rgba(34, 170, 34, 1)", // Green
+      color: "rgba(34, 170, 88, 1)", // Green
       "&$disabled": {
         color: "rgb(189, 189, 189)", // Grey
         "& + $track": {
@@ -24,7 +24,7 @@ const styles = {
       },
       "& + $track": {
         opacity: 1,
-        backgroundColor: "rgba(34, 170, 34, 0.2)", // Green
+        backgroundColor: "rgba(34, 170, 88, 0.2)", // Green
         borderColor: "#999"
       }
     }
