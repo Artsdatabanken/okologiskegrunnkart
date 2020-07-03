@@ -12,7 +12,6 @@ const ForvaltningsGruppering = ({
   element,
   zoom
 }) => {
-  console.log(element);
   kartlag = kartlag.filter(element => {
     let tags = element.tags || [];
     if (
