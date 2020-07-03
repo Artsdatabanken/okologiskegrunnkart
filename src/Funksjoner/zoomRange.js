@@ -174,4 +174,28 @@ function zoomRangeBadge(zoom, sublayers) {
   return true;
 }
 
-export { zoomRangeLayer, zoomRangeSublayer, zoomRangeBadge };
+const scaleToZoom = ({ minscaledenominator, maxscaledenominator }) => {
+  // Asses if current map zoom is within sublayer's scale range
+  let min = minscaledenominator ? minscaledenominator : 0;
+  let max = maxscaledenominator ? maxscaledenominator : 999999999;
+
+  // NOTE: Some scales from NIBIO seem to be wrong.
+  // Adjusted manually here (hopefully this will not
+  // affect other scale denominators)
+  if (max === 1000000) max = 1091960;
+  if (max === 500000) max = 545980;
+
+  let maxZoom = null;
+  let minZoom = null;
+  for (let i = 0; i < scaleArray.length && !maxZoom; i++)
+    if (max > scaleArray[i]) maxZoom = i;
+
+  for (let i = scaleArray.length; i >= 0 && !minZoom; i--)
+    if (min < scaleArray[i]) minZoom = i;
+
+  if (!minZoom) minZoom = 20;
+  if (!maxZoom) maxZoom = 0;
+  return [maxZoom, minZoom];
+};
+
+export { zoomRangeLayer, zoomRangeSublayer, zoomRangeBadge, scaleToZoom };

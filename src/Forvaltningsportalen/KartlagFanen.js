@@ -81,12 +81,7 @@ const KartlagFanen = props => {
                       />
                     )}
                     <ForvaltningsKartlag
-                      show_current={props.show_current}
-                      handleShowCurrent={props.handleShowCurrent}
                       kartlag={props.kartlag}
-                      navigation_history={props.navigation_history}
-                      onFitBounds={props.handleFitBounds}
-                      history={props.history}
                       onUpdateLayerProp={props.onUpdateLayerProp}
                       zoom={props.zoom}
                     />

@@ -11,6 +11,7 @@ import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
+import { scaleToZoom } from "./Funksjoner/zoomRange";
 
 class App extends React.Component {
   constructor(props) {
@@ -38,7 +39,7 @@ class App extends React.Component {
       adresse: null,
       layersResult: {},
       allLayersResult: {},
-      zoom: 3.1,
+      zoom: 5,
       lat: null,
       lng: null,
       loadingFeatures: false
@@ -64,11 +65,29 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
+
+    const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
+      k.id = key;
       k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+      k.underlag = k.underlag || {};
+      k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
+        ul.zoom = scaleToZoom(ul);
+        ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
+        //        if (ul.id === "Grusogpukk_Gruspukkuttak") ul.erSynlig = true
+        acc[ul.id] = ul;
+        return acc;
+      }, {});
+      k.zoom = Object.values(k.underlag).reduce(
+        (acc, e) => {
+          acc = [Math.min(acc[0], e.zoom[0]), Math.max(acc[1], e.zoom[1])];
+          return acc;
+        },
+        [999, 0]
+      );
     });
     this.setState({ kartlag: sortedKartlag });
   }
@@ -79,7 +98,6 @@ class App extends React.Component {
 
   render() {
     const { history } = this.props;
-    const path = this.props.location.pathname;
     const basiskart = this.state.bakgrunnskart;
     return (
       <SettingsContext.Consumer>
@@ -147,7 +165,6 @@ class App extends React.Component {
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                     />
                     <KartlagFanen
-                      {...this.state}
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
                       hideAndShowPolygon={this.hideAndShowPolygon}
@@ -155,18 +172,10 @@ class App extends React.Component {
                       showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
                       addPolyline={this.addPolyline}
-                      onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
-                      kartlagSearchResults={this.state.kartlagSearchResults}
-                      geoSearchResults={this.state.geoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
                       addValgtLag={this.handleNavigateToKartlag}
                       removeValgtLag={this.removeValgtLag}
                       valgtLag={this.state.valgtLag}
-                      path={path}
-                      history={history}
-                      show_current={this.state.showCurrent}
-                      onFitBounds={this.handleFitBounds}
                       onUpdateLayerProp={this.handleForvaltningsLayerProp}
                       kartlag={this.state.kartlag}
                       showSideBar={this.state.showSideBar}
@@ -510,24 +519,26 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layer, key, value) => {
+  handleForvaltningsLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
-    setValue(nye_lag[layer], key, value);
+    const layer = nye_lag[layerkey];
+    //console.log({ layer, key, value });
+    setValue(layer, key, value);
 
     let layerVisible = false;
     let numberVisible = 0;
-    for (const sublayerId in nye_lag[layer].underlag) {
-      if (nye_lag[layer].underlag[sublayerId].erSynlig) {
+    for (const sublayerId in layer.underlag) {
+      if (layer.underlag[sublayerId].erSynlig) {
         layerVisible = true;
         numberVisible += 1;
       }
     }
     if (layerVisible) {
-      setValue(nye_lag[layer], "erSynlig", true);
-      setValue(nye_lag[layer], "numberVisible", numberVisible);
+      setValue(layer, "erSynlig", true);
+      setValue(layer, "numberVisible", numberVisible);
     } else {
-      setValue(nye_lag[layer], "erSynlig", false);
-      setValue(nye_lag[layer], "numberVisible", numberVisible);
+      setValue(layer, "erSynlig", false);
+      setValue(layer, "numberVisible", numberVisible);
     }
 
     this.setState({
@@ -560,8 +571,8 @@ class App extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
-  handleZoomChange = number => {
-    this.setState({ zoom: number });
+  handleZoomChange = zoom => {
+    this.setState({ zoom: zoom });
   };
 
   static contextType = SettingsContext;
