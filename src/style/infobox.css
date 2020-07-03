@@ -62,14 +62,21 @@
   justify-content: flex-start;
   padding: 18px 0 15px 10px;
   max-width: calc(100% - 51px);
+  width: calc(100% - 51px);
 }
 .infobox-title-text {
   margin-left: 10px;
   text-align: left;
   max-width: calc(100% - 51px);
+  width: calc(100% - 51px);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
 }
 .infobox-title-text-primary {
   font-size: 20px;
