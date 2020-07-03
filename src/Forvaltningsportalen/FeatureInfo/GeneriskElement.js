@@ -27,15 +27,6 @@ const GeneriskElement = props => {
   const primaryText = formatterKlikktekst(kartlag.klikktekst, resultat);
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
 
-  let secondaryTextResults = false;
-  if (
-    secondaryText.harData &&
-    secondaryText.elementer.length > 0 &&
-    secondaryText.elementer[0]
-  ) {
-    secondaryTextResults = true;
-  }
-
   return (
     <div
       style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
@@ -79,7 +70,7 @@ const GeneriskElement = props => {
                 : "Ingen treff"}
             </div>
             <div className="generic-element-secondary-text">
-              {secondaryTextResults ? secondaryText.elementer : kartlag.tittel}
+              {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
             </div>
             <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
