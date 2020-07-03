@@ -112,6 +112,13 @@ h4.container_header {
   justify-content: center;
 }
 
+/* Sorted layers */
+.sorted-layers-subheaders .MuiListSubheader-root {
+  background-color: #dedede;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  font-size: 17px;
+}
+
 /* Sortering, filtrering og søk -delen */
 .header-layers-menu {
   background-color: white;
@@ -160,6 +167,11 @@ h4.container_header {
 #legend-icon.layer-icon-wrapper {
   margin-left: 4px;
 }
+.legend-text {
+  color: rgba(0, 0, 0, 0.64);
+  font-size: 17px;
+  font-weight: 500;
+}
 
 /* Legend menu */
 .legend-wrapper {
@@ -180,6 +192,9 @@ h4.container_header {
   justify-content: center;
   align-items: center;
   padding-left: 18px;
+  color: rgba(0, 0, 0, 0.64);
+  /* font-size: 17px; */
+  font-weight: 500;
 }
 .legend-title-text {
   margin-left: 10px;

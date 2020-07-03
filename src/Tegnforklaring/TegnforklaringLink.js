@@ -23,7 +23,9 @@ const TegnforklaringLink = () => {
           color="#555"
         />
       </ListItemIcon>
-      <ListItemText primary="Tegnforklaring" secondary="" />
+      <ListItemText>
+        <span className="legend-text">Tegnforklaring</span>
+      </ListItemText>
     </ListItem>
   );
 };

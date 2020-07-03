@@ -10,7 +10,7 @@ const Tegnforklaring = ({ layers }) => {
     <div className="legend-wrapper">
       <div className="legend-title-wrapper">
         <div className="legend-title-content">
-          <CustomIcon icon="map-legend" size={24} color="#333" padding={2} />
+          <CustomIcon icon="map-legend" size={26} color="#555" padding={2} />
           <span className="legend-title-text">Tegnforklaring</span>
         </div>
         <button
@@ -41,15 +41,16 @@ const Tegnforklaring = ({ layers }) => {
             ));
           if (items.length <= 0) return null;
           return (
-            <div
-              key={layer.tittel}
-              style={{ marginBottom: 16, cursor: "pointer" }}
-              onClick={() => {
-                const loc = history.location;
-                loc.pathname = "/kartlag/" + layer.tittel;
-                history.push(loc);
-              }}
-            >
+            // <div
+            //   key={layer.tittel}
+            //   style={{ marginBottom: 16, cursor: "pointer" }}
+            //   onClick={() => {
+            //     const loc = history.location;
+            //     loc.pathname = "/kartlag/" + layer.tittel;
+            //     history.push(loc);
+            //   }}
+            // >
+            <div key={layer.tittel} style={{ marginBottom: 16 }}>
               <ListSubheader disableSticky disableGutters>
                 {layer.tittel}
               </ListSubheader>

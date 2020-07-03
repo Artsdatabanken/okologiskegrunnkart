@@ -32,7 +32,7 @@ const ForvaltningsGruppering = ({
 
   if (kartlag.length <= 0) return null;
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div className="sorted-layers-subheaders">
       <ListSubheader disableSticky>{element}</ListSubheader>
 
       {kartlag.map(element => {
