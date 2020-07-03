@@ -182,16 +182,16 @@ h4.container_header {
 .legend-title-wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: rgba(145, 163, 176, 0.5);
   width: 100%;
-  height: 64px;
+  height: 50px;
 }
 .legend-title-content {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding-left: 18px;
+  padding-left: 5px;
   color: rgba(0, 0, 0, 0.64);
   font-weight: 500;
 }
@@ -199,13 +199,19 @@ h4.container_header {
   margin-left: 10px;
   font-size: 18px;
 }
+#back-from-legend.MuiIconButton-colorPrimary {
+  color: rgba(0, 0, 0, 0.64);
+}
 .legend-content-wrapper .MuiListSubheader-root {
   max-height: 40px;
   color: #000;
 }
+.legend-content-wrapper {
+  padding: 0 24px 24px 24px;
+}
 
 /* close legend button */
-.close-legend-button-wrapper {
+/* .close-legend-button-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,10 +245,7 @@ h4.container_header {
 }
 .close-legend-button:hover {
   background-color: rgba(145, 163, 176, 1);
-}
-.legend-content-wrapper {
-  padding: 0 24px 24px 24px;
-}
+} */
 
 /* layers and sublayers wrappers */
 #layers-list-wrapper.MuiList-padding {
