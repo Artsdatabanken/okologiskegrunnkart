@@ -67,12 +67,9 @@
   margin-left: 10px;
   text-align: left;
   max-width: calc(100% - 51px);
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .infobox-title-text-primary {
   font-size: 20px;
