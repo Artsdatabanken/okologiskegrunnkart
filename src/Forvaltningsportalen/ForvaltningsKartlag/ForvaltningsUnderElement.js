@@ -137,7 +137,7 @@ const ForvaltningsUnderElement = ({
             <div className="opacity-slider-wrapper">
               <VisibilityOff id="opacity-invisible-icon" color="primary" />
               <Slider
-                color="primary"
+                color="secondary"
                 value={Math.round(100 * sliderValue)}
                 step={1}
                 min={0}

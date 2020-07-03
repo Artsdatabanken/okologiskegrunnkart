@@ -210,43 +210,6 @@ h4.container_header {
   padding: 0 24px 24px 24px;
 }
 
-/* close legend button */
-/* .close-legend-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 0;
-  width: 0;
-  margin: 23px 27px 23px 22px;
-  padding: 0;
-  background-color: rgba(145, 163, 176, 0);
-  border: none;
-  border-radius: 10px;
-  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-}
-.close-legend-button-wrapper:hover {
-  background-color: rgba(145, 163, 176, 0);
-}
-.close-legend-button-wrapper:focus {
-  background-color: rgba(145, 163, 176, 1);
-  outline: none;
-  height: 46px;
-  width: 44px;
-  margin: 0 5px 0 0;
-}
-.close-legend-button {
-  padding: 0;
-  display: flex;
-  background-color: rgba(145, 163, 176, 0.3);
-  color: #333;
-  border: 2px solid #333;
-  border-radius: 5px;
-}
-.close-legend-button:hover {
-  background-color: rgba(145, 163, 176, 1);
-} */
-
 /* layers and sublayers wrappers */
 #layers-list-wrapper.MuiList-padding {
   padding-top: 0;
@@ -385,9 +348,6 @@ h4.container_header {
   display: flex;
   align-items: center;
   padding: 0 !important;
-}
-.opacity-slider-wrapper .MuiSlider-colorPrimary {
-  color: #3f51b5;
 }
 #opacity-invisible-icon.MuiSvgIcon-colorPrimary {
   color: #ccc;
