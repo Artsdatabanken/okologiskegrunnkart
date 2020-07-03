@@ -87,7 +87,7 @@ const ForvaltningsUnderElement = ({
                 e.stopPropagation();
               }
             }}
-            disabled={disabled}
+            disabled={false}
           />
         </ListItemIcon>
         <ListItemText

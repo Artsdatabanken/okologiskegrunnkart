@@ -351,13 +351,14 @@ class Leaflet extends React.Component {
         opacity: underlag.opacity
       });
       layer.on("loading", () => {
-        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
       });
       layer.on("load", () => {
-        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
       });
-      layer.on("tileerror", () => {
-        this.props.onTileStatus(kartlag.id, underlag.id, "error");
+      layer.on("tileerror", e => {
+        console.log(e);
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
       });
       this.wmslayers[layerName] = layer;
       this.map.addLayer(layer);
