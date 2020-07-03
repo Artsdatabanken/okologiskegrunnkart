@@ -63,11 +63,12 @@ class ForvaltningsKartlag extends React.Component {
       .filter(tag => this.state.tagFilter[tag])
       .map(tag => (
         <Chip
-          style={{ margin: 2 }}
+          id="layers-filter-chips"
+          style={{ margin: "2px 0" }}
           key={tag}
           label={tag}
           clickable
-          color="secondary"
+          color="primary"
           onClick={() => this.handleFilterTag(tag, !this.state.tagFilter[tag])}
           onDelete={() => this.handleFilterTag(tag, false)}
         />
@@ -107,7 +108,7 @@ class ForvaltningsKartlag extends React.Component {
                         style={{
                           display: "inline",
                           verticalAlign: "text-bottom",
-                          padding: "0px 4px"
+                          padding: "0px 5px"
                         }}
                       >
                         og
@@ -119,8 +120,11 @@ class ForvaltningsKartlag extends React.Component {
           )}
         </div>
 
-        <List>
+        <div className="legend-link-wrapper">
           <TegnforklaringLink />
+        </div>
+
+        <List id="layers-list-wrapper">
           {Object.keys(sorted)
             .reverse()
             .map(element => {

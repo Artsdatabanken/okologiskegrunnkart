@@ -1,4 +1,9 @@
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import {
+  ExpandLess,
+  ExpandMore,
+  Visibility,
+  VisibilityOff
+} from "@material-ui/icons";
 import React, { useState } from "react";
 import {
   Typography,
@@ -27,6 +32,7 @@ const ForvaltningsUnderElement = ({
   const maxScaleDenominator = kartlag.maxscaledenominator;
   let startstate = valgt || false;
   const [open, setOpen] = useState(startstate);
+  const [sliderValue, setSliderValue] = useState(kartlag.opacity || 80);
   let kode = "underlag." + kartlag_key + ".";
 
   const { disabled, description } = zoomRangeSublayer(
@@ -34,6 +40,15 @@ const ForvaltningsUnderElement = ({
     minScaleDenominator,
     maxScaleDenominator
   );
+
+  const handleSliderChange = value => {
+    setSliderValue(value / 100);
+  };
+
+  const changeLayerOpacity = value => {
+    setSliderValue(value / 100);
+    onUpdateLayerProp(kartlag_owner_key, kode + "opacity", value / 100.0);
+  };
 
   const ListRow = React.forwardRef(function ListRow(props, ref) {
     return (
@@ -119,23 +134,35 @@ const ForvaltningsUnderElement = ({
       >
         <div className="collapsed_container">
           <div>
-            <h4>Gjennomsiktighet</h4>
-            <Slider
-              value={100 * kartlag.opacity || 80}
-              step={1}
-              min={0}
-              max={100}
-              onChange={(e, v) => {
-                onUpdateLayerProp(
-                  kartlag_owner_key,
-                  kode + "opacity",
-                  v / 100.0
-                );
-              }}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-              getAriaValueText={opacity => opacity + " %"}
-            />
+            <div className="opacity-slider-wrapper">
+              <VisibilityOff id="opacity-invisible-icon" color="primary" />
+              <Slider
+                color="primary"
+                value={Math.round(100 * sliderValue)}
+                step={1}
+                min={0}
+                max={100}
+                onChange={(e, v) => {
+                  handleSliderChange(v);
+                }}
+                onChangeCommitted={(e, v) => {
+                  changeLayerOpacity(v);
+                }}
+                valueLabelDisplay="auto"
+                aria-labelledby="range-slider"
+                getAriaValueText={opacity => opacity + " %"}
+                disabled={disabled || !erSynlig}
+              />
+              <Visibility
+                id={
+                  disabled || !erSynlig
+                    ? "opacity-visible-icon-disabled"
+                    : "opacity-visible-icon"
+                }
+                color="primary"
+                style={{ paddingRight: 0, paddingLeft: 15 }}
+              />
+            </div>
 
             {kartlag.legendeurl && (
               <>

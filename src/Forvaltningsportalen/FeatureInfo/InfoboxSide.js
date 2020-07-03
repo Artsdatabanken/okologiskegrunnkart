@@ -75,13 +75,15 @@ const InfoBox = ({
         </div>
         <button
           tabIndex="0"
-          className="close-infobox-button"
+          className="close-infobox-button-wrapper"
           onClick={e => {
             handleInfobox(false);
             handleExtensiveInfo(false);
           }}
         >
-          <Close />
+          <div className="close-infobox-button">
+            <Close />
+          </div>
         </button>
       </div>
       <div className="infobox-side">
