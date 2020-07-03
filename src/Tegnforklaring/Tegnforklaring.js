@@ -1,5 +1,12 @@
 import React from "react";
-import { Grid, Typography, ListSubheader, IconButton } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  ListSubheader,
+  ListItemIcon,
+  ListItemText,
+  ListItem
+} from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
@@ -7,22 +14,22 @@ const Tegnforklaring = ({ layers }) => {
   const history = useHistory();
   return (
     <div className="legend-wrapper">
-      <div className="legend-title-wrapper">
-        <IconButton
-          id="back-from-legend"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={e => {
-            const loc = history.location;
-            loc.pathname = "/";
-            history.push(loc);
-          }}
-        >
+      <ListItem
+        id="legend-title-wrapper"
+        button
+        onClick={e => {
+          const loc = history.location;
+          loc.pathname = "/";
+          history.push(loc);
+        }}
+      >
+        <ListItemIcon>
           <KeyboardBackspace />
-        </IconButton>
-        <span className="legend-title-text">Tegnforklaring</span>
-      </div>
+        </ListItemIcon>
+        <ListItemText>
+          <span className="legend-title-text">Tegnforklaring</span>
+        </ListItemText>
+      </ListItem>
       <div className="legend-content-wrapper">
         {Object.keys(layers).map(id => {
           const layer = layers[id];
