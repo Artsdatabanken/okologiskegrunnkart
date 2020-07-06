@@ -303,12 +303,16 @@ class Leaflet extends React.Component {
     const config = this.props.bakgrunnskart;
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
-        gkt: this.props.token
+        gkt: this.props.token,
+        maxNativeZoom: 8,
+        detectRetina: true
       }).addTo(this.map);
     if (!this.bakgrunnskart)
-      this.bakgrunnskart = L.tileLayer("", { gkt: this.props.token }).addTo(
-        this.map
-      );
+      this.bakgrunnskart = L.tileLayer("", {
+        gkt: this.props.token,
+        maxNativeZoom: 18,
+        maxZoom: 20
+      }).addTo(this.map);
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
 
@@ -343,12 +347,12 @@ class Leaflet extends React.Component {
     if (!layer) {
       layer = L.tileLayer.cachedOverview("", {
         id: underlag.id,
-        zoomThreshold: kartlag.zoom[0],
+        zoomThreshold: underlag.zoom[0],
         layers: underlag.wmslayer,
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
-        opacity: underlag.opacity
+        maxNativeZoom: underlag.zoom[1]
       });
       layer.on("loading", () => {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
@@ -357,7 +361,7 @@ class Leaflet extends React.Component {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
       });
       layer.on("tileerror", e => {
-        console.log(e);
+        //console.log(e);
         //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
       });
       this.wmslayers[layerName] = layer;
