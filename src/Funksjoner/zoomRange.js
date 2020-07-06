@@ -37,14 +37,14 @@ const scaleToZoom = ({ minscaledenominator, maxscaledenominator }) => {
 
   let minZoom = null;
   let maxZoom = null;
-  for (let i = 0; i < scaleArray.length && !minZoom; i++)
+  for (let i = 0; i < scaleArray.length && minZoom == null; i++)
     if (max > scaleArray[i]) minZoom = i;
 
-  for (let i = scaleArray.length; i >= 0 && !maxZoom; i--)
+  for (let i = scaleArray.length - 1; i >= 0 && maxZoom == null; i--)
     if (min < scaleArray[i]) maxZoom = i;
 
   if (!maxZoom) maxZoom = 20;
-  if (!minZoom) minZoom = 8; // Default minimum zoom for unspecified
+  minZoom = Math.max(minZoom || 0, 8); // Minimum zoom level for loading overviews from sluggish WMSes
   return [minZoom, maxZoom];
 };
 
