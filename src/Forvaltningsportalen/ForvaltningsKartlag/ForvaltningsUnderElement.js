@@ -77,7 +77,7 @@ const ForvaltningsUnderElement = ({
             }}
           />
         </ListItemIcon>
-        <ListItemText primary={tittel.nb || tittel} />
+        <ListItemText primary={tittel} />
         {kartlag.suggested && (
           <ListItemIcon id="bookmark-icon">
             <CustomIcon
@@ -97,7 +97,6 @@ const ForvaltningsUnderElement = ({
   if (!tittel) return null;
   return (
     <>
-      {" "}
       <ListRow />
       <Collapse
         className="underlag_collapse"

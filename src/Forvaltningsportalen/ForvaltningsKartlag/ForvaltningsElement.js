@@ -63,7 +63,7 @@ const ForvaltningsElement = ({
             </Badge>
           </div>
         </ListItemIcon>
-        <ListItemText primary={tittel.nb || tittel} />
+        <ListItemText primary={tittel} />
         {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
 
