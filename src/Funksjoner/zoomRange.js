@@ -35,17 +35,17 @@ const scaleToZoom = ({ minscaledenominator, maxscaledenominator }) => {
   if (max === 1000000) max = 1091960;
   if (max === 500000) max = 545980;
 
-  let maxZoom = null;
   let minZoom = null;
-  for (let i = 0; i < scaleArray.length && !maxZoom; i++)
-    if (max > scaleArray[i]) maxZoom = i;
+  let maxZoom = null;
+  for (let i = 0; i < scaleArray.length && !minZoom; i++)
+    if (max > scaleArray[i]) minZoom = i;
 
-  for (let i = scaleArray.length; i >= 0 && !minZoom; i--)
-    if (min < scaleArray[i]) minZoom = i;
+  for (let i = scaleArray.length; i >= 0 && !maxZoom; i--)
+    if (min < scaleArray[i]) maxZoom = i;
 
-  if (!minZoom) minZoom = 20;
-  if (!maxZoom) maxZoom = 8; // Default minimum zoom for unspecified
-  return [maxZoom, minZoom];
+  if (!maxZoom) maxZoom = 20;
+  if (!minZoom) minZoom = 8; // Default minimum zoom for unspecified
+  return [minZoom, maxZoom];
 };
 
 export { scaleToZoom };
