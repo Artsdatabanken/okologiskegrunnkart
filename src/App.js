@@ -39,7 +39,7 @@ class App extends React.Component {
       adresse: null,
       layersResult: {},
       allLayersResult: {},
-      zoom: 5,
+      zoom: 3.1,
       lat: null,
       lng: null,
       loadingFeatures: false
@@ -71,23 +71,15 @@ class App extends React.Component {
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.id = key;
-      k.opacity = 0.8;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.zoom = scaleToZoom(ul);
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
-        //        if (ul.id === "Grusogpukk_Gruspukkuttak") ul.erSynlig = true
+        ul.opacity = 0.8;
         acc[ul.id] = ul;
         return acc;
       }, {});
-      k.zoom = Object.values(k.underlag).reduce(
-        (acc, e) => {
-          acc = [Math.min(acc[0], e.zoom[0]), Math.max(acc[1], e.zoom[1])];
-          return acc;
-        },
-        [999, 0]
-      );
     });
     this.setState({ kartlag: sortedKartlag });
   }
