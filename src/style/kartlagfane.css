@@ -329,9 +329,6 @@ h4.container_header {
 .badge-enabled > .MuiBadge-colorPrimary {
   background-color: #22aa58 !important;
 }
-.badge-disabled > .MuiBadge-colorPrimary {
-  background-color: #aaa !important;
-}
 
 #bookmark.layer-icon-wrapper {
   margin-bottom: 2px;
