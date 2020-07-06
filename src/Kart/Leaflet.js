@@ -304,8 +304,7 @@ class Leaflet extends React.Component {
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
         gkt: this.props.token,
-        maxNativeZoom: 8,
-        detectRetina: true
+        maxNativeZoom: 8
       }).addTo(this.map);
     if (!this.bakgrunnskart)
       this.bakgrunnskart = L.tileLayer("", {
@@ -318,23 +317,21 @@ class Leaflet extends React.Component {
 
   syncWmsLayers(aktive) {
     Object.keys(aktive).forEach(akey => {
-      const al = aktive[akey];
-      const layerName = "wms_" + akey;
-      Object.keys(al.underlag).forEach(underlagsnøkkel => {
-        const nøkkel = layerName + ":" + underlagsnøkkel;
-        this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
-      });
+      const kartlag = aktive[akey];
+      Object.keys(kartlag.underlag).forEach(underlagsnøkkel =>
+        this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
+      );
     });
   }
 
   wmslayers = {};
 
-  syncUnderlag(layerName, kartlag, underlag) {
-    var layer = this.wmslayers[layerName];
+  syncUnderlag(kartlag, underlag) {
+    var layer = this.wmslayers[underlag.id];
     if (!underlag.erSynlig) {
       if (layer) {
         this.map.removeLayer(layer);
-        delete this.wmslayers[layerName];
+        delete this.wmslayers[underlag.id];
       }
       return;
     }
@@ -364,7 +361,7 @@ class Leaflet extends React.Component {
         //console.log(e);
         //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
       });
-      this.wmslayers[layerName] = layer;
+      this.wmslayers[underlag.id] = layer;
       this.map.addLayer(layer);
     }
     layer.setUrl(url);
