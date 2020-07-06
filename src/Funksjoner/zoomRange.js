@@ -44,7 +44,7 @@ const scaleToZoom = ({ minscaledenominator, maxscaledenominator }) => {
     if (min < scaleArray[i]) minZoom = i;
 
   if (!minZoom) minZoom = 20;
-  if (!maxZoom) maxZoom = 0;
+  if (!maxZoom) maxZoom = 8; // Default minimum zoom for unspecified
   return [maxZoom, minZoom];
 };
 
