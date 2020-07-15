@@ -138,12 +138,7 @@ const ForvaltningsUnderElement = ({
             </div>
 
             {kartlag.legendeurl && (
-              <>
-                <Typography id="range-slider" gutterBottom>
-                  Tegnforklaring
-                </Typography>
-                <img alt="tegnforklaring" src={kartlag.legendeurl} />
-              </>
+              <img alt="tegnforklaring" src={kartlag.legendeurl} />
             )}
           </div>
         </div>
