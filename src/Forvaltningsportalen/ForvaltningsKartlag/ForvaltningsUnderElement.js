@@ -142,13 +142,7 @@ const ForvaltningsUnderElement = ({
                 <Typography id="range-slider" gutterBottom>
                   Tegnforklaring
                 </Typography>
-                <div style={{ paddingLeft: 56 }}>
-                  <img
-                    alt="legend"
-                    src={kartlag.legendeurl}
-                    style={{ maxWidth: "90%" }}
-                  />
-                </div>
+                <img alt="tegnforklaring" src={kartlag.legendeurl} />
               </>
             )}
           </div>
