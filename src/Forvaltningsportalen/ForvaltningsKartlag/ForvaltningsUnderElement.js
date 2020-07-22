@@ -6,7 +6,6 @@ import {
 } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
-  Typography,
   Slider,
   ListItemIcon,
   Collapse,
