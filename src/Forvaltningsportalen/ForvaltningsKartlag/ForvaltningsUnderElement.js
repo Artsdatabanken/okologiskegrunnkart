@@ -10,7 +10,8 @@ import {
   ListItemIcon,
   Collapse,
   ListItem,
-  ListItemText
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
 import CustomIcon from "../../Common/CustomIcon";
@@ -137,7 +138,12 @@ const ForvaltningsUnderElement = ({
             </div>
 
             {kartlag.legendeurl && (
-              <img alt="tegnforklaring" src={kartlag.legendeurl} />
+              <>
+                <Typography id="legend-sublayer" variant="body2" gutterBottom>
+                  Tegnforklaring
+                </Typography>
+                <img alt="tegnforklaring" src={kartlag.legendeurl} />
+              </>
             )}
           </div>
         </div>
