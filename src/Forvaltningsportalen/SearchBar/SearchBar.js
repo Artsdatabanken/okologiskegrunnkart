@@ -462,7 +462,7 @@ class SearchBar extends React.Component {
           <div className="help-modal-wrapper">
             <div className="help-modal-title">
               <div>Brukermanual</div>
-              <button
+              {/* <button
                 tabIndex="0"
                 className="close-modal-button"
                 onClick={e => {
@@ -470,6 +470,17 @@ class SearchBar extends React.Component {
                 }}
               >
                 <Close />
+              </button> */}
+              <button
+                tabIndex="0"
+                className="close-modal-button-wrapper"
+                onClick={e => {
+                  this.closeHelpModal();
+                }}
+              >
+                <div className="close-modal-button">
+                  <Close />
+                </div>
               </button>
             </div>
             <div className="help-modal-content">{this.formattedManual()}</div>
