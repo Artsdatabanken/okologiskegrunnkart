@@ -10,9 +10,7 @@ import {
 } from "@material-ui/core";
 import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
-import DisabledTooltip from "../../Common/DisabledTooltip";
 import Badge from "@material-ui/core/Badge";
-import { zoomRangeLayer, zoomRangeBadge } from "../../Funksjoner/zoomRange";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -29,12 +27,6 @@ const ForvaltningsElement = ({
   if (!tittel) return null;
   let tags = kartlag.tags || null;
 
-  const { disabled, description } = zoomRangeLayer(
-    zoom,
-    kartlag.underlag || {}
-  );
-
-  const disabledBadge = zoomRangeBadge(zoom, kartlag.underlag || {});
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
@@ -43,80 +35,37 @@ const ForvaltningsElement = ({
 
   return (
     <>
-      {disabled ? (
-        <DisabledTooltip
-          id="tooltip-zoom-layer"
-          placement="left"
-          title={description}
-        >
-          <ListItem
-            // Elementet som inneholder tittel, visningsøye og droppned-knapp
-            id="layer-list-item"
-            button
-            divider
-            onClick={() => {
-              if (!valgt) {
-                setOpen(!open);
-              }
-            }}
-          >
-            <ListItemIcon>
-              <div className="layer-list-element-icon">
-                <Badge
-                  className="badge-disabled"
-                  badgeContent={kartlag.numberVisible || 0}
-                  color="primary"
-                >
-                  <CustomIcon
-                    id="kartlag"
-                    icon={kartlag.tema}
-                    size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                    padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                    color={"#ccc"}
-                  />
-                </Badge>
-              </div>
-            </ListItemIcon>
-            <ListItemText
-              className="layer-disabled"
-              primary={tittel.nb || tittel}
-            />
-            {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-          </ListItem>
-        </DisabledTooltip>
-      ) : (
-        <ListItem
-          // Elementet som inneholder tittel, ikon og droppned-knapp
-          id="layer-list-item"
-          button
-          divider
-          onClick={() => {
-            if (!valgt) {
-              setOpen(!open);
-            }
-          }}
-        >
-          <ListItemIcon>
-            <div className="layer-list-element-icon">
-              <Badge
-                className={disabledBadge ? "badge-disabled" : "badge-enabled"}
-                badgeContent={kartlag.numberVisible || 0}
-                color="primary"
-              >
-                <CustomIcon
-                  id="kartlag"
-                  icon={kartlag.tema}
-                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                  color={erSynlig ? "#666" : "#999"}
-                />
-              </Badge>
-            </div>
-          </ListItemIcon>
-          <ListItemText primary={tittel.nb || tittel} />
-          {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
-        </ListItem>
-      )}
+      <ListItem
+        // Elementet som inneholder tittel, ikon og droppned-knapp
+        id="layer-list-item"
+        button
+        divider
+        onClick={() => {
+          if (!valgt) {
+            setOpen(!open);
+          }
+        }}
+      >
+        <ListItemIcon>
+          <div className="layer-list-element-icon">
+            <Badge
+              className={"badge-enabled"}
+              badgeContent={kartlag.numberVisible || 0}
+              color="primary"
+            >
+              <CustomIcon
+                id="kartlag"
+                icon={kartlag.tema}
+                size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                color={erSynlig ? "#666" : "#999"}
+              />
+            </Badge>
+          </div>
+        </ListItemIcon>
+        <ListItemText primary={tittel} />
+        {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+      </ListItem>
 
       <Collapse
         in={open}

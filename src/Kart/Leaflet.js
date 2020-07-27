@@ -1,4 +1,5 @@
 import L from "leaflet";
+import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
@@ -28,14 +29,19 @@ class Leaflet extends React.Component {
     koordinat: null,
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
-    coordinates_area: null
+    coordinates_area: null,
+    zoom: 0
   };
+
+  handleBoundsChange(bounds) {
+    this.props.onMapBoundsChange(bounds);
+  }
 
   componentDidMount() {
     const options = {
       zoomControl: false,
       inertia: true,
-      minZoom: 3
+      minZoom: 4
     };
 
     let map = L.map(this.mapEl, options);
@@ -45,25 +51,34 @@ class Leaflet extends React.Component {
     map.on("click", e => {
       this.handleClick(e);
     });
+
     map.on("drag", e => {
       if (!e.hard) {
-        this.props.onMapBoundsChange(map.getBounds());
+        this.handleBoundsChange(map.getBounds());
       }
     });
+
     map.on("zoomend", e => {
+      if (!this.map) return;
       if (!e.hard) {
-        this.props.onMapBoundsChange(map.getBounds());
+        const zoom = this.map.getZoom();
+        if (zoom === this.props.zoom) return;
+        this.syncWmsLayers(this.props.aktiveLag);
+        this.props.handleZoomChange(zoom);
       }
     });
+
     map.on("resize", e => {
       if (!e.hard) {
-        this.props.onMapBoundsChange(map.getBounds());
+        this.handleBoundsChange(map.getBounds());
       }
     });
+
     map.setView(
       [this.props.latitude, this.props.longitude],
       this.props.zoom * 1.8
     );
+
     L.control.zoom({ position: "topright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
@@ -83,10 +98,6 @@ class Leaflet extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.zoomcoordinates) {
       this.goToSelectedZoomCoordinates();
-    }
-    const currentZoom = this.map.getZoom();
-    if (this.props.zoom !== currentZoom) {
-      this.props.handleZoomChange(currentZoom);
     }
     if (this.props.bounds !== prevProps.bounds) {
       const bounds = this.props.bounds;
@@ -292,56 +303,69 @@ class Leaflet extends React.Component {
     const config = this.props.bakgrunnskart;
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
-        gkt: this.props.token
+        gkt: this.props.token,
+        maxNativeZoom: 8
       }).addTo(this.map);
     if (!this.bakgrunnskart)
-      this.bakgrunnskart = L.tileLayer("", { gkt: this.props.token }).addTo(
-        this.map
-      );
+      this.bakgrunnskart = L.tileLayer("", {
+        gkt: this.props.token,
+        maxNativeZoom: 18,
+        maxZoom: 20
+      }).addTo(this.map);
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
 
   syncWmsLayers(aktive) {
     Object.keys(aktive).forEach(akey => {
-      const al = aktive[akey];
-      const layerName = "wms_" + akey;
-      if (al.underlag) {
-        Object.keys(al.underlag).forEach(underlagsnøkkel => {
-          const nøkkel = layerName + ":" + underlagsnøkkel;
-          this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
-        });
-      }
+      const kartlag = aktive[akey];
+      Object.keys(kartlag.underlag).forEach(underlagsnøkkel =>
+        this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
+      );
     });
   }
-  wms = {};
 
-  syncUnderlag(layerName, al, underlag) {
-    var layer = this.wms[layerName];
-    if (al.erSynlig && underlag.erSynlig) {
-      const url = this.makeWmsUrl(al.wmsurl);
-      let srs = "EPSG3857";
-      if (al.projeksjon) {
-        srs = al.projeksjon.replace(":", "");
-      }
-      if (!layer) {
-        layer = L.tileLayer.wms("", {
-          layers: underlag.wmslayer,
-          transparent: true,
-          crs: L.CRS[srs],
-          format: "image/png",
-          opacity: underlag.opacity
-        });
-        this.wms[layerName] = layer;
-        this.map.addLayer(layer);
-      }
-      layer.setUrl(url);
-      layer.setOpacity(underlag.opacity);
-    } else {
+  wmslayers = {};
+
+  syncUnderlag(kartlag, underlag) {
+    var layer = this.wmslayers[underlag.id];
+    if (!underlag.erSynlig) {
       if (layer) {
         this.map.removeLayer(layer);
-        delete this.wms[layerName];
+        delete this.wmslayers[underlag.id];
       }
+      return;
     }
+
+    var url = this.makeWmsUrl(kartlag.wmsurl);
+    let srs = "EPSG3857";
+    if (kartlag.projeksjon) {
+      srs = kartlag.projeksjon.replace(":", "");
+    }
+    if (!layer) {
+      layer = L.tileLayer.cachedOverview("", {
+        id: underlag.id,
+        zoomThreshold: underlag.zoom[0],
+        layers: underlag.wmslayer,
+        transparent: true,
+        crs: L.CRS[srs],
+        format: "image/png",
+        maxNativeZoom: underlag.zoom[1]
+      });
+      layer.on("loading", () => {
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+      });
+      layer.on("load", () => {
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+      });
+      layer.on("tileerror", e => {
+        //console.log(e);
+        //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
+      });
+      this.wmslayers[underlag.id] = layer;
+      this.map.addLayer(layer);
+    }
+    layer.setUrl(url);
+    layer.setOpacity(underlag.opacity);
   }
 
   makeWmsUrl(url) {
