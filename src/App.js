@@ -533,6 +533,10 @@ class App extends React.Component {
       setValue(layer, "erSynlig", false);
       setValue(layer, "numberVisible", numberVisible);
     }
+    // Update also selected layers from search bar
+    if (this.state.valgtLag) {
+      setValue(this.state.valgtLag, "numberVisible", numberVisible);
+    }
 
     this.setState({
       kartlag: Object.assign({}, nye_lag)
