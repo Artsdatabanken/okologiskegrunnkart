@@ -514,7 +514,6 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
     const layer = nye_lag[layerkey];
-    //console.log({ layer, key, value });
     setValue(layer, key, value);
 
     let layerVisible = false;
