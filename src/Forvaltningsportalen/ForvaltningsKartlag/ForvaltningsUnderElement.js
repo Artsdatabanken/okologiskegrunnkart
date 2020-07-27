@@ -6,12 +6,12 @@ import {
 } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
-  Typography,
   Slider,
   ListItemIcon,
   Collapse,
   ListItem,
-  ListItemText
+  ListItemText,
+  Typography
 } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
 import CustomIcon from "../../Common/CustomIcon";
@@ -139,16 +139,10 @@ const ForvaltningsUnderElement = ({
 
             {kartlag.legendeurl && (
               <>
-                <Typography id="range-slider" gutterBottom>
+                <Typography id="legend-sublayer" variant="body2" gutterBottom>
                   Tegnforklaring
                 </Typography>
-                <div style={{ paddingLeft: 56 }}>
-                  <img
-                    alt="legend"
-                    src={kartlag.legendeurl}
-                    style={{ maxWidth: "90%" }}
-                  />
-                </div>
+                <img alt="tegnforklaring" src={kartlag.legendeurl} />
               </>
             )}
           </div>
