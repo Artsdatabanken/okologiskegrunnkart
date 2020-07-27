@@ -15,6 +15,7 @@ import {
 } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
 import CustomIcon from "../../Common/CustomIcon";
+import { setValue } from "../../Funksjoner/setValue";
 
 const ForvaltningsUnderElement = ({
   kartlag,
@@ -25,7 +26,8 @@ const ForvaltningsUnderElement = ({
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
-  let startstate = valgt || false;
+  const expanded = kartlag.expanded;
+  let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
   const [sliderValue, setSliderValue] = useState(kartlag.opacity || 80);
   let kode = "underlag." + kartlag_key + ".";
@@ -49,6 +51,7 @@ const ForvaltningsUnderElement = ({
         onClick={() => {
           if (!valgt) {
             setOpen(!open);
+            setValue(kartlag, "expanded", !open);
           }
         }}
       >
