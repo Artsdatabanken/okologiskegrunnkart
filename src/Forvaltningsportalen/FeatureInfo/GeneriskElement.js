@@ -75,20 +75,20 @@ const GeneriskElement = props => {
             <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
           {faktaark_url && (
-            <IconButton
-              id="open-facts-info-button"
-              aria-controls="filter-menu"
-              aria-haspopup="true"
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              <CustomTooltip placement="right" title="Åpne faktaark">
+            <CustomTooltip placement="right" title="Åpne faktaark">
+              <IconButton
+                id="open-facts-info-button"
+                aria-controls="filter-menu"
+                aria-haspopup="true"
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setOpen(true);
+                }}
+              >
                 <OpenInNew />
-              </CustomTooltip>
-            </IconButton>
+              </IconButton>
+            </CustomTooltip>
           )}
         </ListItem>
       )}
