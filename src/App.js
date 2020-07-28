@@ -72,12 +72,14 @@ class App extends React.Component {
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+      k.expanded = false;
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.zoom = scaleToZoom(ul);
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
         ul.opacity = 0.8;
         acc[ul.id] = ul;
+        ul.expanded = false;
         return acc;
       }, {});
     });
@@ -530,6 +532,10 @@ class App extends React.Component {
     } else {
       setValue(layer, "erSynlig", false);
       setValue(layer, "numberVisible", numberVisible);
+    }
+    // Update also selected layers from search bar
+    if (this.state.valgtLag) {
+      setValue(this.state.valgtLag, "numberVisible", numberVisible);
     }
 
     this.setState({
