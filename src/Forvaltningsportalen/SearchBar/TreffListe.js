@@ -58,8 +58,6 @@ const TreffListe = props => {
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
-        //console.log(index, list_length - 1);
-        //console.log(index < list_length - 1);
         if (index < list_items.length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
         }

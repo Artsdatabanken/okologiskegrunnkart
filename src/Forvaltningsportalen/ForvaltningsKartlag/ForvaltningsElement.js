@@ -11,6 +11,7 @@ import {
 import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import Badge from "@material-ui/core/Badge";
+import { setValue } from "../../Funksjoner/setValue";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -21,7 +22,8 @@ const ForvaltningsElement = ({
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
-  let startstate = valgt || false;
+  const expanded = kartlag.expanded;
+  let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
   const [openFakta, setOpenFakta] = useState(false);
   if (!tittel) return null;
@@ -43,6 +45,7 @@ const ForvaltningsElement = ({
         onClick={() => {
           if (!valgt) {
             setOpen(!open);
+            setValue(kartlag, "expanded", !open);
           }
         }}
       >
