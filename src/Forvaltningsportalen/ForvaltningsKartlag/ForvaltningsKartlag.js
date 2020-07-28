@@ -1,6 +1,6 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { Chip, Typography, List } from "@material-ui/core";
+import { Chip, Typography, List, Button } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
@@ -95,9 +95,32 @@ class ForvaltningsKartlag extends React.Component {
           </div>
           {tags && tags.length > 0 && (
             <div className="selected-tags-wrapper">
-              <Typography id="filters-header" variant="body2">
-                Filtrer
-              </Typography>
+              <div className="selected-tags-tittle">
+                <Typography id="filters-header" variant="body2">
+                  Filtrer
+                </Typography>
+                <div className="filter-options-wrapper">
+                  <Button
+                    id="filter-all-button"
+                    size="small"
+                    onClick={() => {
+                      console.log("clicked");
+                    }}
+                  >
+                    Matcher alle
+                  </Button>
+                  /
+                  <Button
+                    id="filter-all-button"
+                    size="small"
+                    onClick={() => {
+                      console.log("clicked");
+                    }}
+                  >
+                    Matcher minst ett
+                  </Button>
+                </div>
+              </div>
               {tags.reduce((accu, elem, index) => {
                 return accu === null
                   ? [elem]
@@ -110,9 +133,7 @@ class ForvaltningsKartlag extends React.Component {
                           verticalAlign: "text-bottom",
                           padding: "0px 5px"
                         }}
-                      >
-                        og
-                      </div>,
+                      />,
                       elem
                     ];
               }, null)}

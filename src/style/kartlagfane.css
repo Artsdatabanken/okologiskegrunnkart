@@ -141,6 +141,11 @@ h4.container_header {
   padding: 5px 0 10px 0;
   margin: 0 16px 0 16px;
 }
+.selected-tags-tittle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 #filters-header.MuiTypography-root {
   padding-bottom: 5px;
 }
