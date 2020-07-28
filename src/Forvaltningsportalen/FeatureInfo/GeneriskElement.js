@@ -29,7 +29,7 @@ const GeneriskElement = props => {
 
   return (
     <div
-      style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
+      // style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
       className="generic_element"
     >
       {!resultat.loading && (
