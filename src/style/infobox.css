@@ -176,6 +176,9 @@
   border-top: 3px solid grey;
   border-bottom: 1px solid grey;
 }
+#layer-results-header.MuiListItem-gutters {
+  padding-left: 12px;
+}
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
 }
