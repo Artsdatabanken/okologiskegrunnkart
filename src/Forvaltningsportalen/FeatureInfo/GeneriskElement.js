@@ -34,6 +34,7 @@ const GeneriskElement = props => {
     >
       {!resultat.loading && (
         <ListItem
+          id="generic-element-list"
           button
           divider
           onClick={() => {
@@ -86,7 +87,7 @@ const GeneriskElement = props => {
             url={faktaark_url}
             type={kartlag.type}
           />
-          {kartlag.type !== "naturtype" && (
+          {/* {kartlag.type !== "naturtype" && (
             <iframe
               allowtransparency="true"
               style={{
@@ -100,7 +101,7 @@ const GeneriskElement = props => {
               title="Faktaark"
               src={faktaark_url}
             />
-          )}
+          )} */}
         </Collapse>
       )}
     </div>

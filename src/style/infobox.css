@@ -197,19 +197,6 @@
   }
 }
 
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-.generic_element .MuiButtonBase-root {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
 /* Progress bar */
 .layer-results-scrollable-loader {
   height: 20px;
@@ -305,15 +292,12 @@
 }
 
 /* Felt øverst et åpnet underelement  */
-.expand_header {
+/* .expand_header {
   float: left;
   width: 100%;
   padding: 5px;
   text-align: center;
-}
-.expand_header button {
-  margin: auto;
-}
+} */
 .infobox-text {
   font-size: 16px;
   display: block;
@@ -330,4 +314,87 @@
     max-width: calc(100% - 40px);
     font-size: 13px;
   }
+}
+
+/* Underelementets innhold  */
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+.generic_element .MuiButtonBase-root {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Facts information buttons */
+.expand_header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-left: 68px;
+  padding-bottom: 5px;
+  height: 74px;
+}
+.expand_header .MuiButton-outlinedPrimary {
+  background-color: rgb(239, 239, 239);
+  color: rgba(90, 90, 90, 1);
+  border-color: rgba(136, 136, 136, 1);
+}
+#infobox-detail-facts.MuiButton-root {
+  text-transform: none;
+}
+#infobox-detail-facts-new.MuiButton-root {
+  text-transform: none;
+}
+
+/* Facts information modal */
+.facts-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.facts-modal-wrapper {
+  background-color: white;
+  width: 60vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+}
+
+.facts-modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #697f8a;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  padding-left: 25px;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-title {
+    font-size: 24px;
+  }
+}
+
+.facts-modal-content {
+  border: 0;
+  width: 99.6%;
+  min-height: 75vh;
+  max-height: 100%;
+  position: relative;
+  overflow: none;
 }
