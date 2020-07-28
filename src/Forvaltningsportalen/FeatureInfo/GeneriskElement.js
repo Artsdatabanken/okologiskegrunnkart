@@ -87,21 +87,6 @@ const GeneriskElement = props => {
             url={faktaark_url}
             type={kartlag.type}
           />
-          {/* {kartlag.type !== "naturtype" && (
-            <iframe
-              allowtransparency="true"
-              style={{
-                frameBorder: 0,
-                width: "100%",
-                minHeight: "500px",
-                maxHeight: "100%",
-                position: "relative",
-                overflow: "none"
-              }}
-              title="Faktaark"
-              src={faktaark_url}
-            />
-          )} */}
         </Collapse>
       )}
     </div>
