@@ -46,17 +46,19 @@ const ExpandedHeader = ({ visible, geonorge, url, type }) => {
         <div className="facts-modal-wrapper">
           <div className="facts-modal-title">
             <div>Faktaark</div>
-            <button
-              tabIndex="0"
-              className="close-modal-button-wrapper"
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              <div className="close-modal-button">
-                <Close />
-              </div>
-            </button>
+            <div>
+              <button
+                tabIndex="0"
+                className="close-modal-button-wrapper"
+                onClick={() => {
+                  setShowModal(false);
+                }}
+              >
+                <div className="close-modal-button">
+                  <Close />
+                </div>
+              </button>
+            </div>
           </div>
           {type !== "naturtype" && (
             <iframe

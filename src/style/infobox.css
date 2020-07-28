@@ -115,7 +115,6 @@
 .close-infobox-button {
   padding: 0;
   display: flex;
-  background-color: rgba(145, 163, 176, 0.3);
   color: white;
   border: 2px solid white;
   border-radius: 5px;
@@ -239,7 +238,7 @@
   > .MuiList-root
   > .generic_element
   > .MuiListItem-root {
-  padding: 0 12px;
+  padding: 0 4px 0 12px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -338,7 +337,11 @@
 }
 
 /* Facts information buttons */
-.expand_header {
+#open-facts-info-button.MuiIconButton-colorPrimary {
+  color: #666;
+}
+
+/* .expand_header {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -357,13 +360,17 @@
 }
 #infobox-detail-facts-new.MuiButton-root {
   text-transform: none;
-}
+} */
 
 /* Facts information modal */
 .facts-modal-body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.facts-modal-buttons-div {
+  display: flex;
 }
 
 .facts-modal-wrapper {
@@ -400,9 +407,27 @@
 
 .facts-modal-content {
   border: 0;
-  width: 99.6%;
+  width: 100%;
   min-height: 75vh;
   max-height: 100%;
   position: relative;
   overflow: none;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-content {
+    min-height: 100%;
+  }
+}
+
+/* Facts information modal - open in new window button */
+#infobox-detail-facts.MuiButton-root {
+  text-transform: none;
+  margin: 19px 10px;
+}
+#infobox-detail-facts.MuiButton-root:hover {
+  background-color: rgba(145, 163, 176, 1);
+}
+#infobox-detail-facts.MuiButton-outlinedPrimary {
+  color: white;
+  border-color: white;
 }

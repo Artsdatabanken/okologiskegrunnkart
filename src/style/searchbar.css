@@ -283,7 +283,6 @@
 .close-modal-button {
   padding: 1px;
   display: flex;
-  background-color: rgba(145, 163, 176, 0.3);
   color: white;
   border: 2px solid white;
   border-radius: 5px;
