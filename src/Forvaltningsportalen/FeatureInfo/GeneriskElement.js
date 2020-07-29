@@ -1,17 +1,10 @@
 import { OpenInNew, Close } from "@material-ui/icons";
-import {
-  ListItem,
-  ListItemIcon,
-  Modal,
-  IconButton,
-  Button
-} from "@material-ui/core";
+import { ListItem, ListItemIcon, Modal, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
-import CustomTooltip from "../../Common/CustomTooltip";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -34,10 +27,7 @@ const GeneriskElement = props => {
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
 
   return (
-    <div
-      // style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
-      className="generic_element"
-    >
+    <div className="generic_element">
       {!resultat.loading && (
         <ListItem
           id="generic-element-list"
