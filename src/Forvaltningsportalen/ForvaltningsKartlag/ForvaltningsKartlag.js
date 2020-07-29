@@ -12,7 +12,8 @@ class ForvaltningsKartlag extends React.Component {
     tagFilter: {},
     hideHidden: false,
     searchTerm: null,
-    showFilter: false
+    showFilter: false,
+    matchAllFilters: true
   };
 
   handleFilterTag = (tag, value) => {
@@ -104,7 +105,7 @@ class ForvaltningsKartlag extends React.Component {
                     id="filter-all-button"
                     size="small"
                     onClick={() => {
-                      console.log("clicked");
+                      this.setState({ matchAllFilters: true });
                     }}
                   >
                     Matcher alle
@@ -114,7 +115,7 @@ class ForvaltningsKartlag extends React.Component {
                     id="filter-all-button"
                     size="small"
                     onClick={() => {
-                      console.log("clicked");
+                      this.setState({ matchAllFilters: false });
                     }}
                   >
                     Matcher minst ett
@@ -154,7 +155,7 @@ class ForvaltningsKartlag extends React.Component {
                   searchTerm={this.state.searchTerm}
                   hideHidden={this.state.hideHidden}
                   tagFilter={this.state.tagFilter}
-                  onFilterTag={this.handleFilterTag}
+                  matchAllFilters={this.state.matchAllFilters}
                   kartlag={sorted[element]}
                   element={element}
                   key={element}
