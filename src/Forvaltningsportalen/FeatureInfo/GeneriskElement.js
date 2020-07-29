@@ -39,7 +39,14 @@ const GeneriskElement = props => {
       className="generic_element"
     >
       {!resultat.loading && (
-        <ListItem id="generic-element-list" divider>
+        <ListItem
+          id="generic-element-list"
+          button
+          divider
+          onClick={() => {
+            setOpen(!open);
+          }}
+        >
           <ListItemIcon className="infobox-list-icon-wrapper">
             <>
               <Badge
@@ -74,22 +81,7 @@ const GeneriskElement = props => {
             </div>
             <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
-          {faktaark_url && (
-            <CustomTooltip placement="right" title="Åpne faktaark">
-              <IconButton
-                id="open-facts-info-button"
-                aria-controls="filter-menu"
-                aria-haspopup="true"
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setOpen(true);
-                }}
-              >
-                <OpenInNew />
-              </IconButton>
-            </CustomTooltip>
-          )}
+          {faktaark_url && <OpenInNew id="open-facts-icon" color="primary" />}
         </ListItem>
       )}
 

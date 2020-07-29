@@ -220,6 +220,9 @@
   font-size: 0.9rem;
   font-weight: 575;
 }
+#open-facts-icon.MuiSvgIcon-root {
+  margin-left: 10px;
+}
 
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
   /* background-color: #E13D3E; */
@@ -241,7 +244,7 @@
   > .MuiList-root
   > .generic_element
   > .MuiListItem-root {
-  padding: 0 4px 0 12px;
+  padding: 0 12px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -264,19 +267,6 @@
     > .MuiListItemIcon-root {
     min-width: 45px;
   }
-}
-
-/* Knapper i boksene  */
-.close_button {
-  text-align: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 100;
-}
-
-.close_button:focus {
-  border: 2px solid blue;
 }
 
 /* åpne ekstra info knapp */
