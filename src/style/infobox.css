@@ -220,8 +220,12 @@
   font-size: 0.9rem;
   font-weight: 575;
 }
+
 #open-facts-icon.MuiSvgIcon-root {
   margin-left: 10px;
+}
+#open-facts-icon.MuiSvgIcon-colorPrimary {
+  color: #666;
 }
 
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
