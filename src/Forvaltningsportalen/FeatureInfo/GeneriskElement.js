@@ -31,10 +31,12 @@ const GeneriskElement = props => {
       {!resultat.loading && (
         <ListItem
           id="generic-element-list"
-          button
+          button={faktaark_url ? true : false}
           divider
           onClick={() => {
-            setOpen(!open);
+            if (faktaark_url) {
+              setOpen(true);
+            }
           }}
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
