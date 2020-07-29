@@ -65,7 +65,7 @@ class ForvaltningsKartlag extends React.Component {
       .map(tag => (
         <Chip
           id="layers-filter-chips"
-          style={{ margin: "2px 0" }}
+          style={{ margin: "2px 5px 2px 0" }}
           key={tag}
           label={tag}
           clickable
@@ -100,43 +100,38 @@ class ForvaltningsKartlag extends React.Component {
                 <Typography id="filters-header" variant="body2">
                   Filtrer
                 </Typography>
-                <div className="filter-options-wrapper">
-                  <Button
-                    id="filter-all-button"
-                    size="small"
-                    onClick={() => {
-                      this.setState({ matchAllFilters: true });
-                    }}
-                  >
-                    Matcher alle
-                  </Button>
-                  /
-                  <Button
-                    id="filter-all-button"
-                    size="small"
-                    onClick={() => {
-                      this.setState({ matchAllFilters: false });
-                    }}
-                  >
-                    Matcher minst ett
-                  </Button>
-                </div>
+                {tags.length > 1 && (
+                  <div className="filter-options-wrapper">
+                    <Button
+                      id="filter-all-button"
+                      size="small"
+                      color={
+                        this.state.matchAllFilters ? "primary" : "secondary"
+                      }
+                      onClick={() => {
+                        this.setState({ matchAllFilters: true });
+                      }}
+                    >
+                      Matcher alle
+                    </Button>
+                    /
+                    <Button
+                      id="filter-all-button"
+                      size="small"
+                      color={
+                        this.state.matchAllFilters ? "secondary" : "primary"
+                      }
+                      onClick={() => {
+                        this.setState({ matchAllFilters: false });
+                      }}
+                    >
+                      Matcher minst ett
+                    </Button>
+                  </div>
+                )}
               </div>
               {tags.reduce((accu, elem, index) => {
-                return accu === null
-                  ? [elem]
-                  : [
-                      ...accu,
-                      <div
-                        key={index}
-                        style={{
-                          display: "inline",
-                          verticalAlign: "text-bottom",
-                          padding: "0px 5px"
-                        }}
-                      />,
-                      elem
-                    ];
+                return accu === null ? [elem] : [...accu, elem];
               }, null)}
             </div>
           )}
