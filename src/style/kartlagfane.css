@@ -209,14 +209,6 @@ h4.container_header {
 #legend-title-wrapper .MuiListItemIcon-root {
   min-width: 35px;
 }
-.legend-title-content {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-left: 5px;
-  color: rgba(0, 0, 0, 0.64);
-  font-weight: 500;
-}
 .legend-title-text {
   margin-left: 10px;
   font-size: 18px;
@@ -365,20 +357,20 @@ h4.container_header {
   height: 100vh;
   overflow-y: auto;
   background-color: white;
-  /* width: 100%; */
-
   z-index: 100;
   position: absolute;
-  /* height: 100%; */
   right: 0px;
   top: 0px;
   width: 408px;
   padding-top: 50px;
 }
-
 @media only screen and (max-width: 768px) {
   .layer-details-div {
     height: calc(50vh);
+    width: 100vw;
+    padding-top: 0;
+    border-top: 1px solid #aaa;
+    padding-bottom: 100px;
   }
 }
 
@@ -418,6 +410,36 @@ h4.container_header {
 .sublayer-details-wrapper {
   background-color: white;
   padding: 10px 14px 15px 34px;
+}
+
+#details-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(145, 163, 176, 0.5);
+  width: 100%;
+  height: 50px;
+}
+@media only screen and (max-width: 768px) {
+  #details-title-wrapper {
+    height: 45px;
+  }
+}
+
+#details-title-wrapper .MuiListItemIcon-root {
+  min-width: 35px;
+}
+
+.details-title-text {
+  margin-left: 10px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.64);
+  font-weight: 500;
+}
+@media only screen and (max-width: 768px) {
+  .details-title-text {
+    font-size: 16px;
+  }
 }
 
 /* ------------------------------------------------------ */

@@ -64,7 +64,7 @@ const ForvaltningsDetailedInfo = ({
     <>
       <ListItem
         // Kartlag
-        id="legend-title-wrapper"
+        id="details-title-wrapper"
         button
         onClick={() => {
           hideSublayerDetails();
@@ -74,7 +74,7 @@ const ForvaltningsDetailedInfo = ({
           <KeyboardBackspace />
         </ListItemIcon>
         <ListItemText>
-          <span className="legend-title-text">Detaljert info om lag</span>
+          <span className="details-title-text">Detaljert info om lag</span>
         </ListItemText>
       </ListItem>
 
