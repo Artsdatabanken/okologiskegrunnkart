@@ -23,9 +23,7 @@ const ForvaltningsUnderElement = ({
         id="list-element-sublayer"
         button
         onClick={() => {
-          if (!valgt) {
-            showSublayerDetails(underlag, kartlagKey, underlagKey);
-          }
+          showSublayerDetails(underlag, kartlagKey, underlagKey);
         }}
       >
         <ListItemIcon onClick={e => e.stopPropagation()}>

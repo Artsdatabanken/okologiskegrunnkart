@@ -244,7 +244,6 @@ h4.container_header {
   background: white;
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #ccc;
-  /* padding-bottom: 10px; */
   width: 100%;
 }
 .collapsed_container h4 {
@@ -284,16 +283,9 @@ h4.container_header {
 
 .underlag div:first-child {
   padding-left: 15px;
-  padding-right: 0px;
+  padding-right: 15px;
   padding-top: 0px;
   padding-bottom: 0px;
-}
-
-.underlag_collapse div:first-child {
-  background: white;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 0px;
 }
 
 .underlag svg {
@@ -344,15 +336,14 @@ h4.container_header {
 }
 #bookmark-icon.MuiListItemIcon-root {
   justify-content: flex-end;
-  padding-right: 18px;
 }
 
 /* sublayer opacity sliders */
 .opacity-slider-wrapper {
-  min-height: 50px;
+  min-height: 60px;
   display: flex;
   align-items: center;
-  padding: 0 !important;
+  padding: 0 0 5px 0 !important;
 }
 .opacity-slider-wrapper .MuiSlider-colorPrimary {
   color: #22aa58;
@@ -378,12 +369,13 @@ h4.container_header {
   min-width: 48px;
 } */
 
-/* Sublayer details component */
-.sublayer-details-div {
+/* Layer and sublayer details component */
+.layer-details-div {
   background: #eee;
   max-height: 100vh;
   height: 100vh;
   overflow-y: auto;
+  background-color: white;
   /* width: 100%; */
 
   z-index: 100;
@@ -396,9 +388,44 @@ h4.container_header {
 }
 
 @media only screen and (max-width: 768px) {
-  .sublayer-details-div {
+  .layer-details-div {
     height: calc(50vh);
   }
+}
+
+/* Open sublayer elements  */
+.sublayer-details-div {
+  background: white;
+  /* border-top: 1px solid #ccc; */
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.sublayer-details-div h4 {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 8pt;
+  width: 100%;
+  font-weight: normal;
+}
+
+#layer-details-list {
+  background-color: #ddd;
+  border-top: 1px solid #bbb;
+  border-bottom: 1px solid #bbb;
+}
+
+#sublayer-details-list {
+  background-color: #eee;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #bbb;
+}
+
+.sublayer-details-wrapper {
+  background-color: white;
+  padding: 10px 14px 15px 34px;
+  /* border-top: 1px solid #e5e5e5; */
 }
 
 /* ------------------------------------------------------ */

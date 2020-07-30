@@ -30,6 +30,14 @@ const KartlagFanen = props => {
     setUnderlagKey(null);
   };
 
+  const showSublayerDetailsFromSearch = (underlag, kartlagKey, underlagKey) => {
+    setUnderlag(underlag);
+    setKartlagKey(kartlagKey);
+    setUnderlagKey(underlagKey);
+    props.removeValgtLag();
+    setShowDetails(true);
+  };
+
   return (
     <>
       <div
@@ -80,6 +88,7 @@ const KartlagFanen = props => {
                       key={props.valgtLag.id}
                       onUpdateLayerProp={props.onUpdateLayerProp}
                       zoom={props.zoom}
+                      showSublayerDetails={showSublayerDetailsFromSearch}
                     />
                   </div>
                 </div>
@@ -111,15 +120,14 @@ const KartlagFanen = props => {
                   </div>
                   {showDetails && (
                     <div>
-                      <div className="sublayer-details-div">
+                      <div className="layer-details-div">
                         <ForvaltningsDetailedInfo
                           kartlag={props.kartlag[kartlagKey]}
                           underlag={underlag}
                           kartlagKey={kartlagKey}
                           underlagKey={underlagKey}
                           onUpdateLayerProp={props.onUpdateLayerProp}
-                          zoom={props.zoom}
-                          showSublayerDetails={hideSublayerDetails}
+                          hideSublayerDetails={hideSublayerDetails}
                         />
                       </div>
                     </div>

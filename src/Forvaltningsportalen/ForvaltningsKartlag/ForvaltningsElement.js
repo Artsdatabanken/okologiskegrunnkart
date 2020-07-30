@@ -10,7 +10,6 @@ import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import Badge from "@material-ui/core/Badge";
 import { setValue } from "../../Funksjoner/setValue";
-import { OpenInNew, Link, Layers } from "@material-ui/icons";
 
 const ForvaltningsElement = ({
   kartlag,
