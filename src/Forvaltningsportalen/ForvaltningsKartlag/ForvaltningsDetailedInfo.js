@@ -1,7 +1,7 @@
 import Geonorge from "./Geonorge";
 import {
-  ExpandLess,
-  ExpandMore,
+  // ExpandLess,
+  // ExpandMore,
   Visibility,
   VisibilityOff,
   OpenInNew,
@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import {
   Slider,
   ListItemIcon,
-  Collapse,
+  // Collapse,
   ListItem,
   ListItemText,
   Typography,
@@ -32,7 +32,7 @@ const ForvaltningsDetailedInfo = ({
   hideSublayerDetails
 }) => {
   const tittel = kartlag.tittel;
-  const [openFakta, setOpenFakta] = useState(false);
+  // const [openFakta, setOpenFakta] = useState(false);
   let tags = kartlag.tags || null;
 
   const underlagTittel = underlag.tittel;
@@ -46,6 +46,12 @@ const ForvaltningsDetailedInfo = ({
   const changeLayerOpacity = value => {
     setSliderValue(value / 100);
     onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+  };
+  const openInNewTabWithoutOpener = url => {
+    // Done this way for security reasons
+    var newTab = window.open();
+    newTab.opener = null;
+    newTab.location = url;
   };
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
@@ -112,17 +118,22 @@ const ForvaltningsDetailedInfo = ({
         )}
 
         {kartlag.kart && kartlag.kart.format.wms && (
-          <div>
+          <div className="data-owner-wrapper">
             {kartlag.produktark && (
               <>
-                <ListItem>
+                <ListItem
+                  button
+                  onClick={e => {
+                    openInNewTabWithoutOpener(kartlag.produktark);
+                  }}
+                >
                   <ListItemIcon>
                     <Description />
                   </ListItemIcon>
                   <ListItemText primary="Produktark" />
                   {kartlag.produktark && (
                     <>
-                      {openFakta ? (
+                      {/* {openFakta ? (
                         <ExpandLess
                           className="iconbutton"
                           onClick={e => {
@@ -136,18 +147,18 @@ const ForvaltningsDetailedInfo = ({
                             setOpenFakta(!openFakta);
                           }}
                         />
-                      )}
+                      )} */}
                       <OpenInNew
                         className="iconbutton"
                         onClick={e => {
-                          window.open(kartlag.produktark);
+                          openInNewTabWithoutOpener(kartlag.produktark);
                         }}
                       />
                     </>
                   )}
                 </ListItem>
 
-                {kartlag.produktark && (
+                {/* {kartlag.produktark && (
                   <Collapse in={openFakta} timeout="auto" unmountOnExit>
                     <iframe
                       allowtransparency="true"
@@ -163,14 +174,16 @@ const ForvaltningsDetailedInfo = ({
                       src={kartlag.produktark}
                     />
                   </Collapse>
-                )}
+                )} */}
               </>
             )}
 
             <ListItem
               button
               onClick={e => {
-                window.open(kartlag.geonorgeurl || "https://www.geonorge.no/");
+                openInNewTabWithoutOpener(
+                  kartlag.geonorgeurl || "https://www.geonorge.no/"
+                );
               }}
             >
               <ListItemIcon>
@@ -185,7 +198,7 @@ const ForvaltningsDetailedInfo = ({
                 button
                 onClick={e => {
                   if (kartlag.kildeurl) {
-                    window.open(kartlag.kildeurl);
+                    openInNewTabWithoutOpener(kartlag.kildeurl);
                   }
                 }}
               >
@@ -293,117 +306,6 @@ const ForvaltningsDetailedInfo = ({
           </>
         )}
       </div>
-
-      {/* <div className="sublayer-details-div">
-        {tags && (
-          <div className="tags_container">
-            <h4>Emneknagger</h4>
-            {tags.map((element, index) => {
-              return (
-                <div className="tags" key={index}>
-                  {element}
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {kartlag.kart && kartlag.kart.format.wms && (
-          <div>
-            {kartlag.produktark && (
-              <>
-                <ListItem>
-                  <ListItemIcon>
-                    <Description />
-                  </ListItemIcon>
-                  <ListItemText primary="Produktark" />
-                  {kartlag.produktark && (
-                    <>
-                      {openFakta ? (
-                        <ExpandLess
-                          className="iconbutton"
-                          onClick={e => {
-                            setOpenFakta(!openFakta);
-                          }}
-                        />
-                      ) : (
-                        <ExpandMore
-                          className="iconbutton"
-                          onClick={e => {
-                            setOpenFakta(!openFakta);
-                          }}
-                        />
-                      )}
-                      <OpenInNew
-                        className="iconbutton"
-                        onClick={e => {
-                          window.open(kartlag.produktark);
-                        }}
-                      />
-                    </>
-                  )}
-                </ListItem>
-
-                {kartlag.produktark && (
-                  <Collapse in={openFakta} timeout="auto" unmountOnExit>
-                    <iframe
-                      allowtransparency="true"
-                      style={{
-                        frameBorder: 0,
-                        width: "100%",
-                        minHeight: "500px",
-                        maxHeight: "100%",
-                        position: "relative",
-                        overflow: "none"
-                      }}
-                      title="Produktark"
-                      src={kartlag.produktark}
-                    />
-                  </Collapse>
-                )}
-              </>
-            )}
-
-            <ListItem
-              button
-              onClick={e => {
-                window.open(kartlag.geonorgeurl || "https://www.geonorge.no/");
-              }}
-            >
-              <ListItemIcon>
-                <Geonorge />
-              </ListItemIcon>
-              <ListItemText primary="Datasettet på Geonorge.no" />
-              <OpenInNew />
-            </ListItem>
-
-            {kartlag.dataeier && (
-              <ListItem
-                button
-                onClick={e => {
-                  if (kartlag.kildeurl) {
-                    window.open(kartlag.kildeurl);
-                  }
-                }}
-              >
-                <ListItemIcon>
-                  {kartlag.logourl ? (
-                    <img
-                      src={kartlag.logourl}
-                      style={{ maxWidth: "24px" }}
-                      alt=""
-                    />
-                  ) : (
-                    <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                  )}
-                </ListItemIcon>
-                <ListItemText primary={kartlag.dataeier} />
-                {kartlag.kildeurl && <OpenInNew />}
-              </ListItem>
-            )}
-          </div>
-        )}
-      </div> */}
     </>
   );
 };

@@ -358,17 +358,6 @@ h4.container_header {
   color: #666;
 }
 
-/* Data owner element */
-/* #data-owner-element {
-  background-color: #f7f7f7;
-}
-#data-owner-element.MuiListItem-gutters {
-  padding-left: 44px;
-}
-#data-owner-element .MuiListItemIcon-root {
-  min-width: 48px;
-} */
-
 /* Layer and sublayer details component */
 .layer-details-div {
   background: #eee;
@@ -404,9 +393,13 @@ h4.container_header {
 .sublayer-details-div h4 {
   margin-bottom: 5px;
   display: block;
-  font-size: 8pt;
+  font-size: 10pt;
   width: 100%;
   font-weight: normal;
+}
+
+.data-owner-wrapper {
+  padding-top: 10px;
 }
 
 #layer-details-list {
@@ -425,7 +418,6 @@ h4.container_header {
 .sublayer-details-wrapper {
   background-color: white;
   padding: 10px 14px 15px 34px;
-  /* border-top: 1px solid #e5e5e5; */
 }
 
 /* ------------------------------------------------------ */
