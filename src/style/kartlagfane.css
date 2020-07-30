@@ -118,6 +118,10 @@ h4.container_header {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   font-size: 17px;
 }
+.sorted-layers-subheaders .MuiListItem-root {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
 
 /* Sortering, filtrering og søk -delen */
 .header-layers-menu {
@@ -239,8 +243,8 @@ h4.container_header {
 .collapsed_container {
   background: white;
   border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #eeeeee;
-  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  /* padding-bottom: 10px; */
   width: 100%;
 }
 .collapsed_container h4 {
@@ -271,8 +275,9 @@ h4.container_header {
 /* Sublayers */
 .collapsed_container .underlag {
   width: 100%;
-  background: #f7f7f7;
-  border-bottom: 1px solid #f0f0f0;
+  /* background: #f7f7f7; */
+  background: rgb(252, 252, 252);
+  border-bottom: 1px solid #e2e2e2;
   display: block;
   text-align: left;
 }
@@ -338,9 +343,8 @@ h4.container_header {
   margin-bottom: 2px;
 }
 #bookmark-icon.MuiListItemIcon-root {
-  max-width: 25px;
-  min-width: 25px;
-  margin-left: 10px;
+  justify-content: flex-end;
+  padding-right: 18px;
 }
 
 /* sublayer opacity sliders */
@@ -361,6 +365,40 @@ h4.container_header {
 }
 #opacity-visible-icon.MuiSvgIcon-colorPrimary {
   color: #666;
+}
+
+/* Data owner element */
+/* #data-owner-element {
+  background-color: #f7f7f7;
+}
+#data-owner-element.MuiListItem-gutters {
+  padding-left: 44px;
+}
+#data-owner-element .MuiListItemIcon-root {
+  min-width: 48px;
+} */
+
+/* Sublayer details component */
+.sublayer-details-div {
+  background: #eee;
+  max-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
+  /* width: 100%; */
+
+  z-index: 100;
+  position: absolute;
+  /* height: 100%; */
+  right: 0px;
+  top: 0px;
+  width: 408px;
+  padding-top: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .sublayer-details-div {
+    height: calc(50vh);
+  }
 }
 
 /* ------------------------------------------------------ */
