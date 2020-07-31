@@ -348,13 +348,13 @@ class Leaflet extends React.Component {
     if (!layer) {
       layer = L.tileLayer.cachedOverview("", {
         id: underlag.id,
-        zoomThreshold: underlag.zoom[0],
+        zoomThreshold: underlag.minzoom,
         layers: underlag.wmslayer,
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
         maxZoom: MAX_MAP_ZOOM_LEVEL,
-        maxNativeZoom: underlag.zoom[1]
+        maxNativeZoom: underlag.maxzoom
       });
       layer.on("loading", () => {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
