@@ -327,13 +327,13 @@ function makeSeed(kartlag) {
   });
   write("coverages:");
   write("  norge:");
-  write("    datasource: NO.txt");
+  write("    datasource: coverage/NO.txt");
   write('    srs: "EPSG:3857"');
   write("  norge_og_svalbard:");
   write("    union:");
-  write("      - datasource: NO.txt");
+  write("      - datasource: coverage/NO.txt");
   write('        srs: "EPSG:3857"');
-  write("      - datasource: SV.txt");
+  write("      - datasource: coverage/SV.txt");
   write('        srs: "EPSG:3857"');
   write("  alt:");
   write("    bbox: [4.41, 57.92, 34.22, 81.06]");
