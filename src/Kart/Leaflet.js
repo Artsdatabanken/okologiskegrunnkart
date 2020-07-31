@@ -17,6 +17,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
+const MAX_MAP_ZOOM_LEVEL = 20;
+
 class Leaflet extends React.Component {
   state = {
     windowXpos: 0,
@@ -42,7 +44,7 @@ class Leaflet extends React.Component {
       zoomControl: false,
       inertia: true,
       minZoom: 4,
-      maxZoom: 20
+      maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
     let map = L.map(this.mapEl, options);
@@ -305,13 +307,13 @@ class Leaflet extends React.Component {
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
         gkt: this.props.token,
-        maxZoom: 25,
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
         maxNativeZoom: 8
       }).addTo(this.map);
     if (!this.bakgrunnskart)
       this.bakgrunnskart = L.tileLayer("", {
         gkt: this.props.token,
-        maxZoom: 25,
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
         maxNativeZoom: 18
       }).addTo(this.map);
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
@@ -351,8 +353,8 @@ class Leaflet extends React.Component {
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
-        maxZoom: 21,
-        maxNativeZoom: underlag.maxzoom
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
+        maxNativeZoom: underlag.zoom[1]
       });
       layer.on("loading", () => {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
