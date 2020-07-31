@@ -104,6 +104,30 @@ class Sublag(models.Model):
 # Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
 #@receiver(post_save, sender=WmsHelper)
 def createJSON(sender, instance, **kwargs):
+    scaleArray = [
+        559082264, # zoom 0
+        279541132, # zoom 1
+        139770566, # zoom 2
+        69885283, # zoom 3
+        34942642, # zoom 4
+        17471321, # zoom 5
+        8735660, # zoom 6
+        4367830, # zoom 7
+        2183915, # zoom 8
+        1091958, # zoom 9
+        545979, # zoom 10
+        272989, # zoom 11
+        136495, # zoom 12
+        68247, # zoom 13
+        34124, # zoom 14
+        17062, # zoom 15
+        8531, # zoom 16
+        4265, # zoom 17
+        2133, # zoom 18
+        1066, # zoom 19
+        533 # zoom 20
+    ]
+
     dict = {}
     for kartlag in Kartlag.objects.all():
         # legg til sjekk her for om det står publiser når vi lager egen fil til prod
@@ -131,6 +155,46 @@ def createJSON(sender, instance, **kwargs):
                     lag_json['erSynlig'] = lag.erSynlig
                     lag_json['suggested'] = lag.suggested
                     underlag[lag.id] = lag_json
+
+                    ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
+                    # Assess if current map zoom is within sublayer's scale range
+                    min_number = lag.minscaledenominator if lag.minscaledenominator else 0
+                    max_number = lag.maxscaledenominator if lag.maxscaledenominator else 999999999
+
+                    # Some predefined values filled automatically
+                    if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
+                        max_number = 2183915
+                    if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
+                        max_number = 15000
+                    if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
+                        and lag.wmslayer == 'Magasin'):
+                        max_number = 545979
+
+                    # NOTE: Some scales from NIBIO seem to be wrong.
+                    # Adjusted manually here (hopefully this will not
+                    # affect other scale denominators)
+                    if max_number == 1000000: max_number = 1091960
+                    if max_number == 500000: max_number = 545980
+
+                    minZoom = None
+                    maxZoom = None
+                    for i in range(len(scaleArray)):
+                        if max_number > scaleArray[i] and minZoom is None:
+                            minZoom = i
+
+                    for i in range(len(scaleArray) - 1, -1, -1):
+                        if min_number < scaleArray[i] and maxZoom is None:
+                            maxZoom = i
+
+                    if maxZoom is None: maxZoom = 20
+                    if minZoom is None: minZoom = 0
+
+                    # Minimum zoom level for loading overviews from sluggish WMSes
+                    minZoom = max(minZoom, 8)
+
+                    lag_json['minzoom'] = minZoom
+                    lag_json['maxzoom'] = maxZoom
+                    
             
             dict[kartlag.id]['underlag'] = underlag
 
