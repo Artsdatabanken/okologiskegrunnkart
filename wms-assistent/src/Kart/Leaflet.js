@@ -114,7 +114,6 @@ class Leaflet extends React.Component {
     // Vis alle?    if (!underlag.suggested) return
     var tilelayer = this.wms[underlag.wmslayer];
     if (!tilelayer) {
-      console.log({ underlag });
       tilelayer = L.tileLayer.cachedOverview("", {
         id: underlag.id,
         zoomThreshold: underlag.minzoom,
