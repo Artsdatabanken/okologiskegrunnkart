@@ -12,13 +12,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
+const MAX_MAP_ZOOM_LEVEL = 20;
+
 class Leaflet extends React.Component {
   componentDidMount() {
     this.wms = {};
     const options = {
       zoomControl: true,
       inertia: true,
-      minZoom: 3
+      minZoom: 4,
+      maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
     let map = L.map(this.mapEl, options);
@@ -121,7 +124,7 @@ class Leaflet extends React.Component {
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
-        maxZoom: 21,
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
         maxNativeZoom: underlag.maxzoom,
         opacity: 0.95
       });
