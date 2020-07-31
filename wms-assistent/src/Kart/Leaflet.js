@@ -3,6 +3,7 @@ import L, { LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import "./leaflet.css";
+import "./TileLayer.CachedOverview";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -103,31 +104,32 @@ class Leaflet extends React.Component {
     }
   }
 
-  syncUnderlag(layer, underlag) {
+  syncUnderlag(kartlag, underlag) {
     if (!underlag) return;
-    const wmsurl = new URL(layer.wmsurl);
+    var url = this.makeWmsUrl(kartlag.wmsurl);
     let srs = "EPSG3857";
-    if (layer.projeksjon) {
-      srs = layer.projeksjon.replace(":", "");
+    if (kartlag.projeksjon) {
+      srs = kartlag.projeksjon.replace(":", "");
     }
-    const search = wmsurl.searchParams;
-    search.delete("request");
-    search.delete("service");
-    search.delete("version");
     // Vis alle?    if (!underlag.suggested) return
     var tilelayer = this.wms[underlag.wmslayer];
     if (!tilelayer) {
-      tilelayer = L.tileLayer.wms(wmsurl.toString(), {
+      console.log({ underlag });
+      tilelayer = L.tileLayer.cachedOverview("", {
+        id: underlag.id,
+        zoomThreshold: underlag.minzoom,
         layers: underlag.wmslayer,
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
+        maxZoom: 21,
+        maxNativeZoom: underlag.maxzoom,
         opacity: 0.95
       });
+      tilelayer.setUrl(url);
       this.wms[underlag.wmslayer] = tilelayer;
       this.map.addLayer(tilelayer);
     }
-    //    tilelayer.setOpacity(1.0)//underlag.opacity);
   }
 
   makeWmsUrl(url) {
