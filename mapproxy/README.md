@@ -2,19 +2,26 @@ Build overview cache of zoom levels that are unavailable directly from the onlin
 
 - Overview cache location: https://data.test.artsdatabanken.no/grunnkart/
 
-# Seeding
+## Scripts
+
+The following scripts are defined in `package.json`, use `npm run <scriptname>` to run.
+
+- _download_: Downloads the souce layers configuration file `kartlag.json`
+- _deploy_: Deploys this utility to the server
+
+## Seeding
 
 This will seed the single lowest available zoom level for each layer.
 
 Mapproxy seed documentation: https://mapproxy.org/docs/nightly/seed.html
 
-## Dry-run
+### Dry-run
 
 ```bash
 docker run -u 1000:1004 -v /home/grunnkart/mapproxy:/mapproxy --entrypoint="/usr/local/bin/mapproxy-seed" -w="/mapproxy" kartoza/mapproxy -f mapproxy.yaml -s seed.yaml --dry-run --seed ALL --continue
 ```
 
-## Seed all missing or out of date tiles
+### Seed all missing or out of date tiles
 
 ```bash
 docker run -u 1000:1004 -v /home/grunnkart/mapproxy:/mapproxy --entrypoint="/usr/local/bin/mapproxy-seed" -w="/mapproxy" kartoza/mapproxy -f mapproxy.yaml -s seed.yaml --seed ALL --continue
@@ -22,11 +29,11 @@ docker run -u 1000:1004 -v /home/grunnkart/mapproxy:/mapproxy --entrypoint="/usr
 
 rsync -avhW --max-size=10m cache/ grunnkart@hydra:~/tilesdata/grunnkart/
 
-# Build overviews
+## Build overviews
 
 After seeding this will build all the lower zoom levels based on the seeded zoom level.
 
-## Build overviews for all layers
+### Build overviews for all layers
 
 After having seeded, build the output cache files for all layers by issuing this command from the mapproxy directory:
 
@@ -34,7 +41,7 @@ After having seeded, build the output cache files for all layers by issuing this
 ./build_all_mbtiles.sh
 ```
 
-## Build overviews for single layer
+### Build overviews for single layer
 
 After having seeded, build the output cache files containing all cached lower zoom levels by issuing this command from the mapproxy directory:
 
@@ -44,7 +51,7 @@ After having seeded, build the output cache files containing all cached lower zo
 
 Check the result at https://data.test.artsdatabanken.no/grunnkart/BerggrunnN50_BergartflateN50.mbtiles/
 
-# Manual conversion
+## Manual conversion
 
 2 layers with zoom level of 16 was processed manually as the tile count was huge:
 
@@ -80,7 +87,9 @@ cp Forurensetgrunn_Forurensetomrdetilstandpunkt.mbtiles Forurensetgrunn_Forurens
 
 ### Add metadata to mbtiles
 
-### Coverage: alt
+### Time estimates
+
+Coverage: alt
 
 - Zoom 11: 15 minutter
 - Zoom 12: 1 time
