@@ -1,10 +1,15 @@
+// Reads kartlag.json
+// Creates the files mapproxy.yaml and seed.yaml that Mapproxy needs
+//   in order to seed the lowest available single zoom level for each layer.
+
 const fs = require("fs");
 
 const special_options = {
-  Arterrdlista_NTNrtruet: "styles: simple" // Don't know why this was necessary for only this layer. TODO: Check mapserver server config?
+  Arterrdlista_NTNrtruet: "styles: simple" // Don't know why this was necessary. TODO: Check mapserver config?
 };
 
 // TODO: Maybe map this information from WMS capabilities and add to kartlag.json
+// NOTE: This list is incomplete.  Only layers that had a high enough minimum zoom to benefit from the performance gain from smaller bounds have been listed.
 const coverage = {
   ArealressursAR5_ArealressursAR5Arealtype: "norge",
   ArealressursAR5_Treslag: "norge",
@@ -17,10 +22,6 @@ const coverage = {
   Kulturminnerlokaliteter_Kulturminnerlokaliteter: "norge_og_svalbard",
   Vannkraftutbygd_Dam: "norge",
   Livsmiljer_Dekningskartdetalj: "norge"
-};
-
-const zoom = {
-  Forurensetgrunn_Forurensetomrdetilstandpunkt: 9
 };
 
 const getBaseWmsUrl = url => {
@@ -37,8 +38,6 @@ kartlag = Object.values(kartlag).reduce((acc, e) => {
   for (var ul of Object.values(e.underlag || {})) {
     ul.wmsurl = getBaseWmsUrl(e.wmsurl);
     ul.projeksjon = e.projeksjon;
-    console.log(ul.id, zoom);
-    if (zoom[ul.id]) ul.zoom[0] = zoom[ul.id];
     acc[ul.id] = ul; // Object so we can filter duplicates
   }
   return acc;
