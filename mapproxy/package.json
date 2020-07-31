@@ -5,7 +5,8 @@
   "main": "makeconfig.js",
   "scripts": {
     "download": "wget -N forvaltningsportal.test.artsdatabanken.no/kartlag.json",
-    "deploy": "rsync -avhW --max-size=10m build/*.mbtiles grunnkart@hydra:~/tilesdata/grunnkart/"
+    "deploy": "rsync -avhW --max-size=10m build/*.mbtiles grunnkart@hydra:~/tilesdata/grunnkart/",
+    "makeconfig": "node generate_mapproxy_config_from_kartlag.js"
   },
   "keywords": [],
   "author": "",

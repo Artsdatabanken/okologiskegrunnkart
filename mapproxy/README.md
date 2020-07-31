@@ -7,6 +7,7 @@ Build overview cache of zoom levels that are unavailable directly from the onlin
 The following scripts are defined in `package.json`, use `npm run <scriptname>` to run.
 
 - _download_: Downloads the souce layers configuration file `kartlag.json`
+- _makeconfig_: Create the `mapproxy.yaml` and `seed.yaml` files required by _Mapproxy_. Requires that kartlag.json was first downloaded by issuing `npm run download`
 - _deploy_: Deploys this utility to the server
 
 ## Seeding
