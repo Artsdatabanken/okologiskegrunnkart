@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Pulls a single database from cache if necessary and proceeds to update it.
+# Seeds the complete set of mbtiles for a single layer and renders missing overview zoom levels for the layer
 
 DEST_PATH=/home/grunnkart/tilesdata/grunnkart
 SOURCE_PATH=$1webmercator
@@ -19,7 +19,7 @@ then
 else
   echo Processing more recent cache file for $TARGET_MBTILES
   cp $SOURCE_MBTILES $TARGET_MBTILES
-  ./update_single_mbtiles.sh "$TARGET_MBTILES"
+  ./build_single_mbtiles_overviews.sh "$TARGET_MBTILES"
 fi
 
 

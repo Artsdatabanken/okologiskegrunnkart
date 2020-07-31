@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Builds mbtiles complete with overviews from the Mapproxy SQLITE databases
+# Builds mbtiles complete with overviews for a single layer using data from the Mapproxy SQLITE databases
 
 echo Updating metadata for $1...
 TILECOUNT=`sqlite3 $1 'SELECT count(*) from tiles'`
