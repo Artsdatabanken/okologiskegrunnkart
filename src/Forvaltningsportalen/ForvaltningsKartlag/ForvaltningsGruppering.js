@@ -5,20 +5,35 @@ import { ListSubheader } from "@material-ui/core";
 const ForvaltningsGruppering = ({
   kartlag,
   tagFilter,
-  onFilterTag,
+  matchAllFilters,
   onUpdateLayerProp,
   hideHidden,
   searchTerm,
   element,
   zoom
 }) => {
+  const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
+  console.log(selectedTags);
   kartlag = kartlag.filter(element => {
     let tags = element.tags || [];
+
+    // All tags match the layer's tags
     if (
-      Object.keys(tagFilter).some(tag => tagFilter[tag] && !tags.includes(tag))
+      selectedTags.length > 0 &&
+      matchAllFilters &&
+      !selectedTags.every(tag => tags.includes(tag))
     )
       return false;
 
+    // At leats one tag matches the layer's tags
+    if (
+      selectedTags.length > 0 &&
+      !matchAllFilters &&
+      !selectedTags.some(tag => tags.includes(tag))
+    )
+      return false;
+
+    // Layer contains search term
     if (searchTerm && searchTerm.length > 0) {
       let string = JSON.stringify(element).toLowerCase();
       if (string.indexOf(searchTerm) === -1) {
@@ -40,8 +55,6 @@ const ForvaltningsGruppering = ({
             key={element.id}
             kartlag_key={element.id}
             kartlag={element}
-            tagFilter={tagFilter}
-            onFilterTag={onFilterTag}
             onUpdateLayerProp={onUpdateLayerProp}
             zoom={zoom}
           />

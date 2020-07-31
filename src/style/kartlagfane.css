@@ -141,8 +141,23 @@ h4.container_header {
   padding: 5px 0 10px 0;
   margin: 0 16px 0 16px;
 }
+.selected-tags-tittle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 #filters-header.MuiTypography-root {
   padding-bottom: 5px;
+}
+#filter-all-button.MuiButton-root {
+  text-transform: none;
+}
+#filter-all-button.MuiButton-textPrimary {
+  color: #296d98;
+  font-weight: 500;
+}
+#filter-all-button.MuiButton-textSecondary {
+  color: #888;
 }
 #filter-layers-menu-item.MuiListItem-gutters {
   padding-left: 14px;
