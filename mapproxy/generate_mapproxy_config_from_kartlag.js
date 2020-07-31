@@ -45,8 +45,8 @@ kartlag = Object.values(kartlag).reduce((acc, e) => {
 kartlag = Object.values(kartlag);
 
 kartlag = kartlag.sort((a, b) => {
-  if (a.zoom[0] > b.zoom[0]) return 1;
-  if (a.zoom[0] < b.zoom[0]) return -1;
+  if (a.minzoom > b.minzoom) return 1;
+  if (a.minzoom < b.minzoom) return -1;
   return a.tittel > b.tittel ? 1 : -1;
 });
 
@@ -104,11 +104,11 @@ function trimwmsurl(wmsurl) {
 function makeSeed(kartlag) {
   write("seeds:");
   kartlag.forEach(ul => {
-    if (ul.zoom[0] <= 1) return;
+    if (ul.minzoom <= 1) return;
     write("  " + ul.id + ":");
     write(`        caches: [${ul.id}_cache]`);
     write(`        coverages: [${coverage[ul.id] || "alt"}]`);
-    write(`        levels: [${ul.zoom[0]}]`);
+    write(`        levels: [${ul.minzoom}]`);
     write(`        refresh_before:`);
     write(`          time: 2019-10-10T12:35:00`);
     write("");
