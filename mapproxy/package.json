@@ -4,7 +4,7 @@
   "description": "Build overview cache of zoom levels that are unavailable directly from the online resource.",
   "main": "makeconfig.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "download": "wget -N forvaltningsportal.test.artsdatabanken.no/kartlag.json"
   },
   "keywords": [],
   "author": "",
