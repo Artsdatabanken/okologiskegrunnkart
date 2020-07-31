@@ -41,7 +41,8 @@ class Leaflet extends React.Component {
     const options = {
       zoomControl: false,
       inertia: true,
-      minZoom: 4
+      minZoom: 4,
+      maxZoom: 20
     };
 
     let map = L.map(this.mapEl, options);
@@ -304,13 +305,14 @@ class Leaflet extends React.Component {
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
         gkt: this.props.token,
+        maxZoom: 25,
         maxNativeZoom: 8
       }).addTo(this.map);
     if (!this.bakgrunnskart)
       this.bakgrunnskart = L.tileLayer("", {
         gkt: this.props.token,
-        maxNativeZoom: 18,
-        maxZoom: 20
+        maxZoom: 25,
+        maxNativeZoom: 18
       }).addTo(this.map);
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
@@ -349,6 +351,7 @@ class Leaflet extends React.Component {
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
+        maxZoom: 21,
         maxNativeZoom: underlag.zoom[1]
       });
       layer.on("loading", () => {
