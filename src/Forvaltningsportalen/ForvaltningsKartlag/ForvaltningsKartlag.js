@@ -1,6 +1,6 @@
 import React from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
-import { Chip, Typography, List } from "@material-ui/core";
+import { Chip, Typography, List, Button } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
@@ -12,7 +12,8 @@ class ForvaltningsKartlag extends React.Component {
     tagFilter: {},
     hideHidden: false,
     searchTerm: null,
-    showFilter: false
+    showFilter: false,
+    matchAllFilters: true
   };
 
   handleFilterTag = (tag, value) => {
@@ -64,7 +65,7 @@ class ForvaltningsKartlag extends React.Component {
       .map(tag => (
         <Chip
           id="layers-filter-chips"
-          style={{ margin: "2px 0" }}
+          style={{ margin: "2px 5px 2px 0" }}
           key={tag}
           label={tag}
           clickable
@@ -95,26 +96,42 @@ class ForvaltningsKartlag extends React.Component {
           </div>
           {tags && tags.length > 0 && (
             <div className="selected-tags-wrapper">
-              <Typography id="filters-header" variant="body2">
-                Filtrer
-              </Typography>
+              <div className="selected-tags-tittle">
+                <Typography id="filters-header" variant="body2">
+                  Filtrer
+                </Typography>
+                {tags.length > 1 && (
+                  <div className="filter-options-wrapper">
+                    <Button
+                      id="filter-all-button"
+                      size="small"
+                      color={
+                        this.state.matchAllFilters ? "primary" : "secondary"
+                      }
+                      onClick={() => {
+                        this.setState({ matchAllFilters: true });
+                      }}
+                    >
+                      Matcher alle
+                    </Button>
+                    /
+                    <Button
+                      id="filter-all-button"
+                      size="small"
+                      color={
+                        this.state.matchAllFilters ? "secondary" : "primary"
+                      }
+                      onClick={() => {
+                        this.setState({ matchAllFilters: false });
+                      }}
+                    >
+                      Matcher minst ett
+                    </Button>
+                  </div>
+                )}
+              </div>
               {tags.reduce((accu, elem, index) => {
-                return accu === null
-                  ? [elem]
-                  : [
-                      ...accu,
-                      <div
-                        key={index}
-                        style={{
-                          display: "inline",
-                          verticalAlign: "text-bottom",
-                          padding: "0px 5px"
-                        }}
-                      >
-                        og
-                      </div>,
-                      elem
-                    ];
+                return accu === null ? [elem] : [...accu, elem];
               }, null)}
             </div>
           )}
@@ -133,7 +150,7 @@ class ForvaltningsKartlag extends React.Component {
                   searchTerm={this.state.searchTerm}
                   hideHidden={this.state.hideHidden}
                   tagFilter={this.state.tagFilter}
-                  onFilterTag={this.handleFilterTag}
+                  matchAllFilters={this.state.matchAllFilters}
                   kartlag={sorted[element]}
                   element={element}
                   key={element}
