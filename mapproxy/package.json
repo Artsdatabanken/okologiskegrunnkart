@@ -1,0 +1,12 @@
+{
+  "name": "mapproxy",
+  "version": "1.0.0",
+  "description": "Build overview cache of zoom levels that are unavailable directly from the online resource.",
+  "main": "makeconfig.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
