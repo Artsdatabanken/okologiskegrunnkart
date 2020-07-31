@@ -354,7 +354,7 @@ class Leaflet extends React.Component {
         crs: L.CRS[srs],
         format: "image/png",
         maxZoom: MAX_MAP_ZOOM_LEVEL,
-        maxNativeZoom: underlag.zoom[1]
+        maxNativeZoom: underlag.maxzoom
       });
       layer.on("loading", () => {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
