@@ -12,6 +12,7 @@ import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import { scaleToZoom } from "./Funksjoner/zoomRange";
+import db from "./IndexedDb";
 
 class App extends React.Component {
   constructor(props) {
@@ -65,14 +66,30 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
+    const layersdb = await db.layers.toArray();
+    console.log("Layers: ", layersdb);
+    const sublayersdb = await db.sublayers.toArray();
+    console.log("Sublayers", sublayersdb);
 
     const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
+
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
-    Object.entries(sortedKartlag).forEach(([key, k]) => {
+    Object.entries(sortedKartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
+
+      // Check if layer is already stored in indexed DB. Add it if not
+      const existingLayer = layersdb.filter(e => e.id === key);
+      if (existingLayer.length === 0) {
+        db.layers.add({
+          id: key,
+          title: k.tittel,
+          active: true
+        });
+      }
+
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.zoom = scaleToZoom(ul);
@@ -80,10 +97,26 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         ul.expanded = false;
+
+        // // Check if sublayer is already stored in indexed DB. Add it if not
+        // const existingSublayer = sublayersdb.filter(e => e.id === ul.id);
+        // if (existingSublayer.length === 0) {
+        //   db.sublayers.add({
+        //     id: ul.id,
+        //     title: ul.tittel,
+        //     active: true
+        //   });
+        // }
+
         return acc;
       }, {});
     });
     this.setState({ kartlag: sortedKartlag });
+
+    const updatedLayersdb = await db.layers.toArray();
+    const updatedSublayersdb = await db.sublayers.toArray();
+    console.log(updatedLayersdb);
+    console.log(updatedSublayersdb);
   }
 
   componentDidMount() {

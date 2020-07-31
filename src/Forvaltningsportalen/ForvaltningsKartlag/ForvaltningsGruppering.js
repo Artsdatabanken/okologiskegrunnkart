@@ -13,7 +13,6 @@ const ForvaltningsGruppering = ({
   zoom
 }) => {
   const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
-  console.log(selectedTags);
   kartlag = kartlag.filter(element => {
     let tags = element.tags || [];
 
