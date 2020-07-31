@@ -1,8 +1,8 @@
-Build overview cache of zoom levels that are unavailable directly from the online resource.
+Build overview cache of zoom levels that are unavailable directly from the online resource. Required operating system: Linux flavored with wget, node and docker preinstalled.
 
 - Overview cache location: https://data.test.artsdatabanken.no/grunnkart/
 
-## Scripts
+## Configuration helper scripts
 
 The following scripts are defined in `package.json`, use `npm run <scriptname>` to run.
 
@@ -10,7 +10,7 @@ The following scripts are defined in `package.json`, use `npm run <scriptname>` 
 - _makeconfig_: Create the `mapproxy.yaml` and `seed.yaml` files required by _Mapproxy_. Requires that kartlag.json was first downloaded by issuing `npm run download`
 - _deploy_: Deploys this utility to the server
 
-## Seeding
+## Seeding map tiles from WMS server
 
 This will seed the single lowest available zoom level for each layer.
 
@@ -27,8 +27,6 @@ docker run -u 1000:1004 -v /home/grunnkart/mapproxy:/mapproxy --entrypoint="/usr
 ```bash
 docker run -u 1000:1004 -v /home/grunnkart/mapproxy:/mapproxy --entrypoint="/usr/local/bin/mapproxy-seed" -w="/mapproxy" kartoza/mapproxy -f mapproxy.yaml -s seed.yaml --seed ALL --continue
 ```
-
-rsync -avhW --max-size=10m cache/ grunnkart@hydra:~/tilesdata/grunnkart/
 
 ## Build overviews
 
@@ -52,9 +50,9 @@ After having seeded, build the output cache files containing all cached lower zo
 
 Check the result at https://data.test.artsdatabanken.no/grunnkart/BerggrunnN50_BergartflateN50.mbtiles/
 
-## Manual conversion
+## Shortcuts taken
 
-2 layers with zoom level of 16 was processed manually as the tile count was huge:
+2 layers with zoom level of 16 was processed using available data files rather than WMS requests this time as the tile count was huge:
 
 ### Kulturminnerlokaliteter_Kulturminnerlokaliteter
 
@@ -86,11 +84,9 @@ docker run --rm -u 1000:1004 -v /home:/home osgeo/gdal:alpine-small-latest gdala
 Forurensetgrunn_Forurensetomrdetilstand.mbtiles viser inntil videre
 cp Forurensetgrunn_Forurensetomrdetilstandpunkt.mbtiles Forurensetgrunn_Forurensetomrdetilstand.mbtiles
 
-### Add metadata to mbtiles
+### Time estimates for layer downloads based on measurements
 
-### Time estimates
-
-Coverage: alt
+Coverage: alt (4.41, 57.92, 34.22, 81.06)
 
 - Zoom 11: 15 minutter
 - Zoom 12: 1 time
