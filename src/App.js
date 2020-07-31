@@ -11,7 +11,6 @@ import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
-import { scaleToZoom } from "./Funksjoner/zoomRange";
 import db from "./IndexedDb";
 
 class App extends React.Component {
@@ -92,7 +91,6 @@ class App extends React.Component {
 
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
-        ul.zoom = scaleToZoom(ul);
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
         ul.opacity = 0.8;
         acc[ul.id] = ul;
