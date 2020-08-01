@@ -1,18 +1,12 @@
 import Geonorge from "./Geonorge";
 import React, { useState } from "react";
 import {
-  OpenInNew,
-  VisibilityOutlined,
-  Link,
   Description,
-  Layers,
   Category as CategoryIcon,
   Done as DoneIcon,
   VisibilityOffOutlined
 } from "@material-ui/icons";
 import {
-  Chip,
-  IconButton,
   ListItemIcon,
   Collapse,
   ListItem,
@@ -65,12 +59,6 @@ const ForvaltningsElement = ({
                         }}
                       />
                     )}
-                    <OpenInNew
-                      className="iconbutton"
-                      onClick={e => {
-                        window.open(kartlag.produktark);
-                      }}
-                    />
                   </>
                 )}
               </ListItem>

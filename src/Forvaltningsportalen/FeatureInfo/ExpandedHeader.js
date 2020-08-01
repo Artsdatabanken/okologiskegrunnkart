@@ -11,7 +11,7 @@ const ExpandedHeader = props => {
           variant="outline"
           onClick={() => window.open(props.url)}
         >
-          <OpenInNew />
+          <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
         </Button>
       )}
     </div>

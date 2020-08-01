@@ -13,7 +13,8 @@ import {
   List,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText
+  ListItemText,
+  ListItemIcon
 } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
 import "../../style/infobox.css";
@@ -41,15 +42,15 @@ const InfoBox = ({
   const hentAdresse = adresse => {
     if (adresse.loading) return <LoadingPlaceholder />;
 
-    if (!adresse || !adresse.adressetekst) return "Ingen gateadresse";
+    if (!adresse || !adresse.adressetekst) return null;
     return adresse.adressetekst;
   };
 
   const hentGardsnummer = adresse => {
     if (adresse.loading) return <LoadingPlaceholder />;
 
-    if (!adresse.gardsnummer) return "?";
-    return adresse.gardsnummer + "/" + adresse.bruksnummer;
+    if (!adresse.gardsnummer) return null;
+    return "Matrikkel: " + adresse.gardsnummer + "/" + adresse.bruksnummer;
   };
 
   const toggleAllLayers = () => {
@@ -59,6 +60,7 @@ const InfoBox = ({
       getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
     }
   };
+  const adressetekst = hentAdresse(adresse);
 
   return (
     <div className="infobox-container-side">
@@ -67,7 +69,7 @@ const InfoBox = ({
           <div className="infobox-title-wrapper">
             <div className="infobox-title-content">
               <CustomTooltip placement="right" title="Sted / Områdetype">
-                {true ? (
+                {false ? (
                   <MyLocation />
                 ) : (
                   <img
@@ -100,56 +102,33 @@ const InfoBox = ({
           </div>
 
           {sted && (
-            <div className="infobox-content">
-              <div className="infobox-text-wrapper">
-                <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
-                  <Terrain />
-                </CustomTooltip>
-                <div className="infobox-text-multiple">
-                  <div className="infobox-text-primary">
-                    {sted.fylkesnavn[0]}
-                  </div>
-                  <div className="infobox-text-secondary">
-                    {sted.fylkesnummer[0]}
-                  </div>
-                </div>
-              </div>
-              <div className="infobox-text-wrapper">
-                <CustomTooltip placement="right" title="Kommune / Kommunenr.">
-                  <Flag />
-                </CustomTooltip>
-                <div className="infobox-text-multiple">
-                  <div className="infobox-text-primary">
-                    {sted.kommunenavn[0]}
-                  </div>
-                  <div className="infobox-text-secondary">
-                    {sted.kommunenummer[0]}
-                  </div>
-                </div>
-              </div>
-              <div className="infobox-text-wrapper">
-                <CustomTooltip
-                  placement="right"
-                  title="Adresse / Gårdsnr. / Bruksnr."
-                >
+            <>
+              <ListItem button onClick={() => {}}>
+                <ListItemIcon>
                   <Home />
-                </CustomTooltip>
-                <div className="infobox-text-multiple">
-                  <div className="infobox-text-primary">
-                    {hentAdresse(adresse)}
-                  </div>
-                  <div className="infobox-text-secondary">
-                    {hentGardsnummer(adresse)}
-                  </div>
-                </div>
-              </div>
-              <div className="infobox-text-wrapper">
-                <CustomTooltip placement="right" title="Koordinater">
+                </ListItemIcon>
+                <ListItemText
+                  primary={adressetekst || hentGardsnummer(adresse)}
+                  secondary={sted.kommunenavn[0] + ", " + sted.fylkesnavn[0]}
+                ></ListItemText>
+                <ListItemSecondaryAction>
+                  <ExpandMore style={{ color: "rgba(0,0,0,0.48)" }} />
+                </ListItemSecondaryAction>
+              </ListItem>
+
+              <ListItem button onClick={() => {}}>
+                <ListItemIcon>
                   <Place />
-                </CustomTooltip>
-                <div className="infobox-text-primary">{coords}</div>
-              </div>
-            </div>
+                </ListItemIcon>
+                <ListItemText
+                  primary={coords}
+                  secondary={"test"}
+                ></ListItemText>
+                <ListItemSecondaryAction>
+                  <ExpandMore style={{ color: "rgba(0,0,0,0.48)" }} />
+                </ListItemSecondaryAction>
+              </ListItem>
+            </>
           )}
           <List>
             <DetailedInfo

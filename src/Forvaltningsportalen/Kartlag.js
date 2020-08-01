@@ -3,19 +3,11 @@ import { useParams } from "react-router";
 import "../style/kartknapper.css";
 import "../style/kartlagfane.css";
 import Geonorge from "./ForvaltningsKartlag/Geonorge";
-import {
-  OpenInNew,
-  Link,
-  Description,
-  Layers,
-  Category as CategoryIcon,
-  Done as DoneIcon
-} from "@material-ui/icons";
+import { Link, Description, Layers } from "@material-ui/icons";
 import {
   Chip,
   List,
   ListItemIcon,
-  ListItemSecondaryAction,
   ListItem,
   ListItemText,
   Typography,
@@ -58,7 +50,7 @@ const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
           );
         })}
       </div>
-      <List style={{ marginLeft: 32 }}>
+      <List style={{ _marginLeft: 32 }}>
         {kartlag.produktark && (
           <ListItem
             dense
@@ -71,9 +63,6 @@ const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
               <Description />
             </ListItemIcon>
             <ListItemText primary="Produktark" />
-            <ListItemSecondaryAction>
-              <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
-            </ListItemSecondaryAction>
           </ListItem>
         )}
         {kartlag.dataeier && (
@@ -99,7 +88,6 @@ const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
                 )}
               </ListItemIcon>
               <ListItemText primary={kartlag.dataeier} />
-              <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
             </ListItem>
           </>
         )}
@@ -114,9 +102,6 @@ const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
             <Geonorge />
           </ListItemIcon>
           <ListItemText primary="Datasettet på Geonorge.no" />
-          <ListItemSecondaryAction>
-            <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
-          </ListItemSecondaryAction>
         </ListItem>
       </List>
 

@@ -45,27 +45,22 @@ const ForvaltningsUnderElement = ({
             !kartlag.erSynlig || kartlag.opacity === 0 ? "#ccc" : "#fff"
         }}
       >
+        <ListItemIcon>
+          {" "}
+          <IconButton onClick={() => setOpacity(kartlag.opacity > 0 ? 0 : 90)}>
+            {kartlag.opacity > 0 ? <Visibility /> : <VisibilityOff />}
+          </IconButton>
+        </ListItemIcon>
         <ListItemText
           primary={tittel.nb || tittel}
           secondary={
-            <Grid container spacing={1} alignItems="center">
-              <Grid item>
-                <IconButton
-                  onClick={() => setOpacity(kartlag.opacity > 0 ? 0 : 90)}
-                >
-                  {kartlag.opacity > 0 ? <Visibility /> : <VisibilityOff />}
-                </IconButton>
-              </Grid>
-              <Grid item xs>
-                <Slider
-                  value={100 * kartlag.opacity}
-                  step={1}
-                  aria-labelledby="opacity"
-                  getAriaValueText={opacity => opacity + " %"}
-                  onChange={(e, v) => setOpacity(v)}
-                />
-              </Grid>
-            </Grid>
+            <Slider
+              value={100 * kartlag.opacity}
+              step={1}
+              aria-labelledby="opacity"
+              getAriaValueText={opacity => opacity + " %"}
+              onChange={(e, v) => setOpacity(v)}
+            />
           }
         />
       </ListItem>

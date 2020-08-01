@@ -76,7 +76,6 @@ class App extends React.Component {
   render() {
     const { history } = this.props;
     const path = this.props.location.pathname;
-    const basiskart = this.state.bakgrunnskart;
     return (
       <SettingsContext.Consumer>
         {context => {
