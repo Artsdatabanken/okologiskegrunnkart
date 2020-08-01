@@ -6,19 +6,16 @@ import {
   Home,
   Flag,
   Terrain,
-  Layers
+  ExpandMore
 } from "@material-ui/icons";
 import {
   IconButton,
   List,
   ListItem,
-  ListItemIcon,
   ListItemSecondaryAction,
-  Switch,
   ListItemText
 } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
-import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
 import LoadingPlaceholder from "./LoadingPlaceholder";
@@ -63,15 +60,6 @@ const InfoBox = ({
     }
   };
 
-  let title = "Ingen kartlag valgt";
-  const emptyKartlag =
-    Object.keys(kartlag).length === 0 && kartlag.constructor === Object;
-  if (showAllLayers && !emptyKartlag) {
-    title = "Resultat fra alle kartlag";
-  } else if (!showAllLayers && !emptyKartlag) {
-    title = "Resultat fra valgte kartlag";
-  }
-
   return (
     <div className="infobox-container-side">
       <div className="infobox-side">
@@ -79,7 +67,7 @@ const InfoBox = ({
           <div className="infobox-title-wrapper">
             <div className="infobox-title-content">
               <CustomTooltip placement="right" title="Sted / Områdetype">
-                {false ? (
+                {true ? (
                   <MyLocation />
                 ) : (
                   <img
@@ -164,31 +152,6 @@ const InfoBox = ({
             </div>
           )}
           <List>
-            <ListItem>
-              <ListItemIcon>
-                <Layers />
-              </ListItemIcon>
-              <ListItemText primary={title}></ListItemText>
-              <ListItemSecondaryAction>
-                <Switch
-                  checked={showAllLayers}
-                  onChange={toggleAllLayers}
-                ></Switch>
-                {false && (
-                  <CustomSwitch
-                    tabIndex="0"
-                    id="search-layers-toggle"
-                    checked={showAllLayers}
-                    onChange={toggleAllLayers}
-                    onKeyDown={e => {
-                      if (e.keyCode === 13) {
-                        toggleAllLayers();
-                      }
-                    }}
-                  />
-                )}
-              </ListItemSecondaryAction>
-            </ListItem>
             <DetailedInfo
               showExtensiveInfo={showAllLayers}
               kartlag={showAllLayers ? kartlag : valgteLag}
@@ -197,6 +160,14 @@ const InfoBox = ({
               layersResult={layersResult}
               resultat={resultat}
             />
+            {!showAllLayers && (
+              <ListItem button onClick={toggleAllLayers}>
+                <ListItemText primary="Vis alle..."></ListItemText>
+                <ListItemSecondaryAction>
+                  <ExpandMore style={{ color: "#888" }} />
+                </ListItemSecondaryAction>
+              </ListItem>
+            )}
           </List>
         </div>
       </div>

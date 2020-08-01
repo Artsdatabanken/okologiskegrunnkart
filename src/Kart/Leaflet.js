@@ -64,8 +64,6 @@ class Leaflet extends React.Component {
       [this.props.latitude, this.props.longitude],
       this.props.zoom * 1.8
     );
-    L.control.zoom({ position: "bottomright" }).addTo(map);
-    L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
     this.icon = L.icon({
       iconUrl: "/marker/pdoc.png",
@@ -137,42 +135,6 @@ class Leaflet extends React.Component {
     if (leafletLink) {
       leafletLink.setAttribute("target", "_blank");
       leafletLink.setAttribute("rel", "noopener noreferrer");
-    }
-  };
-
-  positionZoomButtons = () => {
-    // If side is open, the buttons need to be repositioned
-    const leafletLink = document.querySelector(".leaflet-control-zoom");
-    if (
-      leafletLink &&
-      this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") === -1
-    ) {
-      leafletLink.classList.add("side-bar-open");
-    } else if (
-      leafletLink &&
-      !this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") >= 0
-    ) {
-      leafletLink.classList.remove("side-bar-open");
-    }
-  };
-
-  positionleafletLink = () => {
-    // If side is open, the link needs to be repositioned
-    const leafletLink = document.querySelector(".leaflet-control-attribution");
-    if (
-      leafletLink &&
-      this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") === -1
-    ) {
-      leafletLink.classList.add("side-bar-open");
-    } else if (
-      leafletLink &&
-      !this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") >= 0
-    ) {
-      leafletLink.classList.remove("side-bar-open");
     }
   };
 
@@ -343,8 +305,6 @@ class Leaflet extends React.Component {
   render() {
     const markerType = this.getMarkerType();
     this.openLinksInNewTab();
-    this.positionZoomButtons();
-    this.positionleafletLink();
     // Polygontegning og Polylinjetegning
     if (this.props.polyline || this.props.polygon) {
       // Starter med å fjerne forrige figur for å unngå duplikater

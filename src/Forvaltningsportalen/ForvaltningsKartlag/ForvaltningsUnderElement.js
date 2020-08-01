@@ -41,7 +41,7 @@ const ForvaltningsUnderElement = ({
           }
         }}
         style={{
-          backgroundColor:
+          _backgroundColor:
             !kartlag.erSynlig || kartlag.opacity === 0 ? "#ccc" : "#fff"
         }}
       >
@@ -50,8 +50,10 @@ const ForvaltningsUnderElement = ({
           secondary={
             <Grid container spacing={1} alignItems="center">
               <Grid item>
-                <IconButton onClick={() => setOpacity(0)}>
-                  <VisibilityOff />
+                <IconButton
+                  onClick={() => setOpacity(kartlag.opacity > 0 ? 0 : 90)}
+                >
+                  {kartlag.opacity > 0 ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </Grid>
               <Grid item xs>
@@ -62,11 +64,6 @@ const ForvaltningsUnderElement = ({
                   getAriaValueText={opacity => opacity + " %"}
                   onChange={(e, v) => setOpacity(v)}
                 />
-              </Grid>
-              <Grid item>
-                <IconButton onClick={() => setOpacity(100)}>
-                  <Visibility />
-                </IconButton>
               </Grid>
             </Grid>
           }

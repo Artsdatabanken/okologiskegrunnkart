@@ -1,18 +1,6 @@
 import React from "react";
-import {
-  VisibilityOutlined,
-  VisibilityOffOutlined,
-  Delete,
-  Gesture,
-  Create,
-  Done
-} from "@material-ui/icons";
-import {
-  IconButton,
-  ListItemIcon,
-  ListItem,
-  ListItemText
-} from "@material-ui/core";
+import { Gesture } from "@material-ui/icons";
+import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 
 const PolygonElement = ({
   polygon,

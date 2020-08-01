@@ -79,54 +79,6 @@
 }
 
 /* list items in info box */
-/* .generic-element-primary-text {
-  display: block;
-  font-size: 12pt;
-  color: #6d6d6d;
-}
-.generic-element-data-owner {
-  display: block;
-  font-size: 10pt;
-  color: grey;
-} */
-.window_scrollable > .generic_element > ._MuiListItem-root {
-  padding: 0 16px;
-}
-.all_layer_results_scrollable
-  > ._MuiList-root
-  > .generic_element
-  > ._MuiListItem-root {
-  padding: 0 16px;
-}
-
-@media only screen and (max-width: 768px) {
-  /* .generic-element-secondary-text {
-    font-size: 11pt;
-    margin: 1px 0 !important;
-  }
-  .generic-element-primary-text {
-    font-size: 11pt;
-    margin: 1px 0 !important;
-  }
-  .generic-element-data-owner {
-    font-size: 9.5pt;
-    margin: 1px 0 !important;
-  } */
-  .window_scrollable
-    > .generic_element
-    > ._MuiListItem-root
-    > ._MuiListItemIcon-root {
-    min-width: 45px;
-  }
-  .all_layer_results_scrollable
-    > ._MuiList-root
-    > .generic_element
-    > ._MuiListItem-root
-    > ._MuiListItemIcon-root {
-    min-width: 45px;
-  }
-}
-
 /* Overskriften */
 .infotitle svg {
   display: inline-block;
@@ -217,7 +169,7 @@
 .infobox-container-side {
   position: absolute;
   height: 100%;
-  left: 0px;
+  right: 0px;
   top: 0px;
   width: 350px;
   background-color: white;
@@ -370,12 +322,6 @@
   font-size: 10pt;
   color: grey;
 }
-.layer-results-scrollable-side
-  > ._MuiList-root
-  > .generic_element
-  > ._MuiListItem-root {
-  _padding: 0 16px;
-}
 
 @media only screen and (max-width: 768px) {
   .generic-element-secondary-text {
@@ -389,13 +335,6 @@
   .generic-element-data-owner {
     font-size: 9.5pt;
     margin: 1px 0 !important;
-  }
-  .layer-results-scrollable-side
-    > ._MuiList-root
-    > .generic_element
-    > ._MuiListItem-root
-    > ._MuiListItemIcon-root {
-    min-width: 45px;
   }
 }
 

@@ -8,16 +8,16 @@ delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
-  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
 class Leaflet extends React.Component {
   componentDidMount() {
     this.wms = {};
     const options = {
-      zoomControl: true,
+      zoomControl: false,
       inertia: true,
-      minZoom: 3,
+      minZoom: 3
     };
 
     let map = L.map(this.mapEl, options);
@@ -29,11 +29,11 @@ class Leaflet extends React.Component {
       [this.props.latitude, this.props.longitude],
       this.props.zoom * 1.8
     );
-    map.on("click", (e) => {
+    map.on("click", e => {
       const latlng = e.latlng;
       this.props.onClick(latlng.lng, latlng.lat, this.map.getZoom());
     });
-    map.on("load", (e) => {
+    map.on("load", e => {
       setTimeout(() => {
         map.invalidateSize();
       }, 0);
@@ -93,7 +93,7 @@ class Leaflet extends React.Component {
   }
 
   updateMarker(koords) {
-    const tc = (koords || "").split(",").map((e) => parseFloat(e));
+    const tc = (koords || "").split(",").map(e => parseFloat(e));
     if (tc.length !== 2) return;
     try {
       const latlng = new LatLng(tc[1], tc[0]);
@@ -118,7 +118,7 @@ class Leaflet extends React.Component {
           transparent: true,
           crs: config.crs === "EPSG:3857" ? L.CRS.EPSG3857 : L.CRS.EPSG900913,
           format: "image/png",
-          opacity: 0.95,
+          opacity: 0.95
         });
         this.wms[underlag.wmslayer] = layer;
         //console.log('layer', layer)
@@ -134,7 +134,7 @@ class Leaflet extends React.Component {
       if (e.erSynlig) acc[e.wmslayer] = true;
       return acc;
     }, {});
-    Object.keys(this.wms).forEach((key) => {
+    Object.keys(this.wms).forEach(key => {
       if (!keys[key]) this.map.removeLayer(this.wms[key]);
     });
     for (var ul of config.underlag) this.syncUnderlag(config, ul);
@@ -154,7 +154,7 @@ class Leaflet extends React.Component {
     return (
       <div
         style={{ zIndex: -100, cursor: "default" }}
-        ref={(ref) => {
+        ref={ref => {
           this.mapEl = ref;
         }}
       />

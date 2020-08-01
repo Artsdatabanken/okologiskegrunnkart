@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-import KartVelger from "./Forvaltningsportalen/KartVelger";
 import Kart from "./Kart/Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
@@ -121,14 +120,9 @@ class App extends React.Component {
                       handleInfobox={this.handleInfobox}
                       {...this.state}
                     />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                      showSideBar={this.state.showSideBar}
-                      showInfobox={this.state.showInfobox}
-                    />
                     <KartlagFanen
                       {...this.state}
+                      onChangeBakgrunnskart={this.handleChangeBakgrunnskart}
                       layersResult={this.state.layersResult}
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
@@ -408,7 +402,8 @@ class App extends React.Component {
     });
   };
 
-  handleSetBakgrunnskart = (key, value) => {
+  handleChangeBakgrunnskart = (key, value) => {
+    console.log({ key, value });
     let bakgrunnskart = this.state.bakgrunnskart;
     setValue(bakgrunnskart, key, value);
     this.setState({

@@ -10,6 +10,8 @@ import TegnforklaringToggle from "./TegnforklaringToggle";
 import Tegnforklaring from "./Tegnforklaring";
 import NyttKartlag from "./NyttKartlag";
 import NyttKartlagType from "./NyttKartlagType";
+import Bakgrunnskart from "./Bakgrunnskart";
+import Bakgrunnskartvelger from "./Bakgrunnskartvelger";
 import NyTegn from "./NyTegn";
 import Hjelp from "./Hjelp";
 import SearchBar from "./SearchBar/SearchBar";
@@ -58,7 +60,7 @@ const KartlagFanen = props => {
         </Button>
       </div>
       {props.showSideBar && (
-        <Paper elevation={3} className="kartlag_fanen">
+        <Paper elevation={3} square className="kartlag_fanen">
           {props.searchResultPage ? (
             <></>
           ) : (
@@ -88,10 +90,17 @@ const KartlagFanen = props => {
                     addPolyline={props.addPolyline}
                   />
                 </Route>
+                <Route path="/bakgrunnskart">
+                  <Bakgrunnskartvelger
+                    bakgrunnskart={props.bakgrunnskart}
+                    onChangeBakgrunnskart={props.onChangeBakgrunnskart}
+                  />
+                </Route>
                 <Route path="/nytt/kartlag">
                   <NyttKartlagType />
                 </Route>
                 <Route path="/">
+                  <Bakgrunnskart bakgrunnskart={props.bakgrunnskart} />
                   <NyttKartlag />
                   <TegnforklaringToggle />
                   {(props.polyline.length > 0 || props.polygon) && (

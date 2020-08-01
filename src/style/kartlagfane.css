@@ -5,14 +5,11 @@
 .kartlag_fanen {
   padding-top: 64px;
   position: absolute;
-  _height: 100%;
-  right: 0px;
+  left: 0px;
   top: 0px;
   width: 408px;
   bottom: 0px;
   overflow-y: auto;
-  _padding-top: 50px;
-  _background-color: #697f8a;
 }
 
 @media only screen and (max-width: 768px) {
@@ -26,15 +23,9 @@
   }
 }
 
-._valgtLag div:first-child {
-  background: white;
-}
-
 .scroll_area {
-  _overflow-y: auto;
   width: 100%;
   height: 100%;
-  _padding-top: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -147,73 +138,6 @@ h4.container_header {
   padding: 5px;
 }
 
-/* Selvbygget toggle-element */
-.toggle {
-  margin: 10px;
-  font-size: 10pt;
-  text-align: center;
-  color: gray;
-}
-
-.toggle span {
-  padding: 5px;
-}
-
-.toggle .switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-  border-radius: 15px;
-  box-sizing: border-box;
-}
-
-.toggle .switch input {
-  /* Hide default HTML checkbox */
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle .slider {
-  border-radius: inherit;
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: white;
-  border: 1px solid gray;
-}
-
-.toggle input:checked + .slider {
-  border-color: black;
-  background-color: black;
-}
-
-.toggle input:focus + .slider {
-  box-shadow: 0 0 1px blue;
-}
-
-.toggle .slider:before {
-  /* The toggle-ball */
-  border-radius: 50%;
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  top: 1px;
-  background: gray;
-}
-
-.toggle input:checked + .slider:before {
-  background-color: white;
-  left: auto;
-  right: 2px;
-}
-
 .polygonbutton {
   padding: 5px;
   margin-left: 2px;
@@ -245,7 +169,7 @@ h4.container_header {
 .toggle-side-bar-wrapper {
   position: absolute;
   top: 8px;
-  right: 0px;
+  left: 0px;
 }
 .toggle-side-bar-wrapper.side-bar-open {
   right: 408px;

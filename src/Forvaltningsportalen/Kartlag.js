@@ -122,7 +122,7 @@ const Kartlag = ({ kartlag: alleKartlag, punkt, onUpdateLayerProp }) => {
 
       {featureinfo.primary && (
         <>
-          <ListSubheader>På markør</ListSubheader>
+          <ListSubheader disableSticky>På markør</ListSubheader>
           <ListItem>
             <ListItemText
               primary={featureinfo.primary}
