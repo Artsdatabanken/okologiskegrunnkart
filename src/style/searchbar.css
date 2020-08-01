@@ -20,64 +20,32 @@
 .searchbar {
   position: relative;
   float: left;
-  _margin-top: 10px;
-  _margin-left: 10px;
-  _margin-right: auto;
   background: white;
-  _display: inline-block;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
   border-radius: 8px;
   width: 392px;
   height: 48px;
-  _border-bottom: 1px solid transparent;
-  _padding: 12px 104px 11px 64px;
-}
-
-._searchbar button {
-  width: 50px;
-  float: right;
-  border: 0px;
-  _border-left: 1px solid black;
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-  _font-size: 12pt;
-}
-
-._searchbar .x {
-  position: absolute;
-  right: 50px;
-  width: 30px;
-  background: none;
-  border: none;
-  border-radius: 0px;
-}
-
-._searchbar .x:hover {
-  background: grey;
-}
-
-._searchbar _input {
-  border: 0px;
-  font-size: 12pt;
-  float: left;
-  width: 100%;
-  padding-right: 15px;
-  box-sizing: border-box;
-  max-width: calc(100% - 60px);
 }
 
 .treffliste {
-  width: 350px;
-  margin-left: 10px;
+  width: 392px;
+  _margin-left: 10px;
   margin-right: auto;
   display: block;
   z-index: 2;
   margin-top: -4px;
   padding-left: 0px;
-  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden;
-  border: 1px solid grey;
+
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  overflow: hidden;
+  width: 392px;
+  position: relative;
+  top: -4px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -108,15 +76,22 @@
 }
 
 .treffliste .searchbar_item {
-  background: #eee;
-  width: 100%;
+  line-height: 24px;
+  min-height: 24px;
+  padding-top: 6px;
+  padding-bottom: 7px;
+
+  cursor: pointer;
   text-align: left;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  border-radius: 0px;
-  border: 1px solid grey;
-  border-top: 0px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  color: #333;
+  font-size: 13px;
+
+  border-top: 1px solid #dadce0;
 }
 
 .treffliste .searchbar_item:first-child {
@@ -133,7 +108,7 @@
   padding-top: 5px;
   border: 0;
   border-bottom: 1px solid #eeeeee;
-  background: #ffffff;
+  _background: #ffffff;
 }
 
 .treffliste li span {
@@ -150,15 +125,9 @@
 .treffliste.searchresultpage .searchbar_item:focus,
 .treffliste li:hover,
 .treffliste li:focus {
-  background: black;
-  color: #eeeeee;
-  /*outline: none;*/
+  background-color: rgba(0, 0, 0, 0.06);
+  outline: none;
   cursor: pointer;
-}
-
-.itemname {
-  width: 100%;
-  font-size: 10pt;
 }
 
 .treffliste .searchbar_item.search_all {
@@ -299,4 +268,17 @@
 .help-text-line {
   font-size: 16px;
   margin: 2px 0;
+}
+
+-webkit-scrollbar,
+-webkit-scrollbar {
+  width: 6px;
+}
+
+webkit-scrollbar-thumb {
+  background-color: #888;
+}
+
+webkit-scrollbar-track {
+  background-color: #f0f0f0;
 }

@@ -6,11 +6,7 @@ const ExpandedHeader = props => {
   return (
     <div className="expand_header">
       {props.url && (
-        <Button
-          size="small"
-          variant="outline"
-          onClick={() => window.open(props.url)}
-        >
+        <Button size="small" onClick={() => window.open(props.url)}>
           <OpenInNew style={{ color: "rgba(0,0,0,0.48)" }} />
         </Button>
       )}

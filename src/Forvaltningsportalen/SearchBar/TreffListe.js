@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { KeyboardBackspace } from "@material-ui/icons";
+import { KeyboardBackspace, Room } from "@material-ui/icons";
 
 const TreffListe = props => {
   const history = useHistory();
@@ -107,82 +107,71 @@ const TreffListe = props => {
           }
         }}
       >
-        {list_items &&
-          list_items.map((item, index) => {
-            if (item.trefftype === "Søkeelement") {
-              return (
-                <li
-                  id={index}
-                  key={index}
-                  tabIndex="0"
-                  className="searchbar_item  search_all"
-                  onKeyDown={e => {
-                    if (e.keyCode === 13) {
-                      //Enterpressed
-                      props.onSearchButton();
-                    } else {
-                      movefocus(e, index);
-                    }
-                  }}
-                  onClick={() => {
-                    props.onSearchButton();
-                  }}
-                >
-                  <span className="itemname">
-                    Søk etter "{props.searchTerm}"{" "}
-                  </span>
-                </li>
-              );
-            }
+        {list_items.map((item, index) => {
+          if (item.trefftype === "Søkeelement") {
+            return null;
+          }
 
-            let itemname = item.adressetekst || "";
-            let trefftype = item.trefftype || "annet treff";
-            let itemtype = item.navnetype || "";
-            let itemnr = "";
-            if (item.trefftype === "Kommune") {
-              itemname = item.kommunenavn || "finner ikke kommunenavnet";
-              itemnr = item.knr || "";
-            } else if (item.trefftype === "Kartlag") {
-              itemname = item.tittel;
-              itemnr = item.tema || "Kartlag";
-            } else if (item.trefftype === "Stedsnavn") {
-              itemname = item.stedsnavn || "finner ikke stedsnavn";
-              itemtype = item.navnetype || "";
-              itemnr = item.ssrId || "";
-            }
+          let itemname = item.adressetekst || "";
+          let trefftype = item.trefftype || "annet treff";
+          let itemtype = item.navnetype || "";
+          let itemnr = "";
+          if (item.trefftype === "Kommune") {
+            itemname = item.kommunenavn || "finner ikke kommunenavnet";
+            itemnr = item.knr || "";
+          } else if (item.trefftype === "Kartlag") {
+            itemname = item.tittel;
+            itemnr = item.tema || "Kartlag";
+          } else if (item.trefftype === "Stedsnavn") {
+            itemname = item.stedsnavn || "finner ikke stedsnavn";
+            itemtype = item.navnetype || "";
+            itemnr = item.ssrId || "";
+          }
 
-            function onActivate() {
-              if (props.searchResultPage) {
-                props.onSelectSearchResult(false);
-              }
-              props.handleRemoveTreffliste();
-              document.getElementById("searchfield").value = "";
-              if (trefftype === "Kartlag") {
-                console.log({ item });
-                history.push("/kartlag/" + item.tittel);
-              } else {
-                props.handleGeoSelection(item);
-              }
+          function onActivate() {
+            if (props.searchResultPage) {
+              props.onSelectSearchResult(false);
             }
+            props.handleRemoveTreffliste();
+            document.getElementById("searchfield").value = "";
+            if (trefftype === "Kartlag") {
+              console.log({ item });
+              history.push("/kartlag/" + item.tittel);
+            } else {
+              props.handleGeoSelection(item);
+            }
+          }
 
-            return (
-              <li
-                id={index}
-                key={index}
-                tabIndex="0"
-                className="searchbar_item"
-                onKeyDown={e => {
-                  if (e.keyCode === 13) {
-                    onActivate();
-                  } else {
-                    movefocus(e, index);
-                  }
-                }}
-                onClick={() => {
+          return (
+            <li
+              id={index}
+              key={index}
+              tabIndex="0"
+              className="searchbar_item"
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
                   onActivate();
+                } else {
+                  movefocus(e, index);
+                }
+              }}
+              onClick={() => {
+                onActivate();
+              }}
+            >
+              <div
+                style={{
+                  color: "#8C8C8C",
+                  float: "left",
+                  width: 24,
+                  height: 24,
+                  margin: "0 24px 0 16px"
                 }}
               >
-                <span className="itemname">{itemname} </span>
+                <Room />
+              </div>
+              <span className="itemname">{itemname}</span>
+              {false && (
                 <span className="itemtype">
                   {trefftype}{" "}
                   {trefftype === "Stedsnavn" ? (
@@ -193,6 +182,8 @@ const TreffListe = props => {
                     </>
                   )}
                 </span>
+              )}
+              {false && (
                 <span className="itemnr">
                   {trefftype === "Kommune" ||
                   trefftype === "Stedsnavn" ||
@@ -220,9 +211,10 @@ const TreffListe = props => {
                     </>
                   )}
                 </span>
-              </li>
-            );
-          })}
+              )}
+            </li>
+          );
+        })}
       </ul>
     </>
   );

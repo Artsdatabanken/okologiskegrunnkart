@@ -39,9 +39,14 @@ button.active {
   background: grey;
 }
 
-_input,
-_select {
-  border-radius: 3px;
-  padding: 5px;
-  border: 1px solid #808080;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-button {
+  background: #ccc;
+}
+::-webkit-scrollbar-track-piece {
+  background: #888;
 }
