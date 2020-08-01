@@ -68,25 +68,19 @@ const InfoBox = ({
         <div className="layer-results-scrollable-side">
           <div className="infobox-title-wrapper">
             <div className="infobox-title-content">
-              <CustomTooltip placement="right" title="Sted / Områdetype">
-                {false ? (
-                  <MyLocation />
-                ) : (
-                  <img
-                    alt=""
-                    width={32}
-                    height={48}
-                    style={{ transform: "rotate(-15deg)" }}
-                    src="/marker/Location-marker.png"
-                  />
-                )}
-              </CustomTooltip>
+              <img
+                alt=""
+                width={32}
+                height={48}
+                style={{ transform: "rotate(-15deg)" }}
+                src="/marker/Location-marker.png"
+              />
               <div className="infobox-title-text">
                 <div className="infobox-title-text-primary">
                   {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
                 </div>
                 <div className="infobox-title-text-secondary">
-                  {`${sted ? sted.navneobjekttype : "-"}`}
+                  {`${sted ? decamelize(sted.navneobjekttype) : ""}`}
                 </div>
               </div>
             </div>
@@ -154,4 +148,11 @@ const InfoBox = ({
   );
 };
 
+function decamelize(str) {
+  const separator = " ";
+  return str
+    .replace(/([a-z\d])([A-Z])/g, "$1" + separator + "$2")
+    .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, "$1" + separator + "$2")
+    .toLowerCase();
+}
 export default InfoBox;
