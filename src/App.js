@@ -109,7 +109,7 @@ class App extends React.Component {
                       handleRemoveZoomCoordinates={
                         this.handleRemoveZoomCoordinates
                       }
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      onUpdateLayerProp={this.handleUpdateLayerProp}
                       showExtensiveInfo={this.state.showExtensiveInfo}
                       handleExtensiveInfo={this.handleExtensiveInfo}
                       handleLokalitetUpdate={this.hentInfoAlleLag}
@@ -156,7 +156,7 @@ class App extends React.Component {
                       history={history}
                       show_current={this.state.showCurrent}
                       onFitBounds={this.handleFitBounds}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                      onUpdateLayerProp={this.handleUpdateLayerProp}
                       handleValgtLayerProp={this.handleValgtLayerProp}
                       kartlag={this.state.kartlag}
                       showSideBar={this.state.showSideBar}
@@ -397,7 +397,7 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layerkey, key, value) => {
+  handleUpdateLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
     const layer = nye_lag[layerkey];
     setValue(layer, key, value);
