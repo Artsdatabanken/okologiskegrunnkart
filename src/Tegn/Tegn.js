@@ -128,7 +128,7 @@ const overskrift = ({ shapeType, area, distance, coords }) => {
   var tekst = coords.length + " punkt" + (coords.length > 1 ? "er" : "");
   if (shapeType === "punkt") return tekst;
   if (shapeType === "linje")
-    return (tekst += ", total distanse " + prettifyDistance(distance));
+    return (tekst += ", total strekning " + prettifyDistance(distance));
 
   return (
     tekst +
