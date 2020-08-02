@@ -8,6 +8,7 @@ import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import { withRouter } from "react-router-dom";
 import backend from "../Funksjoner/backend";
+import { SportsRugbySharp } from "@material-ui/icons";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -302,7 +303,6 @@ class Leaflet extends React.Component {
   render() {
     const markerType = this.getMarkerType();
     this.openLinksInNewTab();
-    // Polygontegning og Polylinjetegning
     const polyline = this.props.polyline;
     if (polyline) {
       // Starter med å fjerne forrige figur for å unngå duplikater
@@ -313,14 +313,14 @@ class Leaflet extends React.Component {
         if (polyline.shapeType === "linje") {
           if (coords.length > 1) {
             this.polyline = L.polyline(coords, {
-              color: "#f55",
+              color: "rgba(255,50,50,0.5)",
               lineJoin: "round"
             }).addTo(this.map);
           }
         } else if (polyline.shapeType === "polygon") {
           // I dette tilfellet har vi utelukkende et polygon å tegne opp
           this.polygon = L.polygon(coords, {
-            color: "#f55",
+            color: "rgba(255,50,50,0.5)",
             _lineJoin: "round"
           }).addTo(this.map);
         }

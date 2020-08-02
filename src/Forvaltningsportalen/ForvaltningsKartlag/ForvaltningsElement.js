@@ -12,7 +12,6 @@ import {
 const ForvaltningsElement = ({ kartlag }) => {
   const history = useHistory();
   let tittel = kartlag.tittel;
-  if (!tittel) return null;
 
   return (
     <>

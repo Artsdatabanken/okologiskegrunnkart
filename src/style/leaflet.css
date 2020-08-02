@@ -27,12 +27,12 @@
 
 .inactive_point {
   border-radius: 50%;
-  background: #fff;
+  background: rgba(150, 60, 60, 0.53);
 }
 
 .active_point {
-  border-radius: 0%;
-  background: #f33;
+  border-radius: 22%;
+  background: rgba(255, 60, 60, 0.73);
   font-weight: bold;
 }
 

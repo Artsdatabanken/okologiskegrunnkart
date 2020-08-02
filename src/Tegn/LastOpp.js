@@ -5,8 +5,7 @@ import {
   ListSubheader,
   ListItem,
   ListItemAvatar,
-  ListItemText,
-  Typography
+  ListItemText
 } from "@material-ui/core";
 import { CheckCircle } from "@material-ui/icons";
 import geography from "../geography";
@@ -44,7 +43,12 @@ const LastOpp = ({ onPreviewGeojson, onAddLayer }) => {
   const onOK = e => {
     const src = Object.assign(metadata, geojson);
     const layer = {
-      [src.name]: { kart: { format: { geojson: { data: src } } } }
+      [src.name]: {
+        id: src.name,
+        tittel: src.name,
+        kart: { format: { geojson: { data: src } } },
+        underlag: {}
+      }
     };
     console.log({ layer });
     onAddLayer(layer);

@@ -93,9 +93,9 @@ class App extends React.Component {
   };
 
   handleAddLayer = layer => {
-    const kartlag = Object.assign(this.state.kartlag, layer);
+    const kartlag = Object.assign({}, this.state.kartlag, layer);
     delete kartlag.preview;
-    this.setState({ kartlag: Object.assign({}, kartlag) });
+    this.setState({ kartlag });
   };
 
   render() {
