@@ -43,7 +43,7 @@ class SearchBar extends React.Component {
     document.getElementById("searchfield").value = "";
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.location.pathname !== this.props.location.pathname) {
       this.setState({ searchTerm: "" });
     }
@@ -287,14 +287,16 @@ class SearchBar extends React.Component {
   };
 
   render() {
+    const history = this.props.history;
     const pathname = this.props.location.pathname;
+    const canClose = this.state.isSearching || pathname.length > 1;
     return (
       <div className="searchbar_container" ref={this.setWrapperRef}>
         <div className="searchbar">
           <IconButton
             onClick={() => {
-              if (pathname === "/") this.props.history.push("/brukermanual");
-              else this.props.history.goBack();
+              if (pathname === "/") history.push("/brukermanual");
+              else history.goBack();
             }}
           >
             {pathname !== "/" ? <ArrowBack /> : <MenuIcon />}
@@ -340,10 +342,11 @@ class SearchBar extends React.Component {
                 this.handleSearchBar(null);
                 document.getElementById("searchfield").value = "";
               } else this.handleSearchButton();
+              if (canClose) history.replace("/");
             }}
             style={{ position: "absolute", right: 8, top: 0 }}
           >
-            {this.state.isSearching ? <CloseIcon /> : <SearchIcon />}
+            {canClose ? <CloseIcon /> : <SearchIcon />}
           </IconButton>
         </div>
         {(this.state.isSearching || this.props.searchResultPage) && (
