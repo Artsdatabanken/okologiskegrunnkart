@@ -12,7 +12,7 @@ import NyttKartlag from "./NyttKartlag";
 import NyttKartlagType from "./NyttKartlagType";
 import Bakgrunnskart from "./Bakgrunnskart";
 import Bakgrunnskartvelger from "./Bakgrunnskartvelger";
-import NyTegn from "./NyTegn";
+import Tegn from "../Tegn/Tegn";
 import Hjelp from "./Hjelp";
 import SearchBar from "./SearchBar/SearchBar";
 
@@ -80,7 +80,7 @@ const KartlagFanen = props => {
                   />
                 </Route>
                 <Route path="/tegn/kartlag">
-                  <NyTegn
+                  <Tegn
                     polyline={props.polyline}
                     onUpdatePolyline={props.onUpdatePolyline}
                   />

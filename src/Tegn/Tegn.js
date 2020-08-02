@@ -10,9 +10,11 @@ import {
   ListItemText,
   Typography
 } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Delete, Room as Marker } from "@material-ui/icons";
+import LineIcon from "./LineIcon";
+import PolygonIcon from "./PolygonIcon";
 
-const NyTegn = ({ polyline, onUpdatePolyline }) => {
+const Tegn = ({ polyline, onUpdatePolyline }) => {
   const setShapeType = shapeType => {
     polyline.shapeType = shapeType;
     onUpdatePolyline(polyline);
@@ -44,19 +46,19 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
             color={polyline.shapeType === "punkt" && "primary"}
             onClick={() => setShapeType("punkt")}
           >
-            Punkt
+            <Marker></Marker> Punkt
           </Button>
           <Button
             color={polyline.shapeType === "linje" && "primary"}
             onClick={() => setShapeType("linje")}
           >
-            Linje
+            <LineIcon></LineIcon> Linje
           </Button>
           <Button
             color={polyline.shapeType === "polygon" && "primary"}
             onClick={() => setShapeType("polygon")}
           >
-            Polygon
+            <PolygonIcon></PolygonIcon> Polygon
           </Button>
         </ButtonGroup>
       </ListItem>
@@ -149,4 +151,4 @@ const prettifyArea = area => {
   if (area < 1000000000) return Math.round(area / 100000) / 10 + "km²";
   return Math.round(area / 1000000) + "km²";
 };
-export default NyTegn;
+export default Tegn;
