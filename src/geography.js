@@ -14,7 +14,7 @@ function addDistances(polyline) {
     current.utm = { x, y };
   }
 
-  for (var i = 0; i < coords.length; i++) {
+  for (i = 0; i < coords.length; i++) {
     const current = coords[i];
     const next = coords[(i + 1) % coords.length];
     const dx = next.utm.x - current.utm.x;

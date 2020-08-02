@@ -295,7 +295,10 @@ class Leaflet extends React.Component {
                 i === polyline.selectedIndex
                   ? "active_point"
                   : "inactive_point",
-              html: i
+              html:
+                '<div style="position: relative; top: 8px; left: 8px">' +
+                i +
+                "</div>"
             }),
             index: i
           })

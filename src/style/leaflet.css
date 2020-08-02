@@ -27,30 +27,15 @@
 
 .inactive_point {
   border-radius: 50%;
-  background: #eee;
+  background: #fff;
 }
 
 .active_point {
   border-radius: 0%;
   background: #f33;
-  color: white;
+  font-weight: bold;
 }
 
-.leaflet-control-zoom-in,
-.leaflet-control-zoom-out {
-  padding: 1px;
-}
-.leaflet-control-zoom-in:focus,
-.leaflet-control-zoom-out:focus {
-  border: 1px solid blue;
-  padding: 0;
-}
-
-/* zoom buttons and leaflet link */
-.leaflet-control-zoom.side-bar-open {
-  margin-right: 412px;
-  bottom: -24px;
-}
 .leaflet-control-attribution.side-bar-open {
   margin-right: 0px;
 }
