@@ -82,7 +82,7 @@ const KartlagFanen = props => {
                 <Route path="/tegn/kartlag">
                   <NyTegn
                     polyline={props.polyline}
-                    addPolyline={props.addPolyline}
+                    onUpdatePolyline={props.onUpdatePolyline}
                   />
                 </Route>
                 <Route path="/bakgrunnskart">
@@ -101,7 +101,7 @@ const KartlagFanen = props => {
                   {(props.polyline.length > 0 || props.polygon) && (
                     <PolygonElement
                       polyline={props.polyline}
-                      addPolyline={props.addPolyline}
+                      onUpdatePolyline={props.onUpdatePolyline}
                     />
                   )}
                   <ForvaltningsKartlag

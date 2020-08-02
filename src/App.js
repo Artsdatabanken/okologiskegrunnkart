@@ -11,6 +11,7 @@ import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import formatterKlikktekst from "./Forvaltningsportalen/FeatureInfo/Klikktekst";
 import url_formatter from "./Funksjoner/url_formatter";
+import geography from "./geography";
 
 class App extends React.Component {
   constructor(props) {
@@ -88,7 +89,7 @@ class App extends React.Component {
                       handleEditable={this.handleEditable}
                       editable={this.state.editable}
                       addPolygon={this.addPolygon}
-                      addPolyline={this.addPolyline}
+                      onUpdatePolyline={this.handleUpdatePolyline}
                       showPolygon={this.state.showPolygon}
                       zoomcoordinates={this.state.zoomcoordinates}
                       handleRemoveZoomCoordinates={
@@ -128,7 +129,7 @@ class App extends React.Component {
                       handleEditable={this.handleEditable}
                       showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
-                      addPolyline={this.addPolyline}
+                      onUpdatePolyline={this.handleUpdatePolyline}
                       onSelectSearchResult={this.handleSelectSearchResult}
                       searchResultPage={this.state.searchResultPage}
                       kartlagSearchResults={this.state.kartlagSearchResults}
@@ -176,7 +177,9 @@ class App extends React.Component {
     this.setState({ valgtLag });
   };
 
-  addPolyline = polyline => {
+  handleUpdatePolyline = polyline => {
+    geography.addDistances(polyline);
+    console.log(polyline);
     this.setState({ polyline: polyline });
   };
 

@@ -5,6 +5,7 @@ import {
   TextField,
   ListSubheader,
   ListItem,
+  ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
   Typography
@@ -13,11 +14,11 @@ import { Done, Delete } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import PolygonElement from "./PolygonElement";
 
-const NyTegn = ({ polyline, addPolyline }) => {
+const NyTegn = ({ polyline, onUpdatePolyline }) => {
   const [markerType, setMarkerType] = useState();
   const setShapeType = shapeType => {
     polyline.shapeType = shapeType;
-    addPolyline(polyline);
+    onUpdatePolyline(polyline);
   };
   const history = useHistory();
   return (
@@ -78,32 +79,47 @@ const NyTegn = ({ polyline, addPolyline }) => {
           <Button
             color="primary"
             onClick={() => {
-              addPolyline({ coords: [], erSynlig: true, redigeres: true });
+              onUpdatePolyline({ coords: [], erSynlig: true, redigeres: true });
             }}
           >
             <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
           </Button>
         </ListItemSecondaryAction>
       </ListItem>
-      <ListSubheader>Punktliste</ListSubheader>
-      {polyline.coords.map((pt, index) => (
-        <ListItem
-          key={index}
-          button
-          selected={polyline.selectedIndex === index}
-          onClick={() => {
-            polyline.selectedIndex = index;
-            addPolyline(polyline);
-          }}
-        >
-          <ListItemText
-            primary={pt.coords[0] + "," + pt.coords[1]}
-            secondary={pt.sted}
-          />
-        </ListItem>
-      ))}
+      <ListSubheader disableSticky>Punkter</ListSubheader>
+      {polyline.coords.map((pt, index) => {
+        const utmCoords = `${Math.round(pt.utm.x)} N ${Math.round(pt.utm.y)} Ø`;
+        const dist = `(${prettifyDistance(pt.dist)} ∠ ${Math.round(
+          (360 + pt.angle) % 360
+        )}°)`;
+        const primary =
+          polyline.shapeType !== "punkt" &&
+          (index > 0 || polyline.shapeType === "polygon")
+            ? `${utmCoords} ${dist}`
+            : utmCoords;
+        return (
+          <ListItem
+            key={index}
+            button
+            selected={polyline.selectedIndex === index}
+            onClick={() => {
+              polyline.selectedIndex = index;
+              onUpdatePolyline(polyline);
+            }}
+          >
+            <ListItemAvatar>{index}</ListItemAvatar>
+            <ListItemText primary={primary} secondary={pt.sted} />
+          </ListItem>
+        );
+      })}
     </>
   );
 };
 
+const prettifyDistance = dist => {
+  if (dist < 100) return Math.round(dist * 10) / 10 + "m";
+  if (dist < 10000) return Math.round(dist) + "m";
+  if (dist < 100000) return Math.round(dist / 100) / 10 + "km";
+  return Math.round(dist / 1000) + "km";
+};
 export default NyTegn;

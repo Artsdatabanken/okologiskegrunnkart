@@ -102,10 +102,9 @@ class Leaflet extends React.Component {
 
   removePolyline() {
     this.polyline && this.map.removeLayer(this.polyline);
-  }
-
-  removePolygon() {
     this.polygon && this.map.removeLayer(this.polygon);
+    if (this.polylinemarkers)
+      for (var marker of this.polylinemarkers) this.map.removeLayer(marker);
   }
 
   getBackendData = async (lng, lat, e) => {
@@ -129,7 +128,7 @@ class Leaflet extends React.Component {
     const index = e.target.options.index;
     const polyline = this.props.polyline;
     polyline.selectedIndex = polyline.selectedIndex === index ? null : index;
-    this.props.addPolyline(polyline);
+    this.props.onUpdatePolyline(polyline);
   };
 
   markerClick(e) {
@@ -162,14 +161,15 @@ class Leaflet extends React.Component {
       const point = { coords: [latlng.lat, latlng.lng] };
       const index = polyline.coords.length;
       polyline.coords.push(point);
-      this.props.addPolyline(polyline);
+      this.props.onUpdatePolyline(polyline);
       backend
         .hentStedsnavn(latlng.lng, latlng.lat, this.map.getZoom())
         .then(r => {
           const sted = r.pop();
           const point = this.props.polyline.coords[index];
-          point.sted = sted.komplettskrivemåte[0];
-          this.props.addPolyline(polyline);
+          point.sted =
+            sted && sted.komplettskrivemåte && sted.komplettskrivemåte[0];
+          this.props.onUpdatePolyline(polyline);
         });
     }
   }
@@ -268,7 +268,6 @@ class Leaflet extends React.Component {
     if (polyline) {
       // Starter med å fjerne forrige figur for å unngå duplikater
       this.removePolyline();
-      this.removePolygon();
 
       const coords = polyline.coords.map(co => co.coords);
       if (polyline.coords.length > 0) {
@@ -288,7 +287,6 @@ class Leaflet extends React.Component {
             lineJoin: "round"
           }).addTo(this.map);
         }
-        for (var marker of this.polylinemarkers) this.map.removeLayer(marker);
         this.polylinemarkers = [];
         for (var i = 0; i < polyline.coords.length; i++) {
           var marker = L.marker(polyline.coords[i].coords, {

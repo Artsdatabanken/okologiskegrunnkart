@@ -2,7 +2,7 @@ import React from "react";
 import { Gesture } from "@material-ui/icons";
 import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 
-const PolygonElement = ({ polyline, addPolyline }) => {
+const PolygonElement = ({ polyline, onUpdatePolyline }) => {
   return (
     <>
       <ListItem>
