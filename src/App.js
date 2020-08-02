@@ -74,6 +74,20 @@ class App extends React.Component {
     this.lastNedKartlag();
   }
 
+  handlePreviewGeojson = geojson => {
+    const kartlag = this.state.kartlag;
+    kartlag.preview = {
+      kart: { format: { geojson: { data: geojson } } }
+    };
+    this.setState({ kartlag: Object.assign({}, kartlag) });
+  };
+
+  handleAddLayer = layer => {
+    const kartlag = Object.assign(this.state.kartlag, layer);
+    delete kartlag.preview;
+    this.setState({ kartlag: Object.assign({}, kartlag) });
+  };
+
   render() {
     const { history } = this.props;
     const path = this.props.location.pathname;
@@ -122,6 +136,8 @@ class App extends React.Component {
                     />
                     <KartlagFanen
                       {...this.state}
+                      onPreviewGeojson={this.handlePreviewGeojson}
+                      onAddLayer={this.handleAddLayer}
                       onChangeBakgrunnskart={this.handleChangeBakgrunnskart}
                       layersResult={this.state.layersResult}
                       polygon={this.state.polygon}

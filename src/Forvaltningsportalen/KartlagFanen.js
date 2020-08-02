@@ -13,6 +13,7 @@ import NyttKartlagType from "./NyttKartlagType";
 import Bakgrunnskart from "./Bakgrunnskart";
 import Bakgrunnskartvelger from "./Bakgrunnskartvelger";
 import Tegn from "../Tegn/Tegn";
+import LastOpp from "../Tegn/LastOpp";
 import Hjelp from "./Hjelp";
 import SearchBar from "./SearchBar/SearchBar";
 
@@ -83,6 +84,12 @@ const KartlagFanen = props => {
                   <Tegn
                     polyline={props.polyline}
                     onUpdatePolyline={props.onUpdatePolyline}
+                  />
+                </Route>
+                <Route path="/last/opp/kartlag">
+                  <LastOpp
+                    onPreviewGeojson={props.onPreviewGeojson}
+                    onAddLayer={props.onAddLayer}
                   />
                 </Route>
                 <Route path="/bakgrunnskart">

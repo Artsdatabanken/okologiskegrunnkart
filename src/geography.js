@@ -44,4 +44,23 @@ function calculateArea(vertices) {
   return Math.abs(total);
 }
 
-export default { addDistances };
+function bbox(json) {
+  const bounds = [180, 90, -180, -90];
+  console.log({ json });
+  for (var feature of json.features)
+    bboxgeom(feature.geometry.coordinates, bounds);
+  console.log({ bounds });
+  return [[bounds[1], bounds[0]], [bounds[3], bounds[2]]];
+}
+
+function bboxgeom(geom, bounds) {
+  for (var coord of geom) {
+    if (Array.isArray(coord[0])) return bboxgeom(coord, bounds);
+    bounds[0] = Math.min(bounds[0], coord[0]);
+    bounds[1] = Math.min(bounds[1], coord[1]);
+    bounds[2] = Math.max(bounds[2], coord[0]);
+    bounds[3] = Math.max(bounds[3], coord[1]);
+  }
+}
+
+export default { addDistances, bbox };

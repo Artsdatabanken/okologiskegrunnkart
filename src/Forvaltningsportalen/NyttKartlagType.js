@@ -16,20 +16,20 @@ const NyttKartLagType = () => {
       />
       <LagType
         history={history}
-        url={"/lastopp/kartlag"}
-        primaryText="Last opp fil... (TODO)"
+        url={"/last/opp/kartlag"}
+        primaryText="Last opp fil..."
       />
       <LagType
         history={history}
         url={"/kartlag/fra/wms"}
-        primaryText="Bruk en WMS server... (TODO)"
+        primaryText="Koble til WMS..."
       />
     </>
   );
 };
 
 const Components = {
-  "/lastopp/kartlag": PublishIcon,
+  "/last/opp/kartlag": PublishIcon,
   "/kartlag/fra/wms": CloudIcon,
   "/tegn/kartlag": CreateIcon
 };

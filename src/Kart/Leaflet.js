@@ -64,6 +64,7 @@ class Leaflet extends React.Component {
     );
     this.map = map;
     this.polylinemarkers = [];
+    this.layers = {};
     this.icon = L.icon({
       iconUrl: "/marker/pdoc.png",
       iconSize: [38, 51],
@@ -182,6 +183,38 @@ class Leaflet extends React.Component {
     this.syncWmsLayers(props.aktiveLag);
   }
 
+  showGeojson(key, layer) {
+    if (!layer) {
+      if (!this.layers[key]) return;
+      this.map.removeLayer(this.layers[key]);
+      this.layers[key] = null;
+      return;
+    }
+
+    var myLines = [
+      {
+        type: "LineString",
+        coordinates: [[-100, 40], [-105, 45], [-110, 55]]
+      },
+      {
+        type: "LineString",
+        coordinates: [[-105, 40], [-110, 45], [-115, 55]]
+      }
+    ];
+
+    var myStyle = {
+      color: "#ff7800",
+      weight: 5,
+      opacity: 0.65
+    };
+
+    const geojson = layer.kart.format.geojson.data;
+    this.layers[key] = L.geoJSON(geojson, {
+      style: myStyle
+    }).addTo(this.map);
+    this.map.flyToBounds(geojson.bounds);
+  }
+
   updateBaseMap() {
     const config = this.props.bakgrunnskart;
     if (!this.bakgrunnskart_egk)
@@ -195,15 +228,19 @@ class Leaflet extends React.Component {
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
 
-  syncWmsLayers(aktive) {
-    Object.keys(aktive).forEach(akey => {
-      const al = aktive[akey];
-      const layerName = "wms_" + akey;
-      if (al.underlag) {
-        Object.keys(al.underlag).forEach(underlagsnøkkel => {
-          const nøkkel = layerName + ":" + underlagsnøkkel;
-          this.syncUnderlag(nøkkel, al, al.underlag[underlagsnøkkel]);
-        });
+  syncWmsLayers(kartlag) {
+    Object.keys(kartlag).forEach(akey => {
+      const layer = kartlag[akey];
+      if (!layer) return;
+      const format = Object.keys(layer.kart.format)[0];
+      if (format === "geojson") this.showGeojson(akey, layer);
+      if (format === "wms") {
+        if (layer.underlag) {
+          Object.keys(layer.underlag).forEach(underlagsnøkkel => {
+            const nøkkel = "wms_" + akey + ":" + underlagsnøkkel;
+            this.syncUnderlag(nøkkel, layer, layer.underlag[underlagsnøkkel]);
+          });
+        }
       }
     });
   }

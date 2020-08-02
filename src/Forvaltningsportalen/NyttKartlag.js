@@ -17,10 +17,7 @@ const NyttKartLag = () => {
       <ListItemAvatar>
         <AddIcon style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
       </ListItemAvatar>
-      <ListItemText
-        primary="Nytt kartlag..."
-        secondary="Bedre som knapp kanskje"
-      />
+      <ListItemText primary="Nytt kartlag..." />
     </ListItem>
   );
 };
