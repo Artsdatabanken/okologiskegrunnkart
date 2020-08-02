@@ -1,4 +1,5 @@
 import L from "leaflet";
+import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
@@ -14,6 +15,8 @@ L.Icon.Default.mergeOptions({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
+
+const MAX_MAP_ZOOM_LEVEL = 20;
 
 class Leaflet extends React.Component {
   state = {
@@ -219,12 +222,16 @@ class Leaflet extends React.Component {
     const config = this.props.bakgrunnskart;
     if (!this.bakgrunnskart_egk)
       this.bakgrunnskart_egk = L.tileLayer(config.kart.format.egk.url, {
-        gkt: this.props.token
+        gkt: this.props.token,
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
+        maxNativeZoom: 8
       }).addTo(this.map);
     if (!this.bakgrunnskart)
-      this.bakgrunnskart = L.tileLayer("", { gkt: this.props.token }).addTo(
-        this.map
-      );
+      this.bakgrunnskart = L.tileLayer("", {
+        gkt: this.props.token,
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
+        maxNativeZoom: 18
+      }).addTo(this.map);
     this.bakgrunnskart.setUrl(config.kart.format[config.kart.aktivtFormat].url);
   }
 
@@ -255,12 +262,15 @@ class Leaflet extends React.Component {
         srs = al.projeksjon.replace(":", "");
       }
       if (!layer) {
-        layer = L.tileLayer.wms("", {
+        layer = L.tileLayer.cachedOverview("", {
+          id: underlag.id,
+          zoomThreshold: underlag.minzoom,
           layers: underlag.wmslayer,
           transparent: true,
           crs: L.CRS[srs],
           format: "image/png",
-          opacity: underlag.opacity
+          maxZoom: MAX_MAP_ZOOM_LEVEL,
+          maxNativeZoom: underlag.maxzoom
         });
         this.wms[layerName] = layer;
         this.map.addLayer(layer);
