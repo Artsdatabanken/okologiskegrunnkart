@@ -151,27 +151,23 @@ class Leaflet extends React.Component {
   }
 
   polygonToolClick(e) {
-    if (!this.props.editable) return;
-
-    if (!this.props.polygon) {
-      // Hvis polygon er satt, har personen klikket på ferdig-knappen,
-      // og polylinje skal da ikke oppdateres.
-      let polyline = this.props.polyline;
-      const latlng = e.latlng;
-      const point = { coords: [latlng.lat, latlng.lng] };
-      const index = polyline.coords.length;
-      polyline.coords.push(point);
-      this.props.onUpdatePolyline(polyline);
-      backend
-        .hentStedsnavn(latlng.lng, latlng.lat, this.map.getZoom())
-        .then(r => {
-          const sted = r.pop();
-          const point = this.props.polyline.coords[index];
-          point.sted =
-            sted && sted.komplettskrivemåte && sted.komplettskrivemåte[0];
-          this.props.onUpdatePolyline(polyline);
-        });
-    }
+    let polyline = this.props.polyline;
+    if (!polyline) return;
+    const latlng = e.latlng;
+    const point = { coords: [latlng.lat, latlng.lng] };
+    const index = polyline.selectedIndex || 0;
+    if (index === polyline.coords.length - 1)
+      polyline.selectedIndex = index + 1;
+    polyline.coords.splice(index + 1, 0, point);
+    this.props.onUpdatePolyline(polyline);
+    backend
+      .hentStedsnavn(latlng.lng, latlng.lat, this.map.getZoom())
+      .then(r => {
+        const sted = r.pop();
+        point.sted =
+          sted && sted.komplettskrivemåte && sted.komplettskrivemåte[0];
+        this.props.onUpdatePolyline(polyline);
+      });
   }
 
   handleClick = e => {

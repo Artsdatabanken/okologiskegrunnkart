@@ -72,14 +72,15 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
             history.push("/");
           }}
         >
-          <Done /> Ferdig
+          OK
         </Button>
 
         <ListItemSecondaryAction>
           <Button
             color="primary"
             onClick={() => {
-              onUpdatePolyline({ coords: [], erSynlig: true, redigeres: true });
+              polyline.coords = [];
+              onUpdatePolyline(polyline);
             }}
           >
             <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
