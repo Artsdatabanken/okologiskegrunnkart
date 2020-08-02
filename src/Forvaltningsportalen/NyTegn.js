@@ -65,20 +65,19 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
           </Button>
         </ButtonGroup>
       </ListItem>
-      <ListSubheader disableSticky>Punkter</ListSubheader>
-      <ListItem>
-        <ListItemSecondaryAction>
-          <Button
-            color="primary"
-            onClick={() => {
-              polyline.coords = [];
-              onUpdatePolyline(polyline);
-            }}
-          >
-            <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
-          </Button>
-        </ListItemSecondaryAction>
-      </ListItem>
+      <ListSubheader disableSticky>
+        Punkter
+        <Button
+          color="primary"
+          style={{ float: "right" }}
+          onClick={() => {
+            polyline.coords = [];
+            onUpdatePolyline(polyline);
+          }}
+        >
+          <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
+        </Button>
+      </ListSubheader>
       {polyline.coords.map((pt, index) => {
         const utmCoords = `${Math.round(pt.utm.x)} N ${Math.round(pt.utm.y)} Ø`;
         const dist = `(${prettifyDistance(pt.dist)} ∠ ${Math.round(
@@ -101,7 +100,7 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
           >
             <ListItemText
               secondary={primary}
-              primary={index + 1 + ". " + pt.sted}
+              primary={index + 1 + ". " + (pt.sted || "")}
             />
             <ListItemSecondaryAction>
               <IconButton

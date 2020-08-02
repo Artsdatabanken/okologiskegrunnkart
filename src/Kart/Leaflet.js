@@ -268,19 +268,17 @@ class Leaflet extends React.Component {
       const coords = polyline.coords.map(co => co.coords);
       if (polyline.coords.length > 0) {
         if (polyline.shapeType === "linje") {
-          // Tegn polylinjen:
           if (coords.length > 1) {
-            // Må ha mer enn et punkt for å tegne ei linje!
             this.polyline = L.polyline(coords, {
-              color: "red",
+              color: "#f55",
               lineJoin: "round"
             }).addTo(this.map);
           }
         } else if (polyline.shapeType === "polygon") {
           // I dette tilfellet har vi utelukkende et polygon å tegne opp
           this.polygon = L.polygon(coords, {
-            color: "blue",
-            lineJoin: "round"
+            color: "#f55",
+            _lineJoin: "round"
           }).addTo(this.map);
         }
         this.polylinemarkers = [];
