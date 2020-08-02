@@ -172,12 +172,8 @@ class Leaflet extends React.Component {
 
   handleClick = e => {
     const markerType = this.getMarkerType();
-    if (markerType === "polygon") {
-      this.polygonToolClick(e);
-    } else if (markerType === "klikk") {
-      this.markerClick(e);
-    }
-    return;
+    if (markerType === "polygon") this.polygonToolClick(e);
+    else if (markerType === "klikk") this.markerClick(e);
   };
 
   updateMap(props) {

@@ -37,14 +37,7 @@ const Components = {
 const LagType = ({ history, url, primaryText }) => {
   const Icon = Components[url];
   return (
-    <ListItem
-      button
-      onClick={() => {
-        const loc = history.location;
-        loc.pathname = url;
-        history.push(loc);
-      }}
-    >
+    <ListItem button onClick={() => history.push(url)}>
       <ListItemAvatar>
         <Icon style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
       </ListItemAvatar>
