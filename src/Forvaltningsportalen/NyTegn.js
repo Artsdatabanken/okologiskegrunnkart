@@ -3,6 +3,7 @@ import {
   Button,
   ButtonGroup,
   TextField,
+  IconButton,
   ListSubheader,
   ListItem,
   ListItemAvatar,
@@ -29,6 +30,14 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
           gjøres (høydeprofil osv). La brukeren slette punkter.
         </Typography>
       </div>
+      <ListItem>
+        <TextField
+          style={{ width: "100%" }}
+          required
+          label="Navn på kartlaget"
+          defaultValue={"Mitt kartlag " + new Date().toLocaleTimeString()}
+        />
+      </ListItem>
       <ListSubheader disableSticky>Type geometri</ListSubheader>
       <ListItem>
         <ButtonGroup
@@ -56,25 +65,8 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
           </Button>
         </ButtonGroup>
       </ListItem>
+      <ListSubheader disableSticky>Punkter</ListSubheader>
       <ListItem>
-        <TextField
-          style={{ width: "100%" }}
-          required
-          label="Navn på kartlaget"
-          defaultValue={"Mitt kartlag " + new Date().toLocaleTimeString()}
-        />
-      </ListItem>
-      <ListItem>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            history.push("/");
-          }}
-        >
-          OK
-        </Button>
-
         <ListItemSecondaryAction>
           <Button
             color="primary"
@@ -87,7 +79,6 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
           </Button>
         </ListItemSecondaryAction>
       </ListItem>
-      <ListSubheader disableSticky>Punkter</ListSubheader>
       {polyline.coords.map((pt, index) => {
         const utmCoords = `${Math.round(pt.utm.x)} N ${Math.round(pt.utm.y)} Ø`;
         const dist = `(${prettifyDistance(pt.dist)} ∠ ${Math.round(
@@ -108,8 +99,20 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
               onUpdatePolyline(polyline);
             }}
           >
-            <ListItemAvatar>{index}</ListItemAvatar>
-            <ListItemText primary={primary} secondary={pt.sted} />
+            <ListItemText
+              secondary={primary}
+              primary={index + 1 + ". " + pt.sted}
+            />
+            <ListItemSecondaryAction>
+              <IconButton
+                onClick={() => {
+                  polyline.coords.splice(index, 1);
+                  onUpdatePolyline(polyline);
+                }}
+              >
+                <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
+              </IconButton>
+            </ListItemSecondaryAction>
           </ListItem>
         );
       })}

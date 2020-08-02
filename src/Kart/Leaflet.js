@@ -293,7 +293,7 @@ class Leaflet extends React.Component {
                   : "inactive_point",
               html:
                 '<div style="position: relative; top: 8px; left: 8px">' +
-                i +
+                (i + 1) +
                 "</div>"
             }),
             index: i
