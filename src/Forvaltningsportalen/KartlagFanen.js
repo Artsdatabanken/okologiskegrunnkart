@@ -81,12 +81,7 @@ const KartlagFanen = props => {
                 </Route>
                 <Route path="/tegn/kartlag">
                   <NyTegn
-                    polygon={props.polygon}
                     polyline={props.polyline}
-                    showPolygon={props.showPolygon}
-                    hideAndShowPolygon={props.hideAndShowPolygon}
-                    handleEditable={props.handleEditable}
-                    addPolygon={props.addPolygon}
                     addPolyline={props.addPolyline}
                   />
                 </Route>
@@ -105,12 +100,7 @@ const KartlagFanen = props => {
                   <TegnforklaringToggle />
                   {(props.polyline.length > 0 || props.polygon) && (
                     <PolygonElement
-                      polygon={props.polygon}
                       polyline={props.polyline}
-                      showPolygon={props.showPolygon}
-                      hideAndShowPolygon={props.hideAndShowPolygon}
-                      handleEditable={props.handleEditable}
-                      addPolygon={props.addPolygon}
                       addPolyline={props.addPolyline}
                     />
                   )}

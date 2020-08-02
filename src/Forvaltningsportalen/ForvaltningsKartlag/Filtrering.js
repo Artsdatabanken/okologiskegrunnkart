@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  FilterList as SortIcon,
-  SortByAlpha,
-  Category,
-  Business,
-  Check
-} from "@material-ui/icons";
+import { FilterList as SortIcon } from "@material-ui/icons";
 import { IconButton } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";

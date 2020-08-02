@@ -1,14 +1,12 @@
 import React from "react";
-import { Visibility, VisibilityOff, ErrorOutline } from "@material-ui/icons";
+import { ErrorOutline } from "@material-ui/icons";
 import {
   ListItem,
-  ListItemIcon,
   ListItemText,
   ListItemSecondaryAction,
   Tooltip
 } from "@material-ui/core";
 import LoadingPlaceholder from "./LoadingPlaceholder";
-import { CircularProgress } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
 const GeneriskElement = props => {

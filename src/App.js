@@ -29,7 +29,7 @@ class App extends React.Component {
       valgtLag: null,
       searchResultPage: false,
       polygon: null,
-      polyline: [],
+      polyline: { shapeType: "linje", erSynlig: true, coords: [] },
       showPolygon: true,
       showSideBar: true,
       showInfobox: false,
@@ -125,7 +125,6 @@ class App extends React.Component {
                       layersResult={this.state.layersResult}
                       polygon={this.state.polygon}
                       addPolygon={this.addPolygon}
-                      hideAndShowPolygon={this.hideAndShowPolygon}
                       handleEditable={this.handleEditable}
                       showPolygon={this.state.showPolygon}
                       polyline={this.state.polyline}
@@ -183,10 +182,6 @@ class App extends React.Component {
 
   addPolygon = polygon => {
     this.setState({ polygon: polygon });
-  };
-
-  hideAndShowPolygon = showPolygon => {
-    this.setState({ showPolygon: showPolygon });
   };
 
   handleEditable = editable => {

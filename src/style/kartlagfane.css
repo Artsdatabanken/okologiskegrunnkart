@@ -172,7 +172,7 @@ h4.container_header {
   left: 0px;
 }
 .toggle-side-bar-wrapper.side-bar-open {
-  right: 408px;
+  left: 408px;
 }
 
 @media only screen and (max-width: 768px) {

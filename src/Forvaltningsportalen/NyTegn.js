@@ -13,9 +13,12 @@ import { Done, Delete } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import PolygonElement from "./PolygonElement";
 
-const NyTegn = props => {
+const NyTegn = ({ polyline, addPolyline }) => {
   const [markerType, setMarkerType] = useState();
-  const [shapeType, setShapeType] = useState("polygon");
+  const setShapeType = shapeType => {
+    polyline.shapeType = shapeType;
+    addPolyline(polyline);
+  };
   const history = useHistory();
   return (
     <>
@@ -25,7 +28,7 @@ const NyTegn = props => {
           gjøres (høydeprofil osv). La brukeren slette punkter.
         </Typography>
       </div>
-      <ListSubheader>Type geometri</ListSubheader>
+      <ListSubheader disableSticky>Type geometri</ListSubheader>
       <ListItem>
         <ButtonGroup
           fullWidth={true}
@@ -33,19 +36,19 @@ const NyTegn = props => {
           aria-label="primary button group"
         >
           <Button
-            color={shapeType === "punkt" && "primary"}
+            color={polyline.shapeType === "punkt" && "primary"}
             onClick={() => setShapeType("punkt")}
           >
             Punkt
           </Button>
           <Button
-            color={shapeType === "linje" && "primary"}
+            color={polyline.shapeType === "linje" && "primary"}
             onClick={() => setShapeType("linje")}
           >
             Linje
           </Button>
           <Button
-            color={shapeType === "polygon" && "primary"}
+            color={polyline.shapeType === "polygon" && "primary"}
             onClick={() => setShapeType("polygon")}
           >
             Polygon
@@ -65,24 +68,17 @@ const NyTegn = props => {
           variant="contained"
           color="primary"
           onClick={() => {
-            props.addPolygon(props.polyline);
-            props.addPolyline([]);
             history.push("/");
           }}
         >
-          {" "}
           <Done /> Ferdig
         </Button>
 
         <ListItemSecondaryAction>
           <Button
-            variant="outline"
             color="primary"
             onClick={() => {
-              props.addPolygon(null);
-              props.addPolyline([]);
-              props.hideAndShowPolygon(true);
-              props.handleEditable(true);
+              addPolyline({ coords: [], erSynlig: true, redigeres: true });
             }}
           >
             <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
@@ -90,9 +86,20 @@ const NyTegn = props => {
         </ListItemSecondaryAction>
       </ListItem>
       <ListSubheader>Punktliste</ListSubheader>
-      {props.polyline.map(pt => (
-        <ListItem>
-          <ListItemText primary={pt.join(",")} />
+      {polyline.coords.map((pt, index) => (
+        <ListItem
+          key={index}
+          button
+          selected={polyline.selectedIndex === index}
+          onClick={() => {
+            polyline.selectedIndex = index;
+            addPolyline(polyline);
+          }}
+        >
+          <ListItemText
+            primary={pt.coords[0] + "," + pt.coords[1]}
+            secondary={pt.sted}
+          />
         </ListItem>
       ))}
     </>

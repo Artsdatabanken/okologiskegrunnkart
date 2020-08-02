@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Close,
-  MyLocation,
-  Place,
-  Home,
-  Flag,
-  Terrain,
-  ExpandMore
-} from "@material-ui/icons";
+import { Close, Place, Home, ExpandMore } from "@material-ui/icons";
 import {
   IconButton,
   List,
@@ -16,8 +8,6 @@ import {
   ListItemText,
   ListItemIcon
 } from "@material-ui/core";
-import CustomTooltip from "../../Common/CustomTooltip";
-import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
 import LoadingPlaceholder from "./LoadingPlaceholder";
 

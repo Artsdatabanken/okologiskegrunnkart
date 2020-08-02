@@ -27,16 +27,13 @@
 
 .inactive_point {
   border-radius: 50%;
-  background: grey;
-  width: 40px;
-  height: 40px;
+  background: #eee;
 }
 
 .active_point {
-  border-radius: 50%;
-  background: blue;
-  width: 40px;
-  height: 40px;
+  border-radius: 0%;
+  background: #f33;
+  color: white;
 }
 
 .leaflet-control-zoom-in,
