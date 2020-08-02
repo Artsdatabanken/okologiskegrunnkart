@@ -69,16 +69,18 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
           distance: polyline.distance,
           coords: polyline.coords
         })}
-        <Button
-          color="primary"
-          style={{ float: "right" }}
-          onClick={() => {
-            polyline.coords = [];
-            onUpdatePolyline(polyline);
-          }}
-        >
-          <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
-        </Button>
+        {polyline.coords.length > 1 && (
+          <Button
+            color="primary"
+            style={{ float: "right" }}
+            onClick={() => {
+              polyline.coords = [];
+              onUpdatePolyline(polyline);
+            }}
+          >
+            <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
+          </Button>
+        )}
       </ListSubheader>
       {polyline.coords.map((pt, index) => {
         const utmCoords = `${Math.round(pt.x)} N ${Math.round(pt.y)} Ø`;
@@ -123,7 +125,7 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
 
 const overskrift = ({ shapeType, area, distance, coords }) => {
   if (coords.length <= 0) return "Klikk i kartet for å legge til punkter...";
-  var tekst = coords.length + " punkter";
+  var tekst = coords.length + " punkt" + (coords.length > 1 ? "er" : "");
   if (shapeType === "punkt") return tekst;
   if (shapeType === "linje")
     return (tekst += ", total distanse " + prettifyDistance(distance));
