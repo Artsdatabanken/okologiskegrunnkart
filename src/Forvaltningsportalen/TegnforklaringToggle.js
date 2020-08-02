@@ -25,10 +25,7 @@ const TegnforklaringToggle = () => {
         {false && <Switch checked={visible}></Switch>}
         <LegendToggle style={{ fill: "rgba(0, 0, 0, 0.54)" }} />
       </ListItemAvatar>
-      <ListItemText
-        primary="Tegnforklaring"
-        secondary="Bedre som knapp kanskje"
-      />
+      <ListItemText primary="Tegnforklaring" />
     </ListItem>
   );
 };

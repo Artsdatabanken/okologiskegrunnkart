@@ -305,7 +305,7 @@ class SearchBar extends React.Component {
             placeholder={prettify(pathname)}
             value={this.state.searchTerm}
             autoComplete="off"
-            style={{ width: 290, top: 8, _display: "flex" }}
+            style={{ width: 290, top: 9 }}
             InputProps={{ disableUnderline: true }}
             id="searchfield"
             type="text"

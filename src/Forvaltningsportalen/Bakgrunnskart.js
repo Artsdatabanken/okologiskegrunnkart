@@ -1,5 +1,4 @@
 import React from "react";
-import AddIcon from "@material-ui/icons/Add";
 import { ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import { Wallpaper } from "@material-ui/icons";
