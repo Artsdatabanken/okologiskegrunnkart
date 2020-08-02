@@ -60,12 +60,22 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
+
+    const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
     Object.entries(sortedKartlag).forEach(([key, k]) => {
       k.id = key;
-      k.opacity = 0;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
+      k.expanded = false;
+      k.underlag = k.underlag || {};
+      k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
+        ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
+        //        ul.opacity = 0.8;
+        acc[ul.id] = ul;
+        ul.expanded = false;
+        return acc;
+      }, {});
     });
     this.setState({ kartlag: sortedKartlag });
   }
