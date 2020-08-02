@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   ButtonGroup,
@@ -6,22 +6,17 @@ import {
   IconButton,
   ListSubheader,
   ListItem,
-  ListItemAvatar,
   ListItemSecondaryAction,
   ListItemText,
   Typography
 } from "@material-ui/core";
-import { Done, Delete } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
-import PolygonElement from "./PolygonElement";
+import { Delete } from "@material-ui/icons";
 
 const NyTegn = ({ polyline, onUpdatePolyline }) => {
-  const [markerType, setMarkerType] = useState();
   const setShapeType = shapeType => {
     polyline.shapeType = shapeType;
     onUpdatePolyline(polyline);
   };
-  const history = useHistory();
   return (
     <>
       <div style={{ margin: 24 }}>
@@ -66,7 +61,12 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
         </ButtonGroup>
       </ListItem>
       <ListSubheader disableSticky>
-        Punkter
+        {overskrift({
+          shapeType: polyline.shapeType,
+          area: polyline.area,
+          distance: polyline.distance,
+          coords: polyline.coords
+        })}
         <Button
           color="primary"
           style={{ float: "right" }}
@@ -79,8 +79,8 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
         </Button>
       </ListSubheader>
       {polyline.coords.map((pt, index) => {
-        const utmCoords = `${Math.round(pt.utm.x)} N ${Math.round(pt.utm.y)} Ø`;
-        const dist = `(${prettifyDistance(pt.dist)} ∠ ${Math.round(
+        const utmCoords = `${Math.round(pt.x)} N ${Math.round(pt.y)} Ø`;
+        const dist = `(${prettifyDistance(pt.distance)} ∠ ${Math.round(
           (360 + pt.angle) % 360
         )}°)`;
         const primary =
@@ -119,10 +119,34 @@ const NyTegn = ({ polyline, onUpdatePolyline }) => {
   );
 };
 
-const prettifyDistance = dist => {
-  if (dist < 100) return Math.round(dist * 10) / 10 + "m";
-  if (dist < 10000) return Math.round(dist) + "m";
-  if (dist < 100000) return Math.round(dist / 100) / 10 + "km";
-  return Math.round(dist / 1000) + "km";
+const overskrift = ({ shapeType, area, distance, coords }) => {
+  if (coords.length <= 0) return "Klikk i kartet for å legge til punkter...";
+  var tekst = coords.length + " punkter";
+  if (shapeType === "punkt") return tekst;
+  if (shapeType === "linje")
+    return (tekst += ", total distanse " + prettifyDistance(distance));
+
+  return (
+    tekst +
+    ", areal " +
+    prettifyArea(area) +
+    ", omkrets " +
+    prettifyDistance(distance)
+  );
+};
+
+const prettifyDistance = distance => {
+  if (distance < 100) return Math.round(distance * 10) / 10 + "m";
+  if (distance < 10000) return Math.round(distance) + "m";
+  if (distance < 10000000) return Math.round(distance / 100) / 10 + "km";
+  return Math.round(distance / 1000) + "km";
+};
+
+const prettifyArea = area => {
+  if (area < 100) return Math.round(area * 10) / 10 + "m²";
+  if (area < 100000) return Math.round(area) + "m²";
+  if (area < 100000000) return Math.round(area / 10000) / 100 + "km²";
+  if (area < 1000000000) return Math.round(area / 100000) / 10 + "km²";
+  return Math.round(area / 1000000) + "km²";
 };
 export default NyTegn;
