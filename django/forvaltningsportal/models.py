@@ -167,7 +167,7 @@ def createJSON(sender, instance, **kwargs):
                     if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
                         max_number = 2183915
                     if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
-                        max_number = 15000
+                        max_number = 150000
                     if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
                         and lag.wmslayer == 'Magasin'):
                         max_number = 545979
