@@ -66,20 +66,22 @@ class App extends React.Component {
       );
     }
     const layersdb = await db.layers.toArray();
-    console.log("Layers: ", layersdb);
+    // console.log("Layers: ", layersdb);
     const sublayersdb = await db.sublayers.toArray();
-    console.log("Sublayers", sublayersdb);
+    // console.log("Sublayers", sublayersdb);
 
     const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
 
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
+
+    // Modify and store kartlag in state
     Object.entries(sortedKartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
 
-      // Check if layer is already stored in indexed DB. Add it if not
+      // Check if layer is already stored in indexed DB. Add layer if not
       const existingLayer = layersdb.filter(e => e.id === key);
       if (existingLayer.length === 0) {
         db.layers.add({
@@ -87,34 +89,39 @@ class App extends React.Component {
           title: k.tittel,
           active: true
         });
+        k.active = true;
+      } else {
+        k.active = existingLayer.active;
       }
 
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
+        ul.key = ul.id;
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         ul.expanded = false;
 
-        // // Check if sublayer is already stored in indexed DB. Add it if not
-        // const existingSublayer = sublayersdb.filter(e => e.id === ul.id);
-        // if (existingSublayer.length === 0) {
-        //   db.sublayers.add({
-        //     id: ul.id,
-        //     title: ul.tittel,
-        //     active: true
-        //   });
-        // }
+        // Check if sublayer is already stored in indexed DB. Add sublayer if not
+        const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
+        if (existingSublayer.length === 0) {
+          db.sublayers.add({
+            id: ul.key,
+            title: ul.tittel,
+            active: true
+          });
+        } else {
+          ul.active = existingSublayer.active;
+        }
 
         return acc;
       }, {});
     });
     this.setState({ kartlag: sortedKartlag });
 
-    const updatedLayersdb = await db.layers.toArray();
-    const updatedSublayersdb = await db.sublayers.toArray();
-    console.log(updatedLayersdb);
-    console.log(updatedSublayersdb);
+    // const updatedLayersdb = await db.layers.toArray();
+    // const updatedSublayersdb = await db.sublayers.toArray();
+    console.log(sortedKartlag);
   }
 
   componentDidMount() {
