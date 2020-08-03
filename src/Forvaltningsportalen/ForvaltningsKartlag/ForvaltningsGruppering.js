@@ -10,7 +10,8 @@ const ForvaltningsGruppering = ({
   hideHidden,
   searchTerm,
   element,
-  zoom
+  zoom,
+  showSublayerDetails
 }) => {
   const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
   kartlag = kartlag.filter(element => {
@@ -52,10 +53,11 @@ const ForvaltningsGruppering = ({
         return (
           <ForvaltningsElement
             key={element.id}
-            kartlag_key={element.id}
+            kartlagKey={element.id}
             kartlag={element}
             onUpdateLayerProp={onUpdateLayerProp}
             zoom={zoom}
+            showSublayerDetails={showSublayerDetails}
           />
         );
       })}

@@ -1,5 +1,5 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
@@ -8,8 +8,36 @@ import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 import { KeyboardBackspace } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { Button } from "@material-ui/core";
+import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
 
 const KartlagFanen = props => {
+  const [showDetails, setShowDetails] = useState(false);
+  const [underlag, setUnderlag] = useState(null);
+  const [kartlagKey, setKartlagKey] = useState(null);
+  const [underlagKey, setUnderlagKey] = useState(null);
+
+  const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
+    setUnderlag(underlag);
+    setKartlagKey(kartlagKey);
+    setUnderlagKey(underlagKey);
+    setShowDetails(true);
+  };
+
+  const hideSublayerDetails = () => {
+    setShowDetails(false);
+    setUnderlag(null);
+    setKartlagKey(null);
+    setUnderlagKey(null);
+  };
+
+  const showSublayerDetailsFromSearch = (underlag, kartlagKey, underlagKey) => {
+    setUnderlag(underlag);
+    setKartlagKey(kartlagKey);
+    setUnderlagKey(underlagKey);
+    props.removeValgtLag();
+    setShowDetails(true);
+  };
+
   return (
     <>
       <div
@@ -55,38 +83,56 @@ const KartlagFanen = props => {
                   <div className="scroll_area">
                     <ForvaltningsElement
                       valgt={true}
-                      kartlag_key={props.valgtLag.id}
+                      kartlagKey={props.valgtLag.id}
                       kartlag={props.valgtLag}
                       key={props.valgtLag.id}
                       onUpdateLayerProp={props.onUpdateLayerProp}
                       zoom={props.zoom}
+                      showSublayerDetails={showSublayerDetailsFromSearch}
                     />
                   </div>
                 </div>
               ) : (
-                <div>
-                  {props.polyline.length > 0 && props.polygon && (
-                    <h3 className="container_header">Polygon</h3>
-                  )}
-                  <div className="scroll_area">
-                    {(props.polyline.length > 0 || props.polygon) && (
-                      <PolygonElement
-                        polygon={props.polygon}
-                        polyline={props.polyline}
-                        showPolygon={props.showPolygon}
-                        hideAndShowPolygon={props.hideAndShowPolygon}
-                        handleEditable={props.handleEditable}
-                        addPolygon={props.addPolygon}
-                        addPolyline={props.addPolyline}
-                      />
+                <>
+                  <div>
+                    {props.polyline.length > 0 && props.polygon && (
+                      <h3 className="container_header">Polygon</h3>
                     )}
-                    <ForvaltningsKartlag
-                      kartlag={props.kartlag}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
-                      zoom={props.zoom}
-                    />
+                    <div className="scroll_area">
+                      {(props.polyline.length > 0 || props.polygon) && (
+                        <PolygonElement
+                          polygon={props.polygon}
+                          polyline={props.polyline}
+                          showPolygon={props.showPolygon}
+                          hideAndShowPolygon={props.hideAndShowPolygon}
+                          handleEditable={props.handleEditable}
+                          addPolygon={props.addPolygon}
+                          addPolyline={props.addPolyline}
+                        />
+                      )}
+                      <ForvaltningsKartlag
+                        kartlag={props.kartlag}
+                        onUpdateLayerProp={props.onUpdateLayerProp}
+                        zoom={props.zoom}
+                        showSublayerDetails={showSublayerDetails}
+                      />
+                    </div>
                   </div>
-                </div>
+                  {showDetails && (
+                    <div>
+                      <div className="layer-details-div">
+                        <ForvaltningsDetailedInfo
+                          kartlag={props.kartlag[kartlagKey]}
+                          underlag={underlag}
+                          kartlagKey={kartlagKey}
+                          underlagKey={underlagKey}
+                          onUpdateLayerProp={props.onUpdateLayerProp}
+                          hideSublayerDetails={hideSublayerDetails}
+                        />
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </Route>
           </Switch>
