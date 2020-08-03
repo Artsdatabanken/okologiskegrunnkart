@@ -225,12 +225,13 @@
   margin-left: 10px;
 }
 #open-facts-icon.MuiSvgIcon-colorPrimary {
-  color: #666;
+  color: #777;
 }
 
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
+  background-color: #cc0000;
   /* background-color: #E13D3E; */
-  background-color: #777;
+  /* background-color: #777; */
 }
 
 /* list items in info box */

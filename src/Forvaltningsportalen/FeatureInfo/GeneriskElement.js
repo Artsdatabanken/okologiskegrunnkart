@@ -1,10 +1,11 @@
-import { OpenInNew, Close } from "@material-ui/icons";
+import { OpenInNew, Info, Close } from "@material-ui/icons";
 import { ListItem, ListItemIcon, Modal, Button } from "@material-ui/core";
 import React, { useState } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
+import CustomTooltip from "../../Common/CustomTooltip";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -73,7 +74,11 @@ const GeneriskElement = props => {
             </div>
             <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
-          {faktaark_url && <OpenInNew id="open-facts-icon" color="primary" />}
+          {faktaark_url && (
+            <CustomTooltip placement="right" title="Vis faktaark">
+              <Info id="open-facts-icon" color="primary" />
+            </CustomTooltip>
+          )}
         </ListItem>
       )}
 
