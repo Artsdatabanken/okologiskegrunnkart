@@ -8,10 +8,25 @@
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 100vw;
   height: 100vh;
   background-color: white;
   z-index: 250;
+  overflow-y: auto;
 }
+
+.settings-layers-list-item-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.settings-layers-list-item-wrapper
+  .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
+  color: #1976d2;
+}
+
+/* .settings-layers-wrapper div {
+  height: 100%;
+} */

@@ -13,12 +13,14 @@ import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import db from "./IndexedDb";
+import { useLayoutEffect } from "react";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bakgrunnskart,
+      completeKartlag: {},
       kartlag: {},
       valgteLag: {},
       actualBounds: null,
@@ -44,7 +46,8 @@ class App extends React.Component {
       lat: null,
       lng: null,
       loadingFeatures: false,
-      editLayersMode: false
+      editLayersMode: false,
+      allLayersActive: true
     };
   }
 
@@ -97,8 +100,13 @@ class App extends React.Component {
           .where("id")
           .equals(key)
           .modify({ title: k.tittel });
+        k.active = existingLayer[0].active;
       } else {
-        k.active = existingLayer.active;
+        k.active = existingLayer[0].active;
+      }
+
+      if (this.state.allLayersActive && !k.active) {
+        this.setState({ allLayersActive: false });
       }
 
       k.underlag = k.underlag || {};
@@ -117,19 +125,28 @@ class App extends React.Component {
             title: ul.tittel,
             active: true
           });
+          ul.active = true;
         } else if (existingSublayer[0].title !== ul.tittel) {
           db.sublayers
             .where("id")
             .equals(ul.key)
             .modify({ title: ul.tittel });
+          ul.active = existingSublayer[0].active;
         } else {
-          ul.active = existingSublayer.active;
+          ul.active = existingSublayer[0].active;
+        }
+
+        if (this.state.allLayersActive && !ul.active) {
+          this.setState({ allLayersActive: false });
         }
 
         return acc;
       }, {});
     });
-    this.setState({ kartlag: sortedKartlag });
+    this.setState({ completeKartlag: sortedKartlag });
+
+    const reducedKartlag = await this.reduceKartlag(sortedKartlag);
+    this.setState({ kartlag: reducedKartlag });
 
     // const updatedLayersdb = await db.layers.toArray();
     // const updatedSublayersdb = await db.sublayers.toArray();
@@ -153,8 +170,11 @@ class App extends React.Component {
                   <>
                     {this.state.editLayersMode && (
                       <KartlagSettings
-                        kartlag={this.state.kartlag}
+                        kartlag={this.state.completeKartlag}
+                        allLayersActive={this.state.allLayersActive}
+                        toggleAllLayersActive={this.toggleAllLayersActive}
                         toggleEditLayers={this.toggleEditLayers}
+                        updateActiveLayers={this.updateActiveLayers}
                       />
                     )}
                     <div
@@ -249,8 +269,39 @@ class App extends React.Component {
     );
   }
 
+  toggleAllLayersActive = () => {
+    this.setState({ allLayersActive: !this.state.allLayersActive });
+  };
+
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });
+  };
+
+  updateActiveLayers = async completeKartlag => {
+    const kartlag = await this.reduceKartlag(completeKartlag);
+    this.setState({ completeKartlag, kartlag });
+  };
+
+  reduceKartlag = async layers => {
+    // Reduce kartlag for active layers only
+    let reducedLayers = {};
+    Object.keys(layers).forEach(layerId => {
+      const layer = layers[layerId];
+      if (layer.active) {
+        let reducedSublayers = {};
+        Object.keys(layer.underlag).forEach(sublayerId => {
+          const sublayer = layer.underlag[sublayerId];
+          if (sublayer.active) {
+            reducedSublayers[sublayerId] = sublayer;
+          }
+          return reducedSublayers;
+        });
+        const reducedLayer = { ...layer, underlag: reducedSublayers };
+        reducedLayers[layerId] = reducedLayer;
+      }
+      return reducedLayers;
+    });
+    return reducedLayers;
   };
 
   handleActualBoundsChange = bounds => {
