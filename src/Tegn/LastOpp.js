@@ -10,12 +10,13 @@ import {
 import { CheckCircle } from "@material-ui/icons";
 import geography from "../geography";
 import { useHistory } from "react-router-dom";
+import { Error } from "@material-ui/icons";
 
 const LastOpp = ({ onPreviewGeojson, onAddLayer }) => {
   const history = useHistory();
   const [metadata, setMetadata] = useState({});
   const [geojson, setGeojson] = useState({ nogood: true });
-  const [successfulLoad, setSuccessfulLoad] = useState();
+  const [status, setStatus] = useState({});
   const handleUpload = event => {
     const file = event.target.files[0];
     setMetadata({
@@ -23,24 +24,29 @@ const LastOpp = ({ onPreviewGeojson, onAddLayer }) => {
       length: file.size,
       lastModfied: file.lastModified
     });
-    setSuccessfulLoad(false);
+    setStatus({});
     var filereader = new FileReader();
     filereader.onloadend = handleFileComplete;
     filereader.readAsText(file);
   };
 
   const handleFileComplete = e => {
-    const data = e.target.result;
-    var json = JSON.parse(data);
-    json.bounds = geography.bbox(json);
-    console.log({ metadata });
-    console.log({ json });
-    setGeojson(json);
-    onPreviewGeojson(json);
-    setSuccessfulLoad(true);
+    try {
+      const data = e.target.result;
+      var json = JSON.parse(data);
+      if (!json.features) throw new Error("Ikke en GeoJSON fil.");
+      json.bounds = geography.bbox(json);
+      console.log({ metadata });
+      console.log({ json });
+      setGeojson(json);
+      onPreviewGeojson(json);
+      setStatus({ ok: true });
+    } catch (err) {
+      setStatus({ error: true, message: err.message });
+    }
   };
 
-  const onOK = e => {
+  const onOK = () => {
     const src = Object.assign(metadata, geojson);
     const layer = {
       [src.name]: {
@@ -61,7 +67,7 @@ const LastOpp = ({ onPreviewGeojson, onAddLayer }) => {
       <ListItem>
         <input type="file" name="file" onChange={handleUpload} />
       </ListItem>
-      {successfulLoad && (
+      {status.ok && (
         <>
           <ListItem>
             <ListItemAvatar>
@@ -86,6 +92,14 @@ const LastOpp = ({ onPreviewGeojson, onAddLayer }) => {
             </Button>
           </ListItem>
         </>
+      )}
+      {status.error && (
+        <ListItem>
+          <ListItemAvatar>
+            <Error style={{ color: "rgb(202, 49, 83)" }} />
+          </ListItemAvatar>
+          <ListItemText>{status.message}</ListItemText>
+        </ListItem>
       )}
     </>
   );
