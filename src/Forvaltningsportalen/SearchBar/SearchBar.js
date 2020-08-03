@@ -2,8 +2,10 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Modal } from "@material-ui/core";
+import { Modal, Menu, MenuItem } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { Menu as MenuIcon } from "@material-ui/icons";
+
 class SearchBar extends React.Component {
   state = {
     treffliste_lag: null,
@@ -18,7 +20,8 @@ class SearchBar extends React.Component {
     searchTerm: null,
     showHelpModal: false,
     manual: "",
-    countermax: 50
+    countermax: 50,
+    anchorEl: null
   };
 
   handleRemoveTreffliste = () => {
@@ -335,6 +338,14 @@ class SearchBar extends React.Component {
     this.setState({ showHelpModal: false });
   };
 
+  handleOpenMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
   formattedManual = () => {
     if (!this.state.manual || this.state.manual === "") {
       return [];
@@ -447,11 +458,48 @@ class SearchBar extends React.Component {
           <button
             className="help_button"
             onClick={e => {
-              this.openHelp();
+              // this.openHelp();
+              this.handleOpenMenu(e);
             }}
           >
-            ?
+            <MenuIcon />
           </button>
+          <Menu
+            id="settings-menu"
+            anchorEl={this.state.anchorEl}
+            keepMounted
+            variant="menu"
+            open={Boolean(this.state.anchorEl)}
+            onClose={this.handleCloseMenu}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            getContentAnchorEl={null}
+          >
+            <MenuItem
+              id="settings-menu-user-manual"
+              onClick={() => {
+                this.openHelp();
+                this.handleCloseMenu();
+              }}
+            >
+              Brukermanual
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleEditLayers();
+                this.handleCloseMenu();
+              }}
+            >
+              Editere kartlag
+            </MenuItem>
+          </Menu>
         </div>
 
         <Modal

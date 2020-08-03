@@ -1,4 +1,8 @@
 /* Generell kode for applikasjonen */
+.hidden-app-content {
+  display: none;
+}
+
 div,
 button {
   box-sizing: border-box;

@@ -6,6 +6,7 @@ import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
+import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
@@ -42,7 +43,8 @@ class App extends React.Component {
       zoom: 3.1,
       lat: null,
       lng: null,
-      loadingFeatures: false
+      loadingFeatures: false,
+      editLayersMode: false
     };
   }
 
@@ -90,6 +92,11 @@ class App extends React.Component {
           active: true
         });
         k.active = true;
+      } else if (existingLayer[0].title !== k.tittel) {
+        db.layers
+          .where("id")
+          .equals(key)
+          .modify({ title: k.tittel });
       } else {
         k.active = existingLayer.active;
       }
@@ -110,6 +117,11 @@ class App extends React.Component {
             title: ul.tittel,
             active: true
           });
+        } else if (existingSublayer[0].title !== ul.tittel) {
+          db.sublayers
+            .where("id")
+            .equals(ul.key)
+            .modify({ title: ul.tittel });
         } else {
           ul.active = existingSublayer.active;
         }
@@ -139,81 +151,94 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <Kart
-                      handleEditable={this.handleEditable}
-                      editable={this.state.editable}
-                      addPolygon={this.addPolygon}
-                      addPolyline={this.addPolyline}
-                      showPolygon={this.state.showPolygon}
-                      zoomcoordinates={this.state.zoomcoordinates}
-                      handleRemoveZoomCoordinates={
-                        this.handleRemoveZoomCoordinates
+                    {this.state.editLayersMode && (
+                      <KartlagSettings
+                        kartlag={this.state.kartlag}
+                        toggleEditLayers={this.toggleEditLayers}
+                      />
+                    )}
+                    <div
+                      className={
+                        this.state.editLayersMode ? "hidden-app-content" : ""
                       }
-                      showExtensiveInfo={this.state.showExtensiveInfo}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      handleAlleLag={this.hentInfoAlleLag}
-                      handleValgteLag={this.hentInfoValgteLag}
-                      forvaltningsportal={true}
-                      show_current={this.state.showCurrent}
-                      bounds={this.state.fitBounds}
-                      latitude={65.4}
-                      longitude={15.8}
-                      zoom={this.state.zoom}
-                      handleZoomChange={this.handleZoomChange}
-                      aktiveLag={this.state.kartlag}
-                      bakgrunnskart={this.state.bakgrunnskart}
-                      onMapBoundsChange={this.handleActualBoundsChange}
-                      onMapMove={context.onMapMove}
-                      history={history}
-                      sted={this.state.sted}
-                      adresse={this.state.adresse}
-                      layersResult={this.state.layersResult}
-                      allLayersResult={this.state.allLayersResult}
-                      valgteLag={this.state.valgteLag}
-                      token={token}
-                      showInfobox={this.state.showInfobox}
-                      handleInfobox={this.handleInfobox}
-                      loadingFeatures={this.state.loadingFeatures}
-                      {...this.state}
-                    />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                      showSideBar={this.state.showSideBar}
-                      showInfobox={this.state.showInfobox}
-                    />
-                    <SearchBar
-                      onSelectSearchResult={this.handleSelectSearchResult}
-                      searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={
-                        this.handleSetKartlagSearchResult
-                      }
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
-                    <KartlagFanen
-                      polygon={this.state.polygon}
-                      addPolygon={this.addPolygon}
-                      hideAndShowPolygon={this.hideAndShowPolygon}
-                      handleEditable={this.handleEditable}
-                      showPolygon={this.state.showPolygon}
-                      polyline={this.state.polyline}
-                      addPolyline={this.addPolyline}
-                      searchResultPage={this.state.searchResultPage}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
-                      valgtLag={this.state.valgtLag}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      kartlag={this.state.kartlag}
-                      showSideBar={this.state.showSideBar}
-                      toggleSideBar={this.toggleSideBar}
-                      zoom={this.state.zoom}
-                    />
+                    >
+                      <Kart
+                        handleEditable={this.handleEditable}
+                        editable={this.state.editable}
+                        addPolygon={this.addPolygon}
+                        addPolyline={this.addPolyline}
+                        showPolygon={this.state.showPolygon}
+                        zoomcoordinates={this.state.zoomcoordinates}
+                        handleRemoveZoomCoordinates={
+                          this.handleRemoveZoomCoordinates
+                        }
+                        showExtensiveInfo={this.state.showExtensiveInfo}
+                        handleExtensiveInfo={this.handleExtensiveInfo}
+                        handleAlleLag={this.hentInfoAlleLag}
+                        handleValgteLag={this.hentInfoValgteLag}
+                        forvaltningsportal={true}
+                        show_current={this.state.showCurrent}
+                        bounds={this.state.fitBounds}
+                        latitude={65.4}
+                        longitude={15.8}
+                        zoom={this.state.zoom}
+                        handleZoomChange={this.handleZoomChange}
+                        aktiveLag={this.state.kartlag}
+                        bakgrunnskart={this.state.bakgrunnskart}
+                        onMapBoundsChange={this.handleActualBoundsChange}
+                        onMapMove={context.onMapMove}
+                        history={history}
+                        sted={this.state.sted}
+                        adresse={this.state.adresse}
+                        layersResult={this.state.layersResult}
+                        allLayersResult={this.state.allLayersResult}
+                        valgteLag={this.state.valgteLag}
+                        token={token}
+                        showInfobox={this.state.showInfobox}
+                        handleInfobox={this.handleInfobox}
+                        loadingFeatures={this.state.loadingFeatures}
+                        {...this.state}
+                      />
+                      <KartVelger
+                        onUpdateLayerProp={this.handleSetBakgrunnskart}
+                        aktivtFormat={basiskart.kart.aktivtFormat}
+                        showSideBar={this.state.showSideBar}
+                        showInfobox={this.state.showInfobox}
+                      />
+                      <SearchBar
+                        onSelectSearchResult={this.handleSelectSearchResult}
+                        searchResultPage={this.state.searchResultPage}
+                        setKartlagSearchResults={
+                          this.handleSetKartlagSearchResult
+                        }
+                        setGeoSearchResults={this.setGeoSearchResults}
+                        handleGeoSelection={this.handleGeoSelection}
+                        kartlag={this.state.kartlag}
+                        addValgtLag={this.handleNavigateToKartlag}
+                        removeValgtLag={this.removeValgtLag}
+                        handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        toggleEditLayers={this.toggleEditLayers}
+                      />
+                      <KartlagFanen
+                        polygon={this.state.polygon}
+                        addPolygon={this.addPolygon}
+                        hideAndShowPolygon={this.hideAndShowPolygon}
+                        handleEditable={this.handleEditable}
+                        showPolygon={this.state.showPolygon}
+                        polyline={this.state.polyline}
+                        addPolyline={this.addPolyline}
+                        searchResultPage={this.state.searchResultPage}
+                        addValgtLag={this.handleNavigateToKartlag}
+                        removeValgtLag={this.removeValgtLag}
+                        valgtLag={this.state.valgtLag}
+                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        kartlag={this.state.kartlag}
+                        showSideBar={this.state.showSideBar}
+                        toggleSideBar={this.toggleSideBar}
+                        zoom={this.state.zoom}
+                      />
+                    </div>
                   </>
                 );
               }}
@@ -223,6 +248,10 @@ class App extends React.Component {
       </SettingsContext.Consumer>
     );
   }
+
+  toggleEditLayers = () => {
+    this.setState({ editLayersMode: !this.state.editLayersMode });
+  };
 
   handleActualBoundsChange = bounds => {
     this.setState({ actualBounds: bounds, fitBounds: null });

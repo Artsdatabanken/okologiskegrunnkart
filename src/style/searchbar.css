@@ -213,6 +213,10 @@
   top: 10px;
   width: 31px;
   height: 31px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .help-modal-body {
@@ -315,4 +319,15 @@
 .help-text-line {
   font-size: 16px;
   margin: 2px 0;
+}
+
+/* Settings menu */
+#settings-menu .MuiPaper-root {
+  margin-top: 5px;
+}
+#settings-menu div ul li {
+  font-size: 15px;
+}
+#settings-menu-user-manual {
+  width: 385px;
 }
