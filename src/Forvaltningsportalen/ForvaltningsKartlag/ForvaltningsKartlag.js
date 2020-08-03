@@ -156,6 +156,7 @@ class ForvaltningsKartlag extends React.Component {
                   key={element}
                   onUpdateLayerProp={onUpdateLayerProp}
                   zoom={this.props.zoom}
+                  showSublayerDetails={this.props.showSublayerDetails}
                 />
               );
             })}
