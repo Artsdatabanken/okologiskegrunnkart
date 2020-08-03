@@ -16,30 +16,22 @@ import Tegn from "../Tegn/Tegn";
 import LastOpp from "../Tegn/LastOpp";
 import Hjelp from "./Hjelp";
 import SearchBar from "./SearchBar/SearchBar";
+import classNames from "classnames";
 
 const KartlagFanen = props => {
   return (
     <>
-      {props.showSideBar && (
-        <SearchBar
-          onSelectSearchResult={props.onSelectSearchResult}
-          searchResultPage={props.searchResultPage}
-          setKartlagSearchResults={props.setKartlagSearchResults}
-          setGeoSearchResults={props.setGeoSearchResults}
-          handleGeoSelection={props.handleGeoSelection}
-          kartlag={props.kartlag}
-          onUpdateLayerProp={props.onUpdateLayerProp}
-        />
-      )}
       <div
         className={`toggle-side-bar-wrapper${
-          props.showSideBar ? " side-bar-open" : ""
+          props.showSideBar ? " side-bar-open" : " side-bar-close"
         }`}
       >
         <Button
           size="small"
           variant="contained"
-          className="toggle-side-bar-button"
+          className={
+            "toggle-side-bar-button-" + props.showSideBar ? "open" : "close"
+          }
           onClick={() => {
             props.toggleSideBar();
           }}
@@ -53,79 +45,99 @@ const KartlagFanen = props => {
             minWidth: 0
           }}
         >
-          {props.showSideBar ? (
-            <ArrowRight style={{ color: "#555" }}></ArrowRight>
-          ) : (
-            <ArrowLeft style={{ color: "#555" }}></ArrowLeft>
-          )}
+          <ArrowRight
+            style={{
+              color: "#555",
+              transition: "0.8s",
+              transform: props.showSideBar ? "rotate(0deg)" : "rotate(180deg)"
+            }}
+          ></ArrowRight>
         </Button>
       </div>
-      {props.showSideBar && (
-        <Paper elevation={3} square className="kartlag_fanen">
-          {props.searchResultPage ? (
-            <></>
-          ) : (
-            <div className="scroll_area">
-              <Switch>
-                <Route path="/brukermanual">
-                  <Hjelp />
-                </Route>
-                <Route path="/tegnforklaring" exact={false} strict={false}>
-                  <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
-                </Route>
-                <Route path="/kartlag/:tittel">
-                  <Kartlag
-                    kartlag={props.kartlag}
-                    punkt={props.layersResult}
-                    onUpdateLayerProp={props.onUpdateLayerProp}
-                  />
-                </Route>
-                <Route path="/tegn/kartlag">
-                  <Tegn
+
+      <Paper
+        elevation={3}
+        style={{ transition: "0.5s" }}
+        square
+        className={classNames(
+          "kartlag_fanen",
+          props.showSideBar ? "open" : "close"
+        )}
+      >
+        <SearchBar
+          className={props.showSideBar ? "open" : "close"}
+          onSelectSearchResult={props.onSelectSearchResult}
+          searchResultPage={props.searchResultPage}
+          setKartlagSearchResults={props.setKartlagSearchResults}
+          setGeoSearchResults={props.setGeoSearchResults}
+          handleGeoSelection={props.handleGeoSelection}
+          kartlag={props.kartlag}
+          onUpdateLayerProp={props.onUpdateLayerProp}
+        />
+
+        {props.searchResultPage ? (
+          <></>
+        ) : (
+          <div className="scroll_area">
+            <Switch>
+              <Route path="/brukermanual">
+                <Hjelp />
+              </Route>
+              <Route path="/tegnforklaring" exact={false} strict={false}>
+                <Tegnforklaring layers={props.kartlag}></Tegnforklaring>
+              </Route>
+              <Route path="/kartlag/:tittel">
+                <Kartlag
+                  kartlag={props.kartlag}
+                  punkt={props.layersResult}
+                  onUpdateLayerProp={props.onUpdateLayerProp}
+                />
+              </Route>
+              <Route path="/tegn/kartlag">
+                <Tegn
+                  polyline={props.polyline}
+                  onUpdatePolyline={props.onUpdatePolyline}
+                />
+              </Route>
+              <Route path="/last/opp/kartlag">
+                <LastOpp
+                  onPreviewGeojson={props.onPreviewGeojson}
+                  onAddLayer={props.onAddLayer}
+                />
+              </Route>
+              <Route path="/bakgrunnskart">
+                <Bakgrunnskartvelger
+                  bakgrunnskart={props.bakgrunnskart}
+                  onChangeBakgrunnskart={props.onChangeBakgrunnskart}
+                />
+              </Route>
+              <Route path="/nytt/kartlag">
+                <NyttKartlagType />
+              </Route>
+              <Route path="/">
+                <Bakgrunnskart bakgrunnskart={props.bakgrunnskart} />
+                <NyttKartlag />
+                <TegnforklaringToggle />
+                {(props.polyline.length > 0 || props.polygon) && (
+                  <PolygonElement
                     polyline={props.polyline}
                     onUpdatePolyline={props.onUpdatePolyline}
                   />
-                </Route>
-                <Route path="/last/opp/kartlag">
-                  <LastOpp
-                    onPreviewGeojson={props.onPreviewGeojson}
-                    onAddLayer={props.onAddLayer}
-                  />
-                </Route>
-                <Route path="/bakgrunnskart">
-                  <Bakgrunnskartvelger
-                    bakgrunnskart={props.bakgrunnskart}
-                    onChangeBakgrunnskart={props.onChangeBakgrunnskart}
-                  />
-                </Route>
-                <Route path="/nytt/kartlag">
-                  <NyttKartlagType />
-                </Route>
-                <Route path="/">
-                  <Bakgrunnskart bakgrunnskart={props.bakgrunnskart} />
-                  <NyttKartlag />
-                  <TegnforklaringToggle />
-                  {(props.polyline.length > 0 || props.polygon) && (
-                    <PolygonElement
-                      polyline={props.polyline}
-                      onUpdatePolyline={props.onUpdatePolyline}
-                    />
-                  )}
-                  <ForvaltningsKartlag
-                    show_current={props.show_current}
-                    handleShowCurrent={props.handleShowCurrent}
-                    kartlag={props.kartlag}
-                    navigation_history={props.navigation_history}
-                    onFitBounds={props.handleFitBounds}
-                    history={props.history}
-                    onUpdateLayerProp={props.onUpdateLayerProp}
-                  />
-                </Route>
-              </Switch>
-            </div>
-          )}
-        </Paper>
-      )}
+                )}
+                <ForvaltningsKartlag
+                  show_current={props.show_current}
+                  handleShowCurrent={props.handleShowCurrent}
+                  kartlag={props.kartlag}
+                  navigation_history={props.navigation_history}
+                  onFitBounds={props.handleFitBounds}
+                  history={props.history}
+                  onUpdateLayerProp={props.onUpdateLayerProp}
+                />
+              </Route>
+            </Switch>
+          </div>
+        )}
+      </Paper>
     </>
   );
 };

@@ -87,6 +87,7 @@ class App extends React.Component {
   handlePreviewGeojson = geojson => {
     const kartlag = this.state.kartlag;
     kartlag.preview = {
+      tittel: "<>",
       kart: { format: { geojson: { data: geojson } } }
     };
     this.setState({ kartlag: Object.assign({}, kartlag) });

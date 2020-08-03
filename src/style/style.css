@@ -5,8 +5,8 @@ button {
 }
 
 body {
-  overflow: hidden;
-  touch-action: none;
+  _overflow: hidden;
+  _touch-action: none;
 }
 
 a,
@@ -23,20 +23,6 @@ a:hover {
 strong,
 b {
   font-weight: 500;
-}
-
-button {
-  border: 1px solid black;
-  border-radius: 3px;
-  padding: 5px;
-}
-
-button:hover,
-button.active:hover,
-button.active:focus,
-button.active {
-  cursor: pointer;
-  background: grey;
 }
 
 ::-webkit-scrollbar {
