@@ -115,7 +115,6 @@
 .close-infobox-button {
   padding: 0;
   display: flex;
-  background-color: rgba(145, 163, 176, 0.3);
   color: white;
   border: 2px solid white;
   border-radius: 5px;
@@ -177,6 +176,9 @@
   border-top: 3px solid grey;
   border-bottom: 1px solid grey;
 }
+#layer-results-header.MuiListItem-gutters {
+  padding-left: 12px;
+}
 #layer-results-header .MuiListItemIcon-root {
   min-width: 56px;
 }
@@ -195,19 +197,6 @@
     overflow-y: auto;
     width: 100%;
   }
-}
-
-/* Underelementets innhold  */
-.generic_element div {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  max-width: 500px;
-}
-.generic_element .MuiButtonBase-root {
-  margin-top: 0;
-  margin-bottom: 0;
 }
 
 /* Progress bar */
@@ -232,9 +221,17 @@
   font-weight: 575;
 }
 
+#open-facts-icon.MuiSvgIcon-root {
+  margin-left: 10px;
+}
+#open-facts-icon.MuiSvgIcon-colorPrimary {
+  color: #777;
+}
+
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
+  background-color: #cc0000;
   /* background-color: #E13D3E; */
-  background-color: #777;
+  /* background-color: #777; */
 }
 
 /* list items in info box */
@@ -277,19 +274,6 @@
   }
 }
 
-/* Knapper i boksene  */
-.close_button {
-  text-align: center;
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  z-index: 100;
-}
-
-.close_button:focus {
-  border: 2px solid blue;
-}
-
 /* åpne ekstra info knapp */
 .search-layers-button-wrapper {
   display: flex;
@@ -305,15 +289,6 @@
 }
 
 /* Felt øverst et åpnet underelement  */
-.expand_header {
-  float: left;
-  width: 100%;
-  padding: 5px;
-  text-align: center;
-}
-.expand_header button {
-  margin: auto;
-}
 .infobox-text {
   font-size: 16px;
   display: block;
@@ -330,4 +305,100 @@
     max-width: calc(100% - 40px);
     font-size: 13px;
   }
+}
+
+/* Underelementets innhold  */
+.generic_element {
+  background-color: #eee;
+}
+.generic_element .MuiCollapse-container {
+  background-color: #fff;
+  margin: 0 !important;
+  padding-top: 2px;
+}
+.generic_element div {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 500px;
+}
+.generic_element .MuiButtonBase-root {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Facts information buttons */
+#open-facts-info-button.MuiIconButton-colorPrimary {
+  color: #666;
+}
+
+/* Facts information modal */
+.facts-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.facts-modal-buttons-div {
+  display: flex;
+}
+
+.facts-modal-wrapper {
+  background-color: white;
+  width: 60vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+  }
+}
+
+.facts-modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #697f8a;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+  padding-left: 25px;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-title {
+    font-size: 24px;
+  }
+}
+
+.facts-modal-content {
+  border: 0;
+  width: 100%;
+  min-height: 75vh;
+  max-height: 100%;
+  position: relative;
+  overflow: none;
+}
+@media only screen and (max-width: 768px) {
+  .facts-modal-content {
+    min-height: 100%;
+  }
+}
+
+/* Facts information modal - open in new window button */
+#infobox-detail-facts.MuiButton-root {
+  text-transform: none;
+  margin: 19px 10px;
+}
+#infobox-detail-facts.MuiButton-root:hover {
+  background-color: rgba(145, 163, 176, 1);
+}
+#infobox-detail-facts.MuiButton-outlinedPrimary {
+  color: white;
+  border-color: white;
 }

@@ -464,12 +464,14 @@ class SearchBar extends React.Component {
               <div>Brukermanual</div>
               <button
                 tabIndex="0"
-                className="close-modal-button"
+                className="close-modal-button-wrapper"
                 onClick={e => {
                   this.closeHelpModal();
                 }}
               >
-                <Close />
+                <div className="close-modal-button">
+                  <Close />
+                </div>
               </button>
             </div>
             <div className="help-modal-content">{this.formattedManual()}</div>
