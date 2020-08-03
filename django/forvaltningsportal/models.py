@@ -132,6 +132,7 @@ def createJSON(sender, instance, **kwargs):
     for kartlag in Kartlag.objects.all():
         # legg til sjekk her for om det står publiser når vi lager egen fil til prod
         dict[kartlag.id] = {
+            'id': kartlag.id,
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
         }
@@ -149,6 +150,7 @@ def createJSON(sender, instance, **kwargs):
                     if lag.legendeurl:
                         lag_json['legendeurl'] = lag.legendeurl
                     
+                    lag_json['id'] = lag.id
                     lag_json['queryable'] = lag.queryable
                     lag_json['minscaledenominator'] = lag.minscaledenominator
                     lag_json['maxscaledenominator'] = lag.maxscaledenominator
