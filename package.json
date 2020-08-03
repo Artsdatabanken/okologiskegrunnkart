@@ -33,8 +33,7 @@
     "react-scripts": "^3.4.1",
     "react-use": "^12.10.0",
     "recompose": "^0.30.0",
-    "dexie": "3.0.2",
-    "react-checkbox-tree": "1.6.0"
+    "dexie": "3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
