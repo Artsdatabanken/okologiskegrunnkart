@@ -30,6 +30,7 @@ export default function TjenesteContainer() {
   const sub = params.get("sub");
   const { wmsurl, wmsversion } = doc || {};
 
+  const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
   useEffect(() => {
     const dl = async () => {
       const response = await fetch(kartlagUrl);
@@ -38,7 +39,12 @@ export default function TjenesteContainer() {
       const doc = kartlag[id] || { error: "Finner ikke kartlag #" + id };
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
-      Object.values(doc.underlag).forEach(ul => (ul.queryable = true)); // HACK
+      Object.values(doc.underlag).forEach(ul => {
+        ul.id =
+          alphaNumericOnly(doc.tittel) + "_" + alphaNumericOnly(ul.tittel);
+
+        ul.queryable = true;
+      }); // HACK
       // console.log("underlag", doc.underlag);
       setDoc(doc);
     };

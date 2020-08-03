@@ -3,6 +3,7 @@ import L, { LatLng } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import "./leaflet.css";
+import "./TileLayer.CachedOverview";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -11,13 +12,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png")
 });
 
+const MAX_MAP_ZOOM_LEVEL = 20;
+
 class Leaflet extends React.Component {
   componentDidMount() {
     this.wms = {};
     const options = {
       zoomControl: true,
       inertia: true,
-      minZoom: 3
+      minZoom: 4,
+      maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
     let map = L.map(this.mapEl, options);
@@ -103,31 +107,31 @@ class Leaflet extends React.Component {
     }
   }
 
-  syncUnderlag(layer, underlag) {
+  syncUnderlag(kartlag, underlag) {
     if (!underlag) return;
-    const wmsurl = new URL(layer.wmsurl);
+    var url = this.makeWmsUrl(kartlag.wmsurl);
     let srs = "EPSG3857";
-    if (layer.projeksjon) {
-      srs = layer.projeksjon.replace(":", "");
+    if (kartlag.projeksjon) {
+      srs = kartlag.projeksjon.replace(":", "");
     }
-    const search = wmsurl.searchParams;
-    search.delete("request");
-    search.delete("service");
-    search.delete("version");
     // Vis alle?    if (!underlag.suggested) return
     var tilelayer = this.wms[underlag.wmslayer];
     if (!tilelayer) {
-      tilelayer = L.tileLayer.wms(wmsurl.toString(), {
+      tilelayer = L.tileLayer.cachedOverview("", {
+        id: underlag.id,
+        zoomThreshold: underlag.minzoom,
         layers: underlag.wmslayer,
         transparent: true,
         crs: L.CRS[srs],
         format: "image/png",
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
+        maxNativeZoom: underlag.maxzoom,
         opacity: 0.95
       });
+      tilelayer.setUrl(url);
       this.wms[underlag.wmslayer] = tilelayer;
       this.map.addLayer(tilelayer);
     }
-    //    tilelayer.setOpacity(1.0)//underlag.opacity);
   }
 
   makeWmsUrl(url) {
