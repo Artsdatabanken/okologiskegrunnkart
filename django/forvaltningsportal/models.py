@@ -132,6 +132,7 @@ def createJSON(sender, instance, **kwargs):
     for kartlag in Kartlag.objects.all():
         # legg til sjekk her for om det står publiser når vi lager egen fil til prod
         dict[kartlag.id] = {
+            'id': kartlag.id,
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
         }
@@ -149,6 +150,7 @@ def createJSON(sender, instance, **kwargs):
                     if lag.legendeurl:
                         lag_json['legendeurl'] = lag.legendeurl
                     
+                    lag_json['id'] = lag.id
                     lag_json['queryable'] = lag.queryable
                     lag_json['minscaledenominator'] = lag.minscaledenominator
                     lag_json['maxscaledenominator'] = lag.maxscaledenominator
@@ -165,7 +167,7 @@ def createJSON(sender, instance, **kwargs):
                     if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
                         max_number = 2183915
                     if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
-                        max_number = 15000
+                        max_number = 150000
                     if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
                         and lag.wmslayer == 'Magasin'):
                         max_number = 545979
