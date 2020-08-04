@@ -17,16 +17,93 @@
   overflow-y: auto;
 }
 
+.setting-layers-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 25px;
+  background-color: #697f8a;
+  color: white;
+  margin-bottom: 20px;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 26px;
+  font-weight: 600;
+}
+@media only screen and (max-width: 768px) {
+  .setting-layers-title {
+    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 550;
+    padding: 14px 20px;
+  }
+}
+
+.settings-layers-tree-wrapper {
+  background-color: #eee;
+  padding: 15px;
+  max-width: calc(100vw - 20px);
+}
+
 .settings-layers-list-item-wrapper {
   display: flex;
   align-items: center;
+  max-width: calc(100vw - 100px);
 }
-
 .settings-layers-list-item-wrapper
   .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
   color: #1976d2;
 }
+@media only screen and (max-width: 768px) {
+  .settings-layers-list-item-wrapper .MuiButtonBase-root {
+    padding: 4px !important;
+  }
+}
 
-/* .settings-layers-wrapper div {
-  height: 100%;
-} */
+.settings-sublayers-list-item-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: calc(100vw - 125px);
+}
+.settings-sublayers-list-item-wrapper
+  .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
+  color: #1976d2;
+}
+@media only screen and (max-width: 768px) {
+  .settings-sublayers-list-item-wrapper .MuiButtonBase-root {
+    padding: 4px !important;
+  }
+}
+
+#settings-layers-item-label {
+  padding-left: 6px;
+  padding: 4px 0;
+}
+@media only screen and (max-width: 768px) {
+  #settings-layers-item-label {
+    line-height: 18px;
+  }
+}
+
+.settings-layers-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  max-width: 100vw;
+  margin-top: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .settings-layers-buttons-wrapper {
+    margin-top: 10px;
+    margin-bottom: 100px;
+  }
+}
+
+#settings-layers-cancel-button {
+  width: 90px;
+}
+
+#settings-layers-save-button {
+  width: 90px;
+}

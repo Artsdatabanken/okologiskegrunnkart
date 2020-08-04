@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Button, Checkbox, Typography } from "@material-ui/core";
+import {
+  Button,
+  Checkbox,
+  Typography,
+  CircularProgress
+} from "@material-ui/core";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import TreeItem from "@material-ui/lab/TreeItem";
 import "../style/settings.css";
 import { makeStyles } from "@material-ui/core/styles";
+import useWindowDimensions from "../Funksjoner/useWindowDimensions";
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +30,9 @@ const KartlagSettings = ({
 }) => {
   const [layers, setLayers] = useState(kartlag);
   const [layersActive, setLayersActive] = useState(someLayersActive);
+  const [loading, setLoading] = useState(false);
+
+  const { height, width, isMobile } = useWindowDimensions();
 
   const classes = useStyles();
 
@@ -60,7 +69,9 @@ const KartlagSettings = ({
   }, [someLayersActive]);
 
   const save = async () => {
+    setLoading(true);
     updateActiveLayers(layers).then(() => {
+      setLoading(false);
       toggleEditLayers();
     });
   };
@@ -68,9 +79,9 @@ const KartlagSettings = ({
   return (
     <div className="settings-layers-wrapper">
       <div className="setting-layers-title">
-        Velg lag og underlag som skal vises
+        <span>Velg lag og underlag som skal vises</span>
       </div>
-      <div>
+      <div className="settings-layers-tree-wrapper">
         <TreeView
           className={classes.root}
           defaultCollapseIcon={<ExpandMoreIcon />}
@@ -95,7 +106,9 @@ const KartlagSettings = ({
                   }}
                   color="primary"
                 />
-                <Typography variant="h6">Kartlag</Typography>
+                <Typography id="settings-layers-item-label" variant="h6">
+                  Kartlag
+                </Typography>
               </div>
             }
           >
@@ -126,7 +139,12 @@ const KartlagSettings = ({
                             }}
                             color="primary"
                           />
-                          <Typography variant="body1">{lag.tittel}</Typography>
+                          <Typography
+                            id="settings-layers-item-label"
+                            variant={isMobile ? "body2" : "body1"}
+                          >
+                            {lag.tittel}
+                          </Typography>
                         </div>
                       }
                     >
@@ -141,7 +159,7 @@ const KartlagSettings = ({
                                 key={"sublayer_" + sublag.key}
                                 nodeId={"sublayer_" + sublag.key}
                                 label={
-                                  <div className="settings-layers-list-item-wrapper">
+                                  <div className="settings-sublayers-list-item-wrapper">
                                     <Checkbox
                                       id="settings-layers-checkbox"
                                       checked={sublag.active}
@@ -151,7 +169,10 @@ const KartlagSettings = ({
                                       onClick={e => e.stopPropagation()}
                                       color="primary"
                                     />
-                                    <Typography variant="body1">
+                                    <Typography
+                                      id="settings-layers-item-label"
+                                      variant={isMobile ? "body2" : "body1"}
+                                    >
                                       {sublag.tittel}
                                     </Typography>
                                   </div>
@@ -189,7 +210,8 @@ const KartlagSettings = ({
             save();
           }}
         >
-          Lagre
+          {loading && <CircularProgress size={23} />}
+          {!loading && "Lagre"}
         </Button>
       </div>
     </div>
