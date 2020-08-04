@@ -3,7 +3,7 @@ import React from "react";
 import "../style/kartlagfane.css";
 import { Switch, Route } from "react-router-dom";
 import PolygonElement from "./PolygonElement";
-import { ArrowRight, ArrowLeft } from "@material-ui/icons";
+import { ArrowRight } from "@material-ui/icons";
 import { Button, Paper } from "@material-ui/core";
 import Kartlag from "./Kartlag";
 import TegnforklaringToggle from "./TegnforklaringToggle";

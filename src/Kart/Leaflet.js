@@ -8,7 +8,6 @@ import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import { withRouter } from "react-router-dom";
 import backend from "../Funksjoner/backend";
-import { SportsRugbySharp } from "@material-ui/icons";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -124,6 +123,7 @@ class Leaflet extends React.Component {
       ".leaflet-control-attribution a"
     );
     if (leafletLink) {
+      leafletLink.style = "display: none";
       leafletLink.setAttribute("target", "_blank");
       leafletLink.setAttribute("rel", "noopener noreferrer");
     }
@@ -160,7 +160,7 @@ class Leaflet extends React.Component {
     if (!polyline) return;
     const latlng = e.latlng;
     const point = { coords: [latlng.lat, latlng.lng] };
-    const index = polyline.selectedIndex || 0;
+    const index = polyline.selectedIndex || -1;
     polyline.selectedIndex = index + 1;
     polyline.coords.splice(index + 1, 0, point);
     this.props.onUpdatePolyline(polyline);
