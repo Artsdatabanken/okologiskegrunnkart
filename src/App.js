@@ -30,7 +30,12 @@ class App extends React.Component {
       valgtLag: null,
       searchResultPage: false,
       polygon: null,
-      polyline: { shapeType: "linje", erSynlig: true, coords: [] },
+      polyline: {
+        shapeType: "linje",
+        selectedIndex: -1,
+        erSynlig: true,
+        coords: []
+      },
       showPolygon: true,
       showSideBar: true,
       showInfobox: false,
@@ -206,8 +211,8 @@ class App extends React.Component {
 
   handleUpdatePolyline = polyline => {
     geography.addDistances(polyline);
-    console.log({ polyline });
-    this.setState({ polyline: polyline });
+    console.log(polyline.selectedIndex);
+    this.setState({ polyline });
   };
 
   addPolygon = polygon => {

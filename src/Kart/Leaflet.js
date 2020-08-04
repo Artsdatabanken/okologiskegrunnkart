@@ -160,7 +160,7 @@ class Leaflet extends React.Component {
     if (!polyline) return;
     const latlng = e.latlng;
     const point = { coords: [latlng.lat, latlng.lng] };
-    const index = polyline.selectedIndex || -1;
+    const index = polyline.selectedIndex;
     polyline.selectedIndex = index + 1;
     polyline.coords.splice(index + 1, 0, point);
     this.props.onUpdatePolyline(polyline);

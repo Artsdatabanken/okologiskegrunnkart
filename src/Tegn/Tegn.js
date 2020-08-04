@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   TextField,
   IconButton,
+  List,
   ListSubheader,
   ListItem,
   ListItemSecondaryAction,
@@ -27,98 +28,105 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
           gjøres (høydeprofil osv). La brukeren slette punkter.
         </Typography>
       </div>
-      <ListItem>
-        <TextField
-          style={{ width: "100%" }}
-          required
-          label="Navn på kartlaget"
-          defaultValue={"Mitt kartlag " + new Date().toLocaleTimeString()}
-        />
-      </ListItem>
-      <ListSubheader disableSticky>Type geometri</ListSubheader>
-      <ListItem>
-        <ButtonGroup
-          fullWidth={true}
-          variant="contained"
-          aria-label="primary button group"
-        >
-          <Button
-            color={polyline.shapeType === "punkt" && "primary"}
-            onClick={() => setShapeType("punkt")}
+      <List>
+        <ListItem>
+          <TextField
+            style={{ width: "100%" }}
+            required
+            label="Navn på kartlaget"
+            defaultValue={"Mitt kartlag " + new Date().toLocaleTimeString()}
+          />
+        </ListItem>
+        <ListSubheader disableSticky>Type geometri</ListSubheader>
+        <ListItem>
+          <ButtonGroup
+            fullWidth={true}
+            variant="contained"
+            aria-label="primary button group"
           >
-            <Marker></Marker> Punkt
-          </Button>
-          <Button
-            color={polyline.shapeType === "linje" && "primary"}
-            onClick={() => setShapeType("linje")}
-          >
-            <LineIcon></LineIcon> Linje
-          </Button>
-          <Button
-            color={polyline.shapeType === "polygon" && "primary"}
-            onClick={() => setShapeType("polygon")}
-          >
-            <PolygonIcon></PolygonIcon> Polygon
-          </Button>
-        </ButtonGroup>
-      </ListItem>
-      <ListSubheader disableSticky>
-        {overskrift({
-          shapeType: polyline.shapeType,
-          area: polyline.area,
-          distance: polyline.distance,
-          coords: polyline.coords
+            <Button
+              color={polyline.shapeType === "punkt" && "primary"}
+              onClick={() => setShapeType("punkt")}
+            >
+              <Marker></Marker> Punkt
+            </Button>
+            <Button
+              color={polyline.shapeType === "linje" && "primary"}
+              onClick={() => setShapeType("linje")}
+            >
+              <LineIcon></LineIcon> Linje
+            </Button>
+            <Button
+              color={polyline.shapeType === "polygon" && "primary"}
+              onClick={() => setShapeType("polygon")}
+            >
+              <PolygonIcon></PolygonIcon> Polygon
+            </Button>
+          </ButtonGroup>
+        </ListItem>
+        <ListSubheader disableSticky>
+          {overskrift({
+            shapeType: polyline.shapeType,
+            area: polyline.area,
+            distance: polyline.distance,
+            coords: polyline.coords
+          })}
+          {polyline.coords.length > 1 && (
+            <Button
+              color="primary"
+              style={{ float: "right" }}
+              onClick={() => {
+                polyline.coords = [];
+                polyline.selectedIndex = -1;
+                onUpdatePolyline(polyline);
+              }}
+            >
+              <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
+            </Button>
+          )}
+        </ListSubheader>
+        {polyline.coords.map((pt, index) => {
+          const utmCoords = `${Math.round(pt.x)} N ${Math.round(pt.y)} Ø`;
+          const dist = `(${prettifyDistance(pt.distance)} ∠ ${Math.round(
+            (360 + pt.angle) % 360
+          )}°)`;
+          const primary =
+            polyline.shapeType !== "punkt" &&
+            (index > 0 || polyline.shapeType === "polygon")
+              ? `${utmCoords} ${dist}`
+              : utmCoords;
+          return (
+            <ListItem
+              key={index}
+              button
+              selected={polyline.selectedIndex === index}
+              onClick={() => {
+                polyline.selectedIndex = index;
+                onUpdatePolyline(polyline);
+              }}
+            >
+              <ListItemText
+                secondary={primary}
+                primary={index + 1 + ". " + (pt.sted || "")}
+              />
+              {polyline.selectedIndex === index && (
+                <ListItemSecondaryAction>
+                  <IconButton
+                    onClick={() => {
+                      polyline.coords.splice(index, 1);
+                      if (polyline.coords.length <= polyline.selectedIndex)
+                        polyline.selectedIndex--;
+                      onUpdatePolyline(polyline);
+                    }}
+                  >
+                    <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              )}
+            </ListItem>
+          );
         })}
-        {polyline.coords.length > 1 && (
-          <Button
-            color="primary"
-            style={{ float: "right" }}
-            onClick={() => {
-              polyline.coords = [];
-              onUpdatePolyline(polyline);
-            }}
-          >
-            <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
-          </Button>
-        )}
-      </ListSubheader>
-      {polyline.coords.map((pt, index) => {
-        const utmCoords = `${Math.round(pt.x)} N ${Math.round(pt.y)} Ø`;
-        const dist = `(${prettifyDistance(pt.distance)} ∠ ${Math.round(
-          (360 + pt.angle) % 360
-        )}°)`;
-        const primary =
-          polyline.shapeType !== "punkt" &&
-          (index > 0 || polyline.shapeType === "polygon")
-            ? `${utmCoords} ${dist}`
-            : utmCoords;
-        return (
-          <ListItem
-            key={index}
-            button
-            selected={polyline.selectedIndex === index}
-            onClick={() => {
-              polyline.selectedIndex = index;
-              onUpdatePolyline(polyline);
-            }}
-          >
-            <ListItemText
-              secondary={primary}
-              primary={index + 1 + ". " + (pt.sted || "")}
-            />
-            <ListItemSecondaryAction>
-              <IconButton
-                onClick={() => {
-                  polyline.coords.splice(index, 1);
-                  onUpdatePolyline(polyline);
-                }}
-              >
-                <Delete style={{ color: "rgba(0,0,0,0.54)" }} />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
+      </List>
     </>
   );
 };
