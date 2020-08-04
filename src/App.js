@@ -12,8 +12,11 @@ import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
-import db from "./IndexedDb";
-import { useLayoutEffect } from "react";
+import db from "./IndexedDB/IndexedDB";
+import {
+  updateLayersIndexedDB,
+  removeUnusedLayersIndexedDB
+} from "./IndexedDB/ActionsIndexedDB";
 
 class App extends React.Component {
   constructor(props) {
@@ -47,7 +50,9 @@ class App extends React.Component {
       lng: null,
       loadingFeatures: false,
       editLayersMode: false,
-      allLayersActive: true
+      someLayersActive: false,
+      listLayerIds: [],
+      listSublayerIds: []
     };
   }
 
@@ -70,21 +75,24 @@ class App extends React.Component {
         "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
       );
     }
-    const layersdb = await db.layers.toArray();
-    // console.log("Layers: ", layersdb);
-    const sublayersdb = await db.sublayers.toArray();
-    // console.log("Sublayers", sublayersdb);
 
     const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
 
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
 
+    // Get layers and sublayers from indexed DB
+    const layersdb = await db.layers.toArray();
+    const sublayersdb = await db.sublayers.toArray();
+    const listLayerIds = [];
+    const listSublayerIds = [];
+
     // Modify and store kartlag in state
     Object.entries(sortedKartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
+      listLayerIds.push(key);
 
       // Check if layer is already stored in indexed DB. Add layer if not
       const existingLayer = layersdb.filter(e => e.id === key);
@@ -105,8 +113,8 @@ class App extends React.Component {
         k.active = existingLayer[0].active;
       }
 
-      if (this.state.allLayersActive && !k.active) {
-        this.setState({ allLayersActive: false });
+      if (!this.state.someLayersActive && k.active) {
+        this.setState({ someLayersActive: true });
       }
 
       k.underlag = k.underlag || {};
@@ -116,6 +124,7 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         ul.expanded = false;
+        listSublayerIds.push(ul.key);
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
         const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
@@ -136,25 +145,29 @@ class App extends React.Component {
           ul.active = existingSublayer[0].active;
         }
 
-        if (this.state.allLayersActive && !ul.active) {
-          this.setState({ allLayersActive: false });
+        if (!this.state.someLayersActive && ul.active) {
+          this.setState({ someLayersActive: true });
         }
 
         return acc;
       }, {});
     });
-    this.setState({ completeKartlag: sortedKartlag });
+    this.setState({
+      completeKartlag: sortedKartlag,
+      listLayerIds,
+      listSublayerIds
+    });
 
-    const reducedKartlag = await this.reduceKartlag(sortedKartlag);
+    const reducedKartlag = this.reduceKartlag(sortedKartlag);
     this.setState({ kartlag: reducedKartlag });
-
-    // const updatedLayersdb = await db.layers.toArray();
-    // const updatedSublayersdb = await db.sublayers.toArray();
-    console.log(sortedKartlag);
   }
 
-  componentDidMount() {
-    this.lastNedKartlag();
+  async componentDidMount() {
+    await this.lastNedKartlag();
+    removeUnusedLayersIndexedDB(
+      this.state.listLayerIds,
+      this.state.listSublayerIds
+    );
   }
 
   render() {
@@ -171,8 +184,8 @@ class App extends React.Component {
                     {this.state.editLayersMode && (
                       <KartlagSettings
                         kartlag={this.state.completeKartlag}
-                        allLayersActive={this.state.allLayersActive}
-                        toggleAllLayersActive={this.toggleAllLayersActive}
+                        someLayersActive={this.state.someLayersActive}
+                        toggleSomeLayersActive={this.toggleSomeLayersActive}
                         toggleEditLayers={this.toggleEditLayers}
                         updateActiveLayers={this.updateActiveLayers}
                       />
@@ -269,8 +282,8 @@ class App extends React.Component {
     );
   }
 
-  toggleAllLayersActive = () => {
-    this.setState({ allLayersActive: !this.state.allLayersActive });
+  toggleSomeLayersActive = () => {
+    this.setState({ someLayersActive: !this.state.someLayersActive });
   };
 
   toggleEditLayers = () => {
@@ -278,11 +291,12 @@ class App extends React.Component {
   };
 
   updateActiveLayers = async completeKartlag => {
-    const kartlag = await this.reduceKartlag(completeKartlag);
+    const kartlag = this.reduceKartlag(completeKartlag);
     this.setState({ completeKartlag, kartlag });
+    updateLayersIndexedDB(completeKartlag);
   };
 
-  reduceKartlag = async layers => {
+  reduceKartlag = layers => {
     // Reduce kartlag for active layers only
     let reducedLayers = {};
     Object.keys(layers).forEach(layerId => {

@@ -17,15 +17,13 @@ const useStyles = makeStyles({
 
 const KartlagSettings = ({
   kartlag,
-  allLayersActive,
-  toggleAllLayersActive,
+  someLayersActive,
+  toggleSomeLayersActive,
   toggleEditLayers,
   updateActiveLayers
 }) => {
   const [layers, setLayers] = useState(kartlag);
-  const [layersActive, setLayersActive] = useState(allLayersActive);
-  // const [checked, setChecked] = useState([]);
-  // const [expanded, setExpanded] = useState([]);
+  const [layersActive, setLayersActive] = useState(someLayersActive);
 
   const classes = useStyles();
 
@@ -57,31 +55,9 @@ const KartlagSettings = ({
     setLayers(updatedLayers);
   };
 
-  // const definenodes = () => {
-  //   const nodes = [];
-  //   Object.entries(kartlag).forEach(async ([key, k]) => {
-  //     const value = "layer_" + k.id;
-  //     const label = k.tittel;
-  //     const children = Object.entries(k.underlag).map(([key, sublayer]) => {
-  //       return { value: "sublayer_" + sublayer.key, label: sublayer.tittel };
-  //     });
-  //     nodes.push({ value, label, children });
-  //   });
-  //   return nodes;
-  // };
-  // useEffect(() => {
-  //   const layers = [];
-  //   Object.entries(kartlag).forEach(async ([key, k]) => {
-  //     const value = "layer_" + k.id;
-  //     const label = k.tittel;
-  //     const children = Object.entries(k.underlag).map(([key, sublayer]) => {
-  //       return { value: "sublayer_" + sublayer.key, label: sublayer.tittel };
-  //     });
-  //     layers.push({ value, label, children });
-  //   });
-  //   setNodes(layers);
-  //   console.log(layers)
-  // }, [kartlag]);
+  useEffect(() => {
+    setLayersActive(someLayersActive);
+  }, [someLayersActive]);
 
   const save = async () => {
     updateActiveLayers(layers).then(() => {
@@ -91,7 +67,9 @@ const KartlagSettings = ({
 
   return (
     <div className="settings-layers-wrapper">
-      <div>Velg lag og underlag som skal vises</div>
+      <div className="setting-layers-title">
+        Velg lag og underlag som skal vises
+      </div>
       <div>
         <TreeView
           className={classes.root}
@@ -108,6 +86,13 @@ const KartlagSettings = ({
                   checked={layersActive}
                   onChange={() => handleAllLayersChange()}
                   onClick={e => e.stopPropagation()}
+                  onKeyDown={e => {
+                    e.stopPropagation();
+                    if (e.keyCode === 13) {
+                      //Enterpressed
+                      handleAllLayersChange();
+                    }
+                  }}
                   color="primary"
                 />
                 <Typography variant="h6">Kartlag</Typography>
@@ -124,6 +109,7 @@ const KartlagSettings = ({
                       id="settings-layers-list-item"
                       key={"layer_" + lag.id}
                       nodeId={"layer_" + lag.id}
+                      tabIndex="0"
                       label={
                         <div className="settings-layers-list-item-wrapper">
                           <Checkbox
@@ -131,6 +117,13 @@ const KartlagSettings = ({
                             checked={lag.active}
                             onChange={() => handleLayerChange(lagId)}
                             onClick={e => e.stopPropagation()}
+                            onKeyDown={e => {
+                              e.stopPropagation();
+                              if (e.keyCode === 13) {
+                                //Enterpressed
+                                handleLayerChange(lagId);
+                              }
+                            }}
                             color="primary"
                           />
                           <Typography variant="body1">{lag.tittel}</Typography>
@@ -177,7 +170,17 @@ const KartlagSettings = ({
           </TreeItem>
         </TreeView>
       </div>
-      <div>
+      <div className="settings-layers-buttons-wrapper">
+        <Button
+          id="settings-layers-cancel-button"
+          variant="contained"
+          size="small"
+          onClick={() => {
+            toggleEditLayers();
+          }}
+        >
+          Avbryt
+        </Button>
         <Button
           id="settings-layers-save-button"
           variant="contained"

@@ -324,6 +324,7 @@
 /* Settings menu */
 #settings-menu .MuiPaper-root {
   margin-top: 5px;
+  border: 1px solid #999;
 }
 #settings-menu div ul li {
   font-size: 15px;
