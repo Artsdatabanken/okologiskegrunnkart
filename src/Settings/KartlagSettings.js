@@ -88,7 +88,7 @@ const KartlagSettings = ({
           defaultExpandIcon={<ChevronRightIcon />}
         >
           <TreeItem
-            id="settings-layers-list-item"
+            id="settings-layers-top-item"
             nodeId="toplevel"
             label={
               <div className="settings-layers-list-item-wrapper">
@@ -155,7 +155,7 @@ const KartlagSettings = ({
 
                             return (
                               <TreeItem
-                                id="settings-layers-list-item"
+                                id="settings-sublayers-list-item"
                                 key={"sublayer_" + sublag.key}
                                 nodeId={"sublayer_" + sublag.key}
                                 label={

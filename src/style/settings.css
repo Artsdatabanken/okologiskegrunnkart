@@ -33,9 +33,27 @@
 @media only screen and (max-width: 768px) {
   .setting-layers-title {
     margin-bottom: 10px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 550;
-    padding: 14px 20px;
+    padding: 14px 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-layers-top-item .MuiTreeItem-content {
+    max-width: calc(100vw - 50px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-layers-list-item .MuiTreeItem-content {
+    max-width: calc(100vw - 75px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-sublayers-list-item .MuiTreeItem-content {
+    max-width: calc(100vw - 125px);
   }
 }
 
@@ -48,7 +66,7 @@
 .settings-layers-list-item-wrapper {
   display: flex;
   align-items: center;
-  max-width: calc(100vw - 100px);
+  max-width: calc(100vw - 75px);
 }
 .settings-layers-list-item-wrapper
   .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
@@ -76,12 +94,12 @@
 }
 
 #settings-layers-item-label {
-  padding-left: 6px;
-  padding: 4px 0;
+  padding: 4px 0 4px 6px;
 }
 @media only screen and (max-width: 768px) {
   #settings-layers-item-label {
     line-height: 18px;
+    padding: 8px 0 8px 4px;
   }
 }
 
