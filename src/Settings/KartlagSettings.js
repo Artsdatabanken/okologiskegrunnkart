@@ -32,24 +32,38 @@ const KartlagSettings = ({
   const [layersActive, setLayersActive] = useState(someLayersActive);
   const [loading, setLoading] = useState(false);
 
-  const { height, width, isMobile } = useWindowDimensions();
+  const { isMobile } = useWindowDimensions();
 
   const classes = useStyles();
 
   const handleAllLayersChange = () => {
     console.log("All layers change");
-    setLayersActive(!layersActive);
+    const newStatus = !layersActive;
+    setLayersActive(newStatus);
+    Object.keys(layers).forEach(layerId => {
+      const layer = layers[layerId];
+      layer.active = newStatus;
+      Object.keys(layer.underlag).forEach(sublayerId => {
+        const sublayer = layer.underlag[sublayerId];
+        sublayer.active = newStatus;
+      });
+    });
   };
 
   const handleLayerChange = lagId => {
     let updatedLayer = { ...layers[lagId] };
     const newStatus = !updatedLayer.active;
     updatedLayer.active = newStatus;
-    Object.keys(updatedLayer.underlag).forEach(key => {
-      updatedLayer.underlag[key].active = newStatus;
+    Object.keys(updatedLayer.underlag).forEach(layerId => {
+      updatedLayer.underlag[layerId].active = newStatus;
     });
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
     setLayers(updatedLayers);
+    if (!layersActive && newStatus) {
+      setLayersActive(true);
+    } else if (!newStatus && !checkAnySublayerActive(updatedLayers)) {
+      setLayersActive(false);
+    }
   };
 
   const handleSublayerChange = (lagId, sublagId) => {
@@ -59,9 +73,46 @@ const KartlagSettings = ({
       ...layers[lagId].underlag,
       [sublagId]: updatedSublayer
     };
-    const updatedLayer = { ...layers[lagId], underlag: updatedSublayers };
+    let oneSublayerActive = false;
+    Object.keys(updatedSublayers).forEach(sublayerId => {
+      const sublayer = updatedSublayers[sublayerId];
+      if (sublayer.active) {
+        oneSublayerActive = true;
+      }
+    });
+    const updatedLayer = {
+      ...layers[lagId],
+      underlag: updatedSublayers,
+      active: oneSublayerActive
+    };
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
     setLayers(updatedLayers);
+
+    if (!layersActive && oneSublayerActive) {
+      setLayersActive(true);
+    } else if (!oneSublayerActive && !checkAnySublayerActive(updatedLayers)) {
+      setLayersActive(false);
+    }
+  };
+
+  const checkAnySublayerActive = updatedLayers => {
+    if (!updatedLayers) {
+      return false;
+    }
+    let anySublayerActive = false;
+    Object.keys(updatedLayers).forEach(layerId => {
+      if (!anySublayerActive) {
+        const layer = updatedLayers[layerId];
+        Object.keys(layer.underlag).forEach(sublayerId => {
+          const sublayer = layer.underlag[sublayerId];
+          if (sublayer.active) {
+            anySublayerActive = true;
+          }
+        });
+      }
+    });
+    console.log(anySublayerActive);
+    return anySublayerActive;
   };
 
   useEffect(() => {
