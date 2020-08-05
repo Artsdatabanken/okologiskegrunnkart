@@ -14,6 +14,7 @@ import {
 import { Delete, Room as Marker } from "@material-ui/icons";
 import LineIcon from "./LineIcon";
 import PolygonIcon from "./PolygonIcon";
+import Høydeplott from "./Høydeplott";
 
 const Tegn = ({ polyline, onUpdatePolyline }) => {
   const setShapeType = shapeType => {
@@ -22,12 +23,9 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
   };
   return (
     <>
-      <div style={{ margin: 24 }}>
-        <Typography variant="body2">
-          TODO: Vise stedsnavn, lengde på linje, areal, operasjoner som kan
-          gjøres (høydeprofil osv). La brukeren slette punkter.
-        </Typography>
-      </div>
+      <Høydeplott polyline={polyline} />
+
+      <div style={{ margin: 24 }}></div>
       <List>
         <ListItem>
           <TextField

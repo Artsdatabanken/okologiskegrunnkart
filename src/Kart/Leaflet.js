@@ -163,6 +163,7 @@ class Leaflet extends React.Component {
     const index = polyline.selectedIndex;
     polyline.selectedIndex = index + 1;
     polyline.coords.splice(index + 1, 0, point);
+    polyline.coords = polyline.coords.slice();
     this.props.onUpdatePolyline(polyline);
     backend
       .hentStedsnavn(latlng.lng, latlng.lat, this.map.getZoom())

@@ -212,7 +212,8 @@ class App extends React.Component {
   handleUpdatePolyline = polyline => {
     geography.addDistances(polyline);
     console.log(polyline.selectedIndex);
-    this.setState({ polyline });
+    //    this.setState({ polyline: Object.assign({}, polyline) });
+    this.setState({ polyline: polyline });
   };
 
   addPolygon = polygon => {
