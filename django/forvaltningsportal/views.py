@@ -216,7 +216,7 @@ class KartlagAPIView(APIView):
                                 except Exception:
                                     max_zoom = None
 
-                        
+
                         # # Print data to show progress in console
                         # print('------------')
                         # print(name)
@@ -237,6 +237,17 @@ class KartlagAPIView(APIView):
                             if sublag.erSynlig:
                                 sublag.suggested = True
                                 sublag.erSynlig = False
+
+                            # If sublayer click data is empty, copy it from layer
+                            if sublag.testkoordinater == '' and kartlag.testkoordinater != '':
+                                sublag.testkoordinater = kartlag.testkoordinater
+                            if sublag.klikkurl == '' and kartlag.klikkurl != '':
+                                sublag.klikkurl = kartlag.klikkurl
+                            if sublag.klikktekst == '' and kartlag.klikktekst != '':
+                                sublag.klikktekst = kartlag.klikktekst
+                            if sublag.klikktekst2 == '' and kartlag.klikktekst2 != '':
+                                sublag.klikktekst2 = kartlag.klikktekst2
+                            
                             sublag.save()
                             
                         else:
@@ -247,7 +258,11 @@ class KartlagAPIView(APIView):
                                 hovedkartlag=kartlag,
                                 queryable=queryable,
                                 minscaledenominator=min_zoom,
-                                maxscaledenominator=max_zoom
+                                maxscaledenominator=max_zoom,
+                                testkoordinater = kartlag.testkoordinater,
+                                klikkurl=kartlag.klikkurl,
+                                klikktekst=kartlag.klikktekst,
+                                klikktekst2=kartlag.klikktekst2
                             )
         
         # Cleanup database. Remove sublayers which are not
