@@ -125,6 +125,18 @@ const KartlagSettings = ({
     });
   };
 
+  const allSublayersActive = sublayers => {
+    let allActive = true;
+    Object.keys(sublayers).map(sublagId => {
+      let sublayer = sublayers[sublagId];
+      if (!sublayer.active) {
+        allActive = false;
+      }
+      return allActive;
+    });
+    return allActive;
+  };
+
   return (
     <div className="settings-layers-wrapper">
       <div className="setting-layers-title">
@@ -186,7 +198,11 @@ const KartlagSettings = ({
                                 handleLayerChange(lagId);
                               }
                             }}
-                            color="primary"
+                            color={
+                              allSublayersActive(lag.underlag)
+                                ? "primary"
+                                : "secondary"
+                            }
                           />
                           <Typography
                             id="settings-layers-item-label"

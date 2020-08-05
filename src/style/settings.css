@@ -72,6 +72,10 @@
   .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
   color: #1976d2;
 }
+.settings-layers-list-item-wrapper
+  .MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary {
+  color: #64b5f6;
+}
 @media only screen and (max-width: 768px) {
   .settings-layers-list-item-wrapper .MuiButtonBase-root {
     padding: 4px !important;
