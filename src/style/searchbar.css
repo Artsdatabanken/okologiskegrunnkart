@@ -326,9 +326,10 @@
   margin-top: 5px;
   border: 1px solid #999;
 }
-#settings-menu div ul li {
+/* #settings-menu div ul li {
   font-size: 15px;
-}
+} */
 #settings-menu-user-manual {
   width: 385px;
+  max-width: calc(100vw - 30px);
 }

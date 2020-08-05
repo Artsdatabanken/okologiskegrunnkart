@@ -2,7 +2,7 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Modal, Menu, MenuItem } from "@material-ui/core";
+import { Modal, Menu, MenuItem, ListItemText } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { Menu as MenuIcon } from "@material-ui/icons";
 
@@ -488,7 +488,8 @@ class SearchBar extends React.Component {
                 this.handleCloseMenu();
               }}
             >
-              Brukermanual
+              <ListItemText primary="Brukermanual" />
+              {/* Brukermanual */}
             </MenuItem>
             <MenuItem
               id="settings-menu-kartlag"
@@ -497,7 +498,8 @@ class SearchBar extends React.Component {
                 this.handleCloseMenu();
               }}
             >
-              Editere kartlag
+              <ListItemText primary="Editere kartlag" />
+              {/* Editere kartlag */}
             </MenuItem>
           </Menu>
         </div>

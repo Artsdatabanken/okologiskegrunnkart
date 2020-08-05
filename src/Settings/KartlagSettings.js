@@ -5,10 +5,9 @@ import {
   Typography,
   CircularProgress
 } from "@material-ui/core";
-import TreeView from "@material-ui/lab/TreeView";
+import { TreeView, TreeItem } from "@material-ui/lab";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TreeItem from "@material-ui/lab/TreeItem";
 import "../style/settings.css";
 import { makeStyles } from "@material-ui/core/styles";
 import useWindowDimensions from "../Funksjoner/useWindowDimensions";
@@ -173,7 +172,7 @@ const KartlagSettings = ({
                       id="settings-layers-list-item"
                       key={"layer_" + lag.id}
                       nodeId={"layer_" + lag.id}
-                      tabIndex="0"
+                      tabIndex={0}
                       label={
                         <div className="settings-layers-list-item-wrapper">
                           <Checkbox
