@@ -23,7 +23,6 @@ const useStyles = makeStyles({
 const KartlagSettings = ({
   kartlag,
   someLayersActive,
-  toggleSomeLayersActive,
   toggleEditLayers,
   updateActiveLayers
 }) => {
@@ -57,6 +56,7 @@ const KartlagSettings = ({
       updatedLayer.underlag[layerId].active = newStatus;
     });
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
+    console.log(updatedLayer);
     setLayers(updatedLayers);
     if (!layersActive && newStatus) {
       setLayersActive(true);
@@ -110,7 +110,6 @@ const KartlagSettings = ({
         });
       }
     });
-    console.log(anySublayerActive);
     return anySublayerActive;
   };
 

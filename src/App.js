@@ -185,7 +185,6 @@ class App extends React.Component {
                       <KartlagSettings
                         kartlag={this.state.completeKartlag}
                         someLayersActive={this.state.someLayersActive}
-                        toggleSomeLayersActive={this.toggleSomeLayersActive}
                         toggleEditLayers={this.toggleEditLayers}
                         updateActiveLayers={this.updateActiveLayers}
                       />
@@ -281,10 +280,6 @@ class App extends React.Component {
       </SettingsContext.Consumer>
     );
   }
-
-  toggleSomeLayersActive = () => {
-    this.setState({ someLayersActive: !this.state.someLayersActive });
-  };
 
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });

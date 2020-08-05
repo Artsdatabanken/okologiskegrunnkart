@@ -16,14 +16,14 @@ const updateLayersIndexedDB = async completeKartlag => {
     }
     Object.entries(k.underlag).forEach(async ([ulkey, ul]) => {
       // Check if sublayer is already stored in indexed DB and modify
-      const existingSublayer = sublayersdb.filter(e => e.id === ulkey);
+      const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
       if (
         existingSublayer.length > 0 &&
         existingSublayer[0].active !== ul.active
       ) {
         db.sublayers
           .where("id")
-          .equals(ulkey)
+          .equals(ul.key)
           .modify({ active: ul.active });
       }
     });
