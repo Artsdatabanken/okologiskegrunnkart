@@ -458,7 +458,6 @@ class SearchBar extends React.Component {
           <button
             className="help_button"
             onClick={e => {
-              // this.openHelp();
               this.handleOpenMenu(e);
             }}
           >
@@ -489,7 +488,6 @@ class SearchBar extends React.Component {
               }}
             >
               <ListItemText primary="Brukermanual" />
-              {/* Brukermanual */}
             </MenuItem>
             <MenuItem
               id="settings-menu-kartlag"
@@ -499,7 +497,6 @@ class SearchBar extends React.Component {
               }}
             >
               <ListItemText primary="Editere kartlag" />
-              {/* Editere kartlag */}
             </MenuItem>
           </Menu>
         </div>
