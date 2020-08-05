@@ -100,20 +100,20 @@ class App extends React.Component {
         db.layers.add({
           id: key,
           title: k.tittel,
-          active: true
+          favorite: true
         });
-        k.active = true;
+        k.favorite = true;
       } else if (existingLayer[0].title !== k.tittel) {
         db.layers
           .where("id")
           .equals(key)
           .modify({ title: k.tittel });
-        k.active = existingLayer[0].active;
+        k.favorite = existingLayer[0].favorite;
       } else {
-        k.active = existingLayer[0].active;
+        k.favorite = existingLayer[0].favorite;
       }
 
-      if (!this.state.someLayersActive && k.active) {
+      if (!this.state.someLayersActive && k.favorite) {
         this.setState({ someLayersActive: true });
       }
 
@@ -132,20 +132,20 @@ class App extends React.Component {
           db.sublayers.add({
             id: ul.key,
             title: ul.tittel,
-            active: true
+            favorite: true
           });
-          ul.active = true;
+          ul.favorite = true;
         } else if (existingSublayer[0].title !== ul.tittel) {
           db.sublayers
             .where("id")
             .equals(ul.key)
             .modify({ title: ul.tittel });
-          ul.active = existingSublayer[0].active;
+          ul.favorite = existingSublayer[0].favorite;
         } else {
-          ul.active = existingSublayer[0].active;
+          ul.favorite = existingSublayer[0].favorite;
         }
 
-        if (!this.state.someLayersActive && ul.active) {
+        if (!this.state.someLayersActive && ul.favorite) {
           this.setState({ someLayersActive: true });
         }
 
@@ -292,15 +292,15 @@ class App extends React.Component {
   };
 
   reduceKartlag = layers => {
-    // Reduce kartlag for active layers only
+    // Reduce kartlag for favorite layers only
     let reducedLayers = {};
     Object.keys(layers).forEach(layerId => {
       const layer = layers[layerId];
-      if (layer.active) {
+      if (layer.favorite) {
         let reducedSublayers = {};
         Object.keys(layer.underlag).forEach(sublayerId => {
           const sublayer = layer.underlag[sublayerId];
-          if (sublayer.active) {
+          if (sublayer.favorite) {
             reducedSublayers[sublayerId] = sublayer;
           }
           return reducedSublayers;

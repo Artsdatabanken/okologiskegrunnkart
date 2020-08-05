@@ -40,20 +40,20 @@ const KartlagSettings = ({
     setLayersActive(newStatus);
     Object.keys(layers).forEach(layerId => {
       const layer = layers[layerId];
-      layer.active = newStatus;
+      layer.favorite = newStatus;
       Object.keys(layer.underlag).forEach(sublayerId => {
         const sublayer = layer.underlag[sublayerId];
-        sublayer.active = newStatus;
+        sublayer.favorite = newStatus;
       });
     });
   };
 
   const handleLayerChange = lagId => {
     let updatedLayer = { ...layers[lagId] };
-    const newStatus = !updatedLayer.active;
-    updatedLayer.active = newStatus;
+    const newStatus = !updatedLayer.favorite;
+    updatedLayer.favorite = newStatus;
     Object.keys(updatedLayer.underlag).forEach(layerId => {
-      updatedLayer.underlag[layerId].active = newStatus;
+      updatedLayer.underlag[layerId].favorite = newStatus;
     });
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
     console.log(updatedLayer);
@@ -67,7 +67,7 @@ const KartlagSettings = ({
 
   const handleSublayerChange = (lagId, sublagId) => {
     let updatedSublayer = { ...layers[lagId].underlag[sublagId] };
-    updatedSublayer.active = !updatedSublayer.active;
+    updatedSublayer.favorite = !updatedSublayer.favorite;
     const updatedSublayers = {
       ...layers[lagId].underlag,
       [sublagId]: updatedSublayer
@@ -75,14 +75,14 @@ const KartlagSettings = ({
     let oneSublayerActive = false;
     Object.keys(updatedSublayers).forEach(sublayerId => {
       const sublayer = updatedSublayers[sublayerId];
-      if (sublayer.active) {
+      if (sublayer.favorite) {
         oneSublayerActive = true;
       }
     });
     const updatedLayer = {
       ...layers[lagId],
       underlag: updatedSublayers,
-      active: oneSublayerActive
+      favorite: oneSublayerActive
     };
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
     setLayers(updatedLayers);
@@ -104,7 +104,7 @@ const KartlagSettings = ({
         const layer = updatedLayers[layerId];
         Object.keys(layer.underlag).forEach(sublayerId => {
           const sublayer = layer.underlag[sublayerId];
-          if (sublayer.active) {
+          if (sublayer.favorite) {
             anySublayerActive = true;
           }
         });
@@ -129,7 +129,7 @@ const KartlagSettings = ({
     let allActive = true;
     Object.keys(sublayers).map(sublagId => {
       let sublayer = sublayers[sublagId];
-      if (!sublayer.active) {
+      if (!sublayer.favorite) {
         allActive = false;
       }
       return allActive;
@@ -188,7 +188,7 @@ const KartlagSettings = ({
                         <div className="settings-layers-list-item-wrapper">
                           <Checkbox
                             id="settings-layers-checkbox"
-                            checked={lag.active}
+                            checked={lag.favorite}
                             onChange={() => handleLayerChange(lagId)}
                             onClick={e => e.stopPropagation()}
                             onKeyDown={e => {
@@ -227,7 +227,7 @@ const KartlagSettings = ({
                                   <div className="settings-sublayers-list-item-wrapper">
                                     <Checkbox
                                       id="settings-layers-checkbox"
-                                      checked={sublag.active}
+                                      checked={sublag.favorite}
                                       onChange={() =>
                                         handleSublayerChange(lagId, sublagId)
                                       }

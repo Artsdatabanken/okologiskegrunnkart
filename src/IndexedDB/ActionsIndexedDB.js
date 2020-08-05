@@ -8,23 +8,23 @@ const updateLayersIndexedDB = async completeKartlag => {
   Object.entries(completeKartlag).forEach(async ([key, k]) => {
     // Check if layer is already stored in indexed DB and modify
     const existingLayer = layersdb.filter(e => e.id === key);
-    if (existingLayer.length > 0 && existingLayer[0].active !== k.active) {
+    if (existingLayer.length > 0 && existingLayer[0].favorite !== k.favorite) {
       db.layers
         .where("id")
         .equals(key)
-        .modify({ active: k.active });
+        .modify({ favorite: k.favorite });
     }
     Object.entries(k.underlag).forEach(async ([ulkey, ul]) => {
       // Check if sublayer is already stored in indexed DB and modify
       const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
       if (
         existingSublayer.length > 0 &&
-        existingSublayer[0].active !== ul.active
+        existingSublayer[0].favorite !== ul.favorite
       ) {
         db.sublayers
           .where("id")
           .equals(ul.key)
-          .modify({ active: ul.active });
+          .modify({ favorite: ul.favorite });
       }
     });
   });
