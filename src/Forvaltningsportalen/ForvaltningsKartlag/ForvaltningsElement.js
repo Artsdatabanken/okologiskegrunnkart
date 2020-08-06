@@ -25,10 +25,7 @@ const ForvaltningsElement = ({
   const erSynlig = kartlag.erSynlig;
   const expanded = kartlag.expanded;
   let startstate = valgt || expanded;
-  console.log(startstate);
   const [open, setOpen] = useState(startstate);
-  // console.log(startstate)
-  // console.log(open)
   if (!tittel) return null;
 
   const isLargeIcon = tema => {

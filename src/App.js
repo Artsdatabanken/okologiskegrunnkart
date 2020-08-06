@@ -308,19 +308,37 @@ class App extends React.Component {
     if (favorites) {
       this.hideVisibleLayers(favorites).then(() => {
         this.setState({ kartlag: this.state.favoriteKartlag }, () => {
-          this.showVisibleLayers(favorites);
+          this.showVisibleLayers(favorites).then(() => {
+            if (this.state.showInfobox && this.state.showExtensiveInfo) {
+              this.setState({ allLayersResult: {} });
+              this.handleAllLayersSearch(
+                this.state.lng,
+                this.state.lat,
+                this.state.zoom
+              );
+            }
+          });
         });
       });
     } else {
       this.hideVisibleLayers(favorites).then(() => {
         this.setState({ kartlag: this.state.completeKartlag }, () => {
-          this.showVisibleLayers(favorites);
+          this.showVisibleLayers(favorites).then(() => {
+            if (this.state.showInfobox && this.state.showExtensiveInfo) {
+              this.setState({ allLayersResult: {} });
+              this.handleAllLayersSearch(
+                this.state.lng,
+                this.state.lat,
+                this.state.zoom
+              );
+            }
+          });
         });
       });
     }
   };
 
-  showVisibleLayers = favorites => {
+  showVisibleLayers = async favorites => {
     if (favorites) {
       for (const item of this.state.visibleSublayersFavorites) {
         this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);

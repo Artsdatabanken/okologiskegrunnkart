@@ -35,7 +35,6 @@ const KartlagSettings = ({
   const classes = useStyles();
 
   const handleAllLayersChange = () => {
-    console.log("All layers change");
     const newStatus = !layersActive;
     setLayersActive(newStatus);
     Object.keys(layers).forEach(layerId => {
@@ -56,7 +55,6 @@ const KartlagSettings = ({
       updatedLayer.underlag[layerId].favorite = newStatus;
     });
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
-    console.log(updatedLayer);
     setLayers(updatedLayers);
     if (!layersActive && newStatus) {
       setLayersActive(true);
