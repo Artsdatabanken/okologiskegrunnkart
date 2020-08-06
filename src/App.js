@@ -347,10 +347,19 @@ class App extends React.Component {
   updateFavoriteLayers = async completeKartlag => {
     const favoriteKartlag = this.reduceKartlag(completeKartlag);
     this.setState({ completeKartlag, favoriteKartlag });
-    if (this.state.showFavoriteLayers) {
-      this.setState({ kartlag: favoriteKartlag });
+    const favorites = this.state.showFavoriteLayers;
+    if (favorites) {
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: favoriteKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
+      });
     } else {
-      this.setState({ kartlag: completeKartlag });
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: completeKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
+      });
     }
     updateLayersIndexedDB(completeKartlag);
   };
