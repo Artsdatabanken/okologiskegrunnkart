@@ -54,7 +54,11 @@ class App extends React.Component {
       someLayersFavorite: false,
       listFavoriteLayerIds: [],
       listFavoriteSublayerIds: [],
-      showFavoriteLayers: false
+      showFavoriteLayers: false,
+      visibleSublayersFavorites: [],
+      visibleSublayersComplete: [],
+      expandedLayersFavorites: [],
+      expandedLayersComplete: []
     };
   }
 
@@ -125,7 +129,6 @@ class App extends React.Component {
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
         ul.opacity = 0.8;
         acc[ul.id] = ul;
-        ul.expanded = false;
         listFavoriteSublayerIds.push(ul.key);
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
@@ -278,6 +281,8 @@ class App extends React.Component {
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        changeVisibleSublayers={this.changeVisibleSublayers}
+                        changeExpandedLayers={this.changeExpandedLayers}
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
                         toggleSideBar={this.toggleSideBar}
@@ -298,12 +303,47 @@ class App extends React.Component {
     this.setState({ editLayersMode: !this.state.editLayersMode });
   };
 
-  toggleShowFavoriteLayers = bool => {
-    this.setState({ showFavoriteLayers: bool });
-    if (bool) {
-      this.setState({ kartlag: this.state.favoriteKartlag });
+  toggleShowFavoriteLayers = async favorites => {
+    this.setState({ showFavoriteLayers: favorites });
+    // if (favorites) {
+    //   this.setState({ kartlag: this.state.favoriteKartlag }, () => {
+    //     this.expandLayers(favorites).then(() => {
+    //       this.showVisibleLayers(favorites);
+    //     });
+    //   });
+    // } else {
+    //   this.setState({ kartlag: this.state.completeKartlag }, () => {
+    //     this.expandLayers(favorites).then(() => {
+    //       this.showVisibleLayers(favorites);
+    //     });
+    //   });
+    // }
+    if (favorites) {
+      this.setState({ kartlag: this.state.favoriteKartlag }, () => {
+        this.showVisibleLayers(favorites);
+      });
     } else {
-      this.setState({ kartlag: this.state.completeKartlag });
+      this.setState({ kartlag: this.state.completeKartlag }, () => {
+        this.showVisibleLayers(favorites);
+      });
+    }
+  };
+
+  showVisibleLayers = async favorites => {
+    if (favorites) {
+      for (const item of this.state.visibleSublayersComplete) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+      }
+      for (const item of this.state.visibleSublayersFavorites) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+      }
+    } else {
+      for (const item of this.state.visibleSublayersFavorites) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+      }
+      for (const item of this.state.visibleSublayersComplete) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+      }
     }
   };
 
@@ -703,6 +743,51 @@ class App extends React.Component {
       !this.state.showExtensiveInfo
     ) {
       this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
+    }
+  };
+
+  changeVisibleSublayers = (layerKey, sublayerKey, propKey, visible) => {
+    if (this.state.showFavoriteLayers) {
+      let array = [...this.state.visibleSublayersFavorites];
+      if (visible) {
+        array.push({ layerKey, sublayerKey, propKey });
+      } else {
+        array = array.filter(
+          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
+        );
+      }
+      this.setState({ visibleSublayersFavorites: array });
+    } else {
+      let array = [...this.state.visibleSublayersComplete];
+      if (visible) {
+        array.push({ layerKey, sublayerKey, propKey });
+      } else {
+        array = array.filter(
+          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
+        );
+      }
+      this.setState({ visibleSublayersComplete: array });
+    }
+  };
+
+  // Stored but not being used: Problems when updating state (no changes)
+  changeExpandedLayers = (layerKey, expanded) => {
+    if (this.state.showFavoriteLayers) {
+      let array = [...this.state.expandedLayersFavorites];
+      if (expanded) {
+        array.push(layerKey);
+      } else {
+        array = array.filter(item => item !== layerKey);
+      }
+      this.setState({ expandedLayersFavorites: array });
+    } else {
+      let array = [...this.state.expandedLayersComplete];
+      if (expanded) {
+        array.push(layerKey);
+      } else {
+        array = array.filter(item => item !== layerKey);
+      }
+      this.setState({ expandedLayersComplete: array });
     }
   };
 

@@ -531,6 +531,7 @@ class SearchBar extends React.Component {
                 )}
               </ListItemIcon>
             </MenuItem>
+            <Divider variant="middle" />
             <MenuItem
               id="settings-menu-kartlag"
               onClick={() => {

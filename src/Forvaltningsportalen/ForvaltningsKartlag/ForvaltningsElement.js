@@ -14,6 +14,8 @@ import { setValue } from "../../Funksjoner/setValue";
 const ForvaltningsElement = ({
   kartlag,
   onUpdateLayerProp,
+  changeVisibleSublayers,
+  changeExpandedLayers,
   kartlagKey,
   valgt,
   zoom,
@@ -23,7 +25,10 @@ const ForvaltningsElement = ({
   const erSynlig = kartlag.erSynlig;
   const expanded = kartlag.expanded;
   let startstate = valgt || expanded;
+  console.log(startstate);
   const [open, setOpen] = useState(startstate);
+  // console.log(startstate)
+  // console.log(open)
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
@@ -43,6 +48,7 @@ const ForvaltningsElement = ({
           if (!valgt) {
             setOpen(!open);
             setValue(kartlag, "expanded", !open);
+            changeExpandedLayers(kartlag.id, !open);
           }
         }}
       >
@@ -86,7 +92,7 @@ const ForvaltningsElement = ({
                       kartlagKey={kartlagKey}
                       underlagKey={sublag}
                       onUpdateLayerProp={onUpdateLayerProp}
-                      zoom={zoom}
+                      changeVisibleSublayers={changeVisibleSublayers}
                       showSublayerDetails={showSublayerDetails}
                     />
                   </div>
@@ -94,28 +100,6 @@ const ForvaltningsElement = ({
               })}
             </>
           )}
-
-          {/* <ForvaltningsGeneralInfo kartlag={kartlag} /> */}
-
-          {/* {kartlag.dataeier && (
-            <ListItem id="data-owner-element">
-              <ListItemIcon>
-                {kartlag.logourl ? (
-                  <img
-                    src={kartlag.logourl}
-                    style={{ maxWidth: "24px" }}
-                    alt=""
-                  />
-                ) : (
-                  <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                )}
-              </ListItemIcon>
-              <ListItemText
-                primary={kartlag.dataeier}
-                primaryTypographyProps={{ variant: "body2" }}
-              />
-            </ListItem>
-          )} */}
         </div>
       </Collapse>
     </>
