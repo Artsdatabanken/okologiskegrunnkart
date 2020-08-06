@@ -106,9 +106,9 @@ class App extends React.Component {
         db.layers.add({
           id: key,
           title: k.tittel,
-          favorite: true
+          favorite: false
         });
-        k.favorite = true;
+        k.favorite = false;
       } else if (existingLayer[0].title !== k.tittel) {
         db.layers
           .where("id")
@@ -137,9 +137,9 @@ class App extends React.Component {
           db.sublayers.add({
             id: ul.key,
             title: ul.tittel,
-            favorite: true
+            favorite: false
           });
-          ul.favorite = true;
+          ul.favorite = false;
         } else if (existingSublayer[0].title !== ul.tittel) {
           db.sublayers
             .where("id")
