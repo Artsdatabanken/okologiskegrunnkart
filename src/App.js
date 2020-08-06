@@ -24,6 +24,7 @@ class App extends React.Component {
     this.state = {
       bakgrunnskart,
       completeKartlag: {},
+      favoriteKartlag: {},
       kartlag: {},
       valgteLag: {},
       actualBounds: null,
@@ -50,9 +51,10 @@ class App extends React.Component {
       lng: null,
       loadingFeatures: false,
       editLayersMode: false,
-      someLayersActive: false,
-      listLayerIds: [],
-      listSublayerIds: []
+      someLayersFavorite: false,
+      listFavoriteLayerIds: [],
+      listFavoriteSublayerIds: [],
+      showFavoriteLayers: false
     };
   }
 
@@ -84,15 +86,15 @@ class App extends React.Component {
     // Get layers and sublayers from indexed DB
     const layersdb = await db.layers.toArray();
     const sublayersdb = await db.sublayers.toArray();
-    const listLayerIds = [];
-    const listSublayerIds = [];
+    const listFavoriteLayerIds = [];
+    const listFavoriteSublayerIds = [];
 
     // Modify and store kartlag in state
     Object.entries(sortedKartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
-      listLayerIds.push(key);
+      listFavoriteLayerIds.push(key);
 
       // Check if layer is already stored in indexed DB. Add layer if not
       const existingLayer = layersdb.filter(e => e.id === key);
@@ -113,8 +115,8 @@ class App extends React.Component {
         k.favorite = existingLayer[0].favorite;
       }
 
-      if (!this.state.someLayersActive && k.favorite) {
-        this.setState({ someLayersActive: true });
+      if (!this.state.someLayersFavorite && k.favorite) {
+        this.setState({ someLayersFavorite: true });
       }
 
       k.underlag = k.underlag || {};
@@ -124,7 +126,7 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         ul.expanded = false;
-        listSublayerIds.push(ul.key);
+        listFavoriteSublayerIds.push(ul.key);
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
         const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
@@ -145,8 +147,11 @@ class App extends React.Component {
           ul.favorite = existingSublayer[0].favorite;
         }
 
-        if (!this.state.someLayersActive && ul.favorite) {
-          this.setState({ someLayersActive: true });
+        if (!this.state.someLayersFavorite && ul.favorite) {
+          this.setState({ someLayersFavorite: true });
+        }
+        if (!this.state.showFavoriteLayers && ul.favorite) {
+          this.setState({ showFavoriteLayers: true });
         }
 
         return acc;
@@ -154,19 +159,25 @@ class App extends React.Component {
     });
     this.setState({
       completeKartlag: sortedKartlag,
-      listLayerIds,
-      listSublayerIds
+      listFavoriteLayerIds,
+      listFavoriteSublayerIds
     });
 
     const reducedKartlag = this.reduceKartlag(sortedKartlag);
-    this.setState({ kartlag: reducedKartlag });
+    this.setState({ favoriteKartlag: reducedKartlag });
+
+    if (this.state.showFavoriteLayers) {
+      this.setState({ kartlag: reducedKartlag });
+    } else {
+      this.setState({ kartlag: sortedKartlag });
+    }
   }
 
   async componentDidMount() {
     await this.lastNedKartlag();
     removeUnusedLayersIndexedDB(
-      this.state.listLayerIds,
-      this.state.listSublayerIds
+      this.state.listFavoriteLayerIds,
+      this.state.listFavoriteSublayerIds
     );
   }
 
@@ -184,9 +195,9 @@ class App extends React.Component {
                     {this.state.editLayersMode && (
                       <KartlagSettings
                         kartlag={this.state.completeKartlag}
-                        someLayersActive={this.state.someLayersActive}
+                        someLayersFavorite={this.state.someLayersFavorite}
                         toggleEditLayers={this.toggleEditLayers}
-                        updateActiveLayers={this.updateActiveLayers}
+                        updateFavoriteLayers={this.updateFavoriteLayers}
                       />
                     )}
                     <div
@@ -251,6 +262,8 @@ class App extends React.Component {
                         handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}
                         toggleEditLayers={this.toggleEditLayers}
+                        showFavoriteLayers={this.state.showFavoriteLayers}
+                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                       />
                       <KartlagFanen
                         polygon={this.state.polygon}
@@ -285,9 +298,23 @@ class App extends React.Component {
     this.setState({ editLayersMode: !this.state.editLayersMode });
   };
 
-  updateActiveLayers = async completeKartlag => {
-    const kartlag = this.reduceKartlag(completeKartlag);
-    this.setState({ completeKartlag, kartlag });
+  toggleShowFavoriteLayers = bool => {
+    this.setState({ showFavoriteLayers: bool });
+    if (bool) {
+      this.setState({ kartlag: this.state.favoriteKartlag });
+    } else {
+      this.setState({ kartlag: this.state.completeKartlag });
+    }
+  };
+
+  updateFavoriteLayers = async completeKartlag => {
+    const favoriteKartlag = this.reduceKartlag(completeKartlag);
+    this.setState({ completeKartlag, favoriteKartlag });
+    if (this.state.showFavoriteLayers) {
+      this.setState({ kartlag: favoriteKartlag });
+    } else {
+      this.setState({ kartlag: completeKartlag });
+    }
     updateLayersIndexedDB(completeKartlag);
   };
 

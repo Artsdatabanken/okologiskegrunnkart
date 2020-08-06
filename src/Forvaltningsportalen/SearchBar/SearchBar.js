@@ -2,9 +2,16 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Modal, Menu, MenuItem, ListItemText } from "@material-ui/core";
+import {
+  Modal,
+  Menu,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
+  Divider
+} from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { Menu as MenuIcon, Done } from "@material-ui/icons";
 
 class SearchBar extends React.Component {
   state = {
@@ -489,6 +496,41 @@ class SearchBar extends React.Component {
             >
               <ListItemText primary="Brukermanual" />
             </MenuItem>
+            <Divider variant="middle" />
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleShowFavoriteLayers(true);
+                this.handleCloseMenu();
+              }}
+              selected={this.props.showFavoriteLayers}
+            >
+              <ListItemText primary="Vis favoritt kartlag" />
+              <ListItemIcon id="filter-layers-menu-icon">
+                {this.props.showFavoriteLayers ? (
+                  <Done fontSize="small" />
+                ) : (
+                  <div />
+                )}
+              </ListItemIcon>
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleShowFavoriteLayers(false);
+                this.handleCloseMenu();
+              }}
+              selected={!this.props.showFavoriteLayers}
+            >
+              <ListItemText primary="Vis fullstendig kartlag" />
+              <ListItemIcon id="filter-layers-menu-icon">
+                {!this.props.showFavoriteLayers ? (
+                  <Done fontSize="small" />
+                ) : (
+                  <div />
+                )}
+              </ListItemIcon>
+            </MenuItem>
             <MenuItem
               id="settings-menu-kartlag"
               onClick={() => {
@@ -496,7 +538,7 @@ class SearchBar extends React.Component {
                 this.handleCloseMenu();
               }}
             >
-              <ListItemText primary="Editere kartlag" />
+              <ListItemText primary="Editere favoritt kartlag" />
             </MenuItem>
           </Menu>
         </div>

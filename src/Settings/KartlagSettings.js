@@ -22,12 +22,12 @@ const useStyles = makeStyles({
 
 const KartlagSettings = ({
   kartlag,
-  someLayersActive,
+  someLayersFavorite,
   toggleEditLayers,
-  updateActiveLayers
+  updateFavoriteLayers
 }) => {
   const [layers, setLayers] = useState(kartlag);
-  const [layersActive, setLayersActive] = useState(someLayersActive);
+  const [layersActive, setLayersActive] = useState(someLayersFavorite);
   const [loading, setLoading] = useState(false);
 
   const { isMobile } = useWindowDimensions();
@@ -72,24 +72,24 @@ const KartlagSettings = ({
       ...layers[lagId].underlag,
       [sublagId]: updatedSublayer
     };
-    let oneSublayerActive = false;
+    let oneSublayerFavorite = false;
     Object.keys(updatedSublayers).forEach(sublayerId => {
       const sublayer = updatedSublayers[sublayerId];
       if (sublayer.favorite) {
-        oneSublayerActive = true;
+        oneSublayerFavorite = true;
       }
     });
     const updatedLayer = {
       ...layers[lagId],
       underlag: updatedSublayers,
-      favorite: oneSublayerActive
+      favorite: oneSublayerFavorite
     };
     const updatedLayers = { ...layers, [lagId]: updatedLayer };
     setLayers(updatedLayers);
 
-    if (!layersActive && oneSublayerActive) {
+    if (!layersActive && oneSublayerFavorite) {
       setLayersActive(true);
-    } else if (!oneSublayerActive && !checkAnySublayerActive(updatedLayers)) {
+    } else if (!oneSublayerFavorite && !checkAnySublayerActive(updatedLayers)) {
       setLayersActive(false);
     }
   };
@@ -98,49 +98,53 @@ const KartlagSettings = ({
     if (!updatedLayers) {
       return false;
     }
-    let anySublayerActive = false;
+    let anySublayerFavorite = false;
     Object.keys(updatedLayers).forEach(layerId => {
-      if (!anySublayerActive) {
+      if (!anySublayerFavorite) {
         const layer = updatedLayers[layerId];
         Object.keys(layer.underlag).forEach(sublayerId => {
           const sublayer = layer.underlag[sublayerId];
           if (sublayer.favorite) {
-            anySublayerActive = true;
+            anySublayerFavorite = true;
           }
         });
       }
     });
-    return anySublayerActive;
+    return anySublayerFavorite;
   };
 
   useEffect(() => {
-    setLayersActive(someLayersActive);
-  }, [someLayersActive]);
+    setLayersActive(someLayersFavorite);
+  }, [someLayersFavorite]);
 
   const save = async () => {
     setLoading(true);
-    updateActiveLayers(layers).then(() => {
+    updateFavoriteLayers(layers).then(() => {
       setLoading(false);
       toggleEditLayers();
     });
   };
 
-  const allSublayersActive = sublayers => {
-    let allActive = true;
+  const onlySomeSublayersFavorite = sublayers => {
+    let allFavorite = true;
+    let noneFavorite = true;
     Object.keys(sublayers).map(sublagId => {
       let sublayer = sublayers[sublagId];
       if (!sublayer.favorite) {
-        allActive = false;
+        allFavorite = false;
       }
-      return allActive;
+      if (sublayer.favorite) {
+        noneFavorite = false;
+      }
+      return { allFavorite, noneFavorite };
     });
-    return allActive;
+    return !(allFavorite || noneFavorite);
   };
 
   return (
     <div className="settings-layers-wrapper">
       <div className="setting-layers-title">
-        <span>Velg lag og underlag som skal vises</span>
+        <span>Velg favoritte lag og underlag</span>
       </div>
       <div className="settings-layers-tree-wrapper">
         <TreeView
@@ -199,7 +203,7 @@ const KartlagSettings = ({
                               }
                             }}
                             color={
-                              allSublayersActive(lag.underlag)
+                              !onlySomeSublayersFavorite(lag.underlag)
                                 ? "primary"
                                 : "secondary"
                             }

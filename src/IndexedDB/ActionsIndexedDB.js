@@ -30,13 +30,16 @@ const updateLayersIndexedDB = async completeKartlag => {
   });
 };
 
-const removeUnusedLayersIndexedDB = async (listLayerIds, listSublayerIds) => {
+const removeUnusedLayersIndexedDB = async (
+  listFavoriteLayerIds,
+  listFavoriteSublayerIds
+) => {
   // Get layers and sublayers from indexed DB
   const layersdb = await db.layers.toArray();
   const sublayersdb = await db.sublayers.toArray();
 
   for (const layer of layersdb) {
-    if (!listLayerIds.includes(layer.id)) {
+    if (!listFavoriteLayerIds.includes(layer.id)) {
       db.layers
         .where("id")
         .equals(layer.id)
@@ -45,7 +48,7 @@ const removeUnusedLayersIndexedDB = async (listLayerIds, listSublayerIds) => {
   }
 
   for (const sublayer of sublayersdb) {
-    if (!listSublayerIds.includes(sublayer.id)) {
+    if (!listFavoriteSublayerIds.includes(sublayer.id)) {
       db.sublayers
         .where("id")
         .equals(sublayer.id)
