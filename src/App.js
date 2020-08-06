@@ -305,44 +305,41 @@ class App extends React.Component {
 
   toggleShowFavoriteLayers = async favorites => {
     this.setState({ showFavoriteLayers: favorites });
-    // if (favorites) {
-    //   this.setState({ kartlag: this.state.favoriteKartlag }, () => {
-    //     this.expandLayers(favorites).then(() => {
-    //       this.showVisibleLayers(favorites);
-    //     });
-    //   });
-    // } else {
-    //   this.setState({ kartlag: this.state.completeKartlag }, () => {
-    //     this.expandLayers(favorites).then(() => {
-    //       this.showVisibleLayers(favorites);
-    //     });
-    //   });
-    // }
     if (favorites) {
-      this.setState({ kartlag: this.state.favoriteKartlag }, () => {
-        this.showVisibleLayers(favorites);
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: this.state.favoriteKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
       });
     } else {
-      this.setState({ kartlag: this.state.completeKartlag }, () => {
-        this.showVisibleLayers(favorites);
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: this.state.completeKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
       });
     }
   };
 
-  showVisibleLayers = async favorites => {
+  showVisibleLayers = favorites => {
     if (favorites) {
-      for (const item of this.state.visibleSublayersComplete) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
-      }
       for (const item of this.state.visibleSublayersFavorites) {
         this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
       }
     } else {
-      for (const item of this.state.visibleSublayersFavorites) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
-      }
       for (const item of this.state.visibleSublayersComplete) {
         this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+      }
+    }
+  };
+
+  hideVisibleLayers = async favorites => {
+    if (favorites) {
+      for (const item of this.state.visibleSublayersComplete) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+      }
+    } else {
+      for (const item of this.state.visibleSublayersFavorites) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
       }
     }
   };
@@ -710,6 +707,9 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
     const layer = nye_lag[layerkey];
+    if (!layer) {
+      return;
+    }
     setValue(layer, key, value);
 
     let layerVisible = false;
