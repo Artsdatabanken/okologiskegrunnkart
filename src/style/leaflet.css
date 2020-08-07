@@ -75,7 +75,7 @@
 
 /* zoom buttons and leaflet link */
 .leaflet-control-zoom.side-bar-open {
-  margin-right: 408px;
+  margin-right: calc(408px + 10px);
 }
 .leaflet-control-attribution.side-bar-open {
   margin-right: 408px;
@@ -88,23 +88,22 @@
   }
   .leaflet-control-zoom {
     position: absolute;
-    top: calc(-79px);
+    top: auto;
     right: 10px;
-    /* bottom: 0; */
+    bottom: 115px;
     margin-right: 0 !important;
   }
   .leaflet-control-attribution {
     position: absolute;
     top: auto;
     right: 0;
-    bottom: 0;
+    bottom: 115px;
     margin-right: 0 !important;
   }
   .leaflet-control-zoom.side-bar-open {
-    top: calc(-45vh - 79px);
-    /* bottom: 45vh; */
+    bottom: calc(45vh + 115px);
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: 45vh;
+    bottom: calc(45vh + 115px);
   }
 }
