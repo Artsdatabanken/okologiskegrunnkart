@@ -85,11 +85,11 @@
     margin-left: 0;
   }
   .leaflet-control-zoom {
-    margin-bottom: 5vh;
+    margin-bottom: 10vh;
     /* margin-right: 10px; */
   }
   .leaflet-control-attribution {
-    margin-bottom: 5vh !important;
+    margin-bottom: 10vh !important;
     /* margin-right: 0; */
   }
   .leaflet-control-zoom.side-bar-open {
