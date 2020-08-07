@@ -86,12 +86,14 @@
   }
   .leaflet-control-zoom {
     position: absolute;
+    top: auto;
     right: 10px;
     bottom: 0;
     margin-right: 0 !important;
   }
   .leaflet-control-attribution {
     position: absolute;
+    top: auto;
     right: 0;
     bottom: 0;
     margin-right: 0 !important;
