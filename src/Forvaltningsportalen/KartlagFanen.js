@@ -142,6 +142,7 @@ const KartlagFanen = props => {
           </Switch>
         </div>
       )}
+      {!props.showSideBar && <div className="mobile-kartlag-contracted" />}
     </>
   );
 };

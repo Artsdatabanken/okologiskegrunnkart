@@ -84,12 +84,20 @@
     margin-top: 50px;
     margin-left: 0;
   }
+  .leaflet-control-zoom {
+    margin-bottom: 5vh;
+    /* margin-right: 10px; */
+  }
+  .leaflet-control-attribution {
+    margin-bottom: 5vh !important;
+    /* margin-right: 0; */
+  }
   .leaflet-control-zoom.side-bar-open {
-    margin-bottom: 45vh;
+    margin-bottom: 50vh;
     margin-right: 10px;
   }
   .leaflet-control-attribution.side-bar-open {
-    margin-bottom: 45vh;
+    margin-bottom: 50vh;
     margin-right: 0;
   }
 }

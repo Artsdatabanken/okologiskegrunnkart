@@ -12,14 +12,27 @@
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
+.mobile-kartlag-contracted {
+  display: none;
+}
+
 @media only screen and (max-width: 768px) {
   .kartlag_fanen {
     border-top: 1px solid lightgrey;
     width: 100%;
-    height: 45vh;
-    top: 55vh;
+    height: 50vh;
+    top: 50vh;
     padding-top: 0;
     background-color: #eee;
+  }
+  .mobile-kartlag-contracted {
+    display: block;
+    background-color: white;
+    width: 100vw;
+    height: 5vh;
+    position: absolute;
+    right: 0;
+    top: 95vh;
   }
 }
 
@@ -97,11 +110,11 @@ h4.container_header {
 @media only screen and (max-width: 768px) {
   .toggle-side-bar-wrapper {
     transform: rotate(90deg);
-    top: calc(100vh - 42px);
+    top: calc(95vh - 42px);
     right: calc(50vw - 18px);
   }
   .toggle-side-bar-wrapper.side-bar-open {
-    top: calc(55vh - 42px);
+    top: calc(50vh - 42px);
     right: calc(50vw - 18px);
   }
 }

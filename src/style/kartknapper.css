@@ -52,10 +52,10 @@
 
 @media only screen and (max-width: 768px) {
   .change_map_buttons {
-    bottom: calc(0vh + 20px);
+    bottom: calc(5vh + 20px);
   }
   .change_map_buttons.side-bar-open {
-    bottom: 45vh;
+    bottom: calc(50vh + 20px);
   }
 }
 
@@ -81,10 +81,10 @@
 
 @media only screen and (max-width: 768px) {
   .map_ref {
-    bottom: 0vh;
+    bottom: 5vh;
   }
   .map_ref.side-bar-open {
-    margin-bottom: 45vh;
+    bottom: 50vh;
   }
   .map-active-format-text {
     display: none;
