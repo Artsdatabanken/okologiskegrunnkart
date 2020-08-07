@@ -92,6 +92,8 @@
     right: 0;
     bottom: 115px;
     margin-right: 0 !important;
+    /* Hide zoom button for mobile. Issues between iPhone and Android */
+    display: none;
   }
   .leaflet-control-attribution {
     position: absolute;
@@ -99,6 +101,8 @@
     right: 0;
     bottom: 115px;
     margin-right: 0 !important;
+    /* Hide zoom button for mobile. Issues between iPhone and Android */
+    display: none;
   }
   .leaflet-control-zoom.side-bar-open {
     bottom: calc(45vh + 115px);
