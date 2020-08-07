@@ -16,7 +16,7 @@
   .kartlag_fanen {
     border-top: 1px solid lightgrey;
     width: 100%;
-    height: 50vh;
+    height: 45vh;
     top: auto;
     bottom: 0;
     padding-top: 0;
@@ -97,15 +97,6 @@ h4.container_header {
 }
 
 @media only screen and (max-width: 768px) {
-  /* .toggle-side-bar-wrapper {
-    transform: rotate(90deg);
-    top: calc(90vh - 42px);
-    right: calc(50vw - 18px);
-  }
-  .toggle-side-bar-wrapper.side-bar-open {
-    top: calc(50vh - 42px);
-    right: calc(50vw - 18px);
-  } */
   .toggle-side-bar-wrapper {
     transform: rotate(90deg);
     right: calc(50vw - 18px);
@@ -115,7 +106,7 @@ h4.container_header {
   .toggle-side-bar-wrapper.side-bar-open {
     right: calc(50vw - 18px);
     top: auto;
-    bottom: calc(50vh - 14px);
+    bottom: calc(45vh - 14px);
   }
 }
 
