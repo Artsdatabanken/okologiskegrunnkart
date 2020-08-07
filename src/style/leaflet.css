@@ -89,7 +89,7 @@
   .leaflet-control-zoom {
     position: absolute;
     top: auto;
-    right: 10px;
+    right: 0;
     bottom: 115px;
     margin-right: 0 !important;
   }
