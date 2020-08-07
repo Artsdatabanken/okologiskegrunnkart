@@ -88,22 +88,23 @@
   }
   .leaflet-control-zoom {
     position: absolute;
-    top: auto;
+    top: calc(-79px);
     right: 10px;
-    bottom: 100px;
+    /* bottom: 0; */
     margin-right: 0 !important;
   }
   .leaflet-control-attribution {
     position: absolute;
     top: auto;
     right: 0;
-    bottom: 100px;
+    bottom: 0;
     margin-right: 0 !important;
   }
   .leaflet-control-zoom.side-bar-open {
-    bottom: calc(45vh + 100px);
+    top: calc(-45vh - 79px);
+    /* bottom: 45vh; */
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: calc(45vh + 100px);
+    bottom: 45vh;
   }
 }
