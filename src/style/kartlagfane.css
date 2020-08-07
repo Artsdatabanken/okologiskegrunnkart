@@ -12,30 +12,17 @@
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-/* .mobile-kartlag-contracted {
-  display: none;
-} */
-
 @media only screen and (max-width: 768px) {
   .kartlag_fanen {
     border-top: 1px solid lightgrey;
     width: 100%;
     height: 50vh;
-    top: 50vh;
+    top: auto;
+    bottom: 0;
     padding-top: 0;
     background-color: #eee;
     z-index: 100;
   }
-  /* .mobile-kartlag-contracted {
-    display: block;
-    background-color: white;
-    width: 100vw;
-    height: 10vh;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-  } */
 }
 
 .scroll_area {
