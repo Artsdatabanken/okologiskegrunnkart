@@ -1,11 +1,11 @@
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import { Collapse, ListItem, ListItemIcon } from "@material-ui/core";
+import { OpenInNew, Info, Close } from "@material-ui/icons";
+import { ListItem, ListItemIcon, Modal, Button } from "@material-ui/core";
 import React, { useState } from "react";
-import ExpandedHeader from "./ExpandedHeader";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
+import CustomTooltip from "../../Common/CustomTooltip";
 
 const GeneriskElement = props => {
   const [open, setOpen] = useState(false);
@@ -28,16 +28,16 @@ const GeneriskElement = props => {
   const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
 
   return (
-    <div
-      style={{ backgroundColor: faktaark_url && open ? "#fff" : "#eeeeee" }}
-      className="generic_element"
-    >
+    <div className="generic_element">
       {!resultat.loading && (
         <ListItem
-          button
+          id="generic-element-list"
+          button={faktaark_url ? true : false}
           divider
           onClick={() => {
-            setOpen(!open);
+            if (faktaark_url) {
+              setOpen(true);
+            }
           }}
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
@@ -74,35 +74,58 @@ const GeneriskElement = props => {
             </div>
             <div className="generic-element-data-owner">{kartlag.dataeier}</div>
           </div>
-          {faktaark_url && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
+          {faktaark_url && (
+            <CustomTooltip placement="right" title="Vis faktaark">
+              <Info id="open-facts-icon" color="primary" />
+            </CustomTooltip>
+          )}
         </ListItem>
       )}
 
-      {faktaark_url && (
-        <Collapse in={open} timeout="auto" unmountOnExit>
-          <ExpandedHeader
-            visible={props.visible}
-            geonorge={props.geonorge}
-            url={faktaark_url}
-            type={kartlag.type}
-          />
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        className="facts-modal-body"
+      >
+        <div className="facts-modal-wrapper">
+          <div className="facts-modal-title">
+            <div>Faktaark</div>
+            <div className="facts-modal-buttons-div">
+              <Button
+                id="infobox-detail-facts"
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => window.open(faktaark_url)}
+                endIcon={<OpenInNew />}
+              >
+                Åpne i nytt vindu
+              </Button>
+              <button
+                tabIndex="0"
+                className="close-modal-button-wrapper"
+                onClick={() => {
+                  setOpen(false);
+                }}
+              >
+                <div className="close-modal-button">
+                  <Close />
+                </div>
+              </button>
+            </div>
+          </div>
           {kartlag.type !== "naturtype" && (
             <iframe
+              className="facts-modal-content"
               allowtransparency="true"
-              style={{
-                frameBorder: 0,
-                width: "100%",
-                minHeight: "500px",
-                maxHeight: "100%",
-                position: "relative",
-                overflow: "none"
-              }}
               title="Faktaark"
               src={faktaark_url}
             />
           )}
-        </Collapse>
-      )}
+        </div>
+      </Modal>
     </div>
   );
 };

@@ -1,7 +1,5 @@
-import Geonorge from "./Geonorge";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import React, { useState } from "react";
-import { OpenInNew, Link, Description, Layers } from "@material-ui/icons";
 import {
   ListItemIcon,
   Collapse,
@@ -16,18 +14,19 @@ import { setValue } from "../../Funksjoner/setValue";
 const ForvaltningsElement = ({
   kartlag,
   onUpdateLayerProp,
-  kartlag_key,
+  changeVisibleSublayers,
+  changeExpandedLayers,
+  kartlagKey,
   valgt,
-  zoom
+  zoom,
+  showSublayerDetails
 }) => {
   let tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
   const expanded = kartlag.expanded;
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
-  const [openFakta, setOpenFakta] = useState(false);
   if (!tittel) return null;
-  let tags = kartlag.tags || null;
 
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
@@ -46,6 +45,7 @@ const ForvaltningsElement = ({
           if (!valgt) {
             setOpen(!open);
             setValue(kartlag, "expanded", !open);
+            changeExpandedLayers(kartlag.id, !open);
           }
         }}
       >
@@ -66,7 +66,7 @@ const ForvaltningsElement = ({
             </Badge>
           </div>
         </ListItemIcon>
-        <ListItemText primary={tittel} />
+        <ListItemText primary={tittel} secondary={kartlag.dataeier} />
         {!valgt && <>{open ? <ExpandLess /> : <ExpandMore />}</>}
       </ListItem>
 
@@ -85,127 +85,17 @@ const ForvaltningsElement = ({
                 return (
                   <div className="underlag" key={sublag}>
                     <ForvaltningsUnderElement
-                      kartlag={lag}
-                      kartlag_owner_key={kartlag_key}
-                      kartlag_key={sublag}
+                      underlag={lag}
+                      kartlagKey={kartlagKey}
+                      underlagKey={sublag}
                       onUpdateLayerProp={onUpdateLayerProp}
-                      zoom={zoom}
+                      changeVisibleSublayers={changeVisibleSublayers}
+                      showSublayerDetails={showSublayerDetails}
                     />
                   </div>
                 );
               })}
             </>
-          )}
-
-          {tags && (
-            <div className="tags_container">
-              <h4>Emneknagger</h4>
-              {tags.map((element, index) => {
-                return (
-                  <div className="tags" key={index}>
-                    {element}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {kartlag.kart && kartlag.kart.format.wms && (
-            <div>
-              {kartlag.produktark && (
-                <>
-                  <ListItem>
-                    <ListItemIcon>
-                      <Description />
-                    </ListItemIcon>
-                    <ListItemText primary="Produktark" />
-                    {kartlag.produktark && (
-                      <>
-                        {openFakta ? (
-                          <ExpandLess
-                            className="iconbutton"
-                            onClick={e => {
-                              setOpenFakta(!openFakta);
-                            }}
-                          />
-                        ) : (
-                          <ExpandMore
-                            className="iconbutton"
-                            onClick={e => {
-                              setOpenFakta(!openFakta);
-                            }}
-                          />
-                        )}
-                        <OpenInNew
-                          className="iconbutton"
-                          onClick={e => {
-                            window.open(kartlag.produktark);
-                          }}
-                        />
-                      </>
-                    )}
-                  </ListItem>
-
-                  {kartlag.produktark && (
-                    <Collapse in={openFakta} timeout="auto" unmountOnExit>
-                      <iframe
-                        allowtransparency="true"
-                        style={{
-                          frameBorder: 0,
-                          width: "100%",
-                          minHeight: "500px",
-                          maxHeight: "100%",
-                          position: "relative",
-                          overflow: "none"
-                        }}
-                        title="Produktark"
-                        src={kartlag.produktark}
-                      />
-                    </Collapse>
-                  )}
-                </>
-              )}
-
-              <ListItem
-                button
-                onClick={e => {
-                  window.open(
-                    kartlag.geonorgeurl || "https://www.geonorge.no/"
-                  );
-                }}
-              >
-                <ListItemIcon>
-                  <Geonorge />
-                </ListItemIcon>
-                <ListItemText primary="Datasettet på Geonorge.no" />
-                <OpenInNew />
-              </ListItem>
-
-              {kartlag.dataeier && (
-                <ListItem
-                  button
-                  onClick={e => {
-                    if (kartlag.kildeurl) {
-                      window.open(kartlag.kildeurl);
-                    }
-                  }}
-                >
-                  <ListItemIcon>
-                    {kartlag.logourl ? (
-                      <img
-                        src={kartlag.logourl}
-                        style={{ maxWidth: "24px" }}
-                        alt=""
-                      />
-                    ) : (
-                      <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                    )}
-                  </ListItemIcon>
-                  <ListItemText primary={kartlag.dataeier} />
-                  {kartlag.kildeurl && <OpenInNew />}
-                </ListItem>
-              )}
-            </div>
           )}
         </div>
       </Collapse>

@@ -16,6 +16,7 @@
 - [Administrasjonsverktøy](https://forvaltningsportaladmin.artsdatabanken.no/admin/)
 - [Wms-hjelper for å legge inn klikk url til underlag](https://forvaltningsportaladmin.artsdatabanken.no/static/index.html)
 - [Kartlag.json file](https://forvaltningsportal.test.artsdatabanken.no/kartlag.json)
+- [Cached tiles](https://data.test.artsdatabanken.no/grunnkart/)
 
 ## Wiki
 

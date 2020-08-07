@@ -2,8 +2,17 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Modal } from "@material-ui/core";
+import {
+  Modal,
+  Menu,
+  MenuItem,
+  ListItemText,
+  ListItemIcon,
+  Divider
+} from "@material-ui/core";
 import { Close } from "@material-ui/icons";
+import { Menu as MenuIcon, Done } from "@material-ui/icons";
+
 class SearchBar extends React.Component {
   state = {
     treffliste_lag: null,
@@ -18,7 +27,8 @@ class SearchBar extends React.Component {
     searchTerm: null,
     showHelpModal: false,
     manual: "",
-    countermax: 50
+    countermax: 50,
+    anchorEl: null
   };
 
   handleRemoveTreffliste = () => {
@@ -335,6 +345,14 @@ class SearchBar extends React.Component {
     this.setState({ showHelpModal: false });
   };
 
+  handleOpenMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleCloseMenu = () => {
+    this.setState({ anchorEl: null });
+  };
+
   formattedManual = () => {
     if (!this.state.manual || this.state.manual === "") {
       return [];
@@ -447,11 +465,83 @@ class SearchBar extends React.Component {
           <button
             className="help_button"
             onClick={e => {
-              this.openHelp();
+              this.handleOpenMenu(e);
             }}
           >
-            ?
+            <MenuIcon />
           </button>
+          <Menu
+            id="settings-menu"
+            anchorEl={this.state.anchorEl}
+            keepMounted
+            variant="menu"
+            open={Boolean(this.state.anchorEl)}
+            onClose={this.handleCloseMenu}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "right"
+            }}
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right"
+            }}
+            getContentAnchorEl={null}
+          >
+            <MenuItem
+              id="settings-menu-user-manual"
+              onClick={() => {
+                this.openHelp();
+                this.handleCloseMenu();
+              }}
+            >
+              <ListItemText primary="Brukermanual" />
+            </MenuItem>
+            <Divider variant="middle" />
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleShowFavoriteLayers(true);
+                this.handleCloseMenu();
+              }}
+              selected={this.props.showFavoriteLayers}
+            >
+              <ListItemText primary="Vis favoritt kartlag" />
+              <ListItemIcon id="filter-layers-menu-icon">
+                {this.props.showFavoriteLayers ? (
+                  <Done fontSize="small" />
+                ) : (
+                  <div />
+                )}
+              </ListItemIcon>
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleShowFavoriteLayers(false);
+                this.handleCloseMenu();
+              }}
+              selected={!this.props.showFavoriteLayers}
+            >
+              <ListItemText primary="Vis fullstendig kartlag" />
+              <ListItemIcon id="filter-layers-menu-icon">
+                {!this.props.showFavoriteLayers ? (
+                  <Done fontSize="small" />
+                ) : (
+                  <div />
+                )}
+              </ListItemIcon>
+            </MenuItem>
+            <Divider variant="middle" />
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.toggleEditLayers();
+                this.handleCloseMenu();
+              }}
+            >
+              <ListItemText primary="Editere favoritt kartlag" />
+            </MenuItem>
+          </Menu>
         </div>
 
         <Modal
@@ -464,12 +554,14 @@ class SearchBar extends React.Component {
               <div>Brukermanual</div>
               <button
                 tabIndex="0"
-                className="close-modal-button"
+                className="close-modal-button-wrapper"
                 onClick={e => {
                   this.closeHelpModal();
                 }}
               >
-                <Close />
+                <div className="close-modal-button">
+                  <Close />
+                </div>
               </button>
             </div>
             <div className="help-modal-content">{this.formattedManual()}</div>

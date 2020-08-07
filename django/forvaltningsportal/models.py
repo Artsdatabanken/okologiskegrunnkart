@@ -50,9 +50,8 @@ class Kartlag(models.Model):
     wmsurl = models.CharField(max_length=500, blank=True)
     wmsversion = models.CharField(max_length=500, blank=True)
     projeksjon = models.CharField(max_length=500, blank=True)
-    wmsinfolayers = models.CharField(max_length=500, blank=True)
-    testkoordinater = models.CharField(max_length=500, blank=True)
     wmsinfoformat = models.CharField(max_length=500, blank=True)
+    testkoordinater = models.CharField(max_length=500, blank=True)
     klikkurl = models.CharField(max_length=500, blank=True)
     klikktekst = models.CharField(max_length=500, blank=True)
     klikktekst2 = models.CharField(max_length=500, blank=True)
@@ -61,26 +60,6 @@ class Kartlag(models.Model):
 
     def __str__(self):
         return self.tittel
-
-# Brukes av "wms-assistent" for å få tilgang til de felt den skal oppdatere i Django
-class WmsHelper(models.Model):
-    tittel = models.CharField(max_length=200, blank=True, null=True)
-    wmsurl = models.CharField(max_length=500, blank=True)
-    wmsversion = models.CharField(max_length=500, blank=True)
-    projeksjon = models.CharField(max_length=500, blank=True)
-    wmsinfolayers = models.CharField(max_length=500, blank=True)
-    testkoordinater = models.CharField(max_length=500, blank=True)
-    wmsinfoformat = models.CharField(max_length=500, blank=True)
-    klikkurl = models.CharField(max_length=500, blank=True)
-    klikktekst = models.CharField(max_length=500, blank=True)
-    klikktekst2 = models.CharField(max_length=500, blank=True)
-
-    def __str__(self):
-        return self.tittel
-
-    class Meta:
-        db_table = 'forvaltningsportal_kartlag'
-        managed = False
 
 class Sublag(models.Model):
     tittel = models.CharField(max_length=200)
@@ -93,6 +72,10 @@ class Sublag(models.Model):
     minscaledenominator = models.PositiveIntegerField(null=True, blank=True)
     maxscaledenominator = models.PositiveIntegerField(null=True, blank=True)
     suggested = models.BooleanField(default=False)
+    testkoordinater = models.CharField(max_length=500, blank=True)
+    klikkurl = models.CharField(max_length=500, blank=True)
+    klikktekst = models.CharField(max_length=500, blank=True)
+    klikktekst2 = models.CharField(max_length=500, blank=True)
 
     def __str__(self):
         return self.tittel
@@ -132,6 +115,7 @@ def createJSON(sender, instance, **kwargs):
     for kartlag in Kartlag.objects.all():
         # legg til sjekk her for om det står publiser når vi lager egen fil til prod
         dict[kartlag.id] = {
+            'id': kartlag.id,
             'dataeier': kartlag.dataeier.tittel,
             'tittel': kartlag.tittel
         }
@@ -149,11 +133,16 @@ def createJSON(sender, instance, **kwargs):
                     if lag.legendeurl:
                         lag_json['legendeurl'] = lag.legendeurl
                     
+                    lag_json['id'] = lag.id
                     lag_json['queryable'] = lag.queryable
                     lag_json['minscaledenominator'] = lag.minscaledenominator
                     lag_json['maxscaledenominator'] = lag.maxscaledenominator
                     lag_json['erSynlig'] = lag.erSynlig
                     lag_json['suggested'] = lag.suggested
+                    lag_json['testkoordinater'] = lag.testkoordinater
+                    lag_json['klikkurl'] = lag.klikkurl
+                    lag_json['klikktekst'] = lag.klikktekst
+                    lag_json['klikktekst2'] = lag.klikktekst2
                     underlag[lag.id] = lag_json
 
                     ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
@@ -165,7 +154,7 @@ def createJSON(sender, instance, **kwargs):
                     if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
                         max_number = 2183915
                     if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
-                        max_number = 15000
+                        max_number = 150000
                     if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
                         and lag.wmslayer == 'Magasin'):
                         max_number = 545979
@@ -220,8 +209,6 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['projeksjon'] = kartlag.projeksjon
         if kartlag.wmsinfoformat:
             dict[kartlag.id]['wmsinfoformat'] = kartlag.wmsinfoformat
-        if kartlag.wmsinfolayers:
-            dict[kartlag.id]['wmsinfolayers'] = kartlag.wmsinfolayers
         if kartlag.testkoordinater:
             dict[kartlag.id]['testkoordinater'] = kartlag.testkoordinater
         if kartlag.klikkurl:

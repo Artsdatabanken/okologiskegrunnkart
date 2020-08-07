@@ -7,13 +7,15 @@ const ForvaltningsGruppering = ({
   tagFilter,
   matchAllFilters,
   onUpdateLayerProp,
+  changeVisibleSublayers,
+  changeExpandedLayers,
   hideHidden,
   searchTerm,
   element,
-  zoom
+  zoom,
+  showSublayerDetails
 }) => {
   const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
-  console.log(selectedTags);
   kartlag = kartlag.filter(element => {
     let tags = element.tags || [];
 
@@ -53,10 +55,13 @@ const ForvaltningsGruppering = ({
         return (
           <ForvaltningsElement
             key={element.id}
-            kartlag_key={element.id}
+            kartlagKey={element.id}
             kartlag={element}
             onUpdateLayerProp={onUpdateLayerProp}
+            changeVisibleSublayers={changeVisibleSublayers}
+            changeExpandedLayers={changeExpandedLayers}
             zoom={zoom}
+            showSublayerDetails={showSublayerDetails}
           />
         );
       })}
