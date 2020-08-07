@@ -12,9 +12,9 @@
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 
-.mobile-kartlag-contracted {
+/* .mobile-kartlag-contracted {
   display: none;
-}
+} */
 
 @media only screen and (max-width: 768px) {
   .kartlag_fanen {
@@ -26,7 +26,7 @@
     background-color: #eee;
     z-index: 100;
   }
-  .mobile-kartlag-contracted {
+  /* .mobile-kartlag-contracted {
     display: block;
     background-color: white;
     width: 100vw;
@@ -35,7 +35,7 @@
     right: 0;
     bottom: 0;
     z-index: 100;
-  }
+  } */
 }
 
 .scroll_area {
@@ -123,7 +123,7 @@ h4.container_header {
     transform: rotate(90deg);
     right: calc(50vw - 18px);
     top: auto;
-    bottom: calc(10vh - 14px);
+    bottom: -14px;
   }
   .toggle-side-bar-wrapper.side-bar-open {
     right: calc(50vw - 18px);

@@ -53,7 +53,7 @@
 @media only screen and (max-width: 768px) {
   .change_map_buttons {
     top: auto;
-    bottom: calc(10vh + 20px);
+    bottom: calc(20px);
   }
   .change_map_buttons.side-bar-open {
     top: auto;
@@ -84,7 +84,7 @@
 @media only screen and (max-width: 768px) {
   .map_ref {
     top: auto;
-    bottom: 10vh;
+    bottom: 0;
   }
   .map_ref.side-bar-open {
     top: auto;
