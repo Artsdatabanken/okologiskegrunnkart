@@ -87,22 +87,22 @@
     margin-left: 0;
   }
   .leaflet-control-zoom {
+    /* Hide zoom buttons for mobile. Issues between iPhone and Android */
+    display: none;
     position: absolute;
     top: auto;
     right: 0;
     bottom: 0;
     margin-right: 0 !important;
-    /* Hide zoom buttons for mobile. Issues between iPhone and Android */
-    /* display: none; */
   }
   .leaflet-control-attribution {
+    /* Hide zoom button for mobile. Issues between iPhone and Android */
+    display: none;
     position: absolute;
     top: auto;
     right: 0;
     bottom: 0;
     margin-right: 0 !important;
-    /* Hide zoom button for mobile. Issues between iPhone and Android */
-    /* displays: none; */
   }
   .leaflet-control-zoom.side-bar-open {
     bottom: 45vh;
