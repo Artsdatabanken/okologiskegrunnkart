@@ -40,7 +40,6 @@ const TegnforklaringLink = ({ layers }) => {
           className={"badge-enabled"}
           badgeContent={getActiveLayers() || 0}
           color="primary"
-          // overlap="circle"
         >
           <CustomIcon
             id="legend-icon"
