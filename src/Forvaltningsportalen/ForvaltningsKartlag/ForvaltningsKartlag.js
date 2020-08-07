@@ -138,7 +138,7 @@ class ForvaltningsKartlag extends React.Component {
         </div>
 
         <div className="legend-link-wrapper">
-          <TegnforklaringLink />
+          <TegnforklaringLink layers={this.props.kartlag} />
         </div>
 
         <List id="layers-list-wrapper">

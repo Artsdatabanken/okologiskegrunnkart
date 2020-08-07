@@ -1,10 +1,31 @@
 import React from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import CustomIcon from "../Common/CustomIcon";
+import { withStyles } from "@material-ui/core/styles";
 
-const TegnforklaringLink = () => {
+const StyledBadge = withStyles(() => ({
+  badge: {
+    top: 5
+  }
+}))(Badge);
+
+const TegnforklaringLink = ({ layers }) => {
   const history = useHistory();
+
+  const getActiveLayers = () => {
+    let number = 0;
+    Object.keys(layers).forEach(id => {
+      const layer = layers[id];
+      Object.values(layer.underlag || {}).forEach(sublayer => {
+        if (sublayer.erSynlig) {
+          number += 1;
+        }
+      });
+    });
+    return number;
+  };
+
   return (
     <ListItem
       button
@@ -15,13 +36,20 @@ const TegnforklaringLink = () => {
       }}
     >
       <ListItemIcon>
-        <CustomIcon
-          id="legend-icon"
-          icon="map-legend"
-          size={26}
-          padding={2}
-          color="#555"
-        />
+        <StyledBadge
+          className={"badge-enabled"}
+          badgeContent={getActiveLayers() || 0}
+          color="primary"
+          // overlap="circle"
+        >
+          <CustomIcon
+            id="legend-icon"
+            icon="map-legend"
+            size={26}
+            padding={2}
+            color="#555"
+          />
+        </StyledBadge>
       </ListItemIcon>
       <ListItemText>
         <span className="legend-text">Tegnforklaring</span>
