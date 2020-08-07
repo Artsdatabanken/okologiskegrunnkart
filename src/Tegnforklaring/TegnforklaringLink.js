@@ -13,7 +13,7 @@ const StyledBadge = withStyles(() => ({
 const TegnforklaringLink = ({ layers }) => {
   const history = useHistory();
 
-  const getActiveLayers = () => {
+  const getActiveLayersCount = () => {
     let number = 0;
     Object.keys(layers).forEach(id => {
       const layer = layers[id];
@@ -38,7 +38,7 @@ const TegnforklaringLink = ({ layers }) => {
       <ListItemIcon>
         <StyledBadge
           className={"badge-enabled"}
-          badgeContent={getActiveLayers() || 0}
+          badgeContent={getActiveLayersCount() || 0}
           color="primary"
         >
           <CustomIcon
