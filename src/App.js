@@ -58,7 +58,8 @@ class App extends React.Component {
       visibleSublayersFavorites: [],
       visibleSublayersComplete: [],
       expandedLayersFavorites: [],
-      expandedLayersComplete: []
+      expandedLayersComplete: [],
+      sublayerDetailsVisible: false
     };
   }
 
@@ -287,6 +288,12 @@ class App extends React.Component {
                         showSideBar={this.state.showSideBar}
                         toggleSideBar={this.toggleSideBar}
                         zoom={this.state.zoom}
+                        sublayerDetailsVisible={
+                          this.state.sublayerDetailsVisible
+                        }
+                        setSublayerDetailsVisible={
+                          this.setSublayerDetailsVisible
+                        }
                       />
                     </div>
                   </>
@@ -299,12 +306,19 @@ class App extends React.Component {
     );
   }
 
+  setSublayerDetailsVisible = visible => {
+    this.setState({ sublayerDetailsVisible: visible });
+  };
+
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });
   };
 
   toggleShowFavoriteLayers = async favorites => {
-    this.setState({ showFavoriteLayers: favorites });
+    this.setState({
+      showFavoriteLayers: favorites,
+      sublayerDetailsVisible: false
+    });
     if (favorites) {
       this.hideVisibleLayers(favorites).then(() => {
         this.setState({ kartlag: this.state.favoriteKartlag }, () => {
