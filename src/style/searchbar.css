@@ -217,7 +217,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #666;
+  color: #555;
+  /* background-color: lightgray; */
+}
+@media only screen and (max-width: 768px) {
+  .help_button {
+    background-color: rgb(239, 239, 239);
+  }
 }
 
 .help-modal-body {
