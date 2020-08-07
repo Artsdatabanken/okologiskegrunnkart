@@ -20,5 +20,5 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]
   echo "Deploy ${FILENAME}"
   sshpass -p $scp_pass scp -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest_pr
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning-pr"}' $slackaddy
-  curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"Test den: https://forvaltningsportal.test.artsdatabanken.no$PUBLIC_URL\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
+  curl -H "Authorization: token $GITHUB_TOKEN" -X POST -d "{\"body\": \"Test den: https://forvaltningsportal.test.artsdatabanken.no/pr/forvaltningsportal_$TRAVIS_PULL_REQUEST\"}" "https://api.github.com/repos/${TRAVIS_REPO_SLUG}/issues/${TRAVIS_PULL_REQUEST}/comments"
 fi
