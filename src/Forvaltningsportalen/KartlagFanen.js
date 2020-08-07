@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
 
 const KartlagFanen = props => {
-  const [showDetails, setShowDetails] = useState(false);
+  // const [showDetails, setShowDetails] = useState(false);
   const [underlag, setUnderlag] = useState(null);
   const [kartlagKey, setKartlagKey] = useState(null);
   const [underlagKey, setUnderlagKey] = useState(null);
@@ -20,11 +20,11 @@ const KartlagFanen = props => {
     setUnderlag(underlag);
     setKartlagKey(kartlagKey);
     setUnderlagKey(underlagKey);
-    setShowDetails(true);
+    props.setSublayerDetailsVisible(true);
   };
 
   const hideSublayerDetails = () => {
-    setShowDetails(false);
+    props.setSublayerDetailsVisible(false);
     setUnderlag(null);
     setKartlagKey(null);
     setUnderlagKey(null);
@@ -35,7 +35,7 @@ const KartlagFanen = props => {
     setKartlagKey(kartlagKey);
     setUnderlagKey(underlagKey);
     props.removeValgtLag();
-    setShowDetails(true);
+    props.setSublayerDetailsVisible(true);
   };
 
   return (
@@ -122,7 +122,7 @@ const KartlagFanen = props => {
                       />
                     </div>
                   </div>
-                  {showDetails && (
+                  {props.sublayerDetailsVisible && (
                     <div>
                       <div className="layer-details-div">
                         <ForvaltningsDetailedInfo

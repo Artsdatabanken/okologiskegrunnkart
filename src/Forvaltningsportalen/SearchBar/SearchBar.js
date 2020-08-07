@@ -433,6 +433,8 @@ class SearchBar extends React.Component {
               </button>
             )}
             <button
+              id="search-button"
+              className="search-button"
               onClick={() => {
                 this.handleSearchButton();
               }}

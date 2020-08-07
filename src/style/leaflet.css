@@ -21,7 +21,9 @@
   .leaflet-container {
     width: 100vw;
     height: 100vh;
+    max-height: 100vh;
     z-index: 0;
+    bottom: 0;
   }
 }
 
@@ -55,6 +57,11 @@
   border: 2px solid blue;
   margin: 0;
 }
+@media only screen and (max-width: 768px) {
+  .marker_type_button_container > button {
+    background-color: rgb(239, 239, 239);
+  }
+}
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
@@ -68,7 +75,7 @@
 
 /* zoom buttons and leaflet link */
 .leaflet-control-zoom.side-bar-open {
-  margin-right: 408px;
+  margin-right: calc(408px + 10px);
 }
 .leaflet-control-attribution.side-bar-open {
   margin-right: 408px;
@@ -79,12 +86,28 @@
     margin-top: 50px;
     margin-left: 0;
   }
+  .leaflet-control-zoom {
+    /* Hide zoom buttons for mobile. Issues between iPhone and Android */
+    display: none;
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    margin-right: 0 !important;
+  }
+  .leaflet-control-attribution {
+    /* Hide zoom button for mobile. Issues between iPhone and Android */
+    display: none;
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    margin-right: 0 !important;
+  }
   .leaflet-control-zoom.side-bar-open {
-    margin-bottom: 45vh;
-    margin-right: 10px;
+    bottom: 45vh;
   }
   .leaflet-control-attribution.side-bar-open {
-    margin-bottom: 45vh;
-    margin-right: 0;
+    bottom: 45vh;
   }
 }
