@@ -55,6 +55,11 @@
   border: 2px solid blue;
   margin: 0;
 }
+@media only screen and (max-width: 768px) {
+  .marker_type_button_container > button {
+    background-color: rgb(239, 239, 239);
+  }
+}
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {

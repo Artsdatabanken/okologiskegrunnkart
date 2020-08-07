@@ -474,6 +474,7 @@ class Leaflet extends React.Component {
       <>
         <div className={this.markerButtonClass()}>
           <button
+            id="marker-button-map"
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
             alt="Marker tool"
@@ -486,6 +487,7 @@ class Leaflet extends React.Component {
             <WhereToVote />
           </button>
           <button
+            id="poligon-button-map"
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"

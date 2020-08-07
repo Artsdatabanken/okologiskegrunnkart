@@ -55,7 +55,7 @@
     bottom: calc(0vh + 20px);
   }
   .change_map_buttons.side-bar-open {
-    bottom: calc(45vh + 20px);
+    margin-bottom: 45vh;
   }
 }
 
@@ -84,7 +84,7 @@
     bottom: 0vh;
   }
   .map_ref.side-bar-open {
-    bottom: 45vh;
+    margin-bottom: 45vh;
   }
   .map-active-format-text {
     display: none;
