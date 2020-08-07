@@ -33,7 +33,7 @@
     height: 10vh;
     position: absolute;
     right: 0;
-    top: 90vh;
+    bottom: 0;
     z-index: 100;
   }
 }
@@ -110,7 +110,7 @@ h4.container_header {
 }
 
 @media only screen and (max-width: 768px) {
-  .toggle-side-bar-wrapper {
+  /* .toggle-side-bar-wrapper {
     transform: rotate(90deg);
     top: calc(90vh - 42px);
     right: calc(50vw - 18px);
@@ -118,6 +118,17 @@ h4.container_header {
   .toggle-side-bar-wrapper.side-bar-open {
     top: calc(50vh - 42px);
     right: calc(50vw - 18px);
+  } */
+  .toggle-side-bar-wrapper {
+    transform: rotate(90deg);
+    right: calc(50vw - 18px);
+    top: auto;
+    bottom: calc(10vh - 14px);
+  }
+  .toggle-side-bar-wrapper.side-bar-open {
+    right: calc(50vw - 18px);
+    top: auto;
+    bottom: calc(50vh - 14px);
   }
 }
 
