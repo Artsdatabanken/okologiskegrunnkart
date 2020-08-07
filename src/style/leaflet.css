@@ -87,23 +87,23 @@
     margin-left: 0;
   }
   .leaflet-control-zoom {
-    position: relative;
+    position: absolute;
     top: auto;
     right: 10px;
-    bottom: 0;
+    bottom: 100px;
     margin-right: 0 !important;
   }
   .leaflet-control-attribution {
-    position: relative;
+    position: absolute;
     top: auto;
     right: 0;
-    bottom: 0;
+    bottom: 100px;
     margin-right: 0 !important;
   }
   .leaflet-control-zoom.side-bar-open {
-    bottom: 45vh;
+    bottom: calc(45vh + 100px);
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: 45vh;
+    bottom: calc(45vh + 100px);
   }
 }
