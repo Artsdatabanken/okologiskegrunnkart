@@ -90,24 +90,24 @@
     position: absolute;
     top: auto;
     right: 0;
-    bottom: 115px;
+    bottom: 0;
     margin-right: 0 !important;
-    /* Hide zoom button for mobile. Issues between iPhone and Android */
-    display: none;
+    /* Hide zoom buttons for mobile. Issues between iPhone and Android */
+    /* display: none; */
   }
   .leaflet-control-attribution {
     position: absolute;
     top: auto;
     right: 0;
-    bottom: 115px;
+    bottom: 0;
     margin-right: 0 !important;
     /* Hide zoom button for mobile. Issues between iPhone and Android */
-    display: none;
+    /* displays: none; */
   }
   .leaflet-control-zoom.side-bar-open {
-    bottom: calc(45vh + 115px);
+    bottom: 45vh;
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: calc(45vh + 115px);
+    bottom: 45vh;
   }
 }
