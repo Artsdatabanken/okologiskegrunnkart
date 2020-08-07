@@ -122,6 +122,14 @@
 .close-infobox-button:hover {
   background-color: rgba(145, 163, 176, 1);
 }
+@media only screen and (max-width: 768px) {
+  .close-infobox-button-wrapper {
+    z-index: 255;
+  }
+  .close-infobox-button {
+    z-index: 255;
+  }
+}
 
 /* Selected point description */
 .infobox-content {

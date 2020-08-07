@@ -55,7 +55,7 @@
     bottom: calc(0vh + 20px);
   }
   .change_map_buttons.side-bar-open {
-    margin-bottom: 45vh;
+    bottom: 45vh;
   }
 }
 
