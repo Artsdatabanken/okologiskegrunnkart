@@ -237,13 +237,13 @@ h4.container_header {
 }
 
 /* layers and sublayers wrappers */
-#layers-list-wrapper.MuiList-padding {
-  padding-top: 0;
-}
 @media only screen and (max-width: 768px) {
-  #layers-list-wrapper.MuiList-padding {
+  #layers-list-wrapper {
     padding-bottom: 75px;
   }
+}
+#layers-list-wrapper.MuiList-padding {
+  padding-top: 0;
 }
 
 /* Open sublayer elements  */
