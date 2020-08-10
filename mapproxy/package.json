@@ -1,0 +1,14 @@
+{
+  "name": "mapproxy",
+  "version": "1.0.0",
+  "description": "Build overview cache of zoom levels that are unavailable directly from the online resource.",
+  "main": "makeconfig.js",
+  "scripts": {
+    "download": "wget -N forvaltningsportal.test.artsdatabanken.no/kartlag.json",
+    "deploy": "rsync -avhW --max-size=10m build/*.mbtiles grunnkart@hydra:~/tilesdata/grunnkart/",
+    "makeconfig": "node generate_mapproxy_config_from_kartlag.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
