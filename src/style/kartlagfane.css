@@ -71,6 +71,11 @@ h4.container_header {
 .listheadingbutton span {
   flex: 1;
 }
+@media only screen and (max-width: 768px) {
+  .listheadingbutton {
+    margin: 0;
+  }
+}
 
 /* Side bar show/hide button */
 .toggle-side-bar-wrapper {

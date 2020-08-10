@@ -68,13 +68,13 @@
     margin: 0;
     padding-top: 4px;
   }
-}
-
-@media only screen and (max-width: 768px) {
   .search-button {
     margin: 0;
     padding-top: 4px;
-    padding-bottom: 6px;
+    padding-bottom: 5px;
+  }
+  .searchbar button {
+    margin: 0;
   }
 }
 
