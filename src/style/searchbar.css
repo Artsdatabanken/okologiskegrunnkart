@@ -260,6 +260,9 @@
     height: 100vh;
     min-height: 100vh;
     max-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
@@ -326,6 +329,7 @@
 @media only screen and (max-width: 768px) {
   .help-modal-content {
     padding: 15px 20px;
+    margin-bottom: 150px;
   }
 }
 
