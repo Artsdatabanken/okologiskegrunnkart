@@ -126,11 +126,6 @@ h4.container_header {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-@media only screen and (max-width: 768px) {
-  .sorted-layers-subheaders {
-    margin-bottom: 75px;
-  }
-}
 
 /* Sortering, filtrering og søk -delen */
 .header-layers-menu {
@@ -244,6 +239,11 @@ h4.container_header {
 /* layers and sublayers wrappers */
 #layers-list-wrapper.MuiList-padding {
   padding-top: 0;
+}
+@media only screen and (max-width: 768px) {
+  #layers-list-wrapper.MuiList-padding {
+    padding-bottom: 75px;
+  }
 }
 
 /* Open sublayer elements  */
