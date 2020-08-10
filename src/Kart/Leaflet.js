@@ -519,7 +519,7 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {this.state.markerType === "klikk" && this.props.showInfobox && (
+        {this.props.showInfobox && (
           <InfoboxSide
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
