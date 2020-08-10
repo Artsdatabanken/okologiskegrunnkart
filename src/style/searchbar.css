@@ -28,6 +28,7 @@
   display: inline-block;
   height: 31px;
   border: 1px solid black;
+  margin-bottom: 5px;
 }
 
 .searchbar button {
@@ -104,19 +105,19 @@
   width: 100%;
   margin: 0px;
   margin-top: 0px;
-  height: calc(100vh - 89px);
-  max-height: calc(100vh - 89px);
+  height: calc(100vh - 94px);
+  max-height: calc(100vh - 94px);
   overflow-y: auto;
   border: none;
   box-sizing: border-box;
+  padding-bottom: 10px;
+  background-color: white;
 }
 
 @media only screen and (max-width: 768px) {
   .treffliste.searchresultpage {
-    max-height: calc(100vh - 89px);
     max-width: 100%;
     padding-bottom: 150px;
-    background-color: white;
   }
 }
 
