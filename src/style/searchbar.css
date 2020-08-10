@@ -321,16 +321,17 @@
 @media only screen and (max-width: 768px) {
   .close-modal-button-wrapper {
     z-index: 255;
-    margin: 33px 30px 34px 22px;
+    margin: 31px 29px 34px 22px;
   }
   .close-modal-button {
     z-index: 255;
     position: absolute;
     top: 18px;
     right: 15px;
+    padding: 0;
   }
   .close-modal-button-wrapper:focus {
-    margin: 10px 8px 11px 0;
+    margin: 9px 7px 11px 0;
   }
 }
 
