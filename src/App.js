@@ -6,17 +6,25 @@ import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
 import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
+import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
 import { sortKartlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
+import db from "./IndexedDB/IndexedDB";
+import {
+  updateLayersIndexedDB,
+  removeUnusedLayersIndexedDB
+} from "./IndexedDB/ActionsIndexedDB";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bakgrunnskart,
+      completeKartlag: {},
+      favoriteKartlag: {},
       kartlag: {},
       valgteLag: {},
       actualBounds: null,
@@ -41,7 +49,17 @@ class App extends React.Component {
       zoom: 3.1,
       lat: null,
       lng: null,
-      loadingFeatures: false
+      loadingFeatures: false,
+      editLayersMode: false,
+      someLayersFavorite: false,
+      listFavoriteLayerIds: [],
+      listFavoriteSublayerIds: [],
+      showFavoriteLayers: false,
+      visibleSublayersFavorites: [],
+      visibleSublayersComplete: [],
+      expandedLayersFavorites: [],
+      expandedLayersComplete: [],
+      sublayerDetailsVisible: false
     };
   }
 
@@ -66,26 +84,105 @@ class App extends React.Component {
     }
 
     const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
+
     // Sort kartlag object aplhabetically based on title
     const sortedKartlag = sortKartlag(kartlag);
-    Object.entries(sortedKartlag).forEach(([key, k]) => {
+
+    // Get layers and sublayers from indexed DB
+    const layersdb = await db.layers.toArray();
+    const sublayersdb = await db.sublayers.toArray();
+    const listFavoriteLayerIds = [];
+    const listFavoriteSublayerIds = [];
+
+    // Modify and store kartlag in state
+    Object.entries(sortedKartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
+      listFavoriteLayerIds.push(key);
+
+      // Check if layer is already stored in indexed DB. Add layer if not
+      const existingLayer = layersdb.filter(e => e.id === key);
+      if (existingLayer.length === 0) {
+        db.layers.add({
+          id: key,
+          title: k.tittel,
+          favorite: false
+        });
+        k.favorite = false;
+      } else if (existingLayer[0].title !== k.tittel) {
+        db.layers
+          .where("id")
+          .equals(key)
+          .modify({ title: k.tittel });
+        k.favorite = existingLayer[0].favorite;
+      } else {
+        k.favorite = existingLayer[0].favorite;
+      }
+
+      if (!this.state.someLayersFavorite && k.favorite) {
+        this.setState({ someLayersFavorite: true });
+      }
+
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
+        ul.key = ul.id;
         ul.id = alphaNumericOnly(k.tittel) + "_" + alphaNumericOnly(ul.tittel);
         ul.opacity = 0.8;
         acc[ul.id] = ul;
-        ul.expanded = false;
+        listFavoriteSublayerIds.push(ul.key);
+
+        // Check if sublayer is already stored in indexed DB. Add sublayer if not
+        const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
+        if (existingSublayer.length === 0) {
+          db.sublayers.add({
+            id: ul.key,
+            title: ul.tittel,
+            favorite: false
+          });
+          ul.favorite = false;
+        } else if (existingSublayer[0].title !== ul.tittel) {
+          db.sublayers
+            .where("id")
+            .equals(ul.key)
+            .modify({ title: ul.tittel });
+          ul.favorite = existingSublayer[0].favorite;
+        } else {
+          ul.favorite = existingSublayer[0].favorite;
+        }
+
+        if (!this.state.someLayersFavorite && ul.favorite) {
+          this.setState({ someLayersFavorite: true });
+        }
+        if (!this.state.showFavoriteLayers && ul.favorite) {
+          this.setState({ showFavoriteLayers: true });
+        }
+
         return acc;
       }, {});
     });
-    this.setState({ kartlag: sortedKartlag });
+    this.setState({
+      completeKartlag: sortedKartlag,
+      listFavoriteLayerIds,
+      listFavoriteSublayerIds
+    });
+
+    const reducedKartlag = this.reduceKartlag(sortedKartlag);
+    this.setState({ favoriteKartlag: reducedKartlag });
+
+    if (this.state.showFavoriteLayers) {
+      this.setState({ kartlag: reducedKartlag });
+    } else {
+      this.setState({ kartlag: sortedKartlag });
+    }
   }
 
-  componentDidMount() {
-    this.lastNedKartlag();
+  async componentDidMount() {
+    await this.lastNedKartlag();
+    removeUnusedLayersIndexedDB(
+      this.state.listFavoriteLayerIds,
+      this.state.listFavoriteSublayerIds
+    );
   }
 
   render() {
@@ -99,81 +196,106 @@ class App extends React.Component {
               {token => {
                 return (
                   <>
-                    <Kart
-                      handleEditable={this.handleEditable}
-                      editable={this.state.editable}
-                      addPolygon={this.addPolygon}
-                      addPolyline={this.addPolyline}
-                      showPolygon={this.state.showPolygon}
-                      zoomcoordinates={this.state.zoomcoordinates}
-                      handleRemoveZoomCoordinates={
-                        this.handleRemoveZoomCoordinates
+                    {this.state.editLayersMode && (
+                      <KartlagSettings
+                        kartlag={this.state.completeKartlag}
+                        someLayersFavorite={this.state.someLayersFavorite}
+                        toggleEditLayers={this.toggleEditLayers}
+                        updateFavoriteLayers={this.updateFavoriteLayers}
+                      />
+                    )}
+                    <div
+                      className={
+                        this.state.editLayersMode ? "hidden-app-content" : ""
                       }
-                      showExtensiveInfo={this.state.showExtensiveInfo}
-                      handleExtensiveInfo={this.handleExtensiveInfo}
-                      handleAlleLag={this.hentInfoAlleLag}
-                      handleValgteLag={this.hentInfoValgteLag}
-                      forvaltningsportal={true}
-                      show_current={this.state.showCurrent}
-                      bounds={this.state.fitBounds}
-                      latitude={65.4}
-                      longitude={15.8}
-                      zoom={this.state.zoom}
-                      handleZoomChange={this.handleZoomChange}
-                      aktiveLag={this.state.kartlag}
-                      bakgrunnskart={this.state.bakgrunnskart}
-                      onMapBoundsChange={this.handleActualBoundsChange}
-                      onMapMove={context.onMapMove}
-                      history={history}
-                      sted={this.state.sted}
-                      adresse={this.state.adresse}
-                      layersResult={this.state.layersResult}
-                      allLayersResult={this.state.allLayersResult}
-                      valgteLag={this.state.valgteLag}
-                      token={token}
-                      showInfobox={this.state.showInfobox}
-                      handleInfobox={this.handleInfobox}
-                      loadingFeatures={this.state.loadingFeatures}
-                      {...this.state}
-                    />
-                    <KartVelger
-                      onUpdateLayerProp={this.handleSetBakgrunnskart}
-                      aktivtFormat={basiskart.kart.aktivtFormat}
-                      showSideBar={this.state.showSideBar}
-                      showInfobox={this.state.showInfobox}
-                    />
-                    <SearchBar
-                      onSelectSearchResult={this.handleSelectSearchResult}
-                      searchResultPage={this.state.searchResultPage}
-                      setKartlagSearchResults={
-                        this.handleSetKartlagSearchResult
-                      }
-                      setGeoSearchResults={this.setGeoSearchResults}
-                      handleGeoSelection={this.handleGeoSelection}
-                      kartlag={this.state.kartlag}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
-                      handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                    />
-                    <KartlagFanen
-                      polygon={this.state.polygon}
-                      addPolygon={this.addPolygon}
-                      hideAndShowPolygon={this.hideAndShowPolygon}
-                      handleEditable={this.handleEditable}
-                      showPolygon={this.state.showPolygon}
-                      polyline={this.state.polyline}
-                      addPolyline={this.addPolyline}
-                      searchResultPage={this.state.searchResultPage}
-                      addValgtLag={this.handleNavigateToKartlag}
-                      removeValgtLag={this.removeValgtLag}
-                      valgtLag={this.state.valgtLag}
-                      onUpdateLayerProp={this.handleForvaltningsLayerProp}
-                      kartlag={this.state.kartlag}
-                      showSideBar={this.state.showSideBar}
-                      toggleSideBar={this.toggleSideBar}
-                      zoom={this.state.zoom}
-                    />
+                    >
+                      <Kart
+                        handleEditable={this.handleEditable}
+                        editable={this.state.editable}
+                        addPolygon={this.addPolygon}
+                        addPolyline={this.addPolyline}
+                        showPolygon={this.state.showPolygon}
+                        zoomcoordinates={this.state.zoomcoordinates}
+                        handleRemoveZoomCoordinates={
+                          this.handleRemoveZoomCoordinates
+                        }
+                        showExtensiveInfo={this.state.showExtensiveInfo}
+                        handleExtensiveInfo={this.handleExtensiveInfo}
+                        handleAlleLag={this.hentInfoAlleLag}
+                        handleValgteLag={this.hentInfoValgteLag}
+                        forvaltningsportal={true}
+                        show_current={this.state.showCurrent}
+                        bounds={this.state.fitBounds}
+                        latitude={65.4}
+                        longitude={15.8}
+                        zoom={this.state.zoom}
+                        handleZoomChange={this.handleZoomChange}
+                        aktiveLag={this.state.kartlag}
+                        bakgrunnskart={this.state.bakgrunnskart}
+                        onMapBoundsChange={this.handleActualBoundsChange}
+                        onMapMove={context.onMapMove}
+                        history={history}
+                        sted={this.state.sted}
+                        adresse={this.state.adresse}
+                        layersResult={this.state.layersResult}
+                        allLayersResult={this.state.allLayersResult}
+                        valgteLag={this.state.valgteLag}
+                        token={token}
+                        showInfobox={this.state.showInfobox}
+                        handleInfobox={this.handleInfobox}
+                        loadingFeatures={this.state.loadingFeatures}
+                        {...this.state}
+                      />
+                      <KartVelger
+                        onUpdateLayerProp={this.handleSetBakgrunnskart}
+                        aktivtFormat={basiskart.kart.aktivtFormat}
+                        showSideBar={this.state.showSideBar}
+                        showInfobox={this.state.showInfobox}
+                      />
+                      <SearchBar
+                        onSelectSearchResult={this.handleSelectSearchResult}
+                        searchResultPage={this.state.searchResultPage}
+                        setKartlagSearchResults={
+                          this.handleSetKartlagSearchResult
+                        }
+                        setGeoSearchResults={this.setGeoSearchResults}
+                        handleGeoSelection={this.handleGeoSelection}
+                        kartlag={this.state.kartlag}
+                        addValgtLag={this.handleNavigateToKartlag}
+                        removeValgtLag={this.removeValgtLag}
+                        handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        toggleEditLayers={this.toggleEditLayers}
+                        showFavoriteLayers={this.state.showFavoriteLayers}
+                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
+                      />
+                      <KartlagFanen
+                        polygon={this.state.polygon}
+                        addPolygon={this.addPolygon}
+                        hideAndShowPolygon={this.hideAndShowPolygon}
+                        handleEditable={this.handleEditable}
+                        showPolygon={this.state.showPolygon}
+                        polyline={this.state.polyline}
+                        addPolyline={this.addPolyline}
+                        searchResultPage={this.state.searchResultPage}
+                        addValgtLag={this.handleNavigateToKartlag}
+                        removeValgtLag={this.removeValgtLag}
+                        valgtLag={this.state.valgtLag}
+                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        changeVisibleSublayers={this.changeVisibleSublayers}
+                        changeExpandedLayers={this.changeExpandedLayers}
+                        kartlag={this.state.kartlag}
+                        showSideBar={this.state.showSideBar}
+                        toggleSideBar={this.toggleSideBar}
+                        zoom={this.state.zoom}
+                        sublayerDetailsVisible={
+                          this.state.sublayerDetailsVisible
+                        }
+                        setSublayerDetailsVisible={
+                          this.setSublayerDetailsVisible
+                        }
+                      />
+                    </div>
                   </>
                 );
               }}
@@ -183,6 +305,118 @@ class App extends React.Component {
       </SettingsContext.Consumer>
     );
   }
+
+  setSublayerDetailsVisible = visible => {
+    this.setState({ sublayerDetailsVisible: visible });
+  };
+
+  toggleEditLayers = () => {
+    this.setState({ editLayersMode: !this.state.editLayersMode });
+  };
+
+  toggleShowFavoriteLayers = async favorites => {
+    this.setState({
+      showFavoriteLayers: favorites,
+      sublayerDetailsVisible: false
+    });
+    if (favorites) {
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: this.state.favoriteKartlag }, () => {
+          this.showVisibleLayers(favorites).then(() => {
+            if (this.state.showInfobox && this.state.showExtensiveInfo) {
+              this.setState({ allLayersResult: {} });
+              this.handleAllLayersSearch(
+                this.state.lng,
+                this.state.lat,
+                this.state.zoom
+              );
+            }
+          });
+        });
+      });
+    } else {
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: this.state.completeKartlag }, () => {
+          this.showVisibleLayers(favorites).then(() => {
+            if (this.state.showInfobox && this.state.showExtensiveInfo) {
+              this.setState({ allLayersResult: {} });
+              this.handleAllLayersSearch(
+                this.state.lng,
+                this.state.lat,
+                this.state.zoom
+              );
+            }
+          });
+        });
+      });
+    }
+  };
+
+  showVisibleLayers = async favorites => {
+    if (favorites) {
+      for (const item of this.state.visibleSublayersFavorites) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+      }
+    } else {
+      for (const item of this.state.visibleSublayersComplete) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+      }
+    }
+  };
+
+  hideVisibleLayers = async favorites => {
+    if (favorites) {
+      for (const item of this.state.visibleSublayersComplete) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+      }
+    } else {
+      for (const item of this.state.visibleSublayersFavorites) {
+        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+      }
+    }
+  };
+
+  updateFavoriteLayers = async completeKartlag => {
+    const favoriteKartlag = this.reduceKartlag(completeKartlag);
+    this.setState({ completeKartlag, favoriteKartlag });
+    const favorites = this.state.showFavoriteLayers;
+    if (favorites) {
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: favoriteKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
+      });
+    } else {
+      this.hideVisibleLayers(favorites).then(() => {
+        this.setState({ kartlag: completeKartlag }, () => {
+          this.showVisibleLayers(favorites);
+        });
+      });
+    }
+    updateLayersIndexedDB(completeKartlag);
+  };
+
+  reduceKartlag = layers => {
+    // Reduce kartlag for favorite layers only
+    let reducedLayers = {};
+    Object.keys(layers).forEach(layerId => {
+      const layer = layers[layerId];
+      if (layer.favorite) {
+        let reducedSublayers = {};
+        Object.keys(layer.underlag).forEach(sublayerId => {
+          const sublayer = layer.underlag[sublayerId];
+          if (sublayer.favorite) {
+            reducedSublayers[sublayerId] = sublayer;
+          }
+          return reducedSublayers;
+        });
+        const reducedLayer = { ...layer, underlag: reducedSublayers };
+        reducedLayers[layerId] = reducedLayer;
+      }
+      return reducedLayers;
+    });
+    return reducedLayers;
+  };
 
   handleActualBoundsChange = bounds => {
     this.setState({ actualBounds: bounds, fitBounds: null });
@@ -319,6 +553,7 @@ class App extends React.Component {
   handleStedsNavn = (lng, lat, zoom) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat, zoom).then(sted => {
+      if (!sted) return null;
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
@@ -514,6 +749,9 @@ class App extends React.Component {
   handleForvaltningsLayerProp = (layerkey, key, value) => {
     let nye_lag = this.state.kartlag;
     const layer = nye_lag[layerkey];
+    if (!layer) {
+      return;
+    }
     setValue(layer, key, value);
 
     let layerVisible = false;
@@ -547,6 +785,51 @@ class App extends React.Component {
       !this.state.showExtensiveInfo
     ) {
       this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
+    }
+  };
+
+  changeVisibleSublayers = (layerKey, sublayerKey, propKey, visible) => {
+    if (this.state.showFavoriteLayers) {
+      let array = [...this.state.visibleSublayersFavorites];
+      if (visible) {
+        array.push({ layerKey, sublayerKey, propKey });
+      } else {
+        array = array.filter(
+          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
+        );
+      }
+      this.setState({ visibleSublayersFavorites: array });
+    } else {
+      let array = [...this.state.visibleSublayersComplete];
+      if (visible) {
+        array.push({ layerKey, sublayerKey, propKey });
+      } else {
+        array = array.filter(
+          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
+        );
+      }
+      this.setState({ visibleSublayersComplete: array });
+    }
+  };
+
+  // Stored but not being used: Problems when updating state (no changes)
+  changeExpandedLayers = (layerKey, expanded) => {
+    if (this.state.showFavoriteLayers) {
+      let array = [...this.state.expandedLayersFavorites];
+      if (expanded) {
+        array.push(layerKey);
+      } else {
+        array = array.filter(item => item !== layerKey);
+      }
+      this.setState({ expandedLayersFavorites: array });
+    } else {
+      let array = [...this.state.expandedLayersComplete];
+      if (expanded) {
+        array.push(layerKey);
+      } else {
+        array = array.filter(item => item !== layerKey);
+      }
+      this.setState({ expandedLayersComplete: array });
     }
   };
 

@@ -1,0 +1,132 @@
+/* --------------------------------------------------------------------------------- */
+/* ------------------------------- SETTINGS COMPONENT ------------------------------ */
+/* --------------------------------------------------------------------------------- */
+
+.settings-layers-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 250;
+  overflow-y: auto;
+}
+
+.setting-layers-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 18px 25px;
+  background-color: #697f8a;
+  color: white;
+  margin-bottom: 20px;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 26px;
+  font-weight: 600;
+}
+@media only screen and (max-width: 768px) {
+  .setting-layers-title {
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: 550;
+    padding: 14px 10px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-layers-top-item .MuiTreeItem-content {
+    max-width: calc(100vw - 50px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-layers-list-item .MuiTreeItem-content {
+    max-width: calc(100vw - 75px);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #settings-sublayers-list-item .MuiTreeItem-content {
+    max-width: calc(100vw - 125px);
+  }
+}
+
+.settings-layers-tree-wrapper {
+  background-color: #eee;
+  padding: 15px;
+  max-width: calc(100vw - 20px);
+}
+
+.settings-layers-list-item-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: calc(100vw - 75px);
+}
+.settings-layers-list-item-wrapper
+  .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
+  color: #1976d2;
+}
+.settings-layers-list-item-wrapper
+  .MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary {
+  color: #64b5f6;
+}
+@media only screen and (max-width: 768px) {
+  .settings-layers-list-item-wrapper .MuiButtonBase-root {
+    padding: 4px !important;
+  }
+}
+
+.settings-sublayers-list-item-wrapper {
+  display: flex;
+  align-items: center;
+  max-width: calc(100vw - 125px);
+}
+.settings-sublayers-list-item-wrapper
+  .MuiCheckbox-colorPrimary.MuiIconButton-colorPrimary {
+  color: #1976d2;
+}
+@media only screen and (max-width: 768px) {
+  .settings-sublayers-list-item-wrapper .MuiButtonBase-root {
+    padding: 4px !important;
+  }
+}
+
+#settings-layers-item-label {
+  padding: 4px 0 4px 6px;
+}
+@media only screen and (max-width: 768px) {
+  #settings-layers-item-label {
+    line-height: 18px;
+    padding: 10px 0 10px 4px;
+  }
+}
+
+.settings-layers-buttons-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  max-width: 100vw;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+@media only screen and (max-width: 768px) {
+  .settings-layers-buttons-wrapper {
+    margin-top: 10px;
+    margin-bottom: 100px;
+  }
+}
+
+#settings-layers-cancel-button {
+  width: 90px;
+}
+
+#settings-layers-save-button {
+  width: 90px;
+}
