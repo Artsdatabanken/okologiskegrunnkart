@@ -167,12 +167,25 @@ h4.container_header {
 #filter-all-button.MuiButton-textSecondary {
   color: #888;
 }
+#filter-layers-menu-item {
+  width: 385px;
+  max-width: calc(100vw - 30px);
+}
+@media only screen and (max-width: 768px) {
+  #filter-layers-menu-item {
+    width: 285px;
+  }
+}
 #filter-layers-menu-item.MuiListItem-gutters {
   padding-left: 14px;
   padding-right: 22px;
 }
+#filter-layers-menu-item .MuiListItemText-root {
+  white-space: normal;
+}
 #filter-layers-menu-icon.MuiListItemIcon-root {
   min-width: 35px;
+  max-width: 35px;
 }
 #sort-layers-menu-item.MuiListItem-gutters {
   padding-left: 25px;
