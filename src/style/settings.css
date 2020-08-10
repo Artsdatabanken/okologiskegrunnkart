@@ -115,6 +115,7 @@
   max-width: 100vw;
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-shrink: 0;
 }
 @media only screen and (max-width: 768px) {
   .settings-layers-buttons-wrapper {

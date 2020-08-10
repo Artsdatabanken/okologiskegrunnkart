@@ -126,6 +126,11 @@ h4.container_header {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+@media only screen and (max-width: 768px) {
+  .sorted-layers-subheaders {
+    margin-bottom: 100px;
+  }
+}
 
 /* Sortering, filtrering og søk -delen */
 .header-layers-menu {
