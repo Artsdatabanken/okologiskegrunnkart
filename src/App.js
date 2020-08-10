@@ -553,6 +553,7 @@ class App extends React.Component {
   handleStedsNavn = (lng, lat, zoom) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat, zoom).then(sted => {
+      if (!sted) return null;
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
