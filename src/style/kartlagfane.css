@@ -128,7 +128,7 @@ h4.container_header {
 }
 @media only screen and (max-width: 768px) {
   .sorted-layers-subheaders {
-    margin-bottom: 50px;
+    margin-bottom: 75px;
   }
 }
 
@@ -188,8 +188,14 @@ h4.container_header {
 }
 
 /* leyend link */
+.legend-link-background {
+  background-color: #eee;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 .legend-link-wrapper {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   background-color: rgba(145, 163, 176, 0.5);
 }
 #legend-icon.layer-icon-wrapper {
