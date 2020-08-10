@@ -175,6 +175,11 @@
 .detailed-info-container-side {
   background-color: #eee;
 }
+@media only screen and (max-width: 768px) {
+  .detailed-info-container-side {
+    margin-bottom: 150px;
+  }
+}
 .layer-results-scrollable-side {
   display: inline-block;
   width: 100%;

@@ -128,7 +128,7 @@ h4.container_header {
 }
 @media only screen and (max-width: 768px) {
   .sorted-layers-subheaders {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
   }
 }
 
