@@ -145,10 +145,11 @@ export default function TjenesteContainer() {
 
   const handleUpdate = (k, v) => {
     const newDoc = { ...doc, [k]: v };
-    // console.log("onUpdate", k, v);
-    // console.log("newdoc", newDoc);
     setDoc(newDoc);
   };
+
+  const [selectedLayer, setSelectedLayer] = useState(0);
+  const layer = (doc && doc.underlag && doc.underlag[selectedLayer]) || {};
 
   useEffect(() => {
     async function doprobe() {
@@ -160,11 +161,9 @@ export default function TjenesteContainer() {
       const [lat, lng] = koords;
       const bbox = [lng - delta, lat - delta, lng + delta, lat + delta];
       try {
-        console.log("klikkurl", doc.klikkurl);
         if (doc.klikkurl) {
           const variables = { lng: lat, lat: lng, zoom: 10 };
           doc.klikk_testurl = url_formatter(doc.klikkurl, variables);
-          // console.log(doc.klikk_testurl);
         } else {
           // WMS
           const uri = new URL(doc.wmsurl);
@@ -176,13 +175,8 @@ export default function TjenesteContainer() {
           uri.searchParams.set("y", 128);
           uri.searchParams.set("width", 255);
           uri.searchParams.set("height", 255);
-          // console.log("underlag", doc.underlag);
-          const enabledLayers = doc.underlag
-            .filter(lag => lag.queryable)
-            .map(lag => lag.wmslayer);
-          // console.log("querylayers", enabledLayers);
-          uri.searchParams.set("layers", enabledLayers);
-          uri.searchParams.set("query_layers", enabledLayers);
+          uri.searchParams.set("layers", layer.wmslayer);
+          uri.searchParams.set("query_layers", layer.wmslayer);
           uri.searchParams.set("info_format", doc.wmsinfoformat);
           uri.searchParams.set("crs", "EPSG:4326");
           uri.searchParams.set("srs", "EPSG:4326");
@@ -204,14 +198,12 @@ export default function TjenesteContainer() {
     }
     doprobe();
   }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
-  const [selectedLayer, setSelectedLayer] = useState(0);
-  const layer = (doc && doc.underlag && doc.underlag[selectedLayer]) || {};
+
   const handleUpdateTestKoordinater = coords => {
     if (!doc.underlag) return;
     const layer = doc.underlag[selectedLayer];
     layer.testkoordinater = coords;
     doc.underlag[selectedLayer] = { ...layer };
-    console.log({ coords });
     setDoc({ ...doc });
   };
   console.log({ layer });

@@ -73,7 +73,6 @@ class Leaflet extends React.Component {
   }
 
   erEndret(prevProps) {
-    console.log({ props: this.props });
     if (this.props.wms !== prevProps.wms) return true;
     if (this.props.marker !== prevProps.marker) return true;
     if (this.props.token !== prevProps.token) return true;
