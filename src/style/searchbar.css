@@ -28,6 +28,7 @@
   display: inline-block;
   height: 31px;
   border: 1px solid black;
+  margin-bottom: 5px;
 }
 
 .searchbar button {
@@ -67,13 +68,15 @@
     margin: 0;
     padding-top: 4px;
   }
-}
-
-@media only screen and (max-width: 768px) {
   .search-button {
     margin: 0;
     padding-top: 4px;
-    padding-bottom: 6px;
+    padding-bottom: 5px;
+  }
+  .searchbar button {
+    margin: 0;
+    padding-top: 4px;
+    padding-bottom: 5px;
   }
 }
 
@@ -104,17 +107,19 @@
   width: 100%;
   margin: 0px;
   margin-top: 0px;
-  height: calc(100vh - 90px);
-  max-height: calc(100vh - 90px);
+  height: calc(100vh - 94px);
+  max-height: calc(100vh - 94px);
   overflow-y: auto;
   border: none;
   box-sizing: border-box;
+  padding-bottom: 10px;
+  background-color: white;
 }
 
 @media only screen and (max-width: 768px) {
   .treffliste.searchresultpage {
-    max-height: calc(50vh - 90px);
     max-width: 100%;
+    padding-bottom: 150px;
   }
 }
 
@@ -260,6 +265,9 @@
     height: 100vh;
     min-height: 100vh;
     max-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 
@@ -315,7 +323,24 @@
 .close-modal-button:hover {
   background-color: rgba(145, 163, 176, 1);
 }
+@media only screen and (max-width: 768px) {
+  .close-modal-button-wrapper {
+    z-index: 255;
+    margin: 31px 29px 34px 22px;
+  }
+  .close-modal-button {
+    z-index: 255;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    padding: 0;
+  }
+  .close-modal-button-wrapper:focus {
+    margin: 9px 7px 11px 0;
+  }
+}
 
+/* Help modal content */
 .help-modal-content {
   display: flex;
   flex-flow: column;
@@ -325,7 +350,7 @@
 
 @media only screen and (max-width: 768px) {
   .help-modal-content {
-    padding: 15px 20px;
+    padding: 15px 20px 150px 20px;
   }
 }
 

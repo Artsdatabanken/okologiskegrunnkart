@@ -12,6 +12,7 @@
   align-items: center;
   width: 100vw;
   height: 100vh;
+  max-height: 100vh;
   background-color: white;
   z-index: 250;
   overflow-y: auto;
@@ -114,12 +115,13 @@
   width: 200px;
   max-width: 100vw;
   margin-top: 20px;
-  margin-bottom: 20px;
+  padding-bottom: 50px;
+  flex-shrink: 0;
 }
 @media only screen and (max-width: 768px) {
   .settings-layers-buttons-wrapper {
     margin-top: 10px;
-    margin-bottom: 100px;
+    padding-bottom: 150px;
   }
 }
 

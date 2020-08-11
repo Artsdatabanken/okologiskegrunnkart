@@ -200,8 +200,10 @@ class App extends React.Component {
                       <KartlagSettings
                         kartlag={this.state.completeKartlag}
                         someLayersFavorite={this.state.someLayersFavorite}
+                        handleSomeLayersFavorite={this.handleSomeLayersFavorite}
                         toggleEditLayers={this.toggleEditLayers}
                         updateFavoriteLayers={this.updateFavoriteLayers}
+                        handleShowFavoriteLayers={this.handleShowFavoriteLayers}
                       />
                     )}
                     <div
@@ -312,6 +314,14 @@ class App extends React.Component {
 
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });
+  };
+
+  handleSomeLayersFavorite = someLayersFavorite => {
+    this.setState({ someLayersFavorite });
+  };
+
+  handleShowFavoriteLayers = async showFavoriteLayers => {
+    this.setState({ showFavoriteLayers });
   };
 
   toggleShowFavoriteLayers = async favorites => {

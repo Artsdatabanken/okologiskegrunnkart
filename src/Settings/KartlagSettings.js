@@ -23,8 +23,10 @@ const useStyles = makeStyles({
 const KartlagSettings = ({
   kartlag,
   someLayersFavorite,
+  handleSomeLayersFavorite,
   toggleEditLayers,
-  updateFavoriteLayers
+  updateFavoriteLayers,
+  handleShowFavoriteLayers
 }) => {
   const [layers, setLayers] = useState(kartlag);
   const [layersActive, setLayersActive] = useState(someLayersFavorite);
@@ -48,13 +50,13 @@ const KartlagSettings = ({
   };
 
   const handleLayerChange = lagId => {
-    let updatedLayer = { ...layers[lagId] };
+    let updatedLayers = { ...layers };
+    let updatedLayer = updatedLayers[lagId];
     const newStatus = !updatedLayer.favorite;
     updatedLayer.favorite = newStatus;
     Object.keys(updatedLayer.underlag).forEach(layerId => {
       updatedLayer.underlag[layerId].favorite = newStatus;
     });
-    const updatedLayers = { ...layers, [lagId]: updatedLayer };
     setLayers(updatedLayers);
     if (!layersActive && newStatus) {
       setLayersActive(true);
@@ -64,25 +66,19 @@ const KartlagSettings = ({
   };
 
   const handleSublayerChange = (lagId, sublagId) => {
-    let updatedSublayer = { ...layers[lagId].underlag[sublagId] };
+    let updatedLayers = { ...layers };
+    let updatedSublayer = updatedLayers[lagId].underlag[sublagId];
     updatedSublayer.favorite = !updatedSublayer.favorite;
-    const updatedSublayers = {
-      ...layers[lagId].underlag,
-      [sublagId]: updatedSublayer
-    };
     let oneSublayerFavorite = false;
+    let updatedSublayers = updatedLayers[lagId].underlag;
     Object.keys(updatedSublayers).forEach(sublayerId => {
       const sublayer = updatedSublayers[sublayerId];
       if (sublayer.favorite) {
         oneSublayerFavorite = true;
       }
     });
-    const updatedLayer = {
-      ...layers[lagId],
-      underlag: updatedSublayers,
-      favorite: oneSublayerFavorite
-    };
-    const updatedLayers = { ...layers, [lagId]: updatedLayer };
+    let updatedLayer = updatedLayers[lagId];
+    updatedLayer.favorite = oneSublayerFavorite;
     setLayers(updatedLayers);
 
     if (!layersActive && oneSublayerFavorite) {
@@ -117,9 +113,12 @@ const KartlagSettings = ({
 
   const save = async () => {
     setLoading(true);
-    updateFavoriteLayers(layers).then(() => {
-      setLoading(false);
-      toggleEditLayers();
+    handleShowFavoriteLayers(true).then(() => {
+      updateFavoriteLayers(layers).then(() => {
+        handleSomeLayersFavorite(layersActive);
+        setLoading(false);
+        toggleEditLayers();
+      });
     });
   };
 

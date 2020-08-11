@@ -206,7 +206,7 @@ const ForvaltningsDetailedInfo = ({
                   {kartlag.logourl ? (
                     <img
                       src={kartlag.logourl}
-                      style={{ maxWidth: "24px" }}
+                      style={{ maxWidth: "24px", maxHeight: "24px" }}
                       alt=""
                     />
                   ) : (
