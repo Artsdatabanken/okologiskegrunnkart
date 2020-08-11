@@ -205,16 +205,25 @@ export default function TjenesteContainer() {
     doprobe();
   }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
   const [selectedLayer, setSelectedLayer] = useState(0);
-
+  const layer = (doc && doc.underlag && doc.underlag[selectedLayer]) || {};
+  const handleUpdateTestKoordinater = coords => {
+    if (!doc.underlag) return;
+    const layer = doc.underlag[selectedLayer];
+    layer.testkoordinater = coords;
+    doc.underlag[selectedLayer] = { ...layer };
+    console.log({ coords });
+    setDoc({ ...doc });
+  };
+  console.log({ layer });
   if (!doc) return <CircularProgress />;
   return (
     <>
       <DrmInfestedLeaflet
-        layer={doc}
-        onClick={(lng, lat) => handleUpdate("testkoordinater", lng + "," + lat)}
+        wms={doc}
+        onClick={(lng, lat) => handleUpdateTestKoordinater(lng + "," + lat)}
         latitude={63}
         longitude={10}
-        selectedLayer={selectedLayer}
+        selectedLayer={layer}
       />
       <div
         style={{

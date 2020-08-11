@@ -3,7 +3,7 @@ import Leaflet from "./Leaflet";
 import AuthenticationContext from "./AuthenticationContext";
 
 const DrmInfestedLeaflet = ({
-  layer,
+  wms,
   latitude,
   longitude,
   onClick,
@@ -16,7 +16,7 @@ const DrmInfestedLeaflet = ({
           return "Waiting for valid token for DRM infected base maps...";
         return (
           <Leaflet
-            layer={layer}
+            wms={wms}
             selectedLayer={selectedLayer}
             zoom={4}
             latitude={latitude}

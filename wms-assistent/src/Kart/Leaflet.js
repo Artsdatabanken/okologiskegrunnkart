@@ -50,7 +50,8 @@ class Leaflet extends React.Component {
     }, 5000);
 
     this.marker = L.marker([0, 0]);
-    this.updateMarker(this.props.layer.testkoordinater);
+    if (this.props.selectedLayer)
+      this.updateMarker(this.props.selectedLayer.testkoordinater);
     this.marker.addTo(map);
     /*        </div>
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -72,10 +73,16 @@ class Leaflet extends React.Component {
   }
 
   erEndret(prevProps) {
-    if (this.props.layer !== prevProps.layer) return true;
+    console.log({ props: this.props });
+    if (this.props.wms !== prevProps.wms) return true;
     if (this.props.marker !== prevProps.marker) return true;
     if (this.props.token !== prevProps.token) return true;
     if (this.props.selectedLayer !== prevProps.selectedLayer) return true;
+    if (
+      this.props.selectedLayer.testkoordinater !==
+      prevProps.selectedLayer.testkoordinater
+    )
+      return true;
   }
 
   componentDidUpdate(prevProps) {
@@ -93,8 +100,8 @@ class Leaflet extends React.Component {
 
   updateMap(props) {
     if (!this.props.token) return; // not yet loaded
-    this.updateMarker(props.layer.testkoordinater);
-    this.syncWmsLayers(props.layer);
+    this.updateMarker(props.selectedLayer.testkoordinater);
+    this.syncWmsLayers(props.wms);
   }
 
   updateMarker(koords) {
@@ -109,14 +116,12 @@ class Leaflet extends React.Component {
   }
 
   syncUnderlag(kartlag, underlag) {
-    console.log({ kartlag, underlag });
     if (!underlag) return;
     var url = this.makeWmsUrl(kartlag.wmsurl);
     let srs = "EPSG3857";
     if (kartlag.projeksjon) {
       srs = kartlag.projeksjon.replace(":", "");
     }
-    // Vis alle?    if (!underlag.suggested) return
     var tilelayer = this.wmslayer;
     if (tilelayer) this.map.removeLayer(tilelayer);
 
@@ -154,8 +159,7 @@ class Leaflet extends React.Component {
     Object.keys(this.wms).forEach(key => {
       if (!keys[key]) this.map.removeLayer(this.wms[key]);
     });
-    const layer = config.underlag[this.props.selectedLayer];
-    this.syncUnderlag(config, layer);
+    this.syncUnderlag(config, this.props.selectedLayer);
   }
 
   render() {
