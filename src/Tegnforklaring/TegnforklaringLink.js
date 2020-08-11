@@ -2,6 +2,7 @@ import React from "react";
 import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import CustomIcon from "../Common/CustomIcon";
 import { withStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 const StyledBadge = withStyles(() => ({
   badge: {
@@ -10,6 +11,8 @@ const StyledBadge = withStyles(() => ({
 }))(Badge);
 
 const TegnforklaringLink = ({ layers, setLegendVisible }) => {
+  const history = useHistory();
+
   const getActiveLayersCount = () => {
     let number = 0;
     Object.keys(layers).forEach(id => {
@@ -28,6 +31,9 @@ const TegnforklaringLink = ({ layers, setLegendVisible }) => {
       button
       onClick={() => {
         setLegendVisible(true);
+        const loc = history.location;
+        loc.pathname = "/tegnforklaring";
+        history.push(loc);
       }}
     >
       <ListItemIcon>

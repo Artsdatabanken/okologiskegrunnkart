@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -8,8 +8,22 @@ import {
   ListItem
 } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const Tegnforklaring = ({ layers, setLegendVisible }) => {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (history.action === "POP") {
+      const loc = history.location;
+      if (!loc) return;
+      const path = loc.pathname;
+      if (path !== "/tegnforklaring") {
+        setLegendVisible(false);
+      }
+    }
+  });
+
   return (
     <div className="legend-wrapper">
       <ListItem
@@ -17,6 +31,9 @@ const Tegnforklaring = ({ layers, setLegendVisible }) => {
         button
         onClick={() => {
           setLegendVisible(false);
+          const loc = history.location;
+          loc.pathname = "/";
+          history.push(loc);
         }}
       >
         <ListItemIcon>

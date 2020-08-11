@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Close,
   MyLocation,
@@ -11,6 +11,7 @@ import CustomTooltip from "../../Common/CustomTooltip";
 import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
+import { useHistory } from "react-router-dom";
 
 const InfoBox = ({
   coordinates_area,
@@ -28,6 +29,8 @@ const InfoBox = ({
   handleExtensiveInfo,
   loadingFeatures
 }) => {
+  const history = useHistory();
+
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
@@ -57,6 +60,16 @@ const InfoBox = ({
     getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
   };
 
+  useEffect(() => {
+    const loc = history.location;
+    if (!loc) return;
+    const search = loc.search;
+    if (search === "") {
+      handleInfobox(false);
+      handleExtensiveInfo(false);
+    }
+  }, [history, history.location.search, handleInfobox, handleExtensiveInfo]);
+
   return (
     <div className="infobox-container-side">
       <div className="infobox-title-wrapper">
@@ -79,6 +92,9 @@ const InfoBox = ({
           onClick={e => {
             handleInfobox(false);
             handleExtensiveInfo(false);
+            const loc = history.location;
+            loc.search = "";
+            history.push(loc);
           }}
         >
           <div className="close-infobox-button">

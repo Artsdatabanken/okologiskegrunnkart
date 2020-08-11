@@ -250,7 +250,7 @@ class Leaflet extends React.Component {
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
-    this.props.handleInfobox(true);
+
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
     } else {
@@ -272,6 +272,7 @@ class Leaflet extends React.Component {
     this.props.history.push(
       "?lng=" + e.latlng.lng + "&lat=" + e.latlng.lat + newurlstring
     );
+    this.props.handleInfobox(true);
   }
 
   polygonToolClick(e) {
