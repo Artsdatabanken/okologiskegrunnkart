@@ -197,7 +197,7 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
-  }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
+  }, [doc, doc.klikkurl, wmsversion, testkoords, layer]);
 
   const handleUpdateTestKoordinater = coords => {
     if (!doc.underlag) return;
@@ -206,7 +206,6 @@ export default function TjenesteContainer() {
     doc.underlag[selectedLayer] = { ...layer };
     setDoc({ ...doc });
   };
-  console.log({ layer });
   if (!doc) return <CircularProgress />;
   return (
     <>

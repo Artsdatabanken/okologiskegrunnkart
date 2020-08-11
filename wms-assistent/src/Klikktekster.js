@@ -1,49 +1,11 @@
 import React from "react";
-import { ListSubheader } from "@material-ui/core";
-
 import TextField2 from "./TextField2";
 import CreateIcon from "@material-ui/icons/Create";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
-import Klikktekster from "./Klikktekster";
 
-const Underlag = ({ underlag, selectedLayer, onChangeSelectedLayer }) => {
-  const layer = underlag[selectedLayer];
-  const onUpdate = (key, value) => {
-    console.log({ key, value });
-  };
-  return (
-    <>
-      <ListSubheader disableSticky>Kartlag</ListSubheader>
-      <div style={{ marginLeft: 24, marginRight: 24 }}>
-        {underlag.map((ul, index) => {
-          const isSelected = index === selectedLayer;
-          return (
-            <span
-              key={ul.wmslayer}
-              style={{
-                cursor: "pointer",
-                margin: 4,
-                fontWeight: isSelected && "bold"
-              }}
-              onClick={() => onChangeSelectedLayer(index)}
-            >
-              {isSelected ? "[" + ul.tittel + "]" : ul.tittel}
-            </span>
-          );
-        })}
-      </div>
-      <ListSubheader disableSticky>{layer.tittel}</ListSubheader>
-      <Klikktekster underlag={underlag} onUpdate={onUpdate} />
-    </>
-  );
-};
-
-const _KlikkTekster = ({ underlag }) => {
+const Klikktekster = ({ underlag, onUpdate }) => {
   const history = useHistory();
-  const onUpdate = (key, value) => {
-    console.log({ key, value });
-  };
   return (
     <>
       <TextField2
@@ -84,4 +46,4 @@ const _KlikkTekster = ({ underlag }) => {
   );
 };
 
-export default Underlag;
+export default Klikktekster;
