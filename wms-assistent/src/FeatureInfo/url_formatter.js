@@ -96,7 +96,13 @@ export default function url_formatter(formatstring = "", variables) {
     );
     return null;
   }
-  url = new URL(url);
+  try {
+    url = new URL(url);
+  } catch (err) {
+    console.warn("URL is not valid");
+    return null;
+  }
+
   const params = new URLSearchParams(url.search);
   url.search = params.toString();
   return url.toString();
