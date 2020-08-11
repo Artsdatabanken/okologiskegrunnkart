@@ -6,7 +6,15 @@ import TextField2 from "./TextField2";
 import KlikkIKart from "./KlikkkIKart";
 import Warnings from "./Warnings";
 
-const Tjeneste = ({ doc, onUpdate, onSave, feature, setFeature }) => {
+const Tjeneste = ({
+  doc,
+  onUpdate,
+  onSave,
+  feature,
+  setFeature,
+  selectedLayer,
+  onChangeSelectedLayer
+}) => {
   if (doc.error)
     return (
       <Alert style={{ marginTop: 64 }} severity="error">
@@ -53,6 +61,8 @@ const Tjeneste = ({ doc, onUpdate, onSave, feature, setFeature }) => {
           onUpdate={onUpdate}
           feature={feature}
           setFeature={setFeature}
+          selectedLayer={selectedLayer}
+          onChangeSelectedLayer={onChangeSelectedLayer}
         />
         <Button
           style={{ width: "100%", marginTop: 16, marginBottom: 16 }}

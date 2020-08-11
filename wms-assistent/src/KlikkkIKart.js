@@ -6,13 +6,19 @@ import klikktekst from "./FeatureInfo/Klikktekst";
 import CreateIcon from "@material-ui/icons/Create";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
+import Underlag from "./Underlag";
 
-const KlikkIKart = ({ doc, onUpdate, feature }) => {
+const KlikkIKart = ({
+  doc,
+  onUpdate,
+  feature,
+  selectedLayer,
+  onChangeSelectedLayer
+}) => {
   const history = useHistory();
 
   const linje1 = klikktekst(feature, doc.klikktekst);
   const linje2 = klikktekst(feature, doc.klikktekst2 || doc.tittel);
-  //    console.log(linje1, linje2)
   return (
     <div>
       <TextField2
@@ -31,6 +37,14 @@ const KlikkIKart = ({ doc, onUpdate, feature }) => {
         }}
         icon={<CreateIcon />}
       />
+      {doc && doc.underlag && (
+        <Underlag
+          underlag={doc.underlag}
+          selectedLayer={selectedLayer}
+          onChangeSelectedLayer={onChangeSelectedLayer}
+          onUpdate={onUpdate}
+        />
+      )}
       <TextField2
         title="Formatstreng linje 1"
         dockey="klikktekst"

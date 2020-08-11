@@ -204,6 +204,7 @@ export default function TjenesteContainer() {
     }
     doprobe();
   }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
+  const [selectedLayer, setSelectedLayer] = useState(0);
 
   if (!doc) return <CircularProgress />;
   return (
@@ -247,6 +248,8 @@ export default function TjenesteContainer() {
                   onUpdate={handleUpdate}
                   onSave={() => writeUpdate(doc)}
                   sub={sub}
+                  selectedLayer={selectedLayer}
+                  onChangeSelectedLayer={setSelectedLayer}
                 />
               </>
             )}
