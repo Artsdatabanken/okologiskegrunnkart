@@ -75,6 +75,7 @@ class Leaflet extends React.Component {
     if (this.props.layer !== prevProps.layer) return true;
     if (this.props.marker !== prevProps.marker) return true;
     if (this.props.token !== prevProps.token) return true;
+    if (this.props.selectedLayer !== prevProps.selectedLayer) return true;
   }
 
   componentDidUpdate(prevProps) {
@@ -108,6 +109,7 @@ class Leaflet extends React.Component {
   }
 
   syncUnderlag(kartlag, underlag) {
+    console.log({ kartlag, underlag });
     if (!underlag) return;
     var url = this.makeWmsUrl(kartlag.wmsurl);
     let srs = "EPSG3857";
@@ -115,23 +117,23 @@ class Leaflet extends React.Component {
       srs = kartlag.projeksjon.replace(":", "");
     }
     // Vis alle?    if (!underlag.suggested) return
-    var tilelayer = this.wms[underlag.wmslayer];
-    if (!tilelayer) {
-      tilelayer = L.tileLayer.cachedOverview("", {
-        id: underlag.id,
-        zoomThreshold: underlag.minzoom,
-        layers: underlag.wmslayer,
-        transparent: true,
-        crs: L.CRS[srs],
-        format: "image/png",
-        maxZoom: MAX_MAP_ZOOM_LEVEL,
-        maxNativeZoom: underlag.maxzoom,
-        opacity: 0.95
-      });
-      tilelayer.setUrl(url);
-      this.wms[underlag.wmslayer] = tilelayer;
-      this.map.addLayer(tilelayer);
-    }
+    var tilelayer = this.wmslayer;
+    if (tilelayer) this.map.removeLayer(tilelayer);
+
+    tilelayer = L.tileLayer.cachedOverview("", {
+      id: underlag.id,
+      zoomThreshold: underlag.minzoom,
+      layers: underlag.wmslayer,
+      transparent: true,
+      crs: L.CRS[srs],
+      format: "image/png",
+      maxZoom: MAX_MAP_ZOOM_LEVEL,
+      maxNativeZoom: underlag.maxzoom,
+      opacity: 0.95
+    });
+    tilelayer.setUrl(url);
+    this.wmslayer = tilelayer;
+    this.map.addLayer(tilelayer);
   }
 
   makeWmsUrl(url) {
@@ -152,7 +154,8 @@ class Leaflet extends React.Component {
     Object.keys(this.wms).forEach(key => {
       if (!keys[key]) this.map.removeLayer(this.wms[key]);
     });
-    for (var ul of config.underlag) this.syncUnderlag(config, ul);
+    const layer = config.underlag[this.props.selectedLayer];
+    this.syncUnderlag(config, layer);
   }
 
   render() {

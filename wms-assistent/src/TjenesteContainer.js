@@ -214,6 +214,7 @@ export default function TjenesteContainer() {
         onClick={(lng, lat) => handleUpdate("testkoordinater", lng + "," + lat)}
         latitude={63}
         longitude={10}
+        selectedLayer={selectedLayer}
       />
       <div
         style={{
