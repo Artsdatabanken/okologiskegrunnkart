@@ -8,8 +8,8 @@ function addDistances(polyline) {
   for (var i = 0; i < coords.length; i++) {
     const current = coords[i];
     const [x, y] = proj4(geographicProjection, utmProjection, [
-      current.coords[0],
-      current.coords[1]
+      current.coords[1],
+      current.coords[0]
     ]);
     current.x = x;
     current.y = y;
@@ -17,12 +17,13 @@ function addDistances(polyline) {
   polyline.distance = 0;
   for (i = 0; i < coords.length; i++) {
     const current = coords[i];
+    console.log({ current });
     const next = coords[(i + 1) % coords.length];
     const dx = next.x - current.x;
     const dy = next.y - current.y;
     next.angle = Math.atan2(dy, dx) * (180 / Math.PI);
     next.distance = Math.sqrt(dx * dx + dy * dy);
-    if (i !== 0 || polyline.shapeType === "polygon")
+    if (i < coords.length - 1 || polyline.shapeType === "polygon")
       polyline.distance += next.distance;
   }
   polyline.area = calculateArea(coords);

@@ -7,6 +7,7 @@ button {
 body {
   _overflow: hidden;
   _touch-action: none;
+  list-style: none;
 }
 
 a,

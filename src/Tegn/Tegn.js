@@ -8,8 +8,7 @@ import {
   ListSubheader,
   ListItem,
   ListItemSecondaryAction,
-  ListItemText,
-  Typography
+  ListItemText
 } from "@material-ui/core";
 import { Delete, Room as Marker } from "@material-ui/icons";
 import LineIcon from "./LineIcon";
@@ -23,9 +22,33 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
   };
   return (
     <>
-      <Høydeplott polyline={polyline} />
+      <ListItem>
+        <ButtonGroup
+          fullWidth={true}
+          variant="contained"
+          aria-label="primary button group"
+        >
+          <Button
+            color={polyline.shapeType === "punkt" && "primary"}
+            onClick={() => setShapeType("punkt")}
+          >
+            <Marker></Marker> Punkt
+          </Button>
+          <Button
+            color={polyline.shapeType === "linje" && "primary"}
+            onClick={() => setShapeType("linje")}
+          >
+            <LineIcon></LineIcon> Linje
+          </Button>
+          <Button
+            color={polyline.shapeType === "polygon" && "primary"}
+            onClick={() => setShapeType("polygon")}
+          >
+            <PolygonIcon></PolygonIcon> Polygon
+          </Button>
+        </ButtonGroup>
+      </ListItem>
 
-      <div style={{ margin: 24 }}></div>
       <List>
         <ListItem>
           <TextField
@@ -34,33 +57,6 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
             label="Navn på kartlaget"
             defaultValue={"Mitt kartlag " + new Date().toLocaleTimeString()}
           />
-        </ListItem>
-        <ListSubheader disableSticky>Type geometri</ListSubheader>
-        <ListItem>
-          <ButtonGroup
-            fullWidth={true}
-            variant="contained"
-            aria-label="primary button group"
-          >
-            <Button
-              color={polyline.shapeType === "punkt" && "primary"}
-              onClick={() => setShapeType("punkt")}
-            >
-              <Marker></Marker> Punkt
-            </Button>
-            <Button
-              color={polyline.shapeType === "linje" && "primary"}
-              onClick={() => setShapeType("linje")}
-            >
-              <LineIcon></LineIcon> Linje
-            </Button>
-            <Button
-              color={polyline.shapeType === "polygon" && "primary"}
-              onClick={() => setShapeType("polygon")}
-            >
-              <PolygonIcon></PolygonIcon> Polygon
-            </Button>
-          </ButtonGroup>
         </ListItem>
         <ListSubheader disableSticky>
           {overskrift({
@@ -111,7 +107,9 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
                 <ListItemSecondaryAction>
                   <IconButton
                     onClick={() => {
-                      polyline.coords.splice(index, 1);
+                      const coords = [...polyline.coords];
+                      coords.splice(index, 1);
+                      polyline.coords = coords;
                       if (polyline.coords.length <= polyline.selectedIndex)
                         polyline.selectedIndex--;
                       onUpdatePolyline(polyline);
@@ -125,6 +123,15 @@ const Tegn = ({ polyline, onUpdatePolyline }) => {
           );
         })}
       </List>
+      {polyline.shapeType === "linje" && (
+        <Høydeplott
+          polyline={polyline}
+          onRefresh={() => {
+            polyline.coords = [...polyline.coords]; // Force a refresh
+            onUpdatePolyline(polyline);
+          }}
+        />
+      )}
     </>
   );
 };
