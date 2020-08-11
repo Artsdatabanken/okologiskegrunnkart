@@ -177,7 +177,7 @@
 }
 @media only screen and (max-width: 768px) {
   .detailed-info-container-side {
-    margin-bottom: 150px;
+    padding-bottom: 150px;
   }
 }
 .layer-results-scrollable-side {

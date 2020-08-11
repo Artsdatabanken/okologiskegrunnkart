@@ -403,7 +403,6 @@ h4.container_header {
     width: 100vw;
     padding-top: 0;
     border-top: 1px solid #aaa;
-    padding-bottom: 100px;
   }
 }
 
@@ -443,6 +442,11 @@ h4.container_header {
 .sublayer-details-wrapper {
   background-color: white;
   padding: 10px 14px 15px 34px;
+}
+@media only screen and (max-width: 768px) {
+  .sublayer-details-wrapper {
+    padding-bottom: 150px;
+  }
 }
 
 #details-title-wrapper {
