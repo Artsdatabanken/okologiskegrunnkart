@@ -1,13 +1,13 @@
 import React from "react";
 import { ListSubheader } from "@material-ui/core";
-
-import TextField2 from "./TextField2";
-import CreateIcon from "@material-ui/icons/Create";
-import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
 import Klikktekster from "./Klikktekster";
 
-const Underlag = ({ underlag, selectedLayer, onChangeSelectedLayer }) => {
+const Underlag = ({
+  underlag,
+  feature,
+  selectedLayer,
+  onChangeSelectedLayer
+}) => {
   const layer = underlag[selectedLayer];
   const onUpdate = (key, value) => {
     console.log({ key, value });
@@ -34,52 +34,7 @@ const Underlag = ({ underlag, selectedLayer, onChangeSelectedLayer }) => {
         })}
       </div>
       <ListSubheader disableSticky>{layer.tittel}</ListSubheader>
-      <Klikktekster underlag={underlag} onUpdate={onUpdate} />
-    </>
-  );
-};
-
-const _KlikkTekster = ({ underlag }) => {
-  const history = useHistory();
-  const onUpdate = (key, value) => {
-    console.log({ key, value });
-  };
-  return (
-    <>
-      <TextField2
-        title="Formatstreng linje 1"
-        dockey="klikktekst"
-        doc={underlag}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${underlag._id}&sub=klikktekst`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {underlag.linje1 &&
-        underlag.linje1.warn &&
-        underlag.linje1.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
-      <TextField2
-        title="Formatstreng linje 2"
-        dockey="klikktekst2"
-        doc={underlag}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${underlag._id}&sub=klikktekst2`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {underlag.linje2 &&
-        underlag.linje2.warn &&
-        underlag.linje2.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
+      <Klikktekster underlag={layer} feature={feature} onUpdate={onUpdate} />
     </>
   );
 };

@@ -43,40 +43,9 @@ const KlikkIKart = ({
           selectedLayer={selectedLayer}
           onChangeSelectedLayer={onChangeSelectedLayer}
           onUpdate={onUpdate}
+          feature={feature}
         />
       )}
-      <TextField2
-        title="Formatstreng linje 1"
-        dockey="klikktekst"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=klikktekst`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {linje1.warn &&
-        linje1.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
-      <TextField2
-        title="Formatstreng linje 2"
-        dockey="klikktekst2"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=klikktekst2`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {linje2.warn &&
-        linje2.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
       <Paper
         elevation={3}
         style={{

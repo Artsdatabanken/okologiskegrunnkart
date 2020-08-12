@@ -3,9 +3,14 @@ import TextField2 from "./TextField2";
 import CreateIcon from "@material-ui/icons/Create";
 import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
+import klikktekst from "./FeatureInfo/Klikktekst";
 
-const Klikktekster = ({ underlag, onUpdate }) => {
+const Klikktekster = ({ underlag, feature, onUpdate }) => {
+  console.log(underlag.klikktekst, underlag);
   const history = useHistory();
+  const linje1 = klikktekst(feature, underlag.klikktekst);
+  const linje2 = klikktekst(feature, underlag.klikktekst2);
+  console.log({ linje1, linje2, feature });
   return (
     <>
       <TextField2
@@ -18,9 +23,9 @@ const Klikktekster = ({ underlag, onUpdate }) => {
         }}
         icon={<CreateIcon />}
       />
-      {underlag.linje1 &&
-        underlag.linje1.warn &&
-        underlag.linje1.warn.map(warning => (
+      {linje1 &&
+        linje1.warn &&
+        linje1.warn.map(warning => (
           <Alert key={warning} severity="warning">
             {warning}
           </Alert>
@@ -35,9 +40,9 @@ const Klikktekster = ({ underlag, onUpdate }) => {
         }}
         icon={<CreateIcon />}
       />
-      {underlag.linje2 &&
-        underlag.linje2.warn &&
-        underlag.linje2.warn.map(warning => (
+      {linje2 &&
+        linje2.warn &&
+        linje2.warn.map(warning => (
           <Alert key={warning} severity="warning">
             {warning}
           </Alert>
