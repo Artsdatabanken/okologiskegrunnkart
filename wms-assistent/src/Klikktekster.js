@@ -9,6 +9,13 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   const history = useHistory();
   const linje1 = klikktekst(feature, underlag.klikktekst);
   const linje2 = klikktekst(feature, underlag.klikktekst2);
+  const goToEditmode = key => {
+    const url = new URL(window.location);
+    url.searchParams.set("ulid", selectedLayerIndex);
+    url.searchParams.set("sub", key);
+    history.push(url.toString());
+  };
+
   return (
     <>
       <TextField2
@@ -16,9 +23,7 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
         dockey="klikktekst"
         doc={underlag}
         onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?ulid=${selectedLayerIndex}&sub=klikktekst`);
-        }}
+        onIconClick={() => goToEditmode("klikktekst")}
         icon={<CreateIcon />}
       />
       {linje1 &&
@@ -33,9 +38,7 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
         dockey="klikktekst2"
         doc={underlag}
         onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?ulid=${selectedLayerIndex}&sub=klikktekst2`);
-        }}
+        onIconClick={() => goToEditmode("klikktekst2")}
         icon={<CreateIcon />}
       />
       {linje2 &&

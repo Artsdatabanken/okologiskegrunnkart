@@ -15,12 +15,6 @@ const KlikkIKart = ({ doc, onUpdate, feature, selectedLayerIndex }) => {
   return (
     <div>
       <TextField2
-        title="Testkoordinater for klikk i kart (˚Ø,˚N)"
-        dockey="testkoordinater"
-        doc={doc}
-        onUpdate={onUpdate}
-      />
-      <TextField2
         title="Faktaark URL"
         dockey="faktaark"
         doc={doc}

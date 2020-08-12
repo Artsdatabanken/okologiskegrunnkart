@@ -1,5 +1,6 @@
 import React from "react";
 import { ListSubheader } from "@material-ui/core";
+import TextField2 from "./TextField2";
 import Klikktekster from "./Klikktekster";
 const { useHistory } = require("react-router-dom");
 
@@ -14,7 +15,7 @@ const Underlag = ({ underlag, feature, selectedLayerIndex }) => {
     url.searchParams.set("ulid", index);
     history.push(url.search);
   };
-
+  console.log({ layer, selectedLayerIndex });
   return (
     <>
       <ListSubheader disableSticky>Kartlag</ListSubheader>
@@ -41,6 +42,12 @@ const Underlag = ({ underlag, feature, selectedLayerIndex }) => {
         underlag={layer}
         selectedLayerIndex={selectedLayerIndex}
         feature={feature}
+        onUpdate={onUpdate}
+      />
+      <TextField2
+        title="Testkoordinater for klikk i kart (˚Ø,˚N)"
+        dockey="testkoordinater"
+        doc={layer}
         onUpdate={onUpdate}
       />
     </>

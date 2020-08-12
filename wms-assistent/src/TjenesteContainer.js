@@ -28,7 +28,7 @@ export default function TjenesteContainer() {
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || 1;
   const sub = params.get("sub");
-  const selectedLayerIndex = params.get("ulid") || 0;
+  const selectedLayerIndex = parseInt(params.get("ulid")) || 0;
   const { wmsurl, wmsversion } = doc || {};
 
   const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
@@ -265,7 +265,7 @@ export default function TjenesteContainer() {
           <FeaturePicker
             feature={feature}
             variabel={sub}
-            doc={doc}
+            layer={layer}
             picker={sub}
             onUpdate={(key, value) => {
               console.log("onUpdate", key, value);

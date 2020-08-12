@@ -2,9 +2,9 @@ import React from "react";
 import { Paper, ListItem, ListItemText } from "@material-ui/core";
 import klikktekst from "./FeatureInfo/Klikktekst";
 
-const KlikkResultatPreview = ({ doc, feature }) => {
-  const linje1 = klikktekst(feature, doc.klikktekst);
-  const linje2 = klikktekst(feature, doc.klikktekst2 || doc.tittel);
+const KlikkResultatPreview = ({ layer, feature }) => {
+  const linje1 = klikktekst(feature, layer.klikktekst);
+  const linje2 = klikktekst(feature, layer.klikktekst2);
   return (
     <Paper
       elevation={3}
@@ -15,7 +15,7 @@ const KlikkResultatPreview = ({ doc, feature }) => {
         right: 48,
         width: 392,
         border: "1px solid #999",
-        backgroundColor: "rgb(237, 237, 237)",
+        backgroundColor: "rgb(237, 237, 237)"
       }}
     >
       <ListItem>
