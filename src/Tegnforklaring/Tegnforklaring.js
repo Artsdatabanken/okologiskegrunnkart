@@ -8,19 +8,15 @@ import {
   ListItem
 } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
 
-const Tegnforklaring = ({ layers }) => {
-  const history = useHistory();
+const Tegnforklaring = ({ layers, setLegendVisible }) => {
   return (
     <div className="legend-wrapper">
       <ListItem
         id="legend-title-wrapper"
         button
-        onClick={e => {
-          const loc = history.location;
-          loc.pathname = "/";
-          history.push(loc);
+        onClick={() => {
+          setLegendVisible(false);
         }}
       >
         <ListItemIcon>
