@@ -46,7 +46,6 @@ export default function TjenesteContainer() {
 
         ul.queryable = true;
       }); // HACK
-      // console.log("underlag", doc.underlag);
       setDoc(doc);
     };
     dl();
@@ -126,7 +125,6 @@ export default function TjenesteContainer() {
           );
         layer.wmslayers = [];
         fyllPåUnderlag(capability.Layer, layer.wmslayers);
-        // console.log("nyeunderlag", layer.underlag);
       }
       updateDoc(layer);
     },
@@ -199,10 +197,7 @@ export default function TjenesteContainer() {
   }, [doc, doc.klikkurl, wmsversion, testkoords, layer]);
 
   const updateLayer = layer => {
-    console.log(selectedLayerIndex);
-    console.log("before", doc.underlag[selectedLayerIndex]);
     doc.underlag[selectedLayerIndex] = { ...layer };
-    console.log("after", doc.underlag[selectedLayerIndex]);
     setDoc({ ...doc });
   };
 
@@ -268,15 +263,11 @@ export default function TjenesteContainer() {
             layer={layer}
             picker={sub}
             onUpdate={(key, value) => {
-              console.log("onUpdate", key, value);
-              console.log("before", layer[key]);
               layer[key] = value;
-              console.log("after", layer[key]);
               updateLayer(layer);
             }}
             onClick={v => {
               layer[sub] = (doc[sub] || "") + " {" + v + "}";
-              console.log("onClick", sub, "=", layer[sub]);
               updateLayer(layer);
             }}
           ></FeaturePicker>

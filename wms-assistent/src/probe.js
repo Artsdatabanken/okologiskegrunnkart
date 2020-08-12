@@ -64,6 +64,5 @@ export async function getFeatureInfo(url) {
   if ((uri.searchParams.get("service") || "").toUpperCase() === "WMS")
     return await probe_wms(uri);
   const r = await probe(uri);
-  console.log("xxxxr", r);
   return r.response || r;
 }

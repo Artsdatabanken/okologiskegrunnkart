@@ -15,7 +15,6 @@ const Underlag = ({ underlag, feature, selectedLayerIndex }) => {
     url.searchParams.set("ulid", index);
     history.push(url.search);
   };
-  console.log({ layer, selectedLayerIndex });
   return (
     <>
       <ListSubheader disableSticky>Kartlag</ListSubheader>
