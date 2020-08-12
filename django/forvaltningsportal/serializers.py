@@ -19,7 +19,6 @@ class KartlagSerializer(serializers.ModelSerializer):
             'wmsurl',
             'wmsversion',
             'projeksjon',
-            'wmsinfolayers',
             'testkoordinater',
             'wmsinfoformat',
             'klikkurl',
@@ -39,8 +38,6 @@ class KartlagSerializer(serializers.ModelSerializer):
             'wmsurl',
             'wmsversion',
             'projeksjon',
-            'wmsinfolayers',
             'wmsinfoformat',
-            'klikkurl',
             'type'
         )
