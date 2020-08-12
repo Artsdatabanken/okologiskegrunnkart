@@ -247,6 +247,7 @@ class App extends React.Component {
                         showInfobox={this.state.showInfobox}
                         handleInfobox={this.handleInfobox}
                         loadingFeatures={this.state.loadingFeatures}
+                        showSideBar={this.state.showSideBar}
                         {...this.state}
                       />
                       <KartVelger

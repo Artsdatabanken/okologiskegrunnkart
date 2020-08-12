@@ -33,7 +33,8 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
-    zoom: 0
+    zoom: 0,
+    showSmallInfobox: false
   };
 
   handleBoundsChange(bounds) {
@@ -239,7 +240,7 @@ class Leaflet extends React.Component {
       .addTo(this.map);
   };
 
-  markerClick(e) {
+  async markerClick(e) {
     // Oppdatering av kartmarkøren
     this.removeMarker();
     this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
@@ -253,7 +254,7 @@ class Leaflet extends React.Component {
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
-    this.props.handleInfobox(true);
+
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
     } else {
@@ -290,13 +291,24 @@ class Leaflet extends React.Component {
     }
   }
 
-  handleClick = e => {
+  handleClick = async e => {
     if (this.state.markerType === "polygon") {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
-      this.markerClick(e);
+      const width = window.innerWidth;
+      if (width > 768) {
+        this.markerClick(e).then(() => this.props.handleInfobox(true));
+      } else {
+        this.markerClick(e).then(() =>
+          this.setState({ showSmallInfobox: true })
+        );
+      }
     }
     return;
+  };
+
+  handleSmallInfobox = show => {
+    this.setState({ showSmallInfobox: show });
   };
 
   updateMap(props) {
@@ -540,12 +552,13 @@ class Leaflet extends React.Component {
             loadingFeatures={this.props.loadingFeatures}
           />
         )}
-        {this.props.showInfobox && (
+        {this.state.showSmallInfobox && (
           <InfoboxSmall
             coordinates_area={this.state.coordinates_area}
             sted={this.props.sted}
+            handleSmallInfobox={this.handleSmallInfobox}
             handleInfobox={this.props.handleInfobox}
-            handleExtensiveInfo={this.props.handleExtensiveInfo}
+            showSideBar={this.props.showSideBar}
           />
         )}
       </>
