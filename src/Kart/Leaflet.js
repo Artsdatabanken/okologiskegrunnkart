@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
+import InfoboxSmall from "../Forvaltningsportalen/FeatureInfo/InfoboxSmall";
 import "../style/leaflet.css";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
@@ -537,6 +538,14 @@ class Leaflet extends React.Component {
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
             loadingFeatures={this.props.loadingFeatures}
+          />
+        )}
+        {this.props.showInfobox && (
+          <InfoboxSmall
+            coordinates_area={this.state.coordinates_area}
+            sted={this.props.sted}
+            handleInfobox={this.props.handleInfobox}
+            handleExtensiveInfo={this.props.handleExtensiveInfo}
           />
         )}
       </>
