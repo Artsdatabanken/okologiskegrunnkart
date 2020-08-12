@@ -1,6 +1,5 @@
 import React from "react";
-import { Close, MyLocation, Place, Flag } from "@material-ui/icons";
-import CustomTooltip from "../../Common/CustomTooltip";
+import { Close } from "@material-ui/icons";
 import "../../style/infobox.css";
 
 const InfoBoxSmall = ({

@@ -444,9 +444,9 @@
   .small-infobox-container {
     position: absolute;
     top: auto;
-    bottom: calc(0vh + 10px);
-    right: 10vw;
-    width: 80vw;
+    bottom: 40px;
+    right: 15vw;
+    width: 70vw;
     z-index: 250;
     display: block;
     border-radius: 10px;
@@ -539,7 +539,7 @@
   justify-content: center;
   height: 0;
   width: 0;
-  margin: 20px 20px 19px 20px;
+  margin: 19px 20px 19px 20px;
   padding: 0;
   background-color: rgba(145, 163, 176, 0);
   border: none;
@@ -556,7 +556,7 @@
   outline: none;
   height: 32px;
   width: 30px;
-  margin: 4px 5px 0 0;
+  margin: 3px 5px 0 0;
 }
 .close-small-infobox-button {
   padding: 0;

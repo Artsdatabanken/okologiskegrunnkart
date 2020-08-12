@@ -16,7 +16,7 @@
   .kartlag_fanen {
     border-top: 1px solid lightgrey;
     width: 100%;
-    height: 45vh;
+    height: 40vh;
     top: auto;
     bottom: 0;
     padding-top: 0;
@@ -109,9 +109,14 @@ h4.container_header {
     bottom: -14px;
   }
   .toggle-side-bar-wrapper.side-bar-open {
-    right: calc(50vw - 18px);
+    right: calc(50vw - 11px);
     top: auto;
-    bottom: calc(45vh - 14px);
+    bottom: calc(40vh - 17px);
+  }
+  .toggle-side-bar-wrapper.side-bar-open #toggle-side-bar-button {
+    width: 24px !important;
+    min-width: 24px;
+    max-width: 24px;
   }
 }
 
