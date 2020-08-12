@@ -196,22 +196,24 @@ export default function TjenesteContainer() {
     doprobe();
   }, [doc, doc.klikkurl, wmsversion, testkoords, layer]);
 
-  const updateLayer = layer => {
+  const handleUpdateLayer = layer => {
     doc.underlag[selectedLayerIndex] = { ...layer };
     setDoc({ ...doc });
   };
 
-  const handleUpdateTestKoordinater = coords => {
+  const handleUpdateLayerField = (key, value) => {
     if (!doc.underlag) return;
-    layer.testkoordinater = coords;
-    updateLayer(layer);
+    layer[key] = value;
+    handleUpdateLayer(layer);
   };
   if (!doc) return <CircularProgress />;
   return (
     <>
       <DrmInfestedLeaflet
         wms={doc}
-        onClick={(lng, lat) => handleUpdateTestKoordinater(lng + "," + lat)}
+        onClick={(lng, lat) =>
+          handleUpdateLayerField("testkoordinater", lng + "," + lat)
+        }
         latitude={63}
         longitude={10}
         selectedLayer={layer}
@@ -247,6 +249,7 @@ export default function TjenesteContainer() {
                   setFeature={setFeature}
                   onSetDoc={setDoc}
                   onUpdate={handleUpdate}
+                  onUpdateLayerField={handleUpdateLayerField}
                   onSave={() => writeUpdate(doc)}
                   sub={sub}
                   selectedLayerIndex={selectedLayerIndex}
@@ -264,11 +267,11 @@ export default function TjenesteContainer() {
             picker={sub}
             onUpdate={(key, value) => {
               layer[key] = value;
-              updateLayer(layer);
+              handleUpdateLayer(layer);
             }}
             onClick={v => {
               layer[sub] = (doc[sub] || "") + " {" + v + "}";
-              updateLayer(layer);
+              handleUpdateLayer(layer);
             }}
           ></FeaturePicker>
         )}

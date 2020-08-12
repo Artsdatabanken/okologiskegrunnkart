@@ -4,12 +4,12 @@ import TextField2 from "./TextField2";
 import Klikktekster from "./Klikktekster";
 const { useHistory } = require("react-router-dom");
 
-const Underlag = ({ underlag, feature, selectedLayerIndex }) => {
+const Underlag = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   const history = useHistory();
   const layer = underlag[selectedLayerIndex];
-  const onUpdate = (key, value) => {
-    console.log({ key, value });
-  };
+  //  const onUpdate = (key, value) => {
+  //    console.log({ key, value });
+  //  };
   const handleChangeSelectedLayer = index => {
     const url = new URL(window.location);
     url.searchParams.set("ulid", index);

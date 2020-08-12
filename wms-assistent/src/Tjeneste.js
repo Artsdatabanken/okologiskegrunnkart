@@ -9,6 +9,7 @@ import Warnings from "./Warnings";
 const Tjeneste = ({
   doc,
   onUpdate,
+  onUpdateLayerField,
   onSave,
   feature,
   setFeature,
@@ -57,7 +58,7 @@ const Tjeneste = ({
         />
         <KlikkIKart
           doc={doc}
-          onUpdate={onUpdate}
+          onUpdate={onUpdateLayerField}
           feature={feature}
           setFeature={setFeature}
           selectedLayerIndex={selectedLayerIndex}
