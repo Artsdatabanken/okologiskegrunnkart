@@ -7,13 +7,7 @@ import CreateIcon from "@material-ui/icons/Create";
 import { useHistory } from "react-router-dom";
 import Underlag from "./Underlag";
 
-const KlikkIKart = ({
-  doc,
-  onUpdate,
-  feature,
-  selectedLayerIndex,
-  onChangeSelectedLayer
-}) => {
+const KlikkIKart = ({ doc, onUpdate, feature, selectedLayerIndex }) => {
   const history = useHistory();
 
   const linje1 = klikktekst(feature, doc.klikktekst);
@@ -40,7 +34,6 @@ const KlikkIKart = ({
         <Underlag
           underlag={doc.underlag}
           selectedLayerIndex={selectedLayerIndex}
-          onChangeSelectedLayer={onChangeSelectedLayer}
           onUpdate={onUpdate}
           feature={feature}
         />

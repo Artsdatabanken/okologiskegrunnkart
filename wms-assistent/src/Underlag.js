@@ -1,17 +1,20 @@
 import React from "react";
 import { ListSubheader } from "@material-ui/core";
 import Klikktekster from "./Klikktekster";
+const { useHistory } = require("react-router-dom");
 
-const Underlag = ({
-  underlag,
-  feature,
-  selectedLayerIndex,
-  onChangeSelectedLayer
-}) => {
+const Underlag = ({ underlag, feature, selectedLayerIndex }) => {
+  const history = useHistory();
   const layer = underlag[selectedLayerIndex];
   const onUpdate = (key, value) => {
     console.log({ key, value });
   };
+  const handleChangeSelectedLayer = index => {
+    const url = new URL(window.location);
+    url.searchParams.set("ulid", index);
+    history.push(url.search);
+  };
+
   return (
     <>
       <ListSubheader disableSticky>Kartlag</ListSubheader>
@@ -26,7 +29,7 @@ const Underlag = ({
                 margin: 4,
                 fontWeight: isSelected && "bold"
               }}
-              onClick={() => onChangeSelectedLayer(index)}
+              onClick={() => handleChangeSelectedLayer(index)}
             >
               {isSelected ? "[" + ul.tittel + "]" : ul.tittel}
             </span>

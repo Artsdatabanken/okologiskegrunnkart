@@ -28,7 +28,7 @@ export default function TjenesteContainer() {
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || 1;
   const sub = params.get("sub");
-  const ulid = params.get("ulid") || 0;
+  const selectedLayerIndex = params.get("ulid") || 0;
   const { wmsurl, wmsversion } = doc || {};
 
   const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
@@ -148,7 +148,6 @@ export default function TjenesteContainer() {
     setDoc(newDoc);
   };
 
-  const [selectedLayerIndex, setSelectedLayerIndex] = useState(0);
   const layer = (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {};
 
   useEffect(() => {
@@ -200,7 +199,10 @@ export default function TjenesteContainer() {
   }, [doc, doc.klikkurl, wmsversion, testkoords, layer]);
 
   const updateLayer = layer => {
+    console.log(selectedLayerIndex);
+    console.log("before", doc.underlag[selectedLayerIndex]);
     doc.underlag[selectedLayerIndex] = { ...layer };
+    console.log("after", doc.underlag[selectedLayerIndex]);
     setDoc({ ...doc });
   };
 
@@ -253,7 +255,6 @@ export default function TjenesteContainer() {
                   onSave={() => writeUpdate(doc)}
                   sub={sub}
                   selectedLayerIndex={selectedLayerIndex}
-                  onChangeSelectedLayer={setSelectedLayerIndex}
                 />
               </>
             )}
@@ -266,9 +267,11 @@ export default function TjenesteContainer() {
             variabel={sub}
             doc={doc}
             picker={sub}
-            onUpdate={(k, v, x) => {
-              console.log("onUpdate", k, v, x);
-              layer[k] = v;
+            onUpdate={(key, value) => {
+              console.log("onUpdate", key, value);
+              console.log("before", layer[key]);
+              layer[key] = value;
+              console.log("after", layer[key]);
               updateLayer(layer);
             }}
             onClick={v => {
