@@ -443,8 +443,8 @@
     position: absolute;
     top: auto;
     bottom: 35px;
-    right: 15vw;
-    width: 70vw;
+    right: 20vw;
+    width: 60vw;
     z-index: 150;
     display: block;
     border-radius: 10px;
@@ -473,8 +473,8 @@
   display: flex;
   justify-content: flex-start;
   padding: 10px 0 10px 12px;
-  max-width: calc(100% - 51px);
-  width: calc(100% - 51px);
+  max-width: calc(100% - 41px);
+  width: calc(100% - 41px);
 }
 .small-infobox-title-text {
   text-align: left;
@@ -488,7 +488,7 @@
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 550;
 }
 /* Small infobox content */
