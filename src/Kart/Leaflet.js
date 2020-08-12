@@ -87,8 +87,8 @@ class Leaflet extends React.Component {
     this.map = map;
     this.icon = L.icon({
       iconUrl: "/marker/marker-icon-2x-orange.png",
-      iconSize: [20, 32],
-      iconAnchor: [19, 41]
+      iconSize: [22, 36],
+      iconAnchor: [11, 36]
     });
   }
   erEndret(prevProps) {
