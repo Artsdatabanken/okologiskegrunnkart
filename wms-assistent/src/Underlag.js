@@ -5,10 +5,10 @@ import Klikktekster from "./Klikktekster";
 const Underlag = ({
   underlag,
   feature,
-  selectedLayer,
+  selectedLayerIndex,
   onChangeSelectedLayer
 }) => {
-  const layer = underlag[selectedLayer];
+  const layer = underlag[selectedLayerIndex];
   const onUpdate = (key, value) => {
     console.log({ key, value });
   };
@@ -17,7 +17,7 @@ const Underlag = ({
       <ListSubheader disableSticky>Kartlag</ListSubheader>
       <div style={{ marginLeft: 24, marginRight: 24 }}>
         {underlag.map((ul, index) => {
-          const isSelected = index === selectedLayer;
+          const isSelected = index === selectedLayerIndex;
           return (
             <span
               key={ul.wmslayer}
@@ -34,7 +34,12 @@ const Underlag = ({
         })}
       </div>
       <ListSubheader disableSticky>{layer.tittel}</ListSubheader>
-      <Klikktekster underlag={layer} feature={feature} onUpdate={onUpdate} />
+      <Klikktekster
+        underlag={layer}
+        selectedLayerIndex={selectedLayerIndex}
+        feature={feature}
+        onUpdate={onUpdate}
+      />
     </>
   );
 };

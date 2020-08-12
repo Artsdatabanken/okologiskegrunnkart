@@ -12,7 +12,7 @@ const Tjeneste = ({
   onSave,
   feature,
   setFeature,
-  selectedLayer,
+  selectedLayerIndex,
   onChangeSelectedLayer
 }) => {
   if (doc.error)
@@ -61,7 +61,7 @@ const Tjeneste = ({
           onUpdate={onUpdate}
           feature={feature}
           setFeature={setFeature}
-          selectedLayer={selectedLayer}
+          selectedLayerIndex={selectedLayerIndex}
           onChangeSelectedLayer={onChangeSelectedLayer}
         />
         <Button

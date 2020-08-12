@@ -4,7 +4,6 @@ import { Paper, ListItem, ListItemText } from "@material-ui/core";
 import TextField2 from "./TextField2";
 import klikktekst from "./FeatureInfo/Klikktekst";
 import CreateIcon from "@material-ui/icons/Create";
-import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 import Underlag from "./Underlag";
 
@@ -12,7 +11,7 @@ const KlikkIKart = ({
   doc,
   onUpdate,
   feature,
-  selectedLayer,
+  selectedLayerIndex,
   onChangeSelectedLayer
 }) => {
   const history = useHistory();
@@ -40,7 +39,7 @@ const KlikkIKart = ({
       {doc && doc.underlag && (
         <Underlag
           underlag={doc.underlag}
-          selectedLayer={selectedLayer}
+          selectedLayerIndex={selectedLayerIndex}
           onChangeSelectedLayer={onChangeSelectedLayer}
           onUpdate={onUpdate}
           feature={feature}

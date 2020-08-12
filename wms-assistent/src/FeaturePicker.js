@@ -96,7 +96,6 @@ const FeaturePicker = ({
 };
 
 function RecursiveTreeView({ parentkey, o, onClick }) {
-  console.log("parentkey", parentkey, "o", o);
   return (
     <>
       {Object.keys(o || {}).map(key => {

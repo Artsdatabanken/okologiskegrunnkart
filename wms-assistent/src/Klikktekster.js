@@ -5,12 +5,10 @@ import { Alert } from "@material-ui/lab";
 import { useHistory } from "react-router-dom";
 import klikktekst from "./FeatureInfo/Klikktekst";
 
-const Klikktekster = ({ underlag, feature, onUpdate }) => {
-  console.log(underlag.klikktekst, underlag);
+const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   const history = useHistory();
   const linje1 = klikktekst(feature, underlag.klikktekst);
   const linje2 = klikktekst(feature, underlag.klikktekst2);
-  console.log({ linje1, linje2, feature });
   return (
     <>
       <TextField2
@@ -19,7 +17,7 @@ const Klikktekster = ({ underlag, feature, onUpdate }) => {
         doc={underlag}
         onUpdate={onUpdate}
         onIconClick={() => {
-          history.push(`?id=${underlag._id}&sub=klikktekst`);
+          history.push(`?ulid=${selectedLayerIndex}&sub=klikktekst`);
         }}
         icon={<CreateIcon />}
       />
@@ -36,7 +34,7 @@ const Klikktekster = ({ underlag, feature, onUpdate }) => {
         doc={underlag}
         onUpdate={onUpdate}
         onIconClick={() => {
-          history.push(`?id=${underlag._id}&sub=klikktekst2`);
+          history.push(`?ulid=${selectedLayerIndex}&sub=klikktekst2`);
         }}
         icon={<CreateIcon />}
       />
