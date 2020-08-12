@@ -23,7 +23,7 @@ const KartlagList = ({ kartlag }) => {
         const aok =
           lag.wmsurl && lag.wmsversion && lag.projeksjon && lag.wmsinfoformat;
         return (
-          <ListItem button onClick={() => history.push("/?id=" + k)}>
+          <ListItem key={k} button onClick={() => history.push("/?id=" + k)}>
             <ListItemAvatar>
               <LayersIcon></LayersIcon>
             </ListItemAvatar>

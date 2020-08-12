@@ -86,9 +86,9 @@ class Leaflet extends React.Component {
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.map = map;
     this.icon = L.icon({
-      iconUrl: "/marker/pdoc.png",
-      iconSize: [38, 51],
-      iconAnchor: [19, 41]
+      iconUrl: "/marker/marker-icon-2x-orange.png",
+      iconSize: [22, 36],
+      iconAnchor: [11, 36]
     });
   }
   erEndret(prevProps) {
@@ -243,7 +243,9 @@ class Leaflet extends React.Component {
     this.removeMarker();
     this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
       icon: this.icon
-    }).addTo(this.map);
+    })
+      .addTo(this.map)
+      .on("click", () => this.props.handleInfobox(!this.props.showInfobox));
 
     // Oppdatering av infoboksen
     this.setState({

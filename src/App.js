@@ -59,7 +59,8 @@ class App extends React.Component {
       visibleSublayersComplete: [],
       expandedLayersFavorites: [],
       expandedLayersComplete: [],
-      sublayerDetailsVisible: false
+      sublayerDetailsVisible: false,
+      legendVisible: false
     };
   }
 
@@ -296,6 +297,8 @@ class App extends React.Component {
                         setSublayerDetailsVisible={
                           this.setSublayerDetailsVisible
                         }
+                        legendVisible={this.state.legendVisible}
+                        setLegendVisible={this.setLegendVisible}
                       />
                     </div>
                   </>
@@ -310,6 +313,10 @@ class App extends React.Component {
 
   setSublayerDetailsVisible = visible => {
     this.setState({ sublayerDetailsVisible: visible });
+  };
+
+  setLegendVisible = visible => {
+    this.setState({ legendVisible: visible });
   };
 
   toggleEditLayers = () => {
@@ -327,7 +334,8 @@ class App extends React.Component {
   toggleShowFavoriteLayers = async favorites => {
     this.setState({
       showFavoriteLayers: favorites,
-      sublayerDetailsVisible: false
+      sublayerDetailsVisible: false,
+      legendVisible: false
     });
     if (favorites) {
       this.hideVisibleLayers(favorites).then(() => {
