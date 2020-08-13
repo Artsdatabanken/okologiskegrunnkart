@@ -109,14 +109,14 @@ h4.container_header {
     bottom: -14px;
   }
   .toggle-side-bar-wrapper.side-bar-open {
-    right: calc(50vw - 11px);
+    right: calc(50vw - 12px);
     top: auto;
-    bottom: calc(40vh - 17px);
+    bottom: calc(40vh - 16px);
   }
   .toggle-side-bar-wrapper.side-bar-open #toggle-side-bar-button {
-    width: 24px !important;
-    min-width: 24px;
-    max-width: 24px;
+    width: 26px !important;
+    min-width: 26px;
+    max-width: 26px;
   }
 }
 

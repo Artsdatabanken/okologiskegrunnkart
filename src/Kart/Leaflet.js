@@ -240,6 +240,19 @@ class Leaflet extends React.Component {
       .addTo(this.map);
   };
 
+  clickMarkerInfobox = () => {
+    const width = window.innerWidth;
+    if (width > 768) {
+      this.props.handleInfobox(!this.props.showInfobox);
+    } else {
+      if (this.state.showSmallInfobox) {
+        this.props.handleInfobox(!this.props.showInfobox);
+      } else {
+        this.handleSmallInfobox(true);
+      }
+    }
+  };
+
   async markerClick(e) {
     // Oppdatering av kartmarkøren
     this.removeMarker();
@@ -247,7 +260,7 @@ class Leaflet extends React.Component {
       icon: this.icon
     })
       .addTo(this.map)
-      .on("click", () => this.props.handleInfobox(!this.props.showInfobox));
+      .on("click", () => this.clickMarkerInfobox());
 
     // Oppdatering av infoboksen
     this.setState({

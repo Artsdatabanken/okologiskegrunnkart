@@ -1,5 +1,5 @@
 import React from "react";
-import { Close } from "@material-ui/icons";
+import { Close, Fullscreen } from "@material-ui/icons";
 import "../../style/infobox.css";
 
 const InfoBoxSmall = ({
@@ -12,32 +12,47 @@ const InfoBoxSmall = ({
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
+  // handleClick = type => {
+  //   if (type === "open") {
+  //     handleInfobox(true);
+  //   }
+  //   if (type === "close") {
+  //     handleSmallInfobox(false);
+  //     handleInfobox(false);
+  //   }
+  // }
+
   return (
-    <div
-      className={`small-infobox-container${showSideBar ? " tiny-box" : ""}`}
-      onClick={e => {
-        e.preventDefault();
-        handleInfobox(true);
-      }}
-      onKeyPress={() => console.log("Here")}
-      role="button"
-      tabIndex="-1"
-    >
+    <div className={`small-infobox-container${showSideBar ? " tiny-box" : ""}`}>
       <div
         className={`small-infobox-title-wrapper${
           showSideBar ? " tiny-box" : ""
         }`}
       >
-        <div className="small-infobox-title-content">
+        <div
+          className="small-infobox-title-content"
+          onClick={() => handleInfobox(true)}
+          onKeyPress={() => handleInfobox(true)}
+          role="button"
+          tabIndex="-1"
+        >
           <div className="small-infobox-title-text">
             {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
           </div>
         </div>
+        <div
+          className="fullscreen-small-infobox-button"
+          onClick={() => handleInfobox(true)}
+          onKeyPress={() => handleInfobox(true)}
+          role="button"
+          tabIndex="-1"
+        >
+          <Fullscreen />
+        </div>
         <button
           tabIndex="0"
           className="close-small-infobox-button-wrapper"
-          onClick={e => {
-            e.preventDefault();
+          onClick={() => {
             handleSmallInfobox(false);
             handleInfobox(false);
           }}
@@ -48,7 +63,13 @@ const InfoBoxSmall = ({
         </button>
       </div>
       {!showSideBar && (
-        <div className="small-infobox-body">
+        <div
+          className="small-infobox-body"
+          onClick={() => handleInfobox(true)}
+          onKeyPress={() => handleInfobox(true)}
+          role="button"
+          tabIndex="-1"
+        >
           {sted && (
             <div className="small-infobox-content">
               <div className="small-infobox-text-wrapper">
