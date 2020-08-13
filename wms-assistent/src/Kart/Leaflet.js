@@ -73,7 +73,9 @@ class Leaflet extends React.Component {
   }
 
   erEndret(prevProps) {
-    if (this.props.wms !== prevProps.wms) return true;
+    if (this.props.wms.wmsurl !== prevProps.wms.wmsurl) return true;
+    if (this.props.wms.projeksjon !== prevProps.wms.projeksjon) return true;
+
     if (this.props.marker !== prevProps.marker) return true;
     if (this.props.token !== prevProps.token) return true;
     if (this.props.selectedLayer !== prevProps.selectedLayer) return true;
@@ -121,10 +123,9 @@ class Leaflet extends React.Component {
     if (kartlag.projeksjon) {
       srs = kartlag.projeksjon.replace(":", "");
     }
-    var tilelayer = this.wmslayer;
-    if (!tilelayer || tilelayer._url !== url) {
-      if (tilelayer) this.map.removeLayer(tilelayer);
-      tilelayer = L.tileLayer.cachedOverview("", {
+
+    if (!this.wmslayer) {
+      this.wmslayer = L.tileLayer.cachedOverview("", {
         id: underlag.id,
         zoomThreshold: underlag.minzoom,
         layers: underlag.wmslayer,
@@ -135,10 +136,11 @@ class Leaflet extends React.Component {
         maxNativeZoom: underlag.maxzoom,
         opacity: 0.95
       });
-      this.wmslayer = tilelayer;
-      this.map.addLayer(tilelayer);
+      this.map.addLayer(this.wmslayer);
     }
-    tilelayer.setUrl(url);
+    this.wmslayer.options.id = underlag.id;
+    this.wmslayer.setParams({ layers: underlag.wmslayer }, false);
+    this.wmslayer.setUrl(url);
   }
 
   makeWmsUrl(url) {
