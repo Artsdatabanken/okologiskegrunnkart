@@ -67,11 +67,7 @@ const KartlagFanen = props => {
     <>
       <div
         className={`toggle-side-bar-wrapper${
-          props.showFullscreenSideBar
-            ? " side-bar-fullscreen"
-            : props.showSideBar
-            ? " side-bar-open"
-            : ""
+          props.showSideBar ? " side-bar-open" : ""
         }`}
       >
         <Button
@@ -90,7 +86,7 @@ const KartlagFanen = props => {
         </Button>
       </div>
       <div
-        className={`toggle-fullscreen-side-bar-wrapper${
+        className={`toggle-kartlag-wrapper${
           props.showFullscreenSideBar
             ? " side-bar-fullscreen"
             : props.showSideBar
@@ -99,7 +95,31 @@ const KartlagFanen = props => {
         }`}
       >
         <Button
-          id="toggle-fullscreen-side-bar-button"
+          id="toggle-kartlag-button"
+          variant="contained"
+          size="small"
+          onClick={() => {
+            toggleSideBar();
+          }}
+        >
+          <CustomIcon
+            id="show-layers-icon"
+            icon={props.showSideBar ? "menu-down" : "menu-up"}
+            size={30}
+          />
+        </Button>
+      </div>
+      <div
+        className={`toggle-fullscreen-kartlag-wrapper${
+          props.showFullscreenSideBar
+            ? " side-bar-fullscreen"
+            : props.showSideBar
+            ? " side-bar-open"
+            : ""
+        }`}
+      >
+        <Button
+          id="toggle-fullscreen-kartlag-button"
           variant="contained"
           size="small"
           onClick={() => {
