@@ -5,6 +5,8 @@ import SaveIcon from "@material-ui/icons/Save";
 import TextField2 from "./TextField2";
 import KlikkIKart from "./KlikkkIKart";
 import Warnings from "./Warnings";
+import { Create as CreateIcon } from "@material-ui/icons";
+import { useHistory } from "react-router-dom";
 
 const Tjeneste = ({
   doc,
@@ -15,6 +17,7 @@ const Tjeneste = ({
   setFeature,
   selectedLayerIndex
 }) => {
+  const history = useHistory();
   if (doc.error)
     return (
       <Alert style={{ marginTop: 64 }} severity="error">
@@ -55,6 +58,16 @@ const Tjeneste = ({
           dockey="wmsinfoformat"
           doc={doc}
           onUpdate={onUpdate}
+        />
+        <TextField2
+          title="Faktaark URL"
+          dockey="faktaark"
+          doc={doc}
+          onUpdate={onUpdate}
+          onIconClick={() => {
+            history.push(`?id=${doc._id}&sub=faktaark`);
+          }}
+          icon={<CreateIcon />}
         />
         <KlikkIKart
           doc={doc}

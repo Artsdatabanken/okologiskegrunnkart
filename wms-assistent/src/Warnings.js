@@ -1,7 +1,6 @@
 import React from "react";
 import { CircularProgress } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import CheckIcon from "@material-ui/icons/Check";
 import { selectCrs } from "./wms";
 
 const Warnings = ({ doc }) => {

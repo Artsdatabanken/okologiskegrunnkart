@@ -1,29 +1,13 @@
 import React from "react";
 import { Paper, ListItem, ListItemText } from "@material-ui/core";
-
-import TextField2 from "./TextField2";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import CreateIcon from "@material-ui/icons/Create";
-import { useHistory } from "react-router-dom";
 import Underlag from "./Underlag";
 
 const KlikkIKart = ({ doc, onUpdate, feature, selectedLayerIndex }) => {
-  const history = useHistory();
-
   const linje1 = klikktekst(feature, doc.klikktekst);
   const linje2 = klikktekst(feature, doc.klikktekst2 || doc.tittel);
   return (
     <div>
-      <TextField2
-        title="Faktaark URL"
-        dockey="faktaark"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=faktaark`);
-        }}
-        icon={<CreateIcon />}
-      />
       {doc && doc.underlag && (
         <Underlag
           underlag={doc.underlag}
