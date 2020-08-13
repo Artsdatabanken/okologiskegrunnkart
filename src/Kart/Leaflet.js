@@ -33,8 +33,7 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
-    zoom: 0,
-    showSmallInfobox: false
+    zoom: 0
   };
 
   handleBoundsChange(bounds) {
@@ -245,10 +244,10 @@ class Leaflet extends React.Component {
     if (width > 768) {
       this.props.handleInfobox(!this.props.showInfobox);
     } else {
-      if (this.state.showSmallInfobox) {
+      if (this.props.showSmallInfobox) {
         this.props.handleInfobox(!this.props.showInfobox);
       } else {
-        this.handleSmallInfobox(true);
+        this.props.handleSmallInfobox(true);
       }
     }
   };
@@ -312,16 +311,10 @@ class Leaflet extends React.Component {
       if (width > 768) {
         this.markerClick(e).then(() => this.props.handleInfobox(true));
       } else {
-        this.markerClick(e).then(() =>
-          this.setState({ showSmallInfobox: true })
-        );
+        this.markerClick(e).then(() => this.props.handleSmallInfobox(true));
       }
     }
     return;
-  };
-
-  handleSmallInfobox = show => {
-    this.setState({ showSmallInfobox: show });
   };
 
   updateMap(props) {
@@ -565,11 +558,11 @@ class Leaflet extends React.Component {
             loadingFeatures={this.props.loadingFeatures}
           />
         )}
-        {this.state.showSmallInfobox && (
+        {this.props.showSmallInfobox && (
           <InfoboxSmall
             coordinates_area={this.state.coordinates_area}
             sted={this.props.sted}
-            handleSmallInfobox={this.handleSmallInfobox}
+            handleSmallInfobox={this.props.handleSmallInfobox}
             handleInfobox={this.props.handleInfobox}
             showSideBar={this.props.showSideBar}
           />

@@ -57,9 +57,7 @@ const InfoBoxSmall = ({
             handleInfobox(false);
           }}
         >
-          <div className="close-small-infobox-button">
-            <Close />
-          </div>
+          <Close />
         </button>
       </div>
       {!showSideBar && (

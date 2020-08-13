@@ -452,7 +452,7 @@
       0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   }
   .small-infobox-container.tiny-box {
-    bottom: calc(40vh + 30px);
+    bottom: calc(40vh + 35px);
   }
 }
 .small-infobox-title-wrapper {
@@ -492,7 +492,7 @@
   font-weight: 550;
 }
 .fullscreen-small-infobox-button {
-  margin: 7px 0 0 10px;
+  margin: 8px 0 0 10px;
 }
 /* Small infobox content */
 .small-infobox-body {
@@ -544,16 +544,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 0;
-  width: 0;
-  margin: 19px 20px 19px 15px;
+  margin: 8px 10px 0 8px;
   padding: 0;
   background-color: rgba(145, 163, 176, 0);
   border: none;
   border-radius: 10px;
-  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
+  transition: background-color 0.2s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   z-index: 255;
+  color: white;
 }
 .close-small-infobox-button-wrapper:hover {
   background-color: rgba(145, 163, 176, 0);
@@ -561,16 +560,4 @@
 .close-small-infobox-button-wrapper:focus {
   background-color: rgba(145, 163, 176, 1);
   outline: none;
-  height: 32px;
-  width: 30px;
-  margin: 3px 5px 0 0;
-}
-.close-small-infobox-button {
-  padding: 0;
-  display: flex;
-  color: white;
-  z-index: 255;
-}
-.close-small-infobox-button:hover {
-  background-color: rgba(145, 163, 176, 1);
 }

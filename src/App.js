@@ -60,7 +60,8 @@ class App extends React.Component {
       expandedLayersFavorites: [],
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
-      legendVisible: false
+      legendVisible: false,
+      showSmallInfobox: false
     };
   }
 
@@ -248,6 +249,8 @@ class App extends React.Component {
                         handleInfobox={this.handleInfobox}
                         loadingFeatures={this.state.loadingFeatures}
                         showSideBar={this.state.showSideBar}
+                        showSmallInfobox={this.state.showSmallInfobox}
+                        handleSmallInfobox={this.handleSmallInfobox}
                         {...this.state}
                       />
                       <KartVelger
@@ -255,6 +258,7 @@ class App extends React.Component {
                         aktivtFormat={basiskart.kart.aktivtFormat}
                         showSideBar={this.state.showSideBar}
                         showInfobox={this.state.showInfobox}
+                        showSmallInfobox={this.state.showSmallInfobox}
                       />
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
@@ -866,6 +870,10 @@ class App extends React.Component {
 
   handleInfobox = bool => {
     this.setState({ showInfobox: bool });
+  };
+
+  handleSmallInfobox = show => {
+    this.setState({ showSmallInfobox: show });
   };
 
   handleZoomChange = zoom => {

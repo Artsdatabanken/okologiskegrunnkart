@@ -72,6 +72,7 @@
     margin: 0;
     padding-top: 4px;
     padding-bottom: 5px;
+    background-color: rgb(239, 239, 239);
   }
   .searchbar button {
     margin: 0;
