@@ -22,9 +22,6 @@ const Warnings = ({ doc }) => {
       )}
       {Service && Service.Title ? (
         <>
-          <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
-            Gyldig "Capabilities" document
-          </Alert>
           {!selectCrs(caps.Capability) && (
             <Alert severity="error">Mangler brukbar projeksjon</Alert>
           )}

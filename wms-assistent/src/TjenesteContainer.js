@@ -51,8 +51,6 @@ export default function TjenesteContainer() {
     dl();
   }, [id]);
 
-  const testkoords = doc?.testkoordinater;
-
   const writeUpdate = () => {
     backend.updateLayer(doc._id, doc).then(({ response, layer }) => {
       if (response.ok) {
@@ -151,9 +149,9 @@ export default function TjenesteContainer() {
   useEffect(() => {
     async function doprobe() {
       if (!doc || !doc.wmsurl) return null;
-      if (!testkoords) return null;
+      if (!layer.testkoordinater) return null;
       const delta = 0.01;
-      const koords = doc.testkoordinater.split(",").map(e => parseFloat(e));
+      const koords = layer.testkoordinater.split(",").map(e => parseFloat(e));
       if (koords.length !== 2) return;
       const [lat, lng] = koords;
       const bbox = [lng - delta, lat - delta, lng + delta, lat + delta];
@@ -194,7 +192,7 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
-  }, [doc, doc.klikkurl, wmsversion, testkoords, layer]);
+  }, [doc, doc.klikkurl, wmsversion, layer]);
 
   const handleUpdateLayer = layer => {
     doc.underlag[selectedLayerIndex] = { ...layer };
