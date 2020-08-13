@@ -9,7 +9,8 @@ const KartlagListItem = ({ doc }) => {
       <ListItem
         button
         onClick={() => {
-          history.push("/kartlag");
+          const url = new URL(window.location);
+          history.push("/kartlag" + url.search);
         }}
       >
         <ListItemText

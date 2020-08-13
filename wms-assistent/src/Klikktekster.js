@@ -15,7 +15,6 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
     url.searchParams.set("sub", key);
     history.push(url.toString());
   };
-
   return (
     <>
       <TextField2
@@ -26,13 +25,9 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
         onIconClick={() => goToEditmode("klikktekst")}
         icon={<CreateIcon />}
       />
-      {linje1 &&
-        linje1.warn &&
-        linje1.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
+      {linje1.warn && linje1.warn.length > 0 && (
+        <Alert severity="warning">Finner ikke alle felt i kartpunktet</Alert>
+      )}
       <TextField2
         title="Formatstreng linje 2"
         dockey="klikktekst2"
@@ -41,13 +36,9 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
         onIconClick={() => goToEditmode("klikktekst2")}
         icon={<CreateIcon />}
       />
-      {linje2 &&
-        linje2.warn &&
-        linje2.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
+      {linje2.warn && linje2.warn.length > 0 && (
+        <Alert severity="warning">Finner ikke alle felt i kartpunktet</Alert>
+      )}
     </>
   );
 };
