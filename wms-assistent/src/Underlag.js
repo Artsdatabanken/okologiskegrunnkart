@@ -7,6 +7,7 @@ const { useHistory } = require("react-router-dom");
 const Underlag = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   const history = useHistory();
   const layer = underlag[selectedLayerIndex];
+  if (!layer) return null;
   //  const onUpdate = (key, value) => {
   //    console.log({ key, value });
   //  };

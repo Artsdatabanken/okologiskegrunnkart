@@ -38,10 +38,9 @@ const TextField2 = ({ title, dockey, doc, onUpdate, icon, onIconClick }) => {
 const TextField3 = ({ title, value, onUpdate, dockey, inputProps }) => (
   <TextField
     label={title}
-    variant="outlined"
     multiline
     value={value || ""}
-    style={{ marginTop: 8, width: "100%" }}
+    style={{ marginTop: 12, width: "100%" }}
     onChange={e => onUpdate(dockey, e.target.value)}
     InputProps={inputProps}
   />
