@@ -295,7 +295,7 @@ class App extends React.Component {
                         changeExpandedLayers={this.changeExpandedLayers}
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
-                        toggleSideBar={this.toggleSideBar}
+                        handleSideBar={this.handleSideBar}
                         zoom={this.state.zoom}
                         sublayerDetailsVisible={
                           this.state.sublayerDetailsVisible
@@ -306,7 +306,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         showFullscreenSideBar={this.state.showFullscreenSideBar}
-                        toggleFullscreenSideBar={this.toggleFullscreenSideBar}
+                        handleFullscreenSideBar={this.handleFullscreenSideBar}
                       />
                     </div>
                   </>
@@ -867,12 +867,12 @@ class App extends React.Component {
     });
   };
 
-  toggleSideBar = () => {
-    this.setState({ showSideBar: !this.state.showSideBar });
+  handleSideBar = show => {
+    this.setState({ showSideBar: show });
   };
 
-  toggleFullscreenSideBar = () => {
-    this.setState({ showFullscreenSideBar: !this.state.showFullscreenSideBar });
+  handleFullscreenSideBar = show => {
+    this.setState({ showFullscreenSideBar: show });
   };
 
   handleInfobox = bool => {

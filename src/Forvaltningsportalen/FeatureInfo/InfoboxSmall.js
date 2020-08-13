@@ -12,16 +12,6 @@ const InfoBoxSmall = ({
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
-  // handleClick = type => {
-  //   if (type === "open") {
-  //     handleInfobox(true);
-  //   }
-  //   if (type === "close") {
-  //     handleSmallInfobox(false);
-  //     handleInfobox(false);
-  //   }
-  // }
-
   return (
     <div className={`small-infobox-container${showSideBar ? " tiny-box" : ""}`}>
       <div

@@ -24,8 +24,8 @@
     z-index: 100;
   }
   .kartlag_fanen.side-bar-fullscreen {
-    height: calc(100vh - 28px - 50px);
-    top: calc(0vh + 28px + 50px);
+    height: calc(100vh - 30px - 50px);
+    top: calc(0vh + 30px + 50px);
     bottom: auto;
   }
 }
@@ -116,9 +116,15 @@ h4.container_header {
     bottom: -14px;
   }
   .toggle-side-bar-wrapper.side-bar-open {
-    right: calc(50vw - 18px - 30px);
+    right: calc(50vw - 18px);
     top: auto;
     bottom: calc(40vh - 14px);
+  }
+  .toggle-side-bar-wrapper.side-bar-fullscreen {
+    right: calc(50vw - 18px);
+    bottom: auto;
+    top: calc(15vh - 12px - 50px);
+    z-index: 55;
   }
 }
 
@@ -127,29 +133,42 @@ h4.container_header {
   display: none;
 }
 #toggle-fullscreen-side-bar-button {
+  border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
   border: 1px solid grey;
-  border-right: 0;
+  border-bottom: 0;
   width: 32px !important;
-  min-width: 32px;
-  max-width: 32px;
-  height: 55px;
+  min-height: 32px;
+  max-height: 32px;
+  width: 55px;
+  min-width: 55px;
+  max-width: 55px;
   padding: 0;
 }
 @media only screen and (max-width: 768px) {
   .toggle-fullscreen-side-bar-wrapper {
     position: absolute;
     display: block;
-    transform: rotate(90deg);
-    right: calc(50vw - 18px + 30px);
+    right: 0;
     top: auto;
-    bottom: calc(40vh - 14px);
+    bottom: calc(0vh - 2px);
+    background-color: rgba(187, 197, 204, 1);
+    /* background-color: rgba(145, 163, 176, 0.5); */
+    /* background-color: rgba(255, 255, 255, 1); */
   }
   .toggle-fullscreen-side-bar-wrapper.side-bar-open {
-    right: calc(50vw - 18px);
-    top: calc(0vh - 14px + 50px);
+    bottom: calc(40vh - 2px);
+    background-color: rgba(187, 197, 204, 1);
+  }
+  .toggle-fullscreen-side-bar-wrapper.side-bar-fullscreen {
+    right: 0;
+    top: calc(0vh + 50px);
     bottom: auto;
+    width: 100vw;
+  }
+  .toggle-fullscreen-side-bar-wrapper.side-bar-fullscreen
+    #toggle-fullscreen-side-bar-button {
+    margin-left: calc(100vw - 55px);
   }
 }
 

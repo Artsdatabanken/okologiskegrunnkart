@@ -4,7 +4,11 @@ import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
-import { KeyboardBackspace } from "@material-ui/icons";
+import {
+  KeyboardBackspace,
+  Fullscreen,
+  FullscreenExit
+} from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { Button } from "@material-ui/core";
 import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
@@ -37,56 +41,74 @@ const KartlagFanen = props => {
     props.setSublayerDetailsVisible(true);
   };
 
+  const toggleSideBar = () => {
+    if (props.showFullscreenSideBar) {
+      props.handleSideBar(true);
+      props.handleFullscreenSideBar(false);
+    } else if (props.showSideBar) {
+      props.handleSideBar(false);
+    } else {
+      props.handleSideBar(true);
+    }
+    props.handleFullscreenSideBar(false);
+  };
+
+  const toggleFullscreenSideBar = () => {
+    if (props.showFullscreenSideBar) {
+      props.handleFullscreenSideBar(false);
+      props.handleSideBar(false);
+    } else {
+      props.handleFullscreenSideBar(true);
+      props.handleSideBar(true);
+    }
+  };
+
   return (
     <>
-      {!props.showFullscreenSideBar && (
-        <div
-          className={`toggle-side-bar-wrapper${
-            props.showSideBar ? " side-bar-open" : ""
-          }`}
+      <div
+        className={`toggle-side-bar-wrapper${
+          props.showFullscreenSideBar
+            ? " side-bar-fullscreen"
+            : props.showSideBar
+            ? " side-bar-open"
+            : ""
+        }`}
+      >
+        <Button
+          id="toggle-side-bar-button"
+          variant="contained"
+          size="small"
+          onClick={() => {
+            toggleSideBar();
+          }}
         >
-          <Button
-            id="toggle-side-bar-button"
-            variant="contained"
-            size="small"
-            onClick={() => {
-              props.toggleSideBar();
-            }}
-          >
-            <CustomIcon
-              id="show-layers-icon"
-              icon={props.showSideBar ? "menu-right" : "menu-left"}
-              size={30}
-            />
-          </Button>
-        </div>
-      )}
-      {props.showSideBar && (
-        <div
-          className={`toggle-fullscreen-side-bar-wrapper${
-            props.showFullscreenSideBar ? " side-bar-open" : ""
-          }`}
+          <CustomIcon
+            id="show-layers-icon"
+            icon={props.showSideBar ? "menu-right" : "menu-left"}
+            size={30}
+          />
+        </Button>
+      </div>
+      <div
+        className={`toggle-fullscreen-side-bar-wrapper${
+          props.showFullscreenSideBar
+            ? " side-bar-fullscreen"
+            : props.showSideBar
+            ? " side-bar-open"
+            : ""
+        }`}
+      >
+        <Button
+          id="toggle-fullscreen-side-bar-button"
+          variant="contained"
+          size="small"
+          onClick={() => {
+            toggleFullscreenSideBar();
+          }}
         >
-          <Button
-            id="toggle-fullscreen-side-bar-button"
-            variant="contained"
-            size="small"
-            onClick={() => {
-              props.toggleFullscreenSideBar();
-            }}
-          >
-            <CustomIcon
-              id="show-layers-icon"
-              icon={
-                props.showSideBar && props.showFullscreenSideBar
-                  ? "menu-right"
-                  : "menu-left"
-              }
-              size={30}
-            />
-          </Button>
-        </div>
-      )}
+          {props.showFullscreenSideBar ? <FullscreenExit /> : <Fullscreen />}
+        </Button>
+      </div>
       {props.showSideBar && (
         <div
           className={`kartlag_fanen${
