@@ -61,7 +61,8 @@ class App extends React.Component {
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
       legendVisible: false,
-      showSmallInfobox: false
+      showSmallInfobox: false,
+      showFullscreenSideBar: false
     };
   }
 
@@ -304,6 +305,8 @@ class App extends React.Component {
                         }
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
+                        showFullscreenSideBar={this.state.showFullscreenSideBar}
+                        toggleFullscreenSideBar={this.toggleFullscreenSideBar}
                       />
                     </div>
                   </>
@@ -866,6 +869,10 @@ class App extends React.Component {
 
   toggleSideBar = () => {
     this.setState({ showSideBar: !this.state.showSideBar });
+  };
+
+  toggleFullscreenSideBar = () => {
+    this.setState({ showFullscreenSideBar: !this.state.showFullscreenSideBar });
   };
 
   handleInfobox = bool => {

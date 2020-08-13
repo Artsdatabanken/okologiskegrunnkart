@@ -39,28 +39,60 @@ const KartlagFanen = props => {
 
   return (
     <>
-      <div
-        className={`toggle-side-bar-wrapper${
-          props.showSideBar ? " side-bar-open" : ""
-        }`}
-      >
-        <Button
-          id="toggle-side-bar-button"
-          variant="contained"
-          size="small"
-          onClick={() => {
-            props.toggleSideBar();
-          }}
+      {!props.showFullscreenSideBar && (
+        <div
+          className={`toggle-side-bar-wrapper${
+            props.showSideBar ? " side-bar-open" : ""
+          }`}
         >
-          <CustomIcon
-            id="show-layers-icon"
-            icon={props.showSideBar ? "menu-right" : "menu-left"}
-            size={30}
-          />
-        </Button>
-      </div>
+          <Button
+            id="toggle-side-bar-button"
+            variant="contained"
+            size="small"
+            onClick={() => {
+              props.toggleSideBar();
+            }}
+          >
+            <CustomIcon
+              id="show-layers-icon"
+              icon={props.showSideBar ? "menu-right" : "menu-left"}
+              size={30}
+            />
+          </Button>
+        </div>
+      )}
       {props.showSideBar && (
-        <div className="kartlag_fanen">
+        <div
+          className={`toggle-fullscreen-side-bar-wrapper${
+            props.showFullscreenSideBar ? " side-bar-open" : ""
+          }`}
+        >
+          <Button
+            id="toggle-fullscreen-side-bar-button"
+            variant="contained"
+            size="small"
+            onClick={() => {
+              props.toggleFullscreenSideBar();
+            }}
+          >
+            <CustomIcon
+              id="show-layers-icon"
+              icon={
+                props.showSideBar && props.showFullscreenSideBar
+                  ? "menu-right"
+                  : "menu-left"
+              }
+              size={30}
+            />
+          </Button>
+        </div>
+      )}
+      {props.showSideBar && (
+        <div
+          className={`kartlag_fanen${
+            props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+          }`}
+        >
           {props.legendVisible && (
             <Tegnforklaring
               layers={props.kartlag}
@@ -80,7 +112,11 @@ const KartlagFanen = props => {
                 <KeyboardBackspace />
                 <span>Tilbake</span>
               </button>
-              <div className="scroll_area">
+              <div
+                className={`scroll_area${
+                  props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+                }`}
+              >
                 <ForvaltningsElement
                   valgt={true}
                   kartlagKey={props.valgtLag.id}
@@ -106,7 +142,11 @@ const KartlagFanen = props => {
                 {props.polyline.length > 0 && props.polygon && (
                   <h3 className="container_header">Polygon</h3>
                 )}
-                <div className="scroll_area">
+                <div
+                  className={`scroll_area${
+                    props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+                  }`}
+                >
                   {(props.polyline.length > 0 || props.polygon) && (
                     <PolygonElement
                       polygon={props.polygon}
