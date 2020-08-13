@@ -40,7 +40,7 @@ const TextField3 = ({ title, value, onUpdate, dockey, inputProps }) => (
     label={title}
     multiline
     value={value || ""}
-    style={{ marginTop: 12, width: "100%" }}
+    style={{ marginTop: 12, marginLeft: 16, marginRight: 16, width: 472 }}
     onChange={e => onUpdate(dockey, e.target.value)}
     InputProps={inputProps}
   />

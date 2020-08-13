@@ -2,7 +2,7 @@ import React from "react";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-const TjenesteListItem = ({ layer }) => {
+const TjenesteListItem = ({ doc }) => {
   const history = useHistory();
   return (
     <List>
@@ -10,12 +10,12 @@ const TjenesteListItem = ({ layer }) => {
         button
         onClick={() => {
           const url = new URL(window.location);
-          history.push("/kartlag" + url.search);
+          history.push("/tjeneste" + url.search);
         }}
       >
         <ListItemText
-          primary={layer.wmslayer + ": " + layer.tittel}
-          secondary="Kartlag"
+          primary={"#" + doc._id + ": " + doc.tittel}
+          secondary="Tjeneste"
         />
       </ListItem>
     </List>

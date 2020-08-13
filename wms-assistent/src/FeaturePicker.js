@@ -9,7 +9,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import TextField2 from "./TextField2";
 import { Alert } from "@material-ui/lab";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import KlikkResultatPreview from "./KlikkResultatPreview";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -86,7 +85,6 @@ const FeaturePicker = ({
           >
             <RecursiveTreeView o={feature} onClick={onClick} />
           </TreeView>
-          <KlikkResultatPreview layer={layer} feature={feature} />
         </>
       ) : (
         <div>Sett et punkt i kartet.</div>

@@ -5,18 +5,20 @@ import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
-import Tjeneste from "./Tjeneste";
-import KartlagList from "./KartlagList";
-import KartlagListItem from "./KartlagListItem";
+import Kartlagliste from "./Kartlagliste";
+import Tjenesteliste from "./Tjenesteliste";
+import TjenesteListItem from "./TjenesteListItem";
 import url_formatter from "./FeatureInfo/url_formatter";
 import backend from "./Funksjoner/backend";
 import { Alert } from "@material-ui/lab";
+import MainTabs from "./MainTabs";
 
 const kartlagUrl =
   "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
   const location = useLocation();
+  const [tab, setTab] = useState(0);
   const [feature, setFeature] = useState();
   const [doc, setDoc] = useState({});
   const [kartlag, setKartlag] = useState();
@@ -170,39 +172,38 @@ export default function TjenesteContainer() {
         style={{
           height: "100%",
           width: 508,
-          float: "left",
-          _position: "fixed",
-          _zIndex: 1,
-          _right: 0,
-          _top: 0,
-          _overflowX: "hidden",
-          boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-          _overflowY: "scroll"
+          float: "left"
         }}
       >
         <Switch>
-          <Route path="/kartlag">
-            <KartlagList kartlag={kartlag} />
+          <Route path="/tjeneste">
+            <Tjenesteliste tjenester={kartlag} />
           </Route>
+          <Route path="/kartlag">
+            <Kartlagliste
+              kartlag={doc.underlag}
+              selectedLayerIndex={selectedLayerIndex}
+            />
+          </Route>
+
           <Route path="/">
-            <>
-              <KartlagListItem doc={doc}></KartlagListItem>
-              <Tjeneste
-                key={id}
-                doc={doc}
-                feature={feature}
-                setFeature={setFeature}
-                onSetDoc={setDoc}
-                onUpdate={handleUpdate}
-                onUpdateLayerField={handleUpdateLayerField}
-                onSave={() => writeUpdate(doc)}
-                sub={sub}
-                selectedLayerIndex={selectedLayerIndex}
-              />
-            </>
+            <TjenesteListItem doc={doc}></TjenesteListItem>
+            <MainTabs
+              tab={tab}
+              setTab={setTab}
+              key={id}
+              doc={doc}
+              feature={feature}
+              setFeature={setFeature}
+              onSetDoc={setDoc}
+              onUpdate={handleUpdate}
+              onUpdateLayerField={handleUpdateLayerField}
+              onSave={() => writeUpdate(doc)}
+              sub={sub}
+              selectedLayerIndex={selectedLayerIndex}
+            />
           </Route>
         </Switch>
-        {sub === "kartlag" && <KartlagList kartlag={kartlag} />}
         {sub && sub.length > 0 && (
           <FeaturePicker
             feature={feature}
