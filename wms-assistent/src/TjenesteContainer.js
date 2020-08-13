@@ -1,14 +1,13 @@
 import React from "react";
 import { CircularProgress, Snackbar } from "@material-ui/core";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
-import { getFeatureInfo, getCapabilities } from "./probe";
+import { getFeatureInfo } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
 import Tjeneste from "./Tjeneste";
 import KartlagList from "./KartlagList";
 import KartlagListItem from "./KartlagListItem";
-import { plukkForetrukketFormat, selectCrs } from "./wms";
 import url_formatter from "./FeatureInfo/url_formatter";
 import backend from "./Funksjoner/backend";
 import { Alert } from "@material-ui/lab";
@@ -89,55 +88,6 @@ export default function TjenesteContainer() {
   const closeForbidden = (event, reason) => {
     setShowForbidden(false);
   };
-
-  const updateCallback = useCallback(
-    capabilities => {
-      const updateDoc = layer => {
-        setDoc(doc => {
-          return { ...doc, ...layer };
-        });
-      };
-
-      const layer = {
-        wms_capabilities: capabilities
-      };
-      const capability = capabilities.Capability;
-      const service = capabilities.Service || {};
-      if (capability) {
-        const uri = new URL(wmsurl);
-        uri.searchParams.delete("service");
-        uri.searchParams.delete("request");
-        layer.wmsurl = uri.toString();
-        layer.type = "wms";
-        layer.tittel = layer.tittel || service.Title;
-        layer.abstract = layer.abstract || service.Abstract;
-        layer.dataeier =
-          layer.dataeier ||
-          service.ContactInformation?.ContactPersonPrimary?.ContactOrganization;
-        layer.wmsversion = capabilities.version;
-
-        layer.crs = selectCrs(capability);
-        if (!layer.wmsinfoformat)
-          layer.wmsinfoformat = plukkForetrukketFormat(
-            capability.Request.GetFeatureInfo.Format
-          );
-        layer.wmslayers = [];
-        fyllPåUnderlag(capability.Layer, layer.wmslayers);
-      }
-      updateDoc(layer);
-    },
-    [wmsurl]
-  );
-
-  useEffect(() => {
-    async function doprobe() {
-      if (!wmsurl) return;
-      const r = await getCapabilities(wmsurl);
-      updateCallback(r);
-    }
-    if (wmsurl) doprobe();
-    else updateCallback({});
-  }, [wmsurl, updateCallback]);
 
   const handleUpdate = (k, v) => {
     const newDoc = { ...doc, [k]: v };
