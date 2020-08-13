@@ -233,30 +233,26 @@ export default function TjenesteContainer() {
         }}
       >
         <Switch>
-          <Route
-            path="/kartlag"
-            component={() => <KartlagList kartlag={kartlag} />}
-          />
-          <Route
-            path="/"
-            component={() => (
-              <>
-                <KartlagListItem doc={doc}></KartlagListItem>
-                <Tjeneste
-                  key={id}
-                  doc={doc}
-                  feature={feature}
-                  setFeature={setFeature}
-                  onSetDoc={setDoc}
-                  onUpdate={handleUpdate}
-                  onUpdateLayerField={handleUpdateLayerField}
-                  onSave={() => writeUpdate(doc)}
-                  sub={sub}
-                  selectedLayerIndex={selectedLayerIndex}
-                />
-              </>
-            )}
-          />
+          <Route path="/kartlag">
+            <KartlagList kartlag={kartlag} />
+          </Route>
+          <Route path="/">
+            <>
+              <KartlagListItem doc={doc}></KartlagListItem>
+              <Tjeneste
+                key={id}
+                doc={doc}
+                feature={feature}
+                setFeature={setFeature}
+                onSetDoc={setDoc}
+                onUpdate={handleUpdate}
+                onUpdateLayerField={handleUpdateLayerField}
+                onSave={() => writeUpdate(doc)}
+                sub={sub}
+                selectedLayerIndex={selectedLayerIndex}
+              />
+            </>
+          </Route>
         </Switch>
         {sub === "kartlag" && <KartlagList kartlag={kartlag} />}
         {sub && sub.length > 0 && (
