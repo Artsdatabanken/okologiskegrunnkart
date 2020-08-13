@@ -195,12 +195,13 @@ export default function TjenesteContainer() {
   }, [doc, doc.klikkurl, wmsversion, layer]);
 
   const handleUpdateLayer = layer => {
+    if (!doc.underlag) return;
     doc.underlag[selectedLayerIndex] = { ...layer };
     setDoc({ ...doc });
   };
 
   const handleUpdateLayerField = (key, value) => {
-    if (!doc.underlag) return;
+    console.log({ key, value });
     layer[key] = value;
     handleUpdateLayer(layer);
   };
@@ -259,12 +260,9 @@ export default function TjenesteContainer() {
             variabel={sub}
             layer={layer}
             picker={sub}
-            onUpdate={(key, value) => {
-              layer[key] = value;
-              handleUpdateLayer(layer);
-            }}
+            onUpdate={(key, value) => handleUpdateLayerField(key, value)}
             onClick={v => {
-              layer[sub] = (doc[sub] || "") + " {" + v + "}";
+              layer[sub] = (layer[sub] || "") + " {" + v + "}";
               handleUpdateLayer(layer);
             }}
           ></FeaturePicker>
