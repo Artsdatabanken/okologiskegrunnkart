@@ -28,7 +28,6 @@ export default function TjenesteContainer() {
   const id = params.get("id") || 1;
   const sub = params.get("sub");
   const selectedLayerIndex = parseInt(params.get("ulid")) || 0;
-  const { wmsurl, wmsversion } = doc || {};
 
   const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
   useEffect(() => {
@@ -142,7 +141,7 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
-  }, [doc, doc.klikkurl, wmsversion, layer]);
+  }, [doc, doc.klikkurl, doc.wmsversion, layer]);
 
   const handleUpdateLayer = layer => {
     if (!doc.underlag) return;
@@ -239,18 +238,4 @@ export default function TjenesteContainer() {
       </Snackbar>
     </>
   );
-}
-
-function fyllPåUnderlag(layer, underlag) {
-  if (layer.Name)
-    underlag.push({
-      erSynlig: false,
-      wmslayer: layer.Name,
-      tittel: layer.Title,
-      queryable: layer.queryable
-    });
-  if (!layer.Layer) return;
-  var ll = layer.Layer;
-  if (!Array.isArray(ll)) ll = [ll];
-  for (var sublayer of ll) fyllPåUnderlag(sublayer, underlag);
 }

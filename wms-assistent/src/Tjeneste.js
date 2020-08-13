@@ -4,7 +4,6 @@ import Alert from "@material-ui/lab/Alert";
 import SaveIcon from "@material-ui/icons/Save";
 import TextField2 from "./TextField2";
 import KlikkIKart from "./KlikkkIKart";
-import Warnings from "./Warnings";
 import { Create as CreateIcon } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 
@@ -34,7 +33,6 @@ const Tjeneste = ({
           doc={doc}
           onUpdate={onUpdate}
         />
-        <Warnings doc={doc} />
         <TextField2
           title="WMS version"
           dockey="wmsversion"
@@ -43,7 +41,7 @@ const Tjeneste = ({
         />
         <TextField2
           title="Projeksjon"
-          dockey="crs"
+          dockey="projeksjon"
           doc={doc}
           onUpdate={onUpdate}
         />
