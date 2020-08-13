@@ -122,22 +122,23 @@ class Leaflet extends React.Component {
       srs = kartlag.projeksjon.replace(":", "");
     }
     var tilelayer = this.wmslayer;
-    if (tilelayer) this.map.removeLayer(tilelayer);
-
-    tilelayer = L.tileLayer.cachedOverview("", {
-      id: underlag.id,
-      zoomThreshold: underlag.minzoom,
-      layers: underlag.wmslayer,
-      transparent: true,
-      crs: L.CRS[srs],
-      format: "image/png",
-      maxZoom: MAX_MAP_ZOOM_LEVEL,
-      maxNativeZoom: underlag.maxzoom,
-      opacity: 0.95
-    });
+    if (!tilelayer || tilelayer._url !== url) {
+      if (tilelayer) this.map.removeLayer(tilelayer);
+      tilelayer = L.tileLayer.cachedOverview("", {
+        id: underlag.id,
+        zoomThreshold: underlag.minzoom,
+        layers: underlag.wmslayer,
+        transparent: true,
+        crs: L.CRS[srs],
+        format: "image/png",
+        maxZoom: MAX_MAP_ZOOM_LEVEL,
+        maxNativeZoom: underlag.maxzoom,
+        opacity: 0.95
+      });
+      this.wmslayer = tilelayer;
+      this.map.addLayer(tilelayer);
+    }
     tilelayer.setUrl(url);
-    this.wmslayer = tilelayer;
-    this.map.addLayer(tilelayer);
   }
 
   makeWmsUrl(url) {
