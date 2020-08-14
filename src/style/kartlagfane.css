@@ -22,11 +22,19 @@
     padding-top: 0;
     background-color: #eee;
     z-index: 100;
+    display: none;
+  }
+  .kartlag_fanen.side-bar-open {
+    height: calc(40vh);
+    top: auto;
+    bottom: 0;
+    display: block;
   }
   .kartlag_fanen.side-bar-fullscreen {
     height: calc(100vh - 30px - 50px);
     top: calc(0vh + 30px + 50px);
     bottom: auto;
+    display: block;
   }
 }
 

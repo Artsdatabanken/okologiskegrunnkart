@@ -1,5 +1,5 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
@@ -18,6 +18,9 @@ const KartlagFanen = props => {
   const [underlag, setUnderlag] = useState(null);
   const [kartlagKey, setKartlagKey] = useState(null);
   const [underlagKey, setUnderlagKey] = useState(null);
+  const [fullscreen, setFullscreen] = useState(null);
+  const [Y, setY] = useState(0);
+  const [DY, setDY] = useState(0);
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
     setUnderlag(underlag);
@@ -41,27 +44,85 @@ const KartlagFanen = props => {
     props.setSublayerDetailsVisible(true);
   };
 
+  const { showSideBar, handleSideBar } = props;
+
   const toggleSideBar = () => {
-    if (props.showFullscreenSideBar) {
-      props.handleSideBar(true);
-      props.handleFullscreenSideBar(false);
-    } else if (props.showSideBar) {
-      props.handleSideBar(false);
+    if (fullscreen) {
+      handleSideBar(true);
+      setFullscreen(false);
+    } else if (showSideBar) {
+      handleSideBar(false);
     } else {
-      props.handleSideBar(true);
+      handleSideBar(true);
     }
-    props.handleFullscreenSideBar(false);
+    setFullscreen(false);
   };
 
   const toggleFullscreenSideBar = () => {
-    if (props.showFullscreenSideBar) {
-      props.handleFullscreenSideBar(false);
-      props.handleSideBar(false);
+    if (fullscreen) {
+      setFullscreen(false);
+      handleSideBar(false);
     } else {
-      props.handleFullscreenSideBar(true);
-      props.handleSideBar(true);
+      setFullscreen(true);
+      handleSideBar(true);
     }
   };
+
+  useEffect(() => {
+    if (DY < 0 && Y !== 0) {
+      if (!showSideBar && !fullscreen) {
+        handleSideBar(true);
+        setFullscreen(false);
+      } else if (showSideBar) {
+        handleSideBar(false);
+        setFullscreen(true);
+      }
+      setY(0);
+    } else if (DY > 0 && Y !== 0) {
+      if (fullscreen) {
+        handleSideBar(true);
+        setFullscreen(false);
+      } else if (showSideBar) {
+        handleSideBar(false);
+        setFullscreen(false);
+      }
+      setY(0);
+    }
+  }, [Y, DY, showSideBar, fullscreen, handleSideBar]);
+
+  useEffect(() => {
+    let y0 = 0;
+    function lock(e) {
+      if (
+        e.changedTouches &&
+        e.changedTouches.length > 0 &&
+        e.changedTouches[0].clientY
+      ) {
+        y0 = e.changedTouches[0].clientY;
+      }
+    }
+
+    function move(e) {
+      if (
+        e.changedTouches &&
+        e.changedTouches.length > 0 &&
+        e.changedTouches[0].clientY
+      ) {
+        const dy = e.changedTouches[0].clientY - y0;
+        setDY(dy);
+        setY(y0);
+      }
+    }
+
+    const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
+    kartlagSlider.addEventListener("touchstart", lock);
+    kartlagSlider.addEventListener("touchend", move);
+
+    return () => {
+      kartlagSlider.removeEventListener("touchstart", lock);
+      return () => kartlagSlider.removeEventListener("touchend", move);
+    };
+  }, []);
 
   return (
     <>
@@ -87,7 +148,7 @@ const KartlagFanen = props => {
       </div>
       <div
         className={`toggle-kartlag-wrapper${
-          props.showFullscreenSideBar
+          fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
             ? " side-bar-open"
@@ -104,14 +165,20 @@ const KartlagFanen = props => {
         >
           <CustomIcon
             id="show-layers-icon"
-            icon={props.showSideBar ? "menu-down" : "menu-up"}
+            icon={
+              fullscreen
+                ? "menu-down"
+                : props.showSideBar
+                ? "menu-up-down"
+                : "menu-up"
+            }
             size={30}
           />
         </Button>
       </div>
-      <div
+      {/* <div
         className={`toggle-fullscreen-kartlag-wrapper${
-          props.showFullscreenSideBar
+          fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
             ? " side-bar-open"
@@ -126,13 +193,17 @@ const KartlagFanen = props => {
             toggleFullscreenSideBar();
           }}
         >
-          {props.showFullscreenSideBar ? <FullscreenExit /> : <Fullscreen />}
+          {fullscreen ? <FullscreenExit /> : <Fullscreen />}
         </Button>
-      </div>
-      {props.showSideBar && (
+      </div> */}
+      {(props.showSideBar || fullscreen) && (
         <div
           className={`kartlag_fanen${
-            props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+            fullscreen
+              ? " side-bar-fullscreen"
+              : props.showSideBar
+              ? " side-bar-open"
+              : ""
           }`}
         >
           {props.legendVisible && (
@@ -156,7 +227,7 @@ const KartlagFanen = props => {
               </button>
               <div
                 className={`scroll_area${
-                  props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+                  fullscreen ? " side-bar-fullscreen" : ""
                 }`}
               >
                 <ForvaltningsElement
@@ -186,7 +257,7 @@ const KartlagFanen = props => {
                 )}
                 <div
                   className={`scroll_area${
-                    props.showFullscreenSideBar ? " side-bar-fullscreen" : ""
+                    fullscreen ? " side-bar-fullscreen" : ""
                   }`}
                 >
                   {(props.polyline.length > 0 || props.polygon) && (
