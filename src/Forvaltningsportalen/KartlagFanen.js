@@ -1,14 +1,10 @@
 import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
 import PolygonElement from "./PolygonElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
-import {
-  KeyboardBackspace,
-  Fullscreen,
-  FullscreenExit
-} from "@material-ui/icons";
+import { KeyboardBackspace } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { Button } from "@material-ui/core";
 import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
@@ -56,16 +52,6 @@ const KartlagFanen = props => {
       handleSideBar(true);
     }
     setFullscreen(false);
-  };
-
-  const toggleFullscreenSideBar = () => {
-    if (fullscreen) {
-      setFullscreen(false);
-      handleSideBar(false);
-    } else {
-      setFullscreen(true);
-      handleSideBar(true);
-    }
   };
 
   useEffect(() => {
