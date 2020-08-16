@@ -212,7 +212,7 @@ const KartlagFanen = props => {
         </Button>
       </div> */}
       <div
-        className={`kartlag_fanen height-animation${
+        className={`kartlag_fanen ${"height-animation"}${
           fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
