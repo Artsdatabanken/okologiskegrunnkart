@@ -132,6 +132,7 @@ const KartlagFanen = props => {
           />
         </Button>
       </div>
+      {fullscreen && <div className={"fullscreen-back-visible"} />}
       <div
         className={`toggle-kartlag-wrapper${
           fullscreen
@@ -182,110 +183,108 @@ const KartlagFanen = props => {
           {fullscreen ? <FullscreenExit /> : <Fullscreen />}
         </Button>
       </div> */}
-      {(props.showSideBar || fullscreen) && (
-        <div
-          className={`kartlag_fanen${
-            fullscreen
-              ? " side-bar-fullscreen"
-              : props.showSideBar
-              ? " side-bar-open"
-              : ""
-          }`}
-        >
-          {props.legendVisible && (
-            <Tegnforklaring
-              layers={props.kartlag}
-              setLegendVisible={props.setLegendVisible}
-            />
-          )}
-          {props.searchResultPage ? (
-            <></>
-          ) : props.valgtLag ? (
-            <div className="valgtLag">
-              <button
-                className="listheadingbutton"
-                onClick={e => {
-                  props.removeValgtLag();
-                }}
-              >
-                <KeyboardBackspace />
-                <span>Tilbake</span>
-              </button>
+      <div
+        className={`kartlag_fanen${
+          fullscreen
+            ? " side-bar-fullscreen"
+            : props.showSideBar
+            ? " side-bar-open"
+            : ""
+        }`}
+      >
+        {props.legendVisible && (
+          <Tegnforklaring
+            layers={props.kartlag}
+            setLegendVisible={props.setLegendVisible}
+          />
+        )}
+        {props.searchResultPage ? (
+          <></>
+        ) : props.valgtLag ? (
+          <div className="valgtLag">
+            <button
+              className="listheadingbutton"
+              onClick={e => {
+                props.removeValgtLag();
+              }}
+            >
+              <KeyboardBackspace />
+              <span>Tilbake</span>
+            </button>
+            <div
+              className={`scroll_area${
+                fullscreen ? " side-bar-fullscreen" : ""
+              }`}
+            >
+              <ForvaltningsElement
+                valgt={true}
+                kartlagKey={props.valgtLag.id}
+                kartlag={props.valgtLag}
+                key={props.valgtLag.id}
+                onUpdateLayerProp={props.onUpdateLayerProp}
+                changeVisibleSublayers={props.changeVisibleSublayers}
+                changeExpandedLayers={props.changeExpandedLayers}
+                zoom={props.zoom}
+                showSublayerDetails={showSublayerDetailsFromSearch}
+              />
+            </div>
+          </div>
+        ) : (
+          <>
+            <div
+              className={
+                props.sublayerDetailsVisible || props.legendVisible
+                  ? "hidden-app-content"
+                  : ""
+              }
+            >
+              {props.polyline.length > 0 && props.polygon && (
+                <h3 className="container_header">Polygon</h3>
+              )}
               <div
                 className={`scroll_area${
                   fullscreen ? " side-bar-fullscreen" : ""
                 }`}
               >
-                <ForvaltningsElement
-                  valgt={true}
-                  kartlagKey={props.valgtLag.id}
-                  kartlag={props.valgtLag}
-                  key={props.valgtLag.id}
+                {(props.polyline.length > 0 || props.polygon) && (
+                  <PolygonElement
+                    polygon={props.polygon}
+                    polyline={props.polyline}
+                    showPolygon={props.showPolygon}
+                    hideAndShowPolygon={props.hideAndShowPolygon}
+                    handleEditable={props.handleEditable}
+                    addPolygon={props.addPolygon}
+                    addPolyline={props.addPolyline}
+                  />
+                )}
+                <ForvaltningsKartlag
+                  kartlag={props.kartlag}
                   onUpdateLayerProp={props.onUpdateLayerProp}
                   changeVisibleSublayers={props.changeVisibleSublayers}
                   changeExpandedLayers={props.changeExpandedLayers}
                   zoom={props.zoom}
-                  showSublayerDetails={showSublayerDetailsFromSearch}
+                  showSublayerDetails={showSublayerDetails}
+                  setLegendVisible={props.setLegendVisible}
                 />
               </div>
             </div>
-          ) : (
-            <>
-              <div
-                className={
-                  props.sublayerDetailsVisible || props.legendVisible
-                    ? "hidden-app-content"
-                    : ""
-                }
-              >
-                {props.polyline.length > 0 && props.polygon && (
-                  <h3 className="container_header">Polygon</h3>
-                )}
-                <div
-                  className={`scroll_area${
-                    fullscreen ? " side-bar-fullscreen" : ""
-                  }`}
-                >
-                  {(props.polyline.length > 0 || props.polygon) && (
-                    <PolygonElement
-                      polygon={props.polygon}
-                      polyline={props.polyline}
-                      showPolygon={props.showPolygon}
-                      hideAndShowPolygon={props.hideAndShowPolygon}
-                      handleEditable={props.handleEditable}
-                      addPolygon={props.addPolygon}
-                      addPolyline={props.addPolyline}
-                    />
-                  )}
-                  <ForvaltningsKartlag
-                    kartlag={props.kartlag}
+            {props.sublayerDetailsVisible && (
+              <div>
+                <div className="layer-details-div">
+                  <ForvaltningsDetailedInfo
+                    kartlag={props.kartlag[kartlagKey]}
+                    underlag={underlag}
+                    kartlagKey={kartlagKey}
+                    underlagKey={underlagKey}
                     onUpdateLayerProp={props.onUpdateLayerProp}
-                    changeVisibleSublayers={props.changeVisibleSublayers}
-                    changeExpandedLayers={props.changeExpandedLayers}
-                    zoom={props.zoom}
-                    showSublayerDetails={showSublayerDetails}
-                    setLegendVisible={props.setLegendVisible}
+                    hideSublayerDetails={hideSublayerDetails}
                   />
                 </div>
               </div>
-              {props.sublayerDetailsVisible && (
-                <div>
-                  <div className="layer-details-div">
-                    <ForvaltningsDetailedInfo
-                      kartlag={props.kartlag[kartlagKey]}
-                      underlag={underlag}
-                      kartlagKey={kartlagKey}
-                      underlagKey={underlagKey}
-                      onUpdateLayerProp={props.onUpdateLayerProp}
-                      hideSublayerDetails={hideSublayerDetails}
-                    />
-                  </div>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-      )}
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };

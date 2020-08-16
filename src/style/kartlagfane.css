@@ -6,10 +6,18 @@
   height: 100%;
   right: 0px;
   top: 0px;
-  width: 408px;
+  width: 0;
   padding-top: 50px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  display: none;
+  transition: width 0.5s display 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.kartlag_fanen.side-bar-open {
+  width: 408px;
+  display: block;
+  transition: width 0.5s display 0.5s;
 }
 
 @media only screen and (max-width: 768px) {
@@ -23,18 +31,24 @@
     background-color: #eee;
     z-index: 100;
     display: none;
+    transition: height 0.5s top 0.5s bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .kartlag_fanen.side-bar-open {
     height: calc(40vh);
     top: auto;
     bottom: 0;
     display: block;
+    transition: height 2.5s top 2.5s bottom 2.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .kartlag_fanen.side-bar-fullscreen {
     height: calc(100vh - 30px - 50px);
     top: calc(0vh + 30px + 50px);
     bottom: auto;
     display: block;
+    transition: height 0.5s top 0.5s bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 }
 
@@ -151,22 +165,44 @@ h4.container_header {
     z-index: 55;
     box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
       -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12);
+    transition: top 0.5s bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .toggle-kartlag-wrapper.side-bar-open {
     right: calc(50vw - 18px);
     top: auto;
     bottom: calc(40vh - 2px);
+    transition: top 0.5s bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .toggle-kartlag-wrapper.side-bar-fullscreen {
     right: calc(50vw - 18px);
     top: calc(0vh + 50px);
     bottom: auto;
     box-shadow: none;
+    transition: top 0.5s bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+}
+
+/* Background of the button when fullscreen kartlag */
+.fullscreen-back-visible {
+  display: none;
+}
+@media only screen and (max-width: 768px) {
+  .fullscreen-back-visible {
+    display: block;
+    position: absolute;
+    width: 100vw;
+    height: 32px;
+    background-color: rgba(187, 197, 204, 1);
+    top: calc(0vh + 50px);
+    right: 0;
   }
 }
 
 /* Fullscreen side bar show/hide button mobile */
-.toggle-fullscreen-kartlag-wrapper {
+/* .toggle-fullscreen-kartlag-wrapper {
   display: none;
 }
 #toggle-fullscreen-kartlag-button {
@@ -210,7 +246,7 @@ h4.container_header {
     #toggle-fullscreen-kartlag-button {
     margin-left: calc(100vw - 55px);
   }
-}
+} */
 
 #show-layers-icon {
   display: flex;
