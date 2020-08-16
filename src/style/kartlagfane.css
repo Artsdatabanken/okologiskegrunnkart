@@ -32,42 +32,42 @@
   .kartlag_fanen {
     --h: 0px;
     border-top: 1px solid lightgrey;
-    width: 100%;
-    height: calc(var(--h, 0px));
     top: auto;
     bottom: 0;
     padding-top: 0;
     background-color: #eee;
     z-index: 100;
+    height: calc(var(--h, 0px));
     overflow-y: hidden;
-    -webkit-transition: height 0.5s;
+    width: 100%;
+    /* -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .kartlag_fanen.side-bar-open {
     height: calc(40vh + var(--h, 0px));
     overflow-y: auto;
     width: 100%;
-    -webkit-transition: height 0.5s;
+    /* -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .kartlag_fanen.side-bar-fullscreen {
     height: calc(100% - 30px - 50px + var(--h, 0px));
     overflow-y: auto;
     width: 100%;
-    -webkit-transition: height 0.5s;
+    /* -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
 }
 
@@ -185,12 +185,12 @@ h4.container_header {
     z-index: 55;
     box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
       -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12);
-    -webkit-transition: bottom 0.5s;
+    /* -webkit-transition: bottom 0.5s;
     -moz-transition: bottom 0.5s;
     -ms-transition: bottom 0.5s;
     -o-transition: bottom 0.5s;
     transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .toggle-kartlag-wrapper.side-bar-open {
     top: auto;
@@ -217,21 +217,21 @@ h4.container_header {
     background-color: rgba(187, 197, 204, 1);
     bottom: 0;
     right: 0;
-    -webkit-transition: height 0.5s;
+    /* -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .fullscreen-button-back.side-bar-fullscreen {
     height: calc(100% - 50px + var(--h, 0px));
-    -webkit-transition: height 0.5s;
+    /* -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
 }
 
@@ -649,6 +649,26 @@ h4.container_header {
 @media only screen and (max-width: 768px) {
   .details-title-text {
     font-size: 16px;
+  }
+}
+
+/* General transitions */
+@media only screen and (max-width: 768px) {
+  .bottom-animation {
+    -webkit-transition: bottom 0.5s;
+    -moz-transition: bottom 0.5s;
+    -ms-transition: bottom 0.5s;
+    -o-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  }
+  .height-animation {
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    -o-transition: height 0.5s;
+    transition: height 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 }
 

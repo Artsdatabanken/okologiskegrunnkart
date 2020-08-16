@@ -79,12 +79,11 @@ const KartlagFanen = props => {
   useEffect(() => {
     let y0 = 0;
     let disp = 0;
+    let locked = false;
 
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
     const kartlagBack = document.querySelector(".fullscreen-button-back");
-    // kartlag.style.setProperty("--h", disp + "px");
-    console.log(kartlagSlider);
 
     function lock(e) {
       if (
@@ -93,31 +92,36 @@ const KartlagFanen = props => {
         e.changedTouches[0].clientY
       ) {
         y0 = e.changedTouches[0].clientY;
-      }
-    }
-
-    function move(e) {
-      if (
-        e.changedTouches &&
-        e.changedTouches.length > 0 &&
-        e.changedTouches[0].clientY
-      ) {
-        const dy = e.changedTouches[0].clientY - y0;
-        setDY(dy);
-        setY(y0);
-        disp = 0;
-        kartlagSlider.style.setProperty("--h", 0 + "px");
-        kartlag.style.setProperty("--h", 0 + "px");
-        kartlagBack.style.setProperty("--h", 0 + "px");
+        kartlagSlider.classList.toggle("bottom-animation", !(locked = true));
+        kartlag.classList.toggle("height-animation", !(locked = true));
+        kartlagBack.classList.toggle("height-animation", !(locked = true));
       }
     }
 
     function drag(e) {
-      disp = -Math.round(e.changedTouches[0].clientY - y0);
-      console.log(disp);
-      kartlagSlider.style.setProperty("--h", disp + "px");
-      kartlag.style.setProperty("--h", disp + "px");
-      kartlagBack.style.setProperty("--h", disp + "px");
+      e.preventDefault();
+
+      if (locked) {
+        disp = -Math.round(e.changedTouches[0].clientY - y0);
+        kartlagSlider.style.setProperty("--h", disp + "px");
+        kartlag.style.setProperty("--h", disp + "px");
+        kartlagBack.style.setProperty("--h", disp + "px");
+      }
+    }
+
+    function move(e) {
+      if (locked) {
+        const dy = e.changedTouches[0].clientY - y0;
+        setDY(dy);
+        setY(y0);
+        disp = 0;
+        kartlagSlider.classList.toggle("bottom-animation", !(locked = false));
+        kartlag.classList.toggle("height-animation", !(locked = false));
+        kartlagBack.classList.toggle("height-animation", !(locked = false));
+        kartlagSlider.style.setProperty("--h", 0 + "px");
+        kartlag.style.setProperty("--h", 0 + "px");
+        kartlagBack.style.setProperty("--h", 0 + "px");
+      }
     }
 
     kartlagSlider.addEventListener("touchstart", lock, false);
@@ -154,12 +158,12 @@ const KartlagFanen = props => {
         </Button>
       </div>
       <div
-        className={`fullscreen-button-back${
+        className={`fullscreen-button-back height-animation${
           fullscreen ? " side-bar-fullscreen" : ""
         }`}
       />
       <div
-        className={`toggle-kartlag-wrapper${
+        className={`toggle-kartlag-wrapper bottom-animation${
           fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
@@ -209,7 +213,7 @@ const KartlagFanen = props => {
         </Button>
       </div> */}
       <div
-        className={`kartlag_fanen${
+        className={`kartlag_fanen height-animation${
           fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
