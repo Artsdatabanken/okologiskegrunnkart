@@ -653,6 +653,22 @@ h4.container_header {
 }
 
 /* General transitions */
+.bottom-animation {
+  -webkit-transition: bottom 0.5s;
+  -moz-transition: bottom 0.5s;
+  -ms-transition: bottom 0.5s;
+  -o-transition: bottom 0.5s;
+  transition: bottom 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.height-animation {
+  -webkit-transition: height 0.5s;
+  -moz-transition: height 0.5s;
+  -ms-transition: height 0.5s;
+  -o-transition: height 0.5s;
+  transition: height 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 @media only screen and (max-width: 768px) {
   .bottom-animation {
     -webkit-transition: bottom 0.5s;
@@ -660,7 +676,7 @@ h4.container_header {
     -ms-transition: bottom 0.5s;
     -o-transition: bottom 0.5s;
     transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
   .height-animation {
     -webkit-transition: height 0.5s;
@@ -668,7 +684,7 @@ h4.container_header {
     -ms-transition: height 0.5s;
     -o-transition: height 0.5s;
     transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 

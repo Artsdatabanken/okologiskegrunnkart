@@ -45,7 +45,6 @@ const KartlagFanen = props => {
   const toggleSideBar = () => {
     if (fullscreen) {
       handleSideBar(true);
-      setFullscreen(false);
     } else if (showSideBar) {
       handleSideBar(false);
     } else {
@@ -116,10 +115,10 @@ const KartlagFanen = props => {
         setY(y0);
         disp = 0;
         kartlagSlider.classList.toggle("bottom-animation", !(locked = false));
-        kartlag.classList.toggle("height-animation", !(locked = false));
-        kartlagBack.classList.toggle("height-animation", !(locked = false));
         kartlagSlider.style.setProperty("--h", 0 + "px");
+        kartlag.classList.toggle("height-animation", !(locked = false));
         kartlag.style.setProperty("--h", 0 + "px");
+        kartlagBack.classList.toggle("height-animation", !(locked = false));
         kartlagBack.style.setProperty("--h", 0 + "px");
       }
     }
