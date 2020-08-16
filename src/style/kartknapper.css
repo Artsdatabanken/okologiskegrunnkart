@@ -60,10 +60,22 @@
   .change_map_buttons {
     top: auto;
     bottom: 20px;
+    -webkit-transition: bottom 0.5s;
+    -moz-transition: bottom 0.5s;
+    -ms-transition: bottom 0.5s;
+    -o-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .change_map_buttons.side-bar-open {
     top: auto;
     bottom: calc(40vh + 20px);
+    -webkit-transition: bottom 0.5s;
+    -moz-transition: bottom 0.5s;
+    -ms-transition: bottom 0.5s;
+    -o-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
 }
 
@@ -91,10 +103,22 @@
   .map_ref {
     top: auto;
     bottom: 0;
+    -webkit-transition: bottom 0.5s;
+    -moz-transition: bottom 0.5s;
+    -ms-transition: bottom 0.5s;
+    -o-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .map_ref.side-bar-open {
     top: auto;
     bottom: 40vh;
+    -webkit-transition: bottom 0.5s;
+    -moz-transition: bottom 0.5s;
+    -ms-transition: bottom 0.5s;
+    -o-transition: bottom 0.5s;
+    transition: bottom 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .map-active-format-text {
     display: none;

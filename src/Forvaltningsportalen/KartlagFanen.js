@@ -77,7 +77,9 @@ const KartlagFanen = props => {
   }, [Y, DY, showSideBar, fullscreen, handleSideBar]);
 
   useEffect(() => {
+    const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     let y0 = 0;
+
     function lock(e) {
       if (
         e.changedTouches &&
@@ -100,13 +102,12 @@ const KartlagFanen = props => {
       }
     }
 
-    const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     kartlagSlider.addEventListener("touchstart", lock);
     kartlagSlider.addEventListener("touchend", move);
 
     return () => {
       kartlagSlider.removeEventListener("touchstart", lock);
-      return () => kartlagSlider.removeEventListener("touchend", move);
+      kartlagSlider.removeEventListener("touchend", move);
     };
   }, []);
 
@@ -132,7 +133,11 @@ const KartlagFanen = props => {
           />
         </Button>
       </div>
-      {fullscreen && <div className={"fullscreen-back-visible"} />}
+      <div
+        className={`fullscreen-button-back${
+          fullscreen ? " side-bar-fullscreen" : ""
+        }`}
+      />
       <div
         className={`toggle-kartlag-wrapper${
           fullscreen
