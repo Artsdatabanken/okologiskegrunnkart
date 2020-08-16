@@ -209,6 +209,7 @@ h4.container_header {
 }
 @media only screen and (max-width: 768px) {
   .fullscreen-button-back {
+    --h: 0px;
     display: block;
     position: absolute;
     width: 100vw;
@@ -224,7 +225,7 @@ h4.container_header {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .fullscreen-button-back.side-bar-fullscreen {
-    height: calc(100% - 50px);
+    height: calc(100% - 50px + var(--h, 0px));
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;

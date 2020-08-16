@@ -82,6 +82,7 @@ const KartlagFanen = props => {
 
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
+    const kartlagBack = document.querySelector(".fullscreen-button-back");
     kartlag.style.setProperty("--h", disp + "px");
 
     function lock(e) {
@@ -103,31 +104,28 @@ const KartlagFanen = props => {
         const dy = e.changedTouches[0].clientY - y0;
         setDY(dy);
         setY(y0);
+        disp = 0;
         kartlagSlider.style.setProperty("--h", 0 + "px");
         kartlag.style.setProperty("--h", 0 + "px");
+        kartlagBack.style.setProperty("--h", 0 + "px");
       }
     }
 
     function drag(e) {
       disp = -(e.changedTouches[0].clientY - y0);
-      kartlagSlider.style.setProperty(
-        "--h",
-        `${-(e.changedTouches[0].clientY - y0)}px`
-      );
-      kartlag.style.setProperty(
-        "--h",
-        `${-(e.changedTouches[0].clientY - y0)}px`
-      );
+      kartlagSlider.style.setProperty("--h", disp + "px");
+      kartlag.style.setProperty("--h", disp + "px");
+      kartlagBack.style.setProperty("--h", disp + "px");
     }
 
-    kartlagSlider.addEventListener("touchstart", lock);
-    kartlagSlider.addEventListener("touchend", move);
-    kartlagSlider.addEventListener("touchmove", drag);
+    kartlagSlider.addEventListener("touchstart", lock, false);
+    kartlagSlider.addEventListener("touchend", move, false);
+    kartlagSlider.addEventListener("touchmove", drag, false);
 
     return () => {
-      kartlagSlider.removeEventListener("touchstart", lock);
-      kartlagSlider.removeEventListener("touchend", move);
-      kartlagSlider.addEventListener("touchmove", drag);
+      kartlagSlider.removeEventListener("touchstart", lock, false);
+      kartlagSlider.removeEventListener("touchend", move, false);
+      kartlagSlider.addEventListener("touchmove", drag, false);
     };
   }, []);
 
