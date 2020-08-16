@@ -83,7 +83,8 @@ const KartlagFanen = props => {
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
     const kartlagBack = document.querySelector(".fullscreen-button-back");
-    kartlag.style.setProperty("--h", disp + "px");
+    // kartlag.style.setProperty("--h", disp + "px");
+    console.log(kartlagSlider);
 
     function lock(e) {
       if (
@@ -112,7 +113,8 @@ const KartlagFanen = props => {
     }
 
     function drag(e) {
-      disp = -(e.changedTouches[0].clientY - y0);
+      disp = -Math.round(e.changedTouches[0].clientY - y0);
+      console.log(disp);
       kartlagSlider.style.setProperty("--h", disp + "px");
       kartlag.style.setProperty("--h", disp + "px");
       kartlagBack.style.setProperty("--h", disp + "px");
