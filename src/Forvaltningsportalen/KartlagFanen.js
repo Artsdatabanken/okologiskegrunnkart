@@ -77,8 +77,12 @@ const KartlagFanen = props => {
   }, [Y, DY, showSideBar, fullscreen, handleSideBar]);
 
   useEffect(() => {
-    const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     let y0 = 0;
+    let disp = 0;
+
+    const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
+    const kartlag = document.querySelector(".kartlag_fanen");
+    kartlag.style.setProperty("--h", disp + "px");
 
     function lock(e) {
       if (
@@ -99,15 +103,31 @@ const KartlagFanen = props => {
         const dy = e.changedTouches[0].clientY - y0;
         setDY(dy);
         setY(y0);
+        kartlagSlider.style.setProperty("--h", 0 + "px");
+        kartlag.style.setProperty("--h", 0 + "px");
       }
+    }
+
+    function drag(e) {
+      disp = -(e.changedTouches[0].clientY - y0);
+      kartlagSlider.style.setProperty(
+        "--h",
+        `${-(e.changedTouches[0].clientY - y0)}px`
+      );
+      kartlag.style.setProperty(
+        "--h",
+        `${-(e.changedTouches[0].clientY - y0)}px`
+      );
     }
 
     kartlagSlider.addEventListener("touchstart", lock);
     kartlagSlider.addEventListener("touchend", move);
+    kartlagSlider.addEventListener("touchmove", drag);
 
     return () => {
       kartlagSlider.removeEventListener("touchstart", lock);
       kartlagSlider.removeEventListener("touchend", move);
+      kartlagSlider.addEventListener("touchmove", drag);
     };
   }, []);
 
