@@ -162,10 +162,6 @@ const KartlagFanen = props => {
   useEffect(() => {
     const toggleButton = document.querySelector(".toggle-side-bar-wrapper");
 
-    // function show(e) {
-    //   setInTransition(true);
-    // }
-
     function hide(e) {
       if (
         e.srcElement.className &&
@@ -174,14 +170,11 @@ const KartlagFanen = props => {
       ) {
         setInTransition("finished");
       }
-      //
     }
 
-    // kartlagButton.addEventListener("transitionstart", show, false);
     toggleButton.addEventListener("transitionend", hide, false);
 
     return () => {
-      // kartlagButton.addEventListener("transitionstart", show, false);
       toggleButton.removeEventListener("transitionend", hide, false);
     };
   }, []);
@@ -207,6 +200,7 @@ const KartlagFanen = props => {
           <CustomIcon
             id="show-layers-icon"
             icon={props.showSideBar ? "menu-right" : "menu-left"}
+            color="#666"
             size={30}
           />
         </Button>
@@ -235,13 +229,8 @@ const KartlagFanen = props => {
         >
           <CustomIcon
             id="show-layers-icon"
-            icon={
-              fullscreen
-                ? "menu-down"
-                : props.showSideBar
-                ? "menu-up-down"
-                : "menu-up"
-            }
+            icon="drag-horizontal"
+            color="#666"
             size={30}
           />
         </Button>
