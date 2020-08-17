@@ -565,6 +565,7 @@ class Leaflet extends React.Component {
             handleSmallInfobox={this.props.handleSmallInfobox}
             handleInfobox={this.props.handleInfobox}
             showSideBar={this.props.showSideBar}
+            showFullSideBar={this.props.showFullSideBar}
           />
         )}
       </>

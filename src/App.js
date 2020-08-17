@@ -61,7 +61,8 @@ class App extends React.Component {
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
       legendVisible: false,
-      showSmallInfobox: false
+      showSmallInfobox: false,
+      showFullSideBar: false
     };
   }
 
@@ -251,6 +252,7 @@ class App extends React.Component {
                         showSideBar={this.state.showSideBar}
                         showSmallInfobox={this.state.showSmallInfobox}
                         handleSmallInfobox={this.handleSmallInfobox}
+                        showFullSideBar={this.state.showFullSideBar}
                         {...this.state}
                       />
                       <KartVelger
@@ -304,6 +306,7 @@ class App extends React.Component {
                         }
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
+                        handleFullsSideBar={this.handleFullsSideBar}
                       />
                     </div>
                   </>
@@ -866,6 +869,10 @@ class App extends React.Component {
 
   handleSideBar = show => {
     this.setState({ showSideBar: show });
+  };
+
+  handleFullsSideBar = show => {
+    this.setState({ showFullSideBar: show });
   };
 
   handleInfobox = bool => {

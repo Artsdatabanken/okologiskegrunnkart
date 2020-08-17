@@ -10,7 +10,6 @@ import { Button } from "@material-ui/core";
 import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
 
 const KartlagFanen = props => {
-  // const [showDetails, setShowDetails] = useState(false);
   const [underlag, setUnderlag] = useState(null);
   const [kartlagKey, setKartlagKey] = useState(null);
   const [underlagKey, setUnderlagKey] = useState(null);
@@ -40,7 +39,7 @@ const KartlagFanen = props => {
     props.setSublayerDetailsVisible(true);
   };
 
-  const { showSideBar, handleSideBar } = props;
+  const { showSideBar, handleSideBar, handleFullsSideBar } = props;
 
   const toggleSideBar = () => {
     if (fullscreen) {
@@ -51,6 +50,7 @@ const KartlagFanen = props => {
       handleSideBar(true);
     }
     setFullscreen(false);
+    handleFullsSideBar(false);
   };
 
   useEffect(() => {
@@ -58,22 +58,26 @@ const KartlagFanen = props => {
       if (!showSideBar && !fullscreen) {
         handleSideBar(true);
         setFullscreen(false);
+        handleFullsSideBar(false);
       } else if (showSideBar) {
         handleSideBar(false);
         setFullscreen(true);
+        handleFullsSideBar(true);
       }
       setY(0);
     } else if (DY > 0 && Y !== 0) {
       if (fullscreen) {
         handleSideBar(true);
         setFullscreen(false);
+        handleFullsSideBar(false);
       } else if (showSideBar) {
         handleSideBar(false);
         setFullscreen(false);
+        handleFullsSideBar(false);
       }
       setY(0);
     }
-  }, [Y, DY, showSideBar, fullscreen, handleSideBar]);
+  }, [Y, DY, showSideBar, fullscreen, handleSideBar, handleFullsSideBar]);
 
   useEffect(() => {
     let y0 = 0;

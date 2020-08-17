@@ -7,7 +7,8 @@ const InfoBoxSmall = ({
   sted,
   handleSmallInfobox,
   handleInfobox,
-  showSideBar
+  showSideBar,
+  showFullSideBar
 }) => {
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
