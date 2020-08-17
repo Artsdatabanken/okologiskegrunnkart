@@ -36,7 +36,9 @@ class ForvaltningsKartlag extends React.Component {
     const {
       onUpdateLayerProp,
       changeVisibleSublayers,
-      changeExpandedLayers
+      changeExpandedLayers,
+      showSideBar,
+      fullscreen
     } = this.props;
     let lag = this.props.kartlag;
     let sortKey = this.state.sortKey;
@@ -81,65 +83,72 @@ class ForvaltningsKartlag extends React.Component {
 
     return (
       <>
-        <div className="header-layers-menu">
+        <div
+          className={`header-layers-menu${
+            fullscreen ? " header-fullscreen" : ""
+          }`}
+        >
           <div className="sort-filter-layers-wrapper">
             <div>
               <Typography variant="h6">Kartlag</Typography>
               <Typography variant="body2">
-                {this.sortKeyToDescription[sortKey]}
+                {showSideBar || fullscreen
+                  ? this.sortKeyToDescription[sortKey]
+                  : "Trykk eller dra for å åpne"}
               </Typography>
             </div>
-            <div className="sort-filter-icons-wrapper">
-              <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
-              <Filtrering
-                taglist={taglist}
-                tagFilter={this.state.tagFilter}
-                onFilterTag={this.handleFilterTag}
-              />
-            </div>
-          </div>
-          {tags && tags.length > 0 && (
-            <div className="selected-tags-wrapper">
-              <div className="selected-tags-tittle">
-                <Typography id="filters-header" variant="body2">
-                  Filtrer
-                </Typography>
-                {tags.length > 1 && (
-                  <div className="filter-options-wrapper">
-                    <Button
-                      id="filter-all-button"
-                      size="small"
-                      color={
-                        this.state.matchAllFilters ? "primary" : "secondary"
-                      }
-                      onClick={() => {
-                        this.setState({ matchAllFilters: true });
-                      }}
-                    >
-                      Matcher alle
-                    </Button>
-                    /
-                    <Button
-                      id="filter-all-button"
-                      size="small"
-                      color={
-                        this.state.matchAllFilters ? "secondary" : "primary"
-                      }
-                      onClick={() => {
-                        this.setState({ matchAllFilters: false });
-                      }}
-                    >
-                      Matcher minst ett
-                    </Button>
-                  </div>
-                )}
+            {(showSideBar || fullscreen) && (
+              <div className="sort-filter-icons-wrapper">
+                <Sortering
+                  sort={sortKey}
+                  onChangeSort={this.handleChangeSort}
+                />
+                <Filtrering
+                  taglist={taglist}
+                  tagFilter={this.state.tagFilter}
+                  onFilterTag={this.handleFilterTag}
+                />
               </div>
-              {tags.reduce((accu, elem, index) => {
-                return accu === null ? [elem] : [...accu, elem];
-              }, null)}
-            </div>
-          )}
+            )}
+          </div>
         </div>
+        {tags && tags.length > 0 && (
+          <div className="selected-tags-wrapper">
+            <div className="selected-tags-tittle">
+              <Typography id="filters-header" variant="body2">
+                Filtrer
+              </Typography>
+              {tags.length > 1 && (
+                <div className="filter-options-wrapper">
+                  <Button
+                    id="filter-all-button"
+                    size="small"
+                    color={this.state.matchAllFilters ? "primary" : "secondary"}
+                    onClick={() => {
+                      this.setState({ matchAllFilters: true });
+                    }}
+                  >
+                    Matcher alle
+                  </Button>
+                  /
+                  <Button
+                    id="filter-all-button"
+                    size="small"
+                    color={this.state.matchAllFilters ? "secondary" : "primary"}
+                    onClick={() => {
+                      this.setState({ matchAllFilters: false });
+                    }}
+                  >
+                    Matcher minst ett
+                  </Button>
+                </div>
+              )}
+            </div>
+            {tags.reduce((accu, elem, index) => {
+              return accu === null ? [elem] : [...accu, elem];
+            }, null)}
+          </div>
+        )}
 
         <div className="legend-link-background">
           <div className="legend-link-wrapper">
