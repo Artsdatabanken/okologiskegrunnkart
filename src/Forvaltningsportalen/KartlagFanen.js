@@ -16,6 +16,7 @@ const KartlagFanen = props => {
   const [fullscreen, setFullscreen] = useState(null);
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
+  const [screenHeight, setScreenHeight] = useState(0);
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
     setUnderlag(underlag);
@@ -39,7 +40,7 @@ const KartlagFanen = props => {
     props.setSublayerDetailsVisible(true);
   };
 
-  const { showSideBar, handleSideBar, handleFullsSideBar } = props;
+  const { showSideBar, handleSideBar } = props;
 
   const toggleSideBar = () => {
     if (fullscreen) {
@@ -50,34 +51,35 @@ const KartlagFanen = props => {
       handleSideBar(true);
     }
     setFullscreen(false);
-    handleFullsSideBar(false);
   };
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
-      if (!showSideBar && !fullscreen) {
+      if (Math.abs(DY) > screenHeight * 0.4) {
+        handleSideBar(false);
+        setFullscreen(true);
+      } else if (!showSideBar && !fullscreen) {
         handleSideBar(true);
         setFullscreen(false);
-        handleFullsSideBar(false);
       } else if (showSideBar) {
         handleSideBar(false);
         setFullscreen(true);
-        handleFullsSideBar(true);
       }
       setY(0);
     } else if (DY > 0 && Y !== 0) {
-      if (fullscreen) {
+      if (Math.abs(DY) > screenHeight * 0.6 - 50) {
+        handleSideBar(false);
+        setFullscreen(false);
+      } else if (fullscreen) {
         handleSideBar(true);
         setFullscreen(false);
-        handleFullsSideBar(false);
       } else if (showSideBar) {
         handleSideBar(false);
         setFullscreen(false);
-        handleFullsSideBar(false);
       }
       setY(0);
     }
-  }, [Y, DY, showSideBar, fullscreen, handleSideBar, handleFullsSideBar]);
+  }, [Y, DY, screenHeight, showSideBar, fullscreen, handleSideBar]);
 
   useEffect(() => {
     let y0 = 0;
@@ -94,16 +96,17 @@ const KartlagFanen = props => {
         e.changedTouches.length > 0 &&
         e.changedTouches[0].clientY
       ) {
+        locked = true;
+        setScreenHeight(window.innerHeight);
         y0 = e.changedTouches[0].clientY;
-        kartlagSlider.classList.toggle("bottom-animation", !(locked = true));
-        kartlag.classList.toggle("kartlag-animation", !(locked = true));
-        kartlagBack.classList.toggle("height-animation", !(locked = true));
+        kartlagSlider.classList.toggle("bottom-animation", !locked);
+        kartlag.classList.toggle("kartlag-animation", !locked);
+        kartlagBack.classList.toggle("height-animation", !locked);
       }
     }
 
     function drag(e) {
       e.preventDefault();
-
       if (locked) {
         disp = -Math.round(e.changedTouches[0].clientY - y0);
         kartlagSlider.style.setProperty("--h", disp + "px");
@@ -114,15 +117,16 @@ const KartlagFanen = props => {
 
     function move(e) {
       if (locked) {
+        locked = false;
         const dy = e.changedTouches[0].clientY - y0;
         setDY(dy);
         setY(y0);
         disp = 0;
-        kartlagSlider.classList.toggle("bottom-animation", !(locked = false));
+        kartlagSlider.classList.toggle("bottom-animation", !locked);
         kartlagSlider.style.setProperty("--h", 0 + "px");
-        kartlag.classList.toggle("kartlag-animation", !(locked = false));
+        kartlag.classList.toggle("kartlag-animation", !locked);
         kartlag.style.setProperty("--h", 0 + "px");
-        kartlagBack.classList.toggle("height-animation", !(locked = false));
+        kartlagBack.classList.toggle("height-animation", !locked);
         kartlagBack.style.setProperty("--h", 0 + "px");
       }
     }
