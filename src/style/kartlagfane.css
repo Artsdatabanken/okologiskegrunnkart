@@ -661,6 +661,14 @@ h4.container_header {
   transition: bottom 0.5s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+.kartlag-animation {
+  -webkit-transition: width 0.5s;
+  -moz-transition: width 0.5s;
+  -ms-transition: width 0.5s;
+  -o-transition: width 0.5s;
+  transition: width 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 .height-animation {
   -webkit-transition: height 0.5s;
   -moz-transition: height 0.5s;
@@ -669,16 +677,16 @@ h4.container_header {
   transition: height 0.5s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
+.right-animation {
+  -webkit-transition: right 0.5s;
+  -moz-transition: right 0.5s;
+  -ms-transition: right 0.5s;
+  -o-transition: right 0.5s;
+  transition: right 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 @media only screen and (max-width: 768px) {
-  .bottom-animation {
-    -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .height-animation {
+  .kartlag-animation {
     -webkit-transition: height 0.5s;
     -moz-transition: height 0.5s;
     -ms-transition: height 0.5s;

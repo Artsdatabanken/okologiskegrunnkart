@@ -92,7 +92,7 @@ const KartlagFanen = props => {
       ) {
         y0 = e.changedTouches[0].clientY;
         kartlagSlider.classList.toggle("bottom-animation", !(locked = true));
-        kartlag.classList.toggle("height-animation", !(locked = true));
+        kartlag.classList.toggle("kartlag-animation", !(locked = true));
         kartlagBack.classList.toggle("height-animation", !(locked = true));
       }
     }
@@ -116,7 +116,7 @@ const KartlagFanen = props => {
         disp = 0;
         kartlagSlider.classList.toggle("bottom-animation", !(locked = false));
         kartlagSlider.style.setProperty("--h", 0 + "px");
-        kartlag.classList.toggle("height-animation", !(locked = false));
+        kartlag.classList.toggle("kartlag-animation", !(locked = false));
         kartlag.style.setProperty("--h", 0 + "px");
         kartlagBack.classList.toggle("height-animation", !(locked = false));
         kartlagBack.style.setProperty("--h", 0 + "px");
@@ -137,7 +137,7 @@ const KartlagFanen = props => {
   return (
     <>
       <div
-        className={`toggle-side-bar-wrapper${
+        className={`toggle-side-bar-wrapper right-animation${
           props.showSideBar ? " side-bar-open" : ""
         }`}
       >
@@ -212,7 +212,7 @@ const KartlagFanen = props => {
         </Button>
       </div> */}
       <div
-        className={`kartlag_fanen height-animation${
+        className={`kartlag_fanen kartlag-animation${
           fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
