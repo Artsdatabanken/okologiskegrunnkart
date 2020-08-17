@@ -15,7 +15,7 @@ const MainTabs = ({
   feature,
   setFeature,
   setDoc,
-  handleUpdate,
+  onUpdate,
   onUpdateLayerField,
   sub,
   selectedLayerIndex,
@@ -33,37 +33,37 @@ const MainTabs = ({
             title="WMS URL"
             dockey="wmsurl"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
           />
           <TextField2
             title="WMS version"
             dockey="wmsversion"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
           />
           <TextField2
             title="Projeksjon"
             dockey="projeksjon"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
           />
           <TextField2
             title="API URL (hvis tom brukes WMS url)"
             dockey="klikkurl"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
           />
           <TextField2
             title="Featureinfo format"
             dockey="wmsinfoformat"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
           />
           <TextField2
             title="Faktaark URL"
             dockey="faktaark"
             doc={doc}
-            onUpdate={handleUpdate}
+            onUpdate={onUpdate}
             onIconClick={() => {
               history.push(`?id=${doc._id}&sub=faktaark`);
             }}
