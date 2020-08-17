@@ -195,26 +195,6 @@ const KartlagFanen = props => {
           />
         </Button>
       </div>
-      {/* <div
-        className={`toggle-fullscreen-kartlag-wrapper${
-          fullscreen
-            ? " side-bar-fullscreen"
-            : props.showSideBar
-            ? " side-bar-open"
-            : ""
-        }`}
-      >
-        <Button
-          id="toggle-fullscreen-kartlag-button"
-          variant="contained"
-          size="small"
-          onClick={() => {
-            toggleFullscreenSideBar();
-          }}
-        >
-          {fullscreen ? <FullscreenExit /> : <Fullscreen />}
-        </Button>
-      </div> */}
       <div
         className={`kartlag_fanen kartlag-animation${
           fullscreen

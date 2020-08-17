@@ -10,22 +10,9 @@
   padding-top: 50px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-  /* display: none; */
-  /* transition: width 0.5s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  -webkit-transition: width 0.5s;
-  -moz-transition: width 0.5s;
-  -ms-transition: width 0.5s;
-  -o-transition: width 0.5s; */
 }
 .kartlag_fanen.side-bar-open {
   width: 408px;
-  /* display: block; */
-  /* transition: width 0.5s;
-  -webkit-transition: width 0.5s;
-  -moz-transition: width 0.5s;
-  -ms-transition: width 0.5s;
-  -o-transition: width 0.5s; */
 }
 
 @media only screen and (max-width: 768px) {
@@ -40,34 +27,16 @@
     height: calc(var(--h, 0px));
     overflow-y: hidden;
     width: 100%;
-    /* -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    -o-transition: height 0.5s;
-    transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .kartlag_fanen.side-bar-open {
     height: calc(40vh + var(--h, 0px));
     overflow-y: auto;
     width: 100%;
-    /* -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    -o-transition: height 0.5s;
-    transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .kartlag_fanen.side-bar-fullscreen {
     height: calc(100% - 30px - 50px + var(--h, 0px));
     overflow-y: auto;
     width: 100%;
-    /* -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    -o-transition: height 0.5s;
-    transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
 }
 
@@ -185,12 +154,6 @@ h4.container_header {
     z-index: 55;
     box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
       -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12);
-    /* -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .toggle-kartlag-wrapper.side-bar-open {
     top: auto;
@@ -206,6 +169,7 @@ h4.container_header {
 /* Background of the button when fullscreen kartlag */
 .fullscreen-button-back {
   display: none;
+  z-index: 50;
 }
 @media only screen and (max-width: 768px) {
   .fullscreen-button-back {
@@ -217,70 +181,11 @@ h4.container_header {
     background-color: rgba(187, 197, 204, 1);
     bottom: 0;
     right: 0;
-    /* -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    -o-transition: height 0.5s;
-    transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
   .fullscreen-button-back.side-bar-fullscreen {
     height: calc(100% - 50px + var(--h, 0px));
-    /* -webkit-transition: height 0.5s;
-    -moz-transition: height 0.5s;
-    -ms-transition: height 0.5s;
-    -o-transition: height 0.5s;
-    transition: height 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms; */
   }
 }
-
-/* Fullscreen side bar show/hide button mobile */
-/* .toggle-fullscreen-kartlag-wrapper {
-  display: none;
-}
-#toggle-fullscreen-kartlag-button {
-  border-radius: 4px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border: 1px solid grey;
-  border-bottom: 0;
-  width: 32px !important;
-  min-height: 32px;
-  max-height: 32px;
-  width: 55px;
-  min-width: 55px;
-  max-width: 55px;
-  padding: 0;
-}
-@media only screen and (max-width: 768px) {
-  .toggle-fullscreen-kartlag-wrapper {
-    border-radius: 4px;
-    position: absolute;
-    display: block;
-    right: 0;
-    top: auto;
-    bottom: calc(0vh - 2px);
-    background-color: rgba(187, 197, 204, 1);
-    box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
-      -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12);
-  }
-  .toggle-fullscreen-kartlag-wrapper.side-bar-open {
-    bottom: calc(40vh - 2px);
-    background-color: rgba(187, 197, 204, 1);
-  }
-  .toggle-fullscreen-kartlag-wrapper.side-bar-fullscreen {
-    right: 0;
-    top: calc(0vh + 50px);
-    bottom: auto;
-    width: 100vw;
-    box-shadow: none;
-  }
-  .toggle-fullscreen-kartlag-wrapper.side-bar-fullscreen
-    #toggle-fullscreen-kartlag-button {
-    margin-left: calc(100vw - 55px);
-  }
-} */
 
 #show-layers-icon {
   display: flex;

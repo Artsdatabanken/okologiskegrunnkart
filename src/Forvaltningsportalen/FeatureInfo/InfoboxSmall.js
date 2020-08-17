@@ -51,35 +51,33 @@ const InfoBoxSmall = ({
           <Close />
         </button>
       </div>
-      {!showSideBar && (
-        <div
-          className="small-infobox-body"
-          onClick={() => handleInfobox(true)}
-          onKeyPress={() => handleInfobox(true)}
-          role="button"
-          tabIndex="-1"
-        >
+      <div
+        className={`small-infobox-body${showSideBar ? " tiny-box" : ""}`}
+        onClick={() => handleInfobox(true)}
+        onKeyPress={() => handleInfobox(true)}
+        role="button"
+        tabIndex="-1"
+      >
+        <div className="small-infobox-content">
           {sted && (
-            <div className="small-infobox-content">
-              <div className="small-infobox-text-wrapper">
-                <div className="small-infobox-text-multiple">
-                  <div className="small-infobox-text-primary">
-                    {sted.kommunenavn[0]}
-                  </div>
-                  <div className="small-infobox-text-secondary">
-                    {sted.kommunenummer[0]}
-                  </div>
-                </div>
-              </div>
-              <div className="small-infobox-text-wrapper">
+            <div className="small-infobox-text-wrapper">
+              <div className="small-infobox-text-multiple">
                 <div className="small-infobox-text-primary">
-                  {coordinates_area ? coords : "--° N --° Ø"}
+                  {sted.kommunenavn[0]}
+                </div>
+                <div className="small-infobox-text-secondary">
+                  {sted.kommunenummer[0]}
                 </div>
               </div>
             </div>
           )}
+          <div className="small-infobox-text-wrapper">
+            <div className="small-infobox-text-primary">
+              {coordinates_area ? coords : "--° N --° Ø"}
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 };
