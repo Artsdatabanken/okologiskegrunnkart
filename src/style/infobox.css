@@ -442,7 +442,7 @@
   .small-infobox-container {
     position: absolute;
     top: auto;
-    bottom: 35px;
+    bottom: 50px;
     right: 5vw;
     width: 90vw;
     z-index: 50;
@@ -458,7 +458,7 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .small-infobox-container.tiny-box {
-    bottom: calc(40vh + 35px);
+    bottom: calc(45vh + 25px);
     -webkit-transition: bottom 0.5s;
     -moz-transition: bottom 0.5s;
     -ms-transition: bottom 0.5s;

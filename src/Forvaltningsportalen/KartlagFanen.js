@@ -105,7 +105,6 @@ const KartlagFanen = props => {
 
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
-    // const kartlagBack = document.querySelector(".fullscreen-button-back");
 
     function lock(e) {
       if (
@@ -118,7 +117,6 @@ const KartlagFanen = props => {
         y0 = e.changedTouches[0].clientY;
         kartlagSlider.classList.toggle("bottom-animation", !locked);
         kartlag.classList.toggle("kartlag-animation", !locked);
-        // kartlagBack.classList.toggle("height-animation", !locked);
       }
     }
 
@@ -128,7 +126,6 @@ const KartlagFanen = props => {
         disp = -Math.round(e.changedTouches[0].clientY - y0);
         kartlagSlider.style.setProperty("--h", disp + "px");
         kartlag.style.setProperty("--h", disp + "px");
-        // kartlagBack.style.setProperty("--h", disp + "px");
       }
     }
 
@@ -143,8 +140,6 @@ const KartlagFanen = props => {
         kartlagSlider.style.setProperty("--h", 0 + "px");
         kartlag.classList.toggle("kartlag-animation", !locked);
         kartlag.style.setProperty("--h", 0 + "px");
-        // kartlagBack.classList.toggle("height-animation", !locked);
-        // kartlagBack.style.setProperty("--h", 0 + "px");
       }
     }
 
@@ -312,8 +307,6 @@ const KartlagFanen = props => {
                   zoom={props.zoom}
                   showSublayerDetails={showSublayerDetails}
                   setLegendVisible={props.setLegendVisible}
-                  showSideBar={showSideBar}
-                  fullscreen={fullscreen}
                 />
               </div>
             </div>

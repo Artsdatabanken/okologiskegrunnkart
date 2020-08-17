@@ -36,9 +36,7 @@ class ForvaltningsKartlag extends React.Component {
     const {
       onUpdateLayerProp,
       changeVisibleSublayers,
-      changeExpandedLayers,
-      showSideBar,
-      fullscreen
+      changeExpandedLayers
     } = this.props;
     let lag = this.props.kartlag;
     let sortKey = this.state.sortKey;
@@ -83,33 +81,22 @@ class ForvaltningsKartlag extends React.Component {
 
     return (
       <>
-        <div
-          className={`header-layers-menu${
-            fullscreen ? " header-fullscreen" : ""
-          }`}
-        >
+        <div className="header-layers-menu">
           <div className="sort-filter-layers-wrapper">
             <div>
               <Typography variant="h6">Kartlag</Typography>
               <Typography variant="body2">
-                {showSideBar || fullscreen
-                  ? this.sortKeyToDescription[sortKey]
-                  : "Trykk eller dra for å åpne"}
+                {this.sortKeyToDescription[sortKey]}
               </Typography>
             </div>
-            {(showSideBar || fullscreen) && (
-              <div className="sort-filter-icons-wrapper">
-                <Sortering
-                  sort={sortKey}
-                  onChangeSort={this.handleChangeSort}
-                />
-                <Filtrering
-                  taglist={taglist}
-                  tagFilter={this.state.tagFilter}
-                  onFilterTag={this.handleFilterTag}
-                />
-              </div>
-            )}
+            <div className="sort-filter-icons-wrapper">
+              <Sortering sort={sortKey} onChangeSort={this.handleChangeSort} />
+              <Filtrering
+                taglist={taglist}
+                tagFilter={this.state.tagFilter}
+                onFilterTag={this.handleFilterTag}
+              />
+            </div>
           </div>
         </div>
         {tags && tags.length > 0 && (
