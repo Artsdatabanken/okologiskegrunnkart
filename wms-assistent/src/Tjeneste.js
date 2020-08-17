@@ -29,7 +29,7 @@ const Tjeneste = ({
         selectedLayerIndex={selectedLayerIndex}
       />
       <Button
-        style={{ width: "100%", marginTop: 16, marginBottom: 16 }}
+        style={{ width: 476, margin: 16 }}
         onClick={onSave}
         variant="contained"
         color="primary"
