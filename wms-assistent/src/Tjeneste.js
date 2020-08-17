@@ -36,7 +36,7 @@ const Tjeneste = ({
         size="large"
         startIcon={<SaveIcon />}
       >
-        Oppdater feltene under i Django
+        Oppdater feltene over i Django
       </Button>
     </form>
   );
