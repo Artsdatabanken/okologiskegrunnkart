@@ -12,7 +12,7 @@ import LayersIcon from "@material-ui/icons/Layers";
 import ReportIcon from "@material-ui/icons/Report";
 import CheckIcon from "@material-ui/icons/Check";
 
-const KartlagList = ({ kartlag }) => {
+const Kartlagliste = ({ kartlag }) => {
   const history = useHistory();
   if (!kartlag) return null;
   return (
@@ -23,7 +23,16 @@ const KartlagList = ({ kartlag }) => {
         const aok =
           lag.wmsurl && lag.wmsversion && lag.projeksjon && lag.wmsinfoformat;
         return (
-          <ListItem key={k} button onClick={() => history.push("/?id=" + k)}>
+          <ListItem
+            key={k}
+            button
+            onClick={() => {
+              const url = new URL(window.location);
+              url.searchParams.set("ulid", k);
+              url.searchParams.delete("sub");
+              history.push("/" + url.search);
+            }}
+          >
             <ListItemAvatar>
               <LayersIcon></LayersIcon>
             </ListItemAvatar>
@@ -42,4 +51,4 @@ const KartlagList = ({ kartlag }) => {
   );
 };
 
-export default KartlagList;
+export default Kartlagliste;

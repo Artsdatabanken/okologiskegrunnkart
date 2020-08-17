@@ -5,17 +5,21 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemText,
-  ListSubheader,
+  ListSubheader
 } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { Switch, Route, useHistory } from "react-router-dom";
 import TjenesteContainer from "./Tjeneste";
 
-const Tjenester = ({ match }) => (
+const Tjenester = () => (
   <div>
     <Switch>
-      <Route path="/" component={TjenesteContainer} />
-      <Route path="/tjeneste" component={Tjenesteliste} />
+      <Route path="/">
+        <TjenesteContainer />
+      </Route>
+      <Route path="/tjeneste">
+        <Tjenesteliste />
+      </Route>
     </Switch>
   </div>
 );
@@ -29,7 +33,7 @@ function Tjenesteliste({}) {
     <>
       <List>
         <ListSubheader>Alle tjenester</ListSubheader>
-        {docs.map((doc) => (
+        {docs.map(doc => (
           <ListItem
             button
             dense

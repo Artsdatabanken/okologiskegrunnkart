@@ -1,6 +1,6 @@
 import React from "react";
 import { IconButton, InputAdornment, TextField } from "@material-ui/core";
-import OpenInNew from "@material-ui/icons/OpenInNew";
+import { OpenInNew } from "@material-ui/icons";
 
 const TextField2 = ({ title, dockey, doc, onUpdate, icon, onIconClick }) => {
   const value = doc[dockey];
@@ -19,7 +19,7 @@ const TextField2 = ({ title, dockey, doc, onUpdate, icon, onIconClick }) => {
               )}
             </IconButton>
           </InputAdornment>
-        ),
+        )
       }
     : {};
   return (
@@ -38,11 +38,10 @@ const TextField2 = ({ title, dockey, doc, onUpdate, icon, onIconClick }) => {
 const TextField3 = ({ title, value, onUpdate, dockey, inputProps }) => (
   <TextField
     label={title}
-    variant="outlined"
     multiline
     value={value || ""}
-    style={{ marginTop: 8, width: "100%" }}
-    onChange={(e) => onUpdate(dockey, e.target.value)}
+    style={{ marginTop: 12, marginLeft: 16, marginRight: 16, width: 472 }}
+    onChange={e => onUpdate(dockey, e.target.value)}
     InputProps={inputProps}
   />
 );

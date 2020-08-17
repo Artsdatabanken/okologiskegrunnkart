@@ -1,6 +1,6 @@
 import React from "react";
 
-const Test = (props) => {
+const Test = props => {
   return <div>Test v={props.v}</div>;
 };
 
@@ -10,9 +10,7 @@ function lookup(o, path, warn) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (o[segment] === undefined) {
-      warn.push(
-        path + ": " + segment + " mangler i " + Object.keys(o).join(",")
-      );
+      warn.push(path + ": mangler i respons");
       return null;
     }
     o = o[segment];
@@ -42,14 +40,14 @@ const klikktekst = (input, formatstring = "") => {
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
   var hits = Array.from(matches);
-  hits = hits.map((e) => {
+  hits = hits.map(e => {
     const r = e.groups;
     r.component = mapComponent(r.component);
     return r;
   });
 
   const warn = [];
-  const verdier = hits.map((e) => {
+  const verdier = hits.map(e => {
     if (e.component) return React.createElement(Test, e.component.props);
     if (e.variable) return lookup(input, e.variable, warn);
     if (e.literal) return e.literal;

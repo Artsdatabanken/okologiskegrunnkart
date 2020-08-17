@@ -5,7 +5,7 @@ export function plukkForetrukketFormat(formats) {
     "text/xml",
     "application/vnd.esri.wms_featureinfo_xml",
     "application/vnd.esri.wms_raw_xml",
-    "application/geojson",
+    "application/geojson"
   ];
 
   formats = formats.reduce((acc, e) => {
@@ -30,13 +30,11 @@ export function selectCrs(capability) {
 }
 
 export function computeLegendUrl(layer, underlag) {
-  console.log(layer);
   const url = new URL(layer.wmsurl);
   url.searchParams.set("version", layer.wmsversion);
   url.searchParams.set("service", "WMS");
   url.searchParams.set("request", "GetLegendGraphic");
   url.searchParams.set("layer", underlag.wmslayer);
   url.searchParams.set("format", "image/png");
-  console.log(url.toString());
   return url.toString();
 }

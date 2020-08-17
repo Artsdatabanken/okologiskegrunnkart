@@ -9,7 +9,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import TextField2 from "./TextField2";
 import { Alert } from "@material-ui/lab";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import KlikkResultatPreview from "./KlikkResultatPreview";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
@@ -35,33 +34,33 @@ const FeaturePicker = ({
   onClick,
   picker,
   variabel,
-  doc,
+  layer,
   onUpdate
 }) => {
   const classes = useStyles();
   const history = useHistory();
 
-  const resultat = klikktekst(feature, doc[picker]);
+  const resultat = klikktekst(feature, layer[picker]);
   return (
     <Paper depth={4} className={classes.panel}>
       {feature ? (
         <>
           {true && (
             <IconButton
-              onClick={() => history.push(`?id=${doc._id}`)}
+              onClick={() => history.goBack()}
               style={{ zIndex: 100, position: "fixed", left: 536, top: 8 }}
             >
               <CloseIcon></CloseIcon>
             </IconButton>
           )}
           <Typography variant="h5">
-            {doc.tittel} - {variabel}
+            {layer.tittel} - {variabel}
           </Typography>
           <div style={{ margin: 16 }}>
             <TextField2
               title={`Formatstreng for ${variabel}`}
               dockey={picker}
-              doc={doc}
+              doc={layer}
               onUpdate={onUpdate}
             />
             {resultat.warn &&
@@ -76,7 +75,7 @@ const FeaturePicker = ({
             Klikk på node for å legge til i visning for {variabel}:
           </Typography>
           <Typography variant="body2">
-            GetFeatureInfo {doc.testkoordinater}
+            GetFeatureInfo {layer.testkoordinater}
           </Typography>
           <TreeView
             className={classes.root}
@@ -86,7 +85,6 @@ const FeaturePicker = ({
           >
             <RecursiveTreeView o={feature} onClick={onClick} />
           </TreeView>
-          <KlikkResultatPreview doc={doc} feature={feature} />
         </>
       ) : (
         <div>Sett et punkt i kartet.</div>
@@ -96,7 +94,6 @@ const FeaturePicker = ({
 };
 
 function RecursiveTreeView({ parentkey, o, onClick }) {
-  console.log("parentkey", parentkey, "o", o);
   return (
     <>
       {Object.keys(o || {}).map(key => {
