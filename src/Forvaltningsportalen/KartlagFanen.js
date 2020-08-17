@@ -41,7 +41,7 @@ const KartlagFanen = props => {
     props.setSublayerDetailsVisible(true);
   };
 
-  const { showSideBar, handleSideBar } = props;
+  const { showSideBar, handleSideBar, legendVisible } = props;
 
   const toggleSideBarVisible = async () => {
     if (window.innerWidth > 768) {
@@ -115,7 +115,7 @@ const KartlagFanen = props => {
         locked = true;
         setScreenHeight(window.innerHeight);
         y0 = e.changedTouches[0].clientY;
-        kartlagSlider.classList.toggle("bottom-animation", !locked);
+        kartlagSlider.classList.toggle("swiper-animation", !locked);
         kartlag.classList.toggle("kartlag-animation", !locked);
       }
     }
@@ -136,7 +136,7 @@ const KartlagFanen = props => {
         setDY(dy);
         setY(y0);
         disp = 0;
-        kartlagSlider.classList.toggle("bottom-animation", !locked);
+        kartlagSlider.classList.toggle("swiper-animation", !locked);
         kartlagSlider.style.setProperty("--h", 0 + "px");
         kartlag.classList.toggle("kartlag-animation", !locked);
         kartlag.style.setProperty("--h", 0 + "px");
@@ -200,13 +200,13 @@ const KartlagFanen = props => {
         </Button>
       </div>
       <div
-        className={`toggle-kartlag-wrapper bottom-animation${
+        className={`toggle-kartlag-wrapper swiper-animation${
           fullscreen
             ? " side-bar-fullscreen"
             : props.showSideBar
             ? " side-bar-open"
             : ""
-        }`}
+        }${legendVisible ? " legend-visible" : ""}`}
       >
         <button
           id="toggle-kartlag-button"
