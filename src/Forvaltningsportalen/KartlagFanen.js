@@ -17,6 +17,7 @@ const KartlagFanen = props => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
   const [screenHeight, setScreenHeight] = useState(0);
+  const [inTransition, setInTransition] = useState(null);
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
     setUnderlag(underlag);
@@ -41,6 +42,14 @@ const KartlagFanen = props => {
   };
 
   const { showSideBar, handleSideBar } = props;
+
+  const toggleSideBarVisible = async () => {
+    if (window.innerWidth > 768) {
+      const kartlag = document.querySelector(".kartlag_fanen");
+      kartlag.classList.toggle("kartlag-hidden", false);
+      setInTransition("moving");
+    }
+  };
 
   const toggleSideBar = () => {
     if (fullscreen) {
@@ -80,6 +89,14 @@ const KartlagFanen = props => {
       setY(0);
     }
   }, [Y, DY, screenHeight, showSideBar, fullscreen, handleSideBar]);
+
+  useEffect(() => {
+    const kartlag = document.querySelector(".kartlag_fanen");
+    if (inTransition === "finished" && !showSideBar) {
+      kartlag.classList.toggle("kartlag-hidden", true);
+      setInTransition(null);
+    }
+  }, [inTransition, showSideBar]);
 
   useEffect(() => {
     let y0 = 0;
@@ -142,6 +159,33 @@ const KartlagFanen = props => {
     };
   }, []);
 
+  useEffect(() => {
+    const toggleButton = document.querySelector(".toggle-side-bar-wrapper");
+
+    // function show(e) {
+    //   setInTransition(true);
+    // }
+
+    function hide(e) {
+      if (
+        e.srcElement.className &&
+        e.srcElement.className.includes("toggle-side-bar-wrapper") &&
+        e.propertyName === "right"
+      ) {
+        setInTransition("finished");
+      }
+      //
+    }
+
+    // kartlagButton.addEventListener("transitionstart", show, false);
+    toggleButton.addEventListener("transitionend", hide, false);
+
+    return () => {
+      // kartlagButton.addEventListener("transitionstart", show, false);
+      toggleButton.removeEventListener("transitionend", hide, false);
+    };
+  }, []);
+
   return (
     <>
       <div
@@ -154,7 +198,10 @@ const KartlagFanen = props => {
           variant="contained"
           size="small"
           onClick={() => {
-            toggleSideBar();
+            toggleSideBarVisible();
+            setTimeout(function() {
+              toggleSideBar();
+            }, 25);
           }}
         >
           <CustomIcon

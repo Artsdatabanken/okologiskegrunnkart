@@ -2,17 +2,25 @@
 
 /* Selve panelet */
 .kartlag_fanen {
+  display: block;
   position: absolute;
   height: 100%;
-  right: 0px;
+  /* right: 0px; */
   top: 0px;
-  width: 0;
+  /* width: 0; */
+  width: 408px;
+  right: -408px;
   padding-top: 50px;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
 .kartlag_fanen.side-bar-open {
-  width: 408px;
+  /* width: 408px; */
+  display: block;
+  right: 0;
+}
+.kartlag-hidden {
+  display: none;
 }
 
 @media only screen and (max-width: 768px) {
@@ -27,6 +35,7 @@
     height: calc(var(--h, 0px));
     overflow-y: hidden;
     width: 100%;
+    right: 0;
   }
   .kartlag_fanen.side-bar-open {
     height: calc(40vh + var(--h, 0px));
@@ -37,6 +46,9 @@
     height: calc(100% - 30px - 50px + var(--h, 0px));
     overflow-y: auto;
     width: 100%;
+  }
+  .kartlag-hidden {
+    display: block;
   }
 }
 
@@ -567,11 +579,16 @@ h4.container_header {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .kartlag-animation {
-  -webkit-transition: width 0.5s;
+  /* -webkit-transition: width 0.5s;
   -moz-transition: width 0.5s;
   -ms-transition: width 0.5s;
   -o-transition: width 0.5s;
-  transition: width 0.5s;
+  transition: width 0.5s; */
+  -webkit-transition: right 0.5s;
+  -moz-transition: right 0.5s;
+  -ms-transition: right 0.5s;
+  -o-transition: right 0.5s;
+  transition: right 0.5s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .height-animation {
