@@ -122,7 +122,6 @@ const KartlagFanen = props => {
 
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
-    const scroll = document.querySelector(".scroll_area");
 
     if (!kartlagSlider || !kartlag) return;
 
@@ -146,7 +145,6 @@ const KartlagFanen = props => {
         disp = -Math.round(e.changedTouches[0].clientY - y0);
         kartlagSlider.style.setProperty("--h", disp + "px");
         kartlag.style.setProperty("--h", disp + "px");
-        scroll.style.setProperty("--h", disp + "px");
       }
     }
 
@@ -161,7 +159,6 @@ const KartlagFanen = props => {
         kartlagSlider.style.setProperty("--h", 0 + "px");
         kartlag.classList.toggle("kartlag-animation", !locked);
         kartlag.style.setProperty("--h", 0 + "px");
-        scroll.style.setProperty("--h", 0 + "px");
       }
     }
 
@@ -308,11 +305,11 @@ const KartlagFanen = props => {
         ) : (
           <>
             <div
-              className={`kartlag-background${
+              className={
                 sublayerDetailsVisible || props.legendVisible
                   ? "hidden-app-content"
                   : ""
-              }`}
+              }
             >
               {props.polyline.length > 0 && props.polygon && (
                 <h3 className="container_header">Polygon</h3>

@@ -27,7 +27,14 @@
     top: auto;
     bottom: 0;
     padding-top: 0;
-    background-color: #eee;
+    /* background-color: #eee; */
+    background-image: linear-gradient(
+      to bottom,
+      white 0,
+      white 200px,
+      #eee 200px,
+      #eee 100%
+    );
     z-index: 100;
     height: calc(var(--h, 0px));
     overflow-y: hidden;
@@ -56,8 +63,6 @@
 }
 @media only screen and (max-width: 768px) {
   .scroll_area {
-    /* --h: 0px;
-    height: calc(50vh + var(--h, 0px)); */
     height: 50vh;
     padding-bottom: 75px;
   }
@@ -65,9 +70,6 @@
     height: 100vh;
     padding-bottom: 75px;
   }
-}
-.kartlag-background {
-  background-color: white;
 }
 
 /* Overskriftene i panelet */
