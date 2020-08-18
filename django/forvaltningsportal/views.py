@@ -318,7 +318,7 @@ class KartlagUpdateAPIView(UpdateAPIView):
 
 kartlag_update_api_view = KartlagUpdateAPIView.as_view()
 
-class SubtlagUpdateAPIView(UpdateAPIView):
+class SublagUpdateAPIView(UpdateAPIView):
     permission_classes = (IsSuperuser, )
     serializer_class = SublagSerializer
     queryset = Sublag.objects.all()
@@ -332,4 +332,4 @@ class SubtlagUpdateAPIView(UpdateAPIView):
 
         return Response(serializer.data)
 
-sublag_update_api_view = SubtlagUpdateAPIView.as_view()
+sublag_update_api_view = SublagUpdateAPIView.as_view()
