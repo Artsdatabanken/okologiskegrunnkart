@@ -82,6 +82,24 @@ h4.container_header {
   padding-left: 20px;
 }
 
+/* ---------- Search results panel ---------- */
+.valgtLag {
+  background-color: white;
+}
+@media only screen and (max-width: 768px) {
+  .valgtLag {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    z-index: 175;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+/* Go back component used in search results */
 /* Tittelboksen bruker Listitems fra Material-Ui, uten endringer */
 .listheadingbutton {
   border-radius: 0px;
@@ -93,14 +111,42 @@ h4.container_header {
   font-size: 12pt;
   display: flex;
   align-items: center;
-  background-color: #ccc;
+  justify-items: flex-start;
+  background-color: rgba(145, 163, 176, 0.6);
 }
-.listheadingbutton span {
-  flex: 1;
+.listheadingbutton.all-results {
+  padding-left: 10px;
+}
+.listheadingbutton:hover {
+  background-color: rgba(145, 163, 176, 0.9);
+}
+.listheadingbutton:focus {
+  background-color: rgba(145, 163, 176, 0.9);
+  outline: none;
+}
+.listheadingbutton-icon {
+  height: 24px;
+  min-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+  color: rgba(0, 0, 0, 0.64);
+}
+.listheadingbutton-icon.all-results {
+  min-width: 40px;
+}
+.listheadingbutton-text {
+  color: rgba(0, 0, 0, 0.64);
+  font-size: 17px;
+  font-weight: 500;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 @media only screen and (max-width: 768px) {
   .listheadingbutton {
-    margin: 0;
+    margin-top: 35px;
+  }
+  .listheadingbutton.all-results {
+    margin-top: 0;
   }
 }
 
@@ -350,6 +396,12 @@ h4.container_header {
   height: 50px;
   border-top: 1px solid #bbb;
   border-bottom: 1px solid #bbb;
+}
+#legend-title-wrapper:focus {
+  background-color: rgba(145, 163, 176, 0.8);
+}
+#legend-title-wrapper:hover {
+  background-color: rgba(145, 163, 176, 0.8);
 }
 #legend-title-wrapper.MuiListItem-root.Mui-focusVisible {
   background-color: rgba(145, 163, 176, 0.8);

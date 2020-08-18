@@ -49,7 +49,8 @@ const KartlagFanen = props => {
     handleSideBar,
     legendVisible,
     updateIsMobile,
-    sublayerDetailsVisible
+    sublayerDetailsVisible,
+    valgtLag
   } = props;
 
   const toggleSideBarVisible = async () => {
@@ -229,7 +230,11 @@ const KartlagFanen = props => {
               : props.showSideBar
               ? " side-bar-open"
               : ""
-          }${legendVisible || sublayerDetailsVisible ? " popup-visible" : ""}`}
+          }${
+            legendVisible || sublayerDetailsVisible || valgtLag
+              ? " popup-visible"
+              : ""
+          }`}
         >
           <button
             id="toggle-kartlag-button"
@@ -266,7 +271,7 @@ const KartlagFanen = props => {
         )}
         {props.searchResultPage ? (
           <></>
-        ) : props.valgtLag ? (
+        ) : valgtLag ? (
           <div className="valgtLag">
             <button
               className="listheadingbutton"
@@ -274,8 +279,10 @@ const KartlagFanen = props => {
                 props.removeValgtLag();
               }}
             >
-              <KeyboardBackspace />
-              <span>Tilbake</span>
+              <span className="listheadingbutton-icon">
+                <KeyboardBackspace />
+              </span>
+              <span className="listheadingbutton-text">Valgt lag</span>
             </button>
             <div
               className={`scroll_area${
@@ -290,7 +297,6 @@ const KartlagFanen = props => {
                 onUpdateLayerProp={props.onUpdateLayerProp}
                 changeVisibleSublayers={props.changeVisibleSublayers}
                 changeExpandedLayers={props.changeExpandedLayers}
-                zoom={props.zoom}
                 showSublayerDetails={showSublayerDetailsFromSearch}
               />
             </div>

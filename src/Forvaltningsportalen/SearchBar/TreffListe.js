@@ -95,13 +95,15 @@ const TreffListe = props => {
       {props.searchResultPage && (
         <div className="valgtLag">
           <button
-            className="listheadingbutton"
+            className="listheadingbutton all-results"
             onClick={e => {
               props.onSelectSearchResult(false);
             }}
           >
-            <KeyboardBackspace />
-            <span>Tilbake</span>
+            <span className="listheadingbutton-icon all-results">
+              <KeyboardBackspace />
+            </span>
+            <span className="listheadingbutton-text">Søkeresultater</span>
           </button>
         </div>
       )}

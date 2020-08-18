@@ -60,7 +60,6 @@ const ForvaltningsGruppering = ({
             onUpdateLayerProp={onUpdateLayerProp}
             changeVisibleSublayers={changeVisibleSublayers}
             changeExpandedLayers={changeExpandedLayers}
-            zoom={zoom}
             showSublayerDetails={showSublayerDetails}
           />
         );
