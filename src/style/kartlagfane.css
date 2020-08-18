@@ -27,7 +27,7 @@
     top: auto;
     bottom: 0;
     padding-top: 0;
-    background-color: #eee;
+    background-color: white;
     z-index: 100;
     height: calc(var(--h, 0px));
     overflow-y: hidden;
@@ -54,12 +54,8 @@
   width: 100%;
   height: calc(100vh - 48px);
 }
-
 @media only screen and (max-width: 768px) {
-  .scroll_area {
-    height: calc(50vh);
-    padding-bottom: 75px;
-  }
+  .scroll_area,
   .scroll_area.side-bar-fullscreen {
     height: calc(100vh);
     padding-bottom: 75px;
@@ -113,6 +109,7 @@ h4.container_header {
   align-items: center;
   justify-items: flex-start;
   background-color: rgba(145, 163, 176, 0.6);
+  border-bottom: 1px solid #bbb;
 }
 .listheadingbutton.all-results {
   padding-left: 10px;
@@ -144,6 +141,7 @@ h4.container_header {
 @media only screen and (max-width: 768px) {
   .listheadingbutton {
     margin-top: 35px;
+    border-top: 1px solid #bbb;
   }
   .listheadingbutton.all-results {
     margin-top: 0;

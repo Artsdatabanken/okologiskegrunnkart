@@ -62,6 +62,7 @@ const KartlagFanen = props => {
   };
 
   const toggleSideBar = () => {
+    console.log("Coming to click button");
     if (fullscreen) {
       handleSideBar(true);
     } else if (showSideBar) {
