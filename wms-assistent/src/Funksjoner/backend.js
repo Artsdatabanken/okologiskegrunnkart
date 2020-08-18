@@ -41,6 +41,27 @@ class Backend {
 
     return { response, layer };
   }
+
+  static async updateSublayer(id, data) {
+    let url = `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/sublag/${id}/update/`;
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      url = `http://localhost:8000/api/v1/sublag/${id}/update/`;
+    }
+    const body = JSON.stringify(data);
+
+    try {
+      var response = await http.put(url, body);
+
+      var sublayer = await response.json();
+    } catch (e) {
+      console.error(`Failed to update sublayer ${data.tittel}.`);
+    }
+
+    return { response, sublayer };
+  }
 }
 
 export default Backend;

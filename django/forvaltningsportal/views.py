@@ -13,7 +13,7 @@ from .permissions import IsSuperuser
 import requests
 import xml.etree.ElementTree as ET
 
-from .serializers import KartlagSerializer
+from .serializers import KartlagSerializer, SublagSerializer
 import re
 
 # from xml.etree.ElementTree import fromstring, ElementTree
@@ -317,3 +317,19 @@ class KartlagUpdateAPIView(UpdateAPIView):
         return Response(serializer.data)
 
 kartlag_update_api_view = KartlagUpdateAPIView.as_view()
+
+class SublagUpdateAPIView(UpdateAPIView):
+    permission_classes = (IsSuperuser, )
+    serializer_class = SublagSerializer
+    queryset = Sublag.objects.all()
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        return Response(serializer.data)
+
+sublag_update_api_view = SublagUpdateAPIView.as_view()

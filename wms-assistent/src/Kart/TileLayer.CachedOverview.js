@@ -9,9 +9,6 @@ L.TileLayer.CachedOverview = L.TileLayer.WMS.extend({
     }
     return L.TileLayer.WMS.prototype.getTileUrl.call(this, coords);
   }
-  //    getAttribution: function () {
-  //        return "<a href='https://placekitten.com/attribution.html'>PlaceKitten</a>"
-  //    }
 });
 
 L.tileLayer.cachedOverview = function(url, options) {

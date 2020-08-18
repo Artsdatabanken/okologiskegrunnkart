@@ -1,23 +1,24 @@
 import React from "react";
 import { CircularProgress, Snackbar } from "@material-ui/core";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
-import { getFeatureInfo, getCapabilities } from "./probe";
+import { getFeatureInfo } from "./probe";
 import { Switch, Route, useLocation } from "react-router-dom";
-import Tjeneste from "./Tjeneste";
-import KartlagList from "./KartlagList";
-import KartlagListItem from "./KartlagListItem";
-import { plukkForetrukketFormat, selectCrs } from "./wms";
+import Kartlagliste from "./Kartlagliste";
+import Tjenesteliste from "./Tjenesteliste";
+import TjenesteListItem from "./TjenesteListItem";
 import url_formatter from "./FeatureInfo/url_formatter";
 import backend from "./Funksjoner/backend";
 import { Alert } from "@material-ui/lab";
+import MainTabs from "./MainTabs";
 
 const kartlagUrl =
   "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
   const location = useLocation();
+  const [tab, setTab] = useState(0);
   const [feature, setFeature] = useState();
   const [doc, setDoc] = useState({});
   const [kartlag, setKartlag] = useState();
@@ -28,7 +29,7 @@ export default function TjenesteContainer() {
   const params = new URLSearchParams(location.search);
   const id = params.get("id") || 1;
   const sub = params.get("sub");
-  const { wmsurl, wmsversion } = doc || {};
+  const selectedLayerIndex = parseInt(params.get("ulid")) || 0;
 
   const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
   useEffect(() => {
@@ -40,32 +41,47 @@ export default function TjenesteContainer() {
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
       Object.values(doc.underlag).forEach(ul => {
+        ul.key = ul.id;
         ul.id =
           alphaNumericOnly(doc.tittel) + "_" + alphaNumericOnly(ul.tittel);
 
         ul.queryable = true;
       }); // HACK
-      // console.log("underlag", doc.underlag);
       setDoc(doc);
     };
     dl();
   }, [id]);
 
-  const testkoords = doc?.testkoordinater;
-  const underlag = doc?.underlag;
-
-  const writeUpdate = () => {
+  const writeUpdateLayer = () => {
     backend.updateLayer(doc._id, doc).then(({ response, layer }) => {
       if (response.ok) {
         setShowSuccess(true);
-        const newLayer = {
-          ...kartlag[id],
-          klikktekst: layer.klikktekst || "",
-          klikktekst2: layer.klikktekst2 || "",
-          testkoordinater: layer.testkoordinater || "",
-          faktaark: layer.faktaark || ""
-        };
-        const newKartlag = { ...kartlag, [id]: newLayer };
+        const newKartlag = { ...kartlag };
+        const newLayer = newKartlag[id];
+        newLayer.klikktekst = layer.klikktekst || "";
+        newLayer.klikktekst2 = layer.klikktekst2 || "";
+        newLayer.testkoordinater = layer.testkoordinater || "";
+        newLayer.faktaark = layer.faktaark || "";
+        setKartlag(newKartlag);
+      } else if (response.status === 403) {
+        setShowForbidden(true);
+      } else {
+        setShowError(true);
+      }
+    });
+  };
+
+  const writeUpdateSublayer = (index, sublag) => {
+    const subId = sublag.key;
+    backend.updateSublayer(subId, sublag).then(({ response, sublayer }) => {
+      if (response.ok) {
+        setShowSuccess(true);
+        const newKartlag = { ...kartlag };
+        const newLayer = newKartlag[id];
+        const newSublayer = newLayer.underlag[index];
+        newSublayer.klikktekst = sublayer.klikktekst || "";
+        newSublayer.klikktekst2 = sublayer.klikktekst2 || "";
+        newSublayer.testkoordinater = sublayer.testkoordinater || "";
         setKartlag(newKartlag);
       } else if (response.status === 403) {
         setShowForbidden(true);
@@ -93,78 +109,26 @@ export default function TjenesteContainer() {
     setShowForbidden(false);
   };
 
-  const updateCallback = useCallback(
-    capabilities => {
-      const updateDoc = layer => {
-        setDoc(doc => {
-          return { ...doc, ...layer };
-        });
-      };
-
-      const layer = {
-        wms_capabilities: capabilities
-      };
-      const capability = capabilities.Capability;
-      const service = capabilities.Service || {};
-      if (capability) {
-        const uri = new URL(wmsurl);
-        uri.searchParams.delete("service");
-        uri.searchParams.delete("request");
-        layer.wmsurl = uri.toString();
-        layer.type = "wms";
-        layer.tittel = layer.tittel || service.Title;
-        layer.abstract = layer.abstract || service.Abstract;
-        layer.dataeier =
-          layer.dataeier ||
-          service.ContactInformation?.ContactPersonPrimary?.ContactOrganization;
-        layer.wmsversion = capabilities.version;
-
-        layer.crs = selectCrs(capability);
-        if (!layer.wmsinfoformat)
-          layer.wmsinfoformat = plukkForetrukketFormat(
-            capability.Request.GetFeatureInfo.Format
-          );
-        layer.wmslayers = [];
-        fyllPåUnderlag(capability.Layer, layer.wmslayers);
-        // console.log("nyeunderlag", layer.underlag);
-      }
-      updateDoc(layer);
-    },
-    [wmsurl]
-  );
-
-  useEffect(() => {
-    async function doprobe() {
-      if (!wmsurl) return;
-      const r = await getCapabilities(wmsurl);
-      updateCallback(r);
-    }
-    if (wmsurl) doprobe();
-    else updateCallback({});
-  }, [wmsurl, updateCallback]);
-
   const handleUpdate = (k, v) => {
     const newDoc = { ...doc, [k]: v };
-    // console.log("onUpdate", k, v);
-    // console.log("newdoc", newDoc);
     setDoc(newDoc);
   };
+
+  const layer = (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {};
 
   useEffect(() => {
     async function doprobe() {
       if (!doc || !doc.wmsurl) return null;
-      if (!testkoords) return null;
+      if (!layer.testkoordinater) return null;
       const delta = 0.01;
-      const koords = doc.testkoordinater.split(",").map(e => parseFloat(e));
+      const koords = layer.testkoordinater.split(",").map(e => parseFloat(e));
       if (koords.length !== 2) return;
       const [lat, lng] = koords;
       const bbox = [lng - delta, lat - delta, lng + delta, lat + delta];
       try {
-        console.log("klikkurl", doc.klikkurl);
         if (doc.klikkurl) {
           const variables = { lng: lat, lat: lng, zoom: 10 };
           doc.klikk_testurl = url_formatter(doc.klikkurl, variables);
-          // console.log(doc.klikk_testurl);
         } else {
           // WMS
           const uri = new URL(doc.wmsurl);
@@ -176,13 +140,8 @@ export default function TjenesteContainer() {
           uri.searchParams.set("y", 128);
           uri.searchParams.set("width", 255);
           uri.searchParams.set("height", 255);
-          // console.log("underlag", doc.underlag);
-          const enabledLayers = doc.underlag
-            .filter(lag => lag.queryable)
-            .map(lag => lag.wmslayer);
-          // console.log("querylayers", enabledLayers);
-          uri.searchParams.set("layers", enabledLayers);
-          uri.searchParams.set("query_layers", enabledLayers);
+          uri.searchParams.set("layers", layer.wmslayer);
+          uri.searchParams.set("query_layers", layer.wmslayer);
           uri.searchParams.set("info_format", doc.wmsinfoformat);
           uri.searchParams.set("crs", "EPSG:4326");
           uri.searchParams.set("srs", "EPSG:4326");
@@ -203,65 +162,77 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
-  }, [doc, doc.klikkurl, wmsversion, testkoords, underlag]);
+  }, [doc, doc.klikkurl, doc.wmsversion, layer]);
 
+  const handleUpdateLayer = layer => {
+    if (!doc.underlag) return;
+    doc.underlag[selectedLayerIndex] = { ...layer };
+    setDoc({ ...doc });
+  };
+
+  const handleUpdateLayerField = (key, value) => {
+    layer[key] = value;
+    handleUpdateLayer(layer);
+  };
   if (!doc) return <CircularProgress />;
   return (
     <>
       <DrmInfestedLeaflet
-        layer={doc}
-        onClick={(lng, lat) => handleUpdate("testkoordinater", lng + "," + lat)}
+        wms={doc}
+        onClick={(lng, lat) =>
+          handleUpdateLayerField("testkoordinater", lng + "," + lat)
+        }
         latitude={63}
         longitude={10}
+        selectedLayer={layer}
       />
       <div
         style={{
           height: "100%",
           width: 508,
-          float: "left",
-          _position: "fixed",
-          _zIndex: 1,
-          _right: 0,
-          _top: 0,
-          _overflowX: "hidden",
-          boxShadow: "0 0 20px rgba(0, 0, 0, 0.3)",
-          _overflowY: "scroll"
+          float: "left"
         }}
       >
         <Switch>
-          <Route
-            path="/kartlag"
-            component={() => <KartlagList kartlag={kartlag} />}
-          />
-          <Route
-            path="/"
-            component={() => (
-              <>
-                <KartlagListItem doc={doc}></KartlagListItem>
-                <Tjeneste
-                  key={id}
-                  doc={doc}
-                  feature={feature}
-                  setFeature={setFeature}
-                  onSetDoc={setDoc}
-                  onUpdate={handleUpdate}
-                  onSave={() => writeUpdate(doc)}
-                  sub={sub}
-                />
-              </>
-            )}
-          />
+          <Route path="/tjeneste">
+            <Tjenesteliste tjenester={kartlag} />
+          </Route>
+          <Route path="/kartlag">
+            <Kartlagliste
+              kartlag={doc.underlag}
+              selectedLayerIndex={selectedLayerIndex}
+            />
+          </Route>
+
+          <Route path="/">
+            <TjenesteListItem doc={doc}></TjenesteListItem>
+            <MainTabs
+              tab={tab}
+              setTab={setTab}
+              key={id}
+              doc={doc}
+              feature={feature}
+              setFeature={setFeature}
+              onSetDoc={setDoc}
+              onUpdate={handleUpdate}
+              onUpdateLayerField={handleUpdateLayerField}
+              writeUpdateLayer={writeUpdateLayer}
+              writeUpdateSublayer={writeUpdateSublayer}
+              sub={sub}
+              selectedLayerIndex={selectedLayerIndex}
+            />
+          </Route>
         </Switch>
-        {sub === "kartlag" && <KartlagList kartlag={kartlag} />}
         {sub && sub.length > 0 && (
           <FeaturePicker
             feature={feature}
             variabel={sub}
-            doc={doc}
+            layer={layer}
             picker={sub}
-            onUpdate={handleUpdate}
+            onUpdate={(key, value) => handleUpdateLayerField(key, value)}
             onClick={v => {
-              handleUpdate(sub, (doc[sub] || "") + " {" + v + "}");
+              layer[sub] = (layer[sub] || "") + " {" + v + "}";
+              handleUpdateLayer(layer);
             }}
           ></FeaturePicker>
         )}
@@ -287,18 +258,4 @@ export default function TjenesteContainer() {
       </Snackbar>
     </>
   );
-}
-
-function fyllPåUnderlag(layer, underlag) {
-  if (layer.Name)
-    underlag.push({
-      erSynlig: false,
-      wmslayer: layer.Name,
-      tittel: layer.Title,
-      queryable: layer.queryable
-    });
-  if (!layer.Layer) return;
-  var ll = layer.Layer;
-  if (!Array.isArray(ll)) ll = [ll];
-  for (var sublayer of ll) fyllPåUnderlag(sublayer, underlag);
 }

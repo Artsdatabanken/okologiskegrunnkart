@@ -1,68 +1,21 @@
 import React from "react";
 import { Paper, ListItem, ListItemText } from "@material-ui/core";
-
-import TextField2 from "./TextField2";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import CreateIcon from "@material-ui/icons/Create";
-import { Alert } from "@material-ui/lab";
-import { useHistory } from "react-router-dom";
+import Underlag from "./Underlag";
 
-const KlikkIKart = ({ doc, onUpdate, feature }) => {
-  const history = useHistory();
-
+const KlikkIKart = ({ doc, onUpdate, feature, selectedLayerIndex }) => {
   const linje1 = klikktekst(feature, doc.klikktekst);
   const linje2 = klikktekst(feature, doc.klikktekst2 || doc.tittel);
-  //    console.log(linje1, linje2)
   return (
     <div>
-      <TextField2
-        title="Testkoordinater for klikk i kart (˚Ø,˚N)"
-        dockey="testkoordinater"
-        doc={doc}
-        onUpdate={onUpdate}
-      />
-      <TextField2
-        title="Faktaark URL"
-        dockey="faktaark"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=faktaark`);
-        }}
-        icon={<CreateIcon />}
-      />
-      <TextField2
-        title="Formatstreng linje 1"
-        dockey="klikktekst"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=klikktekst`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {linje1.warn &&
-        linje1.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
-      <TextField2
-        title="Formatstreng linje 2"
-        dockey="klikktekst2"
-        doc={doc}
-        onUpdate={onUpdate}
-        onIconClick={() => {
-          history.push(`?id=${doc._id}&sub=klikktekst2`);
-        }}
-        icon={<CreateIcon />}
-      />
-      {linje2.warn &&
-        linje2.warn.map(warning => (
-          <Alert key={warning} severity="warning">
-            {warning}
-          </Alert>
-        ))}
+      {doc && doc.underlag && (
+        <Underlag
+          underlag={doc.underlag}
+          selectedLayerIndex={selectedLayerIndex}
+          onUpdate={onUpdate}
+          feature={feature}
+        />
+      )}
       <Paper
         elevation={3}
         style={{
