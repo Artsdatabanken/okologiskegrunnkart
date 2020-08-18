@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Kartlag
+from .models import Kartlag, Sublag
 
 class KartlagSerializer(serializers.ModelSerializer):
 
@@ -40,4 +40,39 @@ class KartlagSerializer(serializers.ModelSerializer):
             'projeksjon',
             'wmsinfoformat',
             'type'
+        )
+
+class SublagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Sublag
+        fields = (
+            'id',
+            'tittel',
+            'wmslayer',
+            'legendeurl',
+            'publiser',
+            'erSynlig',
+            'hovedkartlag',
+            'queryable',
+            'minscaledenominator',
+            'maxscaledenominator',
+            'suggested',
+            'testkoordinater',
+            'klikkurl',
+            'klikktekst',
+            'klikktekst2'
+        )
+        read_only_fields = (
+            'id',
+            'tittel',
+            'wmslayer',
+            'legendeurl',
+            'publiser',
+            'erSynlig',
+            'hovedkartlag',
+            'queryable',
+            'minscaledenominator',
+            'maxscaledenominator',
+            'suggested'
         )
