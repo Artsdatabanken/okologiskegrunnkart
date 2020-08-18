@@ -8,6 +8,7 @@ import { KeyboardBackspace } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { Button } from "@material-ui/core";
 import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
+import useWindowDimensions from "../Funksjoner/useWindowDimensions";
 
 const KartlagFanen = props => {
   const [underlag, setUnderlag] = useState(null);
@@ -40,6 +41,8 @@ const KartlagFanen = props => {
     props.removeValgtLag();
     props.setSublayerDetailsVisible(true);
   };
+
+  const { isMobile } = useWindowDimensions();
 
   const { showSideBar, handleSideBar, legendVisible } = props;
 
@@ -99,12 +102,16 @@ const KartlagFanen = props => {
   }, [inTransition, showSideBar]);
 
   useEffect(() => {
+    if (!isMobile) return;
+
     let y0 = 0;
     let disp = 0;
     let locked = false;
 
     const kartlagSlider = document.querySelector(".toggle-kartlag-wrapper");
     const kartlag = document.querySelector(".kartlag_fanen");
+
+    if (!kartlagSlider || !kartlag) return;
 
     function lock(e) {
       if (
@@ -152,10 +159,13 @@ const KartlagFanen = props => {
       kartlagSlider.removeEventListener("touchend", move, false);
       kartlagSlider.addEventListener("touchmove", drag, false);
     };
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
+    if (isMobile) return;
+
     const toggleButton = document.querySelector(".toggle-side-bar-wrapper");
+    if (!toggleButton) return;
 
     function hide(e) {
       if (
@@ -172,59 +182,63 @@ const KartlagFanen = props => {
     return () => {
       toggleButton.removeEventListener("transitionend", hide, false);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <>
-      <div
-        className={`toggle-side-bar-wrapper right-animation${
-          props.showSideBar ? " side-bar-open" : ""
-        }`}
-      >
-        <Button
-          id="toggle-side-bar-button"
-          variant="contained"
-          size="small"
-          onClick={() => {
-            toggleSideBarVisible();
-            setTimeout(function() {
+      {!isMobile && (
+        <div
+          className={`toggle-side-bar-wrapper right-animation${
+            props.showSideBar ? " side-bar-open" : ""
+          }`}
+        >
+          <Button
+            id="toggle-side-bar-button"
+            variant="contained"
+            size="small"
+            onClick={() => {
+              toggleSideBarVisible();
+              setTimeout(function() {
+                toggleSideBar();
+              }, 25);
+            }}
+          >
+            <CustomIcon
+              id="show-layers-icon"
+              icon={props.showSideBar ? "menu-right" : "menu-left"}
+              size={30}
+            />
+          </Button>
+        </div>
+      )}
+      {isMobile && (
+        <div
+          className={`toggle-kartlag-wrapper swiper-animation${
+            fullscreen
+              ? " side-bar-fullscreen"
+              : props.showSideBar
+              ? " side-bar-open"
+              : ""
+          }${legendVisible ? " legend-visible" : ""}`}
+        >
+          <button
+            id="toggle-kartlag-button"
+            variant="contained"
+            size="small"
+            tabIndex="-1"
+            onClick={() => {
               toggleSideBar();
-            }, 25);
-          }}
-        >
-          <CustomIcon
-            id="show-layers-icon"
-            icon={props.showSideBar ? "menu-right" : "menu-left"}
-            size={30}
-          />
-        </Button>
-      </div>
-      <div
-        className={`toggle-kartlag-wrapper swiper-animation${
-          fullscreen
-            ? " side-bar-fullscreen"
-            : props.showSideBar
-            ? " side-bar-open"
-            : ""
-        }${legendVisible ? " legend-visible" : ""}`}
-      >
-        <button
-          id="toggle-kartlag-button"
-          variant="contained"
-          size="small"
-          tabIndex="-1"
-          onClick={() => {
-            toggleSideBar();
-          }}
-        >
-          <CustomIcon
-            id="show-layers-icon"
-            icon="drag-horizontal"
-            color="#666"
-            size={30}
-          />
-        </button>
-      </div>
+            }}
+          >
+            <CustomIcon
+              id="show-layers-icon"
+              icon="drag-horizontal"
+              color="#666"
+              size={30}
+            />
+          </button>
+        </div>
+      )}
       <div
         className={`kartlag_fanen kartlag-animation${
           fullscreen

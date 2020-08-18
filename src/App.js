@@ -61,7 +61,8 @@ class App extends React.Component {
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
       legendVisible: false,
-      showSmallInfobox: false
+      showSmallInfobox: false,
+      isMobile: false
     };
   }
 
