@@ -10,7 +10,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "../style/settings.css";
 import { makeStyles } from "@material-ui/core/styles";
-import useWindowDimensions from "../Funksjoner/useWindowDimensions";
 
 const useStyles = makeStyles({
   root: {
@@ -26,13 +25,12 @@ const KartlagSettings = ({
   handleSomeLayersFavorite,
   toggleEditLayers,
   updateFavoriteLayers,
-  handleShowFavoriteLayers
+  handleShowFavoriteLayers,
+  isMobile
 }) => {
   const [layers, setLayers] = useState(kartlag);
   const [layersActive, setLayersActive] = useState(someLayersFavorite);
   const [loading, setLoading] = useState(false);
-
-  const { isMobile } = useWindowDimensions();
 
   const classes = useStyles();
 

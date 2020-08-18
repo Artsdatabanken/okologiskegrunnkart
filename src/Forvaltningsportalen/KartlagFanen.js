@@ -44,7 +44,7 @@ const KartlagFanen = props => {
 
   const { isMobile } = useWindowDimensions();
 
-  const { showSideBar, handleSideBar, legendVisible } = props;
+  const { showSideBar, handleSideBar, legendVisible, updateIsMobile } = props;
 
   const toggleSideBarVisible = async () => {
     if (window.innerWidth > 768) {
@@ -100,6 +100,10 @@ const KartlagFanen = props => {
       setInTransition(null);
     }
   }, [inTransition, showSideBar]);
+
+  useEffect(() => {
+    updateIsMobile(isMobile);
+  }, [isMobile, updateIsMobile]);
 
   useEffect(() => {
     if (!isMobile) return;

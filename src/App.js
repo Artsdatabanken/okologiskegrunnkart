@@ -207,6 +207,7 @@ class App extends React.Component {
                         toggleEditLayers={this.toggleEditLayers}
                         updateFavoriteLayers={this.updateFavoriteLayers}
                         handleShowFavoriteLayers={this.handleShowFavoriteLayers}
+                        isMobile={this.state.isMobile}
                       />
                     )}
                     <div
@@ -305,6 +306,7 @@ class App extends React.Component {
                         }
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
+                        updateIsMobile={this.updateIsMobile}
                       />
                     </div>
                   </>
@@ -879,6 +881,10 @@ class App extends React.Component {
 
   handleZoomChange = zoom => {
     this.setState({ zoom: zoom });
+  };
+
+  updateIsMobile = isMobile => {
+    this.setState({ isMobile });
   };
 
   static contextType = SettingsContext;
