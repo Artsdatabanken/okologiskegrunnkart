@@ -61,8 +61,8 @@
     background-image: linear-gradient(
       to bottom,
       white 0,
-      white 200px,
-      #eee 200px,
+      white 120px,
+      #eee 120px,
       #eee 100%
     );
   }
@@ -105,7 +105,7 @@ h4.container_header {
     height: 100%;
   }
 }
-/* Go back component used in search results */
+/* ------- Go back component used in search results --------- */
 /* Tittelboksen bruker Listitems fra Material-Ui, uten endringer */
 .listheadingbutton {
   border-radius: 0px;
@@ -437,6 +437,11 @@ h4.container_header {
 }
 
 /* -------- Layers and sublayers wrappers ---------- */
+@media only screen and (max-width: 768px) {
+  #layer-list-item {
+    background-color: #eee;
+  }
+}
 @media only screen and (max-width: 768px) {
   #layers-list-wrapper {
     padding-bottom: 75px;
