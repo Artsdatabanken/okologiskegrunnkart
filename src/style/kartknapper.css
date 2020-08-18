@@ -69,7 +69,7 @@
   }
   .change_map_buttons.side-bar-open {
     top: auto;
-    bottom: calc(45vh + 20px);
+    bottom: calc(40vh + 20px);
     -webkit-transition: bottom 0.5s;
     -moz-transition: bottom 0.5s;
     -ms-transition: bottom 0.5s;
@@ -112,7 +112,7 @@
   }
   .map_ref.side-bar-open {
     top: auto;
-    bottom: 45vh;
+    bottom: 40vh;
     -webkit-transition: bottom 0.5s;
     -moz-transition: bottom 0.5s;
     -ms-transition: bottom 0.5s;

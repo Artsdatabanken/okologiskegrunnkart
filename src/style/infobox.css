@@ -458,7 +458,7 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .small-infobox-container.tiny-box {
-    bottom: calc(45vh + 25px);
+    bottom: calc(40vh + 25px);
     -webkit-transition: bottom 0.5s;
     -moz-transition: bottom 0.5s;
     -ms-transition: bottom 0.5s;

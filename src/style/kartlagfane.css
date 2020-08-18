@@ -35,7 +35,7 @@
     right: 0;
   }
   .kartlag_fanen.side-bar-open {
-    height: calc(45vh + var(--h, 0px));
+    height: calc(40vh + var(--h, 0px));
     width: 100%;
   }
   .kartlag_fanen.side-bar-fullscreen {
@@ -56,7 +56,7 @@
 }
 @media only screen and (max-width: 768px) {
   .scroll_area {
-    height: 50vh;
+    height: 45vh;
     padding-bottom: 75px;
     background-image: linear-gradient(
       to bottom,
@@ -231,7 +231,7 @@ h4.container_header {
   }
   .toggle-kartlag-wrapper.side-bar-open {
     top: auto;
-    bottom: calc(45vh - 74px + var(--h, 0px));
+    bottom: calc(40vh - 74px + var(--h, 0px));
     right: 100px;
     width: calc(100% - 100px);
     height: 73px;
@@ -253,7 +253,7 @@ h4.container_header {
     height: 35px;
   }
   .toggle-kartlag-wrapper.side-bar-open.popup-visible {
-    bottom: calc(45vh - 35px + var(--h, 0px));
+    bottom: calc(40vh - 35px + var(--h, 0px));
     right: 0;
     width: calc(100%);
     height: 35px;

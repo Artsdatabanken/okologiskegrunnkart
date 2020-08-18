@@ -105,9 +105,9 @@
     margin-right: 0 !important;
   }
   .leaflet-control-zoom.side-bar-open {
-    bottom: 45vh;
+    bottom: 40vh;
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: 45vh;
+    bottom: 40vh;
   }
 }
