@@ -41,6 +41,7 @@ export default function TjenesteContainer() {
       doc._id = id;
       doc.underlag = Object.values(doc.underlag || {});
       Object.values(doc.underlag).forEach(ul => {
+        ul.key = ul.id;
         ul.id =
           alphaNumericOnly(doc.tittel) + "_" + alphaNumericOnly(ul.tittel);
 
@@ -51,18 +52,36 @@ export default function TjenesteContainer() {
     dl();
   }, [id]);
 
-  const writeUpdate = () => {
+  const writeUpdateLayer = () => {
     backend.updateLayer(doc._id, doc).then(({ response, layer }) => {
       if (response.ok) {
         setShowSuccess(true);
-        const newLayer = {
-          ...kartlag[id],
-          klikktekst: layer.klikktekst || "",
-          klikktekst2: layer.klikktekst2 || "",
-          testkoordinater: layer.testkoordinater || "",
-          faktaark: layer.faktaark || ""
-        };
-        const newKartlag = { ...kartlag, [id]: newLayer };
+        const newKartlag = { ...kartlag };
+        const newLayer = newKartlag[id];
+        newLayer.klikktekst = layer.klikktekst || "";
+        newLayer.klikktekst2 = layer.klikktekst2 || "";
+        newLayer.testkoordinater = layer.testkoordinater || "";
+        newLayer.faktaark = layer.faktaark || "";
+        setKartlag(newKartlag);
+      } else if (response.status === 403) {
+        setShowForbidden(true);
+      } else {
+        setShowError(true);
+      }
+    });
+  };
+
+  const writeUpdateSublayer = (index, sublag) => {
+    const subId = sublag.key;
+    backend.updateSublayer(subId, sublag).then(({ response, sublayer }) => {
+      if (response.ok) {
+        setShowSuccess(true);
+        const newKartlag = { ...kartlag };
+        const newLayer = newKartlag[id];
+        const newSublayer = newLayer.underlag[index];
+        newSublayer.klikktekst = sublayer.klikktekst || "";
+        newSublayer.klikktekst2 = sublayer.klikktekst2 || "";
+        newSublayer.testkoordinater = sublayer.testkoordinater || "";
         setKartlag(newKartlag);
       } else if (response.status === 403) {
         setShowForbidden(true);
@@ -152,7 +171,6 @@ export default function TjenesteContainer() {
   };
 
   const handleUpdateLayerField = (key, value) => {
-    console.log({ key, value });
     layer[key] = value;
     handleUpdateLayer(layer);
   };
@@ -198,7 +216,8 @@ export default function TjenesteContainer() {
               onSetDoc={setDoc}
               onUpdate={handleUpdate}
               onUpdateLayerField={handleUpdateLayerField}
-              onSave={() => writeUpdate(doc)}
+              writeUpdateLayer={writeUpdateLayer}
+              writeUpdateSublayer={writeUpdateSublayer}
               sub={sub}
               selectedLayerIndex={selectedLayerIndex}
             />
