@@ -1,6 +1,6 @@
 /**** CSS for Kartlagfanen og alle dens underkomponenter *****/
 
-/* Selve panelet */
+/* ----------- Main component of kartlag panel ------------ */
 .kartlag_fanen {
   display: block;
   position: absolute;
@@ -30,22 +30,16 @@
     background-color: #eee;
     z-index: 100;
     height: calc(var(--h, 0px));
-    /* height: calc(73px + var(--h, 0px)); */
-    /* height: calc(52px + var(--h, 0px)); */
     overflow-y: hidden;
     width: 100%;
     right: 0;
-    /* box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
-      -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12); */
   }
   .kartlag_fanen.side-bar-open {
     height: calc(45vh + var(--h, 0px));
-    /* overflow-y: auto; */
     width: 100%;
   }
   .kartlag_fanen.side-bar-fullscreen {
     height: calc(100% - 50px + var(--h, 0px));
-    /* overflow-y: auto; */
     width: 100%;
   }
   .kartlag-hidden {
@@ -110,7 +104,7 @@ h4.container_header {
   }
 }
 
-/* Side bar show/hide button desktop */
+/* --------- Side bar show/hide button desktop ---------- */
 .toggle-side-bar-wrapper {
   position: absolute;
   top: 60px;
@@ -139,7 +133,7 @@ h4.container_header {
   }
 }
 
-/* Side bar show/hide button mobile */
+/* -------- Side bar show/hide button mobile --------- */
 .toggle-kartlag-wrapper {
   display: none;
 }
@@ -204,20 +198,20 @@ h4.container_header {
     margin-left: calc(50vw - 35px);
     height: 35px;
   }
-  .toggle-kartlag-wrapper.side-bar-open.legend-visible {
+  .toggle-kartlag-wrapper.side-bar-open.popup-visible {
     bottom: calc(45vh - 35px + var(--h, 0px));
     right: 0;
     width: calc(100%);
     height: 35px;
   }
-  .toggle-kartlag-wrapper.side-bar-fullscreen.legend-visible {
+  .toggle-kartlag-wrapper.side-bar-fullscreen.popup-visible {
     bottom: calc(100% - 50px - 35px + var(--h, 0px));
     right: 0;
     width: calc(100%);
     height: 35px;
   }
-  .toggle-kartlag-wrapper.side-bar-open.legend-visible #toggle-kartlag-button,
-  .toggle-kartlag-wrapper.side-bar-fullscreen.legend-visible
+  .toggle-kartlag-wrapper.side-bar-open.popup-visible #toggle-kartlag-button,
+  .toggle-kartlag-wrapper.side-bar-fullscreen.popup-visible
     #toggle-kartlag-button {
     background-color: transparent;
     height: 35px;
@@ -230,7 +224,7 @@ h4.container_header {
   justify-content: center;
 }
 
-/* Sorted layers */
+/* ----------- Sorted layers extra components ------------ */
 .sorted-layers-subheaders .MuiListSubheader-root {
   background-color: #dedede;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -241,7 +235,7 @@ h4.container_header {
   padding-bottom: 5px;
 }
 
-/* Sortering, filtrering og søk -delen */
+/* ---------- Sortering, filtrering og søk -delen ---------- */
 .header-layers-menu {
   background-color: white;
   position: -webkit-sticky;
@@ -314,7 +308,7 @@ h4.container_header {
   background-color: #697f8a;
 }
 
-/* leyend link */
+/* ---------- Leyend link ---------- */
 .legend-link-background {
   background-color: #eee;
   position: -webkit-sticky;
@@ -337,11 +331,10 @@ h4.container_header {
   font-weight: 500;
 }
 
-/* Legend menu */
+/* ----------- Legend menu ------------- */
 .legend-wrapper {
   background-color: #fff;
   height: 100%;
-  /* overflow-y: auto; */
 }
 @media only screen and (max-width: 768px) {
   .legend-wrapper {
@@ -383,7 +376,7 @@ h4.container_header {
   overflow-y: auto;
 }
 
-/* layers and sublayers wrappers */
+/* -------- Layers and sublayers wrappers ---------- */
 @media only screen and (max-width: 768px) {
   #layers-list-wrapper {
     padding-bottom: 75px;
@@ -425,10 +418,9 @@ h4.container_header {
   cursor: pointer;
 }
 
-/* Sublayers */
+/* ----------- Sublayers: main menu ------------ */
 .collapsed_container .underlag {
   width: 100%;
-  /* background: #f7f7f7; */
   background: rgb(252, 252, 252);
   border-bottom: 1px solid #e2e2e2;
   display: block;
@@ -492,7 +484,85 @@ h4.container_header {
   justify-content: flex-end;
 }
 
-/* sublayer opacity sliders */
+/* --------- Layer and sublayer details component ---------- */
+.layer-details-div {
+  max-height: 100%;
+  height: 100%;
+  /* overflow-y: auto; */
+  background-color: white;
+  z-index: 100;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  width: 408px;
+  padding-top: 50px;
+}
+@media only screen and (max-width: 768px) {
+  .layer-details-div {
+    width: 100vw;
+    padding-top: 35px;
+  }
+}
+
+/* Sublayer details title */
+#details-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(145, 163, 176, 0.5);
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #aaa;
+}
+@media only screen and (max-width: 768px) {
+  #details-title-wrapper {
+    height: 45px;
+    border-top: 1px solid #aaa;
+  }
+}
+
+/* Sublayer details title */
+.details-content-wrapper {
+  height: 100%;
+  overflow-y: auto;
+}
+#layer-details-list {
+  background-color: #ddd;
+  border-bottom: 1px solid #bbb;
+}
+#sublayer-details-list {
+  background-color: #eee;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #bbb;
+}
+.sublayer-details-div {
+  background: white;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 10px;
+  width: 100%;
+}
+.sublayer-details-div h4 {
+  margin-bottom: 5px;
+  display: block;
+  font-size: 10pt;
+  width: 100%;
+  font-weight: normal;
+}
+.data-owner-wrapper {
+  padding-top: 10px;
+}
+.sublayer-details-wrapper {
+  background-color: white;
+  padding: 10px 14px 15px 34px;
+}
+@media only screen and (max-width: 768px) {
+  .sublayer-details-wrapper {
+    padding-bottom: 150px;
+  }
+}
+
+/* Sublayer opacity sliders */
 .opacity-slider-wrapper {
   min-height: 60px;
   display: flex;
@@ -510,86 +580,6 @@ h4.container_header {
 }
 #opacity-visible-icon.MuiSvgIcon-colorPrimary {
   color: #666;
-}
-
-/* Layer and sublayer details component */
-.layer-details-div {
-  background: #eee;
-  max-height: 100vh;
-  height: 100vh;
-  overflow-y: auto;
-  background-color: white;
-  z-index: 100;
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  width: 408px;
-  padding-top: 50px;
-}
-@media only screen and (max-width: 768px) {
-  .layer-details-div {
-    height: calc(50vh);
-    width: 100vw;
-    padding-top: 0;
-    border-top: 1px solid #aaa;
-  }
-}
-
-/* Open sublayer elements  */
-.sublayer-details-div {
-  background: white;
-  /* border-top: 1px solid #ccc; */
-  border-bottom: 1px solid #bbb;
-  padding-bottom: 10px;
-  width: 100%;
-}
-.sublayer-details-div h4 {
-  margin-bottom: 5px;
-  display: block;
-  font-size: 10pt;
-  width: 100%;
-  font-weight: normal;
-}
-
-.data-owner-wrapper {
-  padding-top: 10px;
-}
-
-#layer-details-list {
-  background-color: #ddd;
-  border-top: 1px solid #bbb;
-  border-bottom: 1px solid #bbb;
-}
-
-#sublayer-details-list {
-  background-color: #eee;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border-bottom: 1px solid #bbb;
-}
-
-.sublayer-details-wrapper {
-  background-color: white;
-  padding: 10px 14px 15px 34px;
-}
-@media only screen and (max-width: 768px) {
-  .sublayer-details-wrapper {
-    padding-bottom: 150px;
-  }
-}
-
-#details-title-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  background-color: rgba(145, 163, 176, 0.5);
-  width: 100%;
-  height: 50px;
-}
-@media only screen and (max-width: 768px) {
-  #details-title-wrapper {
-    height: 45px;
-  }
 }
 
 #details-title-wrapper .MuiListItemIcon-root {
@@ -611,7 +601,7 @@ h4.container_header {
   }
 }
 
-/* General transitions */
+/* ---------- General transitions -----------  */
 .bottom-animation {
   -webkit-transition: bottom 0.5s;
   -moz-transition: bottom 0.5s;
@@ -661,13 +651,6 @@ h4.container_header {
     transition: height 0.5s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
-  /* .bottom-animation.legend-visible {
-    -webkit-transition: none;
-    -moz-transition: none;
-    -ms-transition: none;
-    -o-transition: none;
-    transition: none;
-  } */
 }
 
 /* ------------------------------------------------------ */

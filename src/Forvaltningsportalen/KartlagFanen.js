@@ -44,7 +44,13 @@ const KartlagFanen = props => {
 
   const { isMobile } = useWindowDimensions();
 
-  const { showSideBar, handleSideBar, legendVisible, updateIsMobile } = props;
+  const {
+    showSideBar,
+    handleSideBar,
+    legendVisible,
+    updateIsMobile,
+    sublayerDetailsVisible
+  } = props;
 
   const toggleSideBarVisible = async () => {
     if (window.innerWidth > 768) {
@@ -223,7 +229,7 @@ const KartlagFanen = props => {
               : props.showSideBar
               ? " side-bar-open"
               : ""
-          }${legendVisible ? " legend-visible" : ""}`}
+          }${legendVisible || sublayerDetailsVisible ? " popup-visible" : ""}`}
         >
           <button
             id="toggle-kartlag-button"
@@ -328,7 +334,7 @@ const KartlagFanen = props => {
                 />
               </div>
             </div>
-            {props.sublayerDetailsVisible && (
+            {sublayerDetailsVisible && (
               <div>
                 <div className="layer-details-div">
                   <ForvaltningsDetailedInfo
