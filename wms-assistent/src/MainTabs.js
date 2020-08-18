@@ -1,8 +1,8 @@
 import React from "react";
-import { Paper, Tabs, Tab } from "@material-ui/core";
+import { Paper, Tabs, Tab, Button } from "@material-ui/core";
 import Tjeneste from "./Tjeneste";
 import TextField2 from "./TextField2";
-import { Create as CreateIcon } from "@material-ui/icons";
+import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import KartlagListItem from "./KartlagListItem";
 import KlikkResultatPreview from "./KlikkResultatPreview";
@@ -19,7 +19,8 @@ const MainTabs = ({
   onUpdateLayerField,
   sub,
   selectedLayerIndex,
-  writeUpdate
+  writeUpdateLayer,
+  writeUpdateSublayer
 }) => {
   const history = useHistory();
   if (!doc) return null;
@@ -69,6 +70,16 @@ const MainTabs = ({
             }}
             icon={<CreateIcon />}
           />
+          <Button
+            style={{ width: 476, margin: 16 }}
+            onClick={() => writeUpdateLayer()}
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<SaveIcon />}
+          >
+            Oppdater feltene over i Django
+          </Button>
         </TabPanel>
       )}
       {tab === 1 && (
@@ -83,7 +94,7 @@ const MainTabs = ({
                 setFeature={setFeature}
                 onSetDoc={setDoc}
                 onUpdateLayerField={onUpdateLayerField}
-                onSave={() => writeUpdate(doc)}
+                onSave={() => writeUpdateSublayer(selectedLayerIndex, layer)}
                 sub={sub}
                 selectedLayerIndex={selectedLayerIndex}
               />
