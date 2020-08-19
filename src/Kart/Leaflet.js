@@ -500,11 +500,12 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
             alt="Marker tool"
-            onClick={e => {
+            onClick={() => {
               this.setState({
                 markerType: "klikk"
               });
             }}
+            onMouseDown={e => e.preventDefault()}
           >
             <WhereToVote />
           </button>
@@ -513,11 +514,12 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"
-            onClick={e => {
+            onClick={() => {
               this.setState({
                 markerType: "polygon"
               });
             }}
+            onMouseDown={e => e.preventDefault()}
           >
             <Gesture />
           </button>
