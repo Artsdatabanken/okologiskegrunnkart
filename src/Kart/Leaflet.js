@@ -343,6 +343,7 @@ class Leaflet extends React.Component {
   syncWmsLayers(aktive) {
     Object.keys(aktive).forEach(akey => {
       const kartlag = aktive[akey];
+      if (!kartlag.wmsurl) return; // Not a WMS layer
       Object.keys(kartlag.underlag).forEach(underlagsnøkkel =>
         this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
       );
