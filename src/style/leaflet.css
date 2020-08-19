@@ -43,6 +43,7 @@
 
 /* Marker type buttons */
 .marker_type_button_container {
+  display: flex;
   margin-left: 0;
 }
 
