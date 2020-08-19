@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Close,
   MyLocation,
@@ -16,7 +16,10 @@ const InfoBox = ({
   coordinates_area,
   layerevent,
   getBackendData,
+  showInfobox,
   handleInfobox,
+  showSmallInfobox,
+  handleSmallInfobox,
   layersResult,
   allLayersResult,
   valgteLag,
@@ -26,8 +29,14 @@ const InfoBox = ({
   kartlag,
   showExtensiveInfo,
   handleExtensiveInfo,
-  loadingFeatures
+  loadingFeatures,
+  isMobile
 }) => {
+  const [Y, setY] = useState(0);
+  const [DY, setDY] = useState(0);
+  const [screenHeight, setScreenHeight] = useState(0);
+  const [inTransition, setInTransition] = useState(null);
+
   const coords = `${Math.round(coordinates_area.lat * 10000) /
     10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
 
@@ -57,8 +66,116 @@ const InfoBox = ({
     getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
   };
 
+  useEffect(() => {
+    if (DY < 0 && Y !== 0) {
+      if (Math.abs(DY) > screenHeight * 0.4) {
+        handleSmallInfobox(false);
+        handleInfobox(true);
+      } else if (!showSmallInfobox && !showInfobox) {
+        handleSmallInfobox(true);
+        handleInfobox(false);
+      } else if (showSmallInfobox) {
+        handleSmallInfobox(false);
+        handleInfobox(true);
+      }
+      setY(0);
+    } else if (DY > 0 && Y !== 0) {
+      if (Math.abs(DY) > screenHeight * 0.6) {
+        handleSmallInfobox(false);
+        handleInfobox(false);
+      } else if (showInfobox) {
+        handleSmallInfobox(true);
+        handleInfobox(false);
+      } else if (showSmallInfobox) {
+        handleSmallInfobox(false);
+        handleInfobox(false);
+      }
+      setY(0);
+    }
+  }, [
+    Y,
+    DY,
+    screenHeight,
+    showSmallInfobox,
+    showInfobox,
+    handleSmallInfobox,
+    handleInfobox
+  ]);
+
+  useEffect(() => {
+    const box = document.querySelector(".infobox-container-side");
+    if (inTransition === "finished" && !showSmallInfobox) {
+      box.classList.toggle("kartlag-hidden", true);
+      setInTransition(null);
+    }
+  }, [inTransition, showSmallInfobox]);
+
+  useEffect(() => {
+    if (!isMobile) return;
+
+    let y0 = 0;
+    let disp = 0;
+    let locked = false;
+
+    const header = document.querySelector(".infobox-title-wrapper");
+    const box = document.querySelector(".infobox-container-side");
+
+    if (!header || !box) return;
+
+    function lock(e) {
+      if (
+        e.changedTouches &&
+        e.changedTouches.length > 0 &&
+        e.changedTouches[0].clientY
+      ) {
+        locked = true;
+        setScreenHeight(window.innerHeight);
+        y0 = e.changedTouches[0].clientY;
+        header.classList.toggle("swiper-animation", !locked);
+        box.classList.toggle("kartlag-animation", !locked);
+      }
+    }
+
+    function drag(e) {
+      e.preventDefault();
+      if (locked) {
+        disp = -Math.round(e.changedTouches[0].clientY - y0);
+        header.style.setProperty("--h", disp + "px");
+        box.style.setProperty("--h", disp + "px");
+      }
+    }
+
+    function move(e) {
+      if (locked) {
+        locked = false;
+        const dy = e.changedTouches[0].clientY - y0;
+        setDY(dy);
+        setY(y0);
+        disp = 0;
+        header.classList.toggle("swiper-animation", !locked);
+        header.style.setProperty("--h", 0 + "px");
+        box.classList.toggle("kartlag-animation", !locked);
+        box.style.setProperty("--h", 0 + "px");
+      }
+    }
+
+    header.addEventListener("touchstart", lock, false);
+    header.addEventListener("touchend", move, false);
+    header.addEventListener("touchmove", drag, false);
+
+    return () => {
+      header.removeEventListener("touchstart", lock, false);
+      header.removeEventListener("touchend", move, false);
+      header.addEventListener("touchmove", drag, false);
+    };
+  }, [isMobile]);
+
   return (
-    <div className="infobox-container-side">
+    <div
+      className={`infobox-container-side${
+        showInfobox ? " infobox-fullscreen" : ""
+      }`}
+    >
       <div className="infobox-title-wrapper">
         <div className="infobox-title-content">
           <CustomTooltip placement="right" title="Sted / Områdetype">
@@ -76,8 +193,9 @@ const InfoBox = ({
         <button
           tabIndex="0"
           className="close-infobox-button-wrapper"
-          onClick={e => {
+          onClick={() => {
             handleInfobox(false);
+            handleSmallInfobox(false);
             handleExtensiveInfo(false);
           }}
         >

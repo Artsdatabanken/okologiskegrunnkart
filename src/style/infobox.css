@@ -22,8 +22,17 @@
 @media only screen and (max-width: 768px) {
   .infobox-container-side {
     position: absolute;
+    top: auto;
+    bottom: 0;
+    height: 40vh;
+    width: 100vw;
+    z-index: 250;
+  }
+  .infobox-container-side.infobox-fullscreen {
+    position: absolute;
     top: 0px;
-    height: 100vh;
+    bottom: 0;
+    height: 100%;
     width: 100vw;
     z-index: 250;
   }
@@ -432,161 +441,4 @@
   #infobox-detail-facts.MuiButton-root {
     margin: 16px 10px;
   }
-}
-
-/* -------- SMALL INFOBOX MOBILE -------- */
-.small-infobox-container {
-  display: none;
-}
-@media only screen and (max-width: 768px) {
-  .small-infobox-container {
-    position: absolute;
-    top: auto;
-    bottom: 50px;
-    right: 5vw;
-    width: 90vw;
-    z-index: 50;
-    display: block;
-    border-radius: 10px;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-  .small-infobox-container.tiny-box {
-    bottom: calc(40vh + 25px);
-    -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-}
-.small-infobox-title-wrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: #697f8a;
-  color: white;
-  width: 100%;
-  border-radius: 10px 10px 0 0;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-}
-.small-infobox-title-wrapper.tiny-box {
-  border-radius: 10px;
-}
-.small-infobox-title-content {
-  display: flex;
-  justify-content: flex-start;
-  padding: 10px 0 10px 12px;
-  max-width: calc(100% - 41px);
-  width: calc(100% - 41px);
-}
-.small-infobox-title-text {
-  text-align: left;
-  max-width: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-  font-size: 15px;
-  font-weight: 550;
-}
-.fullscreen-small-infobox-button {
-  margin: 8px 0 0 10px;
-}
-
-/* Small infobox content */
-.small-infobox-body {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: #eee;
-  height: 50px;
-  overflow-y: hidden;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  -webkit-transition: height 0.45s;
-  -moz-transition: height 0.45s;
-  -ms-transition: height 0.45s;
-  -o-transition: height 0.45s;
-  transition: height 0.45s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.small-infobox-body.tiny-box {
-  height: 0px;
-  overflow-y: hidden;
-  -webkit-transition: height 0.45s;
-  -moz-transition: height 0.45s;
-  -ms-transition: height 0.45s;
-  -o-transition: height 0.45s;
-  transition: height 0.45s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.small-infobox-content {
-  display: flex;
-  flex-direction: column;
-  padding: 4px 10px 6px 12px;
-  flex-shrink: 0;
-  border-radius: 0 0 10px 10px;
-}
-.small-infobox-text-wrapper {
-  display: flex;
-  align-items: flex-start;
-  text-transform: capitalize;
-  padding-bottom: 2px;
-  font-size: 14px;
-}
-.small-infobox-text-multiple {
-  display: flex;
-  align-items: flex-start;
-}
-.small-infobox-text-primary {
-  margin-top: 1px;
-  text-align: left;
-  padding-right: 6px;
-}
-.small-infobox-text-secondary {
-  color: grey;
-  font-size: 12px;
-  margin-top: 3px;
-  text-align: left;
-}
-
-/* close small infobox button */
-.close-small-infobox-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8px 10px 0 8px;
-  padding: 0;
-  background-color: rgba(145, 163, 176, 0);
-  border: none;
-  border-radius: 10px;
-  transition: background-color 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  z-index: 55;
-  color: white;
-}
-.close-small-infobox-button-wrapper:hover {
-  background-color: rgba(145, 163, 176, 0);
-}
-.close-small-infobox-button-wrapper:focus {
-  background-color: rgba(145, 163, 176, 1);
-  outline: none;
 }

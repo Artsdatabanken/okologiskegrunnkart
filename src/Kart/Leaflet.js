@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
-import InfoboxSmall from "../Forvaltningsportalen/FeatureInfo/InfoboxSmall";
 import "../style/leaflet.css";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
@@ -543,12 +542,15 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {this.props.showInfobox && (
+        {(this.props.showInfobox || this.props.showSmallInfobox) && (
           <InfoboxSide
             coordinates_area={this.state.coordinates_area}
             layerevent={this.state.layerevent}
             getBackendData={this.getBackendData}
+            showInfobox={this.props.showInfobox}
             handleInfobox={this.props.handleInfobox}
+            showSmallInfobox={this.props.showSmallInfobox}
+            handleSmallInfobox={this.props.handleSmallInfobox}
             layersResult={this.props.layersResult}
             allLayersResult={this.props.allLayersResult}
             valgteLag={this.props.valgteLag}
@@ -559,15 +561,7 @@ class Leaflet extends React.Component {
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
             loadingFeatures={this.props.loadingFeatures}
-          />
-        )}
-        {this.props.showSmallInfobox && (
-          <InfoboxSmall
-            coordinates_area={this.state.coordinates_area}
-            sted={this.props.sted}
-            handleSmallInfobox={this.props.handleSmallInfobox}
-            handleInfobox={this.props.handleInfobox}
-            showSideBar={this.props.showSideBar}
+            isMobile={this.props.isMobile}
           />
         )}
       </>

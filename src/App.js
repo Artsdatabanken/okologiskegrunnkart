@@ -253,6 +253,7 @@ class App extends React.Component {
                         showSideBar={this.state.showSideBar}
                         showSmallInfobox={this.state.showSmallInfobox}
                         handleSmallInfobox={this.handleSmallInfobox}
+                        isMobile={this.state.isMobile}
                         {...this.state}
                       />
                       <KartVelger
