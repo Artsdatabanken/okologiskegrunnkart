@@ -72,6 +72,7 @@
     margin: 0;
     padding-top: 4px;
     padding-bottom: 5px;
+    background-color: rgb(239, 239, 239);
   }
   .searchbar button {
     margin: 0;
@@ -112,13 +113,15 @@
   overflow-y: auto;
   border: none;
   box-sizing: border-box;
-  padding-bottom: 10px;
+  padding: 0 10px 10px 10px;
   background-color: white;
 }
 
 @media only screen and (max-width: 768px) {
   .treffliste.searchresultpage {
     max-width: 100%;
+    height: calc(100vh - 44px);
+    max-height: calc(100vh - 44px);
     padding-bottom: 150px;
   }
 }

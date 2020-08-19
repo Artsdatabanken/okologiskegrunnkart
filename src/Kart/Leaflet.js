@@ -5,6 +5,7 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
+import InfoboxSmall from "../Forvaltningsportalen/FeatureInfo/InfoboxSmall";
 import "../style/leaflet.css";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
@@ -238,21 +239,34 @@ class Leaflet extends React.Component {
       .addTo(this.map);
   };
 
-  markerClick(e) {
+  clickMarkerInfobox = () => {
+    const width = window.innerWidth;
+    if (width > 768) {
+      this.props.handleInfobox(!this.props.showInfobox);
+    } else {
+      if (this.props.showSmallInfobox) {
+        this.props.handleInfobox(!this.props.showInfobox);
+      } else {
+        this.props.handleSmallInfobox(true);
+      }
+    }
+  };
+
+  async markerClick(e) {
     // Oppdatering av kartmarkøren
     this.removeMarker();
     this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
       icon: this.icon
     })
       .addTo(this.map)
-      .on("click", () => this.props.handleInfobox(!this.props.showInfobox));
+      .on("click", () => this.clickMarkerInfobox());
 
     // Oppdatering av infoboksen
     this.setState({
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
-    this.props.handleInfobox(true);
+
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
     } else {
@@ -289,11 +303,16 @@ class Leaflet extends React.Component {
     }
   }
 
-  handleClick = e => {
+  handleClick = async e => {
     if (this.state.markerType === "polygon") {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
-      this.markerClick(e);
+      const width = window.innerWidth;
+      if (width > 768) {
+        this.markerClick(e).then(() => this.props.handleInfobox(true));
+      } else {
+        this.markerClick(e).then(() => this.props.handleSmallInfobox(true));
+      }
     }
     return;
   };
@@ -538,6 +557,15 @@ class Leaflet extends React.Component {
             showExtensiveInfo={this.props.showExtensiveInfo}
             handleExtensiveInfo={this.props.handleExtensiveInfo}
             loadingFeatures={this.props.loadingFeatures}
+          />
+        )}
+        {this.props.showSmallInfobox && (
+          <InfoboxSmall
+            coordinates_area={this.state.coordinates_area}
+            sted={this.props.sted}
+            handleSmallInfobox={this.props.handleSmallInfobox}
+            handleInfobox={this.props.handleInfobox}
+            showSideBar={this.props.showSideBar}
           />
         )}
       </>

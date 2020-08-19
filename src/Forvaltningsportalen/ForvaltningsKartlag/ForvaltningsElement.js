@@ -18,7 +18,6 @@ const ForvaltningsElement = ({
   changeExpandedLayers,
   kartlagKey,
   valgt,
-  zoom,
   showSublayerDetails
 }) => {
   let tittel = kartlag.tittel;

@@ -78,233 +78,235 @@ const ForvaltningsDetailedInfo = ({
         </ListItemText>
       </ListItem>
 
-      <ListItem
-        // Elementet som inneholder tittel, ikon og droppned-knapp
-        id="layer-details-list"
-        divider
-      >
-        <ListItemIcon>
-          <div className="layer-list-element-icon">
-            <Badge
-              className={"badge-enabled"}
-              badgeContent={kartlag.numberVisible || 0}
-              color="primary"
-            >
-              <CustomIcon
-                id="kartlag"
-                icon={kartlag.tema}
-                size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                color={kartlag.erSynlig ? "#666" : "#999"}
-              />
-            </Badge>
-          </div>
-        </ListItemIcon>
-        <ListItemText primary={tittel} />
-      </ListItem>
+      <div className="details-content-wrapper">
+        <ListItem
+          // Elementet som inneholder tittel, ikon og droppned-knapp
+          id="layer-details-list"
+          divider
+        >
+          <ListItemIcon>
+            <div className="layer-list-element-icon">
+              <Badge
+                className={"badge-enabled"}
+                badgeContent={kartlag.numberVisible || 0}
+                color="primary"
+              >
+                <CustomIcon
+                  id="kartlag"
+                  icon={kartlag.tema}
+                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
+                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                  color={kartlag.erSynlig ? "#666" : "#999"}
+                />
+              </Badge>
+            </div>
+          </ListItemIcon>
+          <ListItemText primary={tittel} />
+        </ListItem>
 
-      <div className="sublayer-details-div">
-        {tags && (
-          <div className="tags_container">
-            <h4>Emneknagger</h4>
-            {tags.map((element, index) => {
-              return (
-                <div className="tags" key={index}>
-                  {element}
-                </div>
-              );
-            })}
-          </div>
-        )}
-
-        {kartlag.kart && kartlag.kart.format.wms && (
-          <div className="data-owner-wrapper">
-            {kartlag.produktark && (
-              <>
-                <ListItem
-                  button
-                  onClick={e => {
-                    openInNewTabWithoutOpener(kartlag.produktark);
-                  }}
-                >
-                  <ListItemIcon>
-                    <Description />
-                  </ListItemIcon>
-                  <ListItemText primary="Produktark" />
-                  {kartlag.produktark && (
-                    <>
-                      {/* {openFakta ? (
-                        <ExpandLess
-                          className="iconbutton"
-                          onClick={e => {
-                            setOpenFakta(!openFakta);
-                          }}
-                        />
-                      ) : (
-                        <ExpandMore
-                          className="iconbutton"
-                          onClick={e => {
-                            setOpenFakta(!openFakta);
-                          }}
-                        />
-                      )} */}
-                      <OpenInNew
-                        className="iconbutton"
-                        onClick={e => {
-                          openInNewTabWithoutOpener(kartlag.produktark);
-                        }}
-                      />
-                    </>
-                  )}
-                </ListItem>
-
-                {/* {kartlag.produktark && (
-                  <Collapse in={openFakta} timeout="auto" unmountOnExit>
-                    <iframe
-                      allowtransparency="true"
-                      style={{
-                        frameBorder: 0,
-                        width: "100%",
-                        minHeight: "500px",
-                        maxHeight: "100%",
-                        position: "relative",
-                        overflow: "none"
-                      }}
-                      title="Produktark"
-                      src={kartlag.produktark}
-                    />
-                  </Collapse>
-                )} */}
-              </>
-            )}
-
-            <ListItem
-              button
-              onClick={e => {
-                openInNewTabWithoutOpener(
-                  kartlag.geonorgeurl || "https://www.geonorge.no/"
+        <div className="sublayer-details-div">
+          {tags && (
+            <div className="tags_container">
+              <h4>Emneknagger</h4>
+              {tags.map((element, index) => {
+                return (
+                  <div className="tags" key={index}>
+                    {element}
+                  </div>
                 );
-              }}
-            >
-              <ListItemIcon>
-                <Geonorge />
-              </ListItemIcon>
-              <ListItemText primary="Datasettet på Geonorge.no" />
-              <OpenInNew />
-            </ListItem>
+              })}
+            </div>
+          )}
 
-            {kartlag.dataeier && (
+          {kartlag.kart && kartlag.kart.format.wms && (
+            <div className="data-owner-wrapper">
+              {kartlag.produktark && (
+                <>
+                  <ListItem
+                    button
+                    onClick={e => {
+                      openInNewTabWithoutOpener(kartlag.produktark);
+                    }}
+                  >
+                    <ListItemIcon>
+                      <Description />
+                    </ListItemIcon>
+                    <ListItemText primary="Produktark" />
+                    {kartlag.produktark && (
+                      <>
+                        {/* {openFakta ? (
+                          <ExpandLess
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
+                        ) : (
+                          <ExpandMore
+                            className="iconbutton"
+                            onClick={e => {
+                              setOpenFakta(!openFakta);
+                            }}
+                          />
+                        )} */}
+                        <OpenInNew
+                          className="iconbutton"
+                          onClick={e => {
+                            openInNewTabWithoutOpener(kartlag.produktark);
+                          }}
+                        />
+                      </>
+                    )}
+                  </ListItem>
+
+                  {/* {kartlag.produktark && (
+                    <Collapse in={openFakta} timeout="auto" unmountOnExit>
+                      <iframe
+                        allowtransparency="true"
+                        style={{
+                          frameBorder: 0,
+                          width: "100%",
+                          minHeight: "500px",
+                          maxHeight: "100%",
+                          position: "relative",
+                          overflow: "none"
+                        }}
+                        title="Produktark"
+                        src={kartlag.produktark}
+                      />
+                    </Collapse>
+                  )} */}
+                </>
+              )}
+
               <ListItem
                 button
                 onClick={e => {
-                  if (kartlag.kildeurl) {
-                    openInNewTabWithoutOpener(kartlag.kildeurl);
-                  }
+                  openInNewTabWithoutOpener(
+                    kartlag.geonorgeurl || "https://www.geonorge.no/"
+                  );
                 }}
               >
                 <ListItemIcon>
-                  {kartlag.logourl ? (
-                    <img
-                      src={kartlag.logourl}
-                      style={{ maxWidth: "24px", maxHeight: "24px" }}
-                      alt=""
-                    />
-                  ) : (
-                    <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
-                  )}
+                  <Geonorge />
                 </ListItemIcon>
-                <ListItemText primary={kartlag.dataeier} />
-                {kartlag.kildeurl && <OpenInNew />}
+                <ListItemText primary="Datasettet på Geonorge.no" />
+                <OpenInNew />
               </ListItem>
-            )}
-          </div>
-        )}
-      </div>
 
-      <ListItem
-        // Underlag
-        id="sublayer-details-list"
-      >
-        <ListItemIcon>
-          <CustomSwitch
-            tabIndex="0"
-            id="visiblility-sublayer-toggle"
-            checked={erSynlig}
-            onChange={e => {
-              onUpdateLayerProp(
-                kartlagKey,
-                kode + "erSynlig",
-                !underlag.erSynlig
-              );
-            }}
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
+              {kartlag.dataeier && (
+                <ListItem
+                  button
+                  onClick={e => {
+                    if (kartlag.kildeurl) {
+                      openInNewTabWithoutOpener(kartlag.kildeurl);
+                    }
+                  }}
+                >
+                  <ListItemIcon>
+                    {kartlag.logourl ? (
+                      <img
+                        src={kartlag.logourl}
+                        style={{ maxWidth: "24px", maxHeight: "24px" }}
+                        alt=""
+                      />
+                    ) : (
+                      <>{kartlag.kildeurl ? <Link /> : <Layers />}</>
+                    )}
+                  </ListItemIcon>
+                  <ListItemText primary={kartlag.dataeier} />
+                  {kartlag.kildeurl && <OpenInNew />}
+                </ListItem>
+              )}
+            </div>
+          )}
+        </div>
+
+        <ListItem
+          // Underlag
+          id="sublayer-details-list"
+        >
+          <ListItemIcon>
+            <CustomSwitch
+              tabIndex="0"
+              id="visiblility-sublayer-toggle"
+              checked={erSynlig}
+              onChange={e => {
                 onUpdateLayerProp(
                   kartlagKey,
                   kode + "erSynlig",
                   !underlag.erSynlig
                 );
-              }
-            }}
-          />
-        </ListItemIcon>
-        <ListItemText primary={tittel} />
-        {underlag.suggested && (
-          <ListItemIcon id="bookmark-icon">
-            <CustomIcon
-              id="bookmark"
-              icon="check-decagram"
-              size={20}
-              padding={0}
-              color={erSynlig ? "#666" : "#999"}
+              }}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  onUpdateLayerProp(
+                    kartlagKey,
+                    kode + "erSynlig",
+                    !underlag.erSynlig
+                  );
+                }
+              }}
             />
           </ListItemIcon>
-        )}
-      </ListItem>
+          <ListItemText primary={tittel} />
+          {underlag.suggested && (
+            <ListItemIcon id="bookmark-icon">
+              <CustomIcon
+                id="bookmark"
+                icon="check-decagram"
+                size={20}
+                padding={0}
+                color={erSynlig ? "#666" : "#999"}
+              />
+            </ListItemIcon>
+          )}
+        </ListItem>
 
-      <div className="sublayer-details-wrapper">
-        <div className="opacity-slider-wrapper">
-          <VisibilityOff
-            id="opacity-invisible-icon"
-            color="primary"
-            style={{ paddingRight: 15 }}
-          />
-          <Slider
-            color="primary"
-            value={Math.round(100 * sliderValue)}
-            step={1}
-            min={0}
-            max={100}
-            onChange={(e, v) => {
-              handleSliderChange(v);
-            }}
-            onChangeCommitted={(e, v) => {
-              changeLayerOpacity(v);
-            }}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={opacity => opacity + " %"}
-            disabled={!erSynlig}
-          />
-          <Visibility
-            id={
-              erSynlig
-                ? "opacity-visible-icon"
-                : "opacity-visible-icon-disabled"
-            }
-            color="primary"
-            style={{ paddingRight: 0, paddingLeft: 15 }}
-          />
+        <div className="sublayer-details-wrapper">
+          <div className="opacity-slider-wrapper">
+            <VisibilityOff
+              id="opacity-invisible-icon"
+              color="primary"
+              style={{ paddingRight: 15 }}
+            />
+            <Slider
+              color="primary"
+              value={Math.round(100 * sliderValue)}
+              step={1}
+              min={0}
+              max={100}
+              onChange={(e, v) => {
+                handleSliderChange(v);
+              }}
+              onChangeCommitted={(e, v) => {
+                changeLayerOpacity(v);
+              }}
+              valueLabelDisplay="auto"
+              aria-labelledby="range-slider"
+              getAriaValueText={opacity => opacity + " %"}
+              disabled={!erSynlig}
+            />
+            <Visibility
+              id={
+                erSynlig
+                  ? "opacity-visible-icon"
+                  : "opacity-visible-icon-disabled"
+              }
+              color="primary"
+              style={{ paddingRight: 0, paddingLeft: 15 }}
+            />
+          </div>
+
+          {underlag.legendeurl && (
+            <>
+              <Typography id="legend-sublayer" variant="body2" gutterBottom>
+                Tegnforklaring
+              </Typography>
+              <img alt="tegnforklaring" src={underlag.legendeurl} />
+            </>
+          )}
         </div>
-
-        {underlag.legendeurl && (
-          <>
-            <Typography id="legend-sublayer" variant="body2" gutterBottom>
-              Tegnforklaring
-            </Typography>
-            <img alt="tegnforklaring" src={underlag.legendeurl} />
-          </>
-        )}
       </div>
     </>
   );
