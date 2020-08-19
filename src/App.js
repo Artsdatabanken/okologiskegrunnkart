@@ -261,7 +261,6 @@ class App extends React.Component {
                         aktivtFormat={basiskart.kart.aktivtFormat}
                         showSideBar={this.state.showSideBar}
                         showInfobox={this.state.showInfobox}
-                        showSmallInfobox={this.state.showSmallInfobox}
                       />
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}

@@ -11,6 +11,7 @@ import CustomTooltip from "../../Common/CustomTooltip";
 import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
 import DetailedInfo from "./DetailedInfo";
+import CustomIcon from "../../Common/CustomIcon";
 
 const InfoBox = ({
   coordinates_area,
@@ -68,10 +69,11 @@ const InfoBox = ({
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
-      if (Math.abs(DY) > screenHeight * 0.4) {
-        handleSmallInfobox(false);
-        handleInfobox(true);
-      } else if (!showSmallInfobox && !showInfobox) {
+      // if (Math.abs(DY) > screenHeight * 0.4) {
+      //   handleSmallInfobox(false);
+      //   handleInfobox(true);
+      // } else
+      if (!showSmallInfobox && !showInfobox) {
         handleSmallInfobox(true);
         handleInfobox(false);
       } else if (showSmallInfobox) {
@@ -80,14 +82,18 @@ const InfoBox = ({
       }
       setY(0);
     } else if (DY > 0 && Y !== 0) {
-      if (Math.abs(DY) > screenHeight * 0.6) {
-        handleSmallInfobox(false);
-        handleInfobox(false);
-      } else if (showInfobox) {
+      // if (Math.abs(DY) > screenHeight * 0.6) {
+      //   handleSmallInfobox(false);
+      //   handleInfobox(false);
+      // } else if (showInfobox) {
+      //   handleSmallInfobox(true);
+      //   handleInfobox(false);
+      // } else if (showSmallInfobox) {
+      //   handleSmallInfobox(false);
+      //   handleInfobox(false);
+      // }
+      if (showInfobox) {
         handleSmallInfobox(true);
-        handleInfobox(false);
-      } else if (showSmallInfobox) {
-        handleSmallInfobox(false);
         handleInfobox(false);
       }
       setY(0);
@@ -140,7 +146,7 @@ const InfoBox = ({
       e.preventDefault();
       if (locked) {
         disp = -Math.round(e.changedTouches[0].clientY - y0);
-        header.style.setProperty("--h", disp + "px");
+        // header.style.setProperty("--h", disp + "px");
         box.style.setProperty("--h", disp + "px");
       }
     }
@@ -152,8 +158,8 @@ const InfoBox = ({
         setDY(dy);
         setY(y0);
         disp = 0;
-        header.classList.toggle("swiper-animation", !locked);
-        header.style.setProperty("--h", 0 + "px");
+        // header.classList.toggle("swiper-animation", !locked);
+        // header.style.setProperty("--h", 0 + "px");
         box.classList.toggle("kartlag-animation", !locked);
         box.style.setProperty("--h", 0 + "px");
       }
@@ -177,6 +183,25 @@ const InfoBox = ({
       }`}
     >
       <div className="infobox-title-wrapper">
+        {isMobile && (
+          <button
+            id="infobox-drag-icon"
+            variant="contained"
+            size="small"
+            tabIndex="-1"
+            onClick={() => {
+              handleSmallInfobox(!showSmallInfobox);
+              handleInfobox(!showInfobox);
+            }}
+          >
+            <CustomIcon
+              id="show-layers-icon"
+              icon="drag-horizontal"
+              color="#fff"
+              size={30}
+            />
+          </button>
+        )}
         <div className="infobox-title-content">
           <CustomTooltip placement="right" title="Sted / Områdetype">
             <MyLocation />

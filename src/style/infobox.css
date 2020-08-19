@@ -21,18 +21,18 @@
 
 @media only screen and (max-width: 768px) {
   .infobox-container-side {
+    --h: 0px;
     position: absolute;
     top: auto;
     bottom: 0;
-    height: 40vh;
+    height: calc(40vh + var(--h, 0px));
     width: 100vw;
     z-index: 250;
   }
   .infobox-container-side.infobox-fullscreen {
     position: absolute;
-    top: 0px;
     bottom: 0;
-    height: 100%;
+    height: calc(100% + var(--h, 0px));
     width: 100vw;
     z-index: 250;
   }
@@ -66,12 +66,28 @@
   color: white;
   width: 100%;
 }
+/* @media only screen and (max-width: 768px) {
+  .infobox-title-wrapper {
+    background-image: linear-gradient(
+      to bottom,
+      #8498a2 0,
+      #8498a2 25px,
+      #697f8a 25px,
+      #697f8a 100%
+    );
+  }
+} */
 .infobox-title-content {
   display: flex;
   justify-content: flex-start;
   padding: 18px 0 15px 10px;
   max-width: calc(100% - 51px);
   width: calc(100% - 51px);
+}
+@media only screen and (max-width: 768px) {
+  .infobox-title-content {
+    padding-top: 26px;
+  }
 }
 .infobox-title-text {
   margin-left: 10px;
@@ -95,8 +111,25 @@
   font-size: 16px;
   text-transform: capitalize;
 }
+/* .infobox-drag-icon {
+  position: absolute;
+  top: 0;
+  right: calc(50vw - 15px);
+} */
 
-/* close infobox and legend button */
+#infobox-drag-icon {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: calc(50vw - 15px);
+  background: transparent;
+  border: none;
+}
+#infobox-drag-icon:focus {
+  outline: none;
+}
+
+/* -------- Close infobox button --------- */
 .close-infobox-button-wrapper {
   display: flex;
   align-items: center;
@@ -134,12 +167,18 @@
 @media only screen and (max-width: 768px) {
   .close-infobox-button-wrapper {
     z-index: 255;
+    margin: 40px 29px 23px 22px;
+  }
+  .close-infobox-button-wrapper:focus {
+    margin: 17px 7px 0 0;
   }
   .close-infobox-button {
     z-index: 255;
     position: absolute;
-    top: 18px;
+    /* top: 10px; */
+    top: 26px;
     right: 15px;
+    /* display: none; */
   }
 }
 
