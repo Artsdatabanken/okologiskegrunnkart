@@ -8,7 +8,7 @@
 .infobox-container-side {
   position: absolute;
   height: 100%;
-  left: 0px;
+  left: -350px;
   top: 0px;
   width: 350px;
   background-color: white;
@@ -18,23 +18,30 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background: #eeeeee;
 }
-
+.infobox-container-side.infobox-open {
+  left: 0px;
+  top: 0px;
+}
 @media only screen and (max-width: 768px) {
   .infobox-container-side {
     --h: 0px;
     position: absolute;
     top: auto;
+    left: 0;
     bottom: 0;
-    height: calc(40vh + var(--h, 0px));
+    height: calc(var(--h, 0px));
     width: 100vw;
     z-index: 250;
   }
+  .infobox-container-side.infobox-open {
+    top: auto;
+    bottom: 0;
+    height: calc(40vh + var(--h, 0px));
+  }
   .infobox-container-side.infobox-fullscreen {
-    position: absolute;
+    top: auto;
     bottom: 0;
     height: calc(100% + var(--h, 0px));
-    width: 100vw;
-    z-index: 250;
   }
 }
 
@@ -66,17 +73,6 @@
   color: white;
   width: 100%;
 }
-/* @media only screen and (max-width: 768px) {
-  .infobox-title-wrapper {
-    background-image: linear-gradient(
-      to bottom,
-      #8498a2 0,
-      #8498a2 25px,
-      #697f8a 25px,
-      #697f8a 100%
-    );
-  }
-} */
 .infobox-title-content {
   display: flex;
   justify-content: flex-start;
@@ -111,11 +107,6 @@
   font-size: 16px;
   text-transform: capitalize;
 }
-/* .infobox-drag-icon {
-  position: absolute;
-  top: 0;
-  right: calc(50vw - 15px);
-} */
 
 #infobox-drag-icon {
   padding: 0;
@@ -175,10 +166,8 @@
   .close-infobox-button {
     z-index: 255;
     position: absolute;
-    /* top: 10px; */
     top: 26px;
     right: 15px;
-    /* display: none; */
   }
 }
 
@@ -479,5 +468,25 @@
 @media only screen and (max-width: 768px) {
   #infobox-detail-facts.MuiButton-root {
     margin: 16px 10px;
+  }
+}
+
+/* ---------- General transitions -----------  */
+.infobox-animation {
+  -webkit-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -ms-transition: left 0.5s;
+  -o-transition: left 0.5s;
+  transition: left 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media only screen and (max-width: 768px) {
+  .infobox-animation {
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    -o-transition: height 0.5s;
+    transition: height 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

@@ -19,8 +19,8 @@ const InfoBox = ({
   getBackendData,
   showInfobox,
   handleInfobox,
-  showSmallInfobox,
-  handleSmallInfobox,
+  showFullscreenInfobox,
+  handleFullscreenInfobox,
   layersResult,
   allLayersResult,
   valgteLag,
@@ -38,8 +38,11 @@ const InfoBox = ({
   const [screenHeight, setScreenHeight] = useState(0);
   const [inTransition, setInTransition] = useState(null);
 
-  const coords = `${Math.round(coordinates_area.lat * 10000) /
-    10000}° N  ${Math.round(coordinates_area.lng * 10000) / 10000}° Ø`;
+  const latitude = coordinates_area ? coordinates_area.lat : 0;
+  const longitude = coordinates_area ? coordinates_area.lng : 0;
+  const coords = `${Math.round(latitude * 10000) / 10000}° N  ${Math.round(
+    longitude * 10000
+  ) / 10000}° Ø`;
 
   // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
   const hentAdresse = adresse => {
@@ -69,32 +72,18 @@ const InfoBox = ({
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
-      // if (Math.abs(DY) > screenHeight * 0.4) {
-      //   handleSmallInfobox(false);
-      //   handleInfobox(true);
-      // } else
-      if (!showSmallInfobox && !showInfobox) {
-        handleSmallInfobox(true);
-        handleInfobox(false);
-      } else if (showSmallInfobox) {
-        handleSmallInfobox(false);
+      if (!showFullscreenInfobox && !showInfobox) {
+        handleFullscreenInfobox(false);
         handleInfobox(true);
+      } else if (showInfobox) {
+        handleFullscreenInfobox(true);
+        handleInfobox(false);
       }
       setY(0);
     } else if (DY > 0 && Y !== 0) {
-      // if (Math.abs(DY) > screenHeight * 0.6) {
-      //   handleSmallInfobox(false);
-      //   handleInfobox(false);
-      // } else if (showInfobox) {
-      //   handleSmallInfobox(true);
-      //   handleInfobox(false);
-      // } else if (showSmallInfobox) {
-      //   handleSmallInfobox(false);
-      //   handleInfobox(false);
-      // }
-      if (showInfobox) {
-        handleSmallInfobox(true);
-        handleInfobox(false);
+      if (showFullscreenInfobox) {
+        handleFullscreenInfobox(false);
+        handleInfobox(true);
       }
       setY(0);
     }
@@ -102,19 +91,19 @@ const InfoBox = ({
     Y,
     DY,
     screenHeight,
-    showSmallInfobox,
+    showFullscreenInfobox,
     showInfobox,
-    handleSmallInfobox,
+    handleFullscreenInfobox,
     handleInfobox
   ]);
 
   useEffect(() => {
     const box = document.querySelector(".infobox-container-side");
-    if (inTransition === "finished" && !showSmallInfobox) {
+    if (inTransition === "finished" && !showFullscreenInfobox) {
       box.classList.toggle("kartlag-hidden", true);
       setInTransition(null);
     }
-  }, [inTransition, showSmallInfobox]);
+  }, [inTransition, showFullscreenInfobox]);
 
   useEffect(() => {
     if (!isMobile) return;
@@ -138,7 +127,7 @@ const InfoBox = ({
         setScreenHeight(window.innerHeight);
         y0 = e.changedTouches[0].clientY;
         header.classList.toggle("swiper-animation", !locked);
-        box.classList.toggle("kartlag-animation", !locked);
+        box.classList.toggle("infobox-animation", !locked);
       }
     }
 
@@ -146,7 +135,6 @@ const InfoBox = ({
       e.preventDefault();
       if (locked) {
         disp = -Math.round(e.changedTouches[0].clientY - y0);
-        // header.style.setProperty("--h", disp + "px");
         box.style.setProperty("--h", disp + "px");
       }
     }
@@ -158,9 +146,7 @@ const InfoBox = ({
         setDY(dy);
         setY(y0);
         disp = 0;
-        // header.classList.toggle("swiper-animation", !locked);
-        // header.style.setProperty("--h", 0 + "px");
-        box.classList.toggle("kartlag-animation", !locked);
+        box.classList.toggle("infobox-animation", !locked);
         box.style.setProperty("--h", 0 + "px");
       }
     }
@@ -178,8 +164,12 @@ const InfoBox = ({
 
   return (
     <div
-      className={`infobox-container-side${
-        showInfobox ? " infobox-fullscreen" : ""
+      className={`infobox-container-side infobox-animation${
+        showInfobox
+          ? " infobox-open"
+          : showFullscreenInfobox
+          ? " infobox-fullscreen"
+          : ""
       }`}
     >
       <div className="infobox-title-wrapper">
@@ -190,7 +180,7 @@ const InfoBox = ({
             size="small"
             tabIndex="-1"
             onClick={() => {
-              handleSmallInfobox(!showSmallInfobox);
+              handleFullscreenInfobox(!showFullscreenInfobox);
               handleInfobox(!showInfobox);
             }}
           >
@@ -220,8 +210,8 @@ const InfoBox = ({
           className="close-infobox-button-wrapper"
           onClick={() => {
             handleInfobox(false);
-            handleSmallInfobox(false);
-            handleExtensiveInfo(false);
+            handleFullscreenInfobox(false);
+            // handleExtensiveInfo(false);
           }}
         >
           <div className="close-infobox-button">

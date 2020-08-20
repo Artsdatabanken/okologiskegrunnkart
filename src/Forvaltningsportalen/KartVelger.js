@@ -30,23 +30,17 @@ const KartVelger = props => {
 
   const mapButtonClass = () => {
     let name = "change_map_buttons";
-    if (props.showSideBar) {
-      name = name + " side-bar-open";
-    }
-    if (props.showInfobox) {
-      name = name + " infobox-open";
-    }
+    if (props.showSideBar) name = name + " side-bar-open";
+    if (props.showInfobox) name = name + " infobox-open";
+    if (!props.isMobile) name = name + " margin-animation";
     return name;
   };
 
   const mapRefClass = () => {
     let name = "map_ref";
-    if (props.showSideBar) {
-      name = name + " side-bar-open";
-    }
-    if (props.showInfobox) {
-      name = name + " infobox-open";
-    }
+    if (props.showSideBar) name = name + " side-bar-open";
+    if (props.showInfobox) name = name + " infobox-open";
+    if (!props.isMobile) name = name + " margin-animation";
     return name;
   };
 

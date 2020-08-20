@@ -117,3 +117,13 @@
     bottom: 40vh;
   }
 }
+
+/* ---------- General transitions -----------  */
+.margin-animation {
+  -webkit-transition: margin 0.5s;
+  -moz-transition: margin 0.5s;
+  -ms-transition: margin 0.5s;
+  -o-transition: margin 0.5s;
+  transition: margin 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

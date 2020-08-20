@@ -61,7 +61,7 @@ class App extends React.Component {
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
       legendVisible: false,
-      showSmallInfobox: false,
+      showFullscreenInfobox: false,
       isMobile: false
     };
   }
@@ -251,8 +251,8 @@ class App extends React.Component {
                         handleInfobox={this.handleInfobox}
                         loadingFeatures={this.state.loadingFeatures}
                         showSideBar={this.state.showSideBar}
-                        showSmallInfobox={this.state.showSmallInfobox}
-                        handleSmallInfobox={this.handleSmallInfobox}
+                        showFullscreenInfobox={this.state.showFullscreenInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
                         isMobile={this.state.isMobile}
                         {...this.state}
                       />
@@ -261,6 +261,7 @@ class App extends React.Component {
                         aktivtFormat={basiskart.kart.aktivtFormat}
                         showSideBar={this.state.showSideBar}
                         showInfobox={this.state.showInfobox}
+                        isMobile={this.state.isMobile}
                       />
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
@@ -875,8 +876,8 @@ class App extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
-  handleSmallInfobox = show => {
-    this.setState({ showSmallInfobox: show });
+  handleFullscreenInfobox = show => {
+    this.setState({ showFullscreenInfobox: show });
   };
 
   handleZoomChange = zoom => {
