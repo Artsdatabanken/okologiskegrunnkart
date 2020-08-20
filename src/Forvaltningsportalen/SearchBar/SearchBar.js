@@ -416,6 +416,13 @@ class SearchBar extends React.Component {
               onKeyPress={e => {
                 if (e.key === "Enter") {
                   this.handleSearchButton();
+                  if (
+                    !this.props.isMobile &&
+                    !this.props.showSideBar &&
+                    document.getElementById("searchfield").value.length > 0
+                  ) {
+                    this.props.handleSideBar(true);
+                  }
                 }
               }}
             />
@@ -437,6 +444,13 @@ class SearchBar extends React.Component {
               className="search-button"
               onClick={() => {
                 this.handleSearchButton();
+                if (
+                  !this.props.isMobile &&
+                  !this.props.showSideBar &&
+                  document.getElementById("searchfield").value.length > 0
+                ) {
+                  this.props.handleSideBar(true);
+                }
               }}
             >
               Søk

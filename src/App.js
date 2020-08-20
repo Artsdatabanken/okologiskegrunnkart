@@ -280,6 +280,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                         isMobile={this.state.isMobile}
+                        showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
                         handleInfobox={this.handleInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
@@ -311,6 +312,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
+                        handleSelectSearchResult={this.handleSelectSearchResult}
                       />
                     </div>
                   </>
