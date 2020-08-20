@@ -70,6 +70,13 @@ const TreffListe = props => {
         } else {
           document.getElementsByClassName("searchbar_item")[index - 1].focus();
         }
+        // if (props.searchResultPage && nextindex < 0) {
+        //   document.getElementById("searchfield").focus();
+        // } else if (!props.searchResultPage && nextindex < 1) {
+        //   document.getElementById("searchfield").focus();
+        // } else {
+        //   document.getElementsByClassName("searchbar_item")[index - 1].focus();
+        // }
       }
     }
   }
@@ -89,6 +96,7 @@ const TreffListe = props => {
   }
 
   list_items = list_items.slice(0, max_list_length);
+  list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
 
   return (
     <>
@@ -121,31 +129,31 @@ const TreffListe = props => {
       >
         {list_items &&
           list_items.map((item, index) => {
-            if (item.trefftype === "Søkeelement") {
-              return (
-                <li
-                  id={index}
-                  key={index}
-                  tabIndex="0"
-                  className="searchbar_item  search_all"
-                  onKeyDown={e => {
-                    if (e.keyCode === 13) {
-                      //Enterpressed
-                      props.onSearchButton();
-                    } else {
-                      movefocus(e, index);
-                    }
-                  }}
-                  onClick={() => {
-                    props.onSearchButton();
-                  }}
-                >
-                  <span className="itemname">
-                    Søk etter "{props.searchTerm}"{" "}
-                  </span>
-                </li>
-              );
-            }
+            // if (item.trefftype === "Søkeelement") {
+            //   return (
+            //     <li
+            //       id={index}
+            //       key={index}
+            //       tabIndex={index > 0 ? 0 : -1}
+            //       className="searchbar_item  search_all"
+            //       onKeyDown={e => {
+            //         if (e.keyCode === 13) {
+            //           //Enterpressed
+            //           props.onSearchButton();
+            //         } else {
+            //           movefocus(e, index);
+            //         }
+            //       }}
+            //       onClick={() => {
+            //         props.onSearchButton();
+            //       }}
+            //     >
+            //       <span className="itemname">
+            //         Søk etter "{props.searchTerm}"{" "}
+            //       </span>
+            //     </li>
+            //   );
+            // }
 
             let itemname = item.adressetekst || "";
             let trefftype = item.trefftype || "annet treff";
@@ -183,45 +191,47 @@ const TreffListe = props => {
                   onActivate(item, trefftype);
                 }}
               >
-                <span className="itemname">{itemname} </span>
-                <span className="itemtype">
-                  {trefftype}{" "}
-                  {trefftype === "Stedsnavn" ? (
-                    <>{itemtype} </>
-                  ) : (
-                    <>
-                      {item.postnummer} {item.poststed}
-                    </>
-                  )}
-                </span>
-                <span className="itemnr">
-                  {trefftype === "Kommune" ||
-                  trefftype === "Stedsnavn" ||
-                  trefftype === "Kartlag" ||
-                  trefftype === "Underlag" ? (
-                    <>{itemnr}</>
-                  ) : (
-                    <>
-                      {trefftype === "KNR" ? (
-                        <b>{item.kommunenummer}</b>
-                      ) : (
-                        <>{item.kommunenummer}</>
-                      )}
-                      -
-                      {trefftype === "GNR" ? (
-                        <b>{item.gardsnummer}</b>
-                      ) : (
-                        <>{item.gardsnummer}</>
-                      )}
-                      -
-                      {trefftype === "BNR" ? (
-                        <b>{item.bruksnummer}</b>
-                      ) : (
-                        <>{item.bruksnummer}</>
-                      )}
-                    </>
-                  )}
-                </span>
+                <div className="searchlist-item-wrapper">
+                  <span className="itemname">{itemname} </span>
+                  <span className="itemtype">
+                    {trefftype}{" "}
+                    {trefftype === "Stedsnavn" ? (
+                      <>{itemtype} </>
+                    ) : (
+                      <>
+                        {item.postnummer} {item.poststed}
+                      </>
+                    )}
+                  </span>
+                  <span className="itemnr">
+                    {trefftype === "Kommune" ||
+                    trefftype === "Stedsnavn" ||
+                    trefftype === "Kartlag" ||
+                    trefftype === "Underlag" ? (
+                      <>{itemnr}</>
+                    ) : (
+                      <>
+                        {trefftype === "KNR" ? (
+                          <b>{item.kommunenummer}</b>
+                        ) : (
+                          <>{item.kommunenummer}</>
+                        )}
+                        -
+                        {trefftype === "GNR" ? (
+                          <b>{item.gardsnummer}</b>
+                        ) : (
+                          <>{item.gardsnummer}</>
+                        )}
+                        -
+                        {trefftype === "BNR" ? (
+                          <b>{item.bruksnummer}</b>
+                        ) : (
+                          <>{item.bruksnummer}</>
+                        )}
+                      </>
+                    )}
+                  </span>
+                </div>
               </li>
             );
           })}

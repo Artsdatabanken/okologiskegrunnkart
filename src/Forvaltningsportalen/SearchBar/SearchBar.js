@@ -379,6 +379,29 @@ class SearchBar extends React.Component {
     return items;
   };
 
+  handleSearchKeyDown = e => {
+    const searchBar = document.getElementsByClassName("searchbar_item");
+    const length = searchBar.length;
+    if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
+      searchBar[0].focus();
+      // if (this.props.searchResultPage) {
+      //   searchBar[0].focus();
+      // }
+      // else {
+      //   searchBar[1].focus();
+      //   const list = document.querySelector(".treffliste");
+      //   console.log(list.style)
+      //   console.log(list.scrollTop)
+      //   if (list) {
+      //     list.scroll(0, 250);
+      //   }
+      //   // if (list && list.length > 0 && list[0].treffliste) {
+      //   //   list[0].treffliste.scrollTop = 0;
+      //   // }
+      // }
+    }
+  };
+
   render() {
     return (
       <>
@@ -395,23 +418,7 @@ class SearchBar extends React.Component {
                 this.handleSearchBar(e.target.value);
               }}
               onKeyDown={e => {
-                if (e.key === "ArrowDown") {
-                  if (document.getElementsByClassName("searchbar_item")) {
-                    if (e.keyCode === 40) {
-                      if (
-                        document.getElementsByClassName("searchbar_item")[0]
-                      ) {
-                        document
-                          .getElementsByClassName("searchbar_item")[0]
-                          .focus();
-                      } else {
-                        console.log("nothing to scroll to");
-                      }
-                    }
-                  } else {
-                    console.log("nothing to see here");
-                  }
-                }
+                this.handleSearchKeyDown(e);
               }}
               onKeyPress={e => {
                 if (e.key === "Enter") {
