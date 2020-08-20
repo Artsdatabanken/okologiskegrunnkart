@@ -461,6 +461,9 @@ class SearchBar extends React.Component {
               addValgtLag={this.props.addValgtLag}
               handleGeoSelection={this.props.handleGeoSelection}
               handleRemoveTreffliste={this.handleRemoveTreffliste}
+              isMobile={this.props.isMobile}
+              handleInfobox={this.props.handleInfobox}
+              handleFullscreenInfobox={this.props.handleFullscreenInfobox}
             />
           )}
 

@@ -247,10 +247,10 @@ class App extends React.Component {
                         allLayersResult={this.state.allLayersResult}
                         valgteLag={this.state.valgteLag}
                         token={token}
-                        showInfobox={this.state.showInfobox}
-                        handleInfobox={this.handleInfobox}
                         loadingFeatures={this.state.loadingFeatures}
                         showSideBar={this.state.showSideBar}
+                        showInfobox={this.state.showInfobox}
+                        handleInfobox={this.handleInfobox}
                         showFullscreenInfobox={this.state.showFullscreenInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         isMobile={this.state.isMobile}
@@ -279,6 +279,9 @@ class App extends React.Component {
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
+                        isMobile={this.state.isMobile}
+                        handleInfobox={this.handleInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
                       />
                       <KartlagFanen
                         polygon={this.state.polygon}

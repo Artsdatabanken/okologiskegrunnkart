@@ -37,11 +37,13 @@
     top: auto;
     bottom: 0;
     height: calc(40vh + var(--h, 0px));
+    z-index: 200;
   }
   .infobox-container-side.infobox-fullscreen {
     top: auto;
     bottom: 0;
     height: calc(100% + var(--h, 0px));
+    z-index: 225;
   }
 }
 
