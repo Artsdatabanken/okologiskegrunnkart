@@ -61,7 +61,7 @@ class App extends React.Component {
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
       legendVisible: false,
-      showSmallInfobox: false,
+      showFullscreenInfobox: false,
       isMobile: false
     };
   }
@@ -247,12 +247,13 @@ class App extends React.Component {
                         allLayersResult={this.state.allLayersResult}
                         valgteLag={this.state.valgteLag}
                         token={token}
-                        showInfobox={this.state.showInfobox}
-                        handleInfobox={this.handleInfobox}
                         loadingFeatures={this.state.loadingFeatures}
                         showSideBar={this.state.showSideBar}
-                        showSmallInfobox={this.state.showSmallInfobox}
-                        handleSmallInfobox={this.handleSmallInfobox}
+                        showInfobox={this.state.showInfobox}
+                        handleInfobox={this.handleInfobox}
+                        showFullscreenInfobox={this.state.showFullscreenInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
+                        isMobile={this.state.isMobile}
                         {...this.state}
                       />
                       <KartVelger
@@ -260,7 +261,7 @@ class App extends React.Component {
                         aktivtFormat={basiskart.kart.aktivtFormat}
                         showSideBar={this.state.showSideBar}
                         showInfobox={this.state.showInfobox}
-                        showSmallInfobox={this.state.showSmallInfobox}
+                        isMobile={this.state.isMobile}
                       />
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
@@ -278,6 +279,11 @@ class App extends React.Component {
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
+                        isMobile={this.state.isMobile}
+                        showSideBar={this.state.showSideBar}
+                        handleSideBar={this.handleSideBar}
+                        handleInfobox={this.handleInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
                       />
                       <KartlagFanen
                         polygon={this.state.polygon}
@@ -288,7 +294,6 @@ class App extends React.Component {
                         polyline={this.state.polyline}
                         addPolyline={this.addPolyline}
                         searchResultPage={this.state.searchResultPage}
-                        addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}
@@ -307,6 +312,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
+                        handleSelectSearchResult={this.handleSelectSearchResult}
                       />
                     </div>
                   </>
@@ -875,8 +881,8 @@ class App extends React.Component {
     this.setState({ showInfobox: bool });
   };
 
-  handleSmallInfobox = show => {
-    this.setState({ showSmallInfobox: show });
+  handleFullscreenInfobox = show => {
+    this.setState({ showFullscreenInfobox: show });
   };
 
   handleZoomChange = zoom => {

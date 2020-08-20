@@ -34,7 +34,7 @@ const DetailedInfo = ({
   } else if (!showExtensiveInfo && !emptyKartlag) {
     title = "Resultat fra valgte kartlag";
   }
-  if (!coordinates_area.lat) return null;
+  if (!coordinates_area || !coordinates_area.lat) return null;
 
   return (
     <div className="detailed-info-container-side">

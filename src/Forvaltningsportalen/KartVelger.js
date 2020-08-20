@@ -30,76 +30,72 @@ const KartVelger = props => {
 
   const mapButtonClass = () => {
     let name = "change_map_buttons";
-    if (props.showSideBar) {
+    if (props.showSideBar || (props.isMobile && props.showInfobox)) {
       name = name + " side-bar-open";
     }
-    if (props.showInfobox) {
-      name = name + " infobox-open";
-    }
+    if (props.showInfobox) name = name + " infobox-open";
+    if (!props.isMobile) name = name + " margin-animation";
     return name;
   };
 
   const mapRefClass = () => {
     let name = "map_ref";
-    if (props.showSideBar) {
+    if (props.showSideBar || (props.isMobile && props.showInfobox)) {
       name = name + " side-bar-open";
     }
-    if (props.showInfobox) {
-      name = name + " infobox-open";
-    }
+    if (props.showInfobox) name = name + " infobox-open";
+    if (!props.isMobile) name = name + " margin-animation";
     return name;
   };
 
   return (
     <>
-      {!props.showSmallInfobox && (
-        <div
-          className={mapButtonClass()}
+      <div
+        className={mapButtonClass()}
+        style={{
+          background: open ? "white" : "transparent",
+          borderColor: open ? "#9f9f9f" : "transparent"
+        }}
+      >
+        <button
+          className="change_map_icon"
+          onMouseEnter={() => {
+            props.onUpdateLayerProp(
+              "kart.aktivtFormat",
+              tilgjengelige[current]
+            );
+          }}
+          onClick={() => {
+            setOpen(!open);
+          }}
           style={{
-            background: open ? "white" : "transparent",
-            borderColor: open ? "#9f9f9f" : "transparent"
+            backgroundImage: "url('" + imgs[current] + "')",
+            backgroundSize: "cover"
           }}
         >
-          <button
-            className="change_map_icon"
-            onMouseEnter={() => {
-              props.onUpdateLayerProp(
-                "kart.aktivtFormat",
-                tilgjengelige[current]
-              );
-            }}
-            onClick={() => {
-              setOpen(!open);
-            }}
-            style={{
-              backgroundImage: "url('" + imgs[current] + "')",
-              backgroundSize: "cover"
-            }}
-          >
-            <Map />
-          </button>
-          {open && (
-            <div>
-              {tilgjengelige.map((element, index) => (
-                <button
-                  key={element}
-                  style={{
-                    backgroundImage: "url('" + imgs[index] + "')",
-                    backgroundSize: "cover",
-                    borderColor: index === current ? "black" : "#9f9f9f"
-                  }}
-                  className="change_map_button"
-                  onClick={() => {
-                    props.onUpdateLayerProp("kart.aktivtFormat", element);
-                  }}
-                >
-                  <span>{element}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
+          <Map />
+        </button>
+        {open && (
+          <div>
+            {tilgjengelige.map((element, index) => (
+              <button
+                key={element}
+                style={{
+                  backgroundImage: "url('" + imgs[index] + "')",
+                  backgroundSize: "cover",
+                  borderColor: index === current ? "black" : "#9f9f9f"
+                }}
+                className="change_map_button"
+                onClick={() => {
+                  props.onUpdateLayerProp("kart.aktivtFormat", element);
+                }}
+              >
+                <span>{element}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       <div className={mapRefClass()}>
         <div className="map-active-format-text">
           {`${tilgjengelige_data[props.aktivtFormat].navn} |`}

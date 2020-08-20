@@ -83,6 +83,11 @@ const TreffListe = props => {
     document.getElementById("searchfield").value = "";
     if (trefftype === "Kartlag" || trefftype === "Underlag") {
       props.addValgtLag(item, trefftype);
+      props.handleSideBar(true);
+      if (props.isMobile) {
+        props.handleInfobox(false);
+        props.handleFullscreenInfobox(false);
+      }
     } else {
       props.handleGeoSelection(item);
     }

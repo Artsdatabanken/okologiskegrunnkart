@@ -50,7 +50,8 @@ const KartlagFanen = props => {
     legendVisible,
     updateIsMobile,
     sublayerDetailsVisible,
-    valgtLag
+    valgtLag,
+    handleSelectSearchResult
   } = props;
 
   const toggleSideBarVisible = async () => {
@@ -62,7 +63,6 @@ const KartlagFanen = props => {
   };
 
   const toggleSideBar = () => {
-    console.log("Coming to click button");
     if (fullscreen) {
       handleSideBar(true);
     } else if (showSideBar) {
@@ -212,6 +212,7 @@ const KartlagFanen = props => {
               toggleSideBarVisible();
               setTimeout(function() {
                 toggleSideBar();
+                handleSelectSearchResult(false);
               }, 25);
             }}
           >
