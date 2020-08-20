@@ -280,6 +280,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                         isMobile={this.state.isMobile}
+                        handleSideBar={this.handleSideBar}
                         handleInfobox={this.handleInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                       />
@@ -292,7 +293,6 @@ class App extends React.Component {
                         polyline={this.state.polyline}
                         addPolyline={this.addPolyline}
                         searchResultPage={this.state.searchResultPage}
-                        addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}

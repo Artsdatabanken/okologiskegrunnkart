@@ -462,6 +462,7 @@ class SearchBar extends React.Component {
               handleGeoSelection={this.props.handleGeoSelection}
               handleRemoveTreffliste={this.handleRemoveTreffliste}
               isMobile={this.props.isMobile}
+              handleSideBar={this.props.handleSideBar}
               handleInfobox={this.props.handleInfobox}
               handleFullscreenInfobox={this.props.handleFullscreenInfobox}
             />
