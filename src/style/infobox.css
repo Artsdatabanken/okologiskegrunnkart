@@ -8,7 +8,7 @@
 .infobox-container-side {
   position: absolute;
   height: 100%;
-  left: 0px;
+  left: -350px;
   top: 0px;
   width: 350px;
   background-color: white;
@@ -18,14 +18,32 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background: #eeeeee;
 }
-
+.infobox-container-side.infobox-open {
+  left: 0px;
+  top: 0px;
+}
 @media only screen and (max-width: 768px) {
   .infobox-container-side {
+    --h: 0px;
     position: absolute;
-    top: 0px;
-    height: 100vh;
+    top: auto;
+    left: 0;
+    bottom: 0;
+    height: calc(var(--h, 0px));
     width: 100vw;
-    z-index: 250;
+    z-index: 200;
+  }
+  .infobox-container-side.infobox-open {
+    top: auto;
+    bottom: 0;
+    height: calc(40vh + var(--h, 0px));
+    z-index: 200;
+  }
+  .infobox-container-side.infobox-fullscreen {
+    top: auto;
+    bottom: 0;
+    height: calc(100% + var(--h, 0px));
+    z-index: 225;
   }
 }
 
@@ -56,6 +74,7 @@
   background-color: #697f8a;
   color: white;
   width: 100%;
+  flex-shrink: 0;
 }
 .infobox-title-content {
   display: flex;
@@ -63,6 +82,11 @@
   padding: 18px 0 15px 10px;
   max-width: calc(100% - 51px);
   width: calc(100% - 51px);
+}
+@media only screen and (max-width: 768px) {
+  .infobox-title-content {
+    padding-top: 26px;
+  }
 }
 .infobox-title-text {
   margin-left: 10px;
@@ -87,7 +111,19 @@
   text-transform: capitalize;
 }
 
-/* close infobox and legend button */
+#infobox-drag-icon {
+  padding: 0;
+  position: absolute;
+  top: 0;
+  right: calc(50vw - 15px);
+  background: transparent;
+  border: none;
+}
+#infobox-drag-icon:focus {
+  outline: none;
+}
+
+/* -------- Close infobox button --------- */
 .close-infobox-button-wrapper {
   display: flex;
   align-items: center;
@@ -124,12 +160,16 @@
 }
 @media only screen and (max-width: 768px) {
   .close-infobox-button-wrapper {
-    z-index: 255;
+    z-index: 205;
+    margin: 40px 29px 23px 22px;
+  }
+  .close-infobox-button-wrapper:focus {
+    margin: 17px 7px 0 0;
   }
   .close-infobox-button {
-    z-index: 255;
+    z-index: 205;
     position: absolute;
-    top: 18px;
+    top: 26px;
     right: 15px;
   }
 }
@@ -434,159 +474,22 @@
   }
 }
 
-/* -------- SMALL INFOBOX MOBILE -------- */
-.small-infobox-container {
-  display: none;
+/* ---------- General transitions -----------  */
+.infobox-animation {
+  -webkit-transition: left 0.5s;
+  -moz-transition: left 0.5s;
+  -ms-transition: left 0.5s;
+  -o-transition: left 0.5s;
+  transition: left 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media only screen and (max-width: 768px) {
-  .small-infobox-container {
-    position: absolute;
-    top: auto;
-    bottom: 50px;
-    right: 5vw;
-    width: 90vw;
-    z-index: 50;
-    display: block;
-    border-radius: 10px;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  .infobox-animation {
+    -webkit-transition: height 0.5s;
+    -moz-transition: height 0.5s;
+    -ms-transition: height 0.5s;
+    -o-transition: height 0.5s;
+    transition: height 0.5s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .small-infobox-container.tiny-box {
-    bottom: calc(40vh + 25px);
-    -webkit-transition: bottom 0.5s;
-    -moz-transition: bottom 0.5s;
-    -ms-transition: bottom 0.5s;
-    -o-transition: bottom 0.5s;
-    transition: bottom 0.5s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  }
-}
-.small-infobox-title-wrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: #697f8a;
-  color: white;
-  width: 100%;
-  border-radius: 10px 10px 0 0;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-}
-.small-infobox-title-wrapper.tiny-box {
-  border-radius: 10px;
-}
-.small-infobox-title-content {
-  display: flex;
-  justify-content: flex-start;
-  padding: 10px 0 10px 12px;
-  max-width: calc(100% - 41px);
-  width: calc(100% - 41px);
-}
-.small-infobox-title-text {
-  text-align: left;
-  max-width: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  -webkit-hyphens: auto;
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
-  font-size: 15px;
-  font-weight: 550;
-}
-.fullscreen-small-infobox-button {
-  margin: 8px 0 0 10px;
-}
-
-/* Small infobox content */
-.small-infobox-body {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  background-color: #eee;
-  height: 50px;
-  overflow-y: hidden;
-  width: 100%;
-  max-width: 600px;
-  text-align: center;
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-  -webkit-transition: height 0.45s;
-  -moz-transition: height 0.45s;
-  -ms-transition: height 0.45s;
-  -o-transition: height 0.45s;
-  transition: height 0.45s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.small-infobox-body.tiny-box {
-  height: 0px;
-  overflow-y: hidden;
-  -webkit-transition: height 0.45s;
-  -moz-transition: height 0.45s;
-  -ms-transition: height 0.45s;
-  -o-transition: height 0.45s;
-  transition: height 0.45s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.small-infobox-content {
-  display: flex;
-  flex-direction: column;
-  padding: 4px 10px 6px 12px;
-  flex-shrink: 0;
-  border-radius: 0 0 10px 10px;
-}
-.small-infobox-text-wrapper {
-  display: flex;
-  align-items: flex-start;
-  text-transform: capitalize;
-  padding-bottom: 2px;
-  font-size: 14px;
-}
-.small-infobox-text-multiple {
-  display: flex;
-  align-items: flex-start;
-}
-.small-infobox-text-primary {
-  margin-top: 1px;
-  text-align: left;
-  padding-right: 6px;
-}
-.small-infobox-text-secondary {
-  color: grey;
-  font-size: 12px;
-  margin-top: 3px;
-  text-align: left;
-}
-
-/* close small infobox button */
-.close-small-infobox-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 8px 10px 0 8px;
-  padding: 0;
-  background-color: rgba(145, 163, 176, 0);
-  border: none;
-  border-radius: 10px;
-  transition: background-color 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  z-index: 55;
-  color: white;
-}
-.close-small-infobox-button-wrapper:hover {
-  background-color: rgba(145, 163, 176, 0);
-}
-.close-small-infobox-button-wrapper:focus {
-  background-color: rgba(145, 163, 176, 1);
-  outline: none;
 }

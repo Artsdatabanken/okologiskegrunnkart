@@ -49,10 +49,10 @@
 
 .scroll_area {
   background: #eee;
-  max-height: calc(100% - 48px);
   overflow-y: auto;
   width: 100%;
   height: calc(100vh - 48px);
+  max-height: calc(100% - 48px);
 }
 @media only screen and (max-width: 768px) {
   .scroll_area {
@@ -68,6 +68,7 @@
   }
   .scroll_area.side-bar-fullscreen {
     height: 100vh;
+    max-height: 100vh;
     padding-bottom: 75px;
   }
 }

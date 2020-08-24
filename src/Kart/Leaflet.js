@@ -5,7 +5,6 @@ import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
-import InfoboxSmall from "../Forvaltningsportalen/FeatureInfo/InfoboxSmall";
 import "../style/leaflet.css";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
@@ -244,10 +243,10 @@ class Leaflet extends React.Component {
     if (width > 768) {
       this.props.handleInfobox(!this.props.showInfobox);
     } else {
-      if (this.props.showSmallInfobox) {
-        this.props.handleInfobox(!this.props.showInfobox);
+      if (this.props.showInfobox) {
+        this.props.handleFullscreenInfobox(true);
       } else {
-        this.props.handleSmallInfobox(true);
+        this.props.handleInfobox(!this.props.showInfobox);
       }
     }
   };
@@ -307,12 +306,13 @@ class Leaflet extends React.Component {
     if (this.state.markerType === "polygon") {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
-      const width = window.innerWidth;
-      if (width > 768) {
-        this.markerClick(e).then(() => this.props.handleInfobox(true));
-      } else {
-        this.markerClick(e).then(() => this.props.handleSmallInfobox(true));
-      }
+      this.markerClick(e).then(() => this.props.handleInfobox(true));
+      // const width = window.innerWidth;
+      // if (width > 768) {
+      //   this.markerClick(e).then(() => this.props.handleInfobox(true));
+      // } else {
+      //   this.markerClick(e).then(() => this.props.handleFullscreenInfobox(true));
+      // }
     }
     return;
   };
@@ -406,9 +406,8 @@ class Leaflet extends React.Component {
 
   markerButtonClass() {
     let name = "marker_type_button_container";
-    if (this.props.showInfobox) {
-      name = name + " infobox-open";
-    }
+    if (this.props.showInfobox) name = name + " infobox-open";
+    if (!this.props.isMobile) name = name + " margin-animation";
     return name;
   }
 
@@ -543,33 +542,26 @@ class Leaflet extends React.Component {
         >
           <LocationSearching />
         </button>
-        {this.props.showInfobox && (
-          <InfoboxSide
-            coordinates_area={this.state.coordinates_area}
-            layerevent={this.state.layerevent}
-            getBackendData={this.getBackendData}
-            handleInfobox={this.props.handleInfobox}
-            layersResult={this.props.layersResult}
-            allLayersResult={this.props.allLayersResult}
-            valgteLag={this.props.valgteLag}
-            sted={this.props.sted}
-            adresse={this.props.adresse}
-            resultat={this.props.resultat}
-            kartlag={this.props.kartlag}
-            showExtensiveInfo={this.props.showExtensiveInfo}
-            handleExtensiveInfo={this.props.handleExtensiveInfo}
-            loadingFeatures={this.props.loadingFeatures}
-          />
-        )}
-        {this.props.showSmallInfobox && (
-          <InfoboxSmall
-            coordinates_area={this.state.coordinates_area}
-            sted={this.props.sted}
-            handleSmallInfobox={this.props.handleSmallInfobox}
-            handleInfobox={this.props.handleInfobox}
-            showSideBar={this.props.showSideBar}
-          />
-        )}
+        <InfoboxSide
+          coordinates_area={this.state.coordinates_area}
+          layerevent={this.state.layerevent}
+          getBackendData={this.getBackendData}
+          showInfobox={this.props.showInfobox}
+          handleInfobox={this.props.handleInfobox}
+          showFullscreenInfobox={this.props.showFullscreenInfobox}
+          handleFullscreenInfobox={this.props.handleFullscreenInfobox}
+          layersResult={this.props.layersResult}
+          allLayersResult={this.props.allLayersResult}
+          valgteLag={this.props.valgteLag}
+          sted={this.props.sted}
+          adresse={this.props.adresse}
+          resultat={this.props.resultat}
+          kartlag={this.props.kartlag}
+          showExtensiveInfo={this.props.showExtensiveInfo}
+          handleExtensiveInfo={this.props.handleExtensiveInfo}
+          loadingFeatures={this.props.loadingFeatures}
+          isMobile={this.props.isMobile}
+        />
       </>
     );
   }
