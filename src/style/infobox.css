@@ -474,6 +474,20 @@
   }
 }
 
+/* ---------- Polygon infobox --------- */
+.container_header {
+  background: #eee;
+  margin: 0px;
+  font-weight: 400;
+  padding-left: 16px;
+}
+h4.container_header {
+  border-top: 1px solid #ccc;
+  text-align: left;
+  border-bottom: none;
+  padding-left: 20px;
+}
+
 /* ---------- General transitions -----------  */
 .infobox-animation {
   -webkit-transition: left 0.5s;

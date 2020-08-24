@@ -341,12 +341,6 @@ class Leaflet extends React.Component {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
       this.markerClick(e).then(() => this.props.handleInfobox(true));
-      // const width = window.innerWidth;
-      // if (width > 768) {
-      //   this.markerClick(e).then(() => this.props.handleInfobox(true));
-      // } else {
-      //   this.markerClick(e).then(() => this.props.handleFullscreenInfobox(true));
-      // }
     }
     return;
   };
@@ -577,6 +571,7 @@ class Leaflet extends React.Component {
           <LocationSearching />
         </button>
         <InfoboxSide
+          markerType={this.state.markerType}
           coordinates_area={this.state.coordinates_area}
           layerevent={this.state.layerevent}
           getBackendData={this.getBackendData}
@@ -595,7 +590,25 @@ class Leaflet extends React.Component {
           handleExtensiveInfo={this.props.handleExtensiveInfo}
           loadingFeatures={this.props.loadingFeatures}
           isMobile={this.props.isMobile}
+          polygon={this.props.polygon}
+          polyline={this.props.polyline}
+          showPolygon={this.props.showPolygon}
+          hideAndShowPolygon={this.props.hideAndShowPolygon}
+          handleEditable={this.props.handleEditable}
+          addPolygon={this.props.addPolygon}
+          addPolyline={this.props.addPolyline}
         />
+        {/* {(props.polyline.length > 0 || props.polygon) && (
+          <PolygonElement
+            polygon={this.props.polygon}
+            polyline={this.props.polyline}
+            showPolygon={this.props.showPolygon}
+            hideAndShowPolygon={this.props.hideAndShowPolygon}
+            handleEditable={this.props.handleEditable}
+            addPolygon={this.props.addPolygon}
+            addPolyline={this.props.addPolyline}
+          />
+        )} */}
       </>
     );
   }

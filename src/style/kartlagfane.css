@@ -73,22 +73,6 @@
   }
 }
 
-/* Overskriftene i panelet */
-.container_header {
-  background: #eee;
-  margin: 0px;
-  font-weight: 400;
-  padding-left: 16px;
-}
-
-/* Overskrift på grupperte element*/
-h4.container_header {
-  border-top: 1px solid #ccc;
-  text-align: left;
-  border-bottom: none;
-  padding-left: 20px;
-}
-
 /* ---------- Search results panel ---------- */
 .valgtLag {
   background-color: white;

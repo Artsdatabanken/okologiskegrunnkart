@@ -2,7 +2,6 @@ import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
 import React, { useState, useEffect } from "react";
 import "../style/kartlagfane.css";
 import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
-import PolygonElement from "./PolygonElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 import { KeyboardBackspace } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
@@ -312,25 +311,11 @@ const KartlagFanen = props => {
                   : ""
               }
             >
-              {props.polyline.length > 0 && props.polygon && (
-                <h3 className="container_header">Polygon</h3>
-              )}
               <div
                 className={`scroll_area${
                   fullscreen ? " side-bar-fullscreen" : ""
                 }`}
               >
-                {(props.polyline.length > 0 || props.polygon) && (
-                  <PolygonElement
-                    polygon={props.polygon}
-                    polyline={props.polyline}
-                    showPolygon={props.showPolygon}
-                    hideAndShowPolygon={props.hideAndShowPolygon}
-                    handleEditable={props.handleEditable}
-                    addPolygon={props.addPolygon}
-                    addPolyline={props.addPolyline}
-                  />
-                )}
                 <ForvaltningsKartlag
                   kartlag={props.kartlag}
                   onUpdateLayerProp={props.onUpdateLayerProp}

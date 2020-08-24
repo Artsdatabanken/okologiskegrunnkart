@@ -216,11 +216,14 @@ class App extends React.Component {
                       }
                     >
                       <Kart
+                        polygon={this.state.polygon}
+                        polyline={this.state.polyline}
+                        showPolygon={this.state.showPolygon}
+                        hideAndShowPolygon={this.hideAndShowPolygon}
                         handleEditable={this.handleEditable}
-                        editable={this.state.editable}
                         addPolygon={this.addPolygon}
                         addPolyline={this.addPolyline}
-                        showPolygon={this.state.showPolygon}
+                        editable={this.state.editable}
                         zoomcoordinates={this.state.zoomcoordinates}
                         handleRemoveZoomCoordinates={
                           this.handleRemoveZoomCoordinates
@@ -286,13 +289,6 @@ class App extends React.Component {
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                       />
                       <KartlagFanen
-                        polygon={this.state.polygon}
-                        addPolygon={this.addPolygon}
-                        hideAndShowPolygon={this.hideAndShowPolygon}
-                        handleEditable={this.handleEditable}
-                        showPolygon={this.state.showPolygon}
-                        polyline={this.state.polyline}
-                        addPolyline={this.addPolyline}
                         searchResultPage={this.state.searchResultPage}
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
