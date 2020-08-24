@@ -20,8 +20,8 @@
 @media only screen and (max-width: 768px) {
   .leaflet-container {
     width: 100vw;
-    height: 100vh;
-    max-height: 100vh;
+    height: 100%;
+    max-height: 100%;
     z-index: 0;
     bottom: 0;
   }
