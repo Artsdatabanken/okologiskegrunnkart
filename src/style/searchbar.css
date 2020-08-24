@@ -8,14 +8,12 @@
   z-index: 200;
   background: #697f8a;
 }
-
 @media only screen and (max-width: 768px) {
   .searchbar_container {
     width: 100%;
     top: 0;
   }
 }
-
 .searchbar {
   position: relative;
   margin-top: 10px;
@@ -30,7 +28,6 @@
   border: 1px solid black;
   margin-bottom: 5px;
 }
-
 .searchbar button {
   width: 50px;
   float: right;
@@ -40,7 +37,6 @@
   border-bottom-left-radius: 0px;
   font-size: 12pt;
 }
-
 .searchbar .x {
   position: absolute;
   right: 50px;
@@ -49,11 +45,9 @@
   border: none;
   border-radius: 0px;
 }
-
 .searchbar .x:hover {
   background: grey;
 }
-
 .searchbar input {
   border: 0px;
   font-size: 12pt;
@@ -87,13 +81,14 @@
 .treffliste {
   list-style-type: none;
   width: 350px;
-  margin-left: 10px;
+  width: calc(100% - 10px);
+  margin-left: 3px;
   margin-right: auto;
   display: block;
   z-index: 2;
   margin-top: -4px;
   padding-left: 0px;
-  max-height: 425px;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;
   overflow-x: hidden;
   border-radius: 3px;
@@ -102,24 +97,19 @@
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 }
-
 @media only screen and (max-width: 768px) {
   .treffliste {
-    max-height: 285px;
+    max-height: 330px;
   }
-  .treffliste,
   .searchbar {
     max-width: calc(100% - 60px);
   }
 }
-
 .treffliste .searchbar_item {
-  /* background: rgba(145, 163, 176, 0.3); */
   background: rgba(105, 127, 138, 0.2);
   width: 100%;
   border-radius: 0px;
 }
-
 .treffliste .searchbar_item .searchlist-item-wrapper {
   padding: 6px 0;
   margin: 0 10px;
@@ -129,56 +119,45 @@
   flex-wrap: wrap;
   border-bottom: 1px solid #bbb;
 }
-
 .treffliste .searchbar_item:last-child .searchlist-item-wrapper {
   border: none;
   padding-bottom: 10px;
 }
-
 .treffliste li span {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
 }
-
 .treffliste li::-moz-focus-inner {
   border: 0;
 }
-
 .treffliste li:hover,
 .treffliste li:focus {
-  /* background: rgba(145, 163, 176, 0.5); */
   background: rgba(105, 127, 138, 0.4);
   outline: none;
   cursor: pointer;
   font-weight: 500;
 }
-
 .itemname {
   width: 100%;
   font-size: 11pt;
   margin-bottom: 2px;
   word-wrap: break-word;
 }
-
 .search_all .itemname {
   font-size: 12pt;
 }
-
 .itemtype,
 .itemnr {
   font-size: 9pt;
   color: grey;
 }
-
 .itemnr {
   text-align: right;
 }
-
 .searchbar_local_item_container span {
   font-size: 8pt;
 }
-
 .itemtype b,
 .itemnr b {
   color: black;
@@ -210,16 +189,13 @@
     padding-bottom: 150px;
   }
 }
-
 .treffliste.searchresultpage .searchbar_item {
   width: 100%;
   background: #ffffff;
 }
-
 .treffliste.searchresultpage .searchbar_item .searchlist-item-wrapper {
   padding: 10px 0;
 }
-
 .treffliste.searchresultpage .searchbar_item:hover,
 .treffliste.searchresultpage .searchbar_item:focus {
   background: rgba(145, 163, 176, 0.2);
@@ -228,17 +204,15 @@
   font-weight: 500;
 }
 
-/* Kartlagfanens treffliste -> søkebarens landingsside */
+/* ----- Kartlagfanens treffliste -> søkebarens landingsside ----- */
 .kartlag_fanen .treffliste {
   max-width: 100%;
 }
-
 .kartlag_fanen .searchbar_item {
   background: white;
   border-left: 0px;
   border-right: 0px;
 }
-
 .help_button {
   position: absolute;
   right: 10px;
@@ -263,7 +237,6 @@
   align-items: center;
   justify-content: center;
 }
-
 .help-modal-wrapper {
   background-color: white;
   width: 50vw;
@@ -271,7 +244,6 @@
   max-height: 95vh;
   overflow-y: auto;
 }
-
 @media only screen and (max-width: 768px) {
   .help-modal-wrapper {
     width: 100vw;
@@ -283,7 +255,6 @@
     left: 0;
   }
 }
-
 .help-modal-title {
   display: flex;
   align-items: center;
@@ -294,7 +265,6 @@
   font-weight: bold;
   padding-left: 25px;
 }
-
 @media only screen and (max-width: 768px) {
   .help-modal-title {
     font-size: 24px;
@@ -360,13 +330,11 @@
   align-items: flex-start;
   padding: 15px 25px;
 }
-
 @media only screen and (max-width: 768px) {
   .help-modal-content {
     padding: 15px 20px 150px 20px;
   }
 }
-
 .help-text-line-header {
   font-size: 18px;
   font-weight: bold;
@@ -380,14 +348,11 @@
   margin: 2px 0;
 }
 
-/* Settings menu */
+/* ----------- Settings menu ------------ */
 #settings-menu .MuiPaper-root {
   margin-top: 5px;
   border: 1px solid #999;
 }
-/* #settings-menu div ul li {
-  font-size: 15px;
-} */
 #settings-menu-user-manual {
   width: 385px;
   max-width: calc(100vw - 30px);

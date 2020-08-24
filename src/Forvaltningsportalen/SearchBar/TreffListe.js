@@ -29,7 +29,8 @@ const TreffListe = props => {
       "Søkeelement",
       null
     );
-    max_list_length = 20;
+    // max_list_length = 20;
+    max_list_length = 19;
   }
 
   list_items = addToList(props.treffliste_lag, "Kartlag", null);
