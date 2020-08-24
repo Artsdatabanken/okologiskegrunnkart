@@ -136,7 +136,7 @@
   border: none;
   border-radius: 10px;
   transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .close-infobox-button-wrapper:hover {
   background-color: rgba(145, 163, 176, 0);

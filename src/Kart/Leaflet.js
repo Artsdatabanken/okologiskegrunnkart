@@ -167,38 +167,72 @@ class Leaflet extends React.Component {
   };
 
   positionZoomButtons = () => {
-    // If side is open, the buttons need to be repositioned
+    // If side panel is open, the buttons need to be repositioned
     const leafletLink = document.querySelector(".leaflet-control-zoom");
-    if (
-      leafletLink &&
-      this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") === -1
-    ) {
-      leafletLink.classList.add("side-bar-open");
-    } else if (
-      leafletLink &&
-      !this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") >= 0
-    ) {
-      leafletLink.classList.remove("side-bar-open");
+    if (this.props.isMobile) {
+      if (
+        leafletLink &&
+        (this.props.showSideBar || this.props.showInfobox) &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        !this.props.showInfobox &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
+    } else {
+      if (
+        leafletLink &&
+        this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
     }
   };
 
   positionleafletLink = () => {
-    // If side is open, the link needs to be repositioned
+    // If side panel is open, the link needs to be repositioned
     const leafletLink = document.querySelector(".leaflet-control-attribution");
-    if (
-      leafletLink &&
-      this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") === -1
-    ) {
-      leafletLink.classList.add("side-bar-open");
-    } else if (
-      leafletLink &&
-      !this.props.showSideBar &&
-      leafletLink.className.indexOf("side-bar-open") >= 0
-    ) {
-      leafletLink.classList.remove("side-bar-open");
+    if (this.props.isMobile) {
+      if (
+        leafletLink &&
+        (this.props.showSideBar || this.props.showInfobox) &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        !this.props.showInfobox &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
+    } else {
+      if (
+        leafletLink &&
+        this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
     }
   };
 
