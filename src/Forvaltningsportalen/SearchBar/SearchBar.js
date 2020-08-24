@@ -384,21 +384,6 @@ class SearchBar extends React.Component {
     const length = searchBar.length;
     if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
       searchBar[0].focus();
-      // if (this.props.searchResultPage) {
-      //   searchBar[0].focus();
-      // }
-      // else {
-      //   searchBar[1].focus();
-      //   const list = document.querySelector(".treffliste");
-      //   console.log(list.style)
-      //   console.log(list.scrollTop)
-      //   if (list) {
-      //     list.scroll(0, 250);
-      //   }
-      //   // if (list && list.length > 0 && list[0].treffliste) {
-      //   //   list[0].treffliste.scrollTop = 0;
-      //   // }
-      // }
     }
   };
 

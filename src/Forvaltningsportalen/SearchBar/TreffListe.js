@@ -29,7 +29,6 @@ const TreffListe = props => {
       "Søkeelement",
       null
     );
-    // max_list_length = 20;
     max_list_length = 19;
   }
 
@@ -71,13 +70,6 @@ const TreffListe = props => {
         } else {
           document.getElementsByClassName("searchbar_item")[index - 1].focus();
         }
-        // if (props.searchResultPage && nextindex < 0) {
-        //   document.getElementById("searchfield").focus();
-        // } else if (!props.searchResultPage && nextindex < 1) {
-        //   document.getElementById("searchfield").focus();
-        // } else {
-        //   document.getElementsByClassName("searchbar_item")[index - 1].focus();
-        // }
       }
     }
   }
@@ -130,32 +122,6 @@ const TreffListe = props => {
       >
         {list_items &&
           list_items.map((item, index) => {
-            // if (item.trefftype === "Søkeelement") {
-            //   return (
-            //     <li
-            //       id={index}
-            //       key={index}
-            //       tabIndex={index > 0 ? 0 : -1}
-            //       className="searchbar_item  search_all"
-            //       onKeyDown={e => {
-            //         if (e.keyCode === 13) {
-            //           //Enterpressed
-            //           props.onSearchButton();
-            //         } else {
-            //           movefocus(e, index);
-            //         }
-            //       }}
-            //       onClick={() => {
-            //         props.onSearchButton();
-            //       }}
-            //     >
-            //       <span className="itemname">
-            //         Søk etter "{props.searchTerm}"{" "}
-            //       </span>
-            //     </li>
-            //   );
-            // }
-
             let itemname = item.adressetekst || "";
             let trefftype = item.trefftype || "annet treff";
             let itemtype = item.navnetype || "";
