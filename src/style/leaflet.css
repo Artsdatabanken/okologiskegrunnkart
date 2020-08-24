@@ -69,6 +69,43 @@
   }
 }
 
+.leaftlet-control-zoom {
+  margin-right: 10px;
+  -webkit-transition: margin 0.5s;
+  -moz-transition: margin 0.5s;
+  -ms-transition: margin 0.5s;
+  -o-transition: margin 0.5s;
+  transition: margin 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+/* zoom buttons and leaflet link */
+.leaflet-control-zoom.side-bar-open {
+  margin-right: calc(408px + 10px);
+  -webkit-transition: margin 0.5s;
+  -moz-transition: margin 0.5s;
+  -ms-transition: margin 0.5s;
+  -o-transition: margin 0.5s;
+  transition: margin 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.leaflet-control-attribution {
+  margin-right: 0px;
+  -webkit-transition: margin 0.5s;
+  -moz-transition: margin 0.5s;
+  -ms-transition: margin 0.5s;
+  -o-transition: margin 0.5s;
+  transition: margin 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+.leaflet-control-attribution.side-bar-open {
+  margin-right: 408px;
+  -webkit-transition: margin 0.5s;
+  -moz-transition: margin 0.5s;
+  -ms-transition: margin 0.5s;
+  -o-transition: margin 0.5s;
+  transition: margin 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
   padding: 1px;
@@ -79,14 +116,6 @@
   padding: 0;
 }
 
-/* zoom buttons and leaflet link */
-.leaflet-control-zoom.side-bar-open {
-  margin-right: calc(408px + 10px);
-}
-.leaflet-control-attribution.side-bar-open {
-  margin-right: 408px;
-}
-
 @media only screen and (max-width: 768px) {
   .marker_type_button_container {
     margin-top: 50px;
@@ -94,27 +123,39 @@
   }
   .leaflet-control-zoom {
     /* Hide zoom buttons for mobile. Issues between iPhone and Android */
-    display: none;
+    /* display: none; */
     position: absolute;
-    top: auto;
+    /* top: auto;
     right: 0;
-    bottom: 0;
+    bottom: 0; */
+    top: calc(100% - 79px);
+    right: 0;
+    bottom: auto;
     margin-right: 0 !important;
   }
   .leaflet-control-attribution {
     /* Hide zoom button for mobile. Issues between iPhone and Android */
-    display: none;
+    /* display: none; */
     position: absolute;
-    top: auto;
+    /* top: auto;
     right: 0;
-    bottom: 0;
+    bottom: 0; */
+    top: calc(100% - 16.5px);
+    right: 0;
+    bottom: auto;
     margin-right: 0 !important;
   }
   .leaflet-control-zoom.side-bar-open {
-    bottom: 40vh;
+    top: calc(100% - 40vh - 79px);
+    right: 0;
+    bottom: auto;
+    /* bottom: 40vh; */
   }
   .leaflet-control-attribution.side-bar-open {
-    bottom: 40vh;
+    top: calc(100% - 40vh - 16.5px);
+    right: 0;
+    bottom: auto;
+    /* bottom: 40vh; */
   }
 }
 
