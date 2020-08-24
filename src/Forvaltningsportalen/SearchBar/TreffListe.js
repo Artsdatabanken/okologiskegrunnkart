@@ -29,7 +29,7 @@ const TreffListe = props => {
       "Søkeelement",
       null
     );
-    max_list_length = 20;
+    max_list_length = 19;
   }
 
   list_items = addToList(props.treffliste_lag, "Kartlag", null);
@@ -94,6 +94,7 @@ const TreffListe = props => {
   }
 
   list_items = list_items.slice(0, max_list_length);
+  list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
 
   return (
     <>
@@ -126,32 +127,6 @@ const TreffListe = props => {
       >
         {list_items &&
           list_items.map((item, index) => {
-            if (item.trefftype === "Søkeelement") {
-              return (
-                <li
-                  id={index}
-                  key={index}
-                  tabIndex="0"
-                  className="searchbar_item  search_all"
-                  onKeyDown={e => {
-                    if (e.keyCode === 13) {
-                      //Enterpressed
-                      props.onSearchButton();
-                    } else {
-                      movefocus(e, index);
-                    }
-                  }}
-                  onClick={() => {
-                    props.onSearchButton();
-                  }}
-                >
-                  <span className="itemname">
-                    Søk etter "{props.searchTerm}"{" "}
-                  </span>
-                </li>
-              );
-            }
-
             let itemname = item.adressetekst || "";
             let trefftype = item.trefftype || "annet treff";
             let itemtype = item.navnetype || "";
@@ -188,45 +163,47 @@ const TreffListe = props => {
                   onActivate(item, trefftype);
                 }}
               >
-                <span className="itemname">{itemname} </span>
-                <span className="itemtype">
-                  {trefftype}{" "}
-                  {trefftype === "Stedsnavn" ? (
-                    <>{itemtype} </>
-                  ) : (
-                    <>
-                      {item.postnummer} {item.poststed}
-                    </>
-                  )}
-                </span>
-                <span className="itemnr">
-                  {trefftype === "Kommune" ||
-                  trefftype === "Stedsnavn" ||
-                  trefftype === "Kartlag" ||
-                  trefftype === "Underlag" ? (
-                    <>{itemnr}</>
-                  ) : (
-                    <>
-                      {trefftype === "KNR" ? (
-                        <b>{item.kommunenummer}</b>
-                      ) : (
-                        <>{item.kommunenummer}</>
-                      )}
-                      -
-                      {trefftype === "GNR" ? (
-                        <b>{item.gardsnummer}</b>
-                      ) : (
-                        <>{item.gardsnummer}</>
-                      )}
-                      -
-                      {trefftype === "BNR" ? (
-                        <b>{item.bruksnummer}</b>
-                      ) : (
-                        <>{item.bruksnummer}</>
-                      )}
-                    </>
-                  )}
-                </span>
+                <div className="searchlist-item-wrapper">
+                  <span className="itemname">{itemname} </span>
+                  <span className="itemtype">
+                    {trefftype}{" "}
+                    {trefftype === "Stedsnavn" ? (
+                      <>{itemtype} </>
+                    ) : (
+                      <>
+                        {item.postnummer} {item.poststed}
+                      </>
+                    )}
+                  </span>
+                  <span className="itemnr">
+                    {trefftype === "Kommune" ||
+                    trefftype === "Stedsnavn" ||
+                    trefftype === "Kartlag" ||
+                    trefftype === "Underlag" ? (
+                      <>{itemnr}</>
+                    ) : (
+                      <>
+                        {trefftype === "KNR" ? (
+                          <b>{item.kommunenummer}</b>
+                        ) : (
+                          <>{item.kommunenummer}</>
+                        )}
+                        -
+                        {trefftype === "GNR" ? (
+                          <b>{item.gardsnummer}</b>
+                        ) : (
+                          <>{item.gardsnummer}</>
+                        )}
+                        -
+                        {trefftype === "BNR" ? (
+                          <b>{item.bruksnummer}</b>
+                        ) : (
+                          <>{item.bruksnummer}</>
+                        )}
+                      </>
+                    )}
+                  </span>
+                </div>
               </li>
             );
           })}
