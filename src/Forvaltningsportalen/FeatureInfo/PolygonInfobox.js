@@ -2,7 +2,7 @@ import React from "react";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
-import PolygonElement from "./PolygonElement";
+import PolygonElement from "./PolygonDrawTool";
 // import CustomSwitch from "../../Common/CustomSwitch";
 
 const PolygonInfobox = ({
@@ -70,30 +70,25 @@ const PolygonInfobox = ({
   const calculateArea = () => {
     if (!polygon || polygon.length < 3) return null;
 
-    let area = 0;
+    const pointsCount = polygon.length;
+    let area = 0.0;
+    const d2r = Math.PI / 180;
     let unit = "m";
 
-    let centerLat = 0;
-    let centerLng = 0;
-
-    for (let i = 0; i < polygon.length; i++) {
-      centerLat += polygon[i][0];
-      centerLng += polygon[i][1];
+    if (pointsCount > 2) {
+      for (var i = 0; i < pointsCount; i++) {
+        const lat1 = polygon[i][0];
+        const lat2 = polygon[(i + 1) % pointsCount][0];
+        const lng1 = polygon[i][1];
+        const lng2 = polygon[(i + 1) % pointsCount][1];
+        area +=
+          (lng2 - lng1) *
+          d2r *
+          (2 + Math.sin(lat1 * d2r) + Math.sin(lat2 * d2r));
+      }
+      area = (area * 6378137.0 * 6378137.0) / 2.0;
     }
-    centerLat = centerLat / polygon.length;
-    centerLng = centerLng / polygon.length;
-
-    for (let i = 1; i < polygon.length; i++) {
-      const lat1 = polygon[i - 1][0];
-      const lat2 = polygon[i][0];
-      const lng1 = polygon[i - 1][1];
-      const lng2 = polygon[i][1];
-      const dist1 = calculateDistance(lat1, lat2, lng1, lng2);
-      const dist2 = calculateDistance(lat1, centerLat, lng1, centerLng);
-      const dist3 = calculateDistance(lat2, centerLat, lng2, centerLng);
-      const p = (dist1 + dist2 + dist3) / 2;
-      area += Math.sqrt(p * (p - dist1) * (p - dist2) * (p - dist3));
-    }
+    area = Math.abs(area);
 
     if (area >= 1000000000) {
       area = Math.round(area / 100000) / 10;

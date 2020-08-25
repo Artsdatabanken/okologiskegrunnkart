@@ -241,8 +241,8 @@ class Leaflet extends React.Component {
       // Setter sammen punktene til et polygon, og gjør den uredigerbar.
       this.props.addPolygon(this.props.polyline);
       this.props.addPolyline([]);
-      this.removeEndPoint();
-      this.removeStartPoint();
+      // this.removeEndPoint();
+      // this.removeStartPoint();
       this.props.handleEditable(false);
     } else {
       // Klikk på inaktivt punkt:

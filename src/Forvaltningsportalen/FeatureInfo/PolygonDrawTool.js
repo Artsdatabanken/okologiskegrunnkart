@@ -27,7 +27,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const PolygonElement = ({
+const PolygonDrawTool = ({
   polygon,
   polyline,
   showPolygon,
@@ -174,4 +174,4 @@ const PolygonElement = ({
   );
 };
 
-export default PolygonElement;
+export default PolygonDrawTool;
