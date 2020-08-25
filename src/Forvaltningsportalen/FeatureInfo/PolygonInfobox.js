@@ -3,7 +3,6 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonElement from "./PolygonDrawTool";
-// import CustomSwitch from "../../Common/CustomSwitch";
 
 const PolygonInfobox = ({
   sted,
@@ -155,21 +154,6 @@ const PolygonInfobox = ({
           </div>
         </div>
       </div>
-      {/* <div className="search-layers-button-wrapper">
-        <span className="infobox-switch-text">Valgte kartlag</span>
-        <CustomSwitch
-          tabIndex="0"
-          id="search-layers-toggle"
-          checked={showExtensiveInfo}
-          onChange={() => console.log("Clicked")}
-          onKeyDown={e => {
-            if (e.keyCode === 13) {
-              console.log("Clicked");
-            }
-          }}
-        />
-        <span className="infobox-switch-text">Alle kartlag</span>
-      </div> */}
 
       <div className="detailed-info-container-polygon">
         <div className="layer-results-side">

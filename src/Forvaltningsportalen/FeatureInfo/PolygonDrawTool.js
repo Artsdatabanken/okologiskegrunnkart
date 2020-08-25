@@ -23,7 +23,6 @@ const useStyles = makeStyles(() => ({
     "&:hover": {
       backgroundColor: "rgba(145, 163, 176, 0.5)"
     }
-    // "&.Mui-focusVisible": { backgroundColor: "rgba(145, 163, 176, 0.6)" }
   }
 }));
 
@@ -41,18 +40,6 @@ const PolygonDrawTool = ({
   return (
     <>
       <div className="polygon-tool-wrapper">
-        {/* <IconButton
-          className={classes.customIconButtom}
-          onClick={e => {
-            hideAndShowPolygon(!showPolygon);
-          }}
-        >
-          {showPolygon ? (
-            <VisibilityOutlined style={{ color: "#666" }} />
-          ) : (
-            <VisibilityOffOutlined style={{ color: "#aaa" }} />
-          )}
-        </IconButton> */}
         <div className="polygon-tool-label">
           <Typography variant="body1">Geometri</Typography>
         </div>
@@ -122,53 +109,6 @@ const PolygonDrawTool = ({
             </IconButton>
           </BottomTooltip>
         </div>
-        {/* <div className="polygon-buttons-wrapper">
-          {polygon ? (
-            <button
-              className="polygonbutton edit"
-              onClick={e => {
-                addPolygon(null);
-                addPolyline(polygon);
-                handleEditable(true);
-              }}
-            >
-              <Create /> Rediger
-            </button>
-          ) : (
-            <>
-              <button
-                className="polygonbutton done"
-                onClick={e => {
-                  addPolygon(polyline);
-                  addPolyline([]);
-                }}
-              >
-                <Done /> Ferdig
-              </button>
-              <button
-                className="polygonbutton done"
-                onClick={e => {
-                  addPolygon(polyline);
-                  addPolyline([]);
-                }}
-              >
-                <Undo /> Angre
-              </button>
-            </>
-          )}
-
-          <button
-            className="polygonbutton remove"
-            onClick={e => {
-              addPolygon(null);
-              addPolyline([]);
-              hideAndShowPolygon(true);
-              handleEditable(true);
-            }}
-          >
-            <Delete /> Fjern
-          </button>
-        </div> */}
       </div>
     </>
   );

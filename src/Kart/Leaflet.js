@@ -241,8 +241,6 @@ class Leaflet extends React.Component {
       // Setter sammen punktene til et polygon, og gjør den uredigerbar.
       this.props.addPolygon(this.props.polyline);
       this.props.addPolyline([]);
-      // this.removeEndPoint();
-      // this.removeStartPoint();
       this.props.handleEditable(false);
     } else {
       // Klikk på inaktivt punkt:
@@ -260,7 +258,6 @@ class Leaflet extends React.Component {
   clickActivePoint = e => {
     // CLICKED THE ACTIVE POINT
     // Skal altså AVSLUTTE linjen, og gjøre dette punktet inaktivt!
-
     this.props.handleEditable(false);
     this.removeEndPoint();
 
@@ -293,11 +290,6 @@ class Leaflet extends React.Component {
       data: null
     });
     this.removeMarker();
-    // this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
-    //   icon: this.icon
-    // })
-    //   .addTo(this.map)
-    //   .on("click", () => this.clickMarkerInfobox());
 
     // Oppdatering av infoboksen
     this.setState({
