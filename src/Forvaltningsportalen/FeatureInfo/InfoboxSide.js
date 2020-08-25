@@ -161,17 +161,34 @@ const InfoBox = ({
           </button>
         )}
         <div className="infobox-title-content">
-          <CustomTooltip placement="right" title="Sted / Områdetype">
-            <MyLocation />
-          </CustomTooltip>
-          <div className="infobox-title-text">
-            <div className="infobox-title-text-primary">
-              {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
-            </div>
-            <div className="infobox-title-text-secondary">
-              {`${sted ? sted.navneobjekttype : "-"}`}
-            </div>
-          </div>
+          {markerType === "klikk" && (
+            <>
+              <CustomTooltip placement="right" title="Sted / Områdetype">
+                <MyLocation />
+              </CustomTooltip>
+              <div className="infobox-title-text">
+                <div className="infobox-title-text-primary">
+                  {`${sted ? sted.komplettskrivemåte[0] : "-"}`}
+                </div>
+                <div className="infobox-title-text-secondary">
+                  {`${sted ? sted.navneobjekttype : "-"}`}
+                </div>
+              </div>
+            </>
+          )}
+          {markerType === "polygon" && (
+            <>
+              <CustomIcon
+                id="polygon-icon"
+                icon="hexagon-slice-4"
+                color="#fff"
+                size={24}
+              />
+              <div className="infobox-title-text">
+                <div className="infobox-title-text-primary">Mitt Polygon</div>
+              </div>
+            </>
+          )}
         </div>
         <button
           tabIndex="0"

@@ -1,8 +1,9 @@
 import React from "react";
-import { Place, Home, Flag, Terrain } from "@material-ui/icons";
-import CustomTooltip from "../../Common/CustomTooltip";
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonElement from "./PolygonElement";
+import CustomSwitch from "../../Common/CustomSwitch";
 
 const ClickInfobox = ({
   coordinates_area,
@@ -14,39 +15,11 @@ const ClickInfobox = ({
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline
+  addPolyline,
+  showExtensiveInfo
 }) => {
-  const latitude = coordinates_area ? coordinates_area.lat : 0;
-  const longitude = coordinates_area ? coordinates_area.lng : 0;
-  const coords = `${Math.round(latitude * 10000) / 10000}° N  ${Math.round(
-    longitude * 10000
-  ) / 10000}° Ø`;
-
-  // Kommune kommer når ting er slått sammen, bruker ikke tid på det før da.
-  const hentAdresse = adresse => {
-    if (adresse && adresse.adressetekst) {
-      return adresse.adressetekst;
-    }
-    return "-";
-  };
-
-  const hentGardsnummer = adresse => {
-    if (adresse && adresse.gardsnummer) {
-      return adresse.gardsnummer;
-    }
-    return "-";
-  };
-
-  const hentBruksnummer = adresse => {
-    if (adresse && adresse.bruksnummer) {
-      return adresse.bruksnummer;
-    }
-    return "-";
-  };
-
   return (
     <div className="infobox-side">
-      <h3 className="container_header">Polygon</h3>
       <PolygonElement
         polygon={polygon}
         polyline={polyline}
@@ -58,52 +31,63 @@ const ClickInfobox = ({
       />
       {sted && (
         <div className="infobox-content">
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
-              <Terrain />
-            </CustomTooltip>
+          <div className="infobox-text-wrapper-polygon">
+            <CustomIcon
+              id="polygon-icon"
+              icon="hexagon-outline"
+              color="grey"
+              size={24}
+            />
             <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{sted.fylkesnavn[0]}</div>
+              <div className="infobox-text-primary">Perimeter / Lengde</div>
               <div className="infobox-text-secondary">
-                {sted.fylkesnummer[0]}
+                {sted.fylkesnummer[0] + " km"}
               </div>
             </div>
           </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Kommune / Kommunenr.">
-              <Flag />
-            </CustomTooltip>
+          <div className="infobox-text-wrapper-polygon">
+            <CustomIcon
+              id="polygon-icon"
+              icon="hexagon-slice-6"
+              color="grey"
+              size={24}
+            />
             <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{sted.kommunenavn[0]}</div>
+              <div className="infobox-text-primary">Areal</div>
               <div className="infobox-text-secondary">
-                {sted.kommunenummer[0]}
+                {sted.kommunenummer[0] + " km"}
+                <sup>2</sup>
               </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip
-              placement="right"
-              title="Adresse / Gårdsnr. / Bruksnr."
-            >
-              <Home />
-            </CustomTooltip>
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
-              <div className="infobox-text-secondary">
-                {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
-              </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Koordinater">
-              <Place />
-            </CustomTooltip>
-            <div className="infobox-text-primary">
-              {coordinates_area ? coords : "--° N --° Ø"}
             </div>
           </div>
         </div>
       )}
+      <div className="search-layers-button-wrapper">
+        <span className="infobox-switch-text">Valgte kartlag</span>
+        <CustomSwitch
+          tabIndex="0"
+          id="search-layers-toggle"
+          checked={showExtensiveInfo}
+          onChange={() => console.log("Clicked")}
+          onKeyDown={e => {
+            if (e.keyCode === 13) {
+              console.log("Clicked");
+            }
+          }}
+        />
+        <span className="infobox-switch-text">Alle kartlag</span>
+      </div>
+
+      <div className="detailed-info-container-side">
+        <div className="layer-results-side">
+          <ListItem id="layer-results-header">
+            <ListItemIcon>
+              <CustomIcon icon="layers" size={32} color="#777" padding={0} />
+            </ListItemIcon>
+            <ListItemText primary="Ingen resultat" />
+          </ListItem>
+        </div>
+      </div>
     </div>
   );
 };

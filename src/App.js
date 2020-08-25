@@ -62,7 +62,8 @@ class App extends React.Component {
       sublayerDetailsVisible: false,
       legendVisible: false,
       showFullscreenInfobox: false,
-      isMobile: false
+      isMobile: false,
+      showMarker: true
     };
   }
 
@@ -224,6 +225,8 @@ class App extends React.Component {
                         addPolygon={this.addPolygon}
                         addPolyline={this.addPolyline}
                         editable={this.state.editable}
+                        showMarker={this.state.showMarker}
+                        hideAndShowMarker={this.hideAndShowMarker}
                         zoomcoordinates={this.state.zoomcoordinates}
                         handleRemoveZoomCoordinates={
                           this.handleRemoveZoomCoordinates
@@ -493,6 +496,10 @@ class App extends React.Component {
 
   handleEditable = editable => {
     this.setState({ editable: editable });
+  };
+
+  hideAndShowMarker = showMarker => {
+    this.setState({ showMarker: showMarker });
   };
 
   removeValgtLag = () => {

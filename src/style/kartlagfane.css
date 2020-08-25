@@ -489,33 +489,6 @@
   vertical-align: middle;
 }
 
-.polygonbutton {
-  padding: 5px;
-  margin-left: 2px;
-  font-size: 12pt;
-}
-
-.polygonbutton svg {
-  vertical-align: middle;
-  height: 20px;
-}
-
-.polygonbutton.done {
-  background: #baf2b3;
-}
-
-.polygonbutton.remove {
-  background: #ffd3cf;
-}
-
-.polygonbutton.edit {
-  background: #d5f1f5;
-}
-
-.polygonbutton:focus {
-  border: 2px solid blue;
-}
-
 /* Layer icons */
 .layer-list-element-icon {
   padding: 8px 0 8px 5px;

@@ -115,11 +115,11 @@ class Leaflet extends React.Component {
   }
 
   removeMarker() {
-    this.setState({
-      sted: null,
-      adresse: null,
-      data: null
-    });
+    // this.setState({
+    //   sted: null,
+    //   adresse: null,
+    //   data: null
+    // });
     if (!this.marker) return;
     this.map.removeLayer(this.marker);
   }
@@ -287,18 +287,24 @@ class Leaflet extends React.Component {
 
   async markerClick(e) {
     // Oppdatering av kartmarkøren
+    this.setState({
+      sted: null,
+      adresse: null,
+      data: null
+    });
     this.removeMarker();
-    this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
-      icon: this.icon
-    })
-      .addTo(this.map)
-      .on("click", () => this.clickMarkerInfobox());
+    // this.marker = L.marker([e.latlng.lat, e.latlng.lng], {
+    //   icon: this.icon
+    // })
+    //   .addTo(this.map)
+    //   .on("click", () => this.clickMarkerInfobox());
 
     // Oppdatering av infoboksen
     this.setState({
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
+    console.log(e);
 
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
@@ -479,6 +485,7 @@ class Leaflet extends React.Component {
       this.removeEndPoint();
       this.removeStartPoint();
 
+      // Draw polygon
       if (this.props.polyline && this.props.polyline.length > 0) {
         // I dette tilfellet har vi utelukkende en polylinje å tegne opp
         if (this.props.showPolygon) {
@@ -519,6 +526,25 @@ class Leaflet extends React.Component {
       }
     }
 
+    // Draw map marker
+    if (
+      this.props.showMarker &&
+      this.state.markerType === "klikk" &&
+      this.state.coordinates_area
+    ) {
+      this.removeMarker();
+      this.marker = L.marker(
+        [this.state.coordinates_area.lat, this.state.coordinates_area.lng],
+        {
+          icon: this.icon
+        }
+      )
+        .addTo(this.map)
+        .on("click", () => this.clickMarkerInfobox());
+    } else if (!this.props.showMarker) {
+      this.removeMarker();
+    }
+
     return (
       <>
         <div className={this.markerButtonClass()}>
@@ -531,6 +557,8 @@ class Leaflet extends React.Component {
               this.setState({
                 markerType: "klikk"
               });
+              this.props.hideAndShowPolygon(false);
+              this.props.hideAndShowMarker(true);
             }}
             onMouseDown={e => e.preventDefault()}
           >
@@ -545,6 +573,8 @@ class Leaflet extends React.Component {
               this.setState({
                 markerType: "polygon"
               });
+              this.props.hideAndShowMarker(false);
+              this.props.hideAndShowPolygon(true);
             }}
             onMouseDown={e => e.preventDefault()}
           >
@@ -598,17 +628,6 @@ class Leaflet extends React.Component {
           addPolygon={this.props.addPolygon}
           addPolyline={this.props.addPolyline}
         />
-        {/* {(props.polyline.length > 0 || props.polygon) && (
-          <PolygonElement
-            polygon={this.props.polygon}
-            polyline={this.props.polyline}
-            showPolygon={this.props.showPolygon}
-            hideAndShowPolygon={this.props.hideAndShowPolygon}
-            handleEditable={this.props.handleEditable}
-            addPolygon={this.props.addPolygon}
-            addPolyline={this.props.addPolyline}
-          />
-        )} */}
       </>
     );
   }

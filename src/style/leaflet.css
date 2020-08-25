@@ -167,6 +167,10 @@
   }
 }
 
+.leaflet-marker-icon.icon-hidden {
+  display: none;
+}
+
 /* ---------- General transitions -----------  */
 .margin-animation {
   -webkit-transition: margin 0.5s;
