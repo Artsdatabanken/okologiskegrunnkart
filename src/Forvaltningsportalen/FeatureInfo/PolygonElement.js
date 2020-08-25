@@ -61,7 +61,7 @@ const PolygonElement = ({
             <BottomTooltip placement="bottom" title="Rediger">
               <IconButton
                 className={classes.customIconButtom}
-                onClick={e => {
+                onClick={() => {
                   addPolygon(null);
                   addPolyline(polygon);
                   handleEditable(true);
@@ -75,9 +75,9 @@ const PolygonElement = ({
               <BottomTooltip placement="bottom" title="Angre sist">
                 <IconButton
                   className={classes.customIconButtom}
-                  onClick={e => {
-                    addPolygon(polyline);
-                    addPolyline([]);
+                  onClick={() => {
+                    polyline.pop();
+                    addPolyline(polyline);
                   }}
                 >
                   <Undo />
@@ -86,7 +86,7 @@ const PolygonElement = ({
               <BottomTooltip placement="bottom" title="Ferdig">
                 <IconButton
                   className={classes.customIconButtom}
-                  onClick={e => {
+                  onClick={() => {
                     addPolygon(polyline);
                     addPolyline([]);
                   }}
@@ -100,7 +100,7 @@ const PolygonElement = ({
           <BottomTooltip placement="bottom" title="Vis/Gjem">
             <IconButton
               className={classes.customIconButtom}
-              onClick={e => {
+              onClick={() => {
                 hideAndShowPolygon(!showPolygon);
               }}
             >
@@ -111,7 +111,7 @@ const PolygonElement = ({
           <BottomTooltip placement="bottom" title="Fjern">
             <IconButton
               className={classes.customIconButtom}
-              onClick={e => {
+              onClick={() => {
                 addPolygon(null);
                 addPolyline([]);
                 hideAndShowPolygon(true);

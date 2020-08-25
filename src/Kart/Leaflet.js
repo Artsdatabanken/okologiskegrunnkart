@@ -521,7 +521,9 @@ class Leaflet extends React.Component {
           this.polygon = L.polygon(this.props.polygon, {
             color: "blue",
             lineJoin: "round"
-          }).addTo(this.map);
+          })
+            .addTo(this.map)
+            .on("click", () => this.clickMarkerInfobox());
         }
       }
     }
