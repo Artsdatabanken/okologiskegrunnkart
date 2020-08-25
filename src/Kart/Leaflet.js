@@ -304,7 +304,6 @@ class Leaflet extends React.Component {
       coordinates_area: e.latlng,
       layerevent: e.layerPoint
     });
-    console.log(e);
 
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
@@ -334,6 +333,7 @@ class Leaflet extends React.Component {
       if (!this.props.polygon) {
         // Hvis polygon er satt, har personen klikket på ferdig-knappen,
         // og polylinje skal da ikke oppdateres.
+        this.props.handleInfobox(true);
         let polygon_list = this.props.polyline;
         const latlng = e.latlng;
         polygon_list.push([latlng.lat, latlng.lng]);

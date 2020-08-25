@@ -5,19 +5,114 @@ import "../../style/infobox.css";
 import PolygonElement from "./PolygonElement";
 // import CustomSwitch from "../../Common/CustomSwitch";
 
-const ClickInfobox = ({
-  coordinates_area,
+const PolygonInfobox = ({
   sted,
-  adresse,
   polygon,
   polyline,
   showPolygon,
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline,
-  showExtensiveInfo
+  addPolyline
 }) => {
+  const calculateDistance = (lat1, lat2, lng1, lng2) => {
+    const R = 6371e3; // metres
+    const φ1 = (lat1 * Math.PI) / 180; // φ, λ in radians
+    const φ2 = (lat2 * Math.PI) / 180;
+    const Δφ = ((lat2 - lat1) * Math.PI) / 180;
+    const Δλ = ((lng2 - lng1) * Math.PI) / 180;
+
+    const a =
+      Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+      Math.cos(φ1) * Math.cos(φ2) * Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const dist = R * c; // in metres
+
+    return dist;
+  };
+
+  const calculatePerimeter = () => {
+    if (!polygon && !polyline) return null;
+
+    let points = polygon;
+    if (!polygon) points = polyline;
+
+    if (points.length < 2) return null;
+
+    let dist = 0;
+    let unit = "m";
+
+    for (let i = 1; i < points.length; i++) {
+      const lat1 = points[i - 1][0];
+      const lat2 = points[i][0];
+      const lng1 = points[i - 1][1];
+      const lng2 = points[i][1];
+      dist += calculateDistance(lat1, lat2, lng1, lng2);
+    }
+
+    if (dist >= 100000) {
+      dist = Math.round(dist / 100) / 10;
+      unit = "km";
+    } else if (dist >= 10000) {
+      dist = Math.round(dist / 10) / 100;
+      unit = "km";
+    } else if (dist >= 1000) {
+      dist = Math.round(dist) / 1000;
+      unit = "km";
+    } else {
+      dist = Math.round(dist * 10) / 10;
+    }
+
+    return { dist, unit };
+  };
+
+  const calculateArea = () => {
+    if (!polygon || polygon.length < 3) return null;
+
+    let area = 0;
+    let unit = "m";
+
+    let centerLat = 0;
+    let centerLng = 0;
+
+    for (let i = 0; i < polygon.length; i++) {
+      centerLat += polygon[i][0];
+      centerLng += polygon[i][1];
+    }
+    centerLat = centerLat / polygon.length;
+    centerLng = centerLng / polygon.length;
+
+    for (let i = 1; i < polygon.length; i++) {
+      const lat1 = polygon[i - 1][0];
+      const lat2 = polygon[i][0];
+      const lng1 = polygon[i - 1][1];
+      const lng2 = polygon[i][1];
+      const dist1 = calculateDistance(lat1, lat2, lng1, lng2);
+      const dist2 = calculateDistance(lat1, centerLat, lng1, centerLng);
+      const dist3 = calculateDistance(lat2, centerLat, lng2, centerLng);
+      const p = (dist1 + dist2 + dist3) / 2;
+      area += Math.sqrt(p * (p - dist1) * (p - dist2) * (p - dist3));
+    }
+
+    if (area >= 1000000000) {
+      area = Math.round(area / 100000) / 10;
+      unit = "km";
+    } else if (area >= 100000000) {
+      area = Math.round(area / 10000) / 100;
+      unit = "km";
+    } else if (area >= 1000000) {
+      area = Math.round(area / 1000) / 1000;
+      unit = "km";
+    } else if (area > 1000) {
+      area = Math.round(area);
+    } else {
+      area = Math.round(area * 10) / 10;
+    }
+
+    return { area, unit };
+  };
+
   return (
     <div className="infobox-side">
       <PolygonElement
@@ -29,39 +124,42 @@ const ClickInfobox = ({
         addPolygon={addPolygon}
         addPolyline={addPolyline}
       />
-      {sted && (
-        <div className="infobox-content">
-          <div className="infobox-text-wrapper-polygon">
-            <CustomIcon
-              id="polygon-icon"
-              icon="hexagon-outline"
-              color="grey"
-              size={24}
-            />
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">Perimeter / Lengde</div>
-              <div className="infobox-text-secondary">
-                {sted.fylkesnummer[0] + " km"}
-              </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper-polygon">
-            <CustomIcon
-              id="polygon-icon"
-              icon="hexagon-slice-6"
-              color="grey"
-              size={24}
-            />
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">Areal</div>
-              <div className="infobox-text-secondary">
-                {sted.kommunenummer[0] + " km"}
-                <sup>2</sup>
-              </div>
+      <div className="infobox-content">
+        <div className="infobox-text-wrapper-polygon">
+          <CustomIcon
+            id="polygon-icon"
+            icon="hexagon-outline"
+            color="grey"
+            size={24}
+          />
+          <div className="infobox-text-multiple">
+            <div className="infobox-text-primary">Perimeter / Lengde</div>
+            <div className="infobox-text-secondary">
+              {calculatePerimeter()
+                ? calculatePerimeter().dist + " " + calculatePerimeter().unit
+                : "---"}
             </div>
           </div>
         </div>
-      )}
+        <div className="infobox-text-wrapper-polygon">
+          <CustomIcon
+            id="polygon-icon"
+            icon="hexagon-slice-6"
+            color="grey"
+            size={24}
+          />
+          <div className="infobox-text-multiple">
+            <div className="infobox-text-primary">Areal</div>
+            <div className="infobox-text-secondary">
+              {/* {sted ? sted.kommunenummer[0] + " km" : "---"} */}
+              {calculateArea()
+                ? calculateArea().area + " " + calculateArea().unit
+                : "---"}
+              {calculateArea() && <sup>2</sup>}
+            </div>
+          </div>
+        </div>
+      </div>
       {/* <div className="search-layers-button-wrapper">
         <span className="infobox-switch-text">Valgte kartlag</span>
         <CustomSwitch
@@ -92,4 +190,4 @@ const ClickInfobox = ({
   );
 };
 
-export default ClickInfobox;
+export default PolygonInfobox;

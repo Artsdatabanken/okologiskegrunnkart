@@ -34,7 +34,6 @@ const DetailedInfo = ({
   } else if (!showExtensiveInfo && !emptyKartlag) {
     title = "Resultat fra valgte kartlag";
   }
-  if (!coordinates_area || !coordinates_area.lat) return null;
 
   return (
     <div className="detailed-info-container-side">
@@ -46,27 +45,29 @@ const DetailedInfo = ({
           <ListItemText primary={title} />
         </ListItem>
 
-        <div className="layer-results-scrollable-side">
-          {loadingFeatures && (
-            <div className={classes.root}>
-              <LinearProgress color="primary" />
-            </div>
-          )}
-          <List id="layers-results-list">
-            {layersResult !== undefined &&
-              Object.keys(layersResult).map(key => {
-                return (
-                  <GeneriskElement
-                    coordinates_area={coordinates_area}
-                    key={key}
-                    kartlag={kartlag}
-                    resultat={layersResult[key]}
-                    element={key}
-                  />
-                );
-              })}
-          </List>
-        </div>
+        {(!coordinates_area || !coordinates_area.lat) && (
+          <div className="layer-results-scrollable-side">
+            {loadingFeatures && (
+              <div className={classes.root}>
+                <LinearProgress color="primary" />
+              </div>
+            )}
+            <List id="layers-results-list">
+              {layersResult !== undefined &&
+                Object.keys(layersResult).map(key => {
+                  return (
+                    <GeneriskElement
+                      coordinates_area={coordinates_area}
+                      key={key}
+                      kartlag={kartlag}
+                      resultat={layersResult[key]}
+                      element={key}
+                    />
+                  );
+                })}
+            </List>
+          </div>
+        )}
       </div>
     </div>
   );

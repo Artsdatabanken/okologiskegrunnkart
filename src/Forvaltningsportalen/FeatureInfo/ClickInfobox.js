@@ -53,54 +53,56 @@ const ClickInfobox = ({
 
   return (
     <div className="infobox-side">
-      {sted && (
-        <div className="infobox-content">
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
-              <Terrain />
-            </CustomTooltip>
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{sted.fylkesnavn[0]}</div>
-              <div className="infobox-text-secondary">
-                {sted.fylkesnummer[0]}
-              </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Kommune / Kommunenr.">
-              <Flag />
-            </CustomTooltip>
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{sted.kommunenavn[0]}</div>
-              <div className="infobox-text-secondary">
-                {sted.kommunenummer[0]}
-              </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip
-              placement="right"
-              title="Adresse / Gårdsnr. / Bruksnr."
-            >
-              <Home />
-            </CustomTooltip>
-            <div className="infobox-text-multiple">
-              <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
-              <div className="infobox-text-secondary">
-                {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
-              </div>
-            </div>
-          </div>
-          <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Koordinater">
-              <Place />
-            </CustomTooltip>
+      <div className="infobox-content">
+        <div className="infobox-text-wrapper">
+          <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
+            <Terrain />
+          </CustomTooltip>
+          <div className="infobox-text-multiple">
             <div className="infobox-text-primary">
-              {coordinates_area ? coords : "--° N --° Ø"}
+              {sted ? sted.fylkesnavn[0] : "-"}
+            </div>
+            <div className="infobox-text-secondary">
+              {sted ? sted.fylkesnummer[0] : "-"}
             </div>
           </div>
         </div>
-      )}
+        <div className="infobox-text-wrapper">
+          <CustomTooltip placement="right" title="Kommune / Kommunenr.">
+            <Flag />
+          </CustomTooltip>
+          <div className="infobox-text-multiple">
+            <div className="infobox-text-primary">
+              {sted ? sted.kommunenavn[0] : "-"}
+            </div>
+            <div className="infobox-text-secondary">
+              {sted ? sted.kommunenummer[0] : "-"}
+            </div>
+          </div>
+        </div>
+        <div className="infobox-text-wrapper">
+          <CustomTooltip
+            placement="right"
+            title="Adresse / Gårdsnr. / Bruksnr."
+          >
+            <Home />
+          </CustomTooltip>
+          <div className="infobox-text-multiple">
+            <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
+            <div className="infobox-text-secondary">
+              {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
+            </div>
+          </div>
+        </div>
+        <div className="infobox-text-wrapper">
+          <CustomTooltip placement="right" title="Koordinater">
+            <Place />
+          </CustomTooltip>
+          <div className="infobox-text-primary">
+            {coordinates_area ? coords : "--° N --° Ø"}
+          </div>
+        </div>
+      </div>
       <div className="search-layers-button-wrapper">
         <span className="infobox-switch-text">Valgte kartlag</span>
         <CustomSwitch
