@@ -45,7 +45,7 @@ const DetailedInfo = ({
           <ListItemText primary={title} />
         </ListItem>
 
-        {(!coordinates_area || !coordinates_area.lat) && (
+        {coordinates_area && coordinates_area.lat && (
           <div className="layer-results-scrollable-side">
             {loadingFeatures && (
               <div className={classes.root}>
