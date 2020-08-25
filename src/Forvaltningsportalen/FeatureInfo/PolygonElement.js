@@ -9,6 +9,7 @@ import {
 } from "@material-ui/icons";
 import { IconButton, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import BottomTooltip from "../../Common/BottomTooltip";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {
@@ -57,59 +58,69 @@ const PolygonElement = ({
         </div>
         <div className="polygon-buttons-wrapper">
           {polygon ? (
+            <BottomTooltip placement="bottom" title="Rediger">
+              <IconButton
+                className={classes.customIconButtom}
+                onClick={e => {
+                  addPolygon(null);
+                  addPolyline(polygon);
+                  handleEditable(true);
+                }}
+              >
+                <Create />
+              </IconButton>
+            </BottomTooltip>
+          ) : (
+            <>
+              <BottomTooltip placement="bottom" title="Angre sist">
+                <IconButton
+                  className={classes.customIconButtom}
+                  onClick={e => {
+                    addPolygon(polyline);
+                    addPolyline([]);
+                  }}
+                >
+                  <Undo />
+                </IconButton>
+              </BottomTooltip>
+              <BottomTooltip placement="bottom" title="Ferdig">
+                <IconButton
+                  className={classes.customIconButtom}
+                  onClick={e => {
+                    addPolygon(polyline);
+                    addPolyline([]);
+                  }}
+                >
+                  <Done />
+                </IconButton>
+              </BottomTooltip>
+            </>
+          )}
+
+          <BottomTooltip placement="bottom" title="Vis/Gjem">
+            <IconButton
+              className={classes.customIconButtom}
+              onClick={e => {
+                hideAndShowPolygon(!showPolygon);
+              }}
+            >
+              {showPolygon ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
+            </IconButton>
+          </BottomTooltip>
+
+          <BottomTooltip placement="bottom" title="Fjern">
             <IconButton
               className={classes.customIconButtom}
               onClick={e => {
                 addPolygon(null);
-                addPolyline(polygon);
+                addPolyline([]);
+                hideAndShowPolygon(true);
                 handleEditable(true);
               }}
             >
-              <Create />
+              <Delete />
             </IconButton>
-          ) : (
-            <>
-              <IconButton
-                className={classes.customIconButtom}
-                onClick={e => {
-                  addPolygon(polyline);
-                  addPolyline([]);
-                }}
-              >
-                <Undo />
-              </IconButton>
-              <IconButton
-                className={classes.customIconButtom}
-                onClick={e => {
-                  addPolygon(polyline);
-                  addPolyline([]);
-                }}
-              >
-                <Done />
-              </IconButton>
-            </>
-          )}
-
-          <IconButton
-            className={classes.customIconButtom}
-            onClick={e => {
-              hideAndShowPolygon(!showPolygon);
-            }}
-          >
-            {showPolygon ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
-          </IconButton>
-
-          <IconButton
-            className={classes.customIconButtom}
-            onClick={e => {
-              addPolygon(null);
-              addPolyline([]);
-              hideAndShowPolygon(true);
-              handleEditable(true);
-            }}
-          >
-            <Delete />
-          </IconButton>
+          </BottomTooltip>
         </div>
         {/* <div className="polygon-buttons-wrapper">
           {polygon ? (

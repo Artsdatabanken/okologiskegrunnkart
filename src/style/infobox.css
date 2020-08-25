@@ -520,6 +520,15 @@ h4.container_header {
   height: 20px;
   color: grey;
 }
+.detailed-info-container-polygon {
+  margin-top: 15px;
+  background-color: #eee;
+}
+@media only screen and (max-width: 768px) {
+  .detailed-info-container-polygon {
+    padding-bottom: 150px;
+  }
+}
 
 /* ---------- General transitions -----------  */
 .infobox-animation {

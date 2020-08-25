@@ -3,7 +3,7 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonElement from "./PolygonElement";
-import CustomSwitch from "../../Common/CustomSwitch";
+// import CustomSwitch from "../../Common/CustomSwitch";
 
 const ClickInfobox = ({
   coordinates_area,
@@ -62,7 +62,7 @@ const ClickInfobox = ({
           </div>
         </div>
       )}
-      <div className="search-layers-button-wrapper">
+      {/* <div className="search-layers-button-wrapper">
         <span className="infobox-switch-text">Valgte kartlag</span>
         <CustomSwitch
           tabIndex="0"
@@ -76,9 +76,9 @@ const ClickInfobox = ({
           }}
         />
         <span className="infobox-switch-text">Alle kartlag</span>
-      </div>
+      </div> */}
 
-      <div className="detailed-info-container-side">
+      <div className="detailed-info-container-polygon">
         <div className="layer-results-side">
           <ListItem id="layer-results-header">
             <ListItemIcon>
