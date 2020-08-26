@@ -32,7 +32,9 @@ class Leaflet extends React.Component {
     clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
-    zoom: 0
+    zoom: 0,
+    showForbidden: false,
+    closeWarning: null
   };
 
   handleBoundsChange(bounds) {
@@ -115,11 +117,6 @@ class Leaflet extends React.Component {
   }
 
   removeMarker() {
-    // this.setState({
-    //   sted: null,
-    //   adresse: null,
-    //   data: null
-    // });
     if (!this.marker) return;
     this.map.removeLayer(this.marker);
   }
@@ -320,16 +317,78 @@ class Leaflet extends React.Component {
     );
   }
 
+  closeForbidden = () => {
+    console.log("coming here");
+    this.setState({ showForbidden: false });
+  };
+
+  checkIntersectingLines(lat1, lng1, lat2, lng2, lat3, lng3, lat4, lng4) {
+    const det = (lat2 - lat1) * (lng4 - lng3) - (lat4 - lat3) * (lng2 - lng1);
+    if (det === 0) {
+      return false;
+    } else {
+      const lambda =
+        ((lng4 - lng3) * (lat4 - lat1) + (lat3 - lat4) * (lng4 - lng1)) / det;
+      const gamma =
+        ((lng1 - lng2) * (lat4 - lat1) + (lat2 - lat1) * (lng4 - lng1)) / det;
+      return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1;
+    }
+  }
+
+  checkPolylineIsValid(newLat, newLng) {
+    const polyline = this.props.polyline;
+    if (!this.polyline || this.polyline.length < 2) return true;
+    const lat1 = polyline[polyline.length - 1][0];
+    const lng1 = polyline[polyline.length - 1][1];
+    for (let i = 1; i < polyline.length; i++) {
+      const lat3 = polyline[i - 1][0];
+      const lng3 = polyline[i - 1][1];
+      const lat4 = polyline[i][0];
+      const lng4 = polyline[i][1];
+      const intersecting = this.checkIntersectingLines(
+        lat1,
+        lng1,
+        newLat,
+        newLng,
+        lat3,
+        lng3,
+        lat4,
+        lng4
+      );
+      if (intersecting) return false;
+    }
+    return true;
+  }
+
   polygonToolClick(e) {
     if (this.props.editable === true) {
       if (!this.props.polygon) {
         // Hvis polygon er satt, har personen klikket på ferdig-knappen,
         // og polylinje skal da ikke oppdateres.
         this.props.handleInfobox(true);
-        let polygon_list = this.props.polyline;
+        const polygon_list = this.props.polyline;
         const latlng = e.latlng;
-        polygon_list.push([latlng.lat, latlng.lng]);
-        this.props.addPolyline(polygon_list);
+        // Check if new line intersects existing lines (polyline valid)
+        const isValid = this.checkPolylineIsValid(latlng.lat, latlng.lng);
+        if (!isValid) {
+          if (this.state.closeWarning) {
+            clearTimeout(this.state.closeWarning);
+            this.setState({ closeWarning: null });
+          }
+          const x = e.containerPoint ? e.containerPoint.x - 50 : null;
+          const y = e.containerPoint ? e.containerPoint.y - 60 : "50px";
+          const box = document.querySelector(".polygon-warning-wrapper");
+          box.style.setProperty("--x", x + "px");
+          box.style.setProperty("--y", y + "px");
+          const closeWarning = setTimeout(
+            () => this.setState({ showForbidden: false, closeWarning: null }),
+            1500
+          );
+          this.setState({ showForbidden: true, closeWarning });
+        } else {
+          polygon_list.push([latlng.lat, latlng.lng]);
+          this.props.addPolyline(polygon_list);
+        }
       }
     }
   }
@@ -624,6 +683,15 @@ class Leaflet extends React.Component {
           addPolygon={this.props.addPolygon}
           addPolyline={this.props.addPolyline}
         />
+        {this.state.markerType === "polygon" && (
+          <div
+            className={`polygon-warning-wrapper${
+              this.state.showForbidden ? "" : " hidden-warning"
+            }`}
+          >
+            Linjer kan ikke krysse
+          </div>
+        )}
       </>
     );
   }

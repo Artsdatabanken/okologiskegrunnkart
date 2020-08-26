@@ -171,6 +171,27 @@
   display: none;
 }
 
+/* ------------ Polygon warning ------------- */
+.polygon-warning-wrapper {
+  --x: calc(50vw - 50px);
+  --y: 50px;
+  background: rgb(255, 238, 238);
+  color: #666;
+  border-radius: 5px;
+  position: absolute;
+  width: 100px;
+  top: var(--y, 50px);
+  left: var(--x, calc(50vw - 50px));
+  font-size: 13px;
+  text-align: center;
+  padding: 6px 8px;
+  display: block;
+  border: 2px solid #bbb;
+}
+.polygon-warning-wrapper.hidden-warning {
+  display: none;
+}
+
 /* ---------- General transitions -----------  */
 .margin-animation {
   -webkit-transition: margin 0.5s;
