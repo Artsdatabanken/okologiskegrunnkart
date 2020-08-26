@@ -155,7 +155,7 @@
 #toggle-side-bar-button {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
-  border: 1px solid grey;
+  border: 1px solid #777;
   border-right: 0;
   width: 32px !important;
   min-width: 32px;
