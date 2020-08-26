@@ -337,7 +337,7 @@ class Leaflet extends React.Component {
 
   checkPolylineIsValid(newLat, newLng) {
     const polyline = this.props.polyline;
-    if (!this.polyline || this.polyline.length < 2) return true;
+    if (!polyline || polyline.length < 2) return true;
     const lat1 = polyline[polyline.length - 1][0];
     const lng1 = polyline[polyline.length - 1][1];
     for (let i = 1; i < polyline.length; i++) {
@@ -363,6 +363,7 @@ class Leaflet extends React.Component {
   polygonToolClick(e) {
     if (this.props.editable === true) {
       if (!this.props.polygon) {
+        console.log(this.props.polyline);
         // Hvis polygon er satt, har personen klikket på ferdig-knappen,
         // og polylinje skal da ikke oppdateres.
         this.props.handleInfobox(true);
