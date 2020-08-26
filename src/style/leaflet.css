@@ -173,20 +173,20 @@
 
 /* ------------ Polygon warning ------------- */
 .polygon-warning-wrapper {
-  --x: calc(50vw - 50px);
+  --x: calc(50vw - 55px);
   --y: 50px;
-  background: rgb(255, 238, 238);
-  color: #666;
+  background: rgb(175, 193, 206);
+  color: #444;
   border-radius: 5px;
   position: absolute;
-  width: 100px;
+  width: 110px;
   top: var(--y, 50px);
-  left: var(--x, calc(50vw - 50px));
+  left: var(--x, calc(50vw - 55px));
   font-size: 13px;
   text-align: center;
   padding: 6px 8px;
   display: block;
-  border: 2px solid #bbb;
+  border: 2px solid #aaa;
   z-index: 250;
 }
 .polygon-warning-wrapper.hidden-warning {

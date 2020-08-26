@@ -489,9 +489,7 @@ h4.container_header {
   display: flex;
   justify-content: space-between;
   align-content: center;
-  /* padding: 10px 20px 10px 0; */
   padding: 14px 15px 14px 10px;
-  /* border-top: 1px solid #666; */
   border-bottom: 1px solid #bbb;
   background: rgba(145, 163, 176, 0.5);
 }

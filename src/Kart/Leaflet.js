@@ -317,11 +317,6 @@ class Leaflet extends React.Component {
     );
   }
 
-  closeForbidden = () => {
-    console.log("coming here");
-    this.setState({ showForbidden: false });
-  };
-
   checkIntersectingLines(lat1, lng1, lat2, lng2, lat3, lng3, lat4, lng4) {
     const det = (lat2 - lat1) * (lng4 - lng3) - (lat4 - lat3) * (lng2 - lng1);
     if (det === 0) {
@@ -363,7 +358,6 @@ class Leaflet extends React.Component {
   polygonToolClick(e) {
     if (this.props.editable === true) {
       if (!this.props.polygon) {
-        console.log(this.props.polyline);
         // Hvis polygon er satt, har personen klikket på ferdig-knappen,
         // og polylinje skal da ikke oppdateres.
         this.props.handleInfobox(true);
@@ -376,9 +370,9 @@ class Leaflet extends React.Component {
             clearTimeout(this.state.closeWarning);
             this.setState({ closeWarning: null });
           }
-          const x = e.containerPoint ? e.containerPoint.x - 50 : null;
+          const x = e.containerPoint ? e.containerPoint.x - 55 : null;
           const y = e.containerPoint
-            ? Math.max(e.containerPoint.y - 60, 0)
+            ? Math.max(e.containerPoint.y - 50, 0)
             : "50px";
           const box = document.querySelector(".polygon-warning-wrapper");
           box.style.setProperty("--x", x + "px");
@@ -692,7 +686,7 @@ class Leaflet extends React.Component {
               this.state.showForbidden ? "" : " hidden-warning"
             }`}
           >
-            Linjer kan ikke krysse
+            Polygon kanter kan ikke krysse
           </div>
         )}
       </>
