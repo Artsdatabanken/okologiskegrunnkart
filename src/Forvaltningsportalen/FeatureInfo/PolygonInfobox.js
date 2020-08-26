@@ -127,7 +127,7 @@ const PolygonInfobox = ({
             size={24}
           />
           <div className="infobox-text-multiple">
-            <div className="infobox-text-primary">Perimeter / Lengde</div>
+            <div className="infobox-text-primary">Omkrets / perimeter</div>
             <div className="infobox-text-secondary">
               {calculatePerimeter()
                 ? calculatePerimeter().dist + " " + calculatePerimeter().unit
@@ -145,7 +145,6 @@ const PolygonInfobox = ({
           <div className="infobox-text-multiple">
             <div className="infobox-text-primary">Areal</div>
             <div className="infobox-text-secondary">
-              {/* {sted ? sted.kommunenummer[0] + " km" : "---"} */}
               {calculateArea()
                 ? calculateArea().area + " " + calculateArea().unit
                 : "---"}

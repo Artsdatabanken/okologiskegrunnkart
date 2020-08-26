@@ -217,8 +217,11 @@ const KartlagFanen = props => {
           >
             <CustomIcon
               id="show-layers-icon"
-              icon={props.showSideBar ? "menu-right" : "menu-left"}
-              size={30}
+              icon={
+                props.showSideBar ? "chevron-doble-right" : "chevron-doble-left"
+              }
+              size={24}
+              color="#555"
             />
           </Button>
         </div>

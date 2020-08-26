@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Close, MyLocation } from "@material-ui/icons";
+import { MyLocation } from "@material-ui/icons";
 import CustomTooltip from "../../Common/CustomTooltip";
 import "../../style/infobox.css";
 import ClickInfobox from "./ClickInfobox";
@@ -199,7 +199,12 @@ const InfoBox = ({
           }}
         >
           <div className="close-infobox-button">
-            <Close />
+            <CustomIcon
+              id="infobox-minimize"
+              icon="chevron-doble-left"
+              color="#fff"
+              size={24}
+            />
           </div>
         </button>
       </div>
