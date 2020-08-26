@@ -187,6 +187,7 @@
   padding: 6px 8px;
   display: block;
   border: 2px solid #bbb;
+  z-index: 250;
 }
 .polygon-warning-wrapper.hidden-warning {
   display: none;

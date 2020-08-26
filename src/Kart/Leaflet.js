@@ -376,7 +376,9 @@ class Leaflet extends React.Component {
             this.setState({ closeWarning: null });
           }
           const x = e.containerPoint ? e.containerPoint.x - 50 : null;
-          const y = e.containerPoint ? e.containerPoint.y - 60 : "50px";
+          const y = e.containerPoint
+            ? Math.max(e.containerPoint.y - 60, 0)
+            : "50px";
           const box = document.querySelector(".polygon-warning-wrapper");
           box.style.setProperty("--x", x + "px");
           box.style.setProperty("--y", y + "px");
