@@ -2,7 +2,7 @@ import React from "react";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
-import PolygonElement from "./PolygonDrawTool";
+import PolygonDrawTool from "./PolygonDrawTool";
 
 const PolygonInfobox = ({
   sted,
@@ -109,7 +109,7 @@ const PolygonInfobox = ({
 
   return (
     <div className="infobox-side">
-      <PolygonElement
+      <PolygonDrawTool
         polygon={polygon}
         polyline={polyline}
         showPolygon={showPolygon}
