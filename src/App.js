@@ -62,7 +62,8 @@ class App extends React.Component {
       sublayerDetailsVisible: false,
       legendVisible: false,
       showFullscreenInfobox: false,
-      isMobile: false
+      isMobile: false,
+      showMarker: true
     };
   }
 
@@ -216,11 +217,16 @@ class App extends React.Component {
                       }
                     >
                       <Kart
+                        polygon={this.state.polygon}
+                        polyline={this.state.polyline}
+                        showPolygon={this.state.showPolygon}
+                        hideAndShowPolygon={this.hideAndShowPolygon}
                         handleEditable={this.handleEditable}
-                        editable={this.state.editable}
                         addPolygon={this.addPolygon}
                         addPolyline={this.addPolyline}
-                        showPolygon={this.state.showPolygon}
+                        editable={this.state.editable}
+                        showMarker={this.state.showMarker}
+                        hideAndShowMarker={this.hideAndShowMarker}
                         zoomcoordinates={this.state.zoomcoordinates}
                         handleRemoveZoomCoordinates={
                           this.handleRemoveZoomCoordinates
@@ -286,13 +292,6 @@ class App extends React.Component {
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                       />
                       <KartlagFanen
-                        polygon={this.state.polygon}
-                        addPolygon={this.addPolygon}
-                        hideAndShowPolygon={this.hideAndShowPolygon}
-                        handleEditable={this.handleEditable}
-                        showPolygon={this.state.showPolygon}
-                        polyline={this.state.polyline}
-                        addPolyline={this.addPolyline}
                         searchResultPage={this.state.searchResultPage}
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
@@ -497,6 +496,10 @@ class App extends React.Component {
 
   handleEditable = editable => {
     this.setState({ editable: editable });
+  };
+
+  hideAndShowMarker = showMarker => {
+    this.setState({ showMarker: showMarker });
   };
 
   removeValgtLag = () => {

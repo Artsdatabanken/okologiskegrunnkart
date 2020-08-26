@@ -73,22 +73,6 @@
   }
 }
 
-/* Overskriftene i panelet */
-.container_header {
-  background: #eee;
-  margin: 0px;
-  font-weight: 400;
-  padding-left: 16px;
-}
-
-/* Overskrift på grupperte element*/
-h4.container_header {
-  border-top: 1px solid #ccc;
-  text-align: left;
-  border-bottom: none;
-  padding-left: 20px;
-}
-
 /* ---------- Search results panel ---------- */
 .valgtLag {
   background-color: white;
@@ -503,33 +487,6 @@ h4.container_header {
 .underlag svg {
   padding-right: 15px;
   vertical-align: middle;
-}
-
-.polygonbutton {
-  padding: 5px;
-  margin-left: 2px;
-  font-size: 12pt;
-}
-
-.polygonbutton svg {
-  vertical-align: middle;
-  height: 20px;
-}
-
-.polygonbutton.done {
-  background: #baf2b3;
-}
-
-.polygonbutton.remove {
-  background: #ffd3cf;
-}
-
-.polygonbutton.edit {
-  background: #d5f1f5;
-}
-
-.polygonbutton:focus {
-  border: 2px solid blue;
 }
 
 /* Layer icons */

@@ -130,7 +130,7 @@
   justify-content: center;
   height: 0;
   width: 0;
-  margin: 32px 29px 23px 22px;
+  margin: 30px 29px 23px 22px;
   padding: 0;
   background-color: rgba(145, 163, 176, 0);
   border: none;
@@ -146,7 +146,7 @@
   outline: none;
   height: 46px;
   width: 44px;
-  margin: 9px 7px 0 0;
+  margin: 7px 7px 0 0;
 }
 .close-infobox-button {
   padding: 0;
@@ -161,15 +161,15 @@
 @media only screen and (max-width: 768px) {
   .close-infobox-button-wrapper {
     z-index: 205;
-    margin: 40px 29px 23px 22px;
+    margin: 38px 29px 23px 22px;
   }
   .close-infobox-button-wrapper:focus {
-    margin: 17px 7px 0 0;
+    margin: 15px 7px 0 0;
   }
   .close-infobox-button {
     z-index: 205;
     position: absolute;
-    top: 26px;
+    top: 24px;
     right: 15px;
   }
 }
@@ -178,7 +178,7 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 10px 10px 0 10px;
+  padding: 18px 10px 10px 10px;
   flex-shrink: 0;
 }
 .infobox-text-wrapper {
@@ -287,8 +287,6 @@
 
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
   background-color: #cc0000;
-  /* background-color: #E13D3E; */
-  /* background-color: #777; */
 }
 
 /* list items in info box */
@@ -471,6 +469,63 @@
 @media only screen and (max-width: 768px) {
   #infobox-detail-facts.MuiButton-root {
     margin: 16px 10px;
+  }
+}
+
+/* ---------- Polygon infobox --------- */
+.container_header {
+  background: #eee;
+  margin: 0px;
+  font-weight: 400;
+  padding-left: 16px;
+}
+h4.container_header {
+  border-top: 1px solid #ccc;
+  text-align: left;
+  border-bottom: none;
+  padding-left: 20px;
+}
+.polygon-tool-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  /* padding: 10px 20px 10px 0; */
+  padding: 14px 15px 14px 10px;
+  /* border-top: 1px solid #666; */
+  border-bottom: 1px solid #bbb;
+  background: rgba(145, 163, 176, 0.5);
+}
+.polygon-buttons-wrapper {
+  display: flex;
+  align-items: center;
+}
+.visibility_button.visibility_button {
+  padding: 10px;
+}
+.polygon-tool-label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.infobox-text-wrapper-polygon {
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 5px;
+  font-size: 16px;
+}
+.infobox-text-wrapper-polygon svg {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-right: 10px;
+  height: 20px;
+  color: grey;
+}
+.detailed-info-container-polygon {
+  background-color: #eee;
+}
+@media only screen and (max-width: 768px) {
+  .detailed-info-container-polygon {
+    padding-bottom: 150px;
   }
 }
 
