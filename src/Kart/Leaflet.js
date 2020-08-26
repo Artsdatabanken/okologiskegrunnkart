@@ -553,6 +553,7 @@ class Leaflet extends React.Component {
               });
               this.props.hideAndShowPolygon(false);
               this.props.hideAndShowMarker(true);
+              this.props.handleInfobox(true);
             }}
             onMouseDown={e => e.preventDefault()}
           >
@@ -569,6 +570,7 @@ class Leaflet extends React.Component {
               });
               this.props.hideAndShowMarker(false);
               this.props.hideAndShowPolygon(true);
+              this.props.handleInfobox(true);
             }}
             onMouseDown={e => e.preventDefault()}
           >
