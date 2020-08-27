@@ -55,6 +55,7 @@ class Kartlag(models.Model):
     klikkurl = models.CharField(max_length=500, blank=True)
     klikktekst = models.CharField(max_length=500, blank=True)
     klikktekst2 = models.CharField(max_length=500, blank=True)
+    aggregatedwmslayer = models.CharField(max_length=100, blank=True)
     type = models.ForeignKey(
         Type, on_delete=models.SET_NULL, null=True, blank=True)
 
@@ -217,6 +218,8 @@ def createJSON(sender, instance, **kwargs):
             dict[kartlag.id]['klikktekst'] = kartlag.klikktekst
         if kartlag.klikktekst:
             dict[kartlag.id]['klikktekst2'] = kartlag.klikktekst2
+        if kartlag.aggregatedwmslayer:
+            dict[kartlag.id]['aggregatedwmslayer'] = kartlag.aggregatedwmslayer
 
         if kartlag.tag:
             list = []

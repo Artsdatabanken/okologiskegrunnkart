@@ -24,6 +24,7 @@ class KartlagSerializer(serializers.ModelSerializer):
             'klikkurl',
             'klikktekst',
             'klikktekst2',
+            'aggregatedwmslayer',
             'type'
         )
         read_only_fields = (
