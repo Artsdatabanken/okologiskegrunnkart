@@ -700,6 +700,8 @@ class App extends React.Component {
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               clearInterval(updateLayers);
               this.setState({ loadingFeatures: false, layersResult });
+              console.log("layersResult");
+              console.log(layersResult);
             }
           })
           .catch(e => {
