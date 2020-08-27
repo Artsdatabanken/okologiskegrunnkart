@@ -7,14 +7,16 @@ import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomTooltip from "../../Common/CustomTooltip";
 
-const GeneriskElement = ({
-  coordinates_area,
-  key,
-  kartlag,
-  resultat,
-  element
-}) => {
+const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
   const [open, setOpen] = useState(false);
+  const [primaryTextHeader, setPrimaryTextHeader] = useState({
+    harData: false,
+    element: []
+  });
+  const [secondaryTextHeader, setSecondaryTextHeader] = useState({
+    harData: false,
+    element: []
+  });
 
   let layer = kartlag[element];
   if (!layer) return null;
@@ -29,14 +31,35 @@ const GeneriskElement = ({
     );
   };
 
-  console.log(resultat);
+  let primaryText = {};
+  let secondaryText = {};
+  Object.keys(layer.underlag).forEach(subkey => {
+    const sublayer = layer.underlag[subkey];
+    const primary = formatterKlikktekst(
+      sublayer.klikktekst,
+      resultat.underlag[subkey] || resultat
+    );
+    const secondary = formatterKlikktekst(
+      sublayer.klikktekst2,
+      resultat.underlag[subkey] || resultat
+    );
+    primaryText = { ...primaryText, [subkey]: primary };
+    secondaryText = { ...secondaryText, [subkey]: secondary };
 
-  const primaryText = formatterKlikktekst(layer.klikktekst, resultat);
-  const secondaryText = formatterKlikktekst(layer.klikktekst2, resultat);
+    if (!primaryTextHeader.harData && primary.harData) {
+      setPrimaryTextHeader(primary);
+      setSecondaryTextHeader(secondary);
+    }
+
+    if (sublayer.aggregatedwmslayer && primary.harData) {
+      setPrimaryTextHeader(primary);
+      setSecondaryTextHeader(secondary);
+    }
+  });
 
   return (
     <div className="generic_element">
-      {!resultat.loading && (
+      {primaryTextHeader.harData && (
         <ListItem
           id="generic-element-list"
           button={faktaark_url ? true : false}
@@ -70,14 +93,18 @@ const GeneriskElement = ({
             }}
           >
             <div className="generic-element-primary-text">
-              {primaryText && primaryText.harData && primaryText.elementer[0]
-                ? primaryText.elementer
+              {primaryTextHeader &&
+              primaryTextHeader.harData &&
+              primaryTextHeader.elementer[0]
+                ? primaryTextHeader.elementer
                 : resultat.error
                 ? "Kunne ikke hente data"
                 : "Ingen treff"}
             </div>
             <div className="generic-element-secondary-text">
-              {secondaryText.harData ? secondaryText.elementer : layer.tittel}
+              {secondaryTextHeader.harData
+                ? secondaryTextHeader.elementer
+                : layer.tittel}
             </div>
             <div className="generic-element-data-owner">{layer.dataeier}</div>
           </div>

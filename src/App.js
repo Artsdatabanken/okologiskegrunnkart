@@ -133,6 +133,11 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         listFavoriteSublayerIds.push(ul.key);
+        if (ul.wmslayer === k.aggregatedwmslayer) {
+          ul.aggregatedwmslayer = true;
+        } else {
+          ul.aggregatedwmslayer = false;
+        }
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
         const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
