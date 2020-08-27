@@ -91,8 +91,8 @@ class Backend {
     );
   }
 
-  static async getFeatureInfo(layer, coords) {
-    var url = getFeatureInfoUrl(layer, coords);
+  static async getFeatureInfo(layer, sublayer, coords) {
+    var url = getFeatureInfoUrl(layer, sublayer, coords);
     const boringkeys = [
       "gml:boundedBy",
       "gml:Box",
@@ -134,6 +134,7 @@ class Backend {
             res = res.FIELDS || res;
             res = collapseLayerFeature(res);
             for (var key of boringkeys) delete res[key];
+            console.log(res);
             resolve(res);
           });
         })

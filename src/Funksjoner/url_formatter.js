@@ -1,21 +1,18 @@
 import proj4 from "proj4";
 
-export function getFeatureInfoUrl(layer, coords) {
+export function getFeatureInfoUrl(layer, sublayer, coords) {
   if (layer.klikkurl)
     // Generic API
     return url_formatter(layer.klikkurl, coords);
 
-  return getWmsFeatureUrl(layer, coords);
+  return getWmsFeatureUrl(layer, sublayer, coords);
 }
 
-function getWmsFeatureUrl(layer, coords) {
+function getWmsFeatureUrl(layer, sublayer, coords) {
   const url = new URL(layer.wmsurl);
   const params = url.searchParams;
 
-  const layers = Object.values(layer.underlag)
-    .filter(l => l.queryable && l.wmslayer)
-    .map(l => l.wmslayer)
-    .join(",");
+  const layers = sublayer.wmslayer;
 
   const erv130 = layer.wmsversion === "1.3.0";
   const delta = 0.01;
