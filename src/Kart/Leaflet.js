@@ -37,19 +37,20 @@ class Leaflet extends React.Component {
     closeWarning: null
   };
 
-  handleBoundsChange(bounds) {
-    this.props.onMapBoundsChange(bounds);
-  }
-
   componentDidMount() {
     const options = {
       zoomControl: false,
       inertia: true,
       minZoom: 4,
+      dragging: true,
+      tap: false,
+      touchZoom: true,
       maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
     let map = L.map(this.mapEl, options);
+    this.map = map;
+
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
@@ -57,25 +58,12 @@ class Leaflet extends React.Component {
       this.handleClick(e);
     });
 
-    map.on("drag", e => {
-      if (!e.hard) {
-        this.handleBoundsChange(map.getBounds());
-      }
-    });
-
     map.on("zoomend", e => {
-      if (!this.map) return;
       if (!e.hard) {
         const zoom = this.map.getZoom();
         if (zoom === this.props.zoom) return;
         this.syncWmsLayers(this.props.aktiveLag);
         this.props.handleZoomChange(zoom);
-      }
-    });
-
-    map.on("resize", e => {
-      if (!e.hard) {
-        this.handleBoundsChange(map.getBounds());
       }
     });
 
@@ -86,7 +74,6 @@ class Leaflet extends React.Component {
 
     L.control.zoom({ position: "topright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
-    this.map = map;
     this.icon = L.icon({
       iconUrl: "/marker/marker-icon-2x-orange.png",
       iconSize: [22, 36],
@@ -104,15 +91,8 @@ class Leaflet extends React.Component {
     if (this.props.zoomcoordinates) {
       this.goToSelectedZoomCoordinates();
     }
-    if (this.props.bounds !== prevProps.bounds) {
-      const bounds = this.props.bounds;
-      if (bounds) {
-        this.map.flyToBounds(bounds);
-      }
-    }
     if (this.erEndret(prevProps)) {
       this.updateMap(this.props);
-      return;
     }
   }
 

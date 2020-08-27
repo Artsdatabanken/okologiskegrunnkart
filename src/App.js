@@ -27,8 +27,6 @@ class App extends React.Component {
       favoriteKartlag: {},
       kartlag: {},
       valgteLag: {},
-      actualBounds: null,
-      fitBounds: null,
       navigation_history: [],
       showCurrent: true,
       spraak: "nb",
@@ -237,14 +235,12 @@ class App extends React.Component {
                         handleValgteLag={this.hentInfoValgteLag}
                         forvaltningsportal={true}
                         show_current={this.state.showCurrent}
-                        bounds={this.state.fitBounds}
                         latitude={65.4}
                         longitude={15.8}
                         zoom={this.state.zoom}
                         handleZoomChange={this.handleZoomChange}
                         aktiveLag={this.state.kartlag}
                         bakgrunnskart={this.state.bakgrunnskart}
-                        onMapBoundsChange={this.handleActualBoundsChange}
                         onMapMove={context.onMapMove}
                         history={history}
                         sted={this.state.sted}
@@ -449,18 +445,9 @@ class App extends React.Component {
     return reducedLayers;
   };
 
-  handleActualBoundsChange = bounds => {
-    this.setState({ actualBounds: bounds, fitBounds: null });
-  };
   handleExtensiveInfo = showExtensiveInfo => {
     // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
-  };
-  handleFitBounds = bbox => {
-    this.setState({ fitBounds: bbox });
-  };
-  handleBoundsChange = bbox => {
-    this.setState({ actualBounds: bbox });
   };
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
