@@ -42,10 +42,10 @@ class Leaflet extends React.Component {
       zoomControl: false,
       inertia: true,
       minZoom: 4,
-      maxZoom: MAX_MAP_ZOOM_LEVEL,
       dragging: true,
       tap: false,
-      touchZoom: true
+      touchZoom: true,
+      maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
     let map = L.map(this.mapEl, options);
@@ -58,7 +58,6 @@ class Leaflet extends React.Component {
       this.handleClick(e);
     });
 
-    /*
     map.on("zoomend", e => {
       if (!e.hard) {
         const zoom = this.map.getZoom();
@@ -67,7 +66,6 @@ class Leaflet extends React.Component {
         this.props.handleZoomChange(zoom);
       }
     });
-*/
 
     map.setView(
       [this.props.latitude, this.props.longitude],
@@ -91,11 +89,9 @@ class Leaflet extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.zoomcoordinates) {
-      console.log("zoomcoordinates");
       this.goToSelectedZoomCoordinates();
     }
     if (this.erEndret(prevProps)) {
-      console.log("erEndret");
       this.updateMap(this.props);
     }
   }
@@ -375,7 +371,6 @@ class Leaflet extends React.Component {
   }
 
   handleClick = async e => {
-    console.log("click");
     if (this.state.markerType === "polygon") {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
