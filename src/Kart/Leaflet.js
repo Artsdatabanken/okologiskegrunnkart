@@ -43,8 +43,9 @@ class Leaflet extends React.Component {
       inertia: true,
       minZoom: 4,
       maxZoom: MAX_MAP_ZOOM_LEVEL,
-      dragging: true, // !L.Browser.mobile,
-      tap: true //!L.Browser.mobile
+      dragging: true,
+      tap: false,
+      touchZoom: true
     };
 
     let map = L.map(this.mapEl, options);
