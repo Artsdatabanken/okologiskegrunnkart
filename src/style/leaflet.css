@@ -67,7 +67,7 @@
 }
 
 /* --------- Zoom buttons and leaflet link ------------ */
-.leaftlet-control-zoom {
+.leaflet-control-zoom {
   margin-right: 10px;
   -webkit-transition: margin 0.5s;
   -moz-transition: margin 0.5s;
