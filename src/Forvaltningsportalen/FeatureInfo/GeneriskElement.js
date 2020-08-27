@@ -11,11 +11,11 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
   const [open, setOpen] = useState(false);
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
-    element: []
+    elementer: []
   });
   const [secondaryTextHeader, setSecondaryTextHeader] = useState({
     harData: false,
-    element: []
+    elementer: []
   });
 
   let layer = kartlag[element];
@@ -33,7 +33,13 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
 
   let primaryText = {};
   let secondaryText = {};
+  let numberResults = 0;
+  let numberNoMatches = 0;
   Object.keys(layer.underlag).forEach(subkey => {
+    if (resultat.underlag[subkey] && resultat.underlag[subkey].loading) return;
+
+    // TODO: Should also add a check where, if no changes, skip re-calculations
+
     const sublayer = layer.underlag[subkey];
     const primary = formatterKlikktekst(
       sublayer.klikktekst,
@@ -55,11 +61,21 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
       setPrimaryTextHeader(primary);
       setSecondaryTextHeader(secondary);
     }
+
+    if (primary.elementer && primary.elementer[0]) {
+      console.log("Coming here");
+      numberResults += 1;
+    } else {
+      numberNoMatches += 1;
+    }
   });
+  console.log(resultat);
+  console.log(primaryText);
+  console.log(secondaryText);
 
   return (
     <div className="generic_element">
-      {primaryTextHeader.harData && (
+      {primaryTextHeader.elementer && primaryTextHeader.elementer.length > 0 && (
         <ListItem
           id="generic-element-list"
           button={faktaark_url ? true : false}
@@ -73,8 +89,8 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
           <ListItemIcon className="infobox-list-icon-wrapper">
             <>
               <Badge
-                badgeContent={resultat.error ? "!" : 0}
-                color="primary"
+                badgeContent={resultat.error ? "!" : numberResults}
+                color={resultat.error ? "primary" : "secondary"}
                 overlap="circle"
               >
                 <CustomIcon
@@ -107,6 +123,11 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
                 : layer.tittel}
             </div>
             <div className="generic-element-data-owner">{layer.dataeier}</div>
+          </div>
+          <div className="number-no-matches">
+            <CustomTooltip placement="right" title="Ikke treff">
+              <div className="no-matches-content">{numberNoMatches}</div>
+            </CustomTooltip>
           </div>
           {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">

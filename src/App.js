@@ -687,7 +687,9 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            layersResult[key].underlag[subkey] = res;
+            if (layersResult[key]) {
+              layersResult[key].underlag[subkey] = res;
+            }
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               clearInterval(updateLayers);
               this.setState({ loadingFeatures: false, layersResult });
@@ -695,7 +697,9 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
-            layersResult[key].underlag[subkey] = { error: e.message || key };
+            if (layersResult[key]) {
+              layersResult[key].underlag[subkey] = { error: e.message || key };
+            }
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               clearInterval(updateLayers);
               this.setState({ loadingFeatures: false, layersResult });

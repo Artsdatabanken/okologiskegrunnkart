@@ -293,6 +293,9 @@
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
   background-color: #cc0000;
 }
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorSecondary {
+  background-color: #22aa58;
+}
 
 /* list items in info box */
 .generic-element-secondary-text {
@@ -332,6 +335,17 @@
     > .MuiListItemIcon-root {
     min-width: 45px;
   }
+}
+.no-matches-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  background: #777;
+  color: white;
+  border-radius: 10px;
+  font-size: 12px;
 }
 
 /* åpne ekstra info knapp */
