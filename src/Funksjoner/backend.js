@@ -134,7 +134,6 @@ class Backend {
             res = res.FIELDS || res;
             res = collapseLayerFeature(res);
             for (var key of boringkeys) delete res[key];
-            console.log(res);
             resolve(res);
           });
         })

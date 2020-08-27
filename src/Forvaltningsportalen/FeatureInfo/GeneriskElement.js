@@ -7,15 +7,20 @@ import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomTooltip from "../../Common/CustomTooltip";
 
-const GeneriskElement = props => {
+const GeneriskElement = ({
+  coordinates_area,
+  key,
+  kartlag,
+  resultat,
+  element
+}) => {
   const [open, setOpen] = useState(false);
-  const resultat = props.resultat;
 
-  let kartlag = props.kartlag[props.element];
-  if (!kartlag) return null;
-  const faktaark_url = url_formatter(kartlag.faktaark, {
-    ...props.coordinates_area,
-    ...props.resultat
+  let layer = kartlag[element];
+  if (!layer) return null;
+  const faktaark_url = url_formatter(layer.faktaark, {
+    ...coordinates_area,
+    ...resultat
   });
 
   const isLargeIcon = tema => {
@@ -24,8 +29,10 @@ const GeneriskElement = props => {
     );
   };
 
-  const primaryText = formatterKlikktekst(kartlag.klikktekst, resultat);
-  const secondaryText = formatterKlikktekst(kartlag.klikktekst2, resultat);
+  console.log(resultat);
+
+  const primaryText = formatterKlikktekst(layer.klikktekst, resultat);
+  const secondaryText = formatterKlikktekst(layer.klikktekst2, resultat);
 
   return (
     <div className="generic_element">
@@ -49,9 +56,9 @@ const GeneriskElement = props => {
               >
                 <CustomIcon
                   id="infobox-list-icon"
-                  icon={kartlag.tema}
-                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
+                  icon={layer.tema}
+                  size={isLargeIcon(layer.tema) ? 30 : 26}
+                  padding={isLargeIcon(layer.tema) ? 0 : 2}
                   color={"#777"}
                 />
               </Badge>
@@ -70,9 +77,9 @@ const GeneriskElement = props => {
                 : "Ingen treff"}
             </div>
             <div className="generic-element-secondary-text">
-              {secondaryText.harData ? secondaryText.elementer : kartlag.tittel}
+              {secondaryText.harData ? secondaryText.elementer : layer.tittel}
             </div>
-            <div className="generic-element-data-owner">{kartlag.dataeier}</div>
+            <div className="generic-element-data-owner">{layer.dataeier}</div>
           </div>
           {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">
@@ -116,7 +123,7 @@ const GeneriskElement = props => {
               </button>
             </div>
           </div>
-          {kartlag.type !== "naturtype" && (
+          {layer.type !== "naturtype" && (
             <iframe
               className="facts-modal-content"
               allowtransparency="true"
