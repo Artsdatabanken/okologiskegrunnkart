@@ -46,10 +46,13 @@ class Leaflet extends React.Component {
       zoomControl: false,
       inertia: true,
       minZoom: 4,
-      maxZoom: MAX_MAP_ZOOM_LEVEL
+      maxZoom: MAX_MAP_ZOOM_LEVEL,
+      dragging: !L.Browser.mobile,
+      tap: !L.Browser.mobile
     };
 
     let map = L.map(this.mapEl, options);
+
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
