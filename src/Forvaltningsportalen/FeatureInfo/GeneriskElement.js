@@ -64,7 +64,6 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
     }
 
     if (primary.elementer && primary.elementer[0]) {
-      console.log("Coming here");
       numberResults += 1;
     } else {
       numberNoMatches += 1;

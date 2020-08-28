@@ -793,7 +793,7 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = res;
+            allLayersResult[key].underlag[subkey] = res;
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               // clearInterval(updateLayers);
@@ -802,7 +802,7 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = { error: e.message || key };
+            allLayersResult[key].underlag[subkey] = { error: e.message || key };
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               // clearInterval(updateLayers);
