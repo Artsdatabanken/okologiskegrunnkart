@@ -36,6 +36,7 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
   let numberResults = 0;
   let numberNoMatches = 0;
   Object.keys(layer.underlag).forEach(subkey => {
+    if (!resultat.underlag) return;
     if (resultat.underlag[subkey] && resultat.underlag[subkey].loading) return;
 
     // TODO: Should also add a check where, if no changes, skip re-calculations
@@ -69,9 +70,9 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
       numberNoMatches += 1;
     }
   });
-  console.log(resultat);
-  console.log(primaryText);
-  console.log(secondaryText);
+  // console.log(resultat);
+  // console.log(primaryText);
+  // console.log(secondaryText);
 
   return (
     <div className="generic_element">
