@@ -247,6 +247,9 @@
 #layers-results-list {
   padding-top: 0;
 }
+#generic-element-list.MuiListItem-root {
+  padding-right: 2px;
+}
 
 @media only screen and (max-width: 768px) {
   .infobox-side,
@@ -283,9 +286,9 @@
   font-weight: 575;
 }
 
-#open-facts-icon.MuiSvgIcon-root {
+/* #open-facts-icon.MuiSvgIcon-root {
   margin-left: 10px;
-}
+} */
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
 }

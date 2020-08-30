@@ -23,7 +23,8 @@ const DetailedInfo = ({
   kartlag,
   coordinates_area,
   layersResult,
-  loadingFeatures
+  loadingFeatures,
+  showDetailedResults
 }) => {
   const classes = useStyles();
   let title = "Ingen kartlag valgt";
@@ -62,6 +63,7 @@ const DetailedInfo = ({
                       kartlag={kartlag}
                       resultat={layersResult[key]}
                       element={key}
+                      showDetailedResults={showDetailedResults}
                     />
                   );
                 })}

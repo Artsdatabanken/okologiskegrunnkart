@@ -1,5 +1,11 @@
 import { OpenInNew, Info, Close } from "@material-ui/icons";
-import { ListItem, ListItemIcon, Modal, Button } from "@material-ui/core";
+import {
+  ListItem,
+  ListItemIcon,
+  Modal,
+  Button,
+  IconButton
+} from "@material-ui/core";
 import React, { useState } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
@@ -7,7 +13,13 @@ import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomTooltip from "../../Common/CustomTooltip";
 
-const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
+const GeneriskElement = ({
+  coordinates_area,
+  kartlag,
+  resultat,
+  element,
+  showDetailedResults
+}) => {
   const [open, setOpen] = useState(false);
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
@@ -78,12 +90,12 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
       {primaryTextHeader.elementer && primaryTextHeader.elementer.length > 0 && (
         <ListItem
           id="generic-element-list"
-          button={faktaark_url ? true : false}
+          button
           divider
-          onClick={() => {
-            if (faktaark_url) {
-              setOpen(true);
-            }
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            showDetailedResults(primaryText);
           }}
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
@@ -131,7 +143,15 @@ const GeneriskElement = ({ coordinates_area, kartlag, resultat, element }) => {
           </div>
           {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">
-              <Info id="open-facts-icon" color="primary" />
+              <IconButton
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setOpen(true);
+                }}
+              >
+                <Info id="open-facts-icon" color="primary" />
+              </IconButton>
             </CustomTooltip>
           )}
         </ListItem>
