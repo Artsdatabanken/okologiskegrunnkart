@@ -67,6 +67,7 @@
 }
 .infobox-side.show-details {
   height: 100%;
+  overflow-y: hidden;
 }
 
 /* Infobox title */
@@ -517,6 +518,7 @@
 .infobox-details-container {
   height: 100%;
   background: rgb(250, 250, 250);
+  overflow-y: auto;
 }
 /* Title */
 #infobox-details-title-wrapper {
