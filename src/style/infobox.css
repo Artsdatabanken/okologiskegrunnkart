@@ -340,8 +340,14 @@
     min-width: 45px;
   }
 }
+
+/* No matched badge */
 .number-no-matches {
-  margin-left: 10px !important;
+  margin: 0 !important;
+  position: absolute;
+}
+.number-no-matches.hidden-no-matches {
+  display: none;
 }
 .no-matches-content {
   display: flex;
@@ -349,15 +355,16 @@
   justify-content: center;
   height: 20px;
   width: 20px;
-  /* background: #999; */
-  background: rgba(145, 163, 176, 1);
-  background: rgba(105, 127, 138, 0.85);
+  background: #999;
+  /* background: rgba(145, 163, 176, 1);
+  background: rgba(105, 127, 138, 1); */
   color: white;
   border-radius: 10px;
   font-size: 12px;
-}
-.no-matches-content.no-faktaark {
-  margin-right: 14px;
+  margin: 0 !important;
+  position: relative;
+  left: calc(-100% + 40px);
+  top: 15px;
 }
 
 /* åpne ekstra info knapp */

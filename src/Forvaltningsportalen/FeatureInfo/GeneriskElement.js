@@ -142,23 +142,8 @@ const GeneriskElement = ({
                 ? "Kunne ikke hente data"
                 : "Ingen treff"}
             </div>
-            <div className="generic-element-secondary-text">
-              {secondaryTextHeader.harData
-                ? secondaryTextHeader.elementer
-                : layer.tittel}
-            </div>
+            <div className="generic-element-secondary-text">{layer.tittel}</div>
             <div className="generic-element-data-owner">{layer.dataeier}</div>
-          </div>
-          <div className="number-no-matches">
-            <CustomTooltip placement="right" title="Ikke treff">
-              <div
-                className={`no-matches-content${
-                  faktaark_url ? "" : " no-faktaark"
-                }`}
-              >
-                {numberNoMatches}
-              </div>
-            </CustomTooltip>
           </div>
           {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">
@@ -174,6 +159,15 @@ const GeneriskElement = ({
               </IconButton>
             </CustomTooltip>
           )}
+          <div
+            className={`number-no-matches${
+              numberNoMatches > 0 ? "" : " hidden-no-matches"
+            }`}
+          >
+            <CustomTooltip placement="right" title="Ikke treff">
+              <div className={"no-matches-content"}>{numberNoMatches}</div>
+            </CustomTooltip>
+          </div>
         </ListItem>
       )}
 
