@@ -282,11 +282,14 @@
   margin-right: 25px;
 }
 #infobox-list-icon {
-  margin-left: 0;
+  margin: 0;
 }
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
   font-size: 0.9rem;
   font-weight: 575;
+}
+#show-faktaark-button.MuiIconButton-root {
+  padding: 10px;
 }
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
@@ -336,6 +339,9 @@
     > .MuiListItemIcon-root {
     min-width: 45px;
   }
+}
+.number-no-matches {
+  margin-left: 10px !important;
 }
 .no-matches-content {
   display: flex;

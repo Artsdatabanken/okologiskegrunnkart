@@ -118,7 +118,6 @@ const GeneriskElement = ({
             <Badge
               badgeContent={resultat.error ? "!" : numberResults}
               color={resultat.error ? "primary" : "secondary"}
-              overlap="circle"
             >
               <CustomIcon
                 id="infobox-list-icon"
@@ -164,6 +163,7 @@ const GeneriskElement = ({
           {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">
               <IconButton
+                id="show-faktaark-button"
                 onClick={e => {
                   e.preventDefault();
                   e.stopPropagation();
