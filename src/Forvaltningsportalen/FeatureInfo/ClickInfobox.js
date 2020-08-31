@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import {
-  Place,
-  Home,
-  Flag,
-  Terrain,
-  KeyboardBackspace
-} from "@material-ui/icons";
+import { Place, Home, Flag, Terrain } from "@material-ui/icons";
 import CustomTooltip from "../../Common/CustomTooltip";
 import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
-import DetailedInfo from "./DetailedInfo";
+import ResultsList from "./ResultsList";
+import DetailedResults from "./DetailedResults";
 
 const ClickInfobox = ({
   coordinates_area,
@@ -27,7 +21,10 @@ const ClickInfobox = ({
   loadingFeatures
 }) => {
   const [showResults, setShowResults] = useState(false);
-  const [results, setResults] = useState(null);
+  const [resultLayer, setResultLayer] = useState(null);
+  const [primaryText, setPrimaryText] = useState(null);
+  const [secondaryText, setSecondaryText] = useState(null);
+  const [numberResults, setNumberResults] = useState(null);
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
   const longitude = coordinates_area ? coordinates_area.lng : 0;
@@ -61,33 +58,40 @@ const ClickInfobox = ({
     getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
   };
 
-  const showDetailedResults = results => {
+  const showDetailedResults = (
+    layer,
+    primaryText,
+    secondaryText,
+    numberResults
+  ) => {
     setShowResults(true);
-    setResults(results);
-    console.log(results);
+    console.log(layer);
+    console.log(primaryText);
+    console.log(secondaryText);
+    setResultLayer(layer);
+    setPrimaryText(primaryText);
+    setSecondaryText(secondaryText);
+    setNumberResults(numberResults);
+  };
+
+  const hideDetailedResults = () => {
+    setShowResults(false);
+    setResultLayer(null);
+    setPrimaryText(null);
+    setSecondaryText(null);
+    setNumberResults(null);
   };
 
   return (
     <div className="infobox-side">
       {showResults ? (
-        <div className="infobox-results-content">
-          <ListItem
-            // Kartlag
-            id="details-title-wrapper"
-            button
-            onClick={() => {
-              setShowResults(false);
-            }}
-          >
-            <ListItemIcon>
-              <KeyboardBackspace />
-            </ListItemIcon>
-            <ListItemText>
-              <span className="details-title-text">Detaljerte resultater</span>
-            </ListItemText>
-          </ListItem>
-          <div>Nice!!!</div>
-        </div>
+        <DetailedResults
+          resultLayer={resultLayer}
+          primaryText={primaryText}
+          secondaryText={secondaryText}
+          numberResults={numberResults}
+          hideDetailedResults={hideDetailedResults}
+        />
       ) : (
         <>
           <div className="infobox-content">
@@ -157,7 +161,7 @@ const ClickInfobox = ({
             />
             <span className="infobox-switch-text">Alle kartlag</span>
           </div>
-          <DetailedInfo
+          <ResultsList
             showExtensiveInfo={showExtensiveInfo}
             kartlag={showExtensiveInfo ? kartlag : valgteLag}
             coordinates_area={coordinates_area}

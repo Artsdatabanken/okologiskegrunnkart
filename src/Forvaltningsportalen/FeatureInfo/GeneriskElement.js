@@ -75,6 +75,20 @@ const GeneriskElement = ({
       setSecondaryTextHeader(secondary);
     }
 
+    if (
+      (primaryTextHeader.elementer.length === 0 ||
+        !primaryTextHeader.elementer[0] ||
+        primaryTextHeader.elementer[0] === "" ||
+        primaryTextHeader.elementer[0] === " ") &&
+      primary.elementer.length > 0 &&
+      primary.elementer[0] &&
+      primary.elementer[0] !== "" &&
+      primary.elementer[0] !== " "
+    ) {
+      setPrimaryTextHeader(primary);
+      setSecondaryTextHeader(secondary);
+    }
+
     if (primary.elementer && primary.elementer[0]) {
       numberResults += 1;
     } else {
@@ -95,25 +109,28 @@ const GeneriskElement = ({
           onClick={e => {
             e.preventDefault();
             e.stopPropagation();
-            showDetailedResults(primaryText);
+            showDetailedResults(
+              layer,
+              primaryText,
+              secondaryText,
+              numberResults
+            );
           }}
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
-            <>
-              <Badge
-                badgeContent={resultat.error ? "!" : numberResults}
-                color={resultat.error ? "primary" : "secondary"}
-                overlap="circle"
-              >
-                <CustomIcon
-                  id="infobox-list-icon"
-                  icon={layer.tema}
-                  size={isLargeIcon(layer.tema) ? 30 : 26}
-                  padding={isLargeIcon(layer.tema) ? 0 : 2}
-                  color={"#777"}
-                />
-              </Badge>
-            </>
+            <Badge
+              badgeContent={resultat.error ? "!" : numberResults}
+              color={resultat.error ? "primary" : "secondary"}
+              overlap="circle"
+            >
+              <CustomIcon
+                id="infobox-list-icon"
+                icon={layer.tema}
+                size={isLargeIcon(layer.tema) ? 30 : 26}
+                padding={isLargeIcon(layer.tema) ? 0 : 2}
+                color={"#777"}
+              />
+            </Badge>
           </ListItemIcon>
           <div
             style={{
@@ -138,7 +155,13 @@ const GeneriskElement = ({
           </div>
           <div className="number-no-matches">
             <CustomTooltip placement="right" title="Ikke treff">
-              <div className="no-matches-content">{numberNoMatches}</div>
+              <div
+                className={`no-matches-content${
+                  faktaark_url ? "" : " no-faktaark"
+                }`}
+              >
+                {numberNoMatches}
+              </div>
             </CustomTooltip>
           </div>
           {faktaark_url && (

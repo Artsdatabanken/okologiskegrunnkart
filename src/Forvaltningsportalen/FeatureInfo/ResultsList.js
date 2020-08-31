@@ -18,7 +18,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const DetailedInfo = ({
+const ResultsList = ({
   showExtensiveInfo,
   kartlag,
   coordinates_area,
@@ -75,4 +75,4 @@ const DetailedInfo = ({
   );
 };
 
-export default withRouter(DetailedInfo);
+export default withRouter(ResultsList);

@@ -250,6 +250,9 @@
 #generic-element-list.MuiListItem-root {
   padding-right: 2px;
 }
+#infobox-details-layer.MuiListItem-gutters {
+  padding-left: 12px;
+}
 
 @media only screen and (max-width: 768px) {
   .infobox-side,
@@ -285,14 +288,9 @@
   font-size: 0.9rem;
   font-weight: 575;
 }
-
-/* #open-facts-icon.MuiSvgIcon-root {
-  margin-left: 10px;
-} */
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
 }
-
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
   background-color: #cc0000;
 }
@@ -345,10 +343,15 @@
   justify-content: center;
   height: 20px;
   width: 20px;
-  background: #777;
+  /* background: #999; */
+  background: rgba(145, 163, 176, 1);
+  background: rgba(105, 127, 138, 0.85);
   color: white;
   border-radius: 10px;
   font-size: 12px;
+}
+.no-matches-content.no-faktaark {
+  margin-right: 14px;
 }
 
 /* åpne ekstra info knapp */
@@ -491,6 +494,44 @@
 @media only screen and (max-width: 768px) {
   #infobox-detail-facts.MuiButton-root {
     margin: 16px 10px;
+  }
+}
+
+/* ---------- Details window ---------- */
+#infobox-details-title-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(145, 163, 176, 0.5);
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid #aaa;
+}
+@media only screen and (max-width: 768px) {
+  #infobox-details-title-wrapper {
+    height: 45px;
+    border-top: 1px solid #aaa;
+  }
+}
+#infobox-details-title-wrapper.MuiListItem-gutters {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+#infobox-details-title-wrapper .MuiListItemIcon-root {
+  min-width: 35px;
+}
+#infobox-details-title-wrapper.MuiListItem-root.Mui-focusVisible {
+  background-color: rgba(145, 163, 176, 0.8);
+}
+.infobox-details-title-text {
+  margin-left: 10px;
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.64);
+  font-weight: 500;
+}
+@media only screen and (max-width: 768px) {
+  .infobox-details-title-text {
+    font-size: 16px;
   }
 }
 
