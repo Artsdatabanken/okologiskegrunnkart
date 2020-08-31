@@ -186,8 +186,13 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 18px 10px 10px 10px;
+  padding: 18px 10px 5px 10px;
   flex-shrink: 0;
+}
+@media only screen and (max-width: 768px) {
+  .infobox-content {
+    padding: 18px 10px 3px 10px;
+  }
 }
 .infobox-text-wrapper {
   display: flex;
@@ -370,7 +375,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 10px 10px 10px 18px;
+  padding: 0 10px 10px 18px;
   flex-shrink: 0;
 }
 .search_layers:focus {
@@ -381,7 +386,7 @@
 }
 @media only screen and (max-width: 768px) {
   .search-layers-button-wrapper {
-    padding: 3px 10px 7px 18px;
+    padding: 0 10px 7px 18px;
   }
 }
 
