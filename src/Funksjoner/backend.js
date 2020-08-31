@@ -91,8 +91,8 @@ class Backend {
     );
   }
 
-  static async getFeatureInfo(layer, coords) {
-    var url = getFeatureInfoUrl(layer, coords);
+  static async getFeatureInfo(layer, sublayer, coords) {
+    var url = getFeatureInfoUrl(layer, sublayer, coords);
     const boringkeys = [
       "gml:boundedBy",
       "gml:Box",

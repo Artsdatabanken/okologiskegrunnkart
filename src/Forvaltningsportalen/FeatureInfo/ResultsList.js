@@ -18,12 +18,13 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const DetailedInfo = ({
+const ResultsList = ({
   showExtensiveInfo,
   kartlag,
   coordinates_area,
   layersResult,
-  loadingFeatures
+  loadingFeatures,
+  showDetailedResults
 }) => {
   const classes = useStyles();
   let title = "Ingen kartlag valgt";
@@ -62,6 +63,7 @@ const DetailedInfo = ({
                       kartlag={kartlag}
                       resultat={layersResult[key]}
                       element={key}
+                      showDetailedResults={showDetailedResults}
                     />
                   );
                 })}
@@ -73,4 +75,4 @@ const DetailedInfo = ({
   );
 };
 
-export default withRouter(DetailedInfo);
+export default withRouter(ResultsList);
