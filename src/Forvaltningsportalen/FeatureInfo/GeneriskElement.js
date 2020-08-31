@@ -25,10 +25,6 @@ const GeneriskElement = ({
     harData: false,
     elementer: []
   });
-  const [secondaryTextHeader, setSecondaryTextHeader] = useState({
-    harData: false,
-    elementer: []
-  });
 
   let layer = kartlag[element];
   if (!layer) return null;
@@ -67,12 +63,10 @@ const GeneriskElement = ({
 
     if (!primaryTextHeader.harData && primary.harData) {
       setPrimaryTextHeader(primary);
-      setSecondaryTextHeader(secondary);
     }
 
     if (sublayer.aggregatedwmslayer && primary.harData) {
       setPrimaryTextHeader(primary);
-      setSecondaryTextHeader(secondary);
     }
 
     if (
@@ -86,7 +80,6 @@ const GeneriskElement = ({
       primary.elementer[0] !== " "
     ) {
       setPrimaryTextHeader(primary);
-      setSecondaryTextHeader(secondary);
     }
 
     if (primary.elementer && primary.elementer[0]) {

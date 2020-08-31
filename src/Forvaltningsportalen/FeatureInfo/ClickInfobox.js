@@ -65,9 +65,6 @@ const ClickInfobox = ({
     numberResults
   ) => {
     setShowResults(true);
-    console.log(layer);
-    console.log(primaryText);
-    console.log(secondaryText);
     setResultLayer(layer);
     setPrimaryText(primaryText);
     setSecondaryText(secondaryText);
