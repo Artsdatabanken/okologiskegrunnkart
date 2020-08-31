@@ -638,6 +638,19 @@ h4.container_header {
     padding-bottom: 150px;
   }
 }
+.polygon-layers-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-items: center;
+  padding: 15px 10px;
+  border-top: 1px solid #bbb;
+}
+.polygon-layers-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 /* ---------- General transitions -----------  */
 .infobox-animation {

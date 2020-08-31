@@ -226,7 +226,6 @@ const InfoBox = ({
       )}
       {markerType === "polygon" && (
         <PolygonInfobox
-          sted={sted}
           polygon={polygon}
           polyline={polyline}
           showPolygon={showPolygon}

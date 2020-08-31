@@ -3,9 +3,9 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
+import PolygonLayers from "./PolygonLayers";
 
 const PolygonInfobox = ({
-  sted,
   polygon,
   polyline,
   showPolygon,
@@ -153,7 +153,7 @@ const PolygonInfobox = ({
           </div>
         </div>
       </div>
-
+      <PolygonLayers polygon={polygon} />
       <div className="detailed-info-container-polygon">
         <div className="layer-results-side">
           <ListItem id="layer-results-header">
