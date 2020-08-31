@@ -300,11 +300,17 @@
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
 }
-.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
+  font-size: 12px;
+}
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorError {
   background-color: #cc0000;
 }
-.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorSecondary {
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorPrimary {
   background-color: #22aa58;
+}
+.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorSecondary {
+  background-color: #999;
 }
 
 /* list items in info box */
@@ -345,30 +351,6 @@
     > .MuiListItemIcon-root {
     min-width: 45px;
   }
-}
-
-/* No matches badge */
-.number-no-matches {
-  margin: 0 !important;
-  position: absolute;
-}
-.number-no-matches.hidden-no-matches {
-  display: none;
-}
-.no-matches-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 20px;
-  width: 20px;
-  background: #999;
-  color: white;
-  border-radius: 10px;
-  font-size: 12px;
-  margin: 0 !important;
-  position: relative;
-  left: calc(-100% + 40px);
-  top: 15px;
 }
 
 /* åpne ekstra info knapp */

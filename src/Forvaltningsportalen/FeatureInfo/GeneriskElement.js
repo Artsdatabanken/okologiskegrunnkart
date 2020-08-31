@@ -109,8 +109,18 @@ const GeneriskElement = ({
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
             <Badge
-              badgeContent={resultat.error ? "!" : numberResults}
-              color={resultat.error ? "primary" : "secondary"}
+              badgeContent={
+                resultat.error
+                  ? "!"
+                  : numberResults + "/" + (numberNoMatches + numberResults)
+              }
+              color={
+                resultat.error
+                  ? "error"
+                  : numberResults > 0
+                  ? "primary"
+                  : "secondary"
+              }
             >
               <CustomIcon
                 id="infobox-list-icon"
@@ -152,15 +162,6 @@ const GeneriskElement = ({
               </IconButton>
             </CustomTooltip>
           )}
-          <div
-            className={`number-no-matches${
-              numberNoMatches > 0 ? "" : " hidden-no-matches"
-            }`}
-          >
-            <CustomTooltip placement="right" title="Ikke treff">
-              <div className={"no-matches-content"}>{numberNoMatches}</div>
-            </CustomTooltip>
-          </div>
         </ListItem>
       )}
 
