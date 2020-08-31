@@ -65,6 +65,9 @@
   max-width: 600px;
   text-align: center;
 }
+.infobox-side.show-details {
+  height: 100%;
+}
 
 /* Infobox title */
 .infobox-title-wrapper {
@@ -249,9 +252,6 @@
 }
 #generic-element-list.MuiListItem-root {
   padding-right: 2px;
-}
-#infobox-details-layer.MuiListItem-gutters {
-  padding-left: 12px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -497,7 +497,12 @@
   }
 }
 
-/* ---------- Details window ---------- */
+/* ---------- Details panel in infobox ---------- */
+.infobox-details-container {
+  height: 100%;
+  background: rgb(250, 250, 250);
+}
+/* Title */
 #infobox-details-title-wrapper {
   display: flex;
   align-items: center;
@@ -533,6 +538,49 @@
   .infobox-details-title-text {
     font-size: 16px;
   }
+}
+
+/* Layer info */
+#infobox-details-layer {
+  background-color: #eee;
+}
+#infobox-details-layer.MuiListItem-gutters {
+  padding-left: 12px;
+}
+
+/* Content */
+.infobox-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+}
+.infobox-details-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px;
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.infobox-details-title {
+  font-weight: 500;
+  margin-bottom: 2px;
+  text-align: left;
+}
+.infobox-details-primary-text {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 16px;
+  margin-bottom: 2px;
+  text-align: left;
+}
+.infobox-details-secondary-text {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  text-align: left;
 }
 
 /* ---------- Polygon infobox --------- */

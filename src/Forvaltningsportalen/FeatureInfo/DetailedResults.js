@@ -19,8 +19,21 @@ const DetailedResults = ({
 
   const sublayers = resultLayer.underlag;
 
+  const resultText = resultArray => {
+    if (resultArray.length === 0) {
+      return "Ingen treff";
+    }
+    const filteredResult = resultArray.filter(
+      item => item && item !== "" && item !== " "
+    );
+    if (filteredResult.length === 0) {
+      return "Ingen treff";
+    }
+    return resultArray;
+  };
+
   return (
-    <div className="infobox-results-content">
+    <div className="infobox-details-container">
       <ListItem
         // Kartlag
         id="infobox-details-title-wrapper"
@@ -59,15 +72,21 @@ const DetailedResults = ({
           secondary={resultLayer.dataeier}
         />
       </ListItem>
-      <div>
+      <div className="infobox-details-wrapper">
         {sublayers &&
           primaryText &&
-          Object.keys(sublayers).map(key => {
+          Object.keys(sublayers).map((key, index) => {
             return (
-              <div>
-                <div>{sublayers[key].tittel}</div>
-                <div>{primaryText[key].elementer}</div>
-                <div>{secondaryText[key].elementer}</div>
+              <div key={index} className="infobox-details-content-wrapper">
+                <div className="infobox-details-title">
+                  {sublayers[key].tittel}
+                </div>
+                <div className="infobox-details-primary-text">
+                  {resultText(primaryText[key].elementer)}
+                </div>
+                <div className="infobox-details-secondary-text">
+                  {resultText(secondaryText[key].elementer)}
+                </div>
               </div>
             );
           })}

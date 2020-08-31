@@ -95,9 +95,6 @@ const GeneriskElement = ({
       numberNoMatches += 1;
     }
   });
-  // console.log(resultat);
-  // console.log(primaryText);
-  // console.log(secondaryText);
 
   return (
     <div className="generic_element">

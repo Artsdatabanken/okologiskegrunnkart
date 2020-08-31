@@ -83,7 +83,7 @@ const ClickInfobox = ({
   };
 
   return (
-    <div className="infobox-side">
+    <div className={`infobox-side${showResults ? " show-details" : ""}`}>
       {showResults ? (
         <DetailedResults
           resultLayer={resultLayer}
