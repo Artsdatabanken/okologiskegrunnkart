@@ -31,7 +31,8 @@ const InfoBox = ({
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline
+  addPolyline,
+  handlePolygonResults
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -233,6 +234,7 @@ const InfoBox = ({
           handleEditable={handleEditable}
           addPolygon={addPolygon}
           addPolyline={addPolyline}
+          handlePolygonResults={handlePolygonResults}
         />
       )}
     </div>

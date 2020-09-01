@@ -8,18 +8,34 @@ import {
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
+import backend from "../../Funksjoner/backend";
 
-const PolygonLayers = ({ polygon }) => {
+const PolygonLayers = ({ polygon, handlePolygonResults }) => {
   const availableLayers = [
-    { name: "Kommuner og Fylker", selected: false },
-    { name: "Test uten data", selected: false }
+    {
+      name: "Kommuner og Fylker",
+      selected: false,
+      url:
+        "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk?kartlag=KOM,FYL&koordinater="
+    },
+    { name: "Test uten data", selected: false, url: null }
   ];
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const calculateLayers = () => {
-    console.log(searchLayers);
-    console.log(polygon);
+  const calculateAreaReport = () => {
+    if (!polygon || polygon.length < 2) return;
+    handlePolygonResults(null);
+    const allResults = [];
+    for (const layer of searchLayers) {
+      if (!layer.selected || !layer.url) continue;
+      const result = backend.makeAreaReport(layer.url, polygon);
+      console.log(result);
+      allResults.push(result);
+    }
+    if (allResults.length > 0) {
+      handlePolygonResults(allResults);
+    }
   };
 
   const handleChange = (e, selectedLayerName) => {
@@ -40,7 +56,7 @@ const PolygonLayers = ({ polygon }) => {
         divider
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <ListItemText primary="Velg lag" />
+        <ListItemText primary="Arealrapport" />
         {menuOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={menuOpen} timeout="auto" unmountOnExit>
@@ -69,11 +85,11 @@ const PolygonLayers = ({ polygon }) => {
               variant="contained"
               size="small"
               onClick={() => {
-                calculateLayers();
+                calculateAreaReport();
               }}
               disabled={polygon ? false : true}
             >
-              Hent resultater
+              Lag arealrapport
             </Button>
           </div>
         </div>

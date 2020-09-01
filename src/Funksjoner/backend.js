@@ -143,6 +143,24 @@ class Backend {
         });
     });
   }
+
+  static async makeAreaReport(baseUrl, polygon) {
+    // NOTE: API uses coordinates in lat/lng, same as defined
+    // in polygon
+    let url = baseUrl;
+    for (let i = 0; i < polygon.length; i++) {
+      if (i === 0 && polygon[i].length === 2) {
+        url = url + polygon[i][0] + " " + polygon[i][1];
+      } else if (polygon[i].length === 2) {
+        url = url + ", " + polygon[i][0] + " " + polygon[i][1];
+      }
+    }
+    // Last point has to be the same as the initial point
+    url = url + ", " + polygon[0][0] + " " + polygon[0][1];
+
+    url = encodeURI(url);
+    return this.getPromise(url);
+  }
 }
 
 export default Backend;
