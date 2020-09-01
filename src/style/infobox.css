@@ -596,12 +596,13 @@ h4.container_header {
   border-bottom: none;
   padding-left: 20px;
 }
+/* Polygon drawing tool */
 .polygon-tool-wrapper {
   display: flex;
   justify-content: space-between;
   align-content: center;
   flex-shrink: 0;
-  padding: 14px 15px 14px 10px;
+  padding: 14px 15px 14px 14px;
   border-bottom: 1px solid #bbb;
   background: rgba(145, 163, 176, 0.5);
 }
@@ -638,18 +639,50 @@ h4.container_header {
     padding-bottom: 150px;
   }
 }
+
+/* Polygon layers */
 .polygon-layers-wrapper {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   justify-items: center;
-  padding: 15px 10px;
+  /* padding: 5px 10px 15px 10px; */
   border-top: 1px solid #bbb;
+}
+/* .polygon-layers-content {
+  padding: 5px 6px 15px 16px;
+} */
+#polygon-layer-expander {
+  background: rgba(145, 163, 176, 0.3);
+}
+#polygon-layer-expander:hover {
+  background: rgba(145, 163, 176, 0.5);
+}
+#polygon-layer-expander.Mui-focusVisible {
+  background: rgba(145, 163, 176, 0.5);
+}
+#polygon-layer-expander.MuiListItem-gutters {
+  padding-left: 14px;
+}
+.polygon-layers-content {
+  background: rgba(145, 163, 176, 0.15);
+}
+.polygon-checkbox-content {
+  padding: 10px 10px 8px 14px;
+}
+.polygon-button-wrapper {
+  padding-bottom: 15px;
 }
 .polygon-layers-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.polygon-layers-item .MuiIconButton-root {
+  padding: 5px;
+}
+.polygon-layers-disabled {
+  color: #999;
 }
 
 /* ---------- General transitions -----------  */
