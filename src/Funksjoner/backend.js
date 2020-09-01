@@ -144,10 +144,20 @@ class Backend {
     });
   }
 
-  static async makeAreaReport(baseUrl, polygon) {
+  static async makeAreaReport(layerCodes, polygon) {
     // NOTE: API uses coordinates in lat/lng, same as defined
     // in polygon
-    let url = baseUrl;
+    let url =
+      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk?kartlag=";
+    for (let i = 0; i < layerCodes.length; i++) {
+      if (i === 0) {
+        url = url + layerCodes[i];
+      } else {
+        url = url + "," + layerCodes[i];
+      }
+    }
+
+    url = url + "&koordinater=";
     for (let i = 0; i < polygon.length; i++) {
       if (i === 0 && polygon[i].length === 2) {
         url = url + polygon[i][0] + " " + polygon[i][1];

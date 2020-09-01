@@ -13,12 +13,15 @@ import backend from "../../Funksjoner/backend";
 const PolygonLayers = ({ polygon, handlePolygonResults }) => {
   const availableLayers = [
     {
-      name: "Kommuner og Fylker",
+      name: "Fylker",
       selected: false,
-      url:
-        "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk?kartlag=KOM,FYL&koordinater="
+      code: "FYL"
     },
-    { name: "Test uten data", selected: false, url: null }
+    {
+      name: "Kommuner",
+      selected: false,
+      code: "KOM"
+    }
   ];
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -26,15 +29,15 @@ const PolygonLayers = ({ polygon, handlePolygonResults }) => {
   const calculateAreaReport = () => {
     if (!polygon || polygon.length < 2) return;
     handlePolygonResults(null);
-    const allResults = [];
+    const layerCodes = [];
     for (const layer of searchLayers) {
-      if (!layer.selected || !layer.url) continue;
-      const result = backend.makeAreaReport(layer.url, polygon);
-      console.log(result);
-      allResults.push(result);
+      if (!layer.selected || !layer.code) continue;
+      layerCodes.push(layer.code);
     }
-    if (allResults.length > 0) {
-      handlePolygonResults(allResults);
+    if (layerCodes.length > 0) {
+      backend.makeAreaReport(layerCodes, polygon).then(result => {
+        handlePolygonResults(result);
+      });
     }
   };
 
