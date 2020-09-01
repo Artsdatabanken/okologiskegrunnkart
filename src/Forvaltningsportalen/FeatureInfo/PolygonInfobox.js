@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
@@ -16,13 +16,31 @@ const PolygonInfobox = ({
   addPolyline,
   handlePolygonResults
 }) => {
-  const calculatePerimeter = () => {
-    if (!polygon && !polyline) return null;
+  const [perimeter, setPerimeter] = useState(null);
+  const [perimeterUnit, setPerimeterUnit] = useState("m");
+  const [area, setArea] = useState(null);
+  const [areaUnit, setAreaUnit] = useState("m");
 
-    let points = polygon;
-    if (!polygon) points = polyline;
+  const polylineJSON = JSON.stringify(polyline);
+  const polygonJSON = JSON.stringify(polygon);
 
-    if (points.length < 2) return null;
+  useEffect(() => {
+    if (!polygon && !polyline) {
+      setPerimeter(null);
+      return;
+    }
+
+    let points = polyline;
+    // If polygon, add the first point as the last one
+    if (polygon) {
+      points = [...polygon];
+      points.push(polygon[0]);
+    }
+
+    if (points.length < 2) {
+      setPerimeter(null);
+      return;
+    }
 
     let dist = 0;
     let unit = "m";
@@ -61,12 +79,15 @@ const PolygonInfobox = ({
     } else {
       dist = Math.round(dist * 10) / 10;
     }
+    setPerimeter(dist);
+    setPerimeterUnit(unit);
+  }, [polygon, polygonJSON, polyline, polylineJSON]);
 
-    return { dist, unit };
-  };
-
-  const calculateArea = () => {
-    if (!polygon || polygon.length < 3) return null;
+  useEffect(() => {
+    if (!polygon || polygon.length < 3) {
+      setArea(null);
+      return;
+    }
 
     const pointsCount = polygon.length;
     let area = 0;
@@ -117,9 +138,9 @@ const PolygonInfobox = ({
     } else {
       area = Math.round(area * 10) / 10;
     }
-
-    return { area, unit };
-  };
+    setArea(area);
+    setAreaUnit(unit);
+  }, [polygon, polygonJSON]);
 
   return (
     <div className="infobox-side">
@@ -143,9 +164,7 @@ const PolygonInfobox = ({
           <div className="infobox-text-multiple">
             <div className="infobox-text-primary">Omkrets / perimeter</div>
             <div className="infobox-text-secondary">
-              {calculatePerimeter()
-                ? calculatePerimeter().dist + " " + calculatePerimeter().unit
-                : "---"}
+              {perimeter ? perimeter + " " + perimeterUnit : "---"}
             </div>
           </div>
         </div>
@@ -159,10 +178,8 @@ const PolygonInfobox = ({
           <div className="infobox-text-multiple">
             <div className="infobox-text-primary">Areal</div>
             <div className="infobox-text-secondary">
-              {calculateArea()
-                ? calculateArea().area + " " + calculateArea().unit
-                : "---"}
-              {calculateArea() && <sup>2</sup>}
+              {area ? area + " " + areaUnit : "---"}
+              {area && <sup>2</sup>}
             </div>
           </div>
         </div>
