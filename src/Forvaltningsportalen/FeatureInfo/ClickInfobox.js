@@ -55,7 +55,9 @@ const ClickInfobox = ({
   };
 
   const toggleAllLayers = () => {
-    getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
+    if (coordinates_area && coordinates_area.lng && coordinates_area.lat) {
+      getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
+    }
   };
 
   const showDetailedResults = (

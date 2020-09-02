@@ -189,6 +189,7 @@
   flex-direction: column;
   padding: 18px 10px 5px 10px;
   flex-shrink: 0;
+  min-height: 114px;
 }
 @media only screen and (max-width: 768px) {
   .infobox-content {
@@ -547,6 +548,10 @@
 #infobox-details-layer.MuiListItem-gutters {
   padding-left: 12px;
 }
+#infobox-details-layer.MuiListItem-root {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
 
 /* Content */
 .infobox-details-wrapper {
@@ -596,12 +601,13 @@ h4.container_header {
   border-bottom: none;
   padding-left: 20px;
 }
+/* Polygon drawing tool */
 .polygon-tool-wrapper {
   display: flex;
   justify-content: space-between;
   align-content: center;
   flex-shrink: 0;
-  padding: 14px 15px 14px 10px;
+  padding: 14px 15px 14px 14px;
   border-bottom: 1px solid #bbb;
   background: rgba(145, 163, 176, 0.5);
 }
@@ -637,6 +643,93 @@ h4.container_header {
   .detailed-info-container-polygon {
     padding-bottom: 150px;
   }
+}
+
+/* Polygon layers */
+.polygon-layers-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-items: center;
+  border-top: 1px solid #bbb;
+}
+#polygon-layer-expander,
+#polygon-layer-disabled {
+  background: rgba(145, 163, 176, 0.3);
+}
+#polygon-layer-disabled {
+  color: #777;
+}
+#polygon-layer-expander:hover,
+#polygon-layer-disabled:hover {
+  background: rgba(145, 163, 176, 0.5);
+}
+#polygon-layer-expander.Mui-focusVisible,
+#polygon-layer-disabled.Mui-focusVisible {
+  background: rgba(145, 163, 176, 0.5);
+}
+#polygon-layer-expander.MuiListItem-gutters,
+#polygon-layer-disabled.MuiListItem-gutters {
+  padding-left: 14px;
+}
+.polygon-layers-content {
+  background: rgba(145, 163, 176, 0.15);
+}
+.polygon-checkbox-content {
+  padding: 10px 10px 8px 14px;
+}
+.polygon-button-wrapper {
+  padding-bottom: 15px;
+}
+.polygon-layers-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.polygon-layers-item .MuiIconButton-root {
+  padding: 5px;
+}
+.polygon-layers-disabled {
+  color: #999;
+}
+
+/* Polygon result list */
+#polygon-element-list.MuiListItem-root {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+/* Polygon details */
+.polygon-details-text-wrapper {
+  display: flex;
+  align-items: center;
+}
+.polygon-details-text-wrapper.space-between {
+  justify-content: space-between;
+  width: 100%;
+}
+.polygon-details-title {
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-align: left;
+  font-size: 16px;
+  line-height: 16px;
+}
+.polygon-details-primary-text {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  margin-bottom: 3px;
+  text-align: left;
+  line-height: 14px;
+  margin-left: 8px;
+}
+.polygon-details-secondary-text {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  text-align: left;
+}
+.polygon-details-secondary-text.end-line {
+  margin-left: 8px;
 }
 
 /* ---------- General transitions -----------  */

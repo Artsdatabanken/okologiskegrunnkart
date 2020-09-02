@@ -659,6 +659,8 @@ class Leaflet extends React.Component {
           handleEditable={this.props.handleEditable}
           addPolygon={this.props.addPolygon}
           addPolyline={this.props.addPolyline}
+          polygonResults={this.props.polygonResults}
+          handlePolygonResults={this.props.handlePolygonResults}
         />
         {this.state.markerType === "polygon" && (
           <div

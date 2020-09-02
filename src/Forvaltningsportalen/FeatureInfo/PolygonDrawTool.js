@@ -33,7 +33,8 @@ const PolygonDrawTool = ({
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline
+  addPolyline,
+  handlePolygonResults
 }) => {
   const classes = useStyles();
 
@@ -52,6 +53,7 @@ const PolygonDrawTool = ({
                   addPolygon(null);
                   addPolyline(polygon);
                   handleEditable(true);
+                  handlePolygonResults(null);
                 }}
               >
                 <Create />
@@ -63,8 +65,10 @@ const PolygonDrawTool = ({
                 <IconButton
                   className={classes.customIconButtom}
                   onClick={() => {
-                    polyline.pop();
-                    addPolyline(polyline);
+                    if (polyline.length > 0) {
+                      polyline.pop();
+                      addPolyline(polyline);
+                    }
                   }}
                 >
                   <Undo />
@@ -74,8 +78,10 @@ const PolygonDrawTool = ({
                 <IconButton
                   className={classes.customIconButtom}
                   onClick={() => {
-                    addPolygon(polyline);
-                    addPolyline([]);
+                    if (polyline.length > 1) {
+                      addPolygon(polyline);
+                      addPolyline([]);
+                    }
                   }}
                 >
                   <Done />
@@ -103,6 +109,7 @@ const PolygonDrawTool = ({
                 addPolyline([]);
                 hideAndShowPolygon(true);
                 handleEditable(true);
+                handlePolygonResults(null);
               }}
             >
               <Delete />

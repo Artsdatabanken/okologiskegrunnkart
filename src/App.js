@@ -37,6 +37,7 @@ class App extends React.Component {
       polygon: null,
       polyline: [],
       showPolygon: true,
+      polygonResults: null,
       showSideBar: true,
       showInfobox: false,
       editable: true,
@@ -224,6 +225,8 @@ class App extends React.Component {
                         addPolygon={this.addPolygon}
                         addPolyline={this.addPolyline}
                         editable={this.state.editable}
+                        polygonResults={this.state.polygonResults}
+                        handlePolygonResults={this.handlePolygonResults}
                         showMarker={this.state.showMarker}
                         hideAndShowMarker={this.hideAndShowMarker}
                         zoomcoordinates={this.state.zoomcoordinates}
@@ -484,6 +487,10 @@ class App extends React.Component {
 
   handleEditable = editable => {
     this.setState({ editable: editable });
+  };
+
+  handlePolygonResults = results => {
+    this.setState({ polygonResults: results });
   };
 
   hideAndShowMarker = showMarker => {

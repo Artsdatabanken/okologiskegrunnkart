@@ -31,7 +31,9 @@ const InfoBox = ({
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline
+  addPolyline,
+  polygonResults,
+  handlePolygonResults
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -226,7 +228,6 @@ const InfoBox = ({
       )}
       {markerType === "polygon" && (
         <PolygonInfobox
-          sted={sted}
           polygon={polygon}
           polyline={polyline}
           showPolygon={showPolygon}
@@ -234,6 +235,8 @@ const InfoBox = ({
           handleEditable={handleEditable}
           addPolygon={addPolygon}
           addPolyline={addPolyline}
+          polygonResults={polygonResults}
+          handlePolygonResults={handlePolygonResults}
         />
       )}
     </div>
