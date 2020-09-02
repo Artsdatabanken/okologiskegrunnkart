@@ -13,6 +13,7 @@ import PolygonLayers from "./PolygonLayers";
 import proj4 from "proj4";
 import { makeStyles } from "@material-ui/core/styles";
 import PolygonElement from "./PolygonElement";
+import PolygonDetailed from "./PolygonDetailed";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -54,6 +55,9 @@ const PolygonInfobox = ({
   const [area, setArea] = useState(null);
   const [areaUnit, setAreaUnit] = useState("m");
   const [loadingFeatures, setLoadingFeatures] = useState(false);
+  const [showResults, setShowResults] = useState(false);
+  const [detailLayer, setDetailLayer] = useState(null);
+  const [detailResult, setDetailResult] = useState(null);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -180,90 +184,115 @@ const PolygonInfobox = ({
     setLoadingFeatures(loading);
   };
 
+  const showDetailedResults = (layer, result) => {
+    setShowResults(true);
+    setDetailLayer(layer);
+    setDetailResult(result);
+  };
+
+  const hideDetailedResults = () => {
+    setShowResults(false);
+    setDetailLayer(null);
+    setDetailResult(null);
+  };
+
   return (
     <div className="infobox-side">
-      <PolygonDrawTool
-        polygon={polygon}
-        polyline={polyline}
-        showPolygon={showPolygon}
-        hideAndShowPolygon={hideAndShowPolygon}
-        handleEditable={handleEditable}
-        addPolygon={addPolygon}
-        addPolyline={addPolyline}
-        handlePolygonResults={handlePolygonResults}
-      />
-      <div className="infobox-content">
-        <div className="infobox-text-wrapper-polygon">
-          <CustomIcon
-            id="polygon-icon"
-            icon="hexagon-outline"
-            color="grey"
-            size={24}
+      {showResults ? (
+        <PolygonDetailed
+          resultLayer={detailLayer}
+          detailResult={detailResult}
+          hideDetailedResults={hideDetailedResults}
+        />
+      ) : (
+        <>
+          <PolygonDrawTool
+            polygon={polygon}
+            polyline={polyline}
+            showPolygon={showPolygon}
+            hideAndShowPolygon={hideAndShowPolygon}
+            handleEditable={handleEditable}
+            addPolygon={addPolygon}
+            addPolyline={addPolyline}
+            handlePolygonResults={handlePolygonResults}
           />
-          <div className="infobox-text-multiple">
-            <div className="infobox-text-primary">Omkrets / perimeter</div>
-            <div className="infobox-text-secondary">
-              {perimeter ? perimeter + " " + perimeterUnit : "---"}
-            </div>
-          </div>
-        </div>
-        <div className="infobox-text-wrapper-polygon">
-          <CustomIcon
-            id="polygon-icon"
-            icon="hexagon-slice-6"
-            color="grey"
-            size={24}
-          />
-          <div className="infobox-text-multiple">
-            <div className="infobox-text-primary">Areal</div>
-            <div className="infobox-text-secondary">
-              {area ? area + " " + areaUnit : "---"}
-              {area && <sup>2</sup>}
-            </div>
-          </div>
-        </div>
-      </div>
-      <PolygonLayers
-        availableLayers={availableLayers}
-        polygon={polygon}
-        handlePolygonResults={handlePolygonResults}
-        handleLoadingFeatures={handleLoadingFeatures}
-      />
-      {polygon && (loadingFeatures || polygonResults) && (
-        <div className="detailed-info-container-polygon">
-          <div className="layer-results-side">
-            <ListItem id="layer-results-header">
-              <ListItemIcon>
-                <CustomIcon icon="layers" size={32} color="#777" padding={0} />
-              </ListItemIcon>
-              <ListItemText primary="Valgte arealrapporter" />
-            </ListItem>
-            <div className="layer-results-scrollable-side">
-              {loadingFeatures && (
-                <div className={classes.root}>
-                  <LinearProgress color="primary" />
+          <div className="infobox-content">
+            <div className="infobox-text-wrapper-polygon">
+              <CustomIcon
+                id="polygon-icon"
+                icon="hexagon-outline"
+                color="grey"
+                size={24}
+              />
+              <div className="infobox-text-multiple">
+                <div className="infobox-text-primary">Omkrets / perimeter</div>
+                <div className="infobox-text-secondary">
+                  {perimeter ? perimeter + " " + perimeterUnit : "---"}
                 </div>
-              )}
-              <List id="layers-results-list">
-                {polygonResults &&
-                  Object.keys(polygonResults).map(key => {
-                    return (
-                      <PolygonElement
-                        polygonLayer={availableLayers.find(
-                          item => item.code === key
-                        )}
-                        polygon={polygon}
-                        key={key}
-                        result={polygonResults[key]}
-                        element={key}
-                        // showDetailedResults={showDetailedResults}
-                      />
-                    );
-                  })}
-              </List>
+              </div>
+            </div>
+            <div className="infobox-text-wrapper-polygon">
+              <CustomIcon
+                id="polygon-icon"
+                icon="hexagon-slice-6"
+                color="grey"
+                size={24}
+              />
+              <div className="infobox-text-multiple">
+                <div className="infobox-text-primary">Areal</div>
+                <div className="infobox-text-secondary">
+                  {area ? area + " " + areaUnit : "---"}
+                  {area && <sup>2</sup>}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+          <PolygonLayers
+            availableLayers={availableLayers}
+            polygon={polygon}
+            handlePolygonResults={handlePolygonResults}
+            handleLoadingFeatures={handleLoadingFeatures}
+          />
+          {polygon && (loadingFeatures || polygonResults) && (
+            <div className="detailed-info-container-polygon">
+              <div className="layer-results-side">
+                <ListItem id="layer-results-header">
+                  <ListItemIcon>
+                    <CustomIcon
+                      icon="layers"
+                      size={32}
+                      color="#777"
+                      padding={0}
+                    />
+                  </ListItemIcon>
+                  <ListItemText primary="Valgte arealrapporter" />
+                </ListItem>
+                <div className="layer-results-scrollable-side">
+                  {loadingFeatures && (
+                    <div className={classes.root}>
+                      <LinearProgress color="primary" />
+                    </div>
+                  )}
+                  <List id="layers-results-list">
+                    {polygonResults &&
+                      Object.keys(polygonResults).map(key => {
+                        return (
+                          <PolygonElement
+                            polygonLayer={availableLayers.find(
+                              item => item.code === key
+                            )}
+                            key={key}
+                            result={polygonResults[key]}
+                            showDetailedResults={showDetailedResults}
+                          />
+                        );
+                      })}
+                  </List>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

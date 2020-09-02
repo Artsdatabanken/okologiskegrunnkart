@@ -3,14 +3,8 @@ import React from "react";
 import { Badge } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 
-const PolygonElement = ({
-  polygonLayer,
-  polygon,
-  result,
-  element
-  // showDetailedResults
-}) => {
-  let numberResults = result ? result.length : 0;
+const PolygonElement = ({ polygonLayer, result, showDetailedResults }) => {
+  const numberResults = result ? result.length : 0;
 
   const iconSize = icon => {
     if (icon && ["terrain", "flag"].includes(icon))
@@ -21,18 +15,13 @@ const PolygonElement = ({
   return (
     <div className="generic_element">
       <ListItem
-        id="generic-element-list"
+        id="polygon-element-list"
         button
         divider
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
-          // showDetailedResults(
-          //   layer,
-          //   primaryText,
-          //   secondaryText,
-          //   numberResults
-          // );
+          showDetailedResults(polygonLayer, result);
         }}
       >
         <ListItemIcon className="infobox-list-icon-wrapper">
