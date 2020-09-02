@@ -23,14 +23,17 @@ const PolygonLayers = ({
     if (!polygon || polygon.length < 2) return;
     handlePolygonResults(null);
     const layerCodes = [];
+    let errorResult = {};
     for (const layer of searchLayers) {
       if (!layer.selected || !layer.code) continue;
       layerCodes.push(layer.code);
+      errorResult[layer.code] = { error: true };
     }
     if (layerCodes.length > 0) {
       handleLoadingFeatures(true);
       backend.makeAreaReport(layerCodes, polygon).then(result => {
-        handlePolygonResults(result);
+        if (!result) handlePolygonResults(errorResult);
+        else handlePolygonResults(result);
         handleLoadingFeatures(false);
       });
     }
@@ -49,12 +52,16 @@ const PolygonLayers = ({
   return (
     <div className="polygon-layers-wrapper">
       <ListItem
-        id="polygon-layer-expander"
+        id={polygon ? "polygon-layer-expander" : "polygon-layer-disabled"}
         button
         divider
         onClick={() => setMenuOpen(!menuOpen)}
       >
-        <ListItemText primary="Arealrapport" />
+        <ListItemText
+          primary={
+            polygon ? "Arealrapport" : "Arealrapport (polygon ikke definert)"
+          }
+        />
         {menuOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
       <Collapse in={menuOpen} timeout="auto" unmountOnExit>

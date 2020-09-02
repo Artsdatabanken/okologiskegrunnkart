@@ -149,14 +149,9 @@ class Backend {
     // in polygon
     let url =
       "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk?kartlag=";
-    for (let i = 0; i < layerCodes.length; i++) {
-      if (i === 0) {
-        url = url + layerCodes[i];
-      } else {
-        url = url + "," + layerCodes[i];
-      }
-    }
 
+    const codes = layerCodes.join(",");
+    url = url + codes;
     url = url + "&koordinater=";
     for (let i = 0; i < polygon.length; i++) {
       if (i === 0 && polygon[i].length === 2) {

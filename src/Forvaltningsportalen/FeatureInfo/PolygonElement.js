@@ -16,12 +16,12 @@ const PolygonElement = ({ polygonLayer, result, showDetailedResults }) => {
     <div className="generic_element">
       <ListItem
         id="polygon-element-list"
-        button
+        button={result.error ? false : true}
         divider
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
-          showDetailedResults(polygonLayer, result);
+          if (!result.error) showDetailedResults(polygonLayer, result);
         }}
       >
         <ListItemIcon className="infobox-list-icon-wrapper">

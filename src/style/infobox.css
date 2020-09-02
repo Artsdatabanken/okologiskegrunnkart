@@ -653,16 +653,23 @@ h4.container_header {
   justify-items: center;
   border-top: 1px solid #bbb;
 }
-#polygon-layer-expander {
+#polygon-layer-expander,
+#polygon-layer-disabled {
   background: rgba(145, 163, 176, 0.3);
 }
-#polygon-layer-expander:hover {
+#polygon-layer-disabled {
+  color: #777;
+}
+#polygon-layer-expander:hover,
+#polygon-layer-disabled:hover {
   background: rgba(145, 163, 176, 0.5);
 }
-#polygon-layer-expander.Mui-focusVisible {
+#polygon-layer-expander.Mui-focusVisible,
+#polygon-layer-disabled.Mui-focusVisible {
   background: rgba(145, 163, 176, 0.5);
 }
-#polygon-layer-expander.MuiListItem-gutters {
+#polygon-layer-expander.MuiListItem-gutters,
+#polygon-layer-disabled.MuiListItem-gutters {
   padding-left: 14px;
 }
 .polygon-layers-content {

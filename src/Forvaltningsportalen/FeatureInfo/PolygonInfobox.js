@@ -241,8 +241,7 @@ const PolygonInfobox = ({
               <div className="infobox-text-multiple">
                 <div className="infobox-text-primary">Areal</div>
                 <div className="infobox-text-secondary">
-                  {area ? area + " " + areaUnit : "---"}
-                  {area && <sup>2</sup>}
+                  {area ? area + " " + areaUnit + "²" : "---"}
                 </div>
               </div>
             </div>
