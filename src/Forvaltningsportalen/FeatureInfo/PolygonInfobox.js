@@ -1,10 +1,41 @@
 import React, { useState, useEffect } from "react";
-import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  LinearProgress
+} from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
 import PolygonLayers from "./PolygonLayers";
 import proj4 from "proj4";
+import { makeStyles } from "@material-ui/core/styles";
+import PolygonElement from "./PolygonElement";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    width: "100%"
+  }
+}));
+
+const availableLayers = [
+  {
+    name: "Fylker",
+    selected: false,
+    code: "FYL",
+    icon: "terrain",
+    owner: "Kartverket"
+  },
+  {
+    name: "Kommuner",
+    selected: false,
+    code: "KOM",
+    icon: "flag",
+    owner: "Kartverket"
+  }
+];
 
 const PolygonInfobox = ({
   polygon,
@@ -14,12 +45,15 @@ const PolygonInfobox = ({
   handleEditable,
   addPolygon,
   addPolyline,
+  polygonResults,
   handlePolygonResults
 }) => {
+  const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
   const [perimeterUnit, setPerimeterUnit] = useState("m");
   const [area, setArea] = useState(null);
   const [areaUnit, setAreaUnit] = useState("m");
+  const [loadingFeatures, setLoadingFeatures] = useState(false);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -142,6 +176,10 @@ const PolygonInfobox = ({
     setAreaUnit(unit);
   }, [polygon, polygonJSON]);
 
+  const handleLoadingFeatures = loading => {
+    setLoadingFeatures(loading);
+  };
+
   return (
     <div className="infobox-side">
       <PolygonDrawTool
@@ -152,6 +190,7 @@ const PolygonInfobox = ({
         handleEditable={handleEditable}
         addPolygon={addPolygon}
         addPolyline={addPolyline}
+        handlePolygonResults={handlePolygonResults}
       />
       <div className="infobox-content">
         <div className="infobox-text-wrapper-polygon">
@@ -185,19 +224,47 @@ const PolygonInfobox = ({
         </div>
       </div>
       <PolygonLayers
+        availableLayers={availableLayers}
         polygon={polygon}
         handlePolygonResults={handlePolygonResults}
+        handleLoadingFeatures={handleLoadingFeatures}
       />
-      <div className="detailed-info-container-polygon">
-        <div className="layer-results-side">
-          <ListItem id="layer-results-header">
-            <ListItemIcon>
-              <CustomIcon icon="layers" size={32} color="#777" padding={0} />
-            </ListItemIcon>
-            <ListItemText primary="Ingen resultat" />
-          </ListItem>
+      {polygon && (loadingFeatures || polygonResults) && (
+        <div className="detailed-info-container-polygon">
+          <div className="layer-results-side">
+            <ListItem id="layer-results-header">
+              <ListItemIcon>
+                <CustomIcon icon="layers" size={32} color="#777" padding={0} />
+              </ListItemIcon>
+              <ListItemText primary="Valgte arealrapporter" />
+            </ListItem>
+            <div className="layer-results-scrollable-side">
+              {loadingFeatures && (
+                <div className={classes.root}>
+                  <LinearProgress color="primary" />
+                </div>
+              )}
+              <List id="layers-results-list">
+                {polygonResults &&
+                  Object.keys(polygonResults).map(key => {
+                    return (
+                      <PolygonElement
+                        polygonLayer={availableLayers.find(
+                          item => item.code === key
+                        )}
+                        polygon={polygon}
+                        key={key}
+                        result={polygonResults[key]}
+                        element={key}
+                        // showDetailedResults={showDetailedResults}
+                      />
+                    );
+                  })}
+              </List>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

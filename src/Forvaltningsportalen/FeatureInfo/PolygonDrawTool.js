@@ -33,7 +33,8 @@ const PolygonDrawTool = ({
   hideAndShowPolygon,
   handleEditable,
   addPolygon,
-  addPolyline
+  addPolyline,
+  handlePolygonResults
 }) => {
   const classes = useStyles();
 
@@ -52,6 +53,7 @@ const PolygonDrawTool = ({
                   addPolygon(null);
                   addPolyline(polygon);
                   handleEditable(true);
+                  handlePolygonResults(null);
                 }}
               >
                 <Create />
@@ -107,6 +109,7 @@ const PolygonDrawTool = ({
                 addPolyline([]);
                 hideAndShowPolygon(true);
                 handleEditable(true);
+                handlePolygonResults(null);
               }}
             >
               <Delete />

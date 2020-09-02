@@ -225,6 +225,7 @@ class App extends React.Component {
                         addPolygon={this.addPolygon}
                         addPolyline={this.addPolyline}
                         editable={this.state.editable}
+                        polygonResults={this.state.polygonResults}
                         handlePolygonResults={this.handlePolygonResults}
                         showMarker={this.state.showMarker}
                         hideAndShowMarker={this.hideAndShowMarker}

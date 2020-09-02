@@ -10,19 +10,12 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
 
-const PolygonLayers = ({ polygon, handlePolygonResults }) => {
-  const availableLayers = [
-    {
-      name: "Fylker",
-      selected: false,
-      code: "FYL"
-    },
-    {
-      name: "Kommuner",
-      selected: false,
-      code: "KOM"
-    }
-  ];
+const PolygonLayers = ({
+  availableLayers,
+  polygon,
+  handlePolygonResults,
+  handleLoadingFeatures
+}) => {
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -35,8 +28,10 @@ const PolygonLayers = ({ polygon, handlePolygonResults }) => {
       layerCodes.push(layer.code);
     }
     if (layerCodes.length > 0) {
+      handleLoadingFeatures(true);
       backend.makeAreaReport(layerCodes, polygon).then(result => {
         handlePolygonResults(result);
+        handleLoadingFeatures(false);
       });
     }
   };
