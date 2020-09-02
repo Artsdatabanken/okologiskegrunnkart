@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Checkbox,
@@ -18,6 +18,9 @@ const PolygonLayers = ({
 }) => {
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+
+  const polygonJSON = JSON.stringify(polygon);
 
   const calculateAreaReport = () => {
     if (!polygon || polygon.length < 2) return;
@@ -49,17 +52,22 @@ const PolygonLayers = ({
     setSearchLayers(layers);
   };
 
+  useEffect(() => {
+    if (!polygon || polygon.length < 3) setDisabled(true);
+    else setDisabled(false);
+  }, [polygon, polygonJSON]);
+
   return (
     <div className="polygon-layers-wrapper">
       <ListItem
-        id={polygon ? "polygon-layer-expander" : "polygon-layer-disabled"}
+        id={disabled ? "polygon-layer-disabled" : "polygon-layer-expander"}
         button
         divider
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <ListItemText
           primary={
-            polygon ? "Arealrapport" : "Arealrapport (polygon ikke definert)"
+            disabled ? "Arealrapport (polygon ikke definert)" : "Arealrapport"
           }
         />
         {menuOpen ? <ExpandLess /> : <ExpandMore />}
@@ -70,7 +78,7 @@ const PolygonLayers = ({
             {searchLayers.map((layer, index) => {
               return (
                 <div key={index} className="polygon-layers-item">
-                  <div className={polygon ? "" : "polygon-layers-disabled"}>
+                  <div className={disabled ? "polygon-layers-disabled" : ""}>
                     {layer.name}
                   </div>
                   <Checkbox
@@ -78,7 +86,7 @@ const PolygonLayers = ({
                     checked={layer.selected}
                     onChange={e => handleChange(e, layer.name)}
                     color="default"
-                    disabled={polygon ? false : true}
+                    disabled={disabled}
                   />
                 </div>
               );
@@ -92,7 +100,7 @@ const PolygonLayers = ({
               onClick={() => {
                 calculateAreaReport();
               }}
-              disabled={polygon ? false : true}
+              disabled={disabled}
             >
               Lag arealrapport
             </Button>
