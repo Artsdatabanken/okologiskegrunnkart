@@ -184,6 +184,9 @@
 }
 
 /* Selected point description */
+.infobox-content-hidden {
+  display: none;
+}
 .infobox-content {
   display: flex;
   flex-direction: column;

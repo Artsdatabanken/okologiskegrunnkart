@@ -20,7 +20,7 @@ const ClickInfobox = ({
   showExtensiveInfo,
   loadingFeatures
 }) => {
-  const [showResults, setShowResults] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
   const [secondaryText, setSecondaryText] = useState(null);
@@ -66,7 +66,7 @@ const ClickInfobox = ({
     secondaryText,
     numberResults
   ) => {
-    setShowResults(true);
+    setShowDetails(true);
     setResultLayer(layer);
     setPrimaryText(primaryText);
     setSecondaryText(secondaryText);
@@ -74,7 +74,7 @@ const ClickInfobox = ({
   };
 
   const hideDetailedResults = () => {
-    setShowResults(false);
+    setShowDetails(false);
     setResultLayer(null);
     setPrimaryText(null);
     setSecondaryText(null);
@@ -82,8 +82,8 @@ const ClickInfobox = ({
   };
 
   return (
-    <div className={`infobox-side${showResults ? " show-details" : ""}`}>
-      {showResults ? (
+    <div className={`infobox-side${showDetails ? " show-details" : ""}`}>
+      {showDetails && (
         <DetailedResults
           resultLayer={resultLayer}
           primaryText={primaryText}
@@ -91,86 +91,85 @@ const ClickInfobox = ({
           numberResults={numberResults}
           hideDetailedResults={hideDetailedResults}
         />
-      ) : (
-        <>
-          <div className="infobox-content">
-            <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
-                <Terrain />
-              </CustomTooltip>
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">
-                  {sted ? sted.fylkesnavn[0] : "-"}
-                </div>
-                <div className="infobox-text-secondary">
-                  {sted ? sted.fylkesnummer[0] : "-"}
-                </div>
-              </div>
-            </div>
-            <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Kommune / Kommunenr.">
-                <Flag />
-              </CustomTooltip>
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">
-                  {sted ? sted.kommunenavn[0] : "-"}
-                </div>
-                <div className="infobox-text-secondary">
-                  {sted ? sted.kommunenummer[0] : "-"}
-                </div>
-              </div>
-            </div>
-            <div className="infobox-text-wrapper">
-              <CustomTooltip
-                placement="right"
-                title="Adresse / Gårdsnr. / Bruksnr."
-              >
-                <Home />
-              </CustomTooltip>
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">
-                  {hentAdresse(adresse)}
-                </div>
-                <div className="infobox-text-secondary">
-                  {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
-                </div>
-              </div>
-            </div>
-            <div className="infobox-text-wrapper">
-              <CustomTooltip placement="right" title="Koordinater">
-                <Place />
-              </CustomTooltip>
-              <div className="infobox-text-primary">
-                {coordinates_area ? coords : "--° N --° Ø"}
-              </div>
-            </div>
-          </div>
-          <div className="search-layers-button-wrapper">
-            <span className="infobox-switch-text">Valgte kartlag</span>
-            <CustomSwitch
-              tabIndex="0"
-              id="search-layers-toggle"
-              checked={showExtensiveInfo}
-              onChange={toggleAllLayers}
-              onKeyDown={e => {
-                if (e.keyCode === 13) {
-                  toggleAllLayers();
-                }
-              }}
-            />
-            <span className="infobox-switch-text">Alle kartlag</span>
-          </div>
-          <ResultsList
-            showExtensiveInfo={showExtensiveInfo}
-            kartlag={showExtensiveInfo ? kartlag : valgteLag}
-            coordinates_area={coordinates_area}
-            layersResult={showExtensiveInfo ? allLayersResult : layersResult}
-            resultat={resultat}
-            loadingFeatures={loadingFeatures}
-            showDetailedResults={showDetailedResults}
-          />
-        </>
       )}
+      <div className={showDetails ? "infobox-content-hidden" : ""}>
+        <div className="infobox-content">
+          <div className="infobox-text-wrapper">
+            <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
+              <Terrain />
+            </CustomTooltip>
+            <div className="infobox-text-multiple">
+              <div className="infobox-text-primary">
+                {sted ? sted.fylkesnavn[0] : "-"}
+              </div>
+              <div className="infobox-text-secondary">
+                {sted ? sted.fylkesnummer[0] : "-"}
+              </div>
+            </div>
+          </div>
+          <div className="infobox-text-wrapper">
+            <CustomTooltip placement="right" title="Kommune / Kommunenr.">
+              <Flag />
+            </CustomTooltip>
+            <div className="infobox-text-multiple">
+              <div className="infobox-text-primary">
+                {sted ? sted.kommunenavn[0] : "-"}
+              </div>
+              <div className="infobox-text-secondary">
+                {sted ? sted.kommunenummer[0] : "-"}
+              </div>
+            </div>
+          </div>
+          <div className="infobox-text-wrapper">
+            <CustomTooltip
+              placement="right"
+              title="Adresse / Gårdsnr. / Bruksnr."
+            >
+              <Home />
+            </CustomTooltip>
+            <div className="infobox-text-multiple">
+              <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
+              <div className="infobox-text-secondary">
+                {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
+              </div>
+            </div>
+          </div>
+          <div className="infobox-text-wrapper">
+            <CustomTooltip placement="right" title="Koordinater">
+              <Place />
+            </CustomTooltip>
+            <div className="infobox-text-primary">
+              {coordinates_area ? coords : "--° N --° Ø"}
+            </div>
+          </div>
+        </div>
+        <div className="search-layers-button-wrapper">
+          <span className="infobox-switch-text">Valgte kartlag</span>
+          <CustomSwitch
+            tabIndex="0"
+            id="search-layers-toggle"
+            checked={showExtensiveInfo}
+            onChange={toggleAllLayers}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                toggleAllLayers();
+              }
+            }}
+          />
+          <span className="infobox-switch-text">Alle kartlag</span>
+        </div>
+        <ResultsList
+          showExtensiveInfo={showExtensiveInfo}
+          kartlag={showExtensiveInfo ? kartlag : valgteLag}
+          coordinates_area={coordinates_area}
+          layersResult={showExtensiveInfo ? allLayersResult : layersResult}
+          resultat={resultat}
+          loadingFeatures={loadingFeatures}
+          showDetails={showDetails}
+          resultLayer={resultLayer}
+          showDetailedResults={showDetailedResults}
+        />
+      </div>
     </div>
   );
 };
