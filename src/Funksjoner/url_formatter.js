@@ -86,17 +86,17 @@ export default function url_formatter(formatstring = "", variables) {
 
   var url = parts.join("");
   if (!url) {
-    // console.warn(
-    //   `Ugyldig url fra formatstring '${formatstring}', variables ${JSON.stringify(
-    //     variables
-    //   )}`
-    // );
     return null;
   }
-  url = new URL(url);
-  const params = new URLSearchParams(url.search);
-  url.search = params.toString();
-  return url.toString();
+  try {
+    url = new URL(url);
+    const params = new URLSearchParams(url.search);
+    url.search = params.toString();
+    return url.toString();
+  } catch (err) {
+    console.warn(err);
+    return null;
+  }
 }
 
 function lookup(o, path) {

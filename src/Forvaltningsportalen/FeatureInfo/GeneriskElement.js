@@ -6,7 +6,7 @@ import {
   Button,
   IconButton
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
 import url_formatter from "../../Funksjoner/url_formatter";
@@ -21,16 +21,21 @@ const GeneriskElement = ({
   showDetailedResults
 }) => {
   const [open, setOpen] = useState(false);
+  const [numberResults, setNumberResults] = useState(null);
+  const [numberNoMatches, setNumberNoMatches] = useState(null);
+  const [faktaark_url, setFaktaark_url] = useState(null);
+
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
     elementer: []
   });
-
-  let layer = kartlag[element];
-  if (!layer) return null;
-  const faktaark_url = url_formatter(layer.faktaark, {
-    ...coordinates_area,
-    ...resultat
+  const [primaryText, setPrimaryText] = useState({
+    harData: false,
+    elementer: []
+  });
+  const [secondaryText, setSecondaryText] = useState({
+    harData: false,
+    elementer: []
   });
 
   const isLargeIcon = tema => {
@@ -39,55 +44,78 @@ const GeneriskElement = ({
     );
   };
 
-  let primaryText = {};
-  let secondaryText = {};
-  let numberResults = 0;
-  let numberNoMatches = 0;
-  Object.keys(layer.underlag).forEach(subkey => {
-    if (!resultat.underlag) return;
-    if (resultat.underlag[subkey] && resultat.underlag[subkey].loading) return;
+  const layer = kartlag[element];
+  const resultatJSON = JSON.stringify(resultat);
 
-    // TODO: Should also add a check where, if no changes, skip re-calculations
+  useEffect(() => {
+    let noResults = 0;
+    let noNoMatches = 0;
+    let tempPrimary = {};
+    let tempSecondary = {};
+    let headerHasData = false;
+    let headerDefined = false;
+    Object.keys(layer.underlag).forEach(subkey => {
+      if (!resultat.underlag) return;
+      if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
+        return;
 
-    const sublayer = layer.underlag[subkey];
-    const primary = formatterKlikktekst(
-      sublayer.klikktekst,
-      resultat.underlag[subkey] || resultat
-    );
-    const secondary = formatterKlikktekst(
-      sublayer.klikktekst2,
-      resultat.underlag[subkey] || resultat
-    );
-    primaryText = { ...primaryText, [subkey]: primary };
-    secondaryText = { ...secondaryText, [subkey]: secondary };
+      const sublayer = layer.underlag[subkey];
+      const primary = formatterKlikktekst(
+        sublayer.klikktekst,
+        resultat.underlag[subkey] || resultat
+      );
+      const secondary = formatterKlikktekst(
+        sublayer.klikktekst2,
+        resultat.underlag[subkey] || resultat
+      );
+      tempPrimary = { ...tempPrimary, [subkey]: primary };
+      setSecondaryText({ ...tempSecondary, [subkey]: secondary });
 
-    if (!primaryTextHeader.harData && primary.harData) {
-      setPrimaryTextHeader(primary);
-    }
+      if (!headerHasData && primary.harData) {
+        setPrimaryTextHeader(primary);
+        headerHasData = true;
+      }
 
-    if (sublayer.aggregatedwmslayer && primary.harData) {
-      setPrimaryTextHeader(primary);
-    }
+      if (
+        sublayer.aggregatedwmslayer &&
+        sublayer.aggregatedwmslayer !== "" &&
+        primary.harData
+      ) {
+        setPrimaryTextHeader(primary);
+      }
 
-    if (
-      (primaryTextHeader.elementer.length === 0 ||
-        !primaryTextHeader.elementer[0] ||
-        primaryTextHeader.elementer[0] === "" ||
-        primaryTextHeader.elementer[0] === " ") &&
-      primary.elementer.length > 0 &&
-      primary.elementer[0] &&
-      primary.elementer[0] !== "" &&
-      primary.elementer[0] !== " "
-    ) {
-      setPrimaryTextHeader(primary);
-    }
+      if (
+        !headerDefined &&
+        primary.elementer.length > 0 &&
+        primary.elementer[0] &&
+        primary.elementer[0] !== "" &&
+        primary.elementer[0] !== " "
+      ) {
+        setPrimaryTextHeader(primary);
+        headerDefined = true;
+      }
 
-    if (primary.elementer && primary.elementer[0]) {
-      numberResults += 1;
-    } else {
-      numberNoMatches += 1;
-    }
-  });
+      if (primary.elementer && primary.elementer[0]) {
+        noResults += 1;
+      } else {
+        noNoMatches += 1;
+      }
+    });
+    setPrimaryText(tempPrimary);
+    setSecondaryText(tempSecondary);
+    setNumberResults(noResults);
+    setNumberNoMatches(noNoMatches);
+  }, [layer, resultat, resultatJSON]);
+
+  useEffect(() => {
+    const faktUrl = url_formatter(layer.faktaark, {
+      ...coordinates_area,
+      ...resultat
+    });
+    setFaktaark_url(faktUrl);
+  }, [layer, resultat, resultatJSON, coordinates_area]);
+
+  if (!layer) return null;
 
   return (
     <div className="generic_element">
