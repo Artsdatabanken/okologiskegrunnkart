@@ -48,7 +48,8 @@
 }
 
 .scroll_area {
-  background: #eee;
+  /* background: #eee; */
+  background: rgb(230, 230, 230);
   overflow-y: auto;
   width: 100%;
   height: calc(100vh - 48px);
@@ -424,6 +425,9 @@
 }
 
 /* -------- Layers and sublayers wrappers ---------- */
+#layer-list-item.MuiListItem-root {
+  border-bottom: 1px solid #bbb;
+}
 @media only screen and (max-width: 768px) {
   #layer-list-item {
     background-color: #eee;
@@ -474,7 +478,7 @@
 .collapsed_container .underlag {
   width: 100%;
   background: rgb(252, 252, 252);
-  border-bottom: 1px solid #e2e2e2;
+  /* border-bottom: 1px solid #e2e2e2; */
   display: block;
   text-align: left;
 }
@@ -498,6 +502,27 @@
 #list-element-sublayer {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+#list-element-sublayer-all {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  background: rgb(244, 244, 244);
+  /* font-weight: 700 !important; */
+}
+/* #list-element-sublayer.MuiListItem-gutters {
+  padding-left: 20px;
+} */
+#list-element-sublayer .MuiListItemText-root {
+  color: #444;
+}
+#list-element-sublayer.MuiListItem-root {
+  border-bottom: 1px solid #e2e2e2;
+}
+#list-element-sublayer-all.MuiListItem-gutters {
+  padding-left: 5px;
+}
+#list-element-sublayer-all.MuiListItem-root {
+  border-bottom: 1px solid #cccddd;
 }
 .badge-enabled > .MuiBadge-colorPrimary {
   background-color: #22aa58 !important;

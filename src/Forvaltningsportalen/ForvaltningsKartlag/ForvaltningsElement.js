@@ -10,6 +10,7 @@ import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import Badge from "@material-ui/core/Badge";
 import { setValue } from "../../Funksjoner/setValue";
+import CustomSwitchAll from "../../Common/CustomSwitchAll";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -25,6 +26,7 @@ const ForvaltningsElement = ({
   const expanded = kartlag.expanded;
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
+  const [allSublayers, setAllSublayers] = useState(false);
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
@@ -39,7 +41,7 @@ const ForvaltningsElement = ({
         // Elementet som inneholder tittel, ikon og droppned-knapp
         id="layer-list-item"
         button
-        divider
+        // divider
         onClick={() => {
           if (!valgt) {
             setOpen(!open);
@@ -76,6 +78,54 @@ const ForvaltningsElement = ({
         // Underelementet
       >
         <div className="collapsed_container">
+          {Object.keys(kartlag.underlag).length > 1 && (
+            <div className="underlag">
+              <ListItem id="list-element-sublayer-all">
+                <ListItemIcon onClick={e => e.stopPropagation()}>
+                  <CustomSwitchAll
+                    tabIndex="0"
+                    id="visiblility-sublayer-toggle"
+                    checked={allSublayers}
+                    onChange={e => {
+                      // onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
+                      // changeVisibleSublayers(
+                      //   kartlagKey,
+                      //   underlagKey,
+                      //   kode + "erSynlig",
+                      //   !erSynlig
+                      // );
+                      setAllSublayers(!allSublayers);
+                      e.stopPropagation();
+                    }}
+                    onKeyDown={e => {
+                      if (e.keyCode === 13) {
+                        // onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
+                        // changeVisibleSublayers(
+                        //   kartlagKey,
+                        //   underlagKey,
+                        //   kode + "erSynlig",
+                        //   !erSynlig
+                        // );
+                        setAllSublayers(!allSublayers);
+                        e.stopPropagation();
+                      }
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={"Alle kategorier"} />
+                <ListItemIcon id="bookmark-icon">
+                  <CustomIcon
+                    id="bookmark"
+                    icon="check-decagram"
+                    size={20}
+                    padding={0}
+                    color={erSynlig ? "#666" : "#888"}
+                  />
+                </ListItemIcon>
+              </ListItem>
+            </div>
+          )}
+
           {kartlag.underlag && (
             <>
               {Object.keys(kartlag.underlag).map(sublag => {
