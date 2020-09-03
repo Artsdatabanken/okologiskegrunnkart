@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListItemIcon,
   Collapse,
@@ -26,13 +26,44 @@ const ForvaltningsElement = ({
   const expanded = kartlag.expanded;
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
-  const [allSublayers, setAllSublayers] = useState(false);
+  const [allSublayersVisible, setAllSublayersVisible] = useState(false);
+
+  const kartlagJSON = JSON.stringify(kartlag);
+
+  useEffect(() => {
+    let allVisible = true;
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let sublayer = kartlag.underlag[underlagKey];
+      if (!sublayer.erSynlig) {
+        allVisible = false;
+      }
+    });
+    setAllSublayersVisible(allVisible);
+  }, [kartlag, kartlagJSON]);
+
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
     );
+  };
+
+  const toggleAllSublayers = () => {
+    const newStatus = !allSublayersVisible;
+    onUpdateLayerProp(kartlagKey, "erSynlig", newStatus);
+
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let kode = "underlag." + underlagKey + ".";
+      onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
+      changeVisibleSublayers(
+        kartlagKey,
+        underlagKey,
+        kode + "erSynlig",
+        newStatus
+      );
+    });
+    setAllSublayersVisible(newStatus);
   };
 
   return (
@@ -85,28 +116,14 @@ const ForvaltningsElement = ({
                   <CustomSwitchAll
                     tabIndex="0"
                     id="visiblility-sublayer-toggle"
-                    checked={allSublayers}
+                    checked={allSublayersVisible}
                     onChange={e => {
-                      // onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
-                      // changeVisibleSublayers(
-                      //   kartlagKey,
-                      //   underlagKey,
-                      //   kode + "erSynlig",
-                      //   !erSynlig
-                      // );
-                      setAllSublayers(!allSublayers);
+                      toggleAllSublayers();
                       e.stopPropagation();
                     }}
                     onKeyDown={e => {
                       if (e.keyCode === 13) {
-                        // onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
-                        // changeVisibleSublayers(
-                        //   kartlagKey,
-                        //   underlagKey,
-                        //   kode + "erSynlig",
-                        //   !erSynlig
-                        // );
-                        setAllSublayers(!allSublayers);
+                        toggleAllSublayers();
                         e.stopPropagation();
                       }
                     }}
