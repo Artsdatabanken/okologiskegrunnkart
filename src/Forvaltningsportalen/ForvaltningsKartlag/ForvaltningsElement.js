@@ -110,8 +110,14 @@ const ForvaltningsElement = ({
       >
         <div className="collapsed_container">
           {Object.keys(kartlag.underlag).length > 1 && (
-            <div className="underlag">
-              <ListItem id="list-element-sublayer-all">
+            <div className="underlag-all">
+              <ListItem
+                id="list-element-sublayer-all"
+                button
+                onClick={() => {
+                  showSublayerDetails(kartlag, null, null);
+                }}
+              >
                 <ListItemIcon onClick={e => e.stopPropagation()}>
                   <CustomSwitchAll
                     tabIndex="0"
@@ -136,7 +142,7 @@ const ForvaltningsElement = ({
                     icon="check-decagram"
                     size={20}
                     padding={0}
-                    color={erSynlig ? "#666" : "#888"}
+                    color={allSublayersVisible ? "#666" : "#888"}
                   />
                 </ListItemIcon>
               </ListItem>

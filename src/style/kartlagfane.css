@@ -482,15 +482,24 @@
   display: block;
   text-align: left;
 }
+.collapsed_container .underlag-all {
+  width: 100%;
+  background: rgb(244, 244, 244);
+  /* border-bottom: 1px solid #e2e2e2; */
+  display: block;
+  text-align: left;
+}
 
-.underlag div:first-child {
+.underlag div:first-child,
+.underlag-all div:first-child {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
-.underlag svg {
+.underlag svg,
+.underlag-all svg {
   padding-right: 15px;
   vertical-align: middle;
 }
@@ -506,12 +515,8 @@
 #list-element-sublayer-all {
   padding-top: 2px;
   padding-bottom: 2px;
-  background: rgb(244, 244, 244);
-  /* font-weight: 700 !important; */
+  /* background: #F4F4F4; */
 }
-/* #list-element-sublayer.MuiListItem-gutters {
-  padding-left: 20px;
-} */
 #list-element-sublayer .MuiListItemText-root {
   color: #444;
 }
