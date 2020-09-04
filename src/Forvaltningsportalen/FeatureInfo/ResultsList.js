@@ -24,6 +24,8 @@ const ResultsList = ({
   coordinates_area,
   layersResult,
   loadingFeatures,
+  showDetails,
+  resultLayer,
   showDetailedResults
 }) => {
   const classes = useStyles();
@@ -63,6 +65,8 @@ const ResultsList = ({
                       kartlag={kartlag}
                       resultat={layersResult[key]}
                       element={key}
+                      showDetails={showDetails}
+                      resultLayer={resultLayer}
                       showDetailedResults={showDetailedResults}
                     />
                   );

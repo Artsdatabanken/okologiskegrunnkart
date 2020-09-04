@@ -7,8 +7,7 @@ const ForvaltningsUnderElement = ({
   underlag,
   kartlagKey,
   underlagKey,
-  onUpdateLayerProp,
-  changeVisibleSublayers,
+  toggleSublayer,
   showSublayerDetails
 }) => {
   let tittel = underlag.tittel;
@@ -32,8 +31,7 @@ const ForvaltningsUnderElement = ({
             id="visiblility-sublayer-toggle"
             checked={erSynlig}
             onChange={e => {
-              onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
-              changeVisibleSublayers(
+              toggleSublayer(
                 kartlagKey,
                 underlagKey,
                 kode + "erSynlig",
@@ -43,8 +41,7 @@ const ForvaltningsUnderElement = ({
             }}
             onKeyDown={e => {
               if (e.keyCode === 13) {
-                onUpdateLayerProp(kartlagKey, kode + "erSynlig", !erSynlig);
-                changeVisibleSublayers(
+                toggleSublayer(
                   kartlagKey,
                   underlagKey,
                   kode + "erSynlig",

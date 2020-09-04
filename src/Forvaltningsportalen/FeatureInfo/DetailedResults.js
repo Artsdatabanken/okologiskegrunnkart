@@ -86,13 +86,17 @@ const DetailedResults = ({
               return (
                 <div key={index} className="infobox-details-content-wrapper">
                   <div className="infobox-details-title">
-                    {sublayers[key].tittel}
+                    {sublayers[key] ? sublayers[key].tittel : ""}
                   </div>
                   <div className="infobox-details-primary-text">
-                    {resultText(primaryText[key].elementer)}
+                    {resultText(
+                      primaryText[key] ? primaryText[key].elementer : ""
+                    )}
                   </div>
                   <div className="infobox-details-secondary-text">
-                    {resultText(secondaryText[key].elementer)}
+                    {resultText(
+                      secondaryText[key] ? secondaryText[key].elementer : ""
+                    )}
                   </div>
                 </div>
               );

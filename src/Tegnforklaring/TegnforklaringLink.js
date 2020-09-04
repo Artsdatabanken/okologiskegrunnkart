@@ -15,7 +15,10 @@ const TegnforklaringLink = ({ layers, setLegendVisible }) => {
     Object.keys(layers).forEach(id => {
       const layer = layers[id];
       Object.values(layer.underlag || {}).forEach(sublayer => {
-        if (sublayer.erSynlig) {
+        if (
+          sublayer.erSynlig &&
+          layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
+        ) {
           number += 1;
         }
       });

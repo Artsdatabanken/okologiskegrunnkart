@@ -18,6 +18,8 @@ const GeneriskElement = ({
   kartlag,
   resultat,
   element,
+  showDetails,
+  resultLayer,
   showDetailedResults
 }) => {
   const [open, setOpen] = useState(false);
@@ -69,7 +71,7 @@ const GeneriskElement = ({
         resultat.underlag[subkey] || resultat
       );
       tempPrimary = { ...tempPrimary, [subkey]: primary };
-      setSecondaryText({ ...tempSecondary, [subkey]: secondary });
+      tempSecondary = { ...tempSecondary, [subkey]: secondary };
 
       if (!headerHasData && primary.harData) {
         setPrimaryTextHeader(primary);
@@ -106,6 +108,20 @@ const GeneriskElement = ({
     setNumberResults(noResults);
     setNumberNoMatches(noNoMatches);
   }, [layer, resultat, resultatJSON]);
+
+  useEffect(() => {
+    if (showDetails && resultLayer && layer && resultLayer.id === layer.id) {
+      showDetailedResults(layer, primaryText, secondaryText, numberResults);
+    }
+  }, [
+    layer,
+    resultLayer,
+    primaryText,
+    secondaryText,
+    numberResults,
+    showDetails,
+    showDetailedResults
+  ]);
 
   useEffect(() => {
     const faktUrl = url_formatter(layer.faktaark, {

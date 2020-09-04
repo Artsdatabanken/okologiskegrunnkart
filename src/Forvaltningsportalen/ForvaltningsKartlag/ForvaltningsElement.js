@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListItemIcon,
   Collapse,
@@ -10,6 +10,7 @@ import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import Badge from "@material-ui/core/Badge";
 import { setValue } from "../../Funksjoner/setValue";
+import CustomSwitchAll from "../../Common/CustomSwitchAll";
 
 const ForvaltningsElement = ({
   kartlag,
@@ -20,11 +21,29 @@ const ForvaltningsElement = ({
   valgt,
   showSublayerDetails
 }) => {
-  let tittel = kartlag.tittel;
+  const tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
   const expanded = kartlag.expanded;
+  const allcategorieslayer = kartlag.allcategorieslayer;
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
+
+  const kartlagJSON = JSON.stringify(kartlag);
+
+  useEffect(() => {
+    let allVisible = true;
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let sublayer = kartlag.underlag[underlagKey];
+      if (
+        !sublayer.erSynlig &&
+        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer
+      ) {
+        allVisible = false;
+      }
+    });
+    onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
+  }, [kartlag, kartlagJSON, onUpdateLayerProp]);
+
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
@@ -33,13 +52,35 @@ const ForvaltningsElement = ({
     );
   };
 
+  const toggleAllSublayers = () => {
+    const newStatus = !allcategorieslayer.erSynlig;
+    onUpdateLayerProp(kartlagKey, "erSynlig", newStatus);
+    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newStatus);
+
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let kode = "underlag." + underlagKey + ".";
+      onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
+      changeVisibleSublayers(
+        kartlagKey,
+        underlagKey,
+        kode + "erSynlig",
+        newStatus
+      );
+    });
+  };
+
+  const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
+    onUpdateLayerProp(kartlagKey, fullkode, newStatus);
+    changeVisibleSublayers(kartlagKey, underlagKey, fullkode, newStatus);
+  };
+
   return (
     <>
       <ListItem
         // Elementet som inneholder tittel, ikon og droppned-knapp
         id="layer-list-item"
         button
-        divider
+        // divider
         onClick={() => {
           if (!valgt) {
             setOpen(!open);
@@ -76,23 +117,65 @@ const ForvaltningsElement = ({
         // Underelementet
       >
         <div className="collapsed_container">
+          {Object.keys(kartlag.underlag).length > 1 && allcategorieslayer && (
+            <div className="underlag-all">
+              <ListItem
+                id="list-element-sublayer-all"
+                button
+                onClick={() => {
+                  showSublayerDetails(kartlag, kartlag.id, null);
+                }}
+              >
+                <ListItemIcon onClick={e => e.stopPropagation()}>
+                  <CustomSwitchAll
+                    tabIndex="0"
+                    id="visiblility-sublayer-toggle"
+                    checked={allcategorieslayer.erSynlig}
+                    onChange={e => {
+                      toggleAllSublayers();
+                      e.stopPropagation();
+                    }}
+                    onKeyDown={e => {
+                      if (e.keyCode === 13) {
+                        toggleAllSublayers();
+                        e.stopPropagation();
+                      }
+                    }}
+                  />
+                </ListItemIcon>
+                <ListItemText primary={allcategorieslayer.tittel} />
+                <ListItemIcon id="bookmark-icon">
+                  <CustomIcon
+                    id="bookmark"
+                    icon="check-decagram"
+                    size={20}
+                    padding={0}
+                    color={allcategorieslayer.erSynlig ? "#666" : "#888"}
+                  />
+                </ListItemIcon>
+              </ListItem>
+            </div>
+          )}
+
           {kartlag.underlag && (
             <>
               {Object.keys(kartlag.underlag).map(sublag => {
                 let lag = kartlag.underlag[sublag];
-
-                return (
-                  <div className="underlag" key={sublag}>
-                    <ForvaltningsUnderElement
-                      underlag={lag}
-                      kartlagKey={kartlagKey}
-                      underlagKey={sublag}
-                      onUpdateLayerProp={onUpdateLayerProp}
-                      changeVisibleSublayers={changeVisibleSublayers}
-                      showSublayerDetails={showSublayerDetails}
-                    />
-                  </div>
-                );
+                if (kartlag.allcategorieslayer.wmslayer !== lag.wmslayer) {
+                  return (
+                    <div className="underlag" key={sublag}>
+                      <ForvaltningsUnderElement
+                        underlag={lag}
+                        kartlagKey={kartlagKey}
+                        underlagKey={sublag}
+                        toggleSublayer={toggleSublayer}
+                        showSublayerDetails={showSublayerDetails}
+                      />
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
               })}
             </>
           )}

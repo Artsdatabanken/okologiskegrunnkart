@@ -127,6 +127,13 @@ class App extends React.Component {
         this.setState({ someLayersFavorite: true });
       }
 
+      // Add a pseudo-sublayer for all categories
+      k.allcategorieslayer = {
+        erSynlig: false,
+        tittel: "Alle kategorier",
+        wmslayer: null
+      };
+
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.key = ul.id;
@@ -134,7 +141,16 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         listFavoriteSublayerIds.push(ul.key);
+
+        // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
+        ul.allcategoriesvisible = false;
+        if (ul.wmslayer === k.aggregatedwmslayer) {
+          // NOTE that "ul" this is the actual layer, not a copy.
+          // Changes to "ul" are also done to "allcategorieslayer"
+          k.allcategorieslayer = ul;
+          k.allcategorieslayer.tittel = "Alle kategorier";
+        }
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
         const existingSublayer = sublayersdb.filter(e => e.id === ul.key);
@@ -855,7 +871,11 @@ class App extends React.Component {
     let layerVisible = false;
     let numberVisible = 0;
     for (const sublayerId in layer.underlag) {
-      if (layer.underlag[sublayerId].erSynlig) {
+      const sublayer = layer.underlag[sublayerId];
+      if (
+        sublayer.erSynlig &&
+        layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
+      ) {
         layerVisible = true;
         numberVisible += 1;
       }
@@ -886,6 +906,7 @@ class App extends React.Component {
     }
   };
 
+  // Relevant for switching between all layers and favourite layers
   changeVisibleSublayers = (layerKey, sublayerKey, propKey, visible) => {
     if (this.state.showFavoriteLayers) {
       let array = [...this.state.visibleSublayersFavorites];

@@ -48,7 +48,8 @@
 }
 
 .scroll_area {
-  background: #eee;
+  /* background: #eee; */
+  background: rgb(230, 230, 230);
   overflow-y: auto;
   width: 100%;
   height: calc(100vh - 48px);
@@ -424,6 +425,9 @@
 }
 
 /* -------- Layers and sublayers wrappers ---------- */
+#layer-list-item.MuiListItem-root {
+  border-bottom: 1px solid #bbb;
+}
 @media only screen and (max-width: 768px) {
   #layer-list-item {
     background-color: #eee;
@@ -474,19 +478,28 @@
 .collapsed_container .underlag {
   width: 100%;
   background: rgb(252, 252, 252);
-  border-bottom: 1px solid #e2e2e2;
+  /* border-bottom: 1px solid #e2e2e2; */
+  display: block;
+  text-align: left;
+}
+.collapsed_container .underlag-all {
+  width: 100%;
+  background: rgb(244, 244, 244);
+  /* border-bottom: 1px solid #e2e2e2; */
   display: block;
   text-align: left;
 }
 
-.underlag div:first-child {
+.underlag div:first-child,
+.underlag-all div:first-child {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 0px;
   padding-bottom: 0px;
 }
 
-.underlag svg {
+.underlag svg,
+.underlag-all svg {
   padding-right: 15px;
   vertical-align: middle;
 }
@@ -498,6 +511,23 @@
 #list-element-sublayer {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+#list-element-sublayer-all {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  /* background: #F4F4F4; */
+}
+#list-element-sublayer .MuiListItemText-root {
+  color: #444;
+}
+#list-element-sublayer.MuiListItem-root {
+  border-bottom: 1px solid #e2e2e2;
+}
+#list-element-sublayer-all.MuiListItem-gutters {
+  padding-left: 5px;
+}
+#list-element-sublayer-all.MuiListItem-root {
+  border-bottom: 1px solid #cccddd;
 }
 .badge-enabled > .MuiBadge-colorPrimary {
   background-color: #22aa58 !important;
