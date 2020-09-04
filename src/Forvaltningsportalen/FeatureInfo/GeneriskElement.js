@@ -110,11 +110,8 @@ const GeneriskElement = ({
   }, [layer, resultat, resultatJSON]);
 
   useEffect(() => {
-    console.log(resultLayer);
-    console.log(layer);
     if (showDetails && resultLayer && layer && resultLayer.id === layer.id) {
       showDetailedResults(layer, primaryText, secondaryText, numberResults);
-      console.log("here");
     }
   }, [
     layer,

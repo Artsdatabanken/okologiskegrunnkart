@@ -21,12 +21,12 @@ const ForvaltningsElement = ({
   valgt,
   showSublayerDetails
 }) => {
-  let tittel = kartlag.tittel;
+  const tittel = kartlag.tittel;
   const erSynlig = kartlag.erSynlig;
   const expanded = kartlag.expanded;
+  const allcategorieslayer = kartlag.allcategorieslayer;
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
-  const [allSublayersVisible, setAllSublayersVisible] = useState(false);
 
   const kartlagJSON = JSON.stringify(kartlag);
 
@@ -34,12 +34,15 @@ const ForvaltningsElement = ({
     let allVisible = true;
     Object.keys(kartlag.underlag).forEach(underlagKey => {
       let sublayer = kartlag.underlag[underlagKey];
-      if (!sublayer.erSynlig) {
+      if (
+        !sublayer.erSynlig &&
+        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer
+      ) {
         allVisible = false;
       }
     });
-    setAllSublayersVisible(allVisible);
-  }, [kartlag, kartlagJSON]);
+    onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
+  }, [kartlag, kartlagJSON, onUpdateLayerProp]);
 
   if (!tittel) return null;
 
@@ -50,8 +53,9 @@ const ForvaltningsElement = ({
   };
 
   const toggleAllSublayers = () => {
-    const newStatus = !allSublayersVisible;
+    const newStatus = !allcategorieslayer.erSynlig;
     onUpdateLayerProp(kartlagKey, "erSynlig", newStatus);
+    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newStatus);
 
     Object.keys(kartlag.underlag).forEach(underlagKey => {
       let kode = "underlag." + underlagKey + ".";
@@ -63,7 +67,11 @@ const ForvaltningsElement = ({
         newStatus
       );
     });
-    setAllSublayersVisible(newStatus);
+  };
+
+  const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
+    onUpdateLayerProp(kartlagKey, fullkode, newStatus);
+    changeVisibleSublayers(kartlagKey, underlagKey, fullkode, newStatus);
   };
 
   return (
@@ -109,20 +117,20 @@ const ForvaltningsElement = ({
         // Underelementet
       >
         <div className="collapsed_container">
-          {Object.keys(kartlag.underlag).length > 1 && (
+          {Object.keys(kartlag.underlag).length > 1 && allcategorieslayer && (
             <div className="underlag-all">
               <ListItem
                 id="list-element-sublayer-all"
                 button
                 onClick={() => {
-                  showSublayerDetails(kartlag, null, null);
+                  showSublayerDetails(kartlag, kartlag.id, null);
                 }}
               >
                 <ListItemIcon onClick={e => e.stopPropagation()}>
                   <CustomSwitchAll
                     tabIndex="0"
                     id="visiblility-sublayer-toggle"
-                    checked={allSublayersVisible}
+                    checked={allcategorieslayer.erSynlig}
                     onChange={e => {
                       toggleAllSublayers();
                       e.stopPropagation();
@@ -135,14 +143,14 @@ const ForvaltningsElement = ({
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText primary={"Alle kategorier"} />
+                <ListItemText primary={allcategorieslayer.tittel} />
                 <ListItemIcon id="bookmark-icon">
                   <CustomIcon
                     id="bookmark"
                     icon="check-decagram"
                     size={20}
                     padding={0}
-                    color={allSublayersVisible ? "#666" : "#888"}
+                    color={allcategorieslayer.erSynlig ? "#666" : "#888"}
                   />
                 </ListItemIcon>
               </ListItem>
@@ -153,19 +161,21 @@ const ForvaltningsElement = ({
             <>
               {Object.keys(kartlag.underlag).map(sublag => {
                 let lag = kartlag.underlag[sublag];
-
-                return (
-                  <div className="underlag" key={sublag}>
-                    <ForvaltningsUnderElement
-                      underlag={lag}
-                      kartlagKey={kartlagKey}
-                      underlagKey={sublag}
-                      onUpdateLayerProp={onUpdateLayerProp}
-                      changeVisibleSublayers={changeVisibleSublayers}
-                      showSublayerDetails={showSublayerDetails}
-                    />
-                  </div>
-                );
+                if (kartlag.allcategorieslayer.wmslayer !== lag.wmslayer) {
+                  return (
+                    <div className="underlag" key={sublag}>
+                      <ForvaltningsUnderElement
+                        underlag={lag}
+                        kartlagKey={kartlagKey}
+                        underlagKey={sublag}
+                        toggleSublayer={toggleSublayer}
+                        showSublayerDetails={showSublayerDetails}
+                      />
+                    </div>
+                  );
+                } else {
+                  return null;
+                }
               })}
             </>
           )}

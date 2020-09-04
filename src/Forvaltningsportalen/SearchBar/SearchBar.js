@@ -79,6 +79,8 @@ class SearchBar extends React.Component {
         for (let j in sublayers) {
           if (counter >= countermax) {
             break;
+          } else if (layer.aggregatedwmslayer === sublayers[j].wmslayer) {
+            break;
           } else {
             const found = this.searchInLayer(
               criteria,
@@ -107,7 +109,8 @@ class SearchBar extends React.Component {
     // document.getElementById("searchfield").value = "";
   };
 
-  handleSearchBar = (searchTerm, resultpage) => {
+  handleSearchBar = (term, resultpage) => {
+    let searchTerm = term.trim();
     if (!searchTerm) {
       this.setState({
         isSearching: false,
@@ -183,8 +186,6 @@ class SearchBar extends React.Component {
       searchTerm.indexOf("gnr") !== -1
     ) {
       // Hvis alt er skrevet på ønsket format = direkte oppslag
-      console.log("direkte oppslag knr-gnr-bnr");
-
       let list = searchTerm.split(",");
       for (let i in list) {
         if (list[i].indexOf("knr") !== -1) {
@@ -270,7 +271,7 @@ class SearchBar extends React.Component {
       if (resultpage) {
         max_items = 50;
       }
-      let entries = resultat.stedsnavn;
+      let entries = resultat ? resultat.stedsnavn : {};
       const resultatliste = {};
       // If only one entrie is returned from backend, this is
       // returned as an object, not as array of objects.

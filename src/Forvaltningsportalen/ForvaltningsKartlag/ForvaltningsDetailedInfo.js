@@ -24,6 +24,7 @@ import CustomIcon from "../../Common/CustomIcon";
 import CustomSwitch from "../../Common/CustomSwitch";
 
 const ForvaltningsDetailedInfo = ({
+  allCategories,
   kartlag,
   underlag,
   kartlagKey,
@@ -249,7 +250,7 @@ const ForvaltningsDetailedInfo = ({
               }}
             />
           </ListItemIcon>
-          <ListItemText primary={tittel} />
+          <ListItemText primary={allCategories ? "Alle kategorier" : tittel} />
           {underlag.suggested && (
             <ListItemIcon id="bookmark-icon">
               <CustomIcon

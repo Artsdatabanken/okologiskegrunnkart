@@ -13,6 +13,7 @@ const KartlagFanen = props => {
   const [underlag, setUnderlag] = useState(null);
   const [kartlagKey, setKartlagKey] = useState(null);
   const [underlagKey, setUnderlagKey] = useState(null);
+  const [allCategories, setAllCategories] = useState(false);
   const [fullscreen, setFullscreen] = useState(null);
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -20,10 +21,29 @@ const KartlagFanen = props => {
   const [inTransition, setInTransition] = useState(null);
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
-    setUnderlag(underlag);
-    setKartlagKey(kartlagKey);
-    setUnderlagKey(underlagKey);
-    props.setSublayerDetailsVisible(true);
+    if (underlag && kartlagKey && underlagKey) {
+      setUnderlag(underlag);
+      setKartlagKey(kartlagKey);
+      setUnderlagKey(underlagKey);
+      setAllCategories(false);
+      props.setSublayerDetailsVisible(true);
+      return;
+    }
+    // In this case, this is "All categories" sublayer.
+    // Underlag is actually the layer (kartlag).
+    const layer = underlag;
+    if (layer && layer.aggregatedwmslayer) {
+      Object.keys(layer.underlag).forEach(underlagKey => {
+        const sublayer = layer.underlag[underlagKey];
+        if (sublayer.wmslayer === layer.aggregatedwmslayer) {
+          setUnderlag(sublayer);
+          setKartlagKey(kartlagKey);
+          setUnderlagKey(underlagKey);
+          setAllCategories(true);
+          props.setSublayerDetailsVisible(true);
+        }
+      });
+    }
   };
 
   const hideSublayerDetails = () => {
@@ -31,6 +51,7 @@ const KartlagFanen = props => {
     setUnderlag(null);
     setKartlagKey(null);
     setUnderlagKey(null);
+    setAllCategories(false);
   };
 
   const showSublayerDetailsFromSearch = (underlag, kartlagKey, underlagKey) => {
@@ -334,6 +355,7 @@ const KartlagFanen = props => {
               <div>
                 <div className="layer-details-div">
                   <ForvaltningsDetailedInfo
+                    allCategories={allCategories}
                     kartlag={props.kartlag[kartlagKey]}
                     underlag={underlag}
                     kartlagKey={kartlagKey}
