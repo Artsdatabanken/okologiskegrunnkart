@@ -146,9 +146,9 @@ class App extends React.Component {
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
         ul.allcategoriesvisible = false;
         if (ul.wmslayer === k.aggregatedwmslayer) {
-          // NOTE that "ul" this is the actual layer, not a copy.
-          // Changes to "ul" are also done to "allcategorieslayer"
-          k.allcategorieslayer = ul;
+          // NOTE that "ul" this is copy of the layer..
+          // Changes to "ul" will not affect "allcategorieslayer"
+          k.allcategorieslayer = { ...ul };
           k.allcategorieslayer.tittel = "Alle kategorier";
         }
 

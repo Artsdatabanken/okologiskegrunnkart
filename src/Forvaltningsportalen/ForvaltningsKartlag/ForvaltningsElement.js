@@ -36,7 +36,9 @@ const ForvaltningsElement = ({
       let sublayer = kartlag.underlag[underlagKey];
       if (
         !sublayer.erSynlig &&
-        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer
+        !sublayer.allcategoriesvisible &&
+        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer &&
+        !sublayer.wmslayer.toLowerCase().includes("dekningskart")
       ) {
         allVisible = false;
       }
@@ -57,16 +59,63 @@ const ForvaltningsElement = ({
     onUpdateLayerProp(kartlagKey, "erSynlig", newStatus);
     onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newStatus);
 
-    Object.keys(kartlag.underlag).forEach(underlagKey => {
-      let kode = "underlag." + underlagKey + ".";
-      onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
-      changeVisibleSublayers(
-        kartlagKey,
-        underlagKey,
-        kode + "erSynlig",
-        newStatus
-      );
-    });
+    // If there is a sublayer with all results aggregated,
+    // activate aggregated sublayer and dekningskart sublayers.
+    // If not, activate all sublayers.
+    if (allcategorieslayer.wmslayer) {
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        let kode = "underlag." + underlagKey + ".";
+        const sublayer = kartlag.underlag[underlagKey];
+        if (newStatus) {
+          // NewStatus = true. Activate only aggregated sublayer and dekkningskart.
+          // The rest are only pseudo-active (green switch but no HTTP request)
+          if (
+            sublayer.wmslayer.toLowerCase().includes("dekningskart") ||
+            allcategorieslayer.wmslayer === sublayer.wmslayer
+          ) {
+            // Only aggregated and dekkningskart sublayers activated
+            onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
+            onUpdateLayerProp(
+              kartlagKey,
+              kode + "allcategoriesvisible",
+              newStatus
+            );
+            changeVisibleSublayers(
+              kartlagKey,
+              underlagKey,
+              kode + "erSynlig",
+              newStatus
+            );
+          } else {
+            onUpdateLayerProp(kartlagKey, kode + "erSynlig", false);
+            onUpdateLayerProp(
+              kartlagKey,
+              kode + "allcategoriesvisible",
+              newStatus
+            );
+          }
+        } else {
+          // NewStatus = false. All sublayers inactive
+          onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
+          onUpdateLayerProp(
+            kartlagKey,
+            kode + "allcategoriesvisible",
+            newStatus
+          );
+        }
+      });
+    } else {
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        let kode = "underlag." + underlagKey + ".";
+        onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
+        changeVisibleSublayers(
+          kartlagKey,
+          underlagKey,
+          kode + "erSynlig",
+          newStatus
+        );
+      });
+    }
   };
 
   const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
@@ -161,6 +210,20 @@ const ForvaltningsElement = ({
             <>
               {Object.keys(kartlag.underlag).map(sublag => {
                 let lag = kartlag.underlag[sublag];
+                return (
+                  <div className="underlag" key={sublag}>
+                    <ForvaltningsUnderElement
+                      underlag={lag}
+                      kartlagKey={kartlagKey}
+                      underlagKey={sublag}
+                      toggleSublayer={toggleSublayer}
+                      showSublayerDetails={showSublayerDetails}
+                    />
+                  </div>
+                );
+              })}
+              {/* {Object.keys(kartlag.underlag).map(sublag => {
+                let lag = kartlag.underlag[sublag];
                 if (kartlag.allcategorieslayer.wmslayer !== lag.wmslayer) {
                   return (
                     <div className="underlag" key={sublag}>
@@ -176,7 +239,7 @@ const ForvaltningsElement = ({
                 } else {
                   return null;
                 }
-              })}
+              })} */}
             </>
           )}
         </div>
