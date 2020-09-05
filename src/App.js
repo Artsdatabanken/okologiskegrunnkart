@@ -873,7 +873,7 @@ class App extends React.Component {
     for (const sublayerId in layer.underlag) {
       const sublayer = layer.underlag[sublayerId];
       if (
-        sublayer.erSynlig &&
+        (sublayer.erSynlig || sublayer.allcategoriesvisible) &&
         layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
       ) {
         layerVisible = true;

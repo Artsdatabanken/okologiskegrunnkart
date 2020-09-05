@@ -30,21 +30,21 @@ const ForvaltningsElement = ({
 
   const kartlagJSON = JSON.stringify(kartlag);
 
-  useEffect(() => {
-    let allVisible = true;
-    Object.keys(kartlag.underlag).forEach(underlagKey => {
-      let sublayer = kartlag.underlag[underlagKey];
-      if (
-        !sublayer.erSynlig &&
-        !sublayer.allcategoriesvisible &&
-        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer &&
-        !sublayer.wmslayer.toLowerCase().includes("dekningskart")
-      ) {
-        allVisible = false;
-      }
-    });
-    onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
-  }, [kartlag, kartlagJSON, onUpdateLayerProp]);
+  // useEffect(() => {
+  //   let allVisible = true;
+  //   Object.keys(kartlag.underlag).forEach(underlagKey => {
+  //     let sublayer = kartlag.underlag[underlagKey];
+  //     if (
+  //       !sublayer.erSynlig &&
+  //       !sublayer.allcategoriesvisible &&
+  //       kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer &&
+  //       !sublayer.wmslayer.toLowerCase().includes("dekningskart")
+  //     ) {
+  //       allVisible = false;
+  //     }
+  //   });
+  //   onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
+  // }, [kartlag, kartlagJSON, onUpdateLayerProp]);
 
   if (!tittel) return null;
 
@@ -62,10 +62,20 @@ const ForvaltningsElement = ({
     // If there is a sublayer with all results aggregated,
     // activate aggregated sublayer and dekningskart sublayers.
     // If not, activate all sublayers.
-    if (allcategorieslayer.wmslayer) {
-      Object.keys(kartlag.underlag).forEach(underlagKey => {
-        let kode = "underlag." + underlagKey + ".";
-        const sublayer = kartlag.underlag[underlagKey];
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let kode = "underlag." + underlagKey + ".";
+      const sublayer = kartlag.underlag[underlagKey];
+
+      // All categories visible property always updated the same way
+      onUpdateLayerProp(kartlagKey, kode + "allcategoriesvisible", newStatus);
+      changeVisibleSublayers(
+        kartlagKey,
+        underlagKey,
+        kode + "allcategoriesvisible",
+        newStatus
+      );
+
+      if (allcategorieslayer.wmslayer) {
         if (newStatus) {
           // NewStatus = true. Activate only aggregated sublayer and dekkningskart.
           // The rest are only pseudo-active (green switch but no HTTP request)
@@ -75,11 +85,6 @@ const ForvaltningsElement = ({
           ) {
             // Only aggregated and dekkningskart sublayers activated
             onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
-            onUpdateLayerProp(
-              kartlagKey,
-              kode + "allcategoriesvisible",
-              newStatus
-            );
             changeVisibleSublayers(
               kartlagKey,
               underlagKey,
@@ -87,25 +92,26 @@ const ForvaltningsElement = ({
               newStatus
             );
           } else {
+            // Pseudo active, but not really visible
             onUpdateLayerProp(kartlagKey, kode + "erSynlig", false);
-            onUpdateLayerProp(
+            changeVisibleSublayers(
               kartlagKey,
-              kode + "allcategoriesvisible",
-              newStatus
+              underlagKey,
+              kode + "erSynlig",
+              false
             );
           }
         } else {
           // NewStatus = false. All sublayers inactive
           onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
-          onUpdateLayerProp(
+          changeVisibleSublayers(
             kartlagKey,
-            kode + "allcategoriesvisible",
+            underlagKey,
+            kode + "erSynlig",
             newStatus
           );
         }
-      });
-    } else {
-      Object.keys(kartlag.underlag).forEach(underlagKey => {
+      } else {
         let kode = "underlag." + underlagKey + ".";
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
         changeVisibleSublayers(
@@ -114,8 +120,8 @@ const ForvaltningsElement = ({
           kode + "erSynlig",
           newStatus
         );
-      });
-    }
+      }
+    });
   };
 
   const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
