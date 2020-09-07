@@ -33,11 +33,7 @@ class ForvaltningsKartlag extends React.Component {
   };
 
   render() {
-    const {
-      onUpdateLayerProp,
-      changeVisibleSublayers,
-      changeExpandedLayers
-    } = this.props;
+    const { onUpdateLayerProp, changeVisibleSublayers } = this.props;
     let lag = this.props.kartlag;
     let sortKey = this.state.sortKey;
     let sorted = {};
@@ -161,7 +157,6 @@ class ForvaltningsKartlag extends React.Component {
                   key={element}
                   onUpdateLayerProp={onUpdateLayerProp}
                   changeVisibleSublayers={changeVisibleSublayers}
-                  changeExpandedLayers={changeExpandedLayers}
                   zoom={this.props.zoom}
                   showSublayerDetails={this.props.showSublayerDetails}
                 />

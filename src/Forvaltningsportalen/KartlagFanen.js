@@ -321,7 +321,6 @@ const KartlagFanen = props => {
                 key={props.valgtLag.id}
                 onUpdateLayerProp={props.onUpdateLayerProp}
                 changeVisibleSublayers={props.changeVisibleSublayers}
-                changeExpandedLayers={props.changeExpandedLayers}
                 showSublayerDetails={showSublayerDetailsFromSearch}
               />
             </div>
@@ -344,7 +343,6 @@ const KartlagFanen = props => {
                   kartlag={props.kartlag}
                   onUpdateLayerProp={props.onUpdateLayerProp}
                   changeVisibleSublayers={props.changeVisibleSublayers}
-                  changeExpandedLayers={props.changeExpandedLayers}
                   zoom={props.zoom}
                   showSublayerDetails={showSublayerDetails}
                   setLegendVisible={props.setLegendVisible}

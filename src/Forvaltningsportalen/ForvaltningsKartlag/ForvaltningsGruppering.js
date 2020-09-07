@@ -8,7 +8,6 @@ const ForvaltningsGruppering = ({
   matchAllFilters,
   onUpdateLayerProp,
   changeVisibleSublayers,
-  changeExpandedLayers,
   hideHidden,
   searchTerm,
   element,
@@ -59,7 +58,6 @@ const ForvaltningsGruppering = ({
             kartlag={element}
             onUpdateLayerProp={onUpdateLayerProp}
             changeVisibleSublayers={changeVisibleSublayers}
-            changeExpandedLayers={changeExpandedLayers}
             showSublayerDetails={showSublayerDetails}
           />
         );

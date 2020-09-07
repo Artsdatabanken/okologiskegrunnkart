@@ -314,7 +314,6 @@ class App extends React.Component {
                         valgtLag={this.state.valgtLag}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}
                         changeVisibleSublayers={this.changeVisibleSublayers}
-                        changeExpandedLayers={this.changeExpandedLayers}
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
@@ -403,11 +402,15 @@ class App extends React.Component {
   showVisibleLayers = async favorites => {
     if (favorites) {
       for (const item of this.state.visibleSublayersFavorites) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+        }
       }
     } else {
       for (const item of this.state.visibleSublayersComplete) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+        }
       }
     }
   };
@@ -415,11 +418,15 @@ class App extends React.Component {
   hideVisibleLayers = async favorites => {
     if (favorites) {
       for (const item of this.state.visibleSublayersComplete) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+        }
       }
     } else {
       for (const item of this.state.visibleSublayersFavorites) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+        }
       }
     }
   };
@@ -908,48 +915,36 @@ class App extends React.Component {
   };
 
   // Relevant for switching between all layers and favourite layers
-  changeVisibleSublayers = (layerKey, sublayerKey, propKey, visible) => {
+  changeVisibleSublayers = sublayersArray => {
+    let array;
     if (this.state.showFavoriteLayers) {
-      let array = [...this.state.visibleSublayersFavorites];
-      if (visible) {
-        array.push({ layerKey, sublayerKey, propKey });
-      } else {
-        array = array.filter(
-          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
-        );
-      }
-      this.setState({ visibleSublayersFavorites: array });
+      array = [...this.state.visibleSublayersFavorites];
     } else {
-      let array = [...this.state.visibleSublayersComplete];
-      if (visible) {
-        array.push({ layerKey, sublayerKey, propKey });
-      } else {
-        array = array.filter(
-          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
-        );
-      }
-      this.setState({ visibleSublayersComplete: array });
+      array = [...this.state.visibleSublayersComplete];
     }
-  };
 
-  // Stored but not being used: Problems when updating state (no changes)
-  changeExpandedLayers = (layerKey, expanded) => {
+    for (const sub of sublayersArray) {
+      if (sub.add) {
+        array.push({
+          layerKey: sub.layerKey,
+          sublayerKey: sub.sublayerKey,
+          propKeys: sub.propKeys
+        });
+      } else {
+        array = array.filter(
+          item =>
+            item.layerKey !== sub.layerKey ||
+            item.sublayerKey !== sub.sublayerKey
+        );
+      }
+    }
+
     if (this.state.showFavoriteLayers) {
-      let array = [...this.state.expandedLayersFavorites];
-      if (expanded) {
-        array.push(layerKey);
-      } else {
-        array = array.filter(item => item !== layerKey);
-      }
-      this.setState({ expandedLayersFavorites: array });
+      this.setState({ visibleSublayersFavorites: array });
+      console.log("visibleSublayersFavorites: ", array);
     } else {
-      let array = [...this.state.expandedLayersComplete];
-      if (expanded) {
-        array.push(layerKey);
-      } else {
-        array = array.filter(item => item !== layerKey);
-      }
-      this.setState({ expandedLayersComplete: array });
+      this.setState({ visibleSublayersComplete: array });
+      console.log("visibleSublayersComplete: ", array);
     }
   };
 
