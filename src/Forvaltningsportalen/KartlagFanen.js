@@ -27,6 +27,7 @@ const KartlagFanen = ({
   handleSelectSearchResult
 }) => {
   // Detail panel data
+  const [kartlagDetails, setKartlagDetails] = useState(null);
   const [underlagDetails, setUnderlagDetails] = useState(null);
   const [kartlagKeyDetails, setKartlagKeyDetails] = useState(null);
   const [underlagKeyDetails, setUnderlagKeyDetails] = useState(null);
@@ -39,6 +40,10 @@ const KartlagFanen = ({
   const [inTransition, setInTransition] = useState(null);
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
+    let reducedKartlag = { ...kartlag[kartlagKey] };
+    delete reducedKartlag.underlag;
+    setKartlagDetails(reducedKartlag);
+
     if (underlag && kartlagKey && underlagKey) {
       setUnderlagDetails(underlag);
       setKartlagKeyDetails(kartlagKey);
@@ -622,6 +627,7 @@ const KartlagFanen = ({
                   <ForvaltningsDetailedInfo
                     allCategories={allCategoriesDetails}
                     kartlag={kartlag[kartlagKeyDetails]}
+                    reducedKartlag={kartlagDetails}
                     underlag={underlagDetails}
                     kartlagKey={kartlagKeyDetails}
                     underlagKey={underlagKeyDetails}

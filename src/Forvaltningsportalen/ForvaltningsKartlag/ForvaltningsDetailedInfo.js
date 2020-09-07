@@ -10,7 +10,7 @@ import {
   Layers,
   KeyboardBackspace
 } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Slider,
   ListItemIcon,
@@ -26,6 +26,7 @@ import CustomSwitch from "../../Common/CustomSwitch";
 const ForvaltningsDetailedInfo = ({
   allCategories,
   kartlag,
+  reducedKartlag,
   underlag,
   kartlagKey,
   underlagKey,
@@ -34,36 +35,65 @@ const ForvaltningsDetailedInfo = ({
   onUpdateLayerProp,
   hideSublayerDetails
 }) => {
-  const tittel = kartlag.tittel;
-  // const [openFakta, setOpenFakta] = useState(false);
-  let tags = kartlag.tags || null;
+  const [tags, setTags] = useState(null);
+  const [isLargeIcon, setIsLargeIcon] = useState(false);
+  const [sublayer, setSublayer] = useState(null);
+  const [underlagTittel, setUnderlagTittel] = useState(null);
+  const [erSynlig, setErSynlig] = useState(null);
+  const [visible, setVisible] = useState(null);
+  const [sliderValue, setSliderValue] = useState(80);
 
-  const sublayer = underlag ? underlag : kartlag.allcategorieslayer;
+  const kartlagJSON = JSON.stringify(reducedKartlag);
+  const underlagJSON = JSON.stringify(underlag);
 
-  const underlagTittel = sublayer.tittel;
-  const erSynlig = sublayer.erSynlig;
-  const visible = sublayer.visible;
-  const [sliderValue, setSliderValue] = useState(sublayer.opacity || 80);
-  let kode = "allcategorieslayer.";
-  if (underlag) kode = "underlag." + underlagKey + ".";
+  useEffect(() => {
+    if (kartlag) {
+      setTags(kartlag.tags);
+      const largeIcon = [
+        "Arealressurs",
+        "Arter",
+        "Klima",
+        "Skog",
+        "Landskap"
+      ].includes(kartlag.tema);
+      setIsLargeIcon(largeIcon);
+    }
+  }, [kartlag, kartlagJSON]);
+
+  useEffect(() => {
+    if (kartlag) {
+      const sublayer = underlag ? underlag : kartlag.allcategorieslayer;
+      setSublayer(sublayer);
+      setUnderlagTittel(sublayer.tittel);
+      setErSynlig(sublayer.erSynlig);
+      const visible = underlag ? sublayer.visible : sublayer.erSynlig;
+      setVisible(visible);
+      setSliderValue(sublayer.opacity || 80);
+    }
+  }, [kartlag, kartlagJSON, underlag, underlagJSON]);
 
   const handleSliderChange = value => {
     setSliderValue(value / 100);
   };
   const changeLayerOpacity = value => {
     setSliderValue(value / 100);
-    onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+    if (allCategories) {
+      let kode = "allcategorieslayer.";
+      onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        kode = "underlag." + underlagKey + ".";
+        onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      });
+    } else {
+      const kode = "underlag." + underlagKey + ".";
+      onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+    }
   };
   const openInNewTabWithoutOpener = url => {
     // Done this way for security reasons
     var newTab = window.open();
     newTab.opener = null;
     newTab.location = url;
-  };
-  const isLargeIcon = tema => {
-    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
-      tema
-    );
   };
 
   const toggleSublayerDetail = () => {
@@ -75,7 +105,7 @@ const ForvaltningsDetailedInfo = ({
     }
   };
 
-  if (!tittel || !underlagTittel) return null;
+  if (!kartlag.tittel || !underlagTittel) return null;
   return (
     <>
       <ListItem
@@ -110,14 +140,14 @@ const ForvaltningsDetailedInfo = ({
                 <CustomIcon
                   id="kartlag"
                   icon={kartlag.tema}
-                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                  color={kartlag.erSynlig ? "#666" : "#999"}
+                  size={isLargeIcon ? 30 : 26}
+                  padding={isLargeIcon ? 0 : 2}
+                  color={kartlag.visible ? "#666" : "#999"}
                 />
               </Badge>
             </div>
           </ListItemIcon>
-          <ListItemText primary={tittel} />
+          <ListItemText primary={kartlag.tittel} />
         </ListItem>
 
         <div className="sublayer-details-div">
@@ -258,7 +288,9 @@ const ForvaltningsDetailedInfo = ({
               }}
             />
           </ListItemIcon>
-          <ListItemText primary={allCategories ? "Alle kategorier" : tittel} />
+          <ListItemText
+            primary={allCategories ? "Alle kategorier" : kartlag.tittel}
+          />
           {sublayer.suggested && (
             <ListItemIcon id="bookmark-icon">
               <CustomIcon
