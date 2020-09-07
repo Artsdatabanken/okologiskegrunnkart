@@ -36,10 +36,13 @@ const ForvaltningsDetailedInfo = ({
   // const [openFakta, setOpenFakta] = useState(false);
   let tags = kartlag.tags || null;
 
-  const underlagTittel = underlag.tittel;
-  const erSynlig = underlag.erSynlig;
-  const [sliderValue, setSliderValue] = useState(underlag.opacity || 80);
-  let kode = "underlag." + underlagKey + ".";
+  const sublayer = underlag ? underlag : kartlag.allcategorieslayer;
+
+  const underlagTittel = sublayer.tittel;
+  const erSynlig = sublayer.erSynlig;
+  const [sliderValue, setSliderValue] = useState(sublayer.opacity || 80);
+  let kode = "allcategorieslayer.";
+  if (underlag) kode = "underlag." + underlagKey + ".";
 
   const handleSliderChange = value => {
     setSliderValue(value / 100);
@@ -135,6 +138,7 @@ const ForvaltningsDetailedInfo = ({
                     <ListItemText primary="Produktark" />
                     {kartlag.produktark && (
                       <>
+                        <OpenInNew />
                         {/* {openFakta ? (
                           <ExpandLess
                             className="iconbutton"
@@ -150,12 +154,12 @@ const ForvaltningsDetailedInfo = ({
                             }}
                           />
                         )} */}
-                        <OpenInNew
+                        {/* <OpenInNew
                           className="iconbutton"
                           onClick={e => {
                             openInNewTabWithoutOpener(kartlag.produktark);
                           }}
-                        />
+                        /> */}
                       </>
                     )}
                   </ListItem>
@@ -236,7 +240,7 @@ const ForvaltningsDetailedInfo = ({
                 onUpdateLayerProp(
                   kartlagKey,
                   kode + "erSynlig",
-                  !underlag.erSynlig
+                  !sublayer.erSynlig
                 );
               }}
               onKeyDown={e => {
@@ -244,14 +248,14 @@ const ForvaltningsDetailedInfo = ({
                   onUpdateLayerProp(
                     kartlagKey,
                     kode + "erSynlig",
-                    !underlag.erSynlig
+                    !sublayer.erSynlig
                   );
                 }
               }}
             />
           </ListItemIcon>
           <ListItemText primary={allCategories ? "Alle kategorier" : tittel} />
-          {underlag.suggested && (
+          {sublayer.suggested && (
             <ListItemIcon id="bookmark-icon">
               <CustomIcon
                 id="bookmark"
@@ -299,12 +303,12 @@ const ForvaltningsDetailedInfo = ({
             />
           </div>
 
-          {underlag.legendeurl && (
+          {sublayer.legendeurl && (
             <>
               <Typography id="legend-sublayer" variant="body2" gutterBottom>
                 Tegnforklaring
               </Typography>
-              <img alt="tegnforklaring" src={underlag.legendeurl} />
+              <img alt="tegnforklaring" src={sublayer.legendeurl} />
             </>
           )}
         </div>

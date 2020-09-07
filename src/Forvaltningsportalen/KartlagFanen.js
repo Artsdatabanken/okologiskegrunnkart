@@ -43,6 +43,12 @@ const KartlagFanen = props => {
           props.setSublayerDetailsVisible(true);
         }
       });
+    } else {
+      setUnderlag(null);
+      setKartlagKey(kartlagKey);
+      setUnderlagKey(null);
+      setAllCategories(true);
+      props.setSublayerDetailsVisible(true);
     }
   };
 

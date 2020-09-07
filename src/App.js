@@ -131,7 +131,8 @@ class App extends React.Component {
       k.allcategorieslayer = {
         erSynlig: false,
         tittel: "Alle kategorier",
-        wmslayer: null
+        wmslayer: null,
+        opacity: 0.8
       };
 
       k.underlag = k.underlag || {};
@@ -144,7 +145,6 @@ class App extends React.Component {
 
         // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
-        // ul.allcategoriesvisible = false;
         ul.visible = false;
         if (ul.wmslayer === k.aggregatedwmslayer) {
           // NOTE that "ul" this is copy of the layer..
