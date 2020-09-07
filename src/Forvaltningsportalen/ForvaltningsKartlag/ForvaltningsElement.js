@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ListItemIcon,
   Collapse,
@@ -28,24 +28,6 @@ const ForvaltningsElement = ({
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
 
-  const kartlagJSON = JSON.stringify(kartlag);
-
-  // useEffect(() => {
-  //   let allVisible = true;
-  //   Object.keys(kartlag.underlag).forEach(underlagKey => {
-  //     let sublayer = kartlag.underlag[underlagKey];
-  //     if (
-  //       !sublayer.erSynlig &&
-  //       !sublayer.allcategoriesvisible &&
-  //       kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer &&
-  //       !sublayer.wmslayer.toLowerCase().includes("dekningskart")
-  //     ) {
-  //       allVisible = false;
-  //     }
-  //   });
-  //   onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
-  // }, [kartlag, kartlagJSON, onUpdateLayerProp]);
-
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
@@ -67,11 +49,11 @@ const ForvaltningsElement = ({
       const sublayer = kartlag.underlag[underlagKey];
 
       // All categories visible property always updated the same way
-      onUpdateLayerProp(kartlagKey, kode + "allcategoriesvisible", newStatus);
+      onUpdateLayerProp(kartlagKey, kode + "visible", newStatus);
       changeVisibleSublayers(
         kartlagKey,
         underlagKey,
-        kode + "allcategoriesvisible",
+        kode + "visible",
         newStatus
       );
 
@@ -124,9 +106,113 @@ const ForvaltningsElement = ({
     });
   };
 
-  const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
-    onUpdateLayerProp(kartlagKey, fullkode, newStatus);
-    changeVisibleSublayers(kartlagKey, underlagKey, fullkode, newStatus);
+  const toggleAllCategoriesOn = () => {
+    onUpdateLayerProp(kartlagKey, "erSynlig", true);
+    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", true);
+
+    Object.keys(kartlag.underlag).forEach(underlagKey => {
+      let kode = "underlag." + underlagKey + ".";
+      const sublayer = kartlag.underlag[underlagKey];
+
+      // All categories visible property always updated the same way
+      onUpdateLayerProp(kartlagKey, kode + "visible", true);
+      changeVisibleSublayers(kartlagKey, underlagKey, kode + "visible", true);
+
+      if (
+        sublayer.wmslayer.toLowerCase().includes("dekningskart") ||
+        allcategorieslayer.wmslayer === sublayer.wmslayer
+      ) {
+        // Only aggregated and dekkningskart sublayers activated
+        onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
+        changeVisibleSublayers(
+          kartlagKey,
+          underlagKey,
+          kode + "erSynlig",
+          true
+        );
+      } else {
+        // Pseudo active, but not really visible
+        onUpdateLayerProp(kartlagKey, kode + "erSynlig", false);
+        changeVisibleSublayers(
+          kartlagKey,
+          underlagKey,
+          kode + "erSynlig",
+          false
+        );
+      }
+    });
+  };
+
+  const switchFromAllCategories = (kartlagKey, underlagKey, kode) => {
+    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", false);
+
+    Object.keys(kartlag.underlag).forEach(sublagkey => {
+      let kode = "underlag." + sublagkey + ".";
+      const sublayer = kartlag.underlag[sublagkey];
+      if (
+        allcategorieslayer.wmslayer === sublayer.wmslayer ||
+        sublagkey === underlagKey
+      ) {
+        // If aggregated sublayer or selected sublayer, make inactive
+        onUpdateLayerProp(kartlagKey, kode + "erSynlig", false);
+        changeVisibleSublayers(kartlagKey, sublagkey, kode + "erSynlig", false);
+        onUpdateLayerProp(kartlagKey, kode + "visible", false);
+        changeVisibleSublayers(kartlagKey, sublagkey, kode + "visible", false);
+      } else if (!sublayer.wmslayer.toLowerCase().includes("dekningskart")) {
+        // The rest of sublayers (if not dekkningskart), activate
+        onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
+        changeVisibleSublayers(kartlagKey, sublagkey, kode + "erSynlig", true);
+        onUpdateLayerProp(kartlagKey, kode + "visible", true);
+        changeVisibleSublayers(kartlagKey, sublagkey, kode + "visible", true);
+      }
+    });
+  };
+
+  const toggleSublayer = (
+    kartlagKey,
+    underlagKey,
+    kode,
+    newStatus,
+    newVisible
+  ) => {
+    let numberInvisible = 0;
+    Object.keys(kartlag.underlag).forEach(key => {
+      const sub = kartlag.underlag[key];
+      if (
+        kartlag.allcategorieslayer.wmslayer !== sub.wmslayer &&
+        !sub.wmslayer.toLowerCase().includes("dekningskart")
+      ) {
+        if (!sub.visible) numberInvisible += 1;
+      }
+    });
+
+    if (newVisible && numberInvisible === 1) {
+      onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newVisible);
+    } else if (!newVisible && numberInvisible === 0) {
+      onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newVisible);
+    }
+
+    const allcategories = allcategorieslayer.wmslayer;
+    if (newVisible && numberInvisible === 1 && allcategories) {
+      toggleAllCategoriesOn();
+    } else if (!newVisible && numberInvisible === 0 && allcategories) {
+      switchFromAllCategories(kartlagKey, underlagKey, kode);
+    } else {
+      onUpdateLayerProp(kartlagKey, kode + "erSynlig", newVisible);
+      onUpdateLayerProp(kartlagKey, kode + "visible", newVisible);
+      changeVisibleSublayers(
+        kartlagKey,
+        underlagKey,
+        kode + "erSynlig",
+        newVisible
+      );
+      changeVisibleSublayers(
+        kartlagKey,
+        underlagKey,
+        kode + "visible",
+        newVisible
+      );
+    }
   };
 
   return (

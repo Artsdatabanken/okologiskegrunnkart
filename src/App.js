@@ -144,7 +144,8 @@ class App extends React.Component {
 
         // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
-        ul.allcategoriesvisible = false;
+        // ul.allcategoriesvisible = false;
+        ul.visible = false;
         if (ul.wmslayer === k.aggregatedwmslayer) {
           // NOTE that "ul" this is copy of the layer..
           // Changes to "ul" will not affect "allcategorieslayer"
@@ -873,7 +874,7 @@ class App extends React.Component {
     for (const sublayerId in layer.underlag) {
       const sublayer = layer.underlag[sublayerId];
       if (
-        (sublayer.erSynlig || sublayer.allcategoriesvisible) &&
+        (sublayer.erSynlig || sublayer.visible) &&
         layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
       ) {
         layerVisible = true;

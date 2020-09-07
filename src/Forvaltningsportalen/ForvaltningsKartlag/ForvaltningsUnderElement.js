@@ -12,6 +12,7 @@ const ForvaltningsUnderElement = ({
 }) => {
   let tittel = underlag.tittel;
   const erSynlig = underlag.erSynlig;
+  const visible = underlag.visible;
   let kode = "underlag." + underlagKey + ".";
 
   if (!tittel) return null;
@@ -29,13 +30,14 @@ const ForvaltningsUnderElement = ({
           <CustomSwitch
             tabIndex="0"
             id="visiblility-sublayer-toggle"
-            checked={erSynlig}
+            checked={visible}
             onChange={e => {
               toggleSublayer(
                 kartlagKey,
                 underlagKey,
-                kode + "erSynlig",
-                !erSynlig
+                kode,
+                !erSynlig,
+                !visible
               );
               e.stopPropagation();
             }}
@@ -44,8 +46,9 @@ const ForvaltningsUnderElement = ({
                 toggleSublayer(
                   kartlagKey,
                   underlagKey,
-                  kode + "erSynlig",
-                  !erSynlig
+                  kode,
+                  !erSynlig,
+                  !visible
                 );
                 e.stopPropagation();
               }
@@ -60,7 +63,7 @@ const ForvaltningsUnderElement = ({
               icon="check-decagram"
               size={20}
               padding={0}
-              color={erSynlig ? "#666" : "#999"}
+              color={visible ? "#666" : "#999"}
             />
           </ListItemIcon>
         )}
