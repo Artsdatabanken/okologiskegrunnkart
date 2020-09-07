@@ -27,10 +27,10 @@ const KartlagFanen = ({
   handleSelectSearchResult
 }) => {
   // Detail panel data
-  const [underlag, setUnderlag] = useState(null);
-  const [kartlagKey, setKartlagKey] = useState(null);
-  const [underlagKey, setUnderlagKey] = useState(null);
-  const [allCategories, setAllCategories] = useState(false);
+  const [underlagDetails, setUnderlagDetails] = useState(null);
+  const [kartlagKeyDetails, setKartlagKeyDetails] = useState(null);
+  const [underlagKeyDetails, setUnderlagKeyDetails] = useState(null);
+  const [allCategoriesDetails, setAllCategoriesDetails] = useState(false);
   // Swipe kartlag panel data
   const [fullscreen, setFullscreen] = useState(null);
   const [Y, setY] = useState(0);
@@ -40,10 +40,10 @@ const KartlagFanen = ({
 
   const showSublayerDetails = (underlag, kartlagKey, underlagKey) => {
     if (underlag && kartlagKey && underlagKey) {
-      setUnderlag(underlag);
-      setKartlagKey(kartlagKey);
-      setUnderlagKey(underlagKey);
-      setAllCategories(false);
+      setUnderlagDetails(underlag);
+      setKartlagKeyDetails(kartlagKey);
+      setUnderlagKeyDetails(underlagKey);
+      setAllCategoriesDetails(false);
       setSublayerDetailsVisible(true);
       return;
     }
@@ -54,34 +54,34 @@ const KartlagFanen = ({
       Object.keys(layer.underlag).forEach(underlagKey => {
         const sublayer = layer.underlag[underlagKey];
         if (sublayer.wmslayer === layer.aggregatedwmslayer) {
-          setUnderlag(sublayer);
-          setKartlagKey(kartlagKey);
-          setUnderlagKey(underlagKey);
-          setAllCategories(true);
+          setUnderlagDetails(sublayer);
+          setKartlagKeyDetails(kartlagKey);
+          setUnderlagKeyDetails(underlagKey);
+          setAllCategoriesDetails(true);
           setSublayerDetailsVisible(true);
         }
       });
     } else {
-      setUnderlag(null);
-      setKartlagKey(kartlagKey);
-      setUnderlagKey(null);
-      setAllCategories(true);
+      setUnderlagDetails(null);
+      setKartlagKeyDetails(kartlagKey);
+      setUnderlagKeyDetails(null);
+      setAllCategoriesDetails(true);
       setSublayerDetailsVisible(true);
     }
   };
 
   const hideSublayerDetails = () => {
     setSublayerDetailsVisible(false);
-    setUnderlag(null);
-    setKartlagKey(null);
-    setUnderlagKey(null);
-    setAllCategories(false);
+    setUnderlagDetails(null);
+    setKartlagKeyDetails(null);
+    setUnderlagKeyDetails(null);
+    setAllCategoriesDetails(false);
   };
 
   const showSublayerDetailsFromSearch = (underlag, kartlagKey, underlagKey) => {
-    setUnderlag(underlag);
-    setKartlagKey(kartlagKey);
-    setUnderlagKey(underlagKey);
+    setUnderlagDetails(underlag);
+    setKartlagKeyDetails(kartlagKey);
+    setUnderlagKeyDetails(underlagKey);
     removeValgtLag();
     setSublayerDetailsVisible(true);
   };
@@ -620,11 +620,13 @@ const KartlagFanen = ({
               <div>
                 <div className="layer-details-div">
                   <ForvaltningsDetailedInfo
-                    allCategories={allCategories}
-                    kartlag={kartlag[kartlagKey]}
-                    underlag={underlag}
-                    kartlagKey={kartlagKey}
-                    underlagKey={underlagKey}
+                    allCategories={allCategoriesDetails}
+                    kartlag={kartlag[kartlagKeyDetails]}
+                    underlag={underlagDetails}
+                    kartlagKey={kartlagKeyDetails}
+                    underlagKey={underlagKeyDetails}
+                    toggleSublayer={toggleSublayer}
+                    toggleAllSublayers={toggleAllSublayers}
                     onUpdateLayerProp={onUpdateLayerProp}
                     hideSublayerDetails={hideSublayerDetails}
                   />

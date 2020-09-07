@@ -29,6 +29,8 @@ const ForvaltningsDetailedInfo = ({
   underlag,
   kartlagKey,
   underlagKey,
+  toggleSublayer,
+  toggleAllSublayers,
   onUpdateLayerProp,
   hideSublayerDetails
 }) => {
@@ -40,6 +42,7 @@ const ForvaltningsDetailedInfo = ({
 
   const underlagTittel = sublayer.tittel;
   const erSynlig = sublayer.erSynlig;
+  const visible = sublayer.visible;
   const [sliderValue, setSliderValue] = useState(sublayer.opacity || 80);
   let kode = "allcategorieslayer.";
   if (underlag) kode = "underlag." + underlagKey + ".";
@@ -61,6 +64,15 @@ const ForvaltningsDetailedInfo = ({
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
     );
+  };
+
+  const toggleSublayerDetail = () => {
+    if (allCategories) {
+      toggleAllSublayers(kartlagKey);
+    } else {
+      const kode = "underlag." + underlagKey + ".";
+      toggleSublayer(kartlagKey, underlagKey, kode, !erSynlig, !visible);
+    }
   };
 
   if (!tittel || !underlagTittel) return null;
@@ -235,21 +247,13 @@ const ForvaltningsDetailedInfo = ({
             <CustomSwitch
               tabIndex="0"
               id="visiblility-sublayer-toggle"
-              checked={erSynlig}
+              checked={visible}
               onChange={e => {
-                onUpdateLayerProp(
-                  kartlagKey,
-                  kode + "erSynlig",
-                  !sublayer.erSynlig
-                );
+                toggleSublayerDetail();
               }}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
-                  onUpdateLayerProp(
-                    kartlagKey,
-                    kode + "erSynlig",
-                    !sublayer.erSynlig
-                  );
+                  toggleSublayerDetail();
                 }
               }}
             />
@@ -262,7 +266,7 @@ const ForvaltningsDetailedInfo = ({
                 icon="check-decagram"
                 size={20}
                 padding={0}
-                color={erSynlig ? "#666" : "#999"}
+                color={visible ? "#666" : "#999"}
               />
             </ListItemIcon>
           )}
@@ -290,11 +294,11 @@ const ForvaltningsDetailedInfo = ({
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               getAriaValueText={opacity => opacity + " %"}
-              disabled={!erSynlig}
+              disabled={!visible}
             />
             <Visibility
               id={
-                erSynlig
+                visible
                   ? "opacity-visible-icon"
                   : "opacity-visible-icon-disabled"
               }
