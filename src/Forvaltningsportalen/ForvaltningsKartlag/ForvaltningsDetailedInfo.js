@@ -26,7 +26,6 @@ import CustomSwitch from "../../Common/CustomSwitch";
 const ForvaltningsDetailedInfo = ({
   allCategories,
   kartlag,
-  reducedKartlag,
   underlag,
   kartlagKey,
   underlagKey,
@@ -42,8 +41,9 @@ const ForvaltningsDetailedInfo = ({
   const [erSynlig, setErSynlig] = useState(null);
   const [visible, setVisible] = useState(null);
   const [sliderValue, setSliderValue] = useState(80);
+  const [listLegends, setListLegends] = useState([]);
 
-  const kartlagJSON = JSON.stringify(reducedKartlag);
+  const kartlagJSON = JSON.stringify(kartlag);
   const underlagJSON = JSON.stringify(underlag);
 
   useEffect(() => {
@@ -69,6 +69,16 @@ const ForvaltningsDetailedInfo = ({
       const visible = underlag ? sublayer.visible : sublayer.erSynlig;
       setVisible(visible);
       setSliderValue(sublayer.opacity || 80);
+      const legends = [];
+      if (underlag && underlag.legendeurl) {
+        legends.push(underlag.legendeurl);
+      } else {
+        Object.keys(kartlag.underlag).forEach(key => {
+          const sub = kartlag.underlag[key];
+          if (sub.legendeurl) legends.push(sub.legendeurl);
+        });
+      }
+      setListLegends(legends);
     }
   }, [kartlag, kartlagJSON, underlag, underlagJSON]);
 
@@ -339,12 +349,17 @@ const ForvaltningsDetailedInfo = ({
             />
           </div>
 
-          {sublayer.legendeurl && (
+          {listLegends.length > 0 && (
             <>
               <Typography id="legend-sublayer" variant="body2" gutterBottom>
                 Tegnforklaring
               </Typography>
-              <img alt="tegnforklaring" src={sublayer.legendeurl} />
+              <div className="legend-sublayer-list">
+                {listLegends.map(url => {
+                  return <img alt="tegnforklaring" src={url} />;
+                })}
+              </div>
+              {/* <img alt="tegnforklaring" src={sublayer.legendeurl} /> */}
             </>
           )}
         </div>

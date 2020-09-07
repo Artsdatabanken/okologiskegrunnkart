@@ -941,10 +941,8 @@ class App extends React.Component {
 
     if (this.state.showFavoriteLayers) {
       this.setState({ visibleSublayersFavorites: array });
-      console.log("visibleSublayersFavorites: ", array);
     } else {
       this.setState({ visibleSublayersComplete: array });
-      console.log("visibleSublayersComplete: ", array);
     }
   };
 
