@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ListItemIcon,
   Collapse,
@@ -14,11 +14,10 @@ import CustomSwitchAll from "../../Common/CustomSwitchAll";
 
 const ForvaltningsElement = ({
   kartlag,
-  onUpdateLayerProp,
-  changeVisibleSublayers,
-  changeExpandedLayers,
   kartlagKey,
   valgt,
+  toggleSublayer,
+  toggleAllSublayers,
   showSublayerDetails
 }) => {
   const tittel = kartlag.tittel;
@@ -28,50 +27,12 @@ const ForvaltningsElement = ({
   let startstate = valgt || expanded;
   const [open, setOpen] = useState(startstate);
 
-  const kartlagJSON = JSON.stringify(kartlag);
-
-  useEffect(() => {
-    let allVisible = true;
-    Object.keys(kartlag.underlag).forEach(underlagKey => {
-      let sublayer = kartlag.underlag[underlagKey];
-      if (
-        !sublayer.erSynlig &&
-        kartlag.allcategorieslayer.wmslayer !== sublayer.wmslayer
-      ) {
-        allVisible = false;
-      }
-    });
-    onUpdateLayerProp(kartlag.id, "allcategorieslayer.erSynlig", allVisible);
-  }, [kartlag, kartlagJSON, onUpdateLayerProp]);
-
   if (!tittel) return null;
 
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
     );
-  };
-
-  const toggleAllSublayers = () => {
-    const newStatus = !allcategorieslayer.erSynlig;
-    onUpdateLayerProp(kartlagKey, "erSynlig", newStatus);
-    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newStatus);
-
-    Object.keys(kartlag.underlag).forEach(underlagKey => {
-      let kode = "underlag." + underlagKey + ".";
-      onUpdateLayerProp(kartlagKey, kode + "erSynlig", newStatus);
-      changeVisibleSublayers(
-        kartlagKey,
-        underlagKey,
-        kode + "erSynlig",
-        newStatus
-      );
-    });
-  };
-
-  const toggleSublayer = (kartlagKey, underlagKey, fullkode, newStatus) => {
-    onUpdateLayerProp(kartlagKey, fullkode, newStatus);
-    changeVisibleSublayers(kartlagKey, underlagKey, fullkode, newStatus);
   };
 
   return (
@@ -85,7 +46,6 @@ const ForvaltningsElement = ({
           if (!valgt) {
             setOpen(!open);
             setValue(kartlag, "expanded", !open);
-            changeExpandedLayers(kartlag.id, !open);
           }
         }}
       >
@@ -132,12 +92,12 @@ const ForvaltningsElement = ({
                     id="visiblility-sublayer-toggle"
                     checked={allcategorieslayer.erSynlig}
                     onChange={e => {
-                      toggleAllSublayers();
+                      toggleAllSublayers(kartlag.id);
                       e.stopPropagation();
                     }}
                     onKeyDown={e => {
                       if (e.keyCode === 13) {
-                        toggleAllSublayers();
+                        toggleAllSublayers(kartlag.id);
                         e.stopPropagation();
                       }
                     }}

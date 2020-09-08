@@ -6,9 +6,8 @@ const ForvaltningsGruppering = ({
   kartlag,
   tagFilter,
   matchAllFilters,
-  onUpdateLayerProp,
-  changeVisibleSublayers,
-  changeExpandedLayers,
+  toggleSublayer,
+  toggleAllSublayers,
   hideHidden,
   searchTerm,
   element,
@@ -57,9 +56,8 @@ const ForvaltningsGruppering = ({
             key={element.id}
             kartlagKey={element.id}
             kartlag={element}
-            onUpdateLayerProp={onUpdateLayerProp}
-            changeVisibleSublayers={changeVisibleSublayers}
-            changeExpandedLayers={changeExpandedLayers}
+            toggleSublayer={toggleSublayer}
+            toggleAllSublayers={toggleAllSublayers}
             showSublayerDetails={showSublayerDetails}
           />
         );

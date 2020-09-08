@@ -131,7 +131,8 @@ class App extends React.Component {
       k.allcategorieslayer = {
         erSynlig: false,
         tittel: "Alle kategorier",
-        wmslayer: null
+        wmslayer: null,
+        opacity: 0.8
       };
 
       k.underlag = k.underlag || {};
@@ -144,11 +145,11 @@ class App extends React.Component {
 
         // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
-        ul.allcategoriesvisible = false;
+        ul.visible = false;
         if (ul.wmslayer === k.aggregatedwmslayer) {
-          // NOTE that "ul" this is the actual layer, not a copy.
-          // Changes to "ul" are also done to "allcategorieslayer"
-          k.allcategorieslayer = ul;
+          // NOTE that "ul" this is copy of the layer..
+          // Changes to "ul" will not affect "allcategorieslayer"
+          k.allcategorieslayer = { ...ul };
           k.allcategorieslayer.tittel = "Alle kategorier";
         }
 
@@ -313,7 +314,6 @@ class App extends React.Component {
                         valgtLag={this.state.valgtLag}
                         onUpdateLayerProp={this.handleForvaltningsLayerProp}
                         changeVisibleSublayers={this.changeVisibleSublayers}
-                        changeExpandedLayers={this.changeExpandedLayers}
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
@@ -402,11 +402,15 @@ class App extends React.Component {
   showVisibleLayers = async favorites => {
     if (favorites) {
       for (const item of this.state.visibleSublayersFavorites) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+        }
       }
     } else {
       for (const item of this.state.visibleSublayersComplete) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, true);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+        }
       }
     }
   };
@@ -414,11 +418,15 @@ class App extends React.Component {
   hideVisibleLayers = async favorites => {
     if (favorites) {
       for (const item of this.state.visibleSublayersComplete) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+        }
       }
     } else {
       for (const item of this.state.visibleSublayersFavorites) {
-        this.handleForvaltningsLayerProp(item.layerKey, item.propKey, false);
+        for (const prop of item.propKeys) {
+          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+        }
       }
     }
   };
@@ -873,7 +881,7 @@ class App extends React.Component {
     for (const sublayerId in layer.underlag) {
       const sublayer = layer.underlag[sublayerId];
       if (
-        sublayer.erSynlig &&
+        (sublayer.erSynlig || sublayer.visible) &&
         layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
       ) {
         layerVisible = true;
@@ -907,48 +915,34 @@ class App extends React.Component {
   };
 
   // Relevant for switching between all layers and favourite layers
-  changeVisibleSublayers = (layerKey, sublayerKey, propKey, visible) => {
+  changeVisibleSublayers = sublayersArray => {
+    let array;
     if (this.state.showFavoriteLayers) {
-      let array = [...this.state.visibleSublayersFavorites];
-      if (visible) {
-        array.push({ layerKey, sublayerKey, propKey });
+      array = [...this.state.visibleSublayersFavorites];
+    } else {
+      array = [...this.state.visibleSublayersComplete];
+    }
+
+    for (const sub of sublayersArray) {
+      if (sub.add) {
+        array.push({
+          layerKey: sub.layerKey,
+          sublayerKey: sub.sublayerKey,
+          propKeys: sub.propKeys
+        });
       } else {
         array = array.filter(
-          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
+          item =>
+            item.layerKey !== sub.layerKey ||
+            item.sublayerKey !== sub.sublayerKey
         );
       }
+    }
+
+    if (this.state.showFavoriteLayers) {
       this.setState({ visibleSublayersFavorites: array });
     } else {
-      let array = [...this.state.visibleSublayersComplete];
-      if (visible) {
-        array.push({ layerKey, sublayerKey, propKey });
-      } else {
-        array = array.filter(
-          item => item.layerKey !== layerKey || item.sublayerKey !== sublayerKey
-        );
-      }
       this.setState({ visibleSublayersComplete: array });
-    }
-  };
-
-  // Stored but not being used: Problems when updating state (no changes)
-  changeExpandedLayers = (layerKey, expanded) => {
-    if (this.state.showFavoriteLayers) {
-      let array = [...this.state.expandedLayersFavorites];
-      if (expanded) {
-        array.push(layerKey);
-      } else {
-        array = array.filter(item => item !== layerKey);
-      }
-      this.setState({ expandedLayersFavorites: array });
-    } else {
-      let array = [...this.state.expandedLayersComplete];
-      if (expanded) {
-        array.push(layerKey);
-      } else {
-        array = array.filter(item => item !== layerKey);
-      }
-      this.setState({ expandedLayersComplete: array });
     }
   };
 

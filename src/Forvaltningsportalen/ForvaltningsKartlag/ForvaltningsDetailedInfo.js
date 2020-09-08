@@ -10,7 +10,7 @@ import {
   Layers,
   KeyboardBackspace
 } from "@material-ui/icons";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Slider,
   ListItemIcon,
@@ -29,24 +29,91 @@ const ForvaltningsDetailedInfo = ({
   underlag,
   kartlagKey,
   underlagKey,
+  toggleSublayer,
+  toggleAllSublayers,
   onUpdateLayerProp,
   hideSublayerDetails
 }) => {
-  const tittel = kartlag.tittel;
-  // const [openFakta, setOpenFakta] = useState(false);
-  let tags = kartlag.tags || null;
+  const [tags, setTags] = useState(null);
+  const [isLargeIcon, setIsLargeIcon] = useState(false);
+  const [sublayer, setSublayer] = useState(null);
+  const [underlagTittel, setUnderlagTittel] = useState(null);
+  const [erSynlig, setErSynlig] = useState(null);
+  const [visible, setVisible] = useState(null);
+  const [sliderValue, setSliderValue] = useState(80);
+  const [listLegends, setListLegends] = useState([]);
 
-  const underlagTittel = underlag.tittel;
-  const erSynlig = underlag.erSynlig;
-  const [sliderValue, setSliderValue] = useState(underlag.opacity || 80);
-  let kode = "underlag." + underlagKey + ".";
+  const kartlagJSON = JSON.stringify(kartlag);
+
+  useEffect(() => {
+    if (kartlag) {
+      setTags(kartlag.tags);
+      const largeIcon = [
+        "Arealressurs",
+        "Arter",
+        "Klima",
+        "Skog",
+        "Landskap"
+      ].includes(kartlag.tema);
+      setIsLargeIcon(largeIcon);
+    }
+  }, [kartlag, kartlagJSON]);
+
+  useEffect(() => {
+    if (kartlag) {
+      const sublayer = underlag ? underlag : kartlag.allcategorieslayer;
+      setSublayer(sublayer);
+      setUnderlagTittel(sublayer.tittel);
+      setErSynlig(sublayer.erSynlig);
+      const visible = underlag ? sublayer.visible : sublayer.erSynlig;
+      setVisible(visible);
+      setSliderValue(sublayer.opacity || 80);
+      const legends = [];
+      if (underlag && underlag.legendeurl) {
+        legends.push(underlag.legendeurl);
+        Object.keys(kartlag.underlag).forEach(key => {
+          const sub = kartlag.underlag[key];
+          if (
+            sub.wmslayer.toLowerCase().includes("dekningskart") &&
+            sub.legendeurl
+          ) {
+            legends.push(sub.legendeurl);
+          }
+        });
+      } else {
+        Object.keys(kartlag.underlag).forEach(key => {
+          const sub = kartlag.underlag[key];
+          if (sub.legendeurl) legends.push(sub.legendeurl);
+        });
+      }
+      setListLegends(legends);
+      console.log(legends);
+    }
+  }, [kartlag, kartlagJSON, underlag]);
 
   const handleSliderChange = value => {
     setSliderValue(value / 100);
   };
+
   const changeLayerOpacity = value => {
     setSliderValue(value / 100);
-    onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+    if (allCategories || kartlag.allcategorieslayer.erSynlig) {
+      let kode = "allcategorieslayer.";
+      onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        kode = "underlag." + underlagKey + ".";
+        onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      });
+    } else {
+      let kode = "underlag." + underlagKey + ".";
+      onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      let maxOpacity = 0;
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        const opacity = kartlag.underlag[underlagKey].opacity;
+        if (opacity > maxOpacity) maxOpacity = opacity;
+      });
+      onUpdateLayerProp(kartlagKey, "allcategorieslayer.opacity", maxOpacity);
+    }
   };
   const openInNewTabWithoutOpener = url => {
     // Done this way for security reasons
@@ -54,13 +121,17 @@ const ForvaltningsDetailedInfo = ({
     newTab.opener = null;
     newTab.location = url;
   };
-  const isLargeIcon = tema => {
-    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
-      tema
-    );
+
+  const toggleSublayerDetail = () => {
+    if (allCategories) {
+      toggleAllSublayers(kartlagKey);
+    } else {
+      const kode = "underlag." + underlagKey + ".";
+      toggleSublayer(kartlagKey, underlagKey, kode, !erSynlig, !visible);
+    }
   };
 
-  if (!tittel || !underlagTittel) return null;
+  if (!kartlag.tittel || !underlagTittel) return null;
   return (
     <>
       <ListItem
@@ -95,14 +166,14 @@ const ForvaltningsDetailedInfo = ({
                 <CustomIcon
                   id="kartlag"
                   icon={kartlag.tema}
-                  size={isLargeIcon(kartlag.tema) ? 30 : 26}
-                  padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                  color={kartlag.erSynlig ? "#666" : "#999"}
+                  size={isLargeIcon ? 30 : 26}
+                  padding={isLargeIcon ? 0 : 2}
+                  color={kartlag.visible ? "#666" : "#999"}
                 />
               </Badge>
             </div>
           </ListItemIcon>
-          <ListItemText primary={tittel} />
+          <ListItemText primary={kartlag.tittel} />
         </ListItem>
 
         <div className="sublayer-details-div">
@@ -135,6 +206,7 @@ const ForvaltningsDetailedInfo = ({
                     <ListItemText primary="Produktark" />
                     {kartlag.produktark && (
                       <>
+                        <OpenInNew />
                         {/* {openFakta ? (
                           <ExpandLess
                             className="iconbutton"
@@ -150,12 +222,12 @@ const ForvaltningsDetailedInfo = ({
                             }}
                           />
                         )} */}
-                        <OpenInNew
+                        {/* <OpenInNew
                           className="iconbutton"
                           onClick={e => {
                             openInNewTabWithoutOpener(kartlag.produktark);
                           }}
-                        />
+                        /> */}
                       </>
                     )}
                   </ListItem>
@@ -231,34 +303,28 @@ const ForvaltningsDetailedInfo = ({
             <CustomSwitch
               tabIndex="0"
               id="visiblility-sublayer-toggle"
-              checked={erSynlig}
+              checked={visible}
               onChange={e => {
-                onUpdateLayerProp(
-                  kartlagKey,
-                  kode + "erSynlig",
-                  !underlag.erSynlig
-                );
+                toggleSublayerDetail();
               }}
               onKeyDown={e => {
                 if (e.keyCode === 13) {
-                  onUpdateLayerProp(
-                    kartlagKey,
-                    kode + "erSynlig",
-                    !underlag.erSynlig
-                  );
+                  toggleSublayerDetail();
                 }
               }}
             />
           </ListItemIcon>
-          <ListItemText primary={allCategories ? "Alle kategorier" : tittel} />
-          {underlag.suggested && (
+          <ListItemText
+            primary={allCategories ? "Alle kategorier" : underlag.tittel}
+          />
+          {sublayer.suggested && (
             <ListItemIcon id="bookmark-icon">
               <CustomIcon
                 id="bookmark"
                 icon="check-decagram"
                 size={20}
                 padding={0}
-                color={erSynlig ? "#666" : "#999"}
+                color={visible ? "#666" : "#999"}
               />
             </ListItemIcon>
           )}
@@ -286,11 +352,11 @@ const ForvaltningsDetailedInfo = ({
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
               getAriaValueText={opacity => opacity + " %"}
-              disabled={!erSynlig}
+              disabled={!visible}
             />
             <Visibility
               id={
-                erSynlig
+                visible
                   ? "opacity-visible-icon"
                   : "opacity-visible-icon-disabled"
               }
@@ -299,12 +365,16 @@ const ForvaltningsDetailedInfo = ({
             />
           </div>
 
-          {underlag.legendeurl && (
+          {listLegends.length > 0 && (
             <>
               <Typography id="legend-sublayer" variant="body2" gutterBottom>
                 Tegnforklaring
               </Typography>
-              <img alt="tegnforklaring" src={underlag.legendeurl} />
+              <div className="legend-sublayer-list">
+                {listLegends.map((url, index) => {
+                  return <img key={index} alt="tegnforklaring" src={url} />;
+                })}
+              </div>
             </>
           )}
         </div>

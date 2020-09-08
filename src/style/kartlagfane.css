@@ -578,8 +578,13 @@
 
 /* Sublayer details title */
 .details-content-wrapper {
-  height: 100%;
+  height: calc(100% - 50px);
   overflow-y: auto;
+}
+@media only screen and (max-width: 768px) {
+  .details-content-wrapper {
+    height: 100%;
+  }
 }
 #layer-details-list {
   background-color: #ddd;
@@ -609,7 +614,7 @@
 }
 .sublayer-details-wrapper {
   background-color: white;
-  padding: 10px 14px 15px 34px;
+  padding: 10px 14px 30px 34px;
 }
 @media only screen and (max-width: 768px) {
   .sublayer-details-wrapper {
@@ -654,6 +659,15 @@
   .details-title-text {
     font-size: 16px;
   }
+}
+
+/* Sublayter details legend list */
+.legend-sublayer-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: auto;
 }
 
 /* ---------- General transitions -----------  */
