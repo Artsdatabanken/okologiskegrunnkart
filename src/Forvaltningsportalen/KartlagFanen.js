@@ -256,6 +256,7 @@ const KartlagFanen = ({
   };
 
   const toggleAllCategoriesOff = (kartlagKey, underlagKey) => {
+    console.log("Here");
     const layer = kartlag[kartlagKey];
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
@@ -323,6 +324,7 @@ const KartlagFanen = ({
         if (!sub.visible) numberInvisible += 1;
       }
     });
+    console.log(numberInvisible);
 
     if (
       (newVisible && numberInvisible === 1) ||
@@ -341,9 +343,15 @@ const KartlagFanen = ({
     }
 
     const allcategories = allcategorieslayer.wmslayer;
+    const sublayer = layer.underlag[underlagKey];
     if (newVisible && numberInvisible === 1 && allcategories) {
       toggleAllCategoriesOn(kartlagKey);
-    } else if (!newVisible && numberInvisible === 0 && allcategories) {
+    } else if (
+      !newVisible &&
+      numberInvisible === 0 &&
+      allcategories &&
+      !sublayer.wmslayer.toLowerCase().includes("dekningskart")
+    ) {
       toggleAllCategoriesOff(kartlagKey, underlagKey);
     } else {
       onUpdateLayerProp(kartlagKey, kode + "erSynlig", newVisible);

@@ -85,9 +85,10 @@ const ForvaltningsDetailedInfo = ({
   const handleSliderChange = value => {
     setSliderValue(value / 100);
   };
+
   const changeLayerOpacity = value => {
     setSliderValue(value / 100);
-    if (allCategories) {
+    if (allCategories || kartlag.allcategorieslayer.erSynlig) {
       let kode = "allcategorieslayer.";
       onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
       Object.keys(kartlag.underlag).forEach(underlagKey => {
@@ -95,8 +96,14 @@ const ForvaltningsDetailedInfo = ({
         onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
       });
     } else {
-      const kode = "underlag." + underlagKey + ".";
+      let kode = "underlag." + underlagKey + ".";
       onUpdateLayerProp(kartlagKey, kode + "opacity", value / 100.0);
+      let maxOpacity = 0;
+      Object.keys(kartlag.underlag).forEach(underlagKey => {
+        const opacity = kartlag.underlag[underlagKey].opacity;
+        if (opacity > maxOpacity) maxOpacity = opacity;
+      });
+      onUpdateLayerProp(kartlagKey, "allcategorieslayer.opacity", maxOpacity);
     }
   };
   const openInNewTabWithoutOpener = url => {
