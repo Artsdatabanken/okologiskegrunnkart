@@ -121,20 +121,6 @@ const ForvaltningsElement = ({
             <>
               {Object.keys(kartlag.underlag).map(sublag => {
                 let lag = kartlag.underlag[sublag];
-                return (
-                  <div className="underlag" key={sublag}>
-                    <ForvaltningsUnderElement
-                      underlag={lag}
-                      kartlagKey={kartlagKey}
-                      underlagKey={sublag}
-                      toggleSublayer={toggleSublayer}
-                      showSublayerDetails={showSublayerDetails}
-                    />
-                  </div>
-                );
-              })}
-              {/* {Object.keys(kartlag.underlag).map(sublag => {
-                let lag = kartlag.underlag[sublag];
                 if (kartlag.allcategorieslayer.wmslayer !== lag.wmslayer) {
                   return (
                     <div className="underlag" key={sublag}>
@@ -150,7 +136,7 @@ const ForvaltningsElement = ({
                 } else {
                   return null;
                 }
-              })} */}
+              })}
             </>
           )}
         </div>
