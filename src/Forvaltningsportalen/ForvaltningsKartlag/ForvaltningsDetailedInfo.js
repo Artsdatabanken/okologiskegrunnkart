@@ -306,7 +306,7 @@ const ForvaltningsDetailedInfo = ({
             />
           </ListItemIcon>
           <ListItemText
-            primary={allCategories ? "Alle kategorier" : kartlag.tittel}
+            primary={allCategories ? "Alle kategorier" : underlag.tittel}
           />
           {sublayer.suggested && (
             <ListItemIcon id="bookmark-icon">
@@ -362,8 +362,8 @@ const ForvaltningsDetailedInfo = ({
                 Tegnforklaring
               </Typography>
               <div className="legend-sublayer-list">
-                {listLegends.map(url => {
-                  return <img alt="tegnforklaring" src={url} />;
+                {listLegends.map((url, index) => {
+                  return <img key={index} alt="tegnforklaring" src={url} />;
                 })}
               </div>
               {/* <img alt="tegnforklaring" src={sublayer.legendeurl} /> */}

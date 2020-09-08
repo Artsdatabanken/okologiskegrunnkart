@@ -199,54 +199,43 @@ const KartlagFanen = ({
     changeVisibleSublayers(visibleSublayersArray);
   };
 
-  const toggleAllCategoriesOn = kartlagKey => {
+  const toggleAllCategoriesOn = (kartlagKey, underlagKey) => {
     const layer = kartlag[kartlagKey];
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
 
     onUpdateLayerProp(kartlagKey, "erSynlig", true);
-    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", true);
-    const propKeys = [{ key: "allcategorieslayer.erSynlig", value: true }];
-    visibleSublayersArray.push({
-      layerKey: kartlagKey,
-      sublayerKey: "allcategorieslayer",
-      propKeys,
-      add: true
-    });
 
-    Object.keys(layer.underlag).forEach(underlagKey => {
-      let kode = "underlag." + underlagKey + ".";
-      const sublayer = layer.underlag[underlagKey];
+    Object.keys(layer.underlag).forEach(sublagkey => {
+      let kode = "underlag." + sublagkey + ".";
+      const sublayer = layer.underlag[sublagkey];
 
-      // All categories visible property always updated the same way
-      onUpdateLayerProp(kartlagKey, kode + "visible", true);
-
-      if (
-        sublayer.wmslayer.toLowerCase().includes("dekningskart") ||
-        allcategorieslayer.wmslayer === sublayer.wmslayer
-      ) {
-        // Only aggregated and dekkningskart sublayers activated
+      if (allcategorieslayer.wmslayer === sublayer.wmslayer) {
+        // Only aggregated sublayers activated
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
+        onUpdateLayerProp(kartlagKey, kode + "visible", true);
         const propKeys = [
           { key: kode + "visible", value: true },
           { key: kode + "erSynlig", value: true }
         ];
         visibleSublayersArray.push({
           layerKey: kartlagKey,
-          sublayerKey: underlagKey,
+          sublayerKey: sublagkey,
           propKeys,
           add: true
         });
-      } else {
-        // Pseudo active, but not really visible
+      } else if (!sublayer.wmslayer.toLowerCase().includes("dekningskart")) {
+        // Pseudo active, but not really visible.
+        // Only if not dekningskart sublayer
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", false);
+        onUpdateLayerProp(kartlagKey, kode + "visible", true);
         const propKeys = [
           { key: kode + "visible", value: true },
           { key: kode + "erSynlig", value: false }
         ];
         visibleSublayersArray.push({
           layerKey: kartlagKey,
-          sublayerKey: underlagKey,
+          sublayerKey: sublagkey,
           propKeys,
           add: true
         });
@@ -256,18 +245,9 @@ const KartlagFanen = ({
   };
 
   const toggleAllCategoriesOff = (kartlagKey, underlagKey) => {
-    console.log("Here");
     const layer = kartlag[kartlagKey];
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
-
-    onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", false);
-    visibleSublayersArray.push({
-      layerKey: kartlagKey,
-      sublayerKey: "allcategorieslayer",
-      propKeys: null,
-      add: false
-    });
 
     Object.keys(layer.underlag).forEach(sublagkey => {
       let kode = "underlag." + sublagkey + ".";
@@ -315,6 +295,7 @@ const KartlagFanen = ({
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
     let numberInvisible = 0;
+    let totalInvisible = 0;
     Object.keys(layer.underlag).forEach(key => {
       const sub = layer.underlag[key];
       if (
@@ -323,12 +304,14 @@ const KartlagFanen = ({
       ) {
         if (!sub.visible) numberInvisible += 1;
       }
+      if (layer.allcategorieslayer.wmslayer !== sub.wmslayer) {
+        if (!sub.visible) totalInvisible += 1;
+      }
     });
-    console.log(numberInvisible);
 
     if (
-      (newVisible && numberInvisible === 1) ||
-      (!newVisible && numberInvisible === 0)
+      (newVisible && totalInvisible === 1) ||
+      (!newVisible && totalInvisible === 0)
     ) {
       onUpdateLayerProp(kartlagKey, "allcategorieslayer.erSynlig", newVisible);
       const propKeys = [
@@ -344,8 +327,13 @@ const KartlagFanen = ({
 
     const allcategories = allcategorieslayer.wmslayer;
     const sublayer = layer.underlag[underlagKey];
-    if (newVisible && numberInvisible === 1 && allcategories) {
-      toggleAllCategoriesOn(kartlagKey);
+    if (
+      newVisible &&
+      numberInvisible === 1 &&
+      allcategories &&
+      !sublayer.wmslayer.toLowerCase().includes("dekningskart")
+    ) {
+      toggleAllCategoriesOn(kartlagKey, underlagKey);
     } else if (
       !newVisible &&
       numberInvisible === 0 &&
