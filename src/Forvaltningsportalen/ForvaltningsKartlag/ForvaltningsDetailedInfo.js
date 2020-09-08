@@ -44,7 +44,6 @@ const ForvaltningsDetailedInfo = ({
   const [listLegends, setListLegends] = useState([]);
 
   const kartlagJSON = JSON.stringify(kartlag);
-  const underlagJSON = JSON.stringify(underlag);
 
   useEffect(() => {
     if (kartlag) {
@@ -72,6 +71,15 @@ const ForvaltningsDetailedInfo = ({
       const legends = [];
       if (underlag && underlag.legendeurl) {
         legends.push(underlag.legendeurl);
+        Object.keys(kartlag.underlag).forEach(key => {
+          const sub = kartlag.underlag[key];
+          if (
+            sub.wmslayer.toLowerCase().includes("dekningskart") &&
+            sub.legendeurl
+          ) {
+            legends.push(sub.legendeurl);
+          }
+        });
       } else {
         Object.keys(kartlag.underlag).forEach(key => {
           const sub = kartlag.underlag[key];
@@ -79,8 +87,9 @@ const ForvaltningsDetailedInfo = ({
         });
       }
       setListLegends(legends);
+      console.log(legends);
     }
-  }, [kartlag, kartlagJSON, underlag, underlagJSON]);
+  }, [kartlag, kartlagJSON, underlag]);
 
   const handleSliderChange = value => {
     setSliderValue(value / 100);
@@ -366,7 +375,6 @@ const ForvaltningsDetailedInfo = ({
                   return <img key={index} alt="tegnforklaring" src={url} />;
                 })}
               </div>
-              {/* <img alt="tegnforklaring" src={sublayer.legendeurl} /> */}
             </>
           )}
         </div>
