@@ -135,6 +135,11 @@ class App extends React.Component {
         opacity: 0.8
       };
 
+      // Get all klikktekst input for aggregated layers
+      let aggClickText = {};
+      let aggClickText2 = {};
+      let aggKey = null;
+
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.key = ul.id;
@@ -151,6 +156,19 @@ class App extends React.Component {
           // Changes to "ul" will not affect "allcategorieslayer"
           k.allcategorieslayer = { ...ul };
           k.allcategorieslayer.tittel = "Alle kategorier";
+          aggKey = ul.id;
+        }
+
+        // Create aggregated klikktekst
+        if (ul.wmslayer !== k.aggregatedwmslayer) {
+          aggClickText = {
+            ...aggClickText,
+            [ul.id]: ul.klikktekst
+          };
+          aggClickText2 = {
+            ...aggClickText2,
+            [ul.id]: ul.klikktekst2
+          };
         }
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
@@ -181,6 +199,10 @@ class App extends React.Component {
 
         return acc;
       }, {});
+      if (aggKey) {
+        k.allcategorieslayer.klikktekst = { [aggKey]: aggClickText };
+        k.allcategorieslayer.klikktekst2 = { [aggKey]: aggClickText2 };
+      }
     });
     this.setState({
       completeKartlag: sortedKartlag,

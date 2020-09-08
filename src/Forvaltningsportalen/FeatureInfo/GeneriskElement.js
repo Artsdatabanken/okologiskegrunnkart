@@ -50,59 +50,120 @@ const GeneriskElement = ({
   const resultatJSON = JSON.stringify(resultat);
 
   useEffect(() => {
+    console.log("layer: ", layer);
     let noResults = 0;
     let noNoMatches = 0;
     let tempPrimary = {};
     let tempSecondary = {};
     let headerHasData = false;
     let headerDefined = false;
+    let clickText;
+    let clickText2;
+    console.log("resultat: ", resultat);
+    let aggregatedLayerKey = null;
     Object.keys(layer.underlag).forEach(subkey => {
       if (!resultat.underlag) return;
       if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
         return;
 
       const sublayer = layer.underlag[subkey];
-      const primary = formatterKlikktekst(
-        sublayer.klikktekst,
-        resultat.underlag[subkey] || resultat
-      );
-      const secondary = formatterKlikktekst(
-        sublayer.klikktekst2,
-        resultat.underlag[subkey] || resultat
-      );
-      tempPrimary = { ...tempPrimary, [subkey]: primary };
-      tempSecondary = { ...tempSecondary, [subkey]: secondary };
-
-      if (!headerHasData && primary.harData) {
-        setPrimaryTextHeader(primary);
-        headerHasData = true;
+      clickText = { [subkey]: sublayer.klikktekst };
+      clickText2 = { [subkey]: sublayer.klikktekst2 };
+      if (sublayer.aggregatedwmslayer) {
+        clickText = layer.allcategorieslayer.klikktekst;
+        clickText2 = layer.allcategorieslayer.klikktekst2;
+        aggregatedLayerKey = subkey;
       }
-
-      if (
-        sublayer.aggregatedwmslayer &&
-        sublayer.aggregatedwmslayer !== "" &&
-        primary.harData
-      ) {
-        setPrimaryTextHeader(primary);
-      }
-
-      if (
-        !headerDefined &&
-        primary.elementer.length > 0 &&
-        primary.elementer[0] &&
-        primary.elementer[0] !== "" &&
-        primary.elementer[0] !== " "
-      ) {
-        setPrimaryTextHeader(primary);
-        headerDefined = true;
-      }
-
-      if (primary.elementer && primary.elementer[0]) {
-        noResults += 1;
-      } else {
-        noNoMatches += 1;
-      }
+      // console.log(clickText)
+      // console.log(clickText2)
     });
+
+    console.log("clickText: ", clickText);
+
+    let result = resultat.underlag || resultat;
+    // if (
+    //   aggregatedLayerKey &&
+    //   resultat.underlag &&
+    //   resultat.underlag[aggregatedLayerKey]
+    // ) {
+    //   const aggregatedResult = { ...resultat.underlag[aggregatedLayerKey] };
+    //   delete result.aggregatedLayerKey;
+    //   Object.keys(aggregatedResult).forEach(key => {
+    //     result = { ...result, [key]: aggregatedResult.key };
+    //   });
+    // }
+    console.log("result: ", result);
+    console.log("clickText: ", clickText);
+
+    const primary = formatterKlikktekst(clickText, result, aggregatedLayerKey);
+    const secondary = formatterKlikktekst(
+      clickText2,
+      result,
+      aggregatedLayerKey
+    );
+
+    console.log("primary: ", primary);
+    console.log("secondary: ", secondary);
+
+    // Object.keys(layer.underlag).forEach(subkey => {
+    //   if (!resultat.underlag) return;
+    //   if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
+    //     return;
+
+    //   const sublayer = layer.underlag[subkey];
+    //   let clickText = { [subkey]: sublayer.klikktekst };
+    //   let clickText2 = { [subkey]: sublayer.klikktekst2 };
+    //   if (sublayer.aggregatedwmslayer) {
+    //     clickText = layer.allcategorieslayer.klikktekst;
+    //     clickText2 = layer.allcategorieslayer.klikktekst2;
+    //   }
+    //   // console.log(clickText)
+    //   // console.log(clickText2)
+
+    //   const primary = formatterKlikktekst(
+    //     clickText,
+    //     resultat.underlag[subkey] || resultat
+    //   );
+    //   const secondary = formatterKlikktekst(
+    //     clickText2,
+    //     resultat.underlag[subkey] || resultat
+    //   );
+
+    //   console.log(primary)
+    //   console.log(secondary)
+    //   tempPrimary = { ...tempPrimary, [subkey]: primary };
+    //   tempSecondary = { ...tempSecondary, [subkey]: secondary };
+
+    //   if (!headerHasData && primary.harData) {
+    //     setPrimaryTextHeader(primary);
+    //     headerHasData = true;
+    //   }
+
+    //   if (
+    //     sublayer.aggregatedwmslayer &&
+    //     // sublayer.aggregatedwmslayer !== "" &&
+    //     primary.harData
+    //   ) {
+    //     setPrimaryTextHeader(primary);
+    //   }
+
+    //   if (
+    //     !headerDefined &&
+    //     primary.elementer.length > 0 &&
+    //     primary.elementer[0] &&
+    //     primary.elementer[0] !== "" &&
+    //     primary.elementer[0] !== " "
+    //   ) {
+    //     setPrimaryTextHeader(primary);
+    //     headerDefined = true;
+    //   }
+
+    //   if (primary.elementer && primary.elementer[0]) {
+    //     noResults += 1;
+    //   } else {
+    //     noNoMatches += 1;
+    //   }
+    // });
     setPrimaryText(tempPrimary);
     setSecondaryText(tempSecondary);
     setNumberResults(noResults);
