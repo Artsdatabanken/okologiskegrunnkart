@@ -10,7 +10,6 @@ function lookup(o, path) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (o[segment] === undefined) {
-      //      console.warn(path, segment + " mangler i ", o);
       return null;
     }
     o = o[segment];
@@ -32,33 +31,75 @@ function mapComponent(c) {
   return { type, props };
 }
 
-const formatterKlikktekst = (formatstring = "", input) => {
-  if (input.error) return { harData: false, elementer: "Får ikke kontakt" };
-  if (input.loading)
-    return {
-      harData: false
-    };
+function matchInput(formatstring, input) {
+  let elementer;
+  let harData;
   const matches = formatstring.matchAll(
     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
   );
-  var elementer = Array.from(matches);
+
+  elementer = Array.from(matches);
   elementer = elementer.map(e => {
     const r = e.groups;
     r.component = mapComponent(r.component);
     return r;
   });
-
   elementer = elementer.map(e => {
     if (e.component) return React.createElement(Test, e.component.props);
     if (e.variable) return lookup(input, e.variable);
     if (e.literal) return e.literal;
     return null;
   });
-  const harData = elementer.some(e => e !== null);
-  return {
-    harData,
-    elementer
-  };
+
+  elementer = elementer.filter(e => e && e.replace(/ /g, "") !== "");
+  harData = elementer.some(e => e && e.replace(/ /g, "") !== "");
+
+  return { harData, elementer };
+}
+
+const formatterKlikktekst = (
+  formatstringObject = "",
+  inputObject,
+  aggregatedLayerKey
+) => {
+  if (inputObject.error) {
+    return { harData: false, elementer: "Får ikke kontakt" };
+  }
+  if (inputObject.loading) {
+    return {
+      harData: false
+    };
+  }
+
+  let result = {};
+  Object.keys(inputObject).forEach(inputkey => {
+    if (inputkey === aggregatedLayerKey) return;
+    const input = inputObject[inputkey];
+    let formatstring = formatstringObject[inputkey];
+    if (!formatstring) return;
+    const { harData, elementer } = matchInput(formatstring, input);
+    if (harData) {
+      result = { ...result, [inputkey]: { harData, elementer } };
+    }
+  });
+
+  if (aggregatedLayerKey && inputObject[aggregatedLayerKey]) {
+    Object.keys(inputObject[aggregatedLayerKey]).forEach(inputkey => {
+      if (inputkey === aggregatedLayerKey) return;
+      let input = inputObject[aggregatedLayerKey][inputkey];
+      input = { [inputkey]: input };
+
+      Object.keys(formatstringObject[aggregatedLayerKey]).forEach(stringkey => {
+        let formatstring = formatstringObject[aggregatedLayerKey][stringkey];
+        if (!formatstring) return;
+        const { harData, elementer } = matchInput(formatstring, input);
+        if (harData) {
+          result = { ...result, [stringkey]: { harData, elementer } };
+        }
+      });
+    });
+  }
+  return result;
 };
 
 export default formatterKlikktekst;

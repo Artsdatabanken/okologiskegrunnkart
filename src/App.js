@@ -135,6 +135,11 @@ class App extends React.Component {
         opacity: 0.8
       };
 
+      // Get all klikktekst input for aggregated layers
+      let aggClickText = {};
+      let aggClickText2 = {};
+      let aggKey = null;
+
       k.underlag = k.underlag || {};
       k.underlag = Object.values(k.underlag).reduce((acc, ul) => {
         ul.key = ul.id;
@@ -151,6 +156,22 @@ class App extends React.Component {
           // Changes to "ul" will not affect "allcategorieslayer"
           k.allcategorieslayer = { ...ul };
           k.allcategorieslayer.tittel = "Alle kategorier";
+          aggKey = ul.id;
+        }
+
+        // Create aggregated klikktekst
+        if (
+          ul.wmslayer !== k.aggregatedwmslayer &&
+          !ul.wmslayer.toLowerCase().includes("dekningskart")
+        ) {
+          aggClickText = {
+            ...aggClickText,
+            [ul.id]: ul.klikktekst
+          };
+          aggClickText2 = {
+            ...aggClickText2,
+            [ul.id]: ul.klikktekst2
+          };
         }
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
@@ -181,6 +202,10 @@ class App extends React.Component {
 
         return acc;
       }, {});
+      if (aggKey) {
+        k.allcategorieslayer.klikktekst = { [aggKey]: aggClickText };
+        k.allcategorieslayer.klikktekst2 = { [aggKey]: aggClickText2 };
+      }
     });
     this.setState({
       completeKartlag: sortedKartlag,
@@ -670,6 +695,7 @@ class App extends React.Component {
     // Add new layer results from selected layers
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
+      totalFeaturesSearch += 1;
       Object.keys(looplist[key].underlag).forEach(subkey => {
         if (!looplist[key].underlag[subkey].queryable) return;
         if (
@@ -677,9 +703,9 @@ class App extends React.Component {
           looplist[key].underlag[subkey].klikktekst === ""
         )
           return;
-        totalFeaturesSearch += 1;
+        // totalFeaturesSearch += 1;
         if (!layersResult[key]) {
-          layersResult[key] = {};
+          layersResult[key] = { loading: true };
           layersResult[key].underlag = {};
         }
         if (!layersResult[key].underlag[subkey]) {
@@ -688,7 +714,6 @@ class App extends React.Component {
       });
     });
 
-    // const totalFeaturesSearch = Object.keys(layersResult).length;
     let finishedFeaturesSearch = 0;
 
     // Set an interval to update state
@@ -698,6 +723,53 @@ class App extends React.Component {
     //   }
     // }, 1500);
 
+    // // ------------- USED FOR INFO FORMAT application/vnd.ogc.gm -------------- //
+    // // Loop though object and send request
+    // Object.keys(layersResult).forEach(key => {
+    //   // Object.keys(layersResult[key].underlag).forEach(subkey => {
+    //   if (!layersResult[key].loading) {
+    //     finishedFeaturesSearch += 1;
+    //     this.setState({ layersResult });
+    //     if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //       // clearInterval(updateLayers);
+    //       this.setState({ loadingFeatures: false });
+    //     }
+    //     return;
+    //   }
+    //   const layer = looplist[key];
+    //   // const sublayer = looplist[key].underlag[subkey];
+    //   backend
+    //     .getFeatureInfo(layer, null, { lat, lng, zoom })
+    //     .then(res => {
+    //       if (res.ServiceException) {
+    //         res.error = res.ServiceException;
+    //         delete res.ServiceException;
+    //       }
+    //       finishedFeaturesSearch += 1;
+    //       if (layersResult[key]) {
+    //         layersResult[key] = res;
+    //       }
+    //       this.setState({ layersResult });
+    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //         // clearInterval(updateLayers);
+    //         this.setState({ loadingFeatures: false });
+    //       }
+    //     })
+    //     .catch(e => {
+    //       finishedFeaturesSearch += 1;
+    //       if (layersResult[key]) {
+    //         layersResult[key] = { error: e.message || key };
+    //       }
+    //       this.setState({ layersResult });
+    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //         // clearInterval(updateLayers);
+    //         this.setState({ loadingFeatures: false });
+    //       }
+    //     });
+    //   // });
+    // });
+
+    // ------------- USED FOR ALL OTHER INFO FORMATS -------------- //
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       Object.keys(layersResult[key].underlag).forEach(subkey => {
@@ -742,6 +814,7 @@ class App extends React.Component {
           });
       });
     });
+
     // Visualize the loading bar after all requests have been sent (i.e. initial delay)
     if (
       Object.keys(valgteLag).length > 0 &&
@@ -771,12 +844,20 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       Object.keys(looplist[key].underlag).forEach(subkey => {
-        if (!looplist[key].underlag[subkey].queryable) return;
+        const subLooplist = looplist[key].underlag[subkey];
+        if (!subLooplist.queryable) return;
+        if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
         if (
-          !looplist[key].underlag[subkey].klikktekst ||
-          looplist[key].underlag[subkey].klikktekst === ""
-        )
-          return;
+          looplist[key].aggregatedwmslayer &&
+          looplist[key].aggregatedwmslayer !== ""
+        ) {
+          if (
+            !subLooplist.aggregatedwmslayer &&
+            !subLooplist.wmslayer.toLowerCase().includes("dekningskart")
+          ) {
+            return;
+          }
+        }
         totalFeaturesSearch += 1;
         if (!allLayersResult[key]) {
           allLayersResult[key] = {};
@@ -787,7 +868,7 @@ class App extends React.Component {
         }
       });
     });
-    // const totalFeaturesSearch = Object.keys(allLayersResult).length;
+
     let finishedFeaturesSearch = 0;
 
     // // Set an interval to update state

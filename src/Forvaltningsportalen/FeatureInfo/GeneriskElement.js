@@ -23,6 +23,7 @@ const GeneriskElement = ({
   showDetailedResults
 }) => {
   const [open, setOpen] = useState(false);
+  const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
   const [numberNoMatches, setNumberNoMatches] = useState(null);
   const [faktaark_url, setFaktaark_url] = useState(null);
@@ -52,69 +53,69 @@ const GeneriskElement = ({
   useEffect(() => {
     let noResults = 0;
     let noNoMatches = 0;
-    let tempPrimary = {};
-    let tempSecondary = {};
-    let headerHasData = false;
-    let headerDefined = false;
+    let clickText;
+    let clickText2;
+    let aggregatedLayerKey = null;
     Object.keys(layer.underlag).forEach(subkey => {
       if (!resultat.underlag) return;
       if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
         return;
 
       const sublayer = layer.underlag[subkey];
-      const primary = formatterKlikktekst(
-        sublayer.klikktekst,
-        resultat.underlag[subkey] || resultat
-      );
-      const secondary = formatterKlikktekst(
-        sublayer.klikktekst2,
-        resultat.underlag[subkey] || resultat
-      );
-      tempPrimary = { ...tempPrimary, [subkey]: primary };
-      tempSecondary = { ...tempSecondary, [subkey]: secondary };
-
-      if (!headerHasData && primary.harData) {
-        setPrimaryTextHeader(primary);
-        headerHasData = true;
+      clickText = { ...clickText, [subkey]: sublayer.klikktekst };
+      clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
+      if (sublayer.aggregatedwmslayer) {
+        clickText = { ...clickText, ...layer.allcategorieslayer.klikktekst };
+        clickText2 = { ...clickText2, ...layer.allcategorieslayer.klikktekst2 };
+        aggregatedLayerKey = subkey;
       }
-
-      if (
-        sublayer.aggregatedwmslayer &&
-        sublayer.aggregatedwmslayer !== "" &&
-        primary.harData
-      ) {
-        setPrimaryTextHeader(primary);
-      }
-
-      if (
-        !headerDefined &&
-        primary.elementer.length > 0 &&
-        primary.elementer[0] &&
-        primary.elementer[0] !== "" &&
-        primary.elementer[0] !== " "
-      ) {
-        setPrimaryTextHeader(primary);
-        headerDefined = true;
-      }
-
-      if (primary.elementer && primary.elementer[0]) {
-        noResults += 1;
-      } else {
-        noNoMatches += 1;
-      }
+      noNoMatches += 1;
     });
-    setPrimaryText(tempPrimary);
-    setSecondaryText(tempSecondary);
+
+    let result = resultat.underlag || resultat;
+
+    const primary = formatterKlikktekst(clickText, result, aggregatedLayerKey);
+    const secondary = formatterKlikktekst(
+      clickText2,
+      result,
+      aggregatedLayerKey
+    );
+
+    if (Object.keys(primary).length > 0) {
+      const indices = Object.keys(primary);
+      const firstMatch = primary[indices[0]];
+      setPrimaryTextHeader(firstMatch);
+      setPrimaryText(primary);
+      setSecondaryText(secondary);
+    } else {
+      setPrimaryTextHeader({ harData: false, elementer: [] });
+      setPrimaryText({ harData: false, elementer: [] });
+      setSecondaryText({ harData: false, elementer: [] });
+    }
+
+    let listResults = [Object.keys(primary), Object.keys(secondary)];
+    listResults = [...new Set([].concat(...listResults))] || [];
+    noResults = listResults.length;
+    noNoMatches = noNoMatches - noResults;
+
+    setListResults(listResults);
     setNumberResults(noResults);
     setNumberNoMatches(noNoMatches);
   }, [layer, resultat, resultatJSON]);
 
   useEffect(() => {
     if (showDetails && resultLayer && layer && resultLayer.id === layer.id) {
-      showDetailedResults(layer, primaryText, secondaryText, numberResults);
+      showDetailedResults(
+        layer,
+        listResults,
+        primaryText,
+        secondaryText,
+        numberResults
+      );
     }
   }, [
     layer,
+    listResults,
     resultLayer,
     primaryText,
     secondaryText,
@@ -135,7 +136,7 @@ const GeneriskElement = ({
 
   return (
     <div className="generic_element">
-      {primaryTextHeader.elementer && primaryTextHeader.elementer.length > 0 && (
+      {primaryTextHeader.elementer && (
         <ListItem
           id="generic-element-list"
           button
@@ -145,6 +146,7 @@ const GeneriskElement = ({
             e.stopPropagation();
             showDetailedResults(
               layer,
+              listResults,
               primaryText,
               secondaryText,
               numberResults

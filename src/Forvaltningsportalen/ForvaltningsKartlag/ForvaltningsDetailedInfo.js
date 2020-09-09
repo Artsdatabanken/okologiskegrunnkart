@@ -87,7 +87,6 @@ const ForvaltningsDetailedInfo = ({
         });
       }
       setListLegends(legends);
-      console.log(legends);
     }
   }, [kartlag, kartlagJSON, underlag]);
 

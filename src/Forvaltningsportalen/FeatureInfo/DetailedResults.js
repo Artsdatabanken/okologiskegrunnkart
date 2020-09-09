@@ -6,6 +6,7 @@ import CustomIcon from "../../Common/CustomIcon";
 
 const DetailedResults = ({
   resultLayer,
+  listResults,
   primaryText,
   secondaryText,
   numberResults,
@@ -82,7 +83,8 @@ const DetailedResults = ({
         <div className="infobox-details-wrapper">
           {sublayers &&
             primaryText &&
-            Object.keys(sublayers).map((key, index) => {
+            listResults &&
+            listResults.map((key, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">
                   <div className="infobox-details-title">

@@ -12,7 +12,15 @@ function getWmsFeatureUrl(layer, sublayer, coords) {
   const url = new URL(layer.wmsurl);
   const params = url.searchParams;
 
-  const layers = sublayer.wmslayer;
+  let layers;
+  if (sublayer) {
+    layers = sublayer.wmslayer;
+  } else {
+    layers = Object.values(layer.underlag)
+      .filter(l => l.queryable && l.wmslayer)
+      .map(l => l.wmslayer)
+      .join(",");
+  }
 
   const erv130 = layer.wmsversion === "1.3.0";
   const delta = 0.01;
@@ -105,7 +113,6 @@ function lookup(o, path) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (!o[segment]) {
-      //console.warn(path, segment + " mangler i ", o);
       return null;
     }
     o = o[segment];
