@@ -56,29 +56,78 @@ const GeneriskElement = ({
     let clickText;
     let clickText2;
     let aggregatedLayerKey = null;
-    Object.keys(layer.underlag).forEach(subkey => {
-      if (!resultat.underlag) return;
-      if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
-        return;
+    if (!layer) return;
 
-      const sublayer = layer.underlag[subkey];
-      clickText = { ...clickText, [subkey]: sublayer.klikktekst };
-      clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
-      if (sublayer.aggregatedwmslayer) {
-        clickText = { ...clickText, ...layer.allcategorieslayer.klikktekst };
-        clickText2 = { ...clickText2, ...layer.allcategorieslayer.klikktekst2 };
-        aggregatedLayerKey = subkey;
+    const wmsinfoformat = layer.wmsinfoformat;
+
+    if (wmsinfoformat === "application/vnd.ogc.gml") {
+      // Use GetFeatureInfo with list of sublayers per layer
+      Object.keys(layer.underlag).forEach(subkey => {
+        if (!resultat || resultat.loading) return;
+
+        const sublayer = layer.underlag[subkey];
+        clickText = { ...clickText, [subkey]: sublayer.klikktekst };
+        clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
+        if (sublayer.aggregatedwmslayer) {
+          clickText = {
+            ...clickText,
+            ...layer.allcategorieslayer.klikktekst[subkey]
+          };
+          clickText2 = {
+            ...clickText2,
+            ...layer.allcategorieslayer.klikktekst2[subkey]
+          };
+          aggregatedLayerKey = subkey;
+        }
+        noNoMatches += 1;
+      });
+
+      if (clickText && clickText[aggregatedLayerKey]) {
+        delete clickText[aggregatedLayerKey];
       }
-      noNoMatches += 1;
-    });
+      if (clickText2 && clickText2[aggregatedLayerKey]) {
+        delete clickText2[aggregatedLayerKey];
+      }
+    } else {
+      // Use GetFeatureInfo per sublayer
+      Object.keys(layer.underlag).forEach(subkey => {
+        if (!resultat.underlag) return;
+        if (resultat.underlag[subkey] && resultat.underlag[subkey].loading)
+          return;
+
+        const sublayer = layer.underlag[subkey];
+        clickText = { ...clickText, [subkey]: sublayer.klikktekst };
+        clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
+        if (sublayer.aggregatedwmslayer) {
+          clickText = { ...clickText, ...layer.allcategorieslayer.klikktekst };
+          clickText2 = {
+            ...clickText2,
+            ...layer.allcategorieslayer.klikktekst2
+          };
+          aggregatedLayerKey = subkey;
+        }
+        noNoMatches += 1;
+      });
+    }
 
     let result = resultat.underlag || resultat;
 
-    const primary = formatterKlikktekst(clickText, result, aggregatedLayerKey);
+    console.log("layer", layer);
+    console.log("result", result);
+    console.log("clickText", clickText);
+    console.log("clickText2", clickText2);
+
+    const primary = formatterKlikktekst(
+      clickText,
+      result,
+      aggregatedLayerKey,
+      wmsinfoformat
+    );
     const secondary = formatterKlikktekst(
       clickText2,
       result,
-      aggregatedLayerKey
+      aggregatedLayerKey,
+      wmsinfoformat
     );
 
     if (Object.keys(primary).length > 0) {
