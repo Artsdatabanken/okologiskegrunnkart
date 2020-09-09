@@ -62,11 +62,11 @@ const GeneriskElement = ({
         return;
 
       const sublayer = layer.underlag[subkey];
-      clickText = { [subkey]: sublayer.klikktekst };
-      clickText2 = { [subkey]: sublayer.klikktekst2 };
+      clickText = { ...clickText, [subkey]: sublayer.klikktekst };
+      clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
       if (sublayer.aggregatedwmslayer) {
-        clickText = layer.allcategorieslayer.klikktekst;
-        clickText2 = layer.allcategorieslayer.klikktekst2;
+        clickText = { ...clickText, ...layer.allcategorieslayer.klikktekst };
+        clickText2 = { ...clickText2, ...layer.allcategorieslayer.klikktekst2 };
         aggregatedLayerKey = subkey;
       }
       noNoMatches += 1;

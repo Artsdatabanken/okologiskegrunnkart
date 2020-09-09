@@ -62,12 +62,14 @@ const formatterKlikktekst = (
   inputObject,
   aggregatedLayerKey
 ) => {
-  if (inputObject.error)
+  if (inputObject.error) {
     return { harData: false, elementer: "Får ikke kontakt" };
-  if (inputObject.loading)
+  }
+  if (inputObject.loading) {
     return {
       harData: false
     };
+  }
 
   let result = {};
   Object.keys(inputObject).forEach(inputkey => {

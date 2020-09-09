@@ -692,6 +692,7 @@ class App extends React.Component {
     // Add new layer results from selected layers
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
+      totalFeaturesSearch += 1;
       Object.keys(looplist[key].underlag).forEach(subkey => {
         if (!looplist[key].underlag[subkey].queryable) return;
         if (
@@ -699,9 +700,9 @@ class App extends React.Component {
           looplist[key].underlag[subkey].klikktekst === ""
         )
           return;
-        totalFeaturesSearch += 1;
+        // totalFeaturesSearch += 1;
         if (!layersResult[key]) {
-          layersResult[key] = {};
+          layersResult[key] = { loading: true };
           layersResult[key].underlag = {};
         }
         if (!layersResult[key].underlag[subkey]) {
@@ -720,6 +721,53 @@ class App extends React.Component {
     //   }
     // }, 1500);
 
+    // // ------------- USED FOR ALL OTHER INFO FORMATS -------------- //
+    // // Loop though object and send request
+    // Object.keys(layersResult).forEach(key => {
+    //   // Object.keys(layersResult[key].underlag).forEach(subkey => {
+    //   if (!layersResult[key].loading) {
+    //     finishedFeaturesSearch += 1;
+    //     this.setState({ layersResult });
+    //     if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //       // clearInterval(updateLayers);
+    //       this.setState({ loadingFeatures: false });
+    //     }
+    //     return;
+    //   }
+    //   const layer = looplist[key];
+    //   // const sublayer = looplist[key].underlag[subkey];
+    //   backend
+    //     .getFeatureInfo(layer, null, { lat, lng, zoom })
+    //     .then(res => {
+    //       if (res.ServiceException) {
+    //         res.error = res.ServiceException;
+    //         delete res.ServiceException;
+    //       }
+    //       finishedFeaturesSearch += 1;
+    //       if (layersResult[key]) {
+    //         layersResult[key] = res;
+    //       }
+    //       this.setState({ layersResult });
+    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //         // clearInterval(updateLayers);
+    //         this.setState({ loadingFeatures: false });
+    //       }
+    //     })
+    //     .catch(e => {
+    //       finishedFeaturesSearch += 1;
+    //       if (layersResult[key]) {
+    //         layersResult[key] = { error: e.message || key };
+    //       }
+    //       this.setState({ layersResult });
+    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
+    //         // clearInterval(updateLayers);
+    //         this.setState({ loadingFeatures: false });
+    //       }
+    //     });
+    //   // });
+    // });
+
+    // ------------- USED FOR INFO FORMAT application/vnd.ogc.wms_xml -------------- //
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       Object.keys(layersResult[key].underlag).forEach(subkey => {
@@ -764,6 +812,7 @@ class App extends React.Component {
           });
       });
     });
+
     // Visualize the loading bar after all requests have been sent (i.e. initial delay)
     if (
       Object.keys(valgteLag).length > 0 &&
