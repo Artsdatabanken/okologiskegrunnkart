@@ -67,10 +67,13 @@ const ClickInfobox = ({
     numberResults
   ) => {
     setShowDetails(true);
-    setResultLayer(layer);
+    // setResultLayer(layer);
+    setResultLayer(kartlag[layer.id]);
     setPrimaryText(primaryText);
     setSecondaryText(secondaryText);
     setNumberResults(numberResults);
+    console.log("primaryText", primaryText);
+    console.log("secondaryText", secondaryText);
   };
 
   const hideDetailedResults = () => {

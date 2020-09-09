@@ -52,8 +52,8 @@ function matchInput(formatstring, input) {
     return null;
   });
 
-  elementer = elementer.filter(e => e && e !== "" && e !== " ");
-  harData = elementer.some(e => e && e !== "" && e !== " ");
+  elementer = elementer.filter(e => e && e.replace(/ /g, "") !== "");
+  harData = elementer.some(e => e && e.replace(/ /g, "") !== "");
 
   return { harData, elementer };
 }
@@ -63,9 +63,9 @@ const formatterKlikktekst = (
   inputObject,
   aggregatedLayerKey
 ) => {
-  console.log("formatstringObject: ", formatstringObject);
+  // console.log("formatstringObject: ", formatstringObject);
   // console.log("input: ", input)
-  console.log("inputObject: ", inputObject);
+  // console.log("inputObject: ", inputObject);
   if (inputObject.error)
     return { harData: false, elementer: "Får ikke kontakt" };
   if (inputObject.loading)
@@ -79,9 +79,9 @@ const formatterKlikktekst = (
   Object.keys(inputObject).forEach(inputkey => {
     if (inputkey === aggregatedLayerKey) return;
     const input = inputObject[inputkey];
-    console.log("input: ", input);
+    // console.log("input: ", input);
     let formatstring = formatstringObject[inputkey];
-    console.log("formatstring: ", formatstring);
+    // console.log("formatstring: ", formatstring);
     if (!formatstring) return;
 
     // console.log("inputkey: ", inputkey)
@@ -93,7 +93,7 @@ const formatterKlikktekst = (
     }
   });
 
-  if (aggregatedLayerKey) {
+  if (aggregatedLayerKey && inputObject[aggregatedLayerKey]) {
     Object.keys(inputObject[aggregatedLayerKey]).forEach(inputkey => {
       if (inputkey === aggregatedLayerKey) return;
 

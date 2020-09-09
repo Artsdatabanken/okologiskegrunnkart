@@ -19,6 +19,10 @@ const DetailedResults = ({
 
   const sublayers = resultLayer.underlag;
 
+  // Concatenate results in an array and remove duplicates
+  let listResults = [Object.keys(primaryText), Object.keys(secondaryText)];
+  listResults = [...new Set([].concat(...listResults))];
+
   const resultText = resultArray => {
     if (!resultArray.isArray && resultArray.length === 0) {
       return "Ingen treff";
@@ -82,7 +86,7 @@ const DetailedResults = ({
         <div className="infobox-details-wrapper">
           {sublayers &&
             primaryText &&
-            Object.keys(sublayers).map((key, index) => {
+            listResults.map((key, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">
                   <div className="infobox-details-title">
