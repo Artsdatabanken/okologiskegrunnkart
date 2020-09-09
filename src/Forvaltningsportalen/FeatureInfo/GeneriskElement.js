@@ -24,8 +24,8 @@ const GeneriskElement = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [listResults, setListResults] = useState(null);
-  const [numberResults, setNumberResults] = useState(null);
-  const [numberNoMatches, setNumberNoMatches] = useState(null);
+  const [numberResults, setNumberResults] = useState(0);
+  const [numberNoMatches, setNumberNoMatches] = useState(0);
   const [faktaark_url, setFaktaark_url] = useState(null);
 
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
