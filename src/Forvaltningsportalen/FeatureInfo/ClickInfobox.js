@@ -24,6 +24,7 @@ const ClickInfobox = ({
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
   const [secondaryText, setSecondaryText] = useState(null);
+  const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
@@ -62,23 +63,23 @@ const ClickInfobox = ({
 
   const showDetailedResults = (
     layer,
+    listResults,
     primaryText,
     secondaryText,
     numberResults
   ) => {
     setShowDetails(true);
-    // setResultLayer(layer);
     setResultLayer(kartlag[layer.id]);
+    setListResults(listResults);
     setPrimaryText(primaryText);
     setSecondaryText(secondaryText);
     setNumberResults(numberResults);
-    console.log("primaryText", primaryText);
-    console.log("secondaryText", secondaryText);
   };
 
   const hideDetailedResults = () => {
     setShowDetails(false);
     setResultLayer(null);
+    setListResults(null);
     setPrimaryText(null);
     setSecondaryText(null);
     setNumberResults(null);
@@ -89,6 +90,7 @@ const ClickInfobox = ({
       {showDetails && (
         <DetailedResults
           resultLayer={resultLayer}
+          listResults={listResults}
           primaryText={primaryText}
           secondaryText={secondaryText}
           numberResults={numberResults}

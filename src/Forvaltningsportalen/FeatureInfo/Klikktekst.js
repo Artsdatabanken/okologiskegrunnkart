@@ -10,7 +10,6 @@ function lookup(o, path) {
   const segments = path.split(".");
   for (var segment of segments) {
     if (o[segment] === undefined) {
-      //      console.warn(path, segment + " mangler i ", o);
       return null;
     }
     o = o[segment];
@@ -63,9 +62,6 @@ const formatterKlikktekst = (
   inputObject,
   aggregatedLayerKey
 ) => {
-  // console.log("formatstringObject: ", formatstringObject);
-  // console.log("input: ", input)
-  // console.log("inputObject: ", inputObject);
   if (inputObject.error)
     return { harData: false, elementer: "Får ikke kontakt" };
   if (inputObject.loading)
@@ -73,20 +69,12 @@ const formatterKlikktekst = (
       harData: false
     };
 
-  // let elementer;
-  // let harData;
   let result = {};
   Object.keys(inputObject).forEach(inputkey => {
     if (inputkey === aggregatedLayerKey) return;
     const input = inputObject[inputkey];
-    // console.log("input: ", input);
     let formatstring = formatstringObject[inputkey];
-    // console.log("formatstring: ", formatstring);
     if (!formatstring) return;
-
-    // console.log("inputkey: ", inputkey)
-    // console.log("formatstring: ", formatstring)
-
     const { harData, elementer } = matchInput(formatstring, input);
     if (harData) {
       result = { ...result, [inputkey]: { harData, elementer } };
@@ -96,17 +84,13 @@ const formatterKlikktekst = (
   if (aggregatedLayerKey && inputObject[aggregatedLayerKey]) {
     Object.keys(inputObject[aggregatedLayerKey]).forEach(inputkey => {
       if (inputkey === aggregatedLayerKey) return;
-
       let input = inputObject[aggregatedLayerKey][inputkey];
       input = { [inputkey]: input };
 
       Object.keys(formatstringObject[aggregatedLayerKey]).forEach(stringkey => {
         let formatstring = formatstringObject[aggregatedLayerKey][stringkey];
-
         if (!formatstring) return;
-
         const { harData, elementer } = matchInput(formatstring, input);
-
         if (harData) {
           result = { ...result, [stringkey]: { harData, elementer } };
         }
@@ -114,34 +98,6 @@ const formatterKlikktekst = (
     });
   }
   return result;
-  // Object.keys(formatstringObject).forEach(inputkey => {
-  //   const formatstring = formatstringObject[inputkey];
-  //   // console.log("inputkey: ", inputkey)
-  //   console.log("formatstring: ", formatstring)
-  //   const matches = formatstring.matchAll(
-  //     /\{(?<variable>.*?)\}|<(?<component>.*?)\/>|(?<literal>[^<{]+)/g
-  //   );
-
-  //   elementer = Array.from(matches);
-  //   elementer = elementer.map(e => {
-  //     const r = e.groups;
-  //     r.component = mapComponent(r.component);
-  //     return r;
-  //   });
-  //   elementer = elementer.map(e => {
-  //     if (e.component) return React.createElement(Test, e.component.props);
-  //     if (e.variable) return lookup(input, e.variable);
-  //     if (e.literal) return e.literal;
-  //     return null;
-  //   });
-
-  //   harData = elementer.some(e => e !== null);
-  //   console.log(harData, elementer)
-  //   if (harData) {
-  //     result = { ...result, [inputkey]: { harData, elementer } };
-  //   }
-  // });
-  // return result;
 };
 
 export default formatterKlikktekst;

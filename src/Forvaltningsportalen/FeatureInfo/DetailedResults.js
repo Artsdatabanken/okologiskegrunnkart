@@ -6,6 +6,7 @@ import CustomIcon from "../../Common/CustomIcon";
 
 const DetailedResults = ({
   resultLayer,
+  listResults,
   primaryText,
   secondaryText,
   numberResults,
@@ -18,10 +19,6 @@ const DetailedResults = ({
   };
 
   const sublayers = resultLayer.underlag;
-
-  // Concatenate results in an array and remove duplicates
-  let listResults = [Object.keys(primaryText), Object.keys(secondaryText)];
-  listResults = [...new Set([].concat(...listResults))];
 
   const resultText = resultArray => {
     if (!resultArray.isArray && resultArray.length === 0) {
@@ -86,6 +83,7 @@ const DetailedResults = ({
         <div className="infobox-details-wrapper">
           {sublayers &&
             primaryText &&
+            listResults &&
             listResults.map((key, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">

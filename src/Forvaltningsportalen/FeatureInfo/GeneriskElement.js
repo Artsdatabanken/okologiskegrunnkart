@@ -23,6 +23,7 @@ const GeneriskElement = ({
   showDetailedResults
 }) => {
   const [open, setOpen] = useState(false);
+  const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
   const [numberNoMatches, setNumberNoMatches] = useState(null);
   const [faktaark_url, setFaktaark_url] = useState(null);
@@ -50,12 +51,10 @@ const GeneriskElement = ({
   const resultatJSON = JSON.stringify(resultat);
 
   useEffect(() => {
-    console.log("layer: ", layer);
     let noResults = 0;
     let noNoMatches = 0;
     let clickText;
     let clickText2;
-    console.log("resultat: ", resultat);
     let aggregatedLayerKey = null;
     Object.keys(layer.underlag).forEach(subkey => {
       if (!resultat.underlag) return;
@@ -71,16 +70,9 @@ const GeneriskElement = ({
         aggregatedLayerKey = subkey;
       }
       noNoMatches += 1;
-      // console.log(clickText)
-      // console.log(clickText2)
     });
 
-    console.log("clickText: ", clickText);
-
     let result = resultat.underlag || resultat;
-
-    console.log("result: ", result);
-    console.log("clickText: ", clickText);
 
     const primary = formatterKlikktekst(clickText, result, aggregatedLayerKey);
     const secondary = formatterKlikktekst(
@@ -89,9 +81,6 @@ const GeneriskElement = ({
       aggregatedLayerKey
     );
 
-    console.log("primary: ", primary);
-    console.log("secondary: ", secondary);
-
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
       const firstMatch = primary[indices[0]];
@@ -99,22 +88,30 @@ const GeneriskElement = ({
     }
 
     let listResults = [Object.keys(primary), Object.keys(secondary)];
-    listResults = [...new Set([].concat(...listResults))];
+    listResults = [...new Set([].concat(...listResults))] || [];
     noResults = listResults.length;
     noNoMatches = noNoMatches - noResults;
 
     setPrimaryText(primary);
     setSecondaryText(secondary);
+    setListResults(listResults);
     setNumberResults(noResults);
     setNumberNoMatches(noNoMatches);
   }, [layer, resultat, resultatJSON]);
 
   useEffect(() => {
     if (showDetails && resultLayer && layer && resultLayer.id === layer.id) {
-      showDetailedResults(layer, primaryText, secondaryText, numberResults);
+      showDetailedResults(
+        layer,
+        listResults,
+        primaryText,
+        secondaryText,
+        numberResults
+      );
     }
   }, [
     layer,
+    listResults,
     resultLayer,
     primaryText,
     secondaryText,
@@ -145,6 +142,7 @@ const GeneriskElement = ({
             e.stopPropagation();
             showDetailedResults(
               layer,
+              listResults,
               primaryText,
               secondaryText,
               numberResults
