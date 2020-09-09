@@ -85,6 +85,12 @@ const GeneriskElement = ({
       const indices = Object.keys(primary);
       const firstMatch = primary[indices[0]];
       setPrimaryTextHeader(firstMatch);
+      setPrimaryText(primary);
+      setSecondaryText(secondary);
+    } else {
+      setPrimaryTextHeader({ harData: false, elementer: [] });
+      setPrimaryText({ harData: false, elementer: [] });
+      setSecondaryText({ harData: false, elementer: [] });
     }
 
     let listResults = [Object.keys(primary), Object.keys(secondary)];
@@ -92,8 +98,6 @@ const GeneriskElement = ({
     noResults = listResults.length;
     noNoMatches = noNoMatches - noResults;
 
-    setPrimaryText(primary);
-    setSecondaryText(secondary);
     setListResults(listResults);
     setNumberResults(noResults);
     setNumberNoMatches(noNoMatches);
@@ -132,7 +136,7 @@ const GeneriskElement = ({
 
   return (
     <div className="generic_element">
-      {primaryTextHeader.elementer && primaryTextHeader.elementer.length > 0 && (
+      {primaryTextHeader.elementer && (
         <ListItem
           id="generic-element-list"
           button

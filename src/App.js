@@ -160,7 +160,10 @@ class App extends React.Component {
         }
 
         // Create aggregated klikktekst
-        if (ul.wmslayer !== k.aggregatedwmslayer) {
+        if (
+          ul.wmslayer !== k.aggregatedwmslayer &&
+          !ul.wmslayer.toLowerCase().includes("dekningskart")
+        ) {
           aggClickText = {
             ...aggClickText,
             [ul.id]: ul.klikktekst
@@ -711,7 +714,6 @@ class App extends React.Component {
       });
     });
 
-    // const totalFeaturesSearch = Object.keys(layersResult).length;
     let finishedFeaturesSearch = 0;
 
     // Set an interval to update state
@@ -721,7 +723,7 @@ class App extends React.Component {
     //   }
     // }, 1500);
 
-    // // ------------- USED FOR ALL OTHER INFO FORMATS -------------- //
+    // // ------------- USED FOR INFO FORMAT application/vnd.ogc.gm -------------- //
     // // Loop though object and send request
     // Object.keys(layersResult).forEach(key => {
     //   // Object.keys(layersResult[key].underlag).forEach(subkey => {
@@ -767,7 +769,7 @@ class App extends React.Component {
     //   // });
     // });
 
-    // ------------- USED FOR INFO FORMAT application/vnd.ogc.wms_xml -------------- //
+    // ------------- USED FOR ALL OTHER INFO FORMATS -------------- //
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       Object.keys(layersResult[key].underlag).forEach(subkey => {
@@ -842,12 +844,20 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       Object.keys(looplist[key].underlag).forEach(subkey => {
-        if (!looplist[key].underlag[subkey].queryable) return;
+        const subLooplist = looplist[key].underlag[subkey];
+        if (!subLooplist.queryable) return;
+        if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
         if (
-          !looplist[key].underlag[subkey].klikktekst ||
-          looplist[key].underlag[subkey].klikktekst === ""
-        )
-          return;
+          looplist[key].aggregatedwmslayer &&
+          looplist[key].aggregatedwmslayer !== ""
+        ) {
+          if (
+            !subLooplist.aggregatedwmslayer &&
+            !subLooplist.wmslayer.toLowerCase().includes("dekningskart")
+          ) {
+            return;
+          }
+        }
         totalFeaturesSearch += 1;
         if (!allLayersResult[key]) {
           allLayersResult[key] = {};
@@ -858,7 +868,7 @@ class App extends React.Component {
         }
       });
     });
-    // const totalFeaturesSearch = Object.keys(allLayersResult).length;
+
     let finishedFeaturesSearch = 0;
 
     // // Set an interval to update state
