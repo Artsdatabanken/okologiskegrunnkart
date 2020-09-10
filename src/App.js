@@ -332,6 +332,7 @@ class App extends React.Component {
                         handleSideBar={this.handleSideBar}
                         handleInfobox={this.handleInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
+                        loadingFeatures={this.state.loadingFeatures}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -695,23 +696,27 @@ class App extends React.Component {
     // Add new layer results from selected layers
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
-      totalFeaturesSearch += 1;
-      Object.keys(looplist[key].underlag).forEach(subkey => {
-        if (!looplist[key].underlag[subkey].queryable) return;
-        if (
-          !looplist[key].underlag[subkey].klikktekst ||
-          looplist[key].underlag[subkey].klikktekst === ""
-        )
-          return;
-        // totalFeaturesSearch += 1;
-        if (!layersResult[key]) {
-          layersResult[key] = { loading: true };
-          layersResult[key].underlag = {};
-        }
-        if (!layersResult[key].underlag[subkey]) {
-          layersResult[key].underlag[subkey] = { loading: true };
-        }
-      });
+      const wmsinfoformat = looplist[key].wmsinfoformat;
+      if (wmsinfoformat === "application/vnd.ogc.gml") {
+        // Use GetFeatureInfo with list of sublayers per layer
+        totalFeaturesSearch += 1;
+        layersResult[key] = { loading: true, wmsinfoformat };
+      } else {
+        // Use GetFeatureInfo per sublayer
+        Object.keys(looplist[key].underlag).forEach(subkey => {
+          const subLooplist = looplist[key].underlag[subkey];
+          if (!subLooplist.queryable) return;
+          if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
+          totalFeaturesSearch += 1;
+          if (!layersResult[key]) {
+            layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key].underlag = {};
+          }
+          if (!layersResult[key].underlag[subkey]) {
+            layersResult[key].underlag[subkey] = { loading: true };
+          }
+        });
+      }
     });
 
     let finishedFeaturesSearch = 0;
@@ -723,57 +728,14 @@ class App extends React.Component {
     //   }
     // }, 1500);
 
-    // // ------------- USED FOR INFO FORMAT application/vnd.ogc.gm -------------- //
-    // // Loop though object and send request
-    // Object.keys(layersResult).forEach(key => {
-    //   // Object.keys(layersResult[key].underlag).forEach(subkey => {
-    //   if (!layersResult[key].loading) {
-    //     finishedFeaturesSearch += 1;
-    //     this.setState({ layersResult });
-    //     if (totalFeaturesSearch === finishedFeaturesSearch) {
-    //       // clearInterval(updateLayers);
-    //       this.setState({ loadingFeatures: false });
-    //     }
-    //     return;
-    //   }
-    //   const layer = looplist[key];
-    //   // const sublayer = looplist[key].underlag[subkey];
-    //   backend
-    //     .getFeatureInfo(layer, null, { lat, lng, zoom })
-    //     .then(res => {
-    //       if (res.ServiceException) {
-    //         res.error = res.ServiceException;
-    //         delete res.ServiceException;
-    //       }
-    //       finishedFeaturesSearch += 1;
-    //       if (layersResult[key]) {
-    //         layersResult[key] = res;
-    //       }
-    //       this.setState({ layersResult });
-    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
-    //         // clearInterval(updateLayers);
-    //         this.setState({ loadingFeatures: false });
-    //       }
-    //     })
-    //     .catch(e => {
-    //       finishedFeaturesSearch += 1;
-    //       if (layersResult[key]) {
-    //         layersResult[key] = { error: e.message || key };
-    //       }
-    //       this.setState({ layersResult });
-    //       if (totalFeaturesSearch === finishedFeaturesSearch) {
-    //         // clearInterval(updateLayers);
-    //         this.setState({ loadingFeatures: false });
-    //       }
-    //     });
-    //   // });
-    // });
-
-    // ------------- USED FOR ALL OTHER INFO FORMATS -------------- //
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
-      Object.keys(layersResult[key].underlag).forEach(subkey => {
-        if (!layersResult[key].underlag[subkey].loading) {
+      const layer = looplist[key];
+      const wmsinfoformat = layersResult[key].wmsinfoformat;
+
+      if (wmsinfoformat === "application/vnd.ogc.gml") {
+        // Use GetFeatureInfo with list of sublayers per layer
+        if (!layersResult[key].loading) {
           finishedFeaturesSearch += 1;
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -782,10 +744,9 @@ class App extends React.Component {
           }
           return;
         }
-        const layer = looplist[key];
-        const sublayer = looplist[key].underlag[subkey];
+        // const sublayer = looplist[key].underlag[subkey];
         backend
-          .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+          .getFeatureInfo(layer, null, { lat, lng, zoom })
           .then(res => {
             if (res.ServiceException) {
               res.error = res.ServiceException;
@@ -793,7 +754,7 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
-              layersResult[key].underlag[subkey] = res;
+              layersResult[key] = res;
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -804,7 +765,9 @@ class App extends React.Component {
           .catch(e => {
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
-              layersResult[key].underlag[subkey] = { error: e.message || key };
+              layersResult[key] = {
+                error: e.message || key
+              };
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -812,7 +775,51 @@ class App extends React.Component {
               this.setState({ loadingFeatures: false });
             }
           });
-      });
+      } else {
+        // Use GetFeatureInfo per sublayer
+        Object.keys(layersResult[key].underlag).forEach(subkey => {
+          if (!layersResult[key].underlag[subkey].loading) {
+            finishedFeaturesSearch += 1;
+            this.setState({ layersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              // clearInterval(updateLayers);
+              this.setState({ loadingFeatures: false });
+            }
+            return;
+          }
+          const sublayer = looplist[key].underlag[subkey];
+          backend
+            .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+            .then(res => {
+              if (res.ServiceException) {
+                res.error = res.ServiceException;
+                delete res.ServiceException;
+              }
+              finishedFeaturesSearch += 1;
+              if (layersResult[key]) {
+                layersResult[key].underlag[subkey] = res;
+              }
+              this.setState({ layersResult });
+              if (totalFeaturesSearch === finishedFeaturesSearch) {
+                // clearInterval(updateLayers);
+                this.setState({ loadingFeatures: false });
+              }
+            })
+            .catch(e => {
+              finishedFeaturesSearch += 1;
+              if (layersResult[key]) {
+                layersResult[key].underlag[subkey] = {
+                  error: e.message || key
+                };
+              }
+              this.setState({ layersResult });
+              if (totalFeaturesSearch === finishedFeaturesSearch) {
+                // clearInterval(updateLayers);
+                this.setState({ loadingFeatures: false });
+              }
+            });
+        });
+      }
     });
 
     // Visualize the loading bar after all requests have been sent (i.e. initial delay)
@@ -843,30 +850,37 @@ class App extends React.Component {
     const looplist = this.state.kartlag;
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
-      Object.keys(looplist[key].underlag).forEach(subkey => {
-        const subLooplist = looplist[key].underlag[subkey];
-        if (!subLooplist.queryable) return;
-        if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
-        if (
-          looplist[key].aggregatedwmslayer &&
-          looplist[key].aggregatedwmslayer !== ""
-        ) {
-          if (
-            !subLooplist.aggregatedwmslayer &&
-            !subLooplist.wmslayer.toLowerCase().includes("dekningskart")
-          ) {
-            return;
-          }
-        }
+      const wmsinfoformat = looplist[key].wmsinfoformat;
+      if (wmsinfoformat === "application/vnd.ogc.gml") {
+        // Use GetFeatureInfo with list of sublayers per layer
         totalFeaturesSearch += 1;
-        if (!allLayersResult[key]) {
-          allLayersResult[key] = {};
-          allLayersResult[key].underlag = {};
-        }
-        if (!allLayersResult[key].underlag[subkey]) {
-          allLayersResult[key].underlag[subkey] = { loading: true };
-        }
-      });
+        allLayersResult[key] = { loading: true, wmsinfoformat };
+      } else {
+        Object.keys(looplist[key].underlag).forEach(subkey => {
+          const subLooplist = looplist[key].underlag[subkey];
+          if (!subLooplist.queryable) return;
+          if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
+          if (
+            looplist[key].aggregatedwmslayer &&
+            looplist[key].aggregatedwmslayer !== ""
+          ) {
+            if (
+              !subLooplist.aggregatedwmslayer &&
+              !subLooplist.wmslayer.toLowerCase().includes("dekningskart")
+            ) {
+              return;
+            }
+          }
+          totalFeaturesSearch += 1;
+          if (!allLayersResult[key]) {
+            allLayersResult[key] = { loading: true, wmsinfoformat };
+            allLayersResult[key].underlag = {};
+          }
+          if (!allLayersResult[key].underlag[subkey]) {
+            allLayersResult[key].underlag[subkey] = { loading: true };
+          }
+        });
+      }
     });
 
     let finishedFeaturesSearch = 0;
@@ -880,8 +894,11 @@ class App extends React.Component {
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
-      Object.keys(allLayersResult[key].underlag).forEach(subkey => {
-        if (!allLayersResult[key].underlag[subkey].loading) {
+      const layer = looplist[key];
+      const wmsinfoformat = allLayersResult[key].wmsinfoformat;
+
+      if (wmsinfoformat === "application/vnd.ogc.gml") {
+        if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
           this.setState({ allLayersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -890,18 +907,15 @@ class App extends React.Component {
           }
           return;
         }
-        const layer = looplist[key];
-        const sublayer = looplist[key].underlag[subkey];
-
         backend
-          .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+          .getFeatureInfo(layer, null, { lat, lng, zoom })
           .then(res => {
             if (res.ServiceException) {
               res.error = res.ServiceException;
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            allLayersResult[key].underlag[subkey] = res;
+            allLayersResult[key] = res;
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               // clearInterval(updateLayers);
@@ -910,14 +924,54 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
-            allLayersResult[key].underlag[subkey] = { error: e.message || key };
+            allLayersResult[key] = { error: e.message || key };
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
-      });
+      } else {
+        Object.keys(allLayersResult[key].underlag).forEach(subkey => {
+          if (!allLayersResult[key].underlag[subkey].loading) {
+            finishedFeaturesSearch += 1;
+            this.setState({ allLayersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              // clearInterval(updateLayers);
+              this.setState({ loadingFeatures: false });
+            }
+            return;
+          }
+          const sublayer = looplist[key].underlag[subkey];
+
+          backend
+            .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+            .then(res => {
+              if (res.ServiceException) {
+                res.error = res.ServiceException;
+                delete res.ServiceException;
+              }
+              finishedFeaturesSearch += 1;
+              allLayersResult[key].underlag[subkey] = res;
+              this.setState({ allLayersResult });
+              if (totalFeaturesSearch === finishedFeaturesSearch) {
+                // clearInterval(updateLayers);
+                this.setState({ loadingFeatures: false });
+              }
+            })
+            .catch(e => {
+              finishedFeaturesSearch += 1;
+              allLayersResult[key].underlag[subkey] = {
+                error: e.message || key
+              };
+              this.setState({ allLayersResult });
+              if (totalFeaturesSearch === finishedFeaturesSearch) {
+                // clearInterval(updateLayers);
+                this.setState({ loadingFeatures: false });
+              }
+            });
+        });
+      }
     });
     // Visualize the loading bar after all requests have been sent (i.e. initial delay)
     if (totalFeaturesSearch > finishedFeaturesSearch) {

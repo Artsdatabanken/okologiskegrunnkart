@@ -57,20 +57,34 @@ function matchInput(formatstring, input) {
   return { harData, elementer };
 }
 
-const formatterKlikktekst = (
-  formatstringObject = "",
+function klikktekstVersjon1(
+  formatstringObject,
   inputObject,
   aggregatedLayerKey
-) => {
-  if (inputObject.error) {
-    return { harData: false, elementer: "Får ikke kontakt" };
-  }
-  if (inputObject.loading) {
-    return {
-      harData: false
-    };
-  }
+) {
+  let result = {};
+  Object.keys(inputObject).forEach(inputkey => {
+    if (inputkey === aggregatedLayerKey) return;
+    let input = inputObject[inputkey];
+    input = { [inputkey]: input };
 
+    Object.keys(formatstringObject).forEach(stringkey => {
+      let formatstring = formatstringObject[stringkey];
+      if (!formatstring) return;
+      const { harData, elementer } = matchInput(formatstring, input);
+      if (harData) {
+        result = { ...result, [stringkey]: { harData, elementer } };
+      }
+    });
+  });
+  return result;
+}
+
+function klikktekstVersjon2(
+  formatstringObject,
+  inputObject,
+  aggregatedLayerKey
+) {
   let result = {};
   Object.keys(inputObject).forEach(inputkey => {
     if (inputkey === aggregatedLayerKey) return;
@@ -98,6 +112,38 @@ const formatterKlikktekst = (
         }
       });
     });
+  }
+  return result;
+}
+
+const formatterKlikktekst = (
+  formatstringObject = "",
+  inputObject,
+  aggregatedLayerKey,
+  wmsinfoformat
+) => {
+  if (inputObject.error) {
+    return { harData: false, elementer: "Får ikke kontakt" };
+  }
+  if (inputObject.loading) {
+    return {
+      harData: false
+    };
+  }
+
+  let result;
+  if (wmsinfoformat === "application/vnd.ogc.gml") {
+    result = klikktekstVersjon1(
+      formatstringObject,
+      inputObject,
+      aggregatedLayerKey
+    );
+  } else {
+    result = klikktekstVersjon2(
+      formatstringObject,
+      inputObject,
+      aggregatedLayerKey
+    );
   }
   return result;
 };
