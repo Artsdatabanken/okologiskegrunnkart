@@ -112,11 +112,6 @@ const GeneriskElement = ({
 
     let result = resultat.underlag || resultat;
 
-    console.log("layer", layer);
-    console.log("result", result);
-    console.log("clickText", clickText);
-    console.log("clickText2", clickText2);
-
     const primary = formatterKlikktekst(
       clickText,
       result,
