@@ -26,6 +26,7 @@ const ClickInfobox = ({
   const [secondaryText, setSecondaryText] = useState(null);
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
+  const [infoboxScroll, setInfoboxScroll] = useState(0);
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
   const longitude = coordinates_area ? coordinates_area.lng : 0;
@@ -68,6 +69,12 @@ const ClickInfobox = ({
     secondaryText,
     numberResults
   ) => {
+    // Remember scroll position of infobox
+    if (!showDetails) {
+      const wrapper = document.querySelector(".infobox-side");
+      setInfoboxScroll(wrapper.scrollTop);
+    }
+
     setShowDetails(true);
     setResultLayer(kartlag[layer.id]);
     setListResults(listResults);
@@ -83,10 +90,17 @@ const ClickInfobox = ({
     setPrimaryText(null);
     setSecondaryText(null);
     setNumberResults(null);
+
+    // Set scroll position to original value
+    let wrapper = document.querySelector(".infobox-side");
+    setTimeout(() => {
+      wrapper.scrollTop = infoboxScroll;
+    }, 5);
   };
 
   return (
-    <div className={`infobox-side${showDetails ? " show-details" : ""}`}>
+    // <div className={`infobox-side${showDetails ? " show-details" : ""}`}>
+    <div className={`infobox-side`}>
       {showDetails && (
         <DetailedResults
           resultLayer={resultLayer}
