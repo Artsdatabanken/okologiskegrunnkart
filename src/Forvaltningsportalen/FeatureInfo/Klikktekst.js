@@ -52,6 +52,18 @@ function matchInput(formatstring, input) {
   });
 
   elementer = elementer.filter(e => e && e.replace(/ /g, "") !== "");
+  elementer = elementer.filter(e => e && e.toLowerCase() !== "null");
+
+  // Capitalize and add separation point if needed
+  for (let i = 0; i < elementer.length; i++) {
+    if (typeof elementer[i] === "string" || elementer[i] instanceof String) {
+      elementer[i] =
+        elementer[i].charAt(0).toUpperCase() + elementer[i].slice(1);
+    }
+    if (i < elementer.length - 1) {
+      elementer[i] = elementer[i] + ". ";
+    }
+  }
   harData = elementer.some(e => e && e.replace(/ /g, "") !== "");
 
   return { harData, elementer };

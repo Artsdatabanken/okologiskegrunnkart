@@ -683,7 +683,7 @@ class App extends React.Component {
     Object.keys(layersResult).forEach(key => {
       if (!looplist[key]) {
         delete layersResult[key];
-      } else {
+      } else if (layersResult[key]) {
         Object.keys(layersResult[key].underlag).forEach(subkey => {
           if (!looplist[key].underlag[subkey]) {
             delete layersResult[key].underlag[subkey];
