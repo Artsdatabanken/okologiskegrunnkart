@@ -147,7 +147,7 @@ export default function TjenesteContainer() {
           uri.searchParams.set("srs", "EPSG:4326");
           doc.klikk_testurl = uri.toString();
         }
-        const r = await getFeatureInfo(doc.klikk_testurl);
+        const r = await getFeatureInfo(doc, doc.klikk_testurl);
         delete r.url;
         delete r.status;
         delete r.contentType;

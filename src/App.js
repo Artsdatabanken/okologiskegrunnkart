@@ -697,7 +697,10 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
-      if (wmsinfoformat === "application/vnd.ogc.gml") {
+      if (
+        wmsinfoformat === "application/vnd.ogc.gml" ||
+        wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+      ) {
         // Use GetFeatureInfo with list of sublayers per layer
         totalFeaturesSearch += 1;
         layersResult[key] = { loading: true, wmsinfoformat };
@@ -733,7 +736,10 @@ class App extends React.Component {
       const layer = looplist[key];
       const wmsinfoformat = layersResult[key].wmsinfoformat;
 
-      if (wmsinfoformat === "application/vnd.ogc.gml") {
+      if (
+        wmsinfoformat === "application/vnd.ogc.gml" ||
+        wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+      ) {
         // Use GetFeatureInfo with list of sublayers per layer
         if (!layersResult[key].loading) {
           finishedFeaturesSearch += 1;
@@ -851,7 +857,10 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
-      if (wmsinfoformat === "application/vnd.ogc.gml") {
+      if (
+        wmsinfoformat === "application/vnd.ogc.gml" ||
+        wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+      ) {
         // Use GetFeatureInfo with list of sublayers per layer
         totalFeaturesSearch += 1;
         allLayersResult[key] = { loading: true, wmsinfoformat };
@@ -897,7 +906,10 @@ class App extends React.Component {
       const layer = looplist[key];
       const wmsinfoformat = allLayersResult[key].wmsinfoformat;
 
-      if (wmsinfoformat === "application/vnd.ogc.gml") {
+      if (
+        wmsinfoformat === "application/vnd.ogc.gml" ||
+        wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+      ) {
         if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
           this.setState({ allLayersResult });

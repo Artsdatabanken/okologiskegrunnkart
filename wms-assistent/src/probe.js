@@ -8,7 +8,41 @@ const firstChar2Format = {
   "<": wms_api
 };
 
-export async function probe(url) {
+// Modify response JSON if info format is "application/vnd.esri.wms_raw_xml"
+function modifyXmlResponse(response) {
+  let res = response["esri_wms:FeatureInfoCollection"];
+  let result;
+  if (!res) return response;
+  if (Array.isArray(res)) {
+    for (const item of res) {
+      const tempRes = modifyObject(item);
+      result = { ...result, ...tempRes };
+    }
+  } else {
+    result = modifyObject(res);
+  }
+  return result;
+}
+
+function modifyObject(object) {
+  const layerName = object.layername;
+  let content = object["esri_wms:FeatureInfo"];
+  if (!layerName || !content) return object;
+  let contentResult = {};
+  content = content["esri_wms:Field"];
+  if (!content) return object;
+  if (Array.isArray(content) && content.length > 0) {
+    for (const item of content) {
+      const name = item["esri_wms:FieldName"];
+      const value = item["esri_wms:FieldValue"];
+      contentResult = { ...contentResult, [name]: value };
+    }
+  }
+  const result = { [layerName]: contentResult };
+  return result;
+}
+
+export async function probe(layer, url) {
   var r = { url: url };
   try {
     const response = await fetch(url);
@@ -19,6 +53,9 @@ export async function probe(url) {
     const api = firstChar2Format[text[0]] || json_api;
     var res = api.parse(text);
     res = res.FIELDS || res;
+    if (layer.wmsinfoformat === "application/vnd.esri.wms_raw_xml") {
+      res = modifyXmlResponse(res);
+    }
     r.response = res;
     r.status = response.status;
     r.statusText = response.statusText;
@@ -29,8 +66,8 @@ export async function probe(url) {
   return r;
 }
 
-async function probe_wms(uri) {
-  var r = await probe(uri.toString());
+async function probe_wms(layer, uri) {
+  var r = await probe(layer, uri.toString());
   if (r.status === 200) {
     const response = r.response;
     if (response.ServiceException) {
@@ -55,14 +92,14 @@ export async function getCapabilities(url) {
   return probe_wms(uri);
 }
 
-export async function getFeatureInfo(url) {
+export async function getFeatureInfo(layer, url) {
   try {
     var uri = new URL(url);
   } catch (e) {
     return { status: 900, statusText: e.message };
   }
   if ((uri.searchParams.get("service") || "").toUpperCase() === "WMS")
-    return await probe_wms(uri);
-  const r = await probe(uri);
+    return await probe_wms(layer, uri);
+  const r = await probe(layer, uri);
   return r.response || r;
 }

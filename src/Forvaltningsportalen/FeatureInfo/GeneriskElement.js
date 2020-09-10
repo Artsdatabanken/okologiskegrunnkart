@@ -60,7 +60,10 @@ const GeneriskElement = ({
 
     const wmsinfoformat = layer.wmsinfoformat;
 
-    if (wmsinfoformat === "application/vnd.ogc.gml") {
+    if (
+      wmsinfoformat === "application/vnd.ogc.gml" ||
+      wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+    ) {
       // Use GetFeatureInfo with list of sublayers per layer
       Object.keys(layer.underlag).forEach(subkey => {
         if (!resultat || resultat.loading) return;
