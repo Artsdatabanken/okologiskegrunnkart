@@ -116,6 +116,40 @@ class Backend {
       return { ...i, ...i[featureKey] };
     }
 
+    // Modify response JSON if info format is "application/vnd.esri.wms_raw_xml"
+    function modifyXmlResponse(response) {
+      let res = response["esri_wms:FeatureInfoCollection"];
+      let result;
+      if (!res) return response;
+      if (Array.isArray(res)) {
+        for (const item of res) {
+          const tempRes = modifyObject(item);
+          result = { ...result, ...tempRes };
+        }
+      } else {
+        result = modifyObject(res);
+      }
+      return result;
+    }
+
+    function modifyObject(object) {
+      const layerName = object.layername;
+      let content = object["esri_wms:FeatureInfo"];
+      if (!layerName || !content) return object;
+      let contentResult = {};
+      content = content["esri_wms:Field"];
+      if (!content) return object;
+      if (Array.isArray(content) && content.length > 0) {
+        for (const item of content) {
+          const name = item["esri_wms:FieldName"];
+          const value = item["esri_wms:FieldValue"];
+          contentResult = { ...contentResult, [name]: value };
+        }
+      }
+      const result = { [layerName]: contentResult };
+      return result;
+    }
+
     // Naive format detection
     const firstChar2Format = {
       "[": json_api,
@@ -133,6 +167,9 @@ class Backend {
             var res = api.parse(text);
             res = res.FIELDS || res;
             res = collapseLayerFeature(res);
+            if (layer.wmsinfoformat === "application/vnd.esri.wms_raw_xml") {
+              res = modifyXmlResponse(res);
+            }
             for (var key of boringkeys) delete res[key];
             resolve(res);
           });

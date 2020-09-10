@@ -97,6 +97,7 @@ class KartlagAPIView(APIView):
 
             format_list = [
                 "application/vnd.ogc.gml",
+                "application/vnd.esri.wms_raw_xml",
                 "application/vnd.ogc.wms_xml",
                 "text/xml",
                 "application/vnd.esri.wms_featureinfo_xml",

@@ -132,7 +132,10 @@ const formatterKlikktekst = (
   }
 
   let result;
-  if (wmsinfoformat === "application/vnd.ogc.gml") {
+  if (
+    wmsinfoformat === "application/vnd.ogc.gml" ||
+    wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+  ) {
     result = klikktekstVersjon1(
       formatstringObject,
       inputObject,
