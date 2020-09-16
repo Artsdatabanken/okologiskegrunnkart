@@ -172,6 +172,10 @@ const GeneriskElement = ({
   ]);
 
   useEffect(() => {
+    if (!layer || !layer.faktaark) {
+      setFaktaark_url(null);
+      return;
+    }
     const faktUrl = url_formatter(layer.faktaark, {
       ...coordinates_area,
       ...resultat
