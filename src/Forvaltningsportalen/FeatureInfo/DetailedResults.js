@@ -21,6 +21,7 @@ const DetailedResults = ({
   const sublayers = resultLayer.underlag;
 
   const resultText = resultArray => {
+    if (!resultArray) return "";
     if (!resultArray.isArray && resultArray.length === 0) {
       return "Ingen treff";
     }
