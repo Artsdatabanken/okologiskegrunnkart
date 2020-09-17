@@ -226,10 +226,26 @@
   },
   {
     "model": "sessions.session",
+    "pk": "m6jcmy5le1bypwkjuxwauslm8b29bln7",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-09-17T08:23:10.850Z"
+    }
+  },
+  {
+    "model": "sessions.session",
     "pk": "m8k5z2weyig93whkowl4felg5iv6z5qu",
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
       "expire_date": "2020-06-24T08:52:22.349Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "n31ndudfjcrczg0f4s8q0epwxwevaf0z",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-09-17T07:19:38.214Z"
     }
   },
   {
@@ -254,6 +270,14 @@
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
       "expire_date": "2020-08-11T21:28:04.583Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "rkv9opt00o3zzigle2w7z35u4ewgnpms",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-09-24T07:37:57.518Z"
     }
   },
   {
@@ -571,7 +595,7 @@
       "klikkurl": "",
       "klikktekst": "{Dekningskart_detalj_layer.Dekningskart_detalj_feature.hkl_klasse}",
       "klikktekst2": "{Bekkeklofter_all_layer.gml:name} {Gamle_trar_all_layer.gml:name} {Liggende_dod_ved_all_layer.gml:name} {Trar_m_hengelav_all_layer.gml:name} {Rik_bakkeveg_all_layer.gml:name} {Eldre_lauvsuksesjon_all_layer.gml:name} {Rikbarkstrar_all_layer.gml:name} {Staende_dod_ved_all_layer.gml:name} {Leirraviner_all_layer.gml:name} {Bergvegger_flate_all_layer.gml:name} {Hule_lauvtrar_all_layer.gml:name}   {Brannflater_all_layer.gml:name} {Bergvegger_linje_all_layer.gml:name}",
-      "aggregatedwmslayer": "",
+      "aggregatedwmslayer": "Livsmiljoer",
       "type": 1,
       "tag": [1, 2]
     }
@@ -606,7 +630,7 @@
     "fields": {
       "tittel": "Naturtyper - NiN Mdir",
       "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/naturtyper-miljoedirektoratets-instruks/eb48dd19-03da-41e1-afd9-7ebc3079265c",
-      "faktaark": "{2.Faktaark}",
+      "faktaark": "{Faktaark}",
       "produktark": "https://register.geonorge.no/data/documents/Produktark_naturtyper-nin_v1_produktark-naturtypernin-2019-03-29_.pdf",
       "dataeier": 2,
       "tema": 3,
@@ -614,7 +638,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "9.649519801762619,62.82190353719113",
       "klikkurl": "",
       "klikktekst": "{0.Naturtype} {Dekningskartverdi}",
@@ -854,9 +878,9 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/mapserver/WMSServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
+      "klikkurl": "",
       "klikktekst": "{0.Naturtype}",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -926,7 +950,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "",
       "klikkurl": "",
       "klikktekst": "",
@@ -953,9 +977,9 @@
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "10.291146368086485,63.31593737468374",
       "klikkurl": "",
-      "klikktekst": "{NT_punkt_layer.NT_punkt_feature.NorskNavn}  {VU_punkt_layer.VU_punkt_feature.NorskNavn}{CR_punkt_layer.CR_punkt_feature.NorskNavn}{EN_punkt_layer.EN_punkt_feature.NorskNavn}{RE_punkt_layer.RE_punkt_feature.NorskNavn}{CR_punkt_layer.CR_punkt_feature.NorskNavn}",
-      "klikktekst2": "R\u00f8dlistekategori {Observations.0.Status}",
-      "aggregatedwmslayer": "",
+      "klikktekst": "",
+      "klikktekst2": "",
+      "aggregatedwmslayer": "Artskart",
       "type": null,
       "tag": [7]
     }
@@ -1022,7 +1046,7 @@
       "wmsurl": "https://gis3.nve.no/map/services/Elvenett1/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "14.56083758824259,66.24571453253706",
       "klikkurl": "",
       "klikktekst": "{0.elvenavn}",
@@ -1046,9 +1070,9 @@
       "wmsurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "9.456098886373809,62.668469113329266",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1060,9 +1084,9 @@
     "model": "forvaltningsportal.kartlag",
     "pk": 36,
     "fields": {
-      "tittel": "Artskart - fremmede arter 2018",
+      "tittel": "Arter - fremmede arter 2018",
       "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/artskart-fremmede-arter-wms/010e6d6b-5ba7-4d1c-9b2e-e5dc6133fc79",
-      "faktaark": "",
+      "faktaark": "{SE_punkt_layer.SE_punkt_feature.URL}  {HI_punkt_layer.SE_punkt_feature.URL}  {PH_punkt_layer.SE_punkt_feature.URL}  {LO_punkt_layer.SE_punkt_feature.URL}  {NK_punkt_layer.SE_punkt_feature.URL}",
       "produktark": "",
       "dataeier": 3,
       "tema": 10,
@@ -1075,7 +1099,7 @@
       "klikkurl": "",
       "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
       "klikktekst2": "",
-      "aggregatedwmslayer": "",
+      "aggregatedwmslayer": "Artskart",
       "type": 10,
       "tag": [7]
     }
@@ -1142,9 +1166,9 @@
       "wmsurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "",
-      "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1166,7 +1190,7 @@
       "wmsurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "15.25812819661964,66.3216417433855",
       "klikkurl": "",
       "klikktekst": "{magasin}",
@@ -1190,11 +1214,11 @@
       "wmsurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "13.921232236433998,66.07782931537668",
       "klikkurl": "",
-      "klikktekst": "{objType} {0.objType}",
-      "klikktekst2": "{0.status} {konsStatus}",
+      "klikktekst": "",
+      "klikktekst2": "",
       "aggregatedwmslayer": "",
       "type": 11,
       "tag": [3, 8, 10]
@@ -1260,7 +1284,7 @@
       "tema": 13,
       "publiser": false,
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/ramsar/MapServer/WMSServer?request=GetCapabilities&service=WMS",
-      "wmsversion": "1.1.1",
+      "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.wms_xml",
       "testkoordinater": "13.946733281142086,66.41340027413038",
@@ -1358,7 +1382,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_marine_hb19/MapServer/WMSServer?service=wms&request=getcapabilities",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "6.227870488428447,62.70375779197561",
       "klikkurl": "",
       "klikktekst": "{0.Naturtype}",
@@ -1454,7 +1478,7 @@
       "wmsurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "8.316291004621604,61.477808786394284",
       "klikkurl": "",
       "klikktekst": "{0.BRENAVN} {0.OBJTYPE}",
@@ -1478,9 +1502,9 @@
       "wmsurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WMSServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1494,7 +1518,7 @@
     "fields": {
       "tittel": "Villreinomr\u00e5der",
       "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/villreinomraader/fc59e9a4-59df-4eb3-978a-1c173b84bf4e",
-      "faktaark": "{1.faktaark_villreinomraade}",
+      "faktaark": "{faktaark_villreinomraade}",
       "produktark": "https://register.geonorge.no/data/documents/produktark_Villreinomr%C3%A5der_produktark-miljodir-villreinomrader-2014_.pdf",
       "dataeier": 2,
       "tema": 10,
@@ -1502,7 +1526,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/villrein/MapServer/WMSServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.177551977610106,62.53639775772075",
       "klikkurl": "",
       "klikktekst": "{0.omraadenavn}",
@@ -1622,11 +1646,11 @@
       "wmsurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.22857664022479,63.111474182338625",
       "klikkurl": "",
-      "klikktekst": "{skredType}",
-      "klikktekst2": "{skredNavn} {skredTidspunkt}",
+      "klikktekst": "",
+      "klikktekst2": "",
       "aggregatedwmslayer": "",
       "type": 11,
       "tag": [3, 8]
@@ -1758,7 +1782,7 @@
     "fields": {
       "tittel": "Flomsoner",
       "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/flomsoner/e95008fc-0945-4d66-8bc9-e50ab3f50401",
-      "faktaark": "{5.prosjektURL}",
+      "faktaark": "{FlomsoneAnalyseomraade.prosjektURL}",
       "produktark": "https://register.geonorge.no/data/documents/Produktark_Flomsoner_v7_flomsoner11012019_.pdf",
       "dataeier": 4,
       "tema": 8,
@@ -1766,7 +1790,7 @@
       "wmsurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.231453675993052,63.10629159018282",
       "klikkurl": "",
       "klikktekst": "{0.objektType}",
@@ -1788,13 +1812,13 @@
       "tema": 13,
       "publiser": false,
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WMSServer?request=GetCapabilities&service=WMS",
-      "wmsversion": "1.1.1",
+      "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "8.172328320946969,62.91704462383387",
       "klikkurl": "",
-      "klikktekst": "{0.Lokalitetnavn}",
-      "klikktekst2": "{1.Lokalitettype}",
+      "klikktekst": "",
+      "klikktekst2": "",
       "aggregatedwmslayer": "",
       "type": 11,
       "tag": [3, 8]
@@ -1814,7 +1838,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "11.18085478248102,59.38036780941633",
       "klikkurl": "",
       "klikktekst": "{Navn}",
@@ -1838,7 +1862,7 @@
       "wmsurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "",
-      "wmsinfoformat": "application/vnd.ogc.wms_xml",
+      "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.219829045063562,63.34179136415241",
       "klikkurl": "",
       "klikktekst": "{Vitenskapelig_navn}",
@@ -1864,8 +1888,8 @@
       "suggested": true,
       "testkoordinater": "10.267373187228037,59.07995600382745",
       "klikkurl": "",
-      "klikktekst": "{Dekningskart_detalj_layer.Dekningskart_detalj_feature.hkl_klasse}",
-      "klikktekst2": "{Bekkeklofter_all_layer.gml:name} {Gamle_trar_all_layer.gml:name} {Liggende_dod_ved_all_layer.gml:name} {Trar_m_hengelav_all_layer.gml:name} {Rik_bakkeveg_all_layer.gml:name} {Eldre_lauvsuksesjon_all_layer.gml:name} {Rikbarkstrar_all_layer.gml:name} {Staende_dod_ved_all_layer.gml:name} {Leirraviner_all_layer.gml:name} {Bergvegger_flate_all_layer.gml:name} {Hule_lauvtrar_all_layer.gml:name}   {Brannflater_all_layer.gml:name} {Bergvegger_linje_all_layer.gml:name}"
+      "klikktekst": "",
+      "klikktekst2": ""
     }
   },
   {
@@ -1884,8 +1908,8 @@
       "suggested": true,
       "testkoordinater": "9.61826050517913,59.94538275567055",
       "klikkurl": "",
-      "klikktekst": "{Arealtype_layer.Arealtype_feature.vanlig_beskrivelse}",
-      "klikktekst2": ""
+      "klikktekst": "{Arealtype_layer.Arealtype_feature.enkel_beskrivelse}",
+      "klikktekst2": "{Arealtype_layer.Arealtype_feature.vanlig_beskrivelse}"
     }
   },
   {
@@ -1902,10 +1926,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": true,
-      "testkoordinater": "11.958618392548892,63.99154700263019",
+      "testkoordinater": "9.607377355961267,62.8099295074738",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtyper_nin_alle.Naturtype}",
+      "klikktekst2": "{naturtyper_nin_alle.Lokalitetskvalitet}"
     }
   },
   {
@@ -2002,7 +2026,7 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.42605254786378,63.528970541102794",
+      "testkoordinater": "7.140770238160187,58.018325073087894",
       "klikkurl": "",
       "klikktekst": "{layer_388_layer.layer_388_feature.fjord}",
       "klikktekst2": "{layer_388_layer.gml:name}"
@@ -2062,10 +2086,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": true,
-      "testkoordinater": "12.879067178937614,64.43341044010516",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{denavn}"
+      "testkoordinater": "12.875976562500002,64.44911135697006",
+      "klikkurl": "",
+      "klikktekst": "{naturtyper_hb13_alle.Naturtype}",
+      "klikktekst2": "{naturtyper_hb13_alle.Utforming} {naturtyper_hb13_alle.Verdi}"
     }
   },
   {
@@ -2104,8 +2128,8 @@
       "suggested": true,
       "testkoordinater": "7.791699277121331,63.08555197596222",
       "klikkurl": "https://geo.ngu.no/mapserver/MarinGrenseWMS3?SERVICE=WMS&VERSION=1.3.0&REQUEST=getfeatureinfo&FORMAT=image/png&TRANSPARENT=TRUE&QUERY_LAYERS=Mulig_marin_leire&CRS=EPSG:4326&BGCOLOR=0xffffff&STYLES=default,&LAYERS=Mulig_marin_leire&INFO_FORMAT=text/html&FEATURE_COUNT=10&I=50&J=50&WIDTH=101&HEIGHT=101&BBOX={BBOX}",
-      "klikktekst": "{response.Mulighet_for_marin_leire_layer.Mulighet_for_marin_leire_feature.losmasse_text}",
-      "klikktekst2": "{Mulighet_for_marin_leire_layer.gml:name}"
+      "klikktekst": "{Mulighet_for_marin_leire_layer.Mulighet_for_marin_leire_feature.losmasse_text}",
+      "klikktekst2": "{Mulighet_for_marin_leire_layer.Mulighet_for_marin_leire_feature.muligmarinleire_text}"
     }
   },
   {
@@ -2122,10 +2146,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "10.237541198730469,62.530694018402485",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_arter_av_stor_forv_int_NT_omr.Navn} {Alle_arter_av_stor_forv_int_NT_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_arter_av_stor_forv_int_NT_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -2144,8 +2168,8 @@
       "suggested": true,
       "testkoordinater": "7.760888909018032,63.08162765086636",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
-      "klikktekst": "{RE_punkt_layer.RE_punkt_feature.NorskNavn} {RE_punkt_layer.RE_punkt_feature.Species}{RE_punkt_layer.EN_punkt_feature.NorskNavn} {RE_punkt_layer.EN_punkt_feature.Species}{RE_punkt_layer.CR_punkt_feature.NorskNavn} {RE_punkt_layer.CR_punkt_feature.Species}{RE_punkt_layer.VU_punkt_feature.NorskNavn} {RE_punkt_layer.VU_punkt_feature.Species}{RE_punkt_layer.NT_punkt_feature.NorskNavn} {RE_punkt_layer.NT_punkt_feature.Species}",
-      "klikktekst2": "{NT_punkt_layer.gml:name} {VU_punkt_layer.gml:name} {EN_punkt_layer.gml:name}{RE_punkt_layer.gml:name}{CR_punkt_layer.gml:name}"
+      "klikktekst": "",
+      "klikktekst2": ""
     }
   },
   {
@@ -2153,8 +2177,8 @@
     "pk": 30,
     "fields": {
       "tittel": "Dekningskart",
-      "wmslayer": "dekningskart_nin",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=dekningskart_nin&format=image/png&sld_version=1.1.0",
+      "wmslayer": "dekningskart_naturtyper_nin",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=dekningskart_naturtyper_nin&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -2162,10 +2186,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "5.734591681876769,58.65837072837851",
+      "testkoordinater": "9.766277074813845,62.815474641894255",
       "klikkurl": "",
-      "klikktekst": "{Dekningskartverdi}",
-      "klikktekst2": "{Program}"
+      "klikktekst": "{dekningskart_naturtyper_nin.Dekningskartverdi}",
+      "klikktekst2": "{dekningskart_naturtyper_nin.Program}"
     }
   },
   {
@@ -2182,10 +2206,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "10.180035604186344,62.51772565623371",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_arter_av_stor_forv_int_NT_pkt.Navn} {Alle_arter_av_stor_forv_int_NT_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_arter_av_stor_forv_int_NT_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -2202,10 +2226,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "10.186902027026537,62.53498382618209",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_arter_av_sarlig_stor_forv_int_omr.Navn} {Alle_arter_av_sarlig_stor_forv_int_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_arter_av_sarlig_stor_forv_int_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -2222,10 +2246,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "10.186558607558794,62.530149485817674",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_arter_av_sarlig_stor_forv_int_pkt.Navn} {Alle_arter_av_sarlig_stor_forv_int_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_arter_av_sarlig_stor_forv_int_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -2242,10 +2266,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "9.715004763159245,63.16203484074252",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_fremmede_arter_omr.Navn} {Alle_fremmede_arter_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_fremmede_arter_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -2262,10 +2286,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "9.639516193809975,63.14897034126381",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Alle_fremmede_arter_pkt.Navn} {Alle_fremmede_arter_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Alle_fremmede_arter_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -2682,10 +2706,10 @@
       "minscaledenominator": 40000,
       "maxscaledenominator": 1000000,
       "suggested": false,
-      "testkoordinater": "10.267373187228037,59.07995600382745",
+      "testkoordinater": "9.931640625000002,63.14443090047574",
       "klikkurl": "",
-      "klikktekst": "{Dekningskart_detalj_layer.Dekningskart_detalj_feature.hkl_klasse}",
-      "klikktekst2": "{Bekkeklofter_all_layer.gml:name} {Gamle_trar_all_layer.gml:name} {Liggende_dod_ved_all_layer.gml:name} {Trar_m_hengelav_all_layer.gml:name} {Rik_bakkeveg_all_layer.gml:name} {Eldre_lauvsuksesjon_all_layer.gml:name} {Rikbarkstrar_all_layer.gml:name} {Staende_dod_ved_all_layer.gml:name} {Leirraviner_all_layer.gml:name} {Bergvegger_flate_all_layer.gml:name} {Hule_lauvtrar_all_layer.gml:name}   {Brannflater_all_layer.gml:name} {Bergvegger_linje_all_layer.gml:name}"
+      "klikktekst": "{Dekningskart_oversikt_layer.Dekningskart_oversikt_feature.hkl_klasse}",
+      "klikktekst2": ""
     }
   },
   {
@@ -2722,10 +2746,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "11.960554168100384,61.521937824558485",
+      "testkoordinater": "8.80693144722201,63.22797266358618",
       "klikkurl": "",
-      "klikktekst": "{Bekkeklofter_all_layer.gml:name}",
-      "klikktekst2": "{Bekkeklofter_all_layer.Bekkeklofter_all_feature.vegtype_beskr}"
+      "klikktekst": "{Bekkeklofter_all_layer.Bekkeklofter_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Bekkeklofter_all_layer.Bekkeklofter_all_feature.topografi}"
     }
   },
   {
@@ -2742,10 +2766,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "9.553718292015862,59.19005938812679",
+      "testkoordinater": "9.964763330272122,59.773478503640234",
       "klikkurl": "",
-      "klikktekst": "{Bergvegger_flate_all_layer.Bergvegger_flate_all_feature.livsm_beskr}",
-      "klikktekst2": "{Bergvegger_flate_all_layer.Bergvegger_flate_all_feature.vegtype_beskr}"
+      "klikktekst": "{Bergvegger_flate_all_layer.Bergvegger_flate_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Bergvegger_flate_all_layer.Bergvegger_flate_all_feature.topografi}"
     }
   },
   {
@@ -2762,9 +2786,9 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "11.337850300973765,61.563986375816505",
+      "testkoordinater": "9.965621692299099,59.77346765624081",
       "klikkurl": "",
-      "klikktekst": "{Bergvegger_linje_all_layer.Bergvegger_linje_all_feature.livsm_beskr}",
+      "klikktekst": "{Bergvegger_linje_all_layer.Bergvegger_linje_all_feature.regdato}",
       "klikktekst2": ""
     }
   },
@@ -2782,10 +2806,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "9.496180166147942,59.044947657689356",
+      "testkoordinater": "8.923090412305188,58.93485243231468",
       "klikkurl": "",
-      "klikktekst": "{Brannflater_all_layer.gml:name}",
-      "klikktekst2": "{Brannflater_all_layer.Brannflater_all_feature.vegtype_beskr}"
+      "klikktekst": "{Brannflater_all_layer.Brannflater_all_feature.vegtype_beskr}",
+      "klikktekst2": ""
     }
   },
   {
@@ -2802,10 +2826,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "11.259925417994735,61.56391996101753",
+      "testkoordinater": "9.516071857904338,59.180248424540764",
       "klikkurl": "",
-      "klikktekst": "{Gamle_trar_all_layer.Gamle_trar_all_feature.livsm_beskr}",
-      "klikktekst2": "{Gamle_trar_all_layer.Gamle_trar_all_feature.vegtype_beskr}"
+      "klikktekst": "{Gamle_trar_all_layer.Gamle_trar_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Gamle_trar_all_layer.Gamle_trar_all_feature.topografi}"
     }
   },
   {
@@ -2822,10 +2846,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "11.037829475500331,60.16585274975855",
+      "testkoordinater": "9.532133508682206,59.17891742904499",
       "klikkurl": "",
-      "klikktekst": "{Leirraviner_all_layer.Leirraviner_all_feature.livsm_beskr}",
-      "klikktekst2": "{Leirraviner_all_layer.Leirraviner_all_feature.vegtype_beskr}"
+      "klikktekst": "{Leirraviner_all_layer.Leirraviner_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Leirraviner_all_layer.Leirraviner_all_feature.topografi}"
     }
   },
   {
@@ -2842,10 +2866,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "9.947178482807272,59.81354070700377",
+      "testkoordinater": "8.978689871837561,59.07659713712551",
       "klikkurl": "",
-      "klikktekst": "{Liggende_dod_ved_all_layer.Liggende_dod_ved_all_feature.livsm_beskr}",
-      "klikktekst2": "{Liggende_dod_ved_all_layer.Liggende_dod_ved_all_feature.vegtype_beskr}"
+      "klikktekst": "{Liggende_dod_ved_all_layer.Liggende_dod_ved_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Liggende_dod_ved_all_layer.Liggende_dod_ved_all_feature.topografi}"
     }
   },
   {
@@ -3042,10 +3066,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1417410,
       "suggested": true,
-      "testkoordinater": "10.185007007420982,63.0610510587306",
+      "testkoordinater": "10.193523728695563,63.09825382114305",
       "klikkurl": "https://gis3.NVE.no/map/services/Elvenett1/MapServer/WmsServer?QUERY_LAYERS=hovedelv,elvenett&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "klikktekst": "{elvenavn}",
-      "klikktekst2": "{objType}  {objType}"
+      "klikktekst": "{hovedelv.elvenavn}",
+      "klikktekst2": "{hovedelv.objType}"
     }
   },
   {
@@ -3062,10 +3086,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 94494,
       "suggested": true,
-      "testkoordinater": "10.19755482866319,63.08340774759849",
+      "testkoordinater": "10.239252455827096,63.027893861456455",
       "klikkurl": "https://gis3.NVE.no/map/services/Elvenett1/MapServer/WmsServer?QUERY_LAYERS=hovedelv,elvenett&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "klikktekst": "{elvenavn}",
-      "klikktekst2": "{elvehierarki} {objType}"
+      "klikktekst": "{elvenett.objType}",
+      "klikktekst2": "{elvenett.elvehierarki}"
     }
   },
   {
@@ -3082,10 +3106,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 302380,
       "suggested": true,
-      "testkoordinater": "9.456098886373809,62.668469113329266",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "9.689941406250002,62.81125410359009",
+      "klikkurl": "",
+      "klikktekst": "{Innsjodatabase.navn}",
+      "klikktekst2": "{Innsjodatabase.objType}"
     }
   },
   {
@@ -3102,9 +3126,9 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "8.06136320057219,63.28143064966482",
+      "testkoordinater": "10.266209680698633,63.2898624026215",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
+      "klikktekst": "{SE_punkt_layer.gml:name} {SE_punkt_layer.SE_punkt_feature.NorskNavn} {SE_punkt_layer.SE_punkt_feature.Species} {HI_punkt_layer.gml:name} {HI_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.SE_punkt_feature.Species} {PH_punkt_layer.gml:name} {PH_punkt_layer.SE_punkt_feature.NorskNavn} {PH_punkt_layer.SE_punkt_feature.Species} {NK_punkt_layer.gml:name} {NK_punkt_layer.SE_punkt_feature.NorskNavn} {NK_punkt_layer.SE_punkt_feature.Species}",
       "klikktekst2": ""
     }
   },
@@ -3122,10 +3146,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1000000,
       "suggested": false,
-      "testkoordinater": "8.06136320057219,63.28143064966482",
+      "testkoordinater": "10.293588803222866,63.31835269656204",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
-      "klikktekst2": ""
+      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {SE_punkt_layer.SE_punkt_feature.Species}",
+      "klikktekst2": "{SE_punkt_layer.gml:name}"
     }
   },
   {
@@ -3142,17 +3166,17 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1000000,
       "suggested": false,
-      "testkoordinater": "8.06136320057219,63.28143064966482",
+      "testkoordinater": "10.324530829484138,63.32199281412482",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
-      "klikktekst2": ""
+      "klikktekst": "{HI_punkt_layer.HI_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.Species}",
+      "klikktekst2": "{HI_punkt_layer.gml:name}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 86,
     "fields": {
-      "tittel": "PH - Potensielt h\u00f8yu risiko",
+      "tittel": "PH - Potensielt h\u00f8y risiko",
       "wmslayer": "PH",
       "legendeurl": "https://kart.artsdatabanken.no/WMS/artskartfa.aspx?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=PH&format=image/png&sld_version=1.1.0",
       "publiser": true,
@@ -3182,10 +3206,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1000000,
       "suggested": false,
-      "testkoordinater": "8.06136320057219,63.28143064966482",
+      "testkoordinater": "10.24200546845756,63.276742694536914",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
-      "klikktekst2": ""
+      "klikktekst": "{LO_punkt_layer.LO_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.Species}",
+      "klikktekst2": "{LO_punkt_layer.gml:name}"
     }
   },
   {
@@ -3202,10 +3226,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1000000,
       "suggested": false,
-      "testkoordinater": "8.06136320057219,63.28143064966482",
+      "testkoordinater": "10.300455244599869,63.28470416744804",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
-      "klikktekst2": ""
+      "klikktekst": "{NK_punkt_layer.NK_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.ScientificName}",
+      "klikktekst2": "{NK_punkt_layer.gml:name}"
     }
   },
   {
@@ -3282,10 +3306,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 2834822,
       "suggested": true,
-      "testkoordinater": "",
-      "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "10.678710937500002,62.88019695314279",
+      "klikkurl": "",
+      "klikktekst": "{Nedborfelt_til_hav.navnNedbf}",
+      "klikktekst2": "{Nedborfelt_til_hav.areal}"
     }
   },
   {
@@ -3302,10 +3326,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 2834822,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "10.56884765625,62.77483725887553",
       "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Sidenedborfelt.navn1orden}",
+      "klikktekst2": "{Sidenedborfelt.areal}"
     }
   },
   {
@@ -3322,10 +3346,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 377977,
       "suggested": false,
-      "testkoordinater": "",
-      "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "10.04150390625,62.895217544882044",
+      "klikkurl": "",
+      "klikktekst": "{REGINE_enhet.navnNedbf} {REGINE_enhet.navnOFelt}",
+      "klikktekst2": "{REGINE_enhet.arealTotal}"
     }
   },
   {
@@ -3342,10 +3366,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 19352380,
       "suggested": false,
-      "testkoordinater": "",
-      "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "10.431518554687502,62.852639220443876",
+      "klikkurl": "",
+      "klikktekst": "{Vassdragsomrade.navnVassOmr}",
+      "klikktekst2": "{Vassdragsomrade.areal_km2}"
     }
   },
   {
@@ -3362,10 +3386,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 75596,
       "suggested": true,
-      "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "9.12792205810547,62.93265727645086",
+      "klikkurl": "",
+      "klikktekst": "{Dam.damNavn}",
+      "klikktekst2": "{Dam.hovedType} {Dam.damFormal} {Dam.dKategori} {Dam.status}"
     }
   },
   {
@@ -3382,10 +3406,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 11339285,
       "suggested": true,
-      "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "9.126634597778322,62.931837085264654",
+      "klikkurl": "",
+      "klikktekst": "{Dam_N250.damNavn}",
+      "klikktekst2": "{Dam_N250.hovedType} {Dam_N250.damFormal} {Dam_N250.dKategori} {Dam_N250.status}"
     }
   },
   {
@@ -3402,10 +3426,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 604762,
       "suggested": true,
-      "testkoordinater": "11.877937237105636,62.99141682560823",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{magasin}",
-      "klikktekst2": "{objType} {magFormal}"
+      "testkoordinater": "9.133758544921877,62.928751398335976",
+      "klikkurl": "",
+      "klikktekst": "{Magasin.magasin}",
+      "klikktekst2": "{Magasin.objType} {Magasin.magFormal} {Magasin.status}"
     }
   },
   {
@@ -3423,9 +3447,9 @@
       "maxscaledenominator": 604762,
       "suggested": true,
       "testkoordinater": "11.722927247643485,63.03017396691246",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{objType}",
-      "klikktekst2": "{medium} {vvFormal}"
+      "klikkurl": "",
+      "klikktekst": "{Vannvei.objType}",
+      "klikktekst2": "{Vannvei.medium} {Vannvei.vvFormal} {Vannvei.status}"
     }
   },
   {
@@ -3443,9 +3467,9 @@
       "maxscaledenominator": 151191,
       "suggested": true,
       "testkoordinater": "11.69958140998686,63.03453335710518",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{objType}",
-      "klikktekst2": ""
+      "klikkurl": "",
+      "klikktekst": "{Utlopspunkt.objType}",
+      "klikktekst2": "{Utlopspunkt.utlopTyp} {Utlopspunkt.status}"
     }
   },
   {
@@ -3463,9 +3487,9 @@
       "maxscaledenominator": 151191,
       "suggested": true,
       "testkoordinater": "10.372467503025575,62.86442488216689",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{vannkrv}{objType}",
-      "klikktekst2": "{inntakTyp}"
+      "klikkurl": "",
+      "klikktekst": "{Inntakspunkt.vannkrv}",
+      "klikktekst2": "{Inntakspunkt.inntakTyp} {Inntakspunkt.status}"
     }
   },
   {
@@ -3483,9 +3507,9 @@
       "maxscaledenominator": 11339285,
       "suggested": true,
       "testkoordinater": "10.317879204094254,63.15040139179106",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{vannkrv} {objType}",
-      "klikktekst2": "{medium}"
+      "klikkurl": "",
+      "klikktekst": "{Vannkraftverk.vannkrv}",
+      "klikktekst2": "{Vannkraftverk.medium} {Vannkraftverk.status}"
     }
   },
   {
@@ -3503,9 +3527,9 @@
       "maxscaledenominator": 604762,
       "suggested": true,
       "testkoordinater": "9.847955996496129,62.99691217452215",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{objType}",
-      "klikktekst2": "{konsStatus}"
+      "klikkurl": "",
+      "klikktekst": "{Ikke_utbygd_magasin.objType}",
+      "klikktekst2": "{Ikke_utbygd_magasin.konsStatus} {Ikke_utbygd_magasin.status}"
     }
   },
   {
@@ -3523,9 +3547,9 @@
       "maxscaledenominator": 11339285,
       "suggested": true,
       "testkoordinater": "8.754108040923365,63.07841202952239",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{damNavn} {damFunksjon}",
-      "klikktekst2": "{konsStatus}"
+      "klikkurl": "",
+      "klikktekst": "{Ikke_utbygd_dam.damNavn} {Ikke_utbygd_dam.damFunksjon}",
+      "klikktekst2": "{Ikke_utbygd_dam.konsStatus} {Ikke_utbygd_dam.status}"
     }
   },
   {
@@ -3543,9 +3567,9 @@
       "maxscaledenominator": 151191,
       "suggested": true,
       "testkoordinater": "8.754150956066123,63.07841202952239",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{objType}",
-      "klikktekst2": "{konsStatus}"
+      "klikkurl": "",
+      "klikktekst": "{Ikke_utbygd_inntakspunkt.objType}",
+      "klikktekst2": "{Ikke_utbygd_inntakspunkt.inntakFunk}{Ikke_utbygd_inntakspunkt.konsStatus} {Ikke_utbygd_inntakspunkt.status}"
     }
   },
   {
@@ -3563,9 +3587,9 @@
       "maxscaledenominator": 11339285,
       "suggested": true,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikkurl": "",
+      "klikktekst": "{Ikke_utbygd_vannkraftverk.vannkrv}",
+      "klikktekst2": "{Ikke_utbygd_vannkraftverk.medium} {Ikke_utbygd_vannkraftverk.konsStatus} {Ikke_utbygd_vannkraftverk.status}"
     }
   },
   {
@@ -3583,9 +3607,9 @@
       "maxscaledenominator": 604762,
       "suggested": true,
       "testkoordinater": "8.754837598350155,63.07635229075704",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
-      "klikktekst": "{objType} {medium}",
-      "klikktekst2": "{konsStatus}"
+      "klikkurl": "",
+      "klikktekst": "{Ikke_utbygd_vannvei.objType}",
+      "klikktekst2": "{Ikke_utbygd_vannvei.medium}{Ikke_utbygd_vannvei.vvFormal}{Ikke_utbygd_vannvei.konsStatus} {Ikke_utbygd_vannvei.status}"
     }
   },
   {
@@ -3603,7 +3627,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "9.456098886373809,62.668469113329266",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -3622,10 +3646,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "11.854247785747724,62.13342411822463",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
-      "klikktekst": "{navn}",
-      "klikktekst2": "{objType}"
+      "testkoordinater": "9.150238037109377,62.67351293001555",
+      "klikkurl": "",
+      "klikktekst": "{Innsjo_ved_dybdemaling.navn}",
+      "klikktekst2": "{Innsjo_ved_dybdemaling.objType}"
     }
   },
   {
@@ -3642,10 +3666,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": false,
-      "testkoordinater": "11.851930635563672,62.1039026016902",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
-      "klikktekst": "{dybde_m} {objektType}",
-      "klikktekst2": "{navn}"
+      "testkoordinater": "9.167575836181642,62.668863192448576",
+      "klikkurl": "",
+      "klikktekst": "{DybdeKurve.navn}",
+      "klikktekst2": "{DybdeKurve.dybde_m}"
     }
   },
   {
@@ -3662,10 +3686,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": false,
-      "testkoordinater": "11.86238049196483,62.06227081655383",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
-      "klikktekst": "{objType}  {dybde_m}",
-      "klikktekst2": "{navn}"
+      "testkoordinater": "9.1776180267334,62.67122755703447",
+      "klikkurl": "",
+      "klikktekst": "{DybdePunkt.navn}",
+      "klikktekst2": "{DybdePunkt.dybde_m}"
     }
   },
   {
@@ -3693,8 +3717,8 @@
     "pk": 115,
     "fields": {
       "tittel": "Naturtype NiN -  Sv\u00e6rt h\u00f8y lokalitetskvalitet",
-      "wmslayer": "naturtype_nin_svart_hoy_lokalitetskvalitet",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_svart_hoy_lokalitetskvalitet&format=image/png&sld_version=1.1.0",
+      "wmslayer": "naturtype_nin_svart_hoy_kvalitet",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_svart_hoy_kvalitet&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -3702,19 +3726,19 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.014997646880379,58.56869996430453",
+      "testkoordinater": "9.683589935302734,62.86689105013234",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtype_nin_svart_hoy_kvalitet.Naturtype}",
+      "klikktekst2": "{naturtype_nin_svart_hoy_kvalitet.Tilstandbeskrivelse}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 116,
     "fields": {
-      "tittel": "Naturtype NiN - h\u00f8y lokalitetskvalitet",
-      "wmslayer": "naturtype_nin_hoy_lokalitetskvalitet",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_hoy_lokalitetskvalitet&format=image/png&sld_version=1.1.0",
+      "tittel": "Naturtype NiN - h\u00f8y kvalitet",
+      "wmslayer": "naturtype_nin_hoy_kvalitet",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_hoy_kvalitet&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -3722,19 +3746,19 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.0086462057532195,58.58293031627286",
+      "testkoordinater": "9.724273681640627,62.83979098790529",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtype_nin_hoy_kvalitet.Naturtype}",
+      "klikktekst2": "{naturtype_nin_hoy_kvalitet.Tilstandbeskrivelse}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 117,
     "fields": {
-      "tittel": "Naturtype NiN - moderat lokalitetskvalitet",
-      "wmslayer": "naturtype_nin_moderat_lokalitetskvalitet",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_moderat_lokalitetskvalitet&format=image/png&sld_version=1.1.0",
+      "tittel": "Naturtype NiN - moderat kvalitet",
+      "wmslayer": "naturtype_nin_moderat_kvalitet",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_moderat_kvalitet&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -3744,17 +3768,17 @@
       "suggested": false,
       "testkoordinater": "6.061689322193664,58.6024317120803",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtype_nin_moderat_kvalitet.Naturtype}",
+      "klikktekst2": "{naturtype_nin_moderat_kvalitet.Tilstandbeskrivelse}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 118,
     "fields": {
-      "tittel": "Naturtype NiN -  lav lokalitetskvalitet",
-      "wmslayer": "naturtype_nin_lav_lokalitetskvalitet",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_lav_lokalitetskvalitet&format=image/png&sld_version=1.1.0",
+      "tittel": "Naturtype NiN -  lav kvalitet",
+      "wmslayer": "naturtype_nin_lav_kvalitet",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_lav_kvalitet&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -3764,17 +3788,17 @@
       "suggested": false,
       "testkoordinater": "6.035940236542953,58.5803352745784",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtype_nin_lav_kvalitet.Naturtype}",
+      "klikktekst2": "{naturtype_nin_lav_kvalitet.Tilstandbeskrivelse}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 119,
     "fields": {
-      "tittel": "Naturtype NiN - ikke fullstendig kvalitetsvurdert",
-      "wmslayer": "naturtype_nin_ikke_fullst_kvalitetsvurdert",
-      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_ikke_fullst_kvalitetsvurdert&format=image/png&sld_version=1.1.0",
+      "tittel": "Naturtype NiN - ikke kvalitetsvurdert",
+      "wmslayer": "naturtype_nin_ikke_kvalitetsvurdert",
+      "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_nin/MapServer/WMSServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=naturtype_nin_ikke_kvalitetsvurdert&format=image/png&sld_version=1.1.0",
       "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 3,
@@ -3782,10 +3806,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.041948356528116,58.586240952190984",
+      "testkoordinater": "9.76938843727112,62.81442078949467",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": "{Lokalitetskvalitet}"
+      "klikktekst": "{naturtype_nin_ikke_kvalitetsvurdert.Naturtype}",
+      "klikktekst2": "{naturtype_nin_ikke_kvalitetsvurdert.Tilstandbeskrivelse}"
     }
   },
   {
@@ -3822,10 +3846,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "6.472372191989423,62.770124896007594",
+      "testkoordinater": "8.637657165527346,63.50294281423683",
       "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/ramsar/MapServer/WmsServer?",
       "klikktekst": "{Norsknavn}",
-      "klikktekst2": ""
+      "klikktekst2": "{debeskrivelse}"
     }
   },
   {
@@ -4022,10 +4046,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": true,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "6.695995483537779,62.83008366144027",
       "klikkurl": "",
       "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst2": "{Registreringsdato}"
     }
   },
   {
@@ -4042,10 +4066,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "7.134164270389546,62.9904637702677",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_skjellsand.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_skjellsand.Verdi}"
     }
   },
   {
@@ -4062,10 +4086,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "6.430729032968272,62.692788273705354",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_alegras.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_alegras.Verdi}"
     }
   },
   {
@@ -4082,10 +4106,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "6.358744996703375,62.751807183274714",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_blotbunn.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_blotbunn.Verdi}"
     }
   },
   {
@@ -4102,10 +4126,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "9.372335025632843,63.79679639661586",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_litoral.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_litoral.Verdi}"
     }
   },
   {
@@ -4122,10 +4146,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "12.639664382669427,65.69297569162393",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_poller_og_dyp.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_poller_og_dyp.Verdi}"
     }
   },
   {
@@ -4142,10 +4166,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "8.944744779840283,58.604365406673054",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_oksygen.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_oksygen.Verdi}"
     }
   },
   {
@@ -4162,10 +4186,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "14.652495736975698,67.18795305175273",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_tidevann.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_tidevann.Verdi}"
     }
   },
   {
@@ -4182,10 +4206,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "6.227870488428447,62.70375779197561",
+      "testkoordinater": "10.641718693530818,64.99113020076065",
       "klikkurl": "",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{naturtype_marin_hb19_tare.Naturtype}",
+      "klikktekst2": "{naturtype_marin_hb19_tare.Verdi}"
     }
   },
   {
@@ -4402,10 +4426,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 472470,
       "suggested": true,
-      "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "8.71147155761719,62.66515864167231",
+      "klikkurl": "",
+      "klikktekst": "{Oekologisk_tilstand_eller_potensial_elv.Vannforekomstnavn}",
+      "klikktekst2": "{Oekologisk_tilstand_eller_potensial_elv.\u00d8kologisk_tilstand_potensial} {Oekologisk_tilstand_eller_potensial_elv.Risikovurdering}"
     }
   },
   {
@@ -4422,10 +4446,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 2834821,
       "suggested": true,
-      "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "8.76914978027344,62.69777428352942",
+      "klikkurl": "",
+      "klikktekst": "{Oekologisk_tilstand_eller_potensial_innsjoe.Vannforekomstnavn}",
+      "klikktekst2": "{Oekologisk_tilstand_eller_potensial_innsjoe.\u00d8kologisk_tilstand_potensial} {Oekologisk_tilstand_eller_potensial_innsjoe.Risikovurdering}"
     }
   },
   {
@@ -4442,10 +4466,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "testkoordinater": "8.30223083496094,62.79352221297566",
+      "klikkurl": "",
+      "klikktekst": "{Oekologisk_tilstand_eller_potensial_kystvann.Vannforekomstnavn}",
+      "klikktekst2": "{Oekologisk_tilstand_eller_potensial_kystvann.\u00d8kologisk_tilstand_potensial} {Oekologisk_tilstand_eller_potensial_kystvann.Risikovurdering}"
     }
   },
   {
@@ -4464,8 +4488,8 @@
       "suggested": true,
       "testkoordinater": "10.177551977610106,62.53639775772075",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_leveomrade_grense.omraadenavn}",
+      "klikktekst2": "{villrein_leveomrade_grense.funksjon} {villrein_leveomrade_grense.funksjonsperiode}"
     }
   },
   {
@@ -4482,10 +4506,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "10.546875000000002,62.684228187998514",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_kalvingsomrade.omraadenavn}",
+      "klikktekst2": "{villrein_kalvingsomrade.funksjon} {villrein_kalvingsomrade.funksjonsperiode}"
     }
   },
   {
@@ -4504,8 +4528,8 @@
       "suggested": true,
       "testkoordinater": "10.177551977610106,62.53639775772075",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_trekkomrade.omraadenavn}",
+      "klikktekst2": "{villrein_trekkomrade.funksjon} {villrein_trekkomrade.funksjonsperiode}"
     }
   },
   {
@@ -4522,10 +4546,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "10.388259887695314,62.007673331902375",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_trekkveg.omraadenavn}",
+      "klikktekst2": "{villrein_trekkveg.funksjon} {villrein_trekkveg.funksjonsperiode}"
     }
   },
   {
@@ -4542,10 +4566,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "9.992065429687502,62.40055082541711",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_helarsbeite.omraadenavn}",
+      "klikktekst2": "{villrein_helarsbeite.funksjon} {villrein_helarsbeite.funksjonsperiode}"
     }
   },
   {
@@ -4562,10 +4586,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "9.19212341308594,59.9556978340901",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_hostbeite.omraadenavn}",
+      "klikktekst2": "{villrein_hostbeite.funksjon} {villrein_hostbeite.funksjonsperiode}"
     }
   },
   {
@@ -4582,10 +4606,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "7.591552734375001,61.380936033590665",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_sommerbeite.omraadenavn}",
+      "klikktekst2": "{villrein_sommerbeite.funksjon} {villrein_sommerbeite.funksjonsperiode}"
     }
   },
   {
@@ -4602,10 +4626,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "7.992553710937501,60.98376689595989",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_vinterbeite.omraadenavn}",
+      "klikktekst2": "{villrein_vinterbeite.funksjon} {villrein_vinterbeite.funksjonsperiode}"
     }
   },
   {
@@ -4622,10 +4646,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "10.177551977610106,62.53639775772075",
+      "testkoordinater": "7.701416015625001,60.88502737978396",
       "klikkurl": "",
-      "klikktekst": "{omraadenavn}",
-      "klikktekst2": "{funksjon} {1.funksjonsperiode}"
+      "klikktekst": "{villrein_barmarksbeite.omraadenavn}",
+      "klikktekst2": "{villrein_barmarksbeite.funksjon} {villrein_barmarksbeite.funksjonsperiode}"
     }
   },
   {
@@ -4762,10 +4786,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 187500,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "14.668086439632026,67.54722643644067",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Bergart_flate_N250_layer.Bergart_flate_N250_feature.hbergnavn}",
+      "klikktekst2": "{Bergart_flate_N250_layer.gml:name}"
     }
   },
   {
@@ -4782,10 +4806,10 @@
       "minscaledenominator": 22500,
       "maxscaledenominator": 562500,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "14.77076600229927,67.53831794557368",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Lineamenter_N250_layer.Lineamenter_N250_feature.objekttype}",
+      "klikktekst2": "{Lineamenter_N250_layer.gml:name}"
     }
   },
   {
@@ -4802,9 +4826,9 @@
       "minscaledenominator": null,
       "maxscaledenominator": 750003,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "14.736182856040728,67.53409108210461",
       "klikkurl": "",
-      "klikktekst": "",
+      "klikktekst": "{Bergart_grense_N250_layer.gml:name}",
       "klikktekst2": ""
     }
   },
@@ -4842,10 +4866,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 302380,
       "suggested": true,
-      "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
-      "klikktekst": "{skredType}",
-      "klikktekst2": "{skredNavn} {skredTidspunkt}"
+      "testkoordinater": "8.519468307495119,63.130430321049936",
+      "klikkurl": "",
+      "klikktekst": "{Skredtype.skredType}",
+      "klikktekst2": "{Skredtype.skredNavn} {Skredtype.skredTidspunkt}"
     }
   },
   {
@@ -4855,7 +4879,7 @@
       "tittel": "Oversikt - skred",
       "wmslayer": "Oversikt",
       "legendeurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Oversikt&format=image/png&sld_version=1.1.0",
-      "publiser": true,
+      "publiser": false,
       "erSynlig": false,
       "hovedkartlag": 59,
       "queryable": true,
@@ -4863,7 +4887,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -4882,10 +4906,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 9449,
       "suggested": true,
-      "testkoordinater": "11.38798023443692,62.577933701967495",
+      "testkoordinater": "10.732269287109377,62.15588213831088",
       "klikkurl": "https://kart.ra.no/arcgis/services/Distribusjon/Kulturminner20180301/MapServer/WmsServer?",
       "klikktekst": "{navn} {kulturminneLokalitetArt}",
-      "klikktekst2": ""
+      "klikktekst2": "{informasjon}"
     }
   },
   {
@@ -5202,10 +5226,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "10.895699912353388,60.03741710435204",
+      "testkoordinater": "8.638689528536943,62.65884206550772",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_1000arsflom.objektType}",
+      "klikktekst2": "{Flomsone_1000arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5222,10 +5246,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "12.060249610408695,60.44502711353617",
+      "testkoordinater": "7.718688148189515,62.53289637846542",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_500arsflom.objektType}",
+      "klikktekst2": "{Flomsone_500arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5242,10 +5266,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "12.05750304127261,60.443672310622915",
+      "testkoordinater": "9.017711357822288,63.005670908675796",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_200arsflom.objektType}",
+      "klikktekst2": "{Flomsone_200arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5262,10 +5286,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "11.016553067901544,63.20640206942729",
+      "testkoordinater": "9.733896045662803,63.00302053442968",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_100arsflom.objektType}",
+      "klikktekst2": "{Flomsone_100arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5282,10 +5306,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "11.01380548004663,63.213829705155625",
+      "testkoordinater": "11.024425346593226,63.20754583135346",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_50arsflom.objektType}",
+      "klikktekst2": "{Flomsone_50arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5304,8 +5328,8 @@
       "suggested": true,
       "testkoordinater": "11.000073304915379,63.211354038470915",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_20arsflom.objektType}",
+      "klikktekst2": "{Flomsone_20arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5322,10 +5346,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 151191,
       "suggested": true,
-      "testkoordinater": "12.0218045414223,60.55322844442429",
+      "testkoordinater": "10.288659044430922,63.052774415497716",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{gjentaksinterval}"
+      "klikktekst": "{Flomsone_10arsflom.objektType}",
+      "klikktekst2": "{Flomsone_10arsflom.gjentaksinterval}"
     }
   },
   {
@@ -5342,17 +5366,17 @@
       "minscaledenominator": null,
       "maxscaledenominator": 19352380,
       "suggested": false,
-      "testkoordinater": "10.297260807020812,63.04223835619023",
+      "testkoordinater": "10.257350692219276,63.07913282818557",
       "klikkurl": "https://gis3.nve.no/map/services/Flomsoner1/MapServer/WmsServer?",
-      "klikktekst": "{objektType}",
-      "klikktekst2": "{objektType} {0.gjentaksinterval} {1.gjentaksinterval} {2.gjentaksinterval} {3.gjentaksinterval} {4.gjentaksinterval} {5.gjentaksinterval}"
+      "klikktekst": "{FlomsoneAnalyseomraade.objektType} {FlomsoneAnalyseomraade.flomsoneNavn}",
+      "klikktekst2": "{FlomsoneAnalyseomraade.kartlagteFlommer}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 199,
     "fields": {
-      "tittel": "Forurenset omr\u00e5de - tilstand (punkt)",
+      "tittel": "Forurenset omr\u00e5de",
       "wmslayer": "forurenset_omrade",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WMSServer?version=1.1.1&service=WMS&request=GetLegendGraphic&layer=forurenset_omrade&format=image/png",
       "publiser": true,
@@ -5363,16 +5387,16 @@
       "maxscaledenominator": 10394,
       "suggested": true,
       "testkoordinater": "8.172328320946969,62.91704462383387",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WmsServer?",
-      "klikktekst": "{Lokalitetnavn}",
-      "klikktekst2": "{Lokalitettype}"
+      "klikkurl": "",
+      "klikktekst": "{forurenset_omrade.Lokalitetnavn}",
+      "klikktekst2": "{forurenset_omrade.Lokalitettype} {forurenset_omrade.Pavirkningsgrad}"
     }
   },
   {
     "model": "forvaltningsportal.sublag",
     "pk": 200,
     "fields": {
-      "tittel": "Forurenset omr\u00e5de  (punkt)",
+      "tittel": "Forurenset omr\u00e5de (punkt)",
       "wmslayer": "forurenset_omrade_pkt",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WMSServer?version=1.1.1&service=WMS&request=GetLegendGraphic&layer=forurenset_omrade_pkt&format=image/png",
       "publiser": true,
@@ -5383,9 +5407,9 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "8.172328320946969,62.91704462383387",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WmsServer?",
-      "klikktekst": "{Lokalitetnavn}",
-      "klikktekst2": "{Lokalitettype}"
+      "klikkurl": "",
+      "klikktekst": "{forurenset_omrade_pkt.Lokalitetnavn}",
+      "klikktekst2": "{forurenset_omrade_pkt.Lokalitettype} {forurenset_omrade_pkt.Pavirkningsgrad}"
     }
   },
   {
@@ -5403,9 +5427,9 @@
       "maxscaledenominator": 10394,
       "suggested": false,
       "testkoordinater": "8.172328320946969,62.91704462383387",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WmsServer?",
-      "klikktekst": "{Lokalitetnavn}",
-      "klikktekst2": "{Lokalitettype}"
+      "klikkurl": "",
+      "klikktekst": "{forurenset_omrade_tilstand.Lokalitetnavn}",
+      "klikktekst2": "{forurenset_omrade_tilstand.Lokalitettype} {forurenset_omrade_tilstand.Pavirkningsgrad}"
     }
   },
   {
@@ -5423,9 +5447,9 @@
       "maxscaledenominator": 2834821,
       "suggested": false,
       "testkoordinater": "8.172328320946969,62.91704462383387",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/grunnforurensning2/MapServer/WmsServer?",
-      "klikktekst": "{Lokalitetnavn}",
-      "klikktekst2": "{Lokalitettype}"
+      "klikkurl": "",
+      "klikktekst": "{forurenset_omrade_tilstand_pkt.Lokalitetnavn}",
+      "klikktekst2": "{forurenset_omrade_tilstand_pkt.Lokalitettype} {forurenset_omrade_tilstand_pkt.Pavirkningsgrad}"
     }
   },
   {
@@ -5442,10 +5466,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": true,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "8.454937609543634,61.53472660337886",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Breflate.HOVEDBRENAVN}",
+      "klikktekst2": "{Breflate.BRENAVN}"
     }
   },
   {
@@ -5482,10 +5506,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": false,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "7.124633789062501,61.7289239586037",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Breflate_1947_1985.BRENAVN}",
+      "klikktekst2": "{Breflate_1947_1985.AREAL_KM2}"
     }
   },
   {
@@ -5502,10 +5526,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": true,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "8.451503121610981,61.533089950247316",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Breflate_1988_1997.Shape}",
+      "klikktekst2": "{Breflate_1988_1997.PRODUCTID}"
     }
   },
   {
@@ -5524,8 +5548,8 @@
       "suggested": false,
       "testkoordinater": "7.081399136121621,61.69589927648205",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Breflate_1999_2006.BRENAVN}",
+      "klikktekst2": "{Breflate_1999_2006.AREAL_KM2}"
     }
   },
   {
@@ -5542,10 +5566,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": false,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "7.489873867938713,60.703152476142456",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Bresjo_1988_1997.PROC_DESC}",
+      "klikktekst2": "{Bresjo_1988_1997.DATAFANGSTDATO}"
     }
   },
   {
@@ -5562,10 +5586,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": true,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "6.663947963736036,61.65001557699938",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Bresjo_1999_2006.PROC_DESC}",
+      "klikktekst2": "{Bresjo_1999_2006.DATAFANGSTDATO}"
     }
   },
   {
@@ -5582,10 +5606,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": true,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "6.803388173803106,61.64528667047146",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Bresjo_2014.PROC_DESC}",
+      "klikktekst2": "{Bresjo_2014.DATAFANGSTDATO}"
     }
   },
   {
@@ -5622,10 +5646,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 19352380,
       "suggested": false,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "6.738804378718891,61.71293826014939",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Isras.brenavn}",
+      "klikktekst2": "{Isras.aar}"
     }
   },
   {
@@ -5642,10 +5666,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
+      "testkoordinater": "10.405426025390627,63.25001212924004",
       "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "klikktekst": "{hovednaturtype_hb13_skog.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_skog.Utforming} {hovednaturtype_hb13_skog.Verdi}"
     }
   },
   {
@@ -5662,10 +5686,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "10.474090576171877,63.28645794737014",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_rasmark_berg_kantkratt.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_rasmark_berg_kantkratt.Utforming} {hovednaturtype_hb13_rasmark_berg_kantkratt.Verdi}"
     }
   },
   {
@@ -5682,10 +5706,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "10.584640502929688,63.28985309380925",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_myr_og_kilde.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_myr_og_kilde.Utforming} {hovednaturtype_hb13_myr_og_kilde.Verdi}"
     }
   },
   {
@@ -5702,10 +5726,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "10.90873718261719,63.462169438012424",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_kyst_havstrand.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_kyst_havstrand.Utforming} {hovednaturtype_hb13_kyst_havstrand.Verdi}"
     }
   },
   {
@@ -5722,10 +5746,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "11.318063735961916,63.50696335086148",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_kulturlandskap.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_kulturlandskap.Utforming} {hovednaturtype_hb13_kulturlandskap.Verdi}"
     }
   },
   {
@@ -5742,10 +5766,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "11.115417480468752,63.055892726304556",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_fjell.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_fjell.Utforming} {hovednaturtype_hb13_fjell.Verdi}"
     }
   },
   {
@@ -5762,10 +5786,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "11.00658416748047,63.22914318200017",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_ferskvann_vatmark.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_ferskvann_vatmark.Utforming} {hovednaturtype_hb13_ferskvann_vatmark.Verdi}"
     }
   },
   {
@@ -5782,10 +5806,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 1209524,
       "suggested": false,
-      "testkoordinater": "10.260653190722941,63.26540009736577",
-      "klikkurl": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:4326&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&={bbox}",
-      "klikktekst": "{Naturtype}",
-      "klikktekst2": ""
+      "testkoordinater": "10.63751220703125,63.566897859044396",
+      "klikkurl": "",
+      "klikktekst": "{hovednaturtype_hb13_andre_viktige.Naturtype}",
+      "klikktekst2": "{hovednaturtype_hb13_andre_viktige.Utforming} {hovednaturtype_hb13_andre_viktige.Verdi}"
     }
   },
   {
@@ -5802,10 +5826,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "8.096239176936617,59.37807545203531",
+      "testkoordinater": "10.259170532226564,62.56503954476925",
       "klikkurl": "",
-      "klikktekst": "{Navn} {Vitenskapelig_navn}",
-      "klikktekst2": "{Kriterier_kombinert}"
+      "klikktekst": "{Fredete_arter_omr.Navn} {Fredete_arter_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Fredete_arter_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -5822,10 +5846,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": true,
-      "testkoordinater": "8.174257689979829,59.363929198533214",
+      "testkoordinater": "10.253591537475586,62.56480226930215",
       "klikkurl": "",
-      "klikktekst": "{Navn} {Vitenskapelig_navn}",
-      "klikktekst2": "{Kriterier_kombinert}"
+      "klikktekst": "{Fredete_arter_pkt.Navn} {Fredete_arter_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Fredete_arter_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -5844,8 +5868,8 @@
       "suggested": true,
       "testkoordinater": "10.257969028819558,62.56436725936303",
       "klikkurl": "",
-      "klikktekst": "{Navn}  {Vitenskapelig_navn}",
-      "klikktekst2": "{Kriterier_kombinert}"
+      "klikktekst": "{Prioriterte_arter_PA_omr.Navn} {Prioriterte_arter_PA_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Prioriterte_arter_PA_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -5864,8 +5888,8 @@
       "suggested": true,
       "testkoordinater": "10.261858120676553,62.56516312499207",
       "klikkurl": "",
-      "klikktekst": "{Navn} {Vitenskapelig_navn}",
-      "klikktekst2": "{Kriterier_kombinert}"
+      "klikktekst": "{Prioriterte_arter_PA_pkt.Navn} {Prioriterte_arter_PA_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Kriterier_kombinert} {Prioriterte_arter_PA_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -5884,8 +5908,8 @@
       "suggested": true,
       "testkoordinater": "9.709855996179916,59.57059252884368",
       "klikkurl": "",
-      "klikktekst": "{Navn} {Vitenskapelig_navn}",
-      "klikktekst2": "{Kriterier_kombinert}"
+      "klikktekst": "{PA_Okologiske_funksjonsomr.Navn} {PA_Okologiske_funksjonsomr.Vitenskapelig_navn}",
+      "klikktekst2": "{PA_Okologiske_funksjonsomr.Kriterier_kombinert}"
     }
   },
   {
@@ -5982,10 +6006,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "10.267373187228037,59.07995600382745",
+      "testkoordinater": "8.98274686070805,59.07597953184685",
       "klikkurl": "",
-      "klikktekst": "{Dekningskart_detalj_layer.Dekningskart_detalj_feature.hkl_klasse}",
-      "klikktekst2": "{Bekkeklofter_all_layer.gml:name} {Gamle_trar_all_layer.gml:name} {Liggende_dod_ved_all_layer.gml:name} {Trar_m_hengelav_all_layer.gml:name} {Rik_bakkeveg_all_layer.gml:name} {Eldre_lauvsuksesjon_all_layer.gml:name} {Rikbarkstrar_all_layer.gml:name} {Staende_dod_ved_all_layer.gml:name} {Leirraviner_all_layer.gml:name} {Bergvegger_flate_all_layer.gml:name} {Hule_lauvtrar_all_layer.gml:name}   {Brannflater_all_layer.gml:name} {Bergvegger_linje_all_layer.gml:name}"
+      "klikktekst": "{Staende_dod_ved_all_layer.Staende_dod_ved_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Staende_dod_ved_all_layer.Staende_dod_ved_all_feature.topografi}"
     }
   },
   {
@@ -6002,9 +6026,9 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "8.71710438805987,59.60819584136533",
+      "testkoordinater": "9.366550762926915,58.91629926969706",
       "klikkurl": "",
-      "klikktekst": "{Hule_lauvtrar_all_layer.Hule_lauvtrar_all_feature.livsm_beskr}",
+      "klikktekst": "{Hule_lauvtrar_all_layer.Hule_lauvtrar_all_feature.regdato}",
       "klikktekst2": ""
     }
   },
@@ -6022,10 +6046,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "9.549372701207265,59.183030275336854",
+      "testkoordinater": "9.55865073277901,59.186194951137544",
       "klikkurl": "",
-      "klikktekst": "{Eldre_lauvsuksesjon_all_layer.Eldre_lauvsuksesjon_all_feature.livsm_beskr}",
-      "klikktekst2": "{Eldre_lauvsuksesjon_all_layer.Eldre_lauvsuksesjon_all_feature.vegtype_beskr}"
+      "klikktekst": "{Eldre_lauvsuksesjon_all_layer.Eldre_lauvsuksesjon_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Eldre_lauvsuksesjon_all_layer.Eldre_lauvsuksesjon_all_feature.topografi}"
     }
   },
   {
@@ -6042,10 +6066,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "9.97048512417636,59.80613845691329",
+      "testkoordinater": "10.070675170093539,59.6675342342578",
       "klikkurl": "",
-      "klikktekst": "{Trar_m_hengelav_all_layer.Trar_m_hengelav_all_feature.livsm_beskr}",
-      "klikktekst2": "{Trar_m_hengelav_all_layer.Trar_m_hengelav_all_feature.vegtype_beskr}"
+      "klikktekst": "{Trar_m_hengelav_all_layer.Trar_m_hengelav_all_feature.vegtype_beskr}",
+      "klikktekst2": ""
     }
   },
   {
@@ -6062,10 +6086,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "10.784125737634652,59.80210213544327",
+      "testkoordinater": "8.596917836889292,63.130720000298325",
       "klikkurl": "",
-      "klikktekst": "{Rikbarkstrar_all_layer.Rikbarkstrar_all_feature.livsm_beskr}",
-      "klikktekst2": "{Rikbarkstrar_all_layer.Rikbarkstrar_all_feature.vegtype_beskr}"
+      "klikktekst": "{Rikbarkstrar_all_layer.Rikbarkstrar_all_feature.vegtype_beskr}",
+      "klikktekst2": "{Rikbarkstrar_all_layer.Rikbarkstrar_all_feature.topografi}"
     }
   },
   {
@@ -9965,7 +9989,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -9985,7 +10009,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10005,7 +10029,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10025,7 +10049,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10045,7 +10069,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10065,7 +10089,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10085,7 +10109,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10105,7 +10129,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10125,7 +10149,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10145,7 +10169,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10165,7 +10189,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -10185,7 +10209,7 @@
       "testkoordinater": "",
       "klikkurl": "https://artskart.artsdatabanken.no/publicapi/api/observations/list?WktPolygon={bbox33}&status=cr,dd,en,nt,re,vu&crs=EPSG:4326",
       "klikktekst": "",
-      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori "
+      "klikktekst2": "{Observations.0.Status}R\u00f8dlistekategori"
     }
   },
   {
@@ -12523,7 +12547,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "9.456098886373809,62.668469113329266",
-      "klikkurl": "https://gis3.nve.no/map/services/Innsjodatabase2/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13163,7 +13187,7 @@
       "maxscaledenominator": 377977,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://gis3.nve.no/map/services/Nedborfelt1/MapServer/WmsServer?version=1.3.0&request=GetFeatureInfo&crs=EPSG:4326&info_format=text/html&bbox={bbox}&layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&query_layers=Sidenedborfelt,Vassdragsomrade,Nedborfelt_til_hav,REGINE_enhet&x={x}&y={y}&height=1329&width=2005",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13183,7 +13207,7 @@
       "maxscaledenominator": 604762,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13203,7 +13227,7 @@
       "maxscaledenominator": 604762,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13223,7 +13247,7 @@
       "maxscaledenominator": 11339285,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13243,7 +13267,7 @@
       "maxscaledenominator": 151191,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13263,7 +13287,7 @@
       "maxscaledenominator": 11339285,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13283,7 +13307,7 @@
       "maxscaledenominator": 1209524,
       "suggested": false,
       "testkoordinater": "10.37264245062758,62.86717484188639",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14542,10 +14566,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 4838095,
       "suggested": false,
-      "testkoordinater": "7.081399136121621,61.69589927648205",
+      "testkoordinater": "6.861226645249153,61.68441561898686",
       "klikkurl": "https://gis3.nve.no/map/services/Bre1/MapServer/WMSServer?request=GetFeatureInfo&service=WMS&version=1.3.0&bbox={bbox}&x=128&y=128&width=255&height=255&layers=Breregion%2CHovedbreflate%2CBresjo_1988_1997%2CBresjo_1999_2006%2CBresjo_2014%2CBreflate_1895_1907%2CBreflate_1947_1985%2CBreflate_1988_1997%2CBreflate_1999_2006%2CFrontposisjonsmaalinger%2CMassebalansemaalinger%2CTidsserieBrefoto%2CBreflate%2CBrepunkt%2CSenterlinjer%2",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Jokulhlaup.NAME}",
+      "klikktekst2": "{Jokulhlaup.GLOF_DATE}"
     }
   },
   {
@@ -14563,7 +14587,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14583,7 +14607,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14603,7 +14627,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14623,7 +14647,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14643,7 +14667,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14663,7 +14687,7 @@
       "maxscaledenominator": 2834821,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14683,7 +14707,7 @@
       "maxscaledenominator": 472470,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://vann-nett.no/arcgis/services/WMS/Vannforskriften_TilstandPotensialRisiko_OGC/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -15143,7 +15167,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -15163,7 +15187,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -15183,7 +15207,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -15203,7 +15227,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -15223,7 +15247,7 @@
       "maxscaledenominator": 302380,
       "suggested": false,
       "testkoordinater": "10.234919475369582,63.11677228153563",
-      "klikkurl": "https://gis3.nve.no/map/services/SkredHendelser/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "{skredType}",
       "klikktekst2": "{skredNavn} {skredTidspunkt}"
     }
@@ -17842,10 +17866,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "7.130127282757923,58.03686131091551",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Spesielle_okologiske_former_omr.Navn} {Spesielle_okologiske_former_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Spesielle_okologiske_former_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -17862,10 +17886,10 @@
       "minscaledenominator": 4724,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "10.235223786613187,63.33182167411254",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Spesielle_okologiske_former_omr_punktsymbolisert.Navn} {Spesielle_okologiske_former_omr_punktsymbolisert.Vitenskapelig_navn}",
+      "klikktekst2": "{Spesielle_okologiske_former_omr_punktsymbolisert.Kriterier_kombinert}"
     }
   },
   {
@@ -17902,10 +17926,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "10.217649982262481,63.338081547818405",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Andre_spes_hensynskr_arter_omr.Navn} {Andre_spes_hensynskr_arter_omr.Vitenskapelig_navn}",
+      "klikktekst2": "{Andre_spes_hensynskr_arter_omr.Kriterier_kombinert}"
     }
   },
   {
@@ -17922,10 +17946,10 @@
       "minscaledenominator": 4724,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "10.426712469934568,62.24891786926586",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Andre_spes_hensynskr_arter_omr_punktsymbolisert.Navn} {Andre_spes_hensynskr_arter_omr_punktsymbolisert.Vitenskapelig_navn}",
+      "klikktekst2": "{Andre_spes_hensynskr_arter_omr_punktsymbolisert.Kriterier_kombinert}"
     }
   },
   {
@@ -17942,10 +17966,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 708705,
       "suggested": false,
-      "testkoordinater": "",
+      "testkoordinater": "10.220310721113048,63.338697550133745",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Andre_spes_hensynskr_arter_pkt.Navn} {Andre_spes_hensynskr_arter_pkt.Vitenskapelig_navn}",
+      "klikktekst2": "{Andre_spes_hensynskr_arter_pkt.Kriterier_kombinert}"
     }
   },
   {
@@ -18103,7 +18127,7 @@
       "maxscaledenominator": 1209524,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18123,7 +18147,7 @@
       "maxscaledenominator": 604762,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18143,7 +18167,7 @@
       "maxscaledenominator": 75596,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18163,7 +18187,7 @@
       "maxscaledenominator": 604762,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18183,7 +18207,7 @@
       "maxscaledenominator": 151191,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18203,7 +18227,7 @@
       "maxscaledenominator": 151191,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18223,7 +18247,7 @@
       "maxscaledenominator": 11339285,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -18243,7 +18267,7 @@
       "maxscaledenominator": 11339285,
       "suggested": false,
       "testkoordinater": "11.256859213580883,63.12676651767477",
-      "klikkurl": "https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -19839,7 +19863,7 @@
     "pk": 3,
     "fields": {
       "password": "pbkdf2_sha256$180000$iIVaKRsOl7pS$+ElNqzucI5jUsTY7llXp6ChRgrc1ejZ1P7ya5TJ2vgI=",
-      "last_login": "2020-08-25T08:46:47.696Z",
+      "last_login": "2020-09-10T07:37:57.511Z",
       "is_superuser": true,
       "username": "root",
       "first_name": "",
@@ -28248,6 +28272,747 @@
       "object_repr": "Marin grense",
       "action_flag": 2,
       "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marin grense - alle kartlag\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 647,
+    "fields": {
+      "action_time": "2020-08-27T10:52:39.881Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst\", \"Klikktekst2\", \"Aggregatedwmslayer\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"R\\u00f8dlista arter - alle kategorier\", \"fields\": [\"Publiser\", \"Queryable\", \"Suggested\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"DD - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"DD - Datamangel\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"NT - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"NT - N\\u00e6r truet\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"VU - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"VU - S\\u00e5rbar\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"EN - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"EN - Sterkt truet\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"CR - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"CR - Kritisk truet\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"RE - symbolisering av presisjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"RE - Regionalt utd\\u00f8dd\", \"fields\": [\"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 648,
+    "fields": {
+      "action_time": "2020-08-27T12:35:45.184Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"R\\u00f8dlista arter - alle kategorier\", \"fields\": [\"Publiser\", \"Queryable\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 649,
+    "fields": {
+      "action_time": "2020-08-27T12:36:05.528Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"R\\u00f8dlista arter - alle kategorier\", \"fields\": [\"Suggested\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 650,
+    "fields": {
+      "action_time": "2020-09-03T07:21:18.991Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Livsmilj\u00f8er",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 651,
+    "fields": {
+      "action_time": "2020-09-03T07:33:56.478Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"R\\u00f8dlista arter - alle kategorier\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 652,
+    "fields": {
+      "action_time": "2020-09-03T07:37:02.956Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"R\\u00f8dlista arter - alle kategorier\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 653,
+    "fields": {
+      "action_time": "2020-09-03T08:30:33.637Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "36",
+      "object_repr": "Arter - fremmede arter 2018",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 654,
+    "fields": {
+      "action_time": "2020-09-03T08:36:47.665Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "36",
+      "object_repr": "Arter - fremmede arter 2018",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"PH - Potensielt h\\u00f8y risiko\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 655,
+    "fields": {
+      "action_time": "2020-09-03T11:27:12.365Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Livsmilj\u00f8er",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 656,
+    "fields": {
+      "action_time": "2020-09-04T07:33:44.202Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "31",
+      "object_repr": "Arter - r\u00f8dlista",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 657,
+    "fields": {
+      "action_time": "2020-09-04T08:58:33.915Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "Livsmilj\u00f8er",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 658,
+    "fields": {
+      "action_time": "2020-09-08T10:24:05.328Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "36",
+      "object_repr": "Arter - fremmede arter 2018",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 659,
+    "fields": {
+      "action_time": "2020-09-08T10:40:12.668Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "2",
+      "object_repr": "Arealressurs: AR5",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Arealressurs: AR5 Arealtype\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 660,
+    "fields": {
+      "action_time": "2020-09-09T11:36:13.155Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "29",
+      "object_repr": "Marin leire - mulig forekomst",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marin leire - mulig forekomst\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 661,
+    "fields": {
+      "action_time": "2020-09-10T08:55:17.323Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "67",
+      "object_repr": "Arter - fredete",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 662,
+    "fields": {
+      "action_time": "2020-09-10T11:17:12.838Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "68",
+      "object_repr": "Arter - Prioriterte",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 663,
+    "fields": {
+      "action_time": "2020-09-10T11:26:22.638Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "30",
+      "object_repr": "Arter av nasjonal forvaltningsinteresse",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 664,
+    "fields": {
+      "action_time": "2020-09-10T11:47:40.116Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "52",
+      "object_repr": "Breer i Norge",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 665,
+    "fields": {
+      "action_time": "2020-09-11T07:14:48.602Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper - NiN Mdir",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 666,
+    "fields": {
+      "action_time": "2020-09-11T07:44:25.430Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "48",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 19",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 667,
+    "fields": {
+      "action_time": "2020-09-11T08:09:12.509Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 668,
+    "fields": {
+      "action_time": "2020-09-11T08:19:05.323Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 669,
+    "fields": {
+      "action_time": "2020-09-11T08:26:42.996Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 670,
+    "fields": {
+      "action_time": "2020-09-11T09:38:05.525Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "65",
+      "object_repr": "Flomsoner",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 671,
+    "fields": {
+      "action_time": "2020-09-11T09:39:14.580Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "65",
+      "object_repr": "Flomsoner",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 672,
+    "fields": {
+      "action_time": "2020-09-11T09:47:41.616Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "34",
+      "object_repr": "Elvenett Elvis",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 673,
+    "fields": {
+      "action_time": "2020-09-11T10:02:38.037Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "35",
+      "object_repr": "Innsj\u00f8database",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 674,
+    "fields": {
+      "action_time": "2020-09-11T10:04:09.759Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "35",
+      "object_repr": "Innsj\u00f8database",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 675,
+    "fields": {
+      "action_time": "2020-09-16T08:39:05.311Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper - NiN Mdir",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN -  Sv\\u00e6rt h\\u00f8y lokalitetskvalitet\", \"fields\": [\"Wmslayer\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - h\\u00f8y lokalitetskvalitet\", \"fields\": [\"Wmslayer\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - moderat lokalitetskvalitet\", \"fields\": [\"Wmslayer\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN -  lav lokalitetskvalitet\", \"fields\": [\"Wmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 676,
+    "fields": {
+      "action_time": "2020-09-16T08:41:49.869Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper - NiN Mdir",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Dekningskart\", \"fields\": [\"Wmslayer\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - h\\u00f8y kvalitet\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - moderat kvalitet\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN -  lav kvalitet\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 677,
+    "fields": {
+      "action_time": "2020-09-16T08:46:40.458Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper - NiN Mdir",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Dekningskart\", \"fields\": [\"Legendeurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN -  Sv\\u00e6rt h\\u00f8y lokalitetskvalitet\", \"fields\": [\"Legendeurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - h\\u00f8y kvalitet\", \"fields\": [\"Legendeurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - moderat kvalitet\", \"fields\": [\"Legendeurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN -  lav kvalitet\", \"fields\": [\"Legendeurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 678,
+    "fields": {
+      "action_time": "2020-09-16T08:48:37.357Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "Naturtyper - NiN Mdir",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtype NiN - ikke kvalitetsvurdert\", \"fields\": [\"Tittel\", \"Wmslayer\", \"Legendeurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 679,
+    "fields": {
+      "action_time": "2020-09-16T11:26:06.270Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 680,
+    "fields": {
+      "action_time": "2020-09-16T11:58:53.580Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 681,
+    "fields": {
+      "action_time": "2020-09-16T12:02:48.588Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Naturtyper - DN H\\u00e5ndbok 13\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - rasmark, berg og kantkratt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - myr og kilde\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - Kyst og havstrand\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - kulturlandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - fjell\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - ferskvann og v\\u00e5rmark\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hovednaturtype - andre viktige\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 682,
+    "fields": {
+      "action_time": "2020-09-16T12:03:48.107Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "27",
+      "object_repr": "Naturtyper - DN H\u00e5ndbok 13",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 683,
+    "fields": {
+      "action_time": "2020-09-16T12:51:40.535Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "35",
+      "object_repr": "Innsj\u00f8database",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Innsj\\u00f8database\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dybdekart\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Innsjo ved dybdemaling\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"DybdeKurve\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dybde punkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"KommunefordeltInnsjo\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 684,
+    "fields": {
+      "action_time": "2020-09-16T13:03:27.669Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "35",
+      "object_repr": "Innsj\u00f8database",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 685,
+    "fields": {
+      "action_time": "2020-09-16T13:32:01.877Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "39",
+      "object_repr": "Nedb\u00f8rfelt",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Nedb\\u00f8rfelt til hav\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"REGINE enhet\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vassdragsomr\\u00e5de\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hele_hierarkiet\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 686,
+    "fields": {
+      "action_time": "2020-09-16T13:32:56.466Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "39",
+      "object_repr": "Nedb\u00f8rfelt",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 687,
+    "fields": {
+      "action_time": "2020-09-16T13:52:24.574Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "40",
+      "object_repr": "Vannkraft - utbygd",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dam\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dam_N250\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Magasin\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vannvei\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Utl\\u00f8pspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Inntakspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vannkraftverk\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke_utbygd_magasin\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke_utbygd_vannvei\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke_utbygd_dam\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke_utbygd_inntakspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke_utbygd_vannkraftverk\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Delfelt\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 688,
+    "fields": {
+      "action_time": "2020-09-16T14:06:40.966Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "41",
+      "object_repr": "Vannkraft - ikke utbygd",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\", \"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke utbygd magasin\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke utbygd dam\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke utbygd inntakspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke utbygd vannkraftverk\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ikke utbygd vannvei\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Delfelt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Magasin\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dam\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vannvei\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Utlopspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Inntakspunkt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dam_N250\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vannkraftverk\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 689,
+    "fields": {
+      "action_time": "2020-09-16T18:03:57.541Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "44",
+      "object_repr": "Ramsaromr\u00e5der",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsversion\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 690,
+    "fields": {
+      "action_time": "2020-09-16T18:24:03.476Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "53",
+      "object_repr": "Vannforekomster",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\", \"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"\\u00d8kologisk tilstand eller potensial - elv\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"\\u00d8kologisk tilstand eller potensial - innsj\\u00f8\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"\\u00d8kologisk tilstand eller potensial - kystvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Risiko_kjemisk_grunnvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Risiko_kvantitativt_grunnvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kjemisk_tilstand_grunnvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kvantitativ_tilstand_grunnvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kjemisk_tilstand_kystvann\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kjemisk_tilstand_innsjoe\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kjemisk_tilstand_elv\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 691,
+    "fields": {
+      "action_time": "2020-09-16T18:33:18.248Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "54",
+      "object_repr": "Villreinomr\u00e5der",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 692,
+    "fields": {
+      "action_time": "2020-09-16T18:45:02.912Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "59",
+      "object_repr": "Skredhendelser",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\", \"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Skredtype\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Oversikt - skred\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Snoskred\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Konsekvens-bygning\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Konsekvens-skog/jordbruk\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Konsekvens-samferdsel\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"AntallOmkomne\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 693,
+    "fields": {
+      "action_time": "2020-09-16T18:59:41.557Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsinfoformat\", \"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de - tilstand (punkt)\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de  (punkt)\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de - tilstand\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de - tilstand (punkt)\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 694,
+    "fields": {
+      "action_time": "2020-09-16T19:00:44.263Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsversion\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 695,
+    "fields": {
+      "action_time": "2020-09-16T19:08:10.774Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de (punkt)\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 696,
+    "fields": {
+      "action_time": "2020-09-16T19:15:15.477Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "47",
+      "object_repr": "Marine landskap",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marine Landskap\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 697,
+    "fields": {
+      "action_time": "2020-09-16T19:18:23.032Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "47",
+      "object_repr": "Marine landskap",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marine Landskap\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 698,
+    "fields": {
+      "action_time": "2020-09-17T03:06:11.377Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "47",
+      "object_repr": "Marine landskap",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marine Landskap\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 699,
+    "fields": {
+      "action_time": "2020-09-17T03:08:03.018Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "47",
+      "object_repr": "Marine landskap",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 700,
+    "fields": {
+      "action_time": "2020-09-17T03:10:51.363Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "47",
+      "object_repr": "Marine landskap",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Marine Landskap\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 701,
+    "fields": {
+      "action_time": "2020-09-17T03:43:29.326Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "59",
+      "object_repr": "Skredhendelser",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Oversikt - skred\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 702,
+    "fields": {
+      "action_time": "2020-09-17T04:19:13.402Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 703,
+    "fields": {
+      "action_time": "2020-09-17T04:39:21.228Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de - tilstand\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
     }
   }
 ]
