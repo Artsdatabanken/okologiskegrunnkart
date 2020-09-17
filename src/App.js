@@ -710,9 +710,17 @@ class App extends React.Component {
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
-        // Use GetFeatureInfo with list of sublayers per layer
-        totalFeaturesSearch += 1;
-        layersResult[key] = { loading: true, wmsinfoformat };
+        // Check that at least one sublayer is queriable
+        const subkeyList = Object.keys(looplist[key].underlag);
+        for (let subkey of subkeyList) {
+          const subLooplist = looplist[key].underlag[subkey];
+          if (subLooplist.queryable) {
+            // Use GetFeatureInfo with list of sublayers per layer
+            totalFeaturesSearch += 1;
+            layersResult[key] = { loading: true, wmsinfoformat };
+            break;
+          }
+        }
       } else {
         // Use GetFeatureInfo per sublayer
         Object.keys(looplist[key].underlag).forEach(subkey => {
@@ -870,9 +878,17 @@ class App extends React.Component {
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
-        // Use GetFeatureInfo with list of sublayers per layer
-        totalFeaturesSearch += 1;
-        allLayersResult[key] = { loading: true, wmsinfoformat };
+        // Check that at least one sublayer is queriable
+        const subkeyList = Object.keys(looplist[key].underlag);
+        for (let subkey of subkeyList) {
+          const subLooplist = looplist[key].underlag[subkey];
+          if (subLooplist.queryable) {
+            // Use GetFeatureInfo with list of sublayers per layer
+            totalFeaturesSearch += 1;
+            allLayersResult[key] = { loading: true, wmsinfoformat };
+            break;
+          }
+        }
       } else {
         Object.keys(looplist[key].underlag).forEach(subkey => {
           const subLooplist = looplist[key].underlag[subkey];
