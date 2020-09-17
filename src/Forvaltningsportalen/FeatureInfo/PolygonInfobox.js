@@ -184,7 +184,7 @@ const PolygonInfobox = ({
     setLoadingFeatures(loading);
   };
 
-  const showDetailedResults = (layer, result) => {
+  const showDetailedPolygonResults = (layer, result) => {
     setShowResults(true);
     setDetailLayer(layer);
     setDetailResult(result);
@@ -282,7 +282,9 @@ const PolygonInfobox = ({
                             )}
                             key={key}
                             result={polygonResults[key]}
-                            showDetailedResults={showDetailedResults}
+                            showDetailedPolygonResults={
+                              showDetailedPolygonResults
+                            }
                           />
                         );
                       })}

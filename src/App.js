@@ -59,6 +59,7 @@ class App extends React.Component {
       expandedLayersFavorites: [],
       expandedLayersComplete: [],
       sublayerDetailsVisible: false,
+      infoboxDetailsVisible: false,
       legendVisible: false,
       showFullscreenInfobox: false,
       isMobile: false,
@@ -302,6 +303,8 @@ class App extends React.Component {
                         showFullscreenInfobox={this.state.showFullscreenInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         isMobile={this.state.isMobile}
+                        infoboxDetailsVisible={this.state.infoboxDetailsVisible}
+                        setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
                         {...this.state}
                       />
                       <KartVelger
@@ -368,6 +371,11 @@ class App extends React.Component {
 
   setSublayerDetailsVisible = visible => {
     this.setState({ sublayerDetailsVisible: visible });
+  };
+
+  setInfoboxDetailsVisible = visible => {
+    console.log("Infobox detail visible = True");
+    this.setState({ infoboxDetailsVisible: visible });
   };
 
   setLegendVisible = visible => {

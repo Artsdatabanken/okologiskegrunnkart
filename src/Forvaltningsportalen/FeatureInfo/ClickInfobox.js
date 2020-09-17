@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Place, Home, Flag, Terrain } from "@material-ui/icons";
 import CustomTooltip from "../../Common/CustomTooltip";
 import CustomSwitch from "../../Common/CustomSwitch";
@@ -18,9 +18,10 @@ const ClickInfobox = ({
   resultat,
   kartlag,
   showExtensiveInfo,
-  loadingFeatures
+  loadingFeatures,
+  infoboxDetailsVisible,
+  setInfoboxDetailsVisible
 }) => {
-  const [showDetails, setShowDetails] = useState(false);
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
   const [secondaryText, setSecondaryText] = useState(null);
@@ -62,29 +63,26 @@ const ClickInfobox = ({
     }
   };
 
-  const showDetailedResults = (
-    layer,
-    listResults,
-    primaryText,
-    secondaryText,
-    numberResults
-  ) => {
-    // Remember scroll position of infobox
-    if (!showDetails) {
-      const wrapper = document.querySelector(".infobox-side");
-      setInfoboxScroll(wrapper.scrollTop);
-    }
+  const showDetailedResults = useCallback(
+    (layer, listResults, primaryText, secondaryText, numberResults) => {
+      // Remember scroll position of infobox
+      if (!infoboxDetailsVisible) {
+        const wrapper = document.querySelector(".infobox-side");
+        setInfoboxScroll(wrapper.scrollTop);
+      }
 
-    setShowDetails(true);
-    setResultLayer(kartlag[layer.id]);
-    setListResults(listResults);
-    setPrimaryText(primaryText);
-    setSecondaryText(secondaryText);
-    setNumberResults(numberResults);
-  };
+      setInfoboxDetailsVisible(true);
+      setResultLayer(kartlag[layer.id]);
+      setListResults(listResults);
+      setPrimaryText(primaryText);
+      setSecondaryText(secondaryText);
+      setNumberResults(numberResults);
+    },
+    [infoboxDetailsVisible, setInfoboxDetailsVisible, kartlag]
+  );
 
   const hideDetailedResults = () => {
-    setShowDetails(false);
+    setInfoboxDetailsVisible(false);
     setResultLayer(null);
     setListResults(null);
     setPrimaryText(null);
@@ -99,8 +97,10 @@ const ClickInfobox = ({
   };
 
   return (
-    <div className={`infobox-side${showDetails ? " show-details" : ""}`}>
-      {showDetails && (
+    <div
+      className={`infobox-side${infoboxDetailsVisible ? " show-details" : ""}`}
+    >
+      {infoboxDetailsVisible && (
         <DetailedResults
           resultLayer={resultLayer}
           listResults={listResults}
@@ -110,7 +110,7 @@ const ClickInfobox = ({
           hideDetailedResults={hideDetailedResults}
         />
       )}
-      <div className={showDetails ? "infobox-content-hidden" : ""}>
+      <div className={infoboxDetailsVisible ? "infobox-content-hidden" : ""}>
         <div className="infobox-content">
           <div className="infobox-text-wrapper">
             <CustomTooltip placement="right" title="Fylke / Fylkesnr.">
@@ -183,7 +183,7 @@ const ClickInfobox = ({
           layersResult={showExtensiveInfo ? allLayersResult : layersResult}
           resultat={resultat}
           loadingFeatures={loadingFeatures}
-          showDetails={showDetails}
+          infoboxDetailsVisible={infoboxDetailsVisible}
           resultLayer={resultLayer}
           showDetailedResults={showDetailedResults}
         />
