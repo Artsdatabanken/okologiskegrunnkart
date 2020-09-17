@@ -123,70 +123,67 @@ def createJSON(sender, instance, **kwargs):
                 'tittel': kartlag.tittel
             }
 
-        # if kartlag.sublag.count():
-            # alle_underlag = kartlag.sublag.all()
             alle_underlag = kartlag.sublag.filter(publiser=True)
             underlag = {}
             for lag in alle_underlag:
-                if lag.publiser:
-                    lag_json = {}
-                    if lag.tittel:
-                        lag_json['tittel'] = lag.tittel
-                    if lag.wmslayer:
-                        lag_json['wmslayer'] = lag.wmslayer
-                    if lag.legendeurl:
-                        lag_json['legendeurl'] = lag.legendeurl
-                    
-                    lag_json['id'] = lag.id
-                    lag_json['queryable'] = lag.queryable
-                    lag_json['minscaledenominator'] = lag.minscaledenominator
-                    lag_json['maxscaledenominator'] = lag.maxscaledenominator
-                    lag_json['erSynlig'] = lag.erSynlig
-                    lag_json['suggested'] = lag.suggested
-                    lag_json['testkoordinater'] = lag.testkoordinater
-                    lag_json['klikkurl'] = lag.klikkurl
-                    lag_json['klikktekst'] = lag.klikktekst
-                    lag_json['klikktekst2'] = lag.klikktekst2
-                    underlag[lag.id] = lag_json
+                lag_json = {}
+                if lag.tittel:
+                    lag_json['tittel'] = lag.tittel
+                if lag.wmslayer:
+                    lag_json['wmslayer'] = lag.wmslayer
+                if lag.legendeurl:
+                    lag_json['legendeurl'] = lag.legendeurl
+                
+                lag_json['id'] = lag.id
+                lag_json['queryable'] = lag.queryable
+                lag_json['minscaledenominator'] = lag.minscaledenominator
+                lag_json['maxscaledenominator'] = lag.maxscaledenominator
+                lag_json['erSynlig'] = lag.erSynlig
+                lag_json['suggested'] = lag.suggested
+                lag_json['testkoordinater'] = lag.testkoordinater
+                lag_json['klikkurl'] = lag.klikkurl
+                lag_json['klikktekst'] = lag.klikktekst
+                lag_json['klikktekst2'] = lag.klikktekst2
+                underlag[lag.id] = lag_json
 
-                    ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
-                    # Assess if current map zoom is within sublayer's scale range
-                    min_number = lag.minscaledenominator if lag.minscaledenominator else 0
-                    max_number = lag.maxscaledenominator if lag.maxscaledenominator else 999999999
+                ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
+                # Assess if current map zoom is within sublayer's scale range
+                min_number = lag.minscaledenominator if lag.minscaledenominator else 0
+                max_number = lag.maxscaledenominator if lag.maxscaledenominator else 999999999
 
-                    # Some predefined values filled automatically
-                    if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
-                        max_number = 2183915
-                    if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
-                        max_number = 150000
-                    if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
-                        and lag.wmslayer == 'Magasin'):
-                        max_number = 545979
+                # Some predefined values filled automatically
+                if kartlag.wmsurl == 'https://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?REQUEST=GetCapabilities&SERVICE=WMS':
+                    max_number = 2183915
+                if kartlag.wmsurl == 'https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetCapabilities&service=WMS':
+                    max_number = 150000
+                if (kartlag.wmsurl == 'https://gis3.nve.no/map/services/Vannkraft1/MapServer/WmsServer?request=GetCapabilities&service=WMS'
+                    and lag.wmslayer == 'Magasin'):
+                    max_number = 545979
 
-                    # NOTE: Some scales from NIBIO seem to be wrong.
-                    # Adjusted manually here (hopefully this will not
-                    # affect other scale denominators)
-                    if max_number == 1000000: max_number = 1091960
-                    if max_number == 500000: max_number = 545980
+                # NOTE: Some scales from NIBIO seem to be wrong.
+                # Adjusted manually here (hopefully this will not
+                # affect other scale denominators)
+                if max_number == 1000000: max_number = 1091960
+                if max_number == 500000: max_number = 545980
 
-                    minZoom = None
-                    maxZoom = None
-                    for i in range(len(scaleArray)):
-                        if max_number > scaleArray[i] and minZoom is None:
-                            minZoom = i
+                minZoom = None
+                maxZoom = None
+                for i in range(len(scaleArray)):
+                    if max_number > scaleArray[i] and minZoom is None:
+                        minZoom = i
 
-                    for i in range(len(scaleArray) - 1, -1, -1):
-                        if min_number < scaleArray[i] and maxZoom is None:
-                            maxZoom = i
+                for i in range(len(scaleArray) - 1, -1, -1):
+                    if min_number < scaleArray[i] and maxZoom is None:
+                        maxZoom = i
 
-                    if maxZoom is None: maxZoom = 20
-                    if minZoom is None: minZoom = 0
+                if maxZoom is None: maxZoom = 20
+                if minZoom is None: minZoom = 0
 
-                    # Minimum zoom level for loading overviews from sluggish WMSes
-                    minZoom = max(minZoom, 8)
+                # Minimum zoom level for loading overviews from sluggish WMSes
+                minZoom = max(minZoom, 8)
 
-                    lag_json['minzoom'] = minZoom
-                    lag_json['maxzoom'] = maxZoom
+                lag_json['minzoom'] = minZoom
+                lag_json['maxzoom'] = maxZoom
                     
             
             dict[kartlag.id]['underlag'] = underlag
