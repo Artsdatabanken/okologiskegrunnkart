@@ -24,7 +24,7 @@ const ResultsList = ({
   coordinates_area,
   layersResult,
   loadingFeatures,
-  showDetails,
+  infoboxDetailsVisible,
   resultLayer,
   showDetailedResults
 }) => {
@@ -65,7 +65,7 @@ const ResultsList = ({
                       kartlag={kartlag}
                       resultat={layersResult[key]}
                       element={key}
-                      showDetails={showDetails}
+                      infoboxDetailsVisible={infoboxDetailsVisible}
                       resultLayer={resultLayer}
                       showDetailedResults={showDetailedResults}
                     />

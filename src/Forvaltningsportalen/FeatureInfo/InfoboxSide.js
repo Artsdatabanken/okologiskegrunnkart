@@ -25,6 +25,8 @@ const InfoBox = ({
   showExtensiveInfo,
   loadingFeatures,
   isMobile,
+  infoboxDetailsVisible,
+  setInfoboxDetailsVisible,
   polygon,
   polyline,
   showPolygon,
@@ -224,6 +226,8 @@ const InfoBox = ({
           kartlag={kartlag}
           showExtensiveInfo={showExtensiveInfo}
           loadingFeatures={loadingFeatures}
+          infoboxDetailsVisible={infoboxDetailsVisible}
+          setInfoboxDetailsVisible={setInfoboxDetailsVisible}
         />
       )}
       {markerType === "polygon" && (

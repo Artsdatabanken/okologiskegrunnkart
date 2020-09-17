@@ -19,52 +19,50 @@ import {
 } from "./IndexedDB/ActionsIndexedDB";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bakgrunnskart,
-      completeKartlag: {},
-      favoriteKartlag: {},
-      kartlag: {},
-      valgteLag: {},
-      navigation_history: [],
-      showCurrent: true,
-      spraak: "nb",
-      showExtensiveInfo: false,
-      zoomcoordinates: null,
-      valgtLag: null,
-      searchResultPage: false,
-      polygon: null,
-      polyline: [],
-      showPolygon: true,
-      polygonResults: null,
-      showSideBar: true,
-      showInfobox: false,
-      editable: true,
-      sted: null,
-      adresse: null,
-      layersResult: {},
-      allLayersResult: {},
-      zoom: 3.1,
-      lat: null,
-      lng: null,
-      loadingFeatures: false,
-      editLayersMode: false,
-      someLayersFavorite: false,
-      listFavoriteLayerIds: [],
-      listFavoriteSublayerIds: [],
-      showFavoriteLayers: false,
-      visibleSublayersFavorites: [],
-      visibleSublayersComplete: [],
-      expandedLayersFavorites: [],
-      expandedLayersComplete: [],
-      sublayerDetailsVisible: false,
-      legendVisible: false,
-      showFullscreenInfobox: false,
-      isMobile: false,
-      showMarker: true
-    };
-  }
+  state = {
+    bakgrunnskart,
+    completeKartlag: {},
+    favoriteKartlag: {},
+    kartlag: {},
+    valgteLag: {},
+    navigation_history: [],
+    showCurrent: true,
+    spraak: "nb",
+    showExtensiveInfo: false,
+    zoomcoordinates: null,
+    valgtLag: null,
+    searchResultPage: false,
+    polygon: null,
+    polyline: [],
+    showPolygon: true,
+    polygonResults: null,
+    showSideBar: true,
+    showInfobox: false,
+    editable: true,
+    sted: null,
+    adresse: null,
+    layersResult: {},
+    allLayersResult: {},
+    zoom: 3.1,
+    lat: null,
+    lng: null,
+    loadingFeatures: false,
+    editLayersMode: false,
+    someLayersFavorite: false,
+    listFavoriteLayerIds: [],
+    listFavoriteSublayerIds: [],
+    showFavoriteLayers: false,
+    visibleSublayersFavorites: [],
+    visibleSublayersComplete: [],
+    expandedLayersFavorites: [],
+    expandedLayersComplete: [],
+    sublayerDetailsVisible: false,
+    infoboxDetailsVisible: false,
+    legendVisible: false,
+    showFullscreenInfobox: false,
+    isMobile: false,
+    showMarker: true
+  };
 
   async lastNedKartlag() {
     // Get kartlag.json file from server as default
@@ -302,6 +300,8 @@ class App extends React.Component {
                         showFullscreenInfobox={this.state.showFullscreenInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         isMobile={this.state.isMobile}
+                        infoboxDetailsVisible={this.state.infoboxDetailsVisible}
+                        setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
                         {...this.state}
                       />
                       <KartVelger
@@ -368,6 +368,11 @@ class App extends React.Component {
 
   setSublayerDetailsVisible = visible => {
     this.setState({ sublayerDetailsVisible: visible });
+  };
+
+  setInfoboxDetailsVisible = visible => {
+    console.log("Infobox detail visible = True");
+    this.setState({ infoboxDetailsVisible: visible });
   };
 
   setLegendVisible = visible => {
@@ -459,7 +464,11 @@ class App extends React.Component {
 
   updateFavoriteLayers = async completeKartlag => {
     const favoriteKartlag = this.reduceKartlag(completeKartlag);
-    this.setState({ completeKartlag, favoriteKartlag });
+    this.setState({
+      completeKartlag,
+      favoriteKartlag,
+      infoboxDetailsVisible: false
+    });
     const favorites = this.state.showFavoriteLayers;
     if (favorites) {
       this.hideVisibleLayers(favorites).then(() => {
@@ -683,7 +692,7 @@ class App extends React.Component {
     Object.keys(layersResult).forEach(key => {
       if (!looplist[key]) {
         delete layersResult[key];
-      } else if (layersResult[key]) {
+      } else if (layersResult[key] && layersResult[key].underlag) {
         Object.keys(layersResult[key].underlag).forEach(subkey => {
           if (!looplist[key].underlag[subkey]) {
             delete layersResult[key].underlag[subkey];

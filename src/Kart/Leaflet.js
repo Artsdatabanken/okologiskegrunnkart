@@ -661,6 +661,8 @@ class Leaflet extends React.Component {
           addPolyline={this.props.addPolyline}
           polygonResults={this.props.polygonResults}
           handlePolygonResults={this.props.handlePolygonResults}
+          infoboxDetailsVisible={this.props.infoboxDetailsVisible}
+          setInfoboxDetailsVisible={this.props.setInfoboxDetailsVisible}
         />
         {this.state.markerType === "polygon" && (
           <div

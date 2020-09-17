@@ -3,7 +3,11 @@ import React from "react";
 import { Badge } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 
-const PolygonElement = ({ polygonLayer, result, showDetailedResults }) => {
+const PolygonElement = ({
+  polygonLayer,
+  result,
+  showDetailedPolygonResults
+}) => {
   const numberResults = result ? result.length : 0;
 
   const iconSize = icon => {
@@ -21,7 +25,7 @@ const PolygonElement = ({ polygonLayer, result, showDetailedResults }) => {
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
-          if (!result.error) showDetailedResults(polygonLayer, result);
+          if (!result.error) showDetailedPolygonResults(polygonLayer, result);
         }}
       >
         <ListItemIcon className="infobox-list-icon-wrapper">

@@ -16,10 +16,7 @@ true &&
   });
 
 class RootBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { error: null };
-  }
+  state = { error: null };
 
   componentDidCatch(error, errorInfo) {
     this.setState({ error });

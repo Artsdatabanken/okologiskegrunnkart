@@ -18,7 +18,7 @@ const GeneriskElement = ({
   kartlag,
   resultat,
   element,
-  showDetails,
+  infoboxDetailsVisible,
   resultLayer,
   showDetailedResults
 }) => {
@@ -151,7 +151,12 @@ const GeneriskElement = ({
   }, [layer, resultat, resultatJSON]);
 
   useEffect(() => {
-    if (showDetails && resultLayer && layer && resultLayer.id === layer.id) {
+    if (
+      infoboxDetailsVisible &&
+      resultLayer &&
+      layer &&
+      resultLayer.id === layer.id
+    ) {
       showDetailedResults(
         layer,
         listResults,
@@ -167,11 +172,15 @@ const GeneriskElement = ({
     primaryText,
     secondaryText,
     numberResults,
-    showDetails,
+    infoboxDetailsVisible,
     showDetailedResults
   ]);
 
   useEffect(() => {
+    if (!layer || !layer.faktaark) {
+      setFaktaark_url(null);
+      return;
+    }
     const faktUrl = url_formatter(layer.faktaark, {
       ...coordinates_area,
       ...resultat

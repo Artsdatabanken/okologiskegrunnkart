@@ -59,6 +59,7 @@ function matchInput(formatstring, input) {
     if (typeof elementer[i] === "string" || elementer[i] instanceof String) {
       elementer[i] =
         elementer[i].charAt(0).toUpperCase() + elementer[i].slice(1);
+      elementer[i] = elementer[i].replace(/&#xA;/g, "");
     }
     if (i < elementer.length - 1) {
       elementer[i] = elementer[i] + ". ";
