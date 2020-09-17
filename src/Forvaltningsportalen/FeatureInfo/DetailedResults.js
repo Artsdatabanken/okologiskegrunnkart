@@ -18,6 +18,7 @@ const DetailedResults = ({
     );
   };
 
+  if (!resultLayer) return null;
   const sublayers = resultLayer.underlag;
 
   const resultText = resultArray => {

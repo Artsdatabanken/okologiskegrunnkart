@@ -19,53 +19,50 @@ import {
 } from "./IndexedDB/ActionsIndexedDB";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bakgrunnskart,
-      completeKartlag: {},
-      favoriteKartlag: {},
-      kartlag: {},
-      valgteLag: {},
-      navigation_history: [],
-      showCurrent: true,
-      spraak: "nb",
-      showExtensiveInfo: false,
-      zoomcoordinates: null,
-      valgtLag: null,
-      searchResultPage: false,
-      polygon: null,
-      polyline: [],
-      showPolygon: true,
-      polygonResults: null,
-      showSideBar: true,
-      showInfobox: false,
-      editable: true,
-      sted: null,
-      adresse: null,
-      layersResult: {},
-      allLayersResult: {},
-      zoom: 3.1,
-      lat: null,
-      lng: null,
-      loadingFeatures: false,
-      editLayersMode: false,
-      someLayersFavorite: false,
-      listFavoriteLayerIds: [],
-      listFavoriteSublayerIds: [],
-      showFavoriteLayers: false,
-      visibleSublayersFavorites: [],
-      visibleSublayersComplete: [],
-      expandedLayersFavorites: [],
-      expandedLayersComplete: [],
-      sublayerDetailsVisible: false,
-      infoboxDetailsVisible: false,
-      legendVisible: false,
-      showFullscreenInfobox: false,
-      isMobile: false,
-      showMarker: true
-    };
-  }
+  state = {
+    bakgrunnskart,
+    completeKartlag: {},
+    favoriteKartlag: {},
+    kartlag: {},
+    valgteLag: {},
+    navigation_history: [],
+    showCurrent: true,
+    spraak: "nb",
+    showExtensiveInfo: false,
+    zoomcoordinates: null,
+    valgtLag: null,
+    searchResultPage: false,
+    polygon: null,
+    polyline: [],
+    showPolygon: true,
+    polygonResults: null,
+    showSideBar: true,
+    showInfobox: false,
+    editable: true,
+    sted: null,
+    adresse: null,
+    layersResult: {},
+    allLayersResult: {},
+    zoom: 3.1,
+    lat: null,
+    lng: null,
+    loadingFeatures: false,
+    editLayersMode: false,
+    someLayersFavorite: false,
+    listFavoriteLayerIds: [],
+    listFavoriteSublayerIds: [],
+    showFavoriteLayers: false,
+    visibleSublayersFavorites: [],
+    visibleSublayersComplete: [],
+    expandedLayersFavorites: [],
+    expandedLayersComplete: [],
+    sublayerDetailsVisible: false,
+    infoboxDetailsVisible: false,
+    legendVisible: false,
+    showFullscreenInfobox: false,
+    isMobile: false,
+    showMarker: true
+  };
 
   async lastNedKartlag() {
     // Get kartlag.json file from server as default
@@ -467,7 +464,11 @@ class App extends React.Component {
 
   updateFavoriteLayers = async completeKartlag => {
     const favoriteKartlag = this.reduceKartlag(completeKartlag);
-    this.setState({ completeKartlag, favoriteKartlag });
+    this.setState({
+      completeKartlag,
+      favoriteKartlag,
+      infoboxDetailsVisible: false
+    });
     const favorites = this.state.showFavoriteLayers;
     if (favorites) {
       this.hideVisibleLayers(favorites).then(() => {
