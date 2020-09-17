@@ -371,7 +371,6 @@ class App extends React.Component {
   };
 
   setInfoboxDetailsVisible = visible => {
-    console.log("Infobox detail visible = True");
     this.setState({ infoboxDetailsVisible: visible });
   };
 
@@ -714,7 +713,7 @@ class App extends React.Component {
         const subkeyList = Object.keys(looplist[key].underlag);
         for (let subkey of subkeyList) {
           const subLooplist = looplist[key].underlag[subkey];
-          if (subLooplist.queryable) {
+          if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
             layersResult[key] = { loading: true, wmsinfoformat };
@@ -725,7 +724,7 @@ class App extends React.Component {
         // Use GetFeatureInfo per sublayer
         Object.keys(looplist[key].underlag).forEach(subkey => {
           const subLooplist = looplist[key].underlag[subkey];
-          if (!subLooplist.queryable) return;
+          if (!subLooplist.queryable && subLooplist.klikkurl === "") return;
           if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
           totalFeaturesSearch += 1;
           if (!layersResult[key]) {
@@ -882,7 +881,7 @@ class App extends React.Component {
         const subkeyList = Object.keys(looplist[key].underlag);
         for (let subkey of subkeyList) {
           const subLooplist = looplist[key].underlag[subkey];
-          if (subLooplist.queryable) {
+          if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
             allLayersResult[key] = { loading: true, wmsinfoformat };
@@ -892,7 +891,7 @@ class App extends React.Component {
       } else {
         Object.keys(looplist[key].underlag).forEach(subkey => {
           const subLooplist = looplist[key].underlag[subkey];
-          if (!subLooplist.queryable) return;
+          if (!subLooplist.queryable && subLooplist.klikkurl === "") return;
           if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
           if (
             looplist[key].aggregatedwmslayer &&

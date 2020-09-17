@@ -1,9 +1,10 @@
 import proj4 from "proj4";
 
 export function getFeatureInfoUrl(layer, sublayer, coords) {
-  if (layer.klikkurl)
+  if (layer.klikkurl && layer.klikkurl !== "") {
     // Generic API
     return url_formatter(layer.klikkurl, coords);
+  }
 
   return getWmsFeatureUrl(layer, sublayer, coords);
 }
@@ -93,7 +94,7 @@ export default function url_formatter(formatstring = "", variables) {
   });
 
   var url = parts.join("");
-  if (!url) {
+  if (!url || url.replace(/ /g, "") === "") {
     return null;
   }
   try {

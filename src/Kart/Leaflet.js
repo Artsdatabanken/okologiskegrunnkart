@@ -447,7 +447,6 @@ class Leaflet extends React.Component {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
       });
       layer.on("tileerror", e => {
-        //console.log(e);
         //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
       });
       this.wmslayers[underlag.id] = layer;
