@@ -28,7 +28,6 @@ const KartlagSettings = ({
   handleShowFavoriteLayers,
   isMobile
 }) => {
-  const [originalLayers] = useState({ ...kartlag });
   const [layers, setLayers] = useState(JSON.parse(JSON.stringify(kartlag))); // Deep copy
   const [layersActive, setLayersActive] = useState(someLayersFavorite);
   const [loading, setLoading] = useState(false);
@@ -136,8 +135,6 @@ const KartlagSettings = ({
     });
     return !(allFavorite || noneFavorite);
   };
-
-  console.log(layers);
 
   return (
     <div className="settings-layers-wrapper">
@@ -264,12 +261,7 @@ const KartlagSettings = ({
           variant="contained"
           size="small"
           onClick={() => {
-            console.log("originalLayers", originalLayers);
-            console.log("layers", layers);
-            // setLayers(originalLayers);
-            setTimeout(() => {
-              toggleEditLayers();
-            }, 50);
+            toggleEditLayers();
           }}
         >
           Avbryt
