@@ -28,7 +28,7 @@ const KartlagSettings = ({
   handleShowFavoriteLayers,
   isMobile
 }) => {
-  const [layers, setLayers] = useState(kartlag);
+  const [layers, setLayers] = useState(JSON.parse(JSON.stringify(kartlag))); // Deep copy
   const [layersActive, setLayersActive] = useState(someLayersFavorite);
   const [loading, setLoading] = useState(false);
 
