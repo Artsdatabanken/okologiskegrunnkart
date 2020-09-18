@@ -60,7 +60,12 @@ const GeneriskElement = ({
 
     const wmsinfoformat = layer.wmsinfoformat;
 
-    if (
+    if (resultat.error) {
+      setPrimaryTextHeader({ harData: false, elementer: [] });
+      setPrimaryText({ harData: false, elementer: [] });
+      setSecondaryText({ harData: false, elementer: [] });
+      return;
+    } else if (
       wmsinfoformat === "application/vnd.ogc.gml" ||
       wmsinfoformat === "application/vnd.esri.wms_raw_xml"
     ) {
