@@ -41,6 +41,7 @@ class App extends React.Component {
     editable: true,
     sted: null,
     adresse: null,
+    elevation: null,
     layersResult: {},
     allLayersResult: {},
     zoom: 3.1,
@@ -289,6 +290,7 @@ class App extends React.Component {
                         history={history}
                         sted={this.state.sted}
                         adresse={this.state.adresse}
+                        elevation={this.state.elevation}
                         layersResult={this.state.layersResult}
                         allLayersResult={this.state.allLayersResult}
                         valgteLag={this.state.valgteLag}
@@ -626,6 +628,7 @@ class App extends React.Component {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
+    this.handleHoydedata(lng, lat);
   };
 
   handleLatLng = (lng, lat) => {
@@ -662,6 +665,16 @@ class App extends React.Component {
         );
         this.setState({
           adresse: adresse.length > 0 ? adresse[0] : null
+        });
+      }
+    });
+  };
+  handleHoydedata = (lng, lat) => {
+    // returnerer punkt søk
+    backend.hentHoydedata(lng, lat).then(hoydedata => {
+      if (hoydedata) {
+        this.setState({
+          elevation: hoydedata.elevation || null
         });
       }
     });

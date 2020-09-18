@@ -646,6 +646,7 @@ class Leaflet extends React.Component {
           valgteLag={this.props.valgteLag}
           sted={this.props.sted}
           adresse={this.props.adresse}
+          elevation={this.props.elevation}
           resultat={this.props.resultat}
           kartlag={this.props.kartlag}
           showExtensiveInfo={this.props.showExtensiveInfo}

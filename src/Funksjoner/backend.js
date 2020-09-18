@@ -45,6 +45,12 @@ class Backend {
     );
   }
 
+  static async hentHoydedata(lng, lat) {
+    return this.getPromise(
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/elevasjon?lat=${lat}&lng=${lng}`
+    );
+  }
+
   static async hentKommune(knr) {
     return this.getPromise(
       `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=t*&fylkeKommuneListe=${knr}&antPerSide=1&epsgKode=4326`
