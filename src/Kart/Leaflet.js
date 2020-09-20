@@ -575,7 +575,7 @@ class Leaflet extends React.Component {
     }
 
     return (
-      <>
+      <div className="leaflet-main-wrapper">
         <div className={this.markerButtonClass()}>
           <button
             id="marker-button-map"
@@ -673,7 +673,7 @@ class Leaflet extends React.Component {
             Polygon kanter kan ikke krysse
           </div>
         )}
-      </>
+      </div>
     );
   }
 

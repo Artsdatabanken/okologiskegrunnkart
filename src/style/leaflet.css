@@ -1,5 +1,10 @@
 /** Firefox workaround for https://github.com/Leaflet/Leaflet/issues/4686 */
 
+.leaflet-main-wrapper {
+  height: 0;
+  width: 0;
+}
+
 .leaflet-fade-anim .leaflet-tile,
 .leaflet-zoom-anim .leaflet-zoom-animated {
   will-change: unset;
@@ -42,6 +47,8 @@
 .marker_type_button_container {
   display: flex;
   margin-left: 0;
+  width: 90px;
+  height: 45px;
 }
 
 .marker_type_button_container.infobox-open {
