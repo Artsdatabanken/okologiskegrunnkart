@@ -49,7 +49,7 @@ const Tegnforklaring = ({ layers, setLegendVisible }) => {
             //     history.push(loc);
             //   }}
             // >
-            <div key={layer.tittel} style={{ marginBottom: 16 }}>
+            <div className="legend-content-layer" key={layer.tittel}>
               <ListSubheader disableSticky disableGutters>
                 {layer.tittel}
               </ListSubheader>
