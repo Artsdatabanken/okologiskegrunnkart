@@ -186,9 +186,6 @@ const GeneriskElement = ({
       wmsinfoformat
     );
 
-    console.log("primary: ", primary);
-    console.log("secondary: ", secondary);
-
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
       let firstMatch = primary[indices[0]];
@@ -202,8 +199,6 @@ const GeneriskElement = ({
             if (i < length - 1) {
               elem = elem + ". ";
             }
-            console.log("elementkey: ", elementkey);
-            console.log("elem: ", elem);
             nyeElementer.push(elem);
           });
         }
@@ -213,7 +208,6 @@ const GeneriskElement = ({
         elementer: nyeElementer
       };
 
-      console.log("firstMatch: ", firstMatch);
       setPrimaryTextHeader(firstMatch);
       setPrimaryText(primary);
       setSecondaryText(secondary);
