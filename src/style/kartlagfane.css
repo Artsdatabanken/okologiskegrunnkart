@@ -423,6 +423,13 @@
   height: calc(100% - 50px);
   overflow-y: auto;
 }
+.legend-content-layer {
+  margin-bottom: 16px;
+}
+.legend-content-layer > div > .MuiGrid-item {
+  padding-bottom: 0;
+  padding-top: 10px;
+}
 
 /* -------- Layers and sublayers wrappers ---------- */
 #layer-list-item.MuiListItem-root {

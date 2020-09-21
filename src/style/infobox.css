@@ -228,6 +228,13 @@
   margin-top: 2px;
   text-align: left;
 }
+.infobox-text-tertyary {
+  color: grey;
+  font-size: 14px;
+  margin-top: 2px;
+  text-align: left;
+  text-transform: lowercase;
+}
 
 /* List with selected layers */
 .detailed-info-container-side {

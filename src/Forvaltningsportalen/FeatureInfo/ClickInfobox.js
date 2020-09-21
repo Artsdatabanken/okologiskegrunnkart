@@ -15,6 +15,7 @@ const ClickInfobox = ({
   valgteLag,
   sted,
   adresse,
+  elevation,
   resultat,
   kartlag,
   showExtensiveInfo,
@@ -153,11 +154,16 @@ const ClickInfobox = ({
             </div>
           </div>
           <div className="infobox-text-wrapper">
-            <CustomTooltip placement="right" title="Koordinater">
+            <CustomTooltip placement="right" title="Koordinater / Høyde">
               <Place />
             </CustomTooltip>
-            <div className="infobox-text-primary">
-              {coordinates_area ? coords : "--° N --° Ø"}
+            <div className="infobox-text-multiple">
+              <div className="infobox-text-primary">
+                {coordinates_area ? coords : "--° N --° Ø"}
+              </div>
+              <div className="infobox-text-tertyary">
+                {elevation ? elevation + " moh" : "-"}
+              </div>
             </div>
           </div>
         </div>
