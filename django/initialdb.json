@@ -218,6 +218,14 @@
   },
   {
     "model": "sessions.session",
+    "pk": "kxem8v5okbbqhhzmakugv53ddb2ajii9",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-10-01T12:57:52.239Z"
+    }
+  },
+  {
+    "model": "sessions.session",
     "pk": "lwqz5rkgv6ppxebt6mho4n6mn8i4c4r0",
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
@@ -664,7 +672,7 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -712,7 +720,7 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.wms_xml",
       "testkoordinater": "9.970093908764893,62.891303263940515",
-      "klikkurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{OBJEKTNAVN}",
       "klikktekst2": "{VERNEPLAN}",
       "aggregatedwmslayer": "",
@@ -738,7 +746,7 @@
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
       "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": "",
+      "klikktekst2": "{beskrivelse.nb}",
       "aggregatedwmslayer": "",
       "type": 5,
       "tag": [4, 6]
@@ -762,7 +770,7 @@
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
       "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": "",
+      "klikktekst2": "{beskrivelse.nb}",
       "aggregatedwmslayer": "",
       "type": 6,
       "tag": [4]
@@ -1120,7 +1128,7 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1312,10 +1320,10 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": "",
-      "aggregatedwmslayer": "",
+      "aggregatedwmslayer": "Nokkelbiotop",
       "type": 11,
       "tag": [1, 8]
     }
@@ -1336,7 +1344,7 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1529,8 +1537,8 @@
       "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
       "testkoordinater": "10.177551977610106,62.53639775772075",
       "klikkurl": "",
-      "klikktekst": "{0.omraadenavn}",
-      "klikktekst2": "{1.funksjon} {1.funksjonsperiode}",
+      "klikktekst": "",
+      "klikktekst2": "",
       "aggregatedwmslayer": "",
       "type": 10,
       "tag": [3, 7]
@@ -1624,7 +1632,7 @@
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "11.997348756463646,63.01510569831989",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/vernskog?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Vernskog&query_layers=Vernskog&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Vernskog_layer.gml:name} {Vernskog_layer.Vernskog_feature.beskrivelse}",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1744,7 +1752,7 @@
       "projeksjon": "EPSG:900913",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/GrusPukkWMS3?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
@@ -1967,7 +1975,7 @@
       "maxscaledenominator": 18898809,
       "suggested": true,
       "testkoordinater": "9.970093908764893,62.891303263940515",
-      "klikkurl": "https://gis3.NVE.no/map/services/VerneplanforVassdrag/MapServer/WmsServer?QUERY_LAYERS=VerneplanforVassdrag&styles=&format=image%2Fpng&transparent=true&version=1.1.1&width=256&height=256&srs=EPSG%3A4326&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{OBJEKTNAVN}",
       "klikktekst2": "{VERNEPLAN}"
     }
@@ -1986,10 +1994,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "11.39169553202426,62.88019695314279",
+      "testkoordinater": "11.297378540039062,62.41104675757116",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
-      "klikktekst": "{trinn.tittel.nb}",
-      "klikktekst2": "(PCA2={v})"
+      "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -2007,9 +2015,9 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "",
-      "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
+      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -2466,10 +2474,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "9.052734375000002,63.03503931552978",
+      "klikkurl": "",
+      "klikktekst": "{LA-I-A_layer.LA-I-A_feature.name}",
+      "klikktekst2": "{LA-I-A_layer.LA-I-A_feature.area}"
     }
   },
   {
@@ -2486,10 +2494,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "8.107910156250002,62.65396335371416",
+      "klikkurl": "",
+      "klikktekst": "{LA-I-D_layer.LA-I-D_feature.name}",
+      "klikktekst2": "{LA-I-D_layer.LA-I-D_feature.area}"
     }
   },
   {
@@ -2506,10 +2514,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "11.689453125000002,62.103882522897884",
+      "klikkurl": "",
+      "klikktekst": "{LA-I-S_layer.LA-I-S_feature.name}",
+      "klikktekst2": "{LA-I-S_layer.LA-I-S_feature.area}"
     }
   },
   {
@@ -2526,10 +2534,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "8.624267578125002,63.18906350177621",
+      "klikkurl": "",
+      "klikktekst": "{LA-K-F_layer.LA-K-F_feature.name}",
+      "klikktekst2": "{LA-K-F_layer.LA-K-F_feature.area}"
     }
   },
   {
@@ -2546,10 +2554,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "8.547363281250002,63.61698233975829",
+      "klikkurl": "",
+      "klikktekst": "{LA-K-S_layer.LA-K-S_feature.name}",
+      "klikktekst2": "{LA-K-S_layer.LA-K-S_feature.area}"
     }
   },
   {
@@ -2566,10 +2574,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": null,
       "suggested": true,
-      "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
-      "klikktekst": "{landskap.tittel.nb}",
-      "klikktekst2": ""
+      "testkoordinater": "10.052490234375002,63.450509218001095",
+      "klikkurl": "",
+      "klikktekst": "{LA-M_layer.LA-M_feature.name}",
+      "klikktekst2": "{LA-M_layer.LA-M_feature.area}"
     }
   },
   {
@@ -3247,7 +3255,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -3867,8 +3875,8 @@
       "maxscaledenominator": 500000,
       "suggested": true,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
+      "klikkurl": "",
+      "klikktekst": "",
       "klikktekst2": ""
     }
   },
@@ -3886,10 +3894,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 500000,
       "suggested": false,
-      "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
-      "klikktekst2": ""
+      "testkoordinater": "9.95635986328125,62.83853720104067",
+      "klikkurl": "",
+      "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk}",
+      "klikktekst2": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.opphav} {Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.areal}"
     }
   },
   {
@@ -3907,9 +3915,9 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
-      "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
-      "klikktekst2": ""
+      "klikkurl": "",
+      "klikktekst": "{Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
+      "klikktekst2": "{Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.opphav} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.areal}"
     }
   },
   {
@@ -3927,7 +3935,7 @@
       "maxscaledenominator": 2500000,
       "suggested": true,
       "testkoordinater": "8.969651589504197,63.872738541010044",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "{Kornstorrelse_Det_layer.Kornstorrelse_Det_feature.Sedimentkornst}",
       "klikktekst2": "{Kornstorrelse_Det_layer.gml:name}"
     }
@@ -3947,7 +3955,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "8.135396853850999,64.01930937082838",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "{Kornstorrelse_Reg_layer.Kornstorrelse_Reg_feature.Sedimentkornst}",
       "klikktekst2": "{Kornstorrelse_Reg_layer.gml:name}"
     }
@@ -3967,7 +3975,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "8.052999779768767,63.8672952528939",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "{Sedimentdannelse_Reg_layer.Sedimentdannelse_Reg_feature.Jordart}",
       "klikktekst2": "{Sedimentdannelse_Reg_layer.gml:name}"
     }
@@ -3987,7 +3995,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -4007,7 +4015,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "10.107485989810623,68.35869913946578",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "{Sedimentasjonsmiljo_Reg_layer.Sedimentasjonsmiljo_Reg_feature.Sedimentasjonsmilj.1}",
       "klikktekst2": "{Sedimentasjonsmiljo_Reg_layer.gml:name}"
     }
@@ -4847,7 +4855,7 @@
       "maxscaledenominator": null,
       "suggested": true,
       "testkoordinater": "11.997348756463646,63.01510569831989",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/vernskog?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Vernskog&query_layers=Vernskog&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Vernskog_layer.gml:name} {Vernskog_layer.Vernskog_feature.beskrivelse}",
       "klikktekst2": ""
     }
@@ -5086,9 +5094,9 @@
       "minscaledenominator": null,
       "maxscaledenominator": 187501,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "8.912658691406252,62.99204046331962",
       "klikkurl": "",
-      "klikktekst": "",
+      "klikktekst": "{Grus_Pukk_omrade_layer.Grus_Pukk_omrade_feature.navn}",
       "klikktekst2": ""
     }
   },
@@ -5126,10 +5134,10 @@
       "minscaledenominator": null,
       "maxscaledenominator": 187501,
       "suggested": true,
-      "testkoordinater": "",
+      "testkoordinater": "9.077968597412111,62.69249834425115",
       "klikkurl": "",
-      "klikktekst": "",
-      "klikktekst2": ""
+      "klikktekst": "{Steintipp_layer.Steintipp_feature.gml:boundedBy.gml:Box.srsName}",
+      "klikktekst2": "{Steintipp_layer.Steintipp_feature.gml:boundedBy.gml:Box.gml:coordinates}"
     }
   },
   {
@@ -6347,7 +6355,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6367,7 +6375,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6387,7 +6395,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6407,7 +6415,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6427,7 +6435,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6447,7 +6455,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6467,7 +6475,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6487,7 +6495,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6507,7 +6515,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6527,7 +6535,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6547,7 +6555,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6567,7 +6575,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6587,7 +6595,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6607,7 +6615,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6627,7 +6635,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6647,7 +6655,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -6667,7 +6675,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "9.824419456975166,63.231594810826465",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}",
+      "klikkurl": "",
       "klikktekst": "{landskap.tittel.nb}",
       "klikktekst2": ""
     }
@@ -7007,9 +7015,9 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
+      "klikkurl": "",
       "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": ""
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -7027,9 +7035,9 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
+      "klikkurl": "",
       "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": ""
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -7049,7 +7057,7 @@
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
       "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": ""
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -7069,7 +7077,7 @@
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
       "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": ""
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -7089,7 +7097,7 @@
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
       "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": ""
+      "klikktekst2": "{beskrivelse.nb}"
     }
   },
   {
@@ -12767,7 +12775,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12807,7 +12815,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12827,7 +12835,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12847,7 +12855,7 @@
       "maxscaledenominator": 200000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12867,7 +12875,7 @@
       "maxscaledenominator": 200000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12887,7 +12895,7 @@
       "maxscaledenominator": 50000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12907,7 +12915,7 @@
       "maxscaledenominator": 50000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12927,7 +12935,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12947,7 +12955,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12967,7 +12975,7 @@
       "maxscaledenominator": 200000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -12987,7 +12995,7 @@
       "maxscaledenominator": 200000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13007,7 +13015,7 @@
       "maxscaledenominator": 50000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13027,7 +13035,7 @@
       "maxscaledenominator": 50000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13047,7 +13055,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13067,7 +13075,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13087,7 +13095,7 @@
       "maxscaledenominator": 200000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13107,7 +13115,7 @@
       "maxscaledenominator": 50000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "https://wms.geonorge.no/skwms1/wms.havbunnraster3?",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13427,7 +13435,7 @@
       "maxscaledenominator": 50000000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13447,7 +13455,7 @@
       "maxscaledenominator": 1000000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13467,7 +13475,7 @@
       "maxscaledenominator": 40001,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13487,7 +13495,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13507,7 +13515,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13527,7 +13535,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13547,7 +13555,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13567,7 +13575,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13587,7 +13595,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13607,7 +13615,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13627,7 +13635,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13647,7 +13655,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13667,7 +13675,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13687,7 +13695,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13707,7 +13715,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13727,7 +13735,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13747,7 +13755,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13767,7 +13775,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13787,7 +13795,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13807,7 +13815,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13827,7 +13835,7 @@
       "maxscaledenominator": 500000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13847,7 +13855,7 @@
       "maxscaledenominator": 100000,
       "suggested": false,
       "testkoordinater": "10.14234342331804,62.824114808095096",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Nokkelbiotop_m_mis_layer.Nokkelbiotop_m_mis_feature.forv_besk} {Nokkelbiotop_u_mis_layer.Nokkelbiotop_u_mis_feature.forv_besk}",
       "klikktekst2": ""
     }
@@ -13867,7 +13875,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13887,7 +13895,7 @@
       "maxscaledenominator": 12000000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13907,7 +13915,7 @@
       "maxscaledenominator": 12000000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13927,7 +13935,7 @@
       "maxscaledenominator": 1500000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13947,7 +13955,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13967,7 +13975,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -13987,7 +13995,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14007,7 +14015,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14027,7 +14035,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14047,7 +14055,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14067,7 +14075,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14087,7 +14095,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14107,7 +14115,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14127,7 +14135,7 @@
       "maxscaledenominator": 2500000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14147,7 +14155,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14167,7 +14175,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14187,7 +14195,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14207,7 +14215,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14227,7 +14235,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14247,7 +14255,7 @@
       "maxscaledenominator": 2000000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14267,7 +14275,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14287,7 +14295,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -14307,7 +14315,7 @@
       "maxscaledenominator": 25000000,
       "suggested": false,
       "testkoordinater": "",
-      "klikkurl": "http://geo.ngu.no/mapserver/MarinBunnsedimenterWMS?language=nor&",
+      "klikkurl": "",
       "klikktekst": "",
       "klikktekst2": ""
     }
@@ -15127,7 +15135,7 @@
       "maxscaledenominator": 50000000,
       "suggested": false,
       "testkoordinater": "11.997348756463646,63.01510569831989",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/vernskog?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Vernskog&query_layers=Vernskog&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Vernskog_layer.gml:name} {Vernskog_layer.Vernskog_feature.beskrivelse}",
       "klikktekst2": ""
     }
@@ -15147,7 +15155,7 @@
       "maxscaledenominator": null,
       "suggested": false,
       "testkoordinater": "11.997348756463646,63.01510569831989",
-      "klikkurl": "https://wms.nibio.no/cgi-bin/vernskog?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=application/vnd.ogc.gml&layers=Vernskog&query_layers=Vernskog&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
+      "klikkurl": "",
       "klikktekst": "{Vernskog_layer.gml:name} {Vernskog_layer.Vernskog_feature.beskrivelse}",
       "klikktekst2": ""
     }
@@ -19359,7 +19367,7 @@
       "tittel": "Terreng h\u00f8yde 10m (DTM)",
       "wmslayer": "",
       "legendeurl": "",
-      "publiser": true,
+      "publiser": false,
       "erSynlig": false,
       "hovedkartlag": 33,
       "queryable": false,
@@ -19863,7 +19871,7 @@
     "pk": 3,
     "fields": {
       "password": "pbkdf2_sha256$180000$iIVaKRsOl7pS$+ElNqzucI5jUsTY7llXp6ChRgrc1ejZ1P7ya5TJ2vgI=",
-      "last_login": "2020-09-10T07:37:57.511Z",
+      "last_login": "2020-09-17T12:57:52.230Z",
       "is_superuser": true,
       "username": "root",
       "first_name": "",
@@ -29013,6 +29021,292 @@
       "object_repr": "Forurenset grunn",
       "action_flag": 2,
       "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Forurenset omr\\u00e5de - tilstand\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 704,
+    "fields": {
+      "action_time": "2020-09-17T08:46:49.411Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "66",
+      "object_repr": "Forurenset grunn",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 705,
+    "fields": {
+      "action_time": "2020-09-17T09:00:49.986Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "46",
+      "object_repr": "Marine bunnsedimenter",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (kornst\\u00f8rrelse) detaljert\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (kornst\\u00f8rrelse) regional\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (dannelse) regional\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentasjonsmilj\\u00f8 detaljert\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentasjonsmilj\\u00f8 regionalt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"MarinBunnsedimenterWMS\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Realativ bunnhardhet\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Relativ bunnhardhet, MS 100m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Relativ bunnhardhet, MS 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentmektighet\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"L\\u00f8smassemektighet Oslofjord\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kvart\\u00e6rmektighet\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Holocen mektighet\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentkornst\\u00f8rrelse\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (kornst\\u00f8rrelse) oversikt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Datadekning (kornst\\u00f8rrelse, detaljert)\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentdannelse\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (dannelse) oversikt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnsedimenter (dannelse) detaljert\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklastiske sedimenter\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Datadekning (dannelse, detaljert)\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Sedimentasjonsmilj\\u00f8\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Datadekning (sedimentasjonsmilj\\u00f8, detaljert)\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunntype fra sj\\u00f8m\\u00e5ling\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bunnstr\\u00f8mmer\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Havomr\\u00e5der\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Havomr\\u00e5der\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hav\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 706,
+    "fields": {
+      "action_time": "2020-09-17T09:04:48.698Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "63",
+      "object_repr": "Grus og pukk",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 707,
+    "fields": {
+      "action_time": "2020-09-17T09:20:07.803Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "37",
+      "object_repr": "Dybdedata terrengmodeller",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"havbunnraster med gr\\u00e5 dybde og 50% skygge\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"sjo_skyggerelieff\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"farget dybde 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"farget dybde 25m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 25m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"farget dybde 5m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 5m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"gr\\u00e5 dybde 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"gr\\u00e5 dybde 25m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 25m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"gr\\u00e5 dybde 5m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"50% skygge 5m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"100% skygge\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"100% skygge 50m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"100% skygge 25m\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"100% skygge 5m\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 708,
+    "fields": {
+      "action_time": "2020-09-17T12:30:05.385Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "58",
+      "object_repr": "Vernskog",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Vernskog\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"WMS for vernskog fra NIBIO\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"VernskogOmriss\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 709,
+    "fields": {
+      "action_time": "2020-09-17T12:31:23.264Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "19",
+      "object_repr": "Verneplan for Vassdrag",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Verneplan for Vassdrag\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 710,
+    "fields": {
+      "action_time": "2020-09-17T12:34:43.343Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "45",
+      "object_repr": "N\u00f8kkelbiotoper",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"N\\u00f8kkelbiotop\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"N\\u00f8kkelbiotop med MiS\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"N\\u00f8kkelbiotop uten MiS\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"WMS for livsmiljoer og nokkelbiotoper\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dekningskart_oversikt\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Dekningskart_detalj\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Livsmiljoer\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Rik_bakkeveg\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Liggende_dod_ved\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Staende d\\u00f8d ved\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Hule lauvtrar\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bekkeklofter\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Leirraviner\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bergvegger_linje\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bergvegger_flate\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Brannflater\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Gamle_trar\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Eldre lauvsuksesjon\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Tr\\u00e6r med hengelav\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Rikbarkstr\\u00e6r\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Registreringsaar\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Registrerte_eldre\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Registrerte i fjor\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Registrerte i \\u00e5r\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Aldersklasser_i_skog\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 711,
+    "fields": {
+      "action_time": "2020-09-17T12:40:01.190Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "45",
+      "object_repr": "N\u00f8kkelbiotoper",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Aggregatedwmslayer\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 712,
+    "fields": {
+      "action_time": "2020-09-17T12:42:44.014Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "Landskap - NiN",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Innlands\\u00e5s- og fjellandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Innlandsdallandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Innlandsslettelandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Fjordlandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Kystslettelandskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Marine landskap\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Landskapsdata\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-I\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-K\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-K-A\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-AI_k\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-JP_k\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-KA_k\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-VP_k\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-BP_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-IP_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-IYK_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-JA_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-RE-IA_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-RE-KF-ID_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-RE-KS_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-VE_d\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"LA-KLG-VP_d\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 713,
+    "fields": {
+      "action_time": "2020-09-17T12:59:48.627Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk sone\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 714,
+    "fields": {
+      "action_time": "2020-09-17T15:04:15.810Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk sone\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 715,
+    "fields": {
+      "action_time": "2020-09-17T15:14:33.407Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikkurl\", \"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 716,
+    "fields": {
+      "action_time": "2020-09-17T15:17:25.356Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk sone\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 717,
+    "fields": {
+      "action_time": "2020-09-17T15:33:26.074Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "54",
+      "object_repr": "Villreinomr\u00e5der",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 718,
+    "fields": {
+      "action_time": "2020-09-17T15:51:34.495Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "37",
+      "object_repr": "Dybdedata terrengmodeller",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"havbunnraster med gr\\u00e5 dybde og 50% skygge\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 719,
+    "fields": {
+      "action_time": "2020-09-17T15:53:03.852Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "37",
+      "object_repr": "Dybdedata terrengmodeller",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikkurl\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"havbunnraster med gr\\u00e5 dybde og 50% skygge\", \"fields\": [\"Klikkurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 720,
+    "fields": {
+      "action_time": "2020-09-18T05:37:25.364Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske soner 2017\", \"fields\": [\"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 721,
+    "fields": {
+      "action_time": "2020-09-18T05:37:58.276Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk sone\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 722,
+    "fields": {
+      "action_time": "2020-09-18T06:09:40.502Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 723,
+    "fields": {
+      "action_time": "2020-09-18T06:10:34.123Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 724,
+    "fields": {
+      "action_time": "2020-09-18T06:54:03.603Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 725,
+    "fields": {
+      "action_time": "2020-09-18T07:48:38.126Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "33",
+      "object_repr": "H\u00f8ydedata",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Terreng h\\u00f8yde 10m (DTM)\", \"fields\": [\"Publiser\"]}}]"
     }
   }
 ]
