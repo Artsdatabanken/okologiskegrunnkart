@@ -8,18 +8,49 @@ function lookup(o, path) {
   if (o.loading || o.error || Object.keys(o).length === 0) return;
   if (!path) return JSON.stringify(o);
   const segments = path.split(".");
-  for (var segment of segments) {
+  for (const segment of segments) {
     if (o[segment] === undefined) {
       return null;
     }
     o = o[segment];
   }
-  if (typeof o === "string") return o;
-  if (typeof o === "number") {
-    const decimals = countDecimals(o);
-    if (decimals > 6) o = o.toFixed(6);
+
+  let key = path;
+  if (segments.length > 1) {
+    key = segments[segments.length - 1];
   }
-  return JSON.stringify(o);
+
+  // Clean string
+  const cleanResult = cleanLookup(o);
+
+  // Filter out results if not relevant
+  const result = filterLookup(cleanResult);
+
+  return { [key]: result };
+}
+
+function cleanLookup(o) {
+  let result;
+  if (typeof o === "string") {
+    result = o;
+  } else {
+    if (typeof o === "number") {
+      const decimals = countDecimals(o);
+      if (decimals > 6) o = o.toFixed(6);
+    }
+    result = JSON.stringify(o);
+  }
+  return result;
+}
+
+function filterLookup(o) {
+  let result;
+  // Filter out results if not relevant
+  if (o.replace(/ /g, "") === "") return null;
+  if (o.toLowerCase() === "null") return null;
+  result = o.charAt(0).toUpperCase() + o.slice(1);
+  result = result.replace(/&#xA;/g, "");
+  return result;
 }
 
 function countDecimals(number) {
@@ -60,21 +91,25 @@ function matchInput(formatstring, input) {
     return null;
   });
 
-  elementer = elementer.filter(e => e && e.replace(/ /g, "") !== "");
-  elementer = elementer.filter(e => e && e.toLowerCase() !== "null");
+  // If empty, the lookup function return string (typically "null" or "") instead of object
+  elementer = elementer.filter(e => e && typeof e !== "string");
+  elementer = elementer.filter(e => e && typeof e !== "string");
 
-  // Capitalize and add separation point if needed
-  for (let i = 0; i < elementer.length; i++) {
-    if (typeof elementer[i] === "string" || elementer[i] instanceof String) {
-      elementer[i] =
-        elementer[i].charAt(0).toUpperCase() + elementer[i].slice(1);
-      elementer[i] = elementer[i].replace(/&#xA;/g, "");
-    }
-    if (i < elementer.length - 1) {
-      elementer[i] = elementer[i] + ". ";
-    }
-  }
-  harData = elementer.some(e => e && e.replace(/ /g, "") !== "");
+  // // Capitalize and add separation point if needed
+  // for (let i = 0; i < elementer.length; i++) {
+  //   if (typeof elementer[i] === "string" || elementer[i] instanceof String) {
+  //     elementer[i] =
+  //       elementer[i].charAt(0).toUpperCase() + elementer[i].slice(1);
+  //     elementer[i] = elementer[i].replace(/&#xA;/g, "");
+  //   }
+  //   if (i < elementer.length - 1) {
+  //     elementer[i] = elementer[i] + ". ";
+  //   }
+  // }
+  // harData = elementer.some(e => e && e.replace(/ /g, "") !== "");
+
+  elementer = elementer.filter(e => e !== null);
+  harData = elementer.length > 0;
 
   return { harData, elementer };
 }

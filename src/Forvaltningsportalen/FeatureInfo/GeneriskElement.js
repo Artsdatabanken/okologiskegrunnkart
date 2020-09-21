@@ -186,9 +186,34 @@ const GeneriskElement = ({
       wmsinfoformat
     );
 
+    console.log("primary: ", primary);
+    console.log("secondary: ", secondary);
+
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
-      const firstMatch = primary[indices[0]];
+      let firstMatch = primary[indices[0]];
+      const nyeElementer = [];
+      if (firstMatch && firstMatch.elementer) {
+        for (let i = 0; i < firstMatch.elementer.length; i++) {
+          const element = firstMatch.elementer[i];
+          const length = firstMatch.elementer.length;
+          Object.keys(element).forEach(elementkey => {
+            let elem = element[elementkey];
+            if (i < length - 1) {
+              elem = elem + ". ";
+            }
+            console.log("elementkey: ", elementkey);
+            console.log("elem: ", elem);
+            nyeElementer.push(elem);
+          });
+        }
+      }
+      firstMatch = {
+        harData: firstMatch.harData || false,
+        elementer: nyeElementer
+      };
+
+      console.log("firstMatch: ", firstMatch);
       setPrimaryTextHeader(firstMatch);
       setPrimaryText(primary);
       setSecondaryText(secondary);
