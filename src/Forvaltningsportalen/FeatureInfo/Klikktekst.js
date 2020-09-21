@@ -15,7 +15,16 @@ function lookup(o, path) {
     o = o[segment];
   }
   if (typeof o === "string") return o;
+  if (typeof o === "number") {
+    const decimals = countDecimals(o);
+    if (decimals > 6) o = o.toFixed(6);
+  }
   return JSON.stringify(o);
+}
+
+function countDecimals(number) {
+  if (Math.floor(number) === number) return 0;
+  return number.toString().split(".")[1].length || 0;
 }
 
 function mapComponent(c) {

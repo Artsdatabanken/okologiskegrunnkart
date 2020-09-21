@@ -13,6 +13,45 @@ import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomTooltip from "../../Common/CustomTooltip";
 
+const modifyResult = (resultat, clickText, clickText2) => {
+  let tempResult = resultat.underlag || resultat;
+  let result = {};
+  Object.keys(clickText).forEach(subkey => {
+    result = { ...result, [subkey]: tempResult };
+    const originalClickText = clickText[subkey];
+    const indices = [];
+    for (let i = 0; i < originalClickText.length; i++) {
+      if (originalClickText[i] === "{") indices.unshift(i + 1);
+    }
+    let newClickText = clickText[subkey];
+    for (const index of indices) {
+      newClickText =
+        newClickText.slice(0, index) + subkey + "." + newClickText.slice(index);
+    }
+    clickText = { ...clickText, [subkey]: newClickText };
+
+    const originalClickText2 = clickText[subkey];
+    const indices2 = [];
+    for (let i = 0; i < originalClickText2.length; i++) {
+      if (originalClickText2[i] === "{") indices.unshift(i + 1);
+    }
+    let newClickText2 = clickText[subkey];
+    for (const index of indices2) {
+      newClickText2 =
+        newClickText2.slice(0, index) +
+        subkey +
+        "." +
+        newClickText2.slice(index);
+    }
+    clickText2 = { ...clickText2, [subkey]: newClickText2 };
+  });
+  return {
+    newResult: result,
+    newClickText: clickText,
+    newClickText2: clickText2
+  };
+};
+
 const GeneriskElement = ({
   coordinates_area,
   kartlag,
@@ -59,6 +98,7 @@ const GeneriskElement = ({
     if (!layer) return;
 
     const wmsinfoformat = layer.wmsinfoformat;
+    const klikkurl = layer.klikkurl || "";
 
     if (resultat.error) {
       setPrimaryTextHeader({ harData: false, elementer: [] });
@@ -118,7 +158,20 @@ const GeneriskElement = ({
       });
     }
 
-    let result = resultat.underlag || resultat;
+    let result;
+    // Modify how results and clicktext are defined when using klikkurl
+    if (klikkurl !== "" && clickText) {
+      const { newResult, newClickText, newClickText2 } = modifyResult(
+        resultat,
+        clickText,
+        clickText2
+      );
+      result = newResult;
+      clickText = newClickText;
+      clickText2 = newClickText2;
+    } else {
+      result = resultat.underlag || resultat;
+    }
 
     const primary = formatterKlikktekst(
       clickText,
