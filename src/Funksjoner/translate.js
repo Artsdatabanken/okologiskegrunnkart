@@ -6,6 +6,7 @@ const layerKeys = {
   arterprioriterte: "arter",
   arterrødlista: "arter"
 };
+
 const infoboxKeys = {
   arealressurs: {
     enkel_beskrivelse: "Enkel beskrivelse",
@@ -35,11 +36,9 @@ const infoboxKeys = {
 function translateInfobox(string, layertittle, key) {
   layertittle = layertittle.toLowerCase();
   key = key.toLowerCase();
-  console.log("layerkey: ", key);
   let layerkey = layertittle.replace(/:/g, "");
   layerkey = layerkey.replace(/-/g, "");
   layerkey = layerkey.replace(/ /g, "");
-  console.log("layerkey: ", layerkey);
   const sublayer = layerKeys[layerkey];
   if (!sublayer) return string;
   let result = infoboxKeys[sublayer];
