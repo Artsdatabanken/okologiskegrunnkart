@@ -12,7 +12,32 @@ const layerKeys = {
   breerinorge: "breer",
   elvenettelvis: "elvenett",
   fiskereguleringerogvern: "fiskeregulering",
-  flomsoner: "flomsoner"
+  flomsoner: "flomsoner",
+  grusogpukk: "grus",
+  gyteområder: "gyteområder",
+  innsjødatabase: "innsjødatabase",
+  kulturlandskaputvalgte: "kulturlandskap",
+  kulturlandskapverdifulle: "kulturlandskap",
+  kulturminnerlokaliteter: "kulturminner",
+  landskapnin: "landskapnin",
+  livsmiljøer: "livsmiljøer",
+  løsmasse: "løsmasse",
+  maringrense: "marin",
+  marinleiremuligforekomst: "marin",
+  marinebunnsedimenter: "marin",
+  naturtyperutvalgte: "naturtyper",
+  naturvernområder: "naturvern",
+  naturvernområderforeslåtte: "naturvern",
+  nedbørfelt: "nedbørfelt",
+  nøkkelbiotoper: "nøkkelbiotoper",
+  ramsaromrader: "ramsaromrader",
+  skredtype: "skredtype",
+  vannforekomster: "vannforekomster",
+  vannkraftikkeutbygd: "vannkraft",
+  vannkraftutbygd: "vannkraft",
+  verneplanforvassdrag: "verneplan",
+  vernskog: "vernskog",
+  villreinområder: "villreinområder"
 };
 
 const infoboxKeys = {
@@ -53,7 +78,7 @@ const infoboxKeys = {
     areal_km2: "Areal (km²)"
   },
   elvenett: {
-    objtype: "Objekt type",
+    objtype: "Objekttype",
     elvehierarki: "Elvehierarki",
     elvenavn: "Elvenavn"
   },
@@ -61,10 +86,122 @@ const infoboxKeys = {
     gmlname: "Navn"
   },
   flomsoner: {
-    objekttype: "Objekt type",
+    objekttype: "Objekttype",
     flomsonenavn: "Flomsone navn",
     kartlagteflommer: "Kartlagte flommer",
     gjentaksinterval: "Gjentaksinterval"
+  },
+  grus: {
+    navn: "Navn",
+    srsName: "Projeksjonsnavn",
+    gmlcoordinates: "Koordinater"
+  },
+  gyteområder: {
+    gmlname: "Navn",
+    stedsnavn: "Stedsnavn"
+  },
+  innsjødatabase: {
+    navn: "Navn",
+    objtype: "Objekt type",
+    dybde_m: "Dybde(m)"
+  },
+  kulturlandskap: {
+    navn: "Navn",
+    objtype: "Objekttype"
+  },
+  kulturminner: {
+    navn: "Navn",
+    kulturminneLokalitetArt: "Kulturminne Lokalitet",
+    informasjon: "Informasjon"
+  },
+  landskapnin: {
+    name: "Navn",
+    area: "Areal (m²)"
+  },
+  livsmiljøer: {
+    hkl_klasse: "Klasse",
+    vegtype_beskr: "Vegtype beskrivelse",
+    topografi: "Topografi"
+  },
+  løsmasse: {
+    losmassetype_tekst: "Løsmassetype",
+    objekttype: "Objekttype"
+  },
+  marin: {
+    annkvtema_navn: "Navn",
+    objekttype: "Objekttype",
+    losmassetype_tekst: "Løsmassetype",
+    losmasse_text: "Løsmasse",
+    muligmarinleire_text: "Mulig marin leire",
+    jordart: "Jordart", // ???`
+    sedimentkornst: "Sedimentkornst", // ???
+    1: "Sedimentasjon", // ???
+    gmlname: "Type"
+  },
+  naturtyper: {
+    denavn: "Navn"
+  },
+  naturvern: {
+    offisieltnavn: "Offisielt navn",
+    verneplan: "Verneplan",
+    navn: "Navn",
+    verneform: "Verneform",
+    objekttype: "Objekttype"
+  },
+  nedbørfelt: {
+    navnnedbf: "Navn felt",
+    navnvassomr: "Navn område",
+    navn1orden: "Navn 1 orden", // ???
+    navnofelt: "Navn o felt", // ???
+    areal: "Areal (km²)",
+    arealtotal: "Areal (km²)",
+    areal_km2: "Areal (km²)"
+  },
+  nøkkelbiotoper: {
+    forv_besk: "Beskrivelse",
+    opphav: "Opphav", // ???
+    areal: "Areal (km²)"
+  },
+  ramsaromrader: {
+    norsknavn: "Norsk navn",
+    debeskrivelse: "Beskrivelse"
+  },
+  skredtype: {
+    skredtype: "Skredtype",
+    skrednavn: "Skred navn",
+    skredtidspunkt: "Skred tidspunkt"
+  },
+  vannforekomster: {
+    vannforekomstnavn: "Vannforekomst navn",
+    økologisk_tilstand_potensial: "Økologisk tilstand potensial"
+  },
+  vannkraft: {
+    objtype: "Objekttype",
+    konsstatus: "Konstruksjon status",
+    status: "Status",
+    vvformal: "Vannvei formål",
+    medium: "Medium",
+    damnavn: "Dam navn",
+    hovedtype: "Damtype",
+    damformal: "Dam formål",
+    dkategori: "Dam kategori",
+    inntaktyp: "Inntakstype",
+    utloptyp: "Utløpstype",
+    magformal: "Magasin formål",
+    vannkrv: "Navn"
+  },
+  verneplan: {
+    objektnavn: "Navn",
+    verneplan: "Verneplan"
+  },
+  vernskog: {
+    gmlname: "Type",
+    beskrivelse: "Beskrivelse"
+  },
+  villreinområder: {
+    omraadenavn: "Navn område",
+    funksjon: "Funksjon",
+    funksjonsperiode: "Funksjonsperiode"
   }
 };
 
