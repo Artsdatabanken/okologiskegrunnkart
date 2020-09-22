@@ -6,7 +6,13 @@ const layerKeys = {
   arterfremmedearter2018: "arter",
   arterprioriterte: "arter",
   arterrødlista: "arter",
-  arteravnasjonalforvaltningsinteresse: "arter"
+  arteravnasjonalforvaltningsinteresse: "arter",
+  berggrunnn250: "berggrunn",
+  berggrunnn50: "berggrunn",
+  breerinorge: "breer",
+  elvenettelvis: "elvenett",
+  fiskereguleringerogvern: "fiskeregulering",
+  flomsoner: "flomsoner"
 };
 
 const infoboxKeys = {
@@ -14,6 +20,18 @@ const infoboxKeys = {
     enkel_beskrivelse: "Enkel beskrivelse",
     vanlig_beskrivelse: "Vanlig beskrivelse",
     artreslag_beskrivelse: "Artreslag beskrivelse"
+  },
+  arter: {
+    navn: "Navn",
+    vitenskapelig_navn: "Vitenskapelig navn",
+    kriterier_kombinert: "Kombinert kriterier",
+    norsknavn: "Norsk navn",
+    species: "Species",
+    gmlname: "Type"
+  },
+  berggrunn: {
+    hbergnavn: "Bergnavn",
+    gmlname: "Type"
   },
   bioklimatiskseksjon: {
     tittelnb: "Tittel",
@@ -25,13 +43,28 @@ const infoboxKeys = {
     v: "PCA2",
     beskrivelsenb: "Beskrivelse"
   },
-  arter: {
-    navn: "Navn",
-    vitenskapelig_navn: "Vitenskapelig navn",
-    kriterier_kombinert: "Kombinert kriterier",
-    norsknavn: "Norsk navn",
-    species: "Species",
-    gmlname: "Type"
+  breer: {
+    hovedbrenavn: "Hovedbrenavn",
+    brenavn: "Brenavn",
+    shape: "Form type",
+    productid: "Produkt ID",
+    proc_desc: "Prosedyr",
+    datafangstdato: "Datafangstdato",
+    areal_km2: "Areal (km²)"
+  },
+  elvenett: {
+    objtype: "Objekt type",
+    elvehierarki: "Elvehierarki",
+    elvenavn: "Elvenavn"
+  },
+  fiskeregulering: {
+    gmlname: "Navn"
+  },
+  flomsoner: {
+    objekttype: "Objekt type",
+    flomsonenavn: "Flomsone navn",
+    kartlagteflommer: "Kartlagte flommer",
+    gjentaksinterval: "Gjentaksinterval"
   }
 };
 
