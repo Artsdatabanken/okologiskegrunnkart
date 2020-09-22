@@ -219,6 +219,7 @@ const GeneriskElement = ({
 
     let listResults = [Object.keys(primary), Object.keys(secondary)];
     listResults = [...new Set([].concat(...listResults))] || [];
+    listResults = listResults.filter(item => item !== "harData");
     noResults = listResults.length;
     noNoMatches = noNoMatches - noResults;
 
