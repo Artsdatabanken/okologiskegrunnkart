@@ -3,8 +3,10 @@ const layerKeys = {
   bioklimatiskseksjon: "bioklimatiskseksjon",
   bioklimatisksone: "bioklimatisksone",
   arterfredete: "arter",
+  arterfremmedearter2018: "arter",
   arterprioriterte: "arter",
-  arterrødlista: "arter"
+  arterrødlista: "arter",
+  arteravnasjonalforvaltningsinteresse: "arter"
 };
 
 const infoboxKeys = {
