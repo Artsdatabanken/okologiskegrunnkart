@@ -3,6 +3,7 @@ import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
+import { translateInfobox } from "../../Funksjoner/translate";
 
 const DetailedResults = ({
   resultLayer,
@@ -20,26 +21,6 @@ const DetailedResults = ({
 
   if (!resultLayer) return null;
   const sublayers = resultLayer.underlag;
-
-  const resultText = resultArray => {
-    if (!resultArray) return "";
-    if (!resultArray.isArray && resultArray.length === 0) {
-      return "Ingen treff";
-    }
-    if (!resultArray.isArray && resultArray.length > 0) {
-      return resultArray;
-    }
-    if (resultArray.length === 0) {
-      return "Ingen treff";
-    }
-    const filteredResult = resultArray.filter(
-      item => item && item !== "" && item !== " "
-    );
-    if (filteredResult.length === 0) {
-      return "Ingen treff";
-    }
-    return resultArray;
-  };
 
   return (
     <>
@@ -92,16 +73,76 @@ const DetailedResults = ({
                   <div className="infobox-details-title">
                     {sublayers[key] ? sublayers[key].tittel : ""}
                   </div>
-                  <div className="infobox-details-primary-text">
-                    {resultText(
-                      primaryText[key] ? primaryText[key].elementer : ""
+                  {primaryText &&
+                    primaryText[key] &&
+                    primaryText[key].elementer && (
+                      <>
+                        {primaryText[key].elementer.map((element, index) => {
+                          const allkeys = Object.keys(element);
+                          const elemkey =
+                            allkeys && allkeys.length > 0 ? allkeys[0] : "";
+                          const elem =
+                            allkeys && allkeys.length > 0
+                              ? Object.values(element)[0]
+                              : "";
+                          return (
+                            <div
+                              className="infobox-details-content"
+                              key={index}
+                            >
+                              <div className="infobox-details-primary-title">
+                                {elemkey
+                                  ? translateInfobox(
+                                      elemkey,
+                                      resultLayer.tittel,
+                                      elemkey
+                                    )
+                                  : ""}
+                                :
+                              </div>
+                              <div className="infobox-details-primary-text">
+                                {elem ? elem : ""}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </>
                     )}
-                  </div>
-                  <div className="infobox-details-secondary-text">
-                    {resultText(
-                      secondaryText[key] ? secondaryText[key].elementer : ""
+                  {secondaryText &&
+                    secondaryText[key] &&
+                    secondaryText[key].elementer && (
+                      <>
+                        {secondaryText[key].elementer.map((element, index) => {
+                          const allkeys = Object.keys(element);
+                          const elemkey =
+                            allkeys && allkeys.length > 0 ? allkeys[0] : "";
+                          const elem =
+                            allkeys && allkeys.length > 0
+                              ? Object.values(element)[0]
+                              : "";
+                          return (
+                            <div
+                              className="infobox-details-content"
+                              key={index}
+                            >
+                              <div className="infobox-details-secondary-title">
+                                {elemkey
+                                  ? translateInfobox(
+                                      elemkey,
+                                      resultLayer.tittel,
+                                      elemkey
+                                    )
+                                  : ""}
+                                :
+                              </div>
+                              <div className="infobox-details-secondary-text">
+                                {elem ? elem : ""}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </>
                     )}
-                  </div>
                 </div>
               );
             })}

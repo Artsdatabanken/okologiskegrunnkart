@@ -30,18 +30,18 @@ const modifyResult = (resultat, clickText, clickText2) => {
     }
     clickText = { ...clickText, [subkey]: newClickText };
 
-    const originalClickText2 = clickText[subkey];
+    const originalClickText2 = clickText2[subkey];
     const indices2 = [];
     for (let i = 0; i < originalClickText2.length; i++) {
-      if (originalClickText2[i] === "{") indices.unshift(i + 1);
+      if (originalClickText2[i] === "{") indices2.unshift(i + 1);
     }
-    let newClickText2 = clickText[subkey];
-    for (const index of indices2) {
+    let newClickText2 = clickText2[subkey];
+    for (const index2 of indices2) {
       newClickText2 =
-        newClickText2.slice(0, index) +
+        newClickText2.slice(0, index2) +
         subkey +
         "." +
-        newClickText2.slice(index);
+        newClickText2.slice(index2);
     }
     clickText2 = { ...clickText2, [subkey]: newClickText2 };
   });
@@ -188,7 +188,26 @@ const GeneriskElement = ({
 
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
-      const firstMatch = primary[indices[0]];
+      let firstMatch = primary[indices[0]];
+      const nyeElementer = [];
+      if (firstMatch && firstMatch.elementer) {
+        for (let i = 0; i < firstMatch.elementer.length; i++) {
+          const element = firstMatch.elementer[i];
+          const length = firstMatch.elementer.length;
+          Object.keys(element).forEach(elementkey => {
+            let elem = element[elementkey];
+            if (i < length - 1) {
+              elem = elem + ". ";
+            }
+            nyeElementer.push(elem);
+          });
+        }
+      }
+      firstMatch = {
+        harData: firstMatch.harData || false,
+        elementer: nyeElementer
+      };
+
       setPrimaryTextHeader(firstMatch);
       setPrimaryText(primary);
       setSecondaryText(secondary);
@@ -200,6 +219,7 @@ const GeneriskElement = ({
 
     let listResults = [Object.keys(primary), Object.keys(secondary)];
     listResults = [...new Set([].concat(...listResults))] || [];
+    listResults = listResults.filter(item => item !== "harData");
     noResults = listResults.length;
     noNoMatches = noNoMatches - noResults;
 
