@@ -586,11 +586,28 @@
   margin-bottom: 2px;
   text-align: left;
 }
+.infobox-details-content {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+.infobox-details-primary-title {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 16px;
+  text-align: left;
+  margin-right: 5px;
+}
 .infobox-details-primary-text {
   color: rgba(0, 0, 0, 0.65);
   font-size: 16px;
   margin-bottom: 2px;
   text-align: left;
+}
+.infobox-details-secondary-title {
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+  text-align: left;
+  margin-right: 5px;
 }
 .infobox-details-secondary-text {
   color: rgba(0, 0, 0, 0.54);

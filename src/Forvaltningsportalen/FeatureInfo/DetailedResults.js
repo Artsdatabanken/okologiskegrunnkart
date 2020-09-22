@@ -3,6 +3,7 @@ import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
+import { translateInfobox } from "../../Funksjoner/translate";
 
 const DetailedResults = ({
   resultLayer,
@@ -78,16 +79,26 @@ const DetailedResults = ({
                       <>
                         {primaryText[key].elementer.map((element, index) => {
                           const allkeys = Object.keys(element);
-                          const key =
+                          const elemkey =
                             allkeys && allkeys.length > 0 ? allkeys[0] : "";
                           const elem =
                             allkeys && allkeys.length > 0
                               ? Object.values(element)[0]
                               : "";
                           return (
-                            <div key={index}>
-                              <div className="infobox-details-primary-text">
-                                {key ? key : ""}:
+                            <div
+                              className="infobox-details-content"
+                              key={index}
+                            >
+                              <div className="infobox-details-primary-title">
+                                {elemkey
+                                  ? translateInfobox(
+                                      elemkey,
+                                      resultLayer.tittel,
+                                      elemkey
+                                    )
+                                  : ""}
+                                :
                               </div>
                               <div className="infobox-details-primary-text">
                                 {elem ? elem : ""}
@@ -103,16 +114,26 @@ const DetailedResults = ({
                       <>
                         {secondaryText[key].elementer.map((element, index) => {
                           const allkeys = Object.keys(element);
-                          const key =
+                          const elemkey =
                             allkeys && allkeys.length > 0 ? allkeys[0] : "";
                           const elem =
                             allkeys && allkeys.length > 0
                               ? Object.values(element)[0]
                               : "";
                           return (
-                            <div key={index}>
-                              <div className="infobox-details-secondary-text">
-                                {key ? key : ""}:
+                            <div
+                              className="infobox-details-content"
+                              key={index}
+                            >
+                              <div className="infobox-details-secondary-title">
+                                {elemkey
+                                  ? translateInfobox(
+                                      elemkey,
+                                      resultLayer.tittel,
+                                      elemkey
+                                    )
+                                  : ""}
+                                :
                               </div>
                               <div className="infobox-details-secondary-text">
                                 {elem ? elem : ""}
