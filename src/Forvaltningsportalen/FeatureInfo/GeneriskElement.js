@@ -186,6 +186,8 @@ const GeneriskElement = ({
       wmsinfoformat
     );
 
+    console.log("secondary", secondary);
+
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
       let firstMatch = primary[indices[0]];

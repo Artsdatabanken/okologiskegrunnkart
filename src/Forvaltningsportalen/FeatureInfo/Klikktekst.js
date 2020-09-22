@@ -26,6 +26,11 @@ function lookup(o, path) {
   // Filter out results if not relevant
   const result = filterLookup(cleanResult);
 
+  if (key === "nb" && segments.length > 1) {
+    const prekey = segments[segments.length - 2];
+    key = `${prekey}${key}`;
+  }
+  key = key.replace(/:/g, "");
   return { [key]: result };
 }
 

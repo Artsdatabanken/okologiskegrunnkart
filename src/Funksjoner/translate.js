@@ -1,6 +1,10 @@
 const layerKeys = {
-  ArealressursAR5: "arealressurs",
-  Bioklimatiskseksjon: "bioklimatiskseksjon"
+  arealressursar5: "arealressurs",
+  bioklimatiskseksjon: "bioklimatiskseksjon",
+  bioklimatisksone: "bioklimatisksone",
+  arterfredete: "arter",
+  arterprioriterte: "arter",
+  arterrødlista: "arter"
 };
 const infoboxKeys = {
   arealressurs: {
@@ -9,15 +13,33 @@ const infoboxKeys = {
     artreslag_beskrivelse: "Artreslag beskrivelse"
   },
   bioklimatiskseksjon: {
-    nb: "Tittel",
-    v: "PCA1"
+    tittelnb: "Tittel",
+    v: "PCA1",
+    beskrivelsenb: "Beskrivelse"
+  },
+  bioklimatisksone: {
+    tittelnb: "Tittel",
+    v: "PCA2",
+    beskrivelsenb: "Beskrivelse"
+  },
+  arter: {
+    navn: "Navn",
+    vitenskapelig_navn: "Vitenskapelig navn",
+    kriterier_kombinert: "Kombinert kriterier",
+    norsknavn: "Norsk navn",
+    species: "Species",
+    gmlname: "Type"
   }
 };
 
 function translateInfobox(string, layertittle, key) {
+  layertittle = layertittle.toLowerCase();
+  key = key.toLowerCase();
+  console.log("layerkey: ", key);
   let layerkey = layertittle.replace(/:/g, "");
   layerkey = layerkey.replace(/-/g, "");
   layerkey = layerkey.replace(/ /g, "");
+  console.log("layerkey: ", layerkey);
   const sublayer = layerKeys[layerkey];
   if (!sublayer) return string;
   let result = infoboxKeys[sublayer];
