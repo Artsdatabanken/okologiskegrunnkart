@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
-import CustomIcon from "../../Common/CustomIcon";
+// import CustomIcon from "../../Common/CustomIcon";
 
 const ForvaltningsUnderElement = ({
   underlag,
@@ -56,7 +56,7 @@ const ForvaltningsUnderElement = ({
           />
         </ListItemIcon>
         <ListItemText primary={tittel} />
-        {underlag.suggested && (
+        {/* {underlag.suggested && (
           <ListItemIcon id="bookmark-icon">
             <CustomIcon
               id="bookmark"
@@ -66,7 +66,7 @@ const ForvaltningsUnderElement = ({
               color={visible ? "#666" : "#999"}
             />
           </ListItemIcon>
-        )}
+        )} */}
       </ListItem>
     </>
   );

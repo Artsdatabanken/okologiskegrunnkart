@@ -104,7 +104,7 @@ const ForvaltningsElement = ({
                   />
                 </ListItemIcon>
                 <ListItemText primary={allcategorieslayer.tittel} />
-                <ListItemIcon id="bookmark-icon">
+                {/* <ListItemIcon id="bookmark-icon">
                   <CustomIcon
                     id="bookmark"
                     icon="check-decagram"
@@ -112,7 +112,7 @@ const ForvaltningsElement = ({
                     padding={0}
                     color={allcategorieslayer.erSynlig ? "#666" : "#888"}
                   />
-                </ListItemIcon>
+                </ListItemIcon> */}
               </ListItem>
             </div>
           )}
