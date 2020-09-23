@@ -301,18 +301,11 @@
 #infobox-list-icon {
   margin: 0;
 }
-.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
-  font-size: 0.9rem;
-  font-weight: 575;
-}
 #show-faktaark-button.MuiIconButton-root {
   padding: 10px;
 }
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
-}
-.infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-badge {
-  font-size: 12px;
 }
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorError {
   background-color: #cc0000;
