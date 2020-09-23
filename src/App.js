@@ -704,14 +704,10 @@ class App extends React.Component {
     for (const layerkey of layerkeys) {
       const selectSub = valgteLag[layerkey].underlag || {};
       const sub = this.state.layersResult[layerkey];
-      console.log("selectSub: ", selectSub);
-      console.log("sub: ", sub);
       if (!sub) {
         differenceSublayersResult = true;
         break;
       }
-      console.log("legth sub: ", Object.keys(sub).length);
-      console.log("legth selectSub: ", Object.keys(selectSub).length);
       if (Object.keys(sub).length !== Object.keys(selectSub).length) {
         differenceSublayersResult = true;
         break;
@@ -725,11 +721,6 @@ class App extends React.Component {
     ) {
       return;
     }
-
-    console.log("Running");
-    console.log("emptyLayersResult: ", emptyLayersResult);
-    console.log("emptyLayersResult: ", emptyLayersResult);
-    console.log("differenceSublayersResult: ", differenceSublayersResult);
 
     // Close detail in infobox if the layer has been deactivated
     const detailLayer = this.state.layerInfoboxDetails;
@@ -776,7 +767,12 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            layersResult[key] = { loading: true, wmsinfoformat };
+            // layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key] = {
+              ...layersResult[key],
+              loading: true,
+              wmsinfoformat
+            };
             break;
           }
         }
@@ -1120,8 +1116,8 @@ class App extends React.Component {
     if (
       this.state.lat &&
       this.state.lng &&
-      // this.state.showInfobox &&
-      !this.state.showExtensiveInfo
+      !this.state.showExtensiveInfo &&
+      key.includes("erSynlig")
     ) {
       this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
     }
