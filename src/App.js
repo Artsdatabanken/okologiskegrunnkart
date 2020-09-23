@@ -59,6 +59,7 @@ class App extends React.Component {
     expandedLayersComplete: [],
     sublayerDetailsVisible: false,
     infoboxDetailsVisible: false,
+    layerInfoboxDetails: null,
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
@@ -304,6 +305,7 @@ class App extends React.Component {
                         isMobile={this.state.isMobile}
                         infoboxDetailsVisible={this.state.infoboxDetailsVisible}
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
+                        setLayerInfoboxDetails={this.setLayerInfoboxDetails}
                         {...this.state}
                       />
                       <KartVelger
@@ -374,6 +376,10 @@ class App extends React.Component {
 
   setInfoboxDetailsVisible = visible => {
     this.setState({ infoboxDetailsVisible: visible });
+  };
+
+  setLayerInfoboxDetails = layer => {
+    this.setState({ layerInfoboxDetails: layer });
   };
 
   setLegendVisible = visible => {
@@ -692,6 +698,16 @@ class App extends React.Component {
 
     if (!emptyLayersResult && !differenceLayersResult) {
       return;
+    }
+
+    // Close detail in infobox if the layer has been deactivated
+    const detailLayer = this.state.layerInfoboxDetails;
+    if (detailLayer && detailLayer.id) {
+      const valgte = valgteLag[detailLayer.id];
+      if (!valgte) {
+        this.setInfoboxDetailsVisible(false);
+        this.setLayerInfoboxDetails(null);
+      }
     }
 
     // Denne henter utvalgte lag baser på listen layers
