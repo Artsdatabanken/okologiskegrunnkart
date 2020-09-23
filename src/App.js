@@ -688,6 +688,8 @@ class App extends React.Component {
   handleLayersSearch = (lng, lat, zoom, valgteLag) => {
     // If layersResult is not empty or is equal to valgteLag,
     // do not update the state
+    if (!valgteLag) return;
+
     const emptyLayersResult =
       Object.keys(this.state.layersResult).length === 0 &&
       this.state.layersResult.constructor === Object;
@@ -696,9 +698,38 @@ class App extends React.Component {
       Object.keys(this.state.layersResult).length !==
       Object.keys(valgteLag).length;
 
-    if (!emptyLayersResult && !differenceLayersResult) {
+    // Compare sublayers
+    let differenceSublayersResult = false;
+    const layerkeys = Object.keys(valgteLag);
+    for (const layerkey of layerkeys) {
+      const selectSub = valgteLag[layerkey].underlag || {};
+      const sub = this.state.layersResult[layerkey];
+      console.log("selectSub: ", selectSub);
+      console.log("sub: ", sub);
+      if (!sub) {
+        differenceSublayersResult = true;
+        break;
+      }
+      console.log("legth sub: ", Object.keys(sub).length);
+      console.log("legth selectSub: ", Object.keys(selectSub).length);
+      if (Object.keys(sub).length !== Object.keys(selectSub).length) {
+        differenceSublayersResult = true;
+        break;
+      }
+    }
+
+    if (
+      !emptyLayersResult &&
+      !differenceLayersResult &&
+      !differenceSublayersResult
+    ) {
       return;
     }
+
+    console.log("Running");
+    console.log("emptyLayersResult: ", emptyLayersResult);
+    console.log("emptyLayersResult: ", emptyLayersResult);
+    console.log("differenceSublayersResult: ", differenceSublayersResult);
 
     // Close detail in infobox if the layer has been deactivated
     const detailLayer = this.state.layerInfoboxDetails;
@@ -817,6 +848,7 @@ class App extends React.Component {
           });
       } else {
         // Use GetFeatureInfo per sublayer
+        if (!layersResult[key].underlag) return;
         Object.keys(layersResult[key].underlag).forEach(subkey => {
           if (!layersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
@@ -980,6 +1012,7 @@ class App extends React.Component {
             }
           });
       } else {
+        if (!allLayersResult[key].underlag) return;
         Object.keys(allLayersResult[key].underlag).forEach(subkey => {
           if (!allLayersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
