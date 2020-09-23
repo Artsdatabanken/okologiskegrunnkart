@@ -769,13 +769,6 @@ class App extends React.Component {
 
     let finishedFeaturesSearch = 0;
 
-    // Set an interval to update state
-    // const updateLayers = setInterval(() => {
-    //   if (totalFeaturesSearch > finishedFeaturesSearch) {
-    //     this.setState({ layersResult });
-    //   }
-    // }, 1500);
-
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       const layer = looplist[key];
@@ -790,12 +783,10 @@ class App extends React.Component {
           finishedFeaturesSearch += 1;
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            // clearInterval(updateLayers);
             this.setState({ loadingFeatures: false });
           }
           return;
         }
-        // const sublayer = looplist[key].underlag[subkey];
         backend
           .getFeatureInfo(layer, null, { lat, lng, zoom })
           .then(res => {
@@ -809,7 +800,6 @@ class App extends React.Component {
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           })
@@ -822,7 +812,6 @@ class App extends React.Component {
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
@@ -833,7 +822,6 @@ class App extends React.Component {
             finishedFeaturesSearch += 1;
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
             return;
@@ -852,7 +840,6 @@ class App extends React.Component {
               }
               this.setState({ layersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             })
@@ -865,7 +852,6 @@ class App extends React.Component {
               }
               this.setState({ layersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             });
@@ -947,12 +933,12 @@ class App extends React.Component {
 
     let finishedFeaturesSearch = 0;
 
-    // // Set an interval to update state
-    // const updateLayers = setInterval(() => {
-    //   if (totalFeaturesSearch > finishedFeaturesSearch) {
-    //     this.setState({ allLayersResult });
-    //   }
-    // }, 1500);
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ allLayersResult });
+      }
+    }, 1500);
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
@@ -965,9 +951,8 @@ class App extends React.Component {
       ) {
         if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
-          this.setState({ allLayersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            // clearInterval(updateLayers);
+            clearInterval(updateLayers);
             this.setState({ loadingFeatures: false });
           }
           return;
@@ -983,16 +968,14 @@ class App extends React.Component {
             allLayersResult[key] = res;
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
             allLayersResult[key] = { error: e.message || key };
-            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
+              clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
@@ -1000,9 +983,8 @@ class App extends React.Component {
         Object.keys(allLayersResult[key].underlag).forEach(subkey => {
           if (!allLayersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
-            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
+              clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
             return;
@@ -1018,9 +1000,8 @@ class App extends React.Component {
               }
               finishedFeaturesSearch += 1;
               allLayersResult[key].underlag[subkey] = res;
-              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
+                clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             })
@@ -1029,9 +1010,8 @@ class App extends React.Component {
               allLayersResult[key].underlag[subkey] = {
                 error: e.message || key
               };
-              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
+                clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             });
