@@ -10,7 +10,7 @@ import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
-import { sortKartlag } from "./Funksjoner/sortObject";
+import { sortKartlag, sortUnderlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
@@ -789,7 +789,7 @@ class App extends React.Component {
             delete res.ServiceException;
           }
           finishedFeaturesSearch += 1;
-          layersResult[layerkey] = res;
+          layersResult[layerkey] = sortUnderlag(res);
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
@@ -818,7 +818,7 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            layersResult[layerkey].underlag[subkey] = res;
+            layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               this.setState({ loadingFeatures: false });

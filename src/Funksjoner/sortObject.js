@@ -31,4 +31,23 @@ function sortKartlag(object) {
   return sortedObject;
 }
 
-export { sortKartlag };
+function sortUnderlag(object) {
+  // Convert object to array and sort based on title
+  const array = Object.entries(object);
+  const sortedArray = array.sort((a, b) => {
+    const textA = a.length === 2 && a[0] ? a[0].toLowerCase() : "";
+    const textB = b.length === 2 && b[0] ? b[0].toLowerCase() : "";
+    return textA < textB ? -1 : textA > textB ? 1 : 0;
+  });
+
+  // Convert array to object
+  const sortedObject = sortedArray.reduce((result, item) => {
+    const key = String(item[0]); //first property: a, b, c
+    result[key] = item[1];
+    return result;
+  }, {});
+
+  return sortedObject;
+}
+
+export { sortKartlag, sortUnderlag };
