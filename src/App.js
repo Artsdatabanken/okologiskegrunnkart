@@ -278,7 +278,7 @@ class App extends React.Component {
                         showExtensiveInfo={this.state.showExtensiveInfo}
                         handleExtensiveInfo={this.handleExtensiveInfo}
                         handleAlleLag={this.hentInfoAlleLag}
-                        handleValgteLag={this.hentInfoValgteLag}
+                        handleValgteLag={this.hentInfoAlleValgteLag}
                         forvaltningsportal={true}
                         show_current={this.state.showCurrent}
                         latitude={65.4}
@@ -685,11 +685,171 @@ class App extends React.Component {
     });
   };
 
+  handleOneLayerSearch = (lng, lat, zoom, layerkey, sublayerkey, value) => {
+    let kartlag = { ...this.state.kartlag };
+    let kartlagLayer = kartlag[layerkey];
+    let valgteLag = { ...this.state.valgteLag };
+    let layersResult = { ...this.state.layersResult } || {};
+
+    if (!value && !sublayerkey) {
+      // Remove
+      Object.keys(valgteLag[layerkey].underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          valgteLag[layerkey].underlag[subkey] &&
+          !kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          delete valgteLag[layerkey].underlag[subkey];
+          const allSub = Object.keys(valgteLag[layerkey].underlag);
+          if (allSub.length === 0) {
+            delete valgteLag[layerkey];
+          }
+        }
+      });
+    }
+    if (value && !sublayerkey) {
+      // Add
+      if (!valgteLag[layerkey]) {
+        valgteLag[layerkey] = { ...kartlagLayer };
+        valgteLag[layerkey].underlag = {};
+      }
+      Object.keys(kartlagLayer.underlag || {}).forEach(subkey => {
+        if (
+          !valgteLag[layerkey].underlag[subkey] &&
+          kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          valgteLag[layerkey].underlag[subkey] = {
+            ...kartlagLayer.underlag[subkey]
+          };
+        }
+      });
+    }
+    if (!value && sublayerkey) {
+      // Remove agregated, add all other visible sublayers
+      delete valgteLag[layerkey].underlag[sublayerkey];
+      Object.keys(kartlagLayer.underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          kartlagLayer.underlag[subkey] &&
+          kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          valgteLag[layerkey].underlag[subkey] = {
+            ...kartlagLayer.underlag[subkey]
+          };
+        }
+      });
+    }
+    if (value && sublayerkey) {
+      // Remove all other visible sublayers, add aggregated
+      Object.keys(valgteLag[layerkey].underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          valgteLag[layerkey].underlag[subkey] &&
+          !kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          delete valgteLag[layerkey].underlag[subkey];
+        }
+      });
+      valgteLag[layerkey].underlag[sublayerkey] = {
+        ...kartlagLayer.underlag[sublayerkey]
+      };
+    }
+
+    // Close detail in infobox if the layer has been deactivated
+    const detailLayer = this.state.layerInfoboxDetails;
+    if (detailLayer && detailLayer.id) {
+      const valgte = valgteLag[detailLayer.id];
+      if (!valgte) {
+        this.setInfoboxDetailsVisible(false);
+        this.setLayerInfoboxDetails(null);
+      }
+    }
+
+    this.setState({ valgteLag });
+
+    let totalFeaturesSearch = 1;
+    let finishedFeaturesSearch = 0;
+
+    // Loop though object and send request
+    const layer = valgteLag[layerkey];
+    if (!layer) return;
+    const wmsinfoformat = layer.wmsinfoformat;
+    if (
+      wmsinfoformat === "application/vnd.ogc.gml" ||
+      wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+    ) {
+      backend
+        .getFeatureInfo(layer, null, { lat, lng, zoom })
+        .then(res => {
+          if (res.ServiceException) {
+            res.error = res.ServiceException;
+            delete res.ServiceException;
+          }
+          finishedFeaturesSearch += 1;
+          layersResult[layerkey] = res;
+          this.setState({ layersResult });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
+        })
+        .catch(e => {
+          finishedFeaturesSearch += 1;
+          layersResult[layerkey] = {
+            error: e.message || layerkey
+          };
+          this.setState({ layersResult });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
+        });
+    } else {
+      // Use GetFeatureInfo per sublayer
+      if (!valgteLag[layerkey].underlag) return;
+      Object.keys(valgteLag[layerkey].underlag).forEach(subkey => {
+        const sublayer = valgteLag[layerkey].underlag[subkey];
+        backend
+          .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+          .then(res => {
+            if (res.ServiceException) {
+              res.error = res.ServiceException;
+              delete res.ServiceException;
+            }
+            finishedFeaturesSearch += 1;
+            layersResult[layerkey].underlag[subkey] = res;
+            this.setState({ layersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              this.setState({ loadingFeatures: false });
+            }
+          })
+          .catch(e => {
+            finishedFeaturesSearch += 1;
+            layersResult[layerkey].underlag[subkey] = {
+              error: e.message || layerkey
+            };
+            this.setState({ layersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              this.setState({ loadingFeatures: false });
+            }
+          });
+      });
+    }
+
+    // Visualize the loading bar after all requests have been sent (i.e. initial delay)
+    if (
+      Object.keys(valgteLag).length > 0 &&
+      totalFeaturesSearch > finishedFeaturesSearch
+    ) {
+      this.setState({ loadingFeatures: true });
+    }
+  };
+
   handleLayersSearch = (lng, lat, zoom, valgteLag) => {
     // If layersResult is not empty or is equal to valgteLag,
     // do not update the state
     if (!valgteLag) return;
-
     const emptyLayersResult =
       Object.keys(this.state.layersResult).length === 0 &&
       this.state.layersResult.constructor === Object;
@@ -698,27 +858,7 @@ class App extends React.Component {
       Object.keys(this.state.layersResult).length !==
       Object.keys(valgteLag).length;
 
-    // Compare sublayers
-    let differenceSublayersResult = false;
-    const layerkeys = Object.keys(valgteLag);
-    for (const layerkey of layerkeys) {
-      const selectSub = valgteLag[layerkey].underlag || {};
-      const sub = this.state.layersResult[layerkey];
-      if (!sub) {
-        differenceSublayersResult = true;
-        break;
-      }
-      if (Object.keys(sub).length !== Object.keys(selectSub).length) {
-        differenceSublayersResult = true;
-        break;
-      }
-    }
-
-    if (
-      !emptyLayersResult &&
-      !differenceLayersResult &&
-      !differenceSublayersResult
-    ) {
+    if (!emptyLayersResult && !differenceLayersResult) {
       return;
     }
 
@@ -767,12 +907,7 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            // layersResult[key] = { loading: true, wmsinfoformat };
-            layersResult[key] = {
-              ...layersResult[key],
-              loading: true,
-              wmsinfoformat
-            };
+            layersResult[key] = { loading: true, wmsinfoformat };
             break;
           }
         }
@@ -1053,7 +1188,7 @@ class App extends React.Component {
     }
   };
 
-  hentInfoValgteLag = async (lng, lat, zoom) => {
+  hentInfoAlleValgteLag = async (lng, lat, zoom) => {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
@@ -1077,8 +1212,23 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layerkey, key, value) => {
-    let nye_lag = this.state.kartlag;
+  handleForvaltningsLayerProp = (layerkey, key, value, update = false) => {
+    if (update) {
+      // Only update getFeatureInfo
+      if (this.state.lat && this.state.lng && !this.state.showExtensiveInfo) {
+        this.handleOneLayerSearch(
+          this.state.lng,
+          this.state.lat,
+          this.state.zoom,
+          layerkey,
+          key,
+          value
+        );
+      }
+      return;
+    }
+
+    let nye_lag = { ...this.state.kartlag };
     const layer = nye_lag[layerkey];
     if (!layer) {
       return;
@@ -1112,15 +1262,6 @@ class App extends React.Component {
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
-
-    if (
-      this.state.lat &&
-      this.state.lng &&
-      !this.state.showExtensiveInfo &&
-      key.includes("erSynlig")
-    ) {
-      this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
-    }
   };
 
   // Relevant for switching between all layers and favourite layers
