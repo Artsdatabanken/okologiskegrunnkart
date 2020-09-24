@@ -451,6 +451,7 @@ class App extends React.Component {
         }
       }
     }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
   };
 
   hideVisibleLayers = async favorites => {
@@ -467,6 +468,7 @@ class App extends React.Component {
         }
       }
     }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
   };
 
   updateFavoriteLayers = async completeKartlag => {
