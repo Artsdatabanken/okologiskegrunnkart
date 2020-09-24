@@ -28,6 +28,7 @@ const InfoBox = ({
   isMobile,
   infoboxDetailsVisible,
   setInfoboxDetailsVisible,
+  setLayerInfoboxDetails,
   polygon,
   polyline,
   showPolygon,
@@ -230,6 +231,7 @@ const InfoBox = ({
           loadingFeatures={loadingFeatures}
           infoboxDetailsVisible={infoboxDetailsVisible}
           setInfoboxDetailsVisible={setInfoboxDetailsVisible}
+          setLayerInfoboxDetails={setLayerInfoboxDetails}
         />
       )}
       {markerType === "polygon" && (

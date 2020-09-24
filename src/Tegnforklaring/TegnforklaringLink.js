@@ -16,6 +16,7 @@ const TegnforklaringLink = ({ layers, setLegendVisible }) => {
       const layer = layers[id];
       Object.values(layer.underlag || {}).forEach(sublayer => {
         if (
+          sublayer &&
           (sublayer.erSynlig || sublayer.visible) &&
           layer.allcategorieslayer.wmslayer !== sublayer.wmslayer
         ) {

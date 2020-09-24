@@ -196,6 +196,7 @@ const KartlagFanen = ({
         });
       }
     });
+    onUpdateLayerProp(kartlagKey, null, newStatus, true);
     changeVisibleSublayers(visibleSublayersArray);
   };
 
@@ -203,13 +204,13 @@ const KartlagFanen = ({
     const layer = kartlag[kartlagKey];
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
+    let aggregatedkey = null;
 
     onUpdateLayerProp(kartlagKey, "erSynlig", true);
 
     Object.keys(layer.underlag).forEach(sublagkey => {
       let kode = "underlag." + sublagkey + ".";
       const sublayer = layer.underlag[sublagkey];
-
       if (allcategorieslayer.wmslayer === sublayer.wmslayer) {
         // Only aggregated sublayers activated
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
@@ -224,6 +225,7 @@ const KartlagFanen = ({
           propKeys,
           add: true
         });
+        aggregatedkey = sublagkey;
       } else if (!sublayer.wmslayer.toLowerCase().includes("dekningskart")) {
         // Pseudo active, but not really visible.
         // Only if not dekningskart sublayer
@@ -241,6 +243,7 @@ const KartlagFanen = ({
         });
       }
     });
+    onUpdateLayerProp(kartlagKey, aggregatedkey, true, true);
     changeVisibleSublayers(visibleSublayersArray);
   };
 
@@ -248,6 +251,7 @@ const KartlagFanen = ({
     const layer = kartlag[kartlagKey];
     const allcategorieslayer = layer.allcategorieslayer;
     const visibleSublayersArray = [];
+    let aggregatedkey = null;
 
     Object.keys(layer.underlag).forEach(sublagkey => {
       let kode = "underlag." + sublagkey + ".";
@@ -265,6 +269,9 @@ const KartlagFanen = ({
           propKeys: null,
           add: false
         });
+        if (allcategorieslayer.wmslayer === sublayer.wmslayer) {
+          aggregatedkey = sublagkey;
+        }
       } else if (!sublayer.wmslayer.toLowerCase().includes("dekningskart")) {
         // The rest of sublayers (if not dekkningskart), activate
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
@@ -281,6 +288,7 @@ const KartlagFanen = ({
         });
       }
     });
+    onUpdateLayerProp(kartlagKey, aggregatedkey, false, true);
     changeVisibleSublayers(visibleSublayersArray);
   };
 
@@ -354,6 +362,7 @@ const KartlagFanen = ({
         propKeys,
         add: newVisible
       });
+      onUpdateLayerProp(kartlagKey, null, newVisible, true);
       changeVisibleSublayers(visibleSublayersArray);
     }
   };

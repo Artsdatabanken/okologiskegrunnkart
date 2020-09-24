@@ -10,7 +10,7 @@ import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
-import { sortKartlag } from "./Funksjoner/sortObject";
+import { sortKartlag, sortUnderlag } from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
@@ -59,6 +59,7 @@ class App extends React.Component {
     expandedLayersComplete: [],
     sublayerDetailsVisible: false,
     infoboxDetailsVisible: false,
+    layerInfoboxDetails: null,
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
@@ -277,7 +278,7 @@ class App extends React.Component {
                         showExtensiveInfo={this.state.showExtensiveInfo}
                         handleExtensiveInfo={this.handleExtensiveInfo}
                         handleAlleLag={this.hentInfoAlleLag}
-                        handleValgteLag={this.hentInfoValgteLag}
+                        handleValgteLag={this.hentInfoAlleValgteLag}
                         forvaltningsportal={true}
                         show_current={this.state.showCurrent}
                         latitude={65.4}
@@ -304,6 +305,7 @@ class App extends React.Component {
                         isMobile={this.state.isMobile}
                         infoboxDetailsVisible={this.state.infoboxDetailsVisible}
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
+                        setLayerInfoboxDetails={this.setLayerInfoboxDetails}
                         {...this.state}
                       />
                       <KartVelger
@@ -374,6 +376,10 @@ class App extends React.Component {
 
   setInfoboxDetailsVisible = visible => {
     this.setState({ infoboxDetailsVisible: visible });
+  };
+
+  setLayerInfoboxDetails = layer => {
+    this.setState({ layerInfoboxDetails: layer });
   };
 
   setLegendVisible = visible => {
@@ -679,9 +685,171 @@ class App extends React.Component {
     });
   };
 
+  handleOneLayerSearch = (lng, lat, zoom, layerkey, sublayerkey, value) => {
+    let kartlag = { ...this.state.kartlag };
+    let kartlagLayer = kartlag[layerkey];
+    let valgteLag = { ...this.state.valgteLag };
+    let layersResult = { ...this.state.layersResult } || {};
+
+    if (!value && !sublayerkey) {
+      // Remove
+      Object.keys(valgteLag[layerkey].underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          valgteLag[layerkey].underlag[subkey] &&
+          !kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          delete valgteLag[layerkey].underlag[subkey];
+          const allSub = Object.keys(valgteLag[layerkey].underlag);
+          if (allSub.length === 0) {
+            delete valgteLag[layerkey];
+          }
+        }
+      });
+    }
+    if (value && !sublayerkey) {
+      // Add
+      if (!valgteLag[layerkey]) {
+        valgteLag[layerkey] = { ...kartlagLayer };
+        valgteLag[layerkey].underlag = {};
+      }
+      Object.keys(kartlagLayer.underlag || {}).forEach(subkey => {
+        if (
+          !valgteLag[layerkey].underlag[subkey] &&
+          kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          valgteLag[layerkey].underlag[subkey] = {
+            ...kartlagLayer.underlag[subkey]
+          };
+        }
+      });
+    }
+    if (!value && sublayerkey) {
+      // Remove agregated, add all other visible sublayers
+      delete valgteLag[layerkey].underlag[sublayerkey];
+      Object.keys(kartlagLayer.underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          kartlagLayer.underlag[subkey] &&
+          kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          valgteLag[layerkey].underlag[subkey] = {
+            ...kartlagLayer.underlag[subkey]
+          };
+        }
+      });
+    }
+    if (value && sublayerkey) {
+      // Remove all other visible sublayers, add aggregated
+      Object.keys(valgteLag[layerkey].underlag || {}).forEach(subkey => {
+        if (
+          valgteLag[layerkey] &&
+          valgteLag[layerkey].underlag &&
+          valgteLag[layerkey].underlag[subkey] &&
+          !kartlagLayer.underlag[subkey].erSynlig
+        ) {
+          delete valgteLag[layerkey].underlag[subkey];
+        }
+      });
+      valgteLag[layerkey].underlag[sublayerkey] = {
+        ...kartlagLayer.underlag[sublayerkey]
+      };
+    }
+
+    // Close detail in infobox if the layer has been deactivated
+    const detailLayer = this.state.layerInfoboxDetails;
+    if (detailLayer && detailLayer.id) {
+      const valgte = valgteLag[detailLayer.id];
+      if (!valgte) {
+        this.setInfoboxDetailsVisible(false);
+        this.setLayerInfoboxDetails(null);
+      }
+    }
+
+    this.setState({ valgteLag });
+
+    let totalFeaturesSearch = 1;
+    let finishedFeaturesSearch = 0;
+
+    // Loop though object and send request
+    const layer = valgteLag[layerkey];
+    if (!layer) return;
+    const wmsinfoformat = layer.wmsinfoformat;
+    if (
+      wmsinfoformat === "application/vnd.ogc.gml" ||
+      wmsinfoformat === "application/vnd.esri.wms_raw_xml"
+    ) {
+      backend
+        .getFeatureInfo(layer, null, { lat, lng, zoom })
+        .then(res => {
+          if (res.ServiceException) {
+            res.error = res.ServiceException;
+            delete res.ServiceException;
+          }
+          finishedFeaturesSearch += 1;
+          layersResult[layerkey] = sortUnderlag(res);
+          this.setState({ layersResult });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
+        })
+        .catch(e => {
+          finishedFeaturesSearch += 1;
+          layersResult[layerkey] = {
+            error: e.message || layerkey
+          };
+          this.setState({ layersResult });
+          if (totalFeaturesSearch === finishedFeaturesSearch) {
+            this.setState({ loadingFeatures: false });
+          }
+        });
+    } else {
+      // Use GetFeatureInfo per sublayer
+      if (!valgteLag[layerkey].underlag) return;
+      Object.keys(valgteLag[layerkey].underlag).forEach(subkey => {
+        const sublayer = valgteLag[layerkey].underlag[subkey];
+        backend
+          .getFeatureInfo(layer, sublayer, { lat, lng, zoom })
+          .then(res => {
+            if (res.ServiceException) {
+              res.error = res.ServiceException;
+              delete res.ServiceException;
+            }
+            finishedFeaturesSearch += 1;
+            layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
+            this.setState({ layersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              this.setState({ loadingFeatures: false });
+            }
+          })
+          .catch(e => {
+            finishedFeaturesSearch += 1;
+            layersResult[layerkey].underlag[subkey] = {
+              error: e.message || layerkey
+            };
+            this.setState({ layersResult });
+            if (totalFeaturesSearch === finishedFeaturesSearch) {
+              this.setState({ loadingFeatures: false });
+            }
+          });
+      });
+    }
+
+    // Visualize the loading bar after all requests have been sent (i.e. initial delay)
+    if (
+      Object.keys(valgteLag).length > 0 &&
+      totalFeaturesSearch > finishedFeaturesSearch
+    ) {
+      this.setState({ loadingFeatures: true });
+    }
+  };
+
   handleLayersSearch = (lng, lat, zoom, valgteLag) => {
     // If layersResult is not empty or is equal to valgteLag,
     // do not update the state
+    if (!valgteLag) return;
     const emptyLayersResult =
       Object.keys(this.state.layersResult).length === 0 &&
       this.state.layersResult.constructor === Object;
@@ -692,6 +860,16 @@ class App extends React.Component {
 
     if (!emptyLayersResult && !differenceLayersResult) {
       return;
+    }
+
+    // Close detail in infobox if the layer has been deactivated
+    const detailLayer = this.state.layerInfoboxDetails;
+    if (detailLayer && detailLayer.id) {
+      const valgte = valgteLag[detailLayer.id];
+      if (!valgte) {
+        this.setInfoboxDetailsVisible(false);
+        this.setLayerInfoboxDetails(null);
+      }
     }
 
     // Denne henter utvalgte lag baser på listen layers
@@ -753,13 +931,6 @@ class App extends React.Component {
 
     let finishedFeaturesSearch = 0;
 
-    // Set an interval to update state
-    // const updateLayers = setInterval(() => {
-    //   if (totalFeaturesSearch > finishedFeaturesSearch) {
-    //     this.setState({ layersResult });
-    //   }
-    // }, 1500);
-
     // Loop though object and send request
     Object.keys(layersResult).forEach(key => {
       const layer = looplist[key];
@@ -774,12 +945,10 @@ class App extends React.Component {
           finishedFeaturesSearch += 1;
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            // clearInterval(updateLayers);
             this.setState({ loadingFeatures: false });
           }
           return;
         }
-        // const sublayer = looplist[key].underlag[subkey];
         backend
           .getFeatureInfo(layer, null, { lat, lng, zoom })
           .then(res => {
@@ -793,7 +962,6 @@ class App extends React.Component {
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           })
@@ -806,18 +974,17 @@ class App extends React.Component {
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
       } else {
         // Use GetFeatureInfo per sublayer
+        if (!layersResult[key].underlag) return;
         Object.keys(layersResult[key].underlag).forEach(subkey => {
           if (!layersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
             return;
@@ -836,7 +1003,6 @@ class App extends React.Component {
               }
               this.setState({ layersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             })
@@ -849,7 +1015,6 @@ class App extends React.Component {
               }
               this.setState({ layersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             });
@@ -931,12 +1096,12 @@ class App extends React.Component {
 
     let finishedFeaturesSearch = 0;
 
-    // // Set an interval to update state
-    // const updateLayers = setInterval(() => {
-    //   if (totalFeaturesSearch > finishedFeaturesSearch) {
-    //     this.setState({ allLayersResult });
-    //   }
-    // }, 1500);
+    // Set an interval to update state
+    const updateLayers = setInterval(() => {
+      if (totalFeaturesSearch > finishedFeaturesSearch) {
+        this.setState({ allLayersResult });
+      }
+    }, 1500);
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
@@ -949,9 +1114,8 @@ class App extends React.Component {
       ) {
         if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
-          this.setState({ allLayersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            // clearInterval(updateLayers);
+            clearInterval(updateLayers);
             this.setState({ loadingFeatures: false });
           }
           return;
@@ -967,26 +1131,24 @@ class App extends React.Component {
             allLayersResult[key] = res;
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
             allLayersResult[key] = { error: e.message || key };
-            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
+              clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
       } else {
+        if (!allLayersResult[key].underlag) return;
         Object.keys(allLayersResult[key].underlag).forEach(subkey => {
           if (!allLayersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
-            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              // clearInterval(updateLayers);
+              clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
             return;
@@ -1002,9 +1164,8 @@ class App extends React.Component {
               }
               finishedFeaturesSearch += 1;
               allLayersResult[key].underlag[subkey] = res;
-              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
+                clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             })
@@ -1013,9 +1174,8 @@ class App extends React.Component {
               allLayersResult[key].underlag[subkey] = {
                 error: e.message || key
               };
-              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                // clearInterval(updateLayers);
+                clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             });
@@ -1028,7 +1188,7 @@ class App extends React.Component {
     }
   };
 
-  hentInfoValgteLag = async (lng, lat, zoom) => {
+  hentInfoAlleValgteLag = async (lng, lat, zoom) => {
     let kartlag = this.state.kartlag;
     let valgteLag = {};
     for (let i in kartlag) {
@@ -1052,8 +1212,23 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layerkey, key, value) => {
-    let nye_lag = this.state.kartlag;
+  handleForvaltningsLayerProp = (layerkey, key, value, update = false) => {
+    if (update) {
+      // Only update getFeatureInfo
+      if (this.state.lat && this.state.lng && !this.state.showExtensiveInfo) {
+        this.handleOneLayerSearch(
+          this.state.lng,
+          this.state.lat,
+          this.state.zoom,
+          layerkey,
+          key,
+          value
+        );
+      }
+      return;
+    }
+
+    let nye_lag = { ...this.state.kartlag };
     const layer = nye_lag[layerkey];
     if (!layer) {
       return;
@@ -1087,15 +1262,6 @@ class App extends React.Component {
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
-
-    if (
-      this.state.lat &&
-      this.state.lng &&
-      // this.state.showInfobox &&
-      !this.state.showExtensiveInfo
-    ) {
-      this.hentInfoValgteLag(this.state.lng, this.state.lat, this.state.zoom);
-    }
   };
 
   // Relevant for switching between all layers and favourite layers

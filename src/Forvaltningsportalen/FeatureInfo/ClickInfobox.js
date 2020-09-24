@@ -21,7 +21,8 @@ const ClickInfobox = ({
   showExtensiveInfo,
   loadingFeatures,
   infoboxDetailsVisible,
-  setInfoboxDetailsVisible
+  setInfoboxDetailsVisible,
+  setLayerInfoboxDetails
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -78,8 +79,14 @@ const ClickInfobox = ({
       setPrimaryText(primaryText);
       setSecondaryText(secondaryText);
       setNumberResults(numberResults);
+      setLayerInfoboxDetails(kartlag[layer.id]);
     },
-    [infoboxDetailsVisible, setInfoboxDetailsVisible, kartlag]
+    [
+      infoboxDetailsVisible,
+      setInfoboxDetailsVisible,
+      setLayerInfoboxDetails,
+      kartlag
+    ]
   );
 
   const hideDetailedResults = () => {
@@ -89,6 +96,7 @@ const ClickInfobox = ({
     setPrimaryText(null);
     setSecondaryText(null);
     setNumberResults(null);
+    setLayerInfoboxDetails(null);
 
     // Set scroll position to original value
     let wrapper = document.querySelector(".infobox-side");

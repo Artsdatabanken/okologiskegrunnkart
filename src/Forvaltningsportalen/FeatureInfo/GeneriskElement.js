@@ -64,7 +64,6 @@ const GeneriskElement = ({
   const [open, setOpen] = useState(false);
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(0);
-  const [numberNoMatches, setNumberNoMatches] = useState(0);
   const [faktaark_url, setFaktaark_url] = useState(null);
 
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
@@ -91,7 +90,6 @@ const GeneriskElement = ({
 
   useEffect(() => {
     let noResults = 0;
-    let noNoMatches = 0;
     let clickText;
     let clickText2;
     let aggregatedLayerKey = null;
@@ -127,7 +125,6 @@ const GeneriskElement = ({
           };
           aggregatedLayerKey = subkey;
         }
-        noNoMatches += 1;
       });
 
       if (clickText && clickText[aggregatedLayerKey]) {
@@ -154,7 +151,6 @@ const GeneriskElement = ({
           };
           aggregatedLayerKey = subkey;
         }
-        noNoMatches += 1;
       });
     }
 
@@ -221,11 +217,9 @@ const GeneriskElement = ({
     listResults = [...new Set([].concat(...listResults))] || [];
     listResults = listResults.filter(item => item !== "harData");
     noResults = listResults.length;
-    noNoMatches = noNoMatches - noResults;
 
     setListResults(listResults);
     setNumberResults(noResults);
-    setNumberNoMatches(noNoMatches);
   }, [layer, resultat, resultatJSON]);
 
   useEffect(() => {
@@ -289,11 +283,8 @@ const GeneriskElement = ({
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
             <Badge
-              badgeContent={
-                resultat.error
-                  ? "!"
-                  : numberResults + "/" + (numberNoMatches + numberResults)
-              }
+              className={"badge-enabled"}
+              badgeContent={resultat.error ? "!" : numberResults}
               color={
                 resultat.error
                   ? "error"
