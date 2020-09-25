@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { Chip, Typography, List, Button } from "@material-ui/core";
 import Sortering from "./Sortering";
