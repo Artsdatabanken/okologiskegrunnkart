@@ -488,7 +488,6 @@ class App extends React.Component {
     });
 
     this.setState({
-      // visibleSublayersComplete: [],
       visibleSublayersFavorites: [],
       showFavoriteLayers: true
     });
