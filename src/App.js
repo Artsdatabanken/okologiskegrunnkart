@@ -451,6 +451,7 @@ class App extends React.Component {
         }
       }
     }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
   };
 
   hideVisibleLayers = async favorites => {
@@ -467,6 +468,7 @@ class App extends React.Component {
         }
       }
     }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
   };
 
   updateFavoriteLayers = async completeKartlag => {
@@ -476,20 +478,19 @@ class App extends React.Component {
       favoriteKartlag,
       infoboxDetailsVisible: false
     });
-    const favorites = this.state.showFavoriteLayers;
-    if (favorites) {
-      this.hideVisibleLayers(favorites).then(() => {
+
+    this.setState({ kartlag: completeKartlag }, () => {
+      this.hideVisibleLayers(false).then(() => {
         this.setState({ kartlag: favoriteKartlag }, () => {
-          this.showVisibleLayers(favorites);
+          this.hideVisibleLayers(true);
         });
       });
-    } else {
-      this.hideVisibleLayers(favorites).then(() => {
-        this.setState({ kartlag: completeKartlag }, () => {
-          this.showVisibleLayers(favorites);
-        });
-      });
-    }
+    });
+
+    this.setState({
+      visibleSublayersFavorites: [],
+      showFavoriteLayers: true
+    });
     updateLayersIndexedDB(completeKartlag);
   };
 
