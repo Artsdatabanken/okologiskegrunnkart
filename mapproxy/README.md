@@ -94,3 +94,15 @@ Coverage: alt (4.41, 57.92, 34.22, 81.06)
 - Zoom 14: 16 timer
 - Zoom 15: 64 timer
 - Zoom 16: 10 døgn
+
+### Runtime Configuration
+
+Cache refresh configured to run nightly on hydra:
+
+```
+crontab -e
+00 12 * * * /usr/bin/flock -w 0 /tmp/mapproxy.lockfile /home/grunnkart/mapproxy/build_tile_cache.sh
+```
+
+Mapproxy cache set is maintained inside ~/mapproxy/cache
+Final mbtiles location ~/tilesdata/grunnkart - accessible via http on https://data.artsdatabanken.no/grunnkart/
