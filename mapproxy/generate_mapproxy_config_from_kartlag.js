@@ -3,7 +3,6 @@
 //   in order to seed the lowest available single zoom level for each layer.
 
 const fs = require("fs");
-
 const special_options = {
   Arterrdlista_NTNrtruet: "styles: simple" // Don't know why this was necessary. TODO: Check mapserver config?
 };
@@ -33,11 +32,14 @@ const getBaseWmsUrl = url => {
   return url.toString();
 };
 
+const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
+console.log("Reading kartlag.json...");
 var kartlag = JSON.parse(fs.readFileSync("kartlag.json"));
 kartlag = Object.values(kartlag).reduce((acc, e) => {
   for (var ul of Object.values(e.underlag || {})) {
     ul.wmsurl = getBaseWmsUrl(e.wmsurl);
     ul.projeksjon = e.projeksjon;
+    ul.id = alphaNumericOnly(e.tittel) + "_" + alphaNumericOnly(ul.tittel);
     acc[ul.id] = ul; // Object so we can filter duplicates
   }
   return acc;
@@ -52,9 +54,11 @@ kartlag = kartlag.sort((a, b) => {
 
 var logger = fs.createWriteStream("seed.yaml");
 
+console.log("Creating seed.yaml");
 makeSeed(kartlag);
 
 logger.end();
+console.log("Creating mapproxy.yaml");
 logger = fs.createWriteStream("mapproxy.yaml");
 
 write(`layers:`);
@@ -89,6 +93,7 @@ write(`      abstract: Økologisk grunnkart overview cache.`);
 write(``);
 
 logger.end();
+console.log("Success: Mapproxy configuration updated.");
 
 function write(line) {
   logger.write(line + "\n");
