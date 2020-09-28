@@ -178,7 +178,6 @@ const ForvaltningsKartlag = ({
                 key={element}
                 toggleSublayer={toggleSublayer}
                 toggleAllSublayers={toggleAllSublayers}
-                zoom={zoom}
                 showSublayerDetails={showSublayerDetails}
               />
             );
