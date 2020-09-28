@@ -4,7 +4,7 @@ L.TileLayer.CachedOverview = L.TileLayer.WMS.extend({
   getTileUrl: function(coords) {
     if (coords.z <= this.options.zoomThreshold) {
       // We should have this cached..
-      var url = `https://data.test.artsdatabanken.no/grunnkart/${this.options.id}.mbtiles/${coords.z}/${coords.x}/${coords.y}`;
+      var url = `https://data.test.artsdatabanken.no/grunnkart/${this.options.id}.mbtiles/${coords.z}/${coords.x}/${coords.y}?nocontent=false`;
       return url;
     }
     return L.TileLayer.WMS.prototype.getTileUrl.call(this, coords);

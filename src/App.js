@@ -147,6 +147,7 @@ class App extends React.Component {
         ul.opacity = 0.8;
         acc[ul.id] = ul;
         listFavoriteSublayerIds.push(ul.key);
+        ul.tileerror = false;
 
         // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
@@ -306,6 +307,7 @@ class App extends React.Component {
                         infoboxDetailsVisible={this.state.infoboxDetailsVisible}
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
                         setLayerInfoboxDetails={this.setLayerInfoboxDetails}
+                        onTileStatus={this.onTileStatus}
                         {...this.state}
                       />
                       <KartVelger
@@ -1323,6 +1325,40 @@ class App extends React.Component {
 
   updateIsMobile = isMobile => {
     this.setState({ isMobile });
+  };
+
+  onTileStatus = (layerkey, sublayerkey, status) => {
+    let nye_lag = this.state.kartlag;
+    const layer = nye_lag[layerkey];
+    if (sublayerkey === layer.allcategorieslayer.id) {
+      Object.keys(layer.underlag).forEach(subkey => {
+        const sublayer = layer.underlag[subkey];
+        const isDekkningKart = sublayer.wmslayer
+          .toLowerCase()
+          .includes("dekningskart");
+        if (status === "error" && !isDekkningKart) {
+          const code = "underlag." + subkey + ".tileerror";
+          setValue(layer, code, true);
+        }
+        if (status === "loading" && !isDekkningKart) {
+          const code = "underlag." + subkey + ".tileerror";
+          setValue(layer, code, false);
+        }
+      });
+    } else {
+      if (status === "error") {
+        const code = "underlag." + sublayerkey + ".tileerror";
+        setValue(layer, code, true);
+      }
+      if (status === "loading") {
+        const code = "underlag." + sublayerkey + ".tileerror";
+        setValue(layer, code, false);
+      }
+    }
+
+    this.setState({
+      kartlag: Object.assign({}, nye_lag)
+    });
   };
 
   static contextType = SettingsContext;

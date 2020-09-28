@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 import CustomSwitch from "../../Common/CustomSwitch";
-// import CustomIcon from "../../Common/CustomIcon";
+import CustomIcon from "../../Common/CustomIcon";
+import BottomTooltip from "../../Common/BottomTooltip";
 
 const ForvaltningsUnderElement = ({
   underlag,
@@ -10,12 +11,16 @@ const ForvaltningsUnderElement = ({
   toggleSublayer,
   showSublayerDetails
 }) => {
-  let tittel = underlag.tittel;
-  const erSynlig = underlag.erSynlig;
-  const visible = underlag.visible;
-  let kode = "underlag." + underlagKey + ".";
+  const [sublayer, setSublayer] = useState(underlag);
+  const [code] = useState("underlag." + underlagKey + ".");
 
-  if (!tittel) return null;
+  const sublayerJSON = JSON.stringify(underlag);
+
+  useEffect(() => {
+    setSublayer(underlag);
+  }, [underlag, sublayerJSON]);
+
+  if (!underlag.tittel) return null;
   return (
     <>
       <ListItem
@@ -30,14 +35,14 @@ const ForvaltningsUnderElement = ({
           <CustomSwitch
             tabIndex="0"
             id="visiblility-sublayer-toggle"
-            checked={visible}
+            checked={sublayer.visible}
             onChange={e => {
               toggleSublayer(
                 kartlagKey,
                 underlagKey,
-                kode,
-                !erSynlig,
-                !visible
+                code,
+                !sublayer.erSynlig,
+                !sublayer.visible
               );
               e.stopPropagation();
             }}
@@ -46,16 +51,16 @@ const ForvaltningsUnderElement = ({
                 toggleSublayer(
                   kartlagKey,
                   underlagKey,
-                  kode,
-                  !erSynlig,
-                  !visible
+                  code,
+                  !sublayer.erSynlig,
+                  !sublayer.visible
                 );
                 e.stopPropagation();
               }
             }}
           />
         </ListItemIcon>
-        <ListItemText primary={tittel} />
+        <ListItemText primary={sublayer.tittel} />
         {/* {underlag.suggested && (
           <ListItemIcon id="bookmark-icon">
             <CustomIcon
@@ -67,6 +72,19 @@ const ForvaltningsUnderElement = ({
             />
           </ListItemIcon>
         )} */}
+        {sublayer.visible && sublayer.tileerror && (
+          <BottomTooltip placement="bottom" title="Får ikke svar">
+            <ListItemIcon id="tile-error-icon">
+              <CustomIcon
+                id="tile-error"
+                icon="alert-circle"
+                size={20}
+                padding={0}
+                color="#cc0000"
+              />
+            </ListItemIcon>
+          </BottomTooltip>
+        )}
       </ListItem>
     </>
   );

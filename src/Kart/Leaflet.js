@@ -441,13 +441,15 @@ class Leaflet extends React.Component {
         maxNativeZoom: underlag.maxzoom
       });
       layer.on("loading", () => {
-        //        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
       });
-      layer.on("load", () => {
+      layer.on("load", l => {
         //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
       });
       layer.on("tileerror", e => {
-        //        this.props.onTileStatus(kartlag.id, underlag.id, "error");
+        if (!underlag.tileerror) {
+          this.props.onTileStatus(kartlag.id, underlag.id, "error");
+        }
       });
       this.wmslayers[underlag.id] = layer;
       this.map.addLayer(layer);

@@ -52,7 +52,8 @@ const infoboxKeys = {
     kriterier_kombinert: "Kombinert kriterier",
     norsknavn: "Norsk navn",
     species: "Species",
-    gmlname: "Type"
+    gmlname: "Type",
+    scientificname: "Vitenskapelig navn"
   },
   berggrunn: {
     hbergnavn: "Bergnavn",
