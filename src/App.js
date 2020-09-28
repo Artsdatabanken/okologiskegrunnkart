@@ -821,6 +821,10 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
+            if (!layersResult[layerkey]) {
+              layersResult[layerkey] = {};
+              layersResult[layerkey].underlag = {};
+            }
             layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -829,6 +833,10 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
+            if (!layersResult[layerkey]) {
+              layersResult[layerkey] = {};
+              layersResult[layerkey].underlag = {};
+            }
             layersResult[layerkey].underlag[subkey] = {
               error: e.message || layerkey
             };
