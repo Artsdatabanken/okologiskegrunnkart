@@ -18,13 +18,15 @@ const KartlagFanen = ({
   kartlag,
   showSideBar,
   handleSideBar,
-  zoom,
   sublayerDetailsVisible,
   setSublayerDetailsVisible,
   legendVisible,
   setLegendVisible,
   updateIsMobile,
-  handleSelectSearchResult
+  handleSelectSearchResult,
+  handleSortKey,
+  handleTagFilter,
+  handleMatchAllFilters
 }) => {
   // Detail panel data
   const [underlagDetails, setUnderlagDetails] = useState(null);
@@ -617,6 +619,9 @@ const KartlagFanen = ({
                   toggleAllSublayers={toggleAllSublayers}
                   showSublayerDetails={showSublayerDetails}
                   setLegendVisible={setLegendVisible}
+                  handleSortKey={handleSortKey}
+                  handleTagFilter={handleTagFilter}
+                  handleMatchAllFilters={handleMatchAllFilters}
                 />
               </div>
             </div>

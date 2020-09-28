@@ -63,7 +63,10 @@ class App extends React.Component {
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
-    showMarker: true
+    showMarker: true,
+    sortKey: "alfabetisk",
+    tagFilter: {},
+    matchAllFilters: true
   };
 
   async lastNedKartlag() {
@@ -349,7 +352,6 @@ class App extends React.Component {
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
-                        zoom={this.state.zoom}
                         sublayerDetailsVisible={
                           this.state.sublayerDetailsVisible
                         }
@@ -360,6 +362,9 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
                         handleSelectSearchResult={this.handleSelectSearchResult}
+                        handleSortKey={this.handleSortKey}
+                        handleTagFilter={this.handleTagFilter}
+                        handleMatchAllFilters={this.handleMatchAllFilters}
                       />
                     </div>
                   </>
@@ -1367,6 +1372,18 @@ class App extends React.Component {
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
+  };
+
+  handleSortKey = sortKey => {
+    this.setState({ sortKey });
+  };
+
+  handleTagFilter = tagFilter => {
+    this.setState({ tagFilter });
+  };
+
+  handleMatchAllFilters = matchAllFilters => {
+    this.setState({ matchAllFilters });
   };
 
   static contextType = SettingsContext;

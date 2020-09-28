@@ -10,7 +10,10 @@ const ForvaltningsKartlag = ({
   toggleSublayer,
   toggleAllSublayers,
   showSublayerDetails,
-  setLegendVisible
+  setLegendVisible,
+  handleSortKey,
+  handleTagFilter,
+  handleMatchAllFilters
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   const [sortKey, setSortKey] = useState("alfabetisk");
@@ -24,10 +27,12 @@ const ForvaltningsKartlag = ({
     let tagFilterTemp = { ...tagFilter };
     tagFilterTemp[tag] = value;
     setTagFilter(tagFilterTemp);
+    handleTagFilter(tagFilterTemp);
   };
 
   const handleChangeSort = sortKey => {
     setSortKey(sortKey);
+    handleSortKey(sortKey);
   };
 
   const sortKeyToDescription = {
@@ -82,16 +87,18 @@ const ForvaltningsKartlag = ({
             let tagFilterTemp = { ...tagFilter };
             tagFilterTemp[tag] = !tagFilter[tag];
             setTagFilter(tagFilterTemp);
+            handleTagFilter(tagFilterTemp);
           }}
           onDelete={() => {
             let tagFilterTemp = { ...tagFilter };
             tagFilterTemp[tag] = false;
             setTagFilter(tagFilterTemp);
+            handleTagFilter(tagFilterTemp);
           }}
         />
       ));
     setTags(tags);
-  }, [taglist, tagFilter]);
+  }, [taglist, tagFilter, handleTagFilter]);
 
   return (
     <>
@@ -127,6 +134,7 @@ const ForvaltningsKartlag = ({
                   color={matchAllFilters ? "primary" : "secondary"}
                   onClick={() => {
                     setMatchAllFilters(true);
+                    handleMatchAllFilters(true);
                   }}
                 >
                   Matcher alle
@@ -138,6 +146,7 @@ const ForvaltningsKartlag = ({
                   color={matchAllFilters ? "secondary" : "primary"}
                   onClick={() => {
                     setMatchAllFilters(false);
+                    handleMatchAllFilters(false);
                   }}
                 >
                   Matcher minst ett
