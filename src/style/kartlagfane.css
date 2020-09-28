@@ -546,6 +546,9 @@
 #bookmark-icon.MuiListItemIcon-root {
   justify-content: flex-end;
 }
+#tile-error-icon.MuiListItemIcon-root {
+  justify-content: flex-end;
+}
 
 /* --------- Layer and sublayer details component ---------- */
 .layer-details-div {
