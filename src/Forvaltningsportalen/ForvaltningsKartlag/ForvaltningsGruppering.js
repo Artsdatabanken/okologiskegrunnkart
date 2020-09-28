@@ -8,8 +8,6 @@ const ForvaltningsGruppering = ({
   matchAllFilters,
   toggleSublayer,
   toggleAllSublayers,
-  hideHidden,
-  searchTerm,
   element,
   showSublayerDetails
 }) => {
@@ -41,18 +39,10 @@ const ForvaltningsGruppering = ({
       )
         return false;
 
-      // Layer contains search term
-      if (searchTerm && searchTerm.length > 0) {
-        let string = JSON.stringify(element).toLowerCase();
-        if (string.indexOf(searchTerm) === -1) {
-          return false;
-        }
-      }
-      if (hideHidden && element.opacity === 0) return false;
       return true;
     });
     setAllLayers(layers);
-  }, [kartlag, selectedTags, matchAllFilters, hideHidden, searchTerm]);
+  }, [kartlag, selectedTags, matchAllFilters]);
 
   if (allLayers.length <= 0) return null;
   return (

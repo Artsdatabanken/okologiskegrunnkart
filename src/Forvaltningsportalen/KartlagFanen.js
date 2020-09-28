@@ -615,7 +615,6 @@ const KartlagFanen = ({
                   kartlag={kartlag}
                   toggleSublayer={toggleSublayer}
                   toggleAllSublayers={toggleAllSublayers}
-                  zoom={zoom}
                   showSublayerDetails={showSublayerDetails}
                   setLegendVisible={setLegendVisible}
                 />

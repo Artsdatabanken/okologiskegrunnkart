@@ -9,15 +9,12 @@ const ForvaltningsKartlag = ({
   kartlag,
   toggleSublayer,
   toggleAllSublayers,
-  zoom,
   showSublayerDetails,
   setLegendVisible
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   const [sortKey, setSortKey] = useState("alfabetisk");
   const [tagFilter, setTagFilter] = useState({});
-  const [hideHidden] = useState(false); // Not used??? Never changes...
-  const [searchTerm] = useState(null); // Not used??? Never changes...
   const [matchAllFilters, setMatchAllFilters] = useState(true);
   const [sorted, setSorted] = useState({});
   const [taglist, setTaglist] = useState([]);
@@ -169,8 +166,6 @@ const ForvaltningsKartlag = ({
           .map(element => {
             return (
               <ForvaltningsGruppering
-                searchTerm={searchTerm}
-                hideHidden={hideHidden}
                 tagFilter={tagFilter}
                 matchAllFilters={matchAllFilters}
                 kartlag={sorted[element]}
