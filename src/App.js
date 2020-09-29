@@ -790,6 +790,8 @@ class App extends React.Component {
     const wmsinfoformat = layer.wmsinfoformat;
     const dataeier = layer.dataeier;
     const tema = layer.tema;
+    const tags = layer.tags;
+    const id = layer.id;
     if (
       wmsinfoformat === "application/vnd.ogc.gml" ||
       wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -806,7 +808,9 @@ class App extends React.Component {
           layersResult[layerkey] = {
             ...layersResult[layerkey],
             dataeier,
-            tema
+            tema,
+            tags,
+            id
           };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -821,7 +825,9 @@ class App extends React.Component {
           layersResult[layerkey] = {
             ...layersResult[layerkey],
             dataeier,
-            tema
+            tema,
+            tags,
+            id
           };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -842,7 +848,7 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (!layersResult[layerkey]) {
-              layersResult[layerkey] = { dataeier, tema };
+              layersResult[layerkey] = { dataeier, tema, tags, id };
               layersResult[layerkey].underlag = {};
             }
             layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
@@ -854,7 +860,7 @@ class App extends React.Component {
           .catch(e => {
             finishedFeaturesSearch += 1;
             if (!layersResult[layerkey]) {
-              layersResult[layerkey] = { dataeier, tema };
+              layersResult[layerkey] = { dataeier, tema, tags, id };
               layersResult[layerkey].underlag = {};
             }
             layersResult[layerkey].underlag[subkey] = {
@@ -929,6 +935,8 @@ class App extends React.Component {
       const wmsinfoformat = looplist[key].wmsinfoformat;
       const dataeier = looplist[key].dataeier;
       const tema = looplist[key].tema;
+      const tags = looplist[key].tags;
+      const id = looplist[key].id;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -944,7 +952,9 @@ class App extends React.Component {
               loading: true,
               wmsinfoformat,
               dataeier,
-              tema
+              tema,
+              tags,
+              id
             };
             break;
           }
@@ -958,10 +968,11 @@ class App extends React.Component {
           totalFeaturesSearch += 1;
           if (!layersResult[key]) {
             layersResult[key] = {
-              loading: true,
               wmsinfoformat,
               dataeier,
-              tema
+              tema,
+              tags,
+              id
             };
             layersResult[key].underlag = {};
           }
@@ -1001,7 +1012,11 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
-              layersResult[key] = { ...layersResult[key], res };
+              layersResult[key] = {
+                ...layersResult[key],
+                ...res,
+                loading: false
+              };
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -1013,7 +1028,8 @@ class App extends React.Component {
             if (layersResult[key]) {
               layersResult[key] = {
                 ...layersResult[key],
-                error: e.message || key
+                error: e.message || key,
+                loading: false
               };
             }
             this.setState({ layersResult });
@@ -1097,6 +1113,8 @@ class App extends React.Component {
       const wmsinfoformat = looplist[key].wmsinfoformat;
       const dataeier = looplist[key].dataeier;
       const tema = looplist[key].tema;
+      const tags = looplist[key].tags;
+      const id = looplist[key].id;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -1112,7 +1130,9 @@ class App extends React.Component {
               loading: true,
               wmsinfoformat,
               dataeier,
-              tema
+              tema,
+              tags,
+              id
             };
             break;
           }
@@ -1136,10 +1156,11 @@ class App extends React.Component {
           totalFeaturesSearch += 1;
           if (!allLayersResult[key]) {
             allLayersResult[key] = {
-              loading: true,
               wmsinfoformat,
               dataeier,
-              tema
+              tema,
+              tags,
+              id
             };
             allLayersResult[key].underlag = {};
           }
@@ -1184,7 +1205,11 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = { ...allLayersResult[key], res };
+            allLayersResult[key] = {
+              ...allLayersResult[key],
+              ...res,
+              loading: false
+            };
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               this.setState({ loadingFeatures: false });
@@ -1194,7 +1219,8 @@ class App extends React.Component {
             finishedFeaturesSearch += 1;
             allLayersResult[key] = {
               ...allLayersResult[key],
-              error: e.message || key
+              error: e.message || key,
+              loading: false
             };
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               clearInterval(updateLayers);

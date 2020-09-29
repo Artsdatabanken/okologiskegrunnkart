@@ -5,7 +5,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  LinearProgress
+  LinearProgress,
+  ListSubheader
 } from "@material-ui/core";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
@@ -34,12 +35,7 @@ const ResultsList = ({
   const classes = useStyles("Ingen kartlag valgt");
 
   const [title, setTitle] = useState(null);
-  // const [sortKey, setSortKey] = useState("alfabetisk");
-  // const [tagFilter, setTagFilter] = useState({});
-  // const [matchAllFilters, setMatchAllFilters] = useState(true);
-  const [sortedResults, setSortedResults] = useState({});
-  // const [taglist, setTaglist] = useState([]);
-  // const [tags, setTags] = useState(null);
+  const [allResults, setAllResults] = useState({});
 
   const layersResultJSON = JSON.stringify(layersResult);
 
@@ -56,9 +52,9 @@ const ResultsList = ({
   }, [kartlag, showExtensiveInfo]);
 
   useEffect(() => {
+    // Sort results
     let lag = layersResult;
     let sorted = {};
-    console.log("Sortkey: ", sortKey);
 
     // Sorterer listen på valgt kriterie
     for (let item in lag) {
@@ -74,56 +70,51 @@ const ResultsList = ({
       new_list.push(lag[item]);
       sorted[criteria] = new_list;
     }
-    setSortedResults(sorted);
-    console.log("sorted results: ", sorted);
-  }, [layersResult, layersResultJSON, sortKey]);
 
-  // useEffect(() => {
-  //   const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
+    // Get selected tags
+    const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
 
-  //   let lag = layersResult.filter(element => {
-  //     let tags = element.tags || [];
+    // Filter sorted results
+    let filtered = {};
+    Object.keys(sorted).forEach(key => {
+      let elements = sorted[key];
 
-  //     // All tags match the layer's tags
-  //     if (
-  //       selectedTags.length > 0 &&
-  //       matchAllFilters &&
-  //       !selectedTags.every(tag => tags.includes(tag))
-  //     )
-  //       return false;
+      elements = elements.filter(element => {
+        let tags = element.tags || [];
+        // All tags match the layer's tags
+        if (
+          selectedTags.length > 0 &&
+          matchAllFilters &&
+          !selectedTags.every(tag => tags.includes(tag))
+        )
+          return false;
 
-  //     // At leats one tag matches the layer's tags
-  //     if (
-  //       selectedTags.length > 0 &&
-  //       !matchAllFilters &&
-  //       !selectedTags.some(tag => tags.includes(tag))
-  //     )
-  //       return false;
+        // At leats one tag matches the layer's tags
+        if (
+          selectedTags.length > 0 &&
+          !matchAllFilters &&
+          !selectedTags.some(tag => tags.includes(tag))
+        )
+          return false;
 
-  //     return true;
-  //   });
+        return true;
+      });
 
-  //   // let lag = layersResult;
+      if (elements.length > 0) {
+        // Convert array to object
+        const filteredObject = elements.reduce((result, item) => {
+          const key = item.id;
+          result[key] = item;
+          return result;
+        }, {});
+        filtered = { ...filtered, [key]: filteredObject };
+      }
+    });
 
-  //   let sorted = {};
-
-  //   // Sorterer listen på valgt kriterie
-  //   for (let item in lag) {
-  //     let criteria = lag[item][sortKey];
-  //     let new_list = [];
-  //     if (!criteria) {
-  //       criteria = "";
-  //     }
-  //     if (sorted[criteria]) {
-  //       new_list = sorted[criteria];
-  //     }
-  //     lag[item].id = item;
-  //     new_list.push(lag[item]);
-  //     sorted[criteria] = new_list;
-  //   }
-  //   setSortedResults(sorted);
-  //   console.log("sorted results: ", sorted)
-  // }, [layersResult, layersResultJSON, sortKey, tagFilter, matchAllFilters]);
+    setAllResults(filtered);
+    // console.log("filtered results: ", filtered);
+    // console.log("layersResult: ", layersResult)
+  }, [layersResult, layersResultJSON, sortKey, tagFilter, matchAllFilters]);
 
   return (
     <div className="detailed-info-container-side">
@@ -143,7 +134,33 @@ const ResultsList = ({
               </div>
             )}
             <List id="layers-results-list">
-              {layersResult !== undefined &&
+              {allResults !== undefined &&
+                Object.keys(allResults)
+                  .reverse()
+                  .map(key => {
+                    return (
+                      <div key={key}>
+                        <ListSubheader disableSticky>{key}</ListSubheader>
+                        <>
+                          {Object.keys(allResults[key]).map(resultkey => {
+                            return (
+                              <GeneriskElement
+                                coordinates_area={coordinates_area}
+                                key={resultkey}
+                                kartlag={kartlag}
+                                resultat={allResults[key][resultkey]}
+                                element={resultkey}
+                                infoboxDetailsVisible={infoboxDetailsVisible}
+                                resultLayer={resultLayer}
+                                showDetailedResults={showDetailedResults}
+                              />
+                            );
+                          })}
+                        </>
+                      </div>
+                    );
+                  })}
+              {/* {layersResult !== undefined &&
                 Object.keys(layersResult).map(key => {
                   return (
                     <GeneriskElement
@@ -157,7 +174,7 @@ const ResultsList = ({
                       showDetailedResults={showDetailedResults}
                     />
                   );
-                })}
+                })} */}
             </List>
           </div>
         )}
