@@ -266,8 +266,8 @@
 
 /* ----------- Sorted layers extra components ------------ */
 .sorted-layers-subheaders .MuiListSubheader-root {
-  background-color: #dedede;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background-color: rgb(216, 216, 216);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   font-size: 17px;
 }
 .sorted-layers-subheaders .MuiListItem-root {

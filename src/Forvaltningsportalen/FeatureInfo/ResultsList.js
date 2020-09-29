@@ -139,24 +139,22 @@ const ResultsList = ({
                   .reverse()
                   .map(key => {
                     return (
-                      <div key={key}>
+                      <div key={key} className="layers-results-subheaders">
                         <ListSubheader disableSticky>{key}</ListSubheader>
-                        <>
-                          {Object.keys(allResults[key]).map(resultkey => {
-                            return (
-                              <GeneriskElement
-                                coordinates_area={coordinates_area}
-                                key={resultkey}
-                                kartlag={kartlag}
-                                resultat={allResults[key][resultkey]}
-                                element={resultkey}
-                                infoboxDetailsVisible={infoboxDetailsVisible}
-                                resultLayer={resultLayer}
-                                showDetailedResults={showDetailedResults}
-                              />
-                            );
-                          })}
-                        </>
+                        {Object.keys(allResults[key]).map(resultkey => {
+                          return (
+                            <GeneriskElement
+                              coordinates_area={coordinates_area}
+                              key={resultkey}
+                              kartlag={kartlag}
+                              resultat={allResults[key][resultkey]}
+                              element={resultkey}
+                              infoboxDetailsVisible={infoboxDetailsVisible}
+                              resultLayer={resultLayer}
+                              showDetailedResults={showDetailedResults}
+                            />
+                          );
+                        })}
                       </div>
                     );
                   })}
