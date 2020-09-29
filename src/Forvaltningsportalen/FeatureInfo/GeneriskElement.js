@@ -88,8 +88,6 @@ const GeneriskElement = ({
   const layer = kartlag[element];
   const resultatJSON = JSON.stringify(resultat);
 
-  console.log("result: ", resultat);
-
   useEffect(() => {
     let noResults = 0;
     let clickText;

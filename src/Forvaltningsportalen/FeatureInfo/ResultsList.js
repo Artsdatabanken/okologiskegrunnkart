@@ -112,8 +112,6 @@ const ResultsList = ({
     });
 
     setAllResults(filtered);
-    // console.log("filtered results: ", filtered);
-    // console.log("layersResult: ", layersResult)
   }, [layersResult, layersResultJSON, sortKey, tagFilter, matchAllFilters]);
 
   return (
