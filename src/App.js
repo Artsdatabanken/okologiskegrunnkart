@@ -311,6 +311,9 @@ class App extends React.Component {
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
                         setLayerInfoboxDetails={this.setLayerInfoboxDetails}
                         onTileStatus={this.onTileStatus}
+                        sortKey={this.state.sortKey}
+                        tagFilter={this.state.tagFilter}
+                        matchAllFilters={this.state.matchAllFilters}
                         {...this.state}
                       />
                       <KartVelger
@@ -785,6 +788,8 @@ class App extends React.Component {
     const layer = valgteLag[layerkey];
     if (!layer) return;
     const wmsinfoformat = layer.wmsinfoformat;
+    const dataeier = layer.dataeier;
+    const tema = layer.tema;
     if (
       wmsinfoformat === "application/vnd.ogc.gml" ||
       wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -798,6 +803,11 @@ class App extends React.Component {
           }
           finishedFeaturesSearch += 1;
           layersResult[layerkey] = sortUnderlag(res);
+          layersResult[layerkey] = {
+            ...layersResult[layerkey],
+            dataeier,
+            tema
+          };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
@@ -807,6 +817,11 @@ class App extends React.Component {
           finishedFeaturesSearch += 1;
           layersResult[layerkey] = {
             error: e.message || layerkey
+          };
+          layersResult[layerkey] = {
+            ...layersResult[layerkey],
+            dataeier,
+            tema
           };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -827,7 +842,7 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (!layersResult[layerkey]) {
-              layersResult[layerkey] = {};
+              layersResult[layerkey] = { dataeier, tema };
               layersResult[layerkey].underlag = {};
             }
             layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
@@ -839,7 +854,7 @@ class App extends React.Component {
           .catch(e => {
             finishedFeaturesSearch += 1;
             if (!layersResult[layerkey]) {
-              layersResult[layerkey] = {};
+              layersResult[layerkey] = { dataeier, tema };
               layersResult[layerkey].underlag = {};
             }
             layersResult[layerkey].underlag[subkey] = {
@@ -912,6 +927,8 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
+      const dataeier = looplist[key].dataeier;
+      const tema = looplist[key].tema;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -923,7 +940,12 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema
+            };
             break;
           }
         }
@@ -935,7 +957,12 @@ class App extends React.Component {
           if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
           totalFeaturesSearch += 1;
           if (!layersResult[key]) {
-            layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema
+            };
             layersResult[key].underlag = {};
           }
           if (!layersResult[key].underlag[subkey]) {
@@ -974,7 +1001,7 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
-              layersResult[key] = res;
+              layersResult[key] = { ...layersResult[key], res };
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -985,6 +1012,7 @@ class App extends React.Component {
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
               layersResult[key] = {
+                ...layersResult[key],
                 error: e.message || key
               };
             }
@@ -1067,6 +1095,8 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
+      const dataeier = looplist[key].dataeier;
+      const tema = looplist[key].tema;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -1078,7 +1108,12 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            allLayersResult[key] = { loading: true, wmsinfoformat };
+            allLayersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema
+            };
             break;
           }
         }
@@ -1100,7 +1135,12 @@ class App extends React.Component {
           }
           totalFeaturesSearch += 1;
           if (!allLayersResult[key]) {
-            allLayersResult[key] = { loading: true, wmsinfoformat };
+            allLayersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema
+            };
             allLayersResult[key].underlag = {};
           }
           if (!allLayersResult[key].underlag[subkey]) {
@@ -1144,7 +1184,7 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = res;
+            allLayersResult[key] = { ...allLayersResult[key], res };
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               this.setState({ loadingFeatures: false });
@@ -1152,7 +1192,10 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = { error: e.message || key };
+            allLayersResult[key] = {
+              ...allLayersResult[key],
+              error: e.message || key
+            };
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });

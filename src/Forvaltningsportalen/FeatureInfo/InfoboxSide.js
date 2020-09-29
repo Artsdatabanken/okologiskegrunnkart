@@ -37,7 +37,10 @@ const InfoBox = ({
   addPolygon,
   addPolyline,
   polygonResults,
-  handlePolygonResults
+  handlePolygonResults,
+  sortKey,
+  tagFilter,
+  matchAllFilters
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -232,6 +235,9 @@ const InfoBox = ({
           infoboxDetailsVisible={infoboxDetailsVisible}
           setInfoboxDetailsVisible={setInfoboxDetailsVisible}
           setLayerInfoboxDetails={setLayerInfoboxDetails}
+          sortKey={sortKey}
+          tagFilter={tagFilter}
+          matchAllFilters={matchAllFilters}
         />
       )}
       {markerType === "polygon" && (
