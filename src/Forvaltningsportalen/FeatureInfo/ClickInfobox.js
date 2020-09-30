@@ -15,6 +15,7 @@ const ClickInfobox = ({
   valgteLag,
   sted,
   adresse,
+  matrikkel,
   elevation,
   resultat,
   kartlag,
@@ -48,19 +49,26 @@ const ClickInfobox = ({
     return "-";
   };
 
-  const hentGardsnummer = adresse => {
-    if (adresse && adresse.gardsnummer) {
-      return adresse.gardsnummer;
+  const hentMatrikkel = matrikkel => {
+    if (matrikkel && matrikkel.toLowerCase().includes("mangler")) {
+      return "- / -";
     }
-    return "-";
+    return matrikkel;
   };
 
-  const hentBruksnummer = adresse => {
-    if (adresse && adresse.bruksnummer) {
-      return adresse.bruksnummer;
-    }
-    return "-";
-  };
+  // const hentGardsnummer = adresse => {
+  //   if (adresse && adresse.gardsnummer) {
+  //     return adresse.gardsnummer;
+  //   }
+  //   return "-";
+  // };
+
+  // const hentBruksnummer = adresse => {
+  //   if (adresse && adresse.bruksnummer) {
+  //     return adresse.bruksnummer;
+  //   }
+  //   return "-";
+  // };
 
   const toggleAllLayers = () => {
     if (coordinates_area && coordinates_area.lng && coordinates_area.lat) {
@@ -160,7 +168,8 @@ const ClickInfobox = ({
             <div className="infobox-text-multiple">
               <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
               <div className="infobox-text-secondary">
-                {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
+                {/* {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`} */}
+                {hentMatrikkel(matrikkel)}
               </div>
             </div>
           </div>

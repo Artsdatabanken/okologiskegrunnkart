@@ -97,6 +97,12 @@ class Backend {
     );
   }
 
+  static async hentMatrikkel(lng, lat) {
+    return this.getPromise(
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/punkt?lat=${lat}&lng=${lng}`
+    );
+  }
+
   static async getFeatureInfo(layer, sublayer, coords) {
     var url = getFeatureInfoUrl(layer, sublayer, coords);
     const boringkeys = [

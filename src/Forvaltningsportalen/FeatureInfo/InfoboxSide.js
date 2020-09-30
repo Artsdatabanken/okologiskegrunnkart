@@ -20,6 +20,7 @@ const InfoBox = ({
   valgteLag,
   sted,
   adresse,
+  matrikkel,
   elevation,
   resultat,
   kartlag,
@@ -227,6 +228,7 @@ const InfoBox = ({
           valgteLag={valgteLag}
           sted={sted}
           adresse={adresse}
+          matrikkel={matrikkel}
           elevation={elevation}
           resultat={resultat}
           kartlag={kartlag}

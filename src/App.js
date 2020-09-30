@@ -41,6 +41,7 @@ class App extends React.Component {
     editable: true,
     sted: null,
     adresse: null,
+    matrikkel: null,
     elevation: null,
     layersResult: {},
     allLayersResult: {},
@@ -295,6 +296,7 @@ class App extends React.Component {
                         history={history}
                         sted={this.state.sted}
                         adresse={this.state.adresse}
+                        matrikkel={this.state.matrikkel}
                         elevation={this.state.elevation}
                         layersResult={this.state.layersResult}
                         allLayersResult={this.state.allLayersResult}
@@ -644,6 +646,7 @@ class App extends React.Component {
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
     this.handlePunktSok(lng, lat, zoom);
+    this.handleMatrikkel(lng, lat);
     this.handleHoydedata(lng, lat);
   };
 
@@ -685,13 +688,28 @@ class App extends React.Component {
       }
     });
   };
+  handleMatrikkel = (lng, lat) => {
+    // returnerer punkt søk
+    backend.hentMatrikkel(lng, lat).then(data => {
+      console.log(data);
+      let matrikeldata = data.filter(item => item.datasettkode === "MAT");
+      if (matrikeldata.length === 0) this.setState({ matrikkel: null });
+      if (
+        matrikeldata[0] &&
+        matrikeldata[0].data &&
+        matrikeldata[0].data.matrikkelnr
+      ) {
+        // const matrikkel = matrikeldata[0].data.matrikkelnr.replace(" / ", "/");
+        const matrikkel = matrikeldata[0].data.matrikkelnr;
+        this.setState({ matrikkel: matrikkel || null });
+      }
+    });
+  };
   handleHoydedata = (lng, lat) => {
     // returnerer punkt søk
     backend.hentHoydedata(lng, lat).then(hoydedata => {
       if (hoydedata) {
-        this.setState({
-          elevation: hoydedata.elevation || null
-        });
+        this.setState({ elevation: hoydedata.elevation || null });
       }
     });
   };
