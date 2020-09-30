@@ -110,7 +110,7 @@ class SearchBar extends React.Component {
   };
 
   handleSearchBar = (term, resultpage) => {
-    let searchTerm = term.trim();
+    let searchTerm = term ? term.trim() : null;
     if (!searchTerm) {
       this.setState({
         isSearching: false,
