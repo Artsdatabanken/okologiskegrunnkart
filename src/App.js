@@ -314,6 +314,8 @@ class App extends React.Component {
                         sortKey={this.state.sortKey}
                         tagFilter={this.state.tagFilter}
                         matchAllFilters={this.state.matchAllFilters}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
                         {...this.state}
                       />
                       <KartVelger
@@ -619,6 +621,12 @@ class App extends React.Component {
         parseFloat(geostring.nord)
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+      if (geostring.aust && geostring.nord) {
+        const lng = parseFloat(geostring.aust) || null;
+        const lat = parseFloat(geostring.nord) || null;
+        this.handleInfobox(true);
+        this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
+      }
     } else {
       let koordinater = geostring.representasjonspunkt;
 
@@ -639,7 +647,7 @@ class App extends React.Component {
     }
   };
 
-  handleMapMarkerSearch = (lng, lat, zoom) => {
+  handleMapMarkerSearch = async (lng, lat, zoom) => {
     if (this.state.lat === lat && this.state.lng === lng) return;
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
@@ -1293,12 +1301,12 @@ class App extends React.Component {
       }
     }
     this.setState({ valgteLag: valgteLag });
-    this.handleMapMarkerSearch(lng, lat, zoom);
+    await this.handleMapMarkerSearch(lng, lat, zoom);
     this.handleLayersSearch(lng, lat, zoom, valgteLag);
   };
 
   hentInfoAlleLag = async (lng, lat, zoom) => {
-    this.handleMapMarkerSearch(lng, lat, zoom);
+    await this.handleMapMarkerSearch(lng, lat, zoom);
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 

@@ -8,7 +8,6 @@ import DetailedResults from "./DetailedResults";
 
 const ClickInfobox = ({
   coordinates_area,
-  layerevent,
   getBackendData,
   layersResult,
   allLayersResult,
@@ -64,7 +63,7 @@ const ClickInfobox = ({
 
   const toggleAllLayers = () => {
     if (coordinates_area && coordinates_area.lng && coordinates_area.lat) {
-      getBackendData(coordinates_area.lng, coordinates_area.lat, layerevent);
+      getBackendData(coordinates_area.lng, coordinates_area.lat);
     }
   };
 

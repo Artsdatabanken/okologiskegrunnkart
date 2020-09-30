@@ -9,7 +9,6 @@ import CustomIcon from "../../Common/CustomIcon";
 const InfoBox = ({
   markerType,
   coordinates_area,
-  layerevent,
   getBackendData,
   showInfobox,
   handleInfobox,
@@ -220,7 +219,6 @@ const InfoBox = ({
       {markerType === "klikk" && (
         <ClickInfobox
           coordinates_area={coordinates_area}
-          layerevent={layerevent}
           getBackendData={getBackendData}
           layersResult={layersResult}
           allLayersResult={allLayersResult}
