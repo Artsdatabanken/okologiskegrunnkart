@@ -122,7 +122,9 @@ const infoboxKeys = {
   livsmiljøer: {
     hkl_klasse: "Klasse",
     vegtype_beskr: "Vegtype beskrivelse",
-    topografi: "Topografi"
+    topografi: "Topografi",
+    livsm_beskr: "Livsmiljø beskrivelse",
+    gmlname: "Type"
   },
   løsmasse: {
     losmassetype_tekst: "Løsmassetype",

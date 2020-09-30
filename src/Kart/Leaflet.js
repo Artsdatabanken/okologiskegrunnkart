@@ -666,6 +666,9 @@ class Leaflet extends React.Component {
           infoboxDetailsVisible={this.props.infoboxDetailsVisible}
           setInfoboxDetailsVisible={this.props.setInfoboxDetailsVisible}
           setLayerInfoboxDetails={this.props.setLayerInfoboxDetails}
+          sortKey={this.props.sortKey}
+          tagFilter={this.props.tagFilter}
+          matchAllFilters={this.props.matchAllFilters}
         />
         {this.state.markerType === "polygon" && (
           <div

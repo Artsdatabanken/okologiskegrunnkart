@@ -22,7 +22,10 @@ const ClickInfobox = ({
   loadingFeatures,
   infoboxDetailsVisible,
   setInfoboxDetailsVisible,
-  setLayerInfoboxDetails
+  setLayerInfoboxDetails,
+  sortKey,
+  tagFilter,
+  matchAllFilters
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -200,6 +203,9 @@ const ClickInfobox = ({
           infoboxDetailsVisible={infoboxDetailsVisible}
           resultLayer={resultLayer}
           showDetailedResults={showDetailedResults}
+          sortKey={sortKey}
+          tagFilter={tagFilter}
+          matchAllFilters={matchAllFilters}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ForvaltningsElement from "./ForvaltningsElement";
 import { ListSubheader } from "@material-ui/core";
 
@@ -8,49 +8,48 @@ const ForvaltningsGruppering = ({
   matchAllFilters,
   toggleSublayer,
   toggleAllSublayers,
-  hideHidden,
-  searchTerm,
   element,
-  zoom,
   showSublayerDetails
 }) => {
-  const selectedTags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
-  kartlag = kartlag.filter(element => {
-    let tags = element.tags || [];
+  const [selectedTags, setSelectedTags] = useState([]);
+  const [allLayers, setAllLayers] = useState(kartlag);
 
-    // All tags match the layer's tags
-    if (
-      selectedTags.length > 0 &&
-      matchAllFilters &&
-      !selectedTags.every(tag => tags.includes(tag))
-    )
-      return false;
+  useEffect(() => {
+    const tags = Object.keys(tagFilter).filter(tag => tagFilter[tag]);
+    setSelectedTags(tags);
+  }, [tagFilter]);
 
-    // At leats one tag matches the layer's tags
-    if (
-      selectedTags.length > 0 &&
-      !matchAllFilters &&
-      !selectedTags.some(tag => tags.includes(tag))
-    )
-      return false;
+  useEffect(() => {
+    const layers = kartlag.filter(element => {
+      let tags = element.tags || [];
 
-    // Layer contains search term
-    if (searchTerm && searchTerm.length > 0) {
-      let string = JSON.stringify(element).toLowerCase();
-      if (string.indexOf(searchTerm) === -1) {
+      // All tags match the layer's tags
+      if (
+        selectedTags.length > 0 &&
+        matchAllFilters &&
+        !selectedTags.every(tag => tags.includes(tag))
+      )
         return false;
-      }
-    }
-    if (hideHidden && element.opacity === 0) return false;
-    return true;
-  });
 
-  if (kartlag.length <= 0) return null;
+      // At leats one tag matches the layer's tags
+      if (
+        selectedTags.length > 0 &&
+        !matchAllFilters &&
+        !selectedTags.some(tag => tags.includes(tag))
+      )
+        return false;
+
+      return true;
+    });
+    setAllLayers(layers);
+  }, [kartlag, selectedTags, matchAllFilters]);
+
+  if (allLayers.length <= 0) return null;
   return (
     <div className="sorted-layers-subheaders">
       <ListSubheader disableSticky>{element}</ListSubheader>
 
-      {kartlag.map(element => {
+      {allLayers.map(element => {
         return (
           <ForvaltningsElement
             key={element.id}

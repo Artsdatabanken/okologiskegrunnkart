@@ -63,7 +63,10 @@ class App extends React.Component {
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
-    showMarker: true
+    showMarker: true,
+    sortKey: "alfabetisk",
+    tagFilter: {},
+    matchAllFilters: true
   };
 
   async lastNedKartlag() {
@@ -308,6 +311,9 @@ class App extends React.Component {
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
                         setLayerInfoboxDetails={this.setLayerInfoboxDetails}
                         onTileStatus={this.onTileStatus}
+                        sortKey={this.state.sortKey}
+                        tagFilter={this.state.tagFilter}
+                        matchAllFilters={this.state.matchAllFilters}
                         {...this.state}
                       />
                       <KartVelger
@@ -349,7 +355,6 @@ class App extends React.Component {
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
-                        zoom={this.state.zoom}
                         sublayerDetailsVisible={
                           this.state.sublayerDetailsVisible
                         }
@@ -360,6 +365,9 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
                         handleSelectSearchResult={this.handleSelectSearchResult}
+                        handleSortKey={this.handleSortKey}
+                        handleTagFilter={this.handleTagFilter}
+                        handleMatchAllFilters={this.handleMatchAllFilters}
                       />
                     </div>
                   </>
@@ -780,6 +788,10 @@ class App extends React.Component {
     const layer = valgteLag[layerkey];
     if (!layer) return;
     const wmsinfoformat = layer.wmsinfoformat;
+    const dataeier = layer.dataeier;
+    const tema = layer.tema;
+    const tags = layer.tags;
+    const id = layer.id;
     if (
       wmsinfoformat === "application/vnd.ogc.gml" ||
       wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -793,6 +805,13 @@ class App extends React.Component {
           }
           finishedFeaturesSearch += 1;
           layersResult[layerkey] = sortUnderlag(res);
+          layersResult[layerkey] = {
+            ...layersResult[layerkey],
+            dataeier,
+            tema,
+            tags,
+            id
+          };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
             this.setState({ loadingFeatures: false });
@@ -802,6 +821,13 @@ class App extends React.Component {
           finishedFeaturesSearch += 1;
           layersResult[layerkey] = {
             error: e.message || layerkey
+          };
+          layersResult[layerkey] = {
+            ...layersResult[layerkey],
+            dataeier,
+            tema,
+            tags,
+            id
           };
           this.setState({ layersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -821,6 +847,10 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
+            if (!layersResult[layerkey]) {
+              layersResult[layerkey] = { dataeier, tema, tags, id };
+              layersResult[layerkey].underlag = {};
+            }
             layersResult[layerkey].underlag[subkey] = sortUnderlag(res);
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -829,6 +859,10 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
+            if (!layersResult[layerkey]) {
+              layersResult[layerkey] = { dataeier, tema, tags, id };
+              layersResult[layerkey].underlag = {};
+            }
             layersResult[layerkey].underlag[subkey] = {
               error: e.message || layerkey
             };
@@ -899,6 +933,10 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
+      const dataeier = looplist[key].dataeier;
+      const tema = looplist[key].tema;
+      const tags = looplist[key].tags;
+      const id = looplist[key].id;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -910,7 +948,14 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema,
+              tags,
+              id
+            };
             break;
           }
         }
@@ -922,7 +967,13 @@ class App extends React.Component {
           if (!subLooplist.klikktekst || subLooplist.klikktekst === "") return;
           totalFeaturesSearch += 1;
           if (!layersResult[key]) {
-            layersResult[key] = { loading: true, wmsinfoformat };
+            layersResult[key] = {
+              wmsinfoformat,
+              dataeier,
+              tema,
+              tags,
+              id
+            };
             layersResult[key].underlag = {};
           }
           if (!layersResult[key].underlag[subkey]) {
@@ -961,7 +1012,11 @@ class App extends React.Component {
             }
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
-              layersResult[key] = res;
+              layersResult[key] = {
+                ...layersResult[key],
+                ...res,
+                loading: false
+              };
             }
             this.setState({ layersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
@@ -972,7 +1027,9 @@ class App extends React.Component {
             finishedFeaturesSearch += 1;
             if (layersResult[key]) {
               layersResult[key] = {
-                error: e.message || key
+                ...layersResult[key],
+                error: e.message || key,
+                loading: false
               };
             }
             this.setState({ layersResult });
@@ -1054,6 +1111,10 @@ class App extends React.Component {
     let totalFeaturesSearch = 0;
     Object.keys(looplist).forEach(key => {
       const wmsinfoformat = looplist[key].wmsinfoformat;
+      const dataeier = looplist[key].dataeier;
+      const tema = looplist[key].tema;
+      const tags = looplist[key].tags;
+      const id = looplist[key].id;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
@@ -1065,7 +1126,14 @@ class App extends React.Component {
           if (subLooplist.queryable || subLooplist.klikkurl !== "") {
             // Use GetFeatureInfo with list of sublayers per layer
             totalFeaturesSearch += 1;
-            allLayersResult[key] = { loading: true, wmsinfoformat };
+            allLayersResult[key] = {
+              loading: true,
+              wmsinfoformat,
+              dataeier,
+              tema,
+              tags,
+              id
+            };
             break;
           }
         }
@@ -1087,7 +1155,13 @@ class App extends React.Component {
           }
           totalFeaturesSearch += 1;
           if (!allLayersResult[key]) {
-            allLayersResult[key] = { loading: true, wmsinfoformat };
+            allLayersResult[key] = {
+              wmsinfoformat,
+              dataeier,
+              tema,
+              tags,
+              id
+            };
             allLayersResult[key].underlag = {};
           }
           if (!allLayersResult[key].underlag[subkey]) {
@@ -1099,12 +1173,12 @@ class App extends React.Component {
 
     let finishedFeaturesSearch = 0;
 
-    // Set an interval to update state
-    const updateLayers = setInterval(() => {
-      if (totalFeaturesSearch > finishedFeaturesSearch) {
-        this.setState({ allLayersResult });
-      }
-    }, 1500);
+    // // Set an interval to update state
+    // const updateLayers = setInterval(() => {
+    //   if (totalFeaturesSearch > finishedFeaturesSearch) {
+    //     this.setState({ allLayersResult });
+    //   }
+    // }, 1500);
 
     // Loop though object and send request
     Object.keys(allLayersResult).forEach(key => {
@@ -1117,8 +1191,9 @@ class App extends React.Component {
       ) {
         if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
+          this.setState({ allLayersResult });
           if (totalFeaturesSearch === finishedFeaturesSearch) {
-            clearInterval(updateLayers);
+            // clearInterval(updateLayers);
             this.setState({ loadingFeatures: false });
           }
           return;
@@ -1131,7 +1206,11 @@ class App extends React.Component {
               delete res.ServiceException;
             }
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = res;
+            allLayersResult[key] = {
+              ...allLayersResult[key],
+              ...res,
+              loading: false
+            };
             this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
               this.setState({ loadingFeatures: false });
@@ -1139,9 +1218,14 @@ class App extends React.Component {
           })
           .catch(e => {
             finishedFeaturesSearch += 1;
-            allLayersResult[key] = { error: e.message || key };
+            allLayersResult[key] = {
+              ...allLayersResult[key],
+              error: e.message || key,
+              loading: false
+            };
+            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              clearInterval(updateLayers);
+              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
           });
@@ -1150,8 +1234,9 @@ class App extends React.Component {
         Object.keys(allLayersResult[key].underlag).forEach(subkey => {
           if (!allLayersResult[key].underlag[subkey].loading) {
             finishedFeaturesSearch += 1;
+            this.setState({ allLayersResult });
             if (totalFeaturesSearch === finishedFeaturesSearch) {
-              clearInterval(updateLayers);
+              // clearInterval(updateLayers);
               this.setState({ loadingFeatures: false });
             }
             return;
@@ -1167,8 +1252,9 @@ class App extends React.Component {
               }
               finishedFeaturesSearch += 1;
               allLayersResult[key].underlag[subkey] = res;
+              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                clearInterval(updateLayers);
+                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             })
@@ -1177,8 +1263,9 @@ class App extends React.Component {
               allLayersResult[key].underlag[subkey] = {
                 error: e.message || key
               };
+              this.setState({ allLayersResult });
               if (totalFeaturesSearch === finishedFeaturesSearch) {
-                clearInterval(updateLayers);
+                // clearInterval(updateLayers);
                 this.setState({ loadingFeatures: false });
               }
             });
@@ -1359,6 +1446,18 @@ class App extends React.Component {
     this.setState({
       kartlag: Object.assign({}, nye_lag)
     });
+  };
+
+  handleSortKey = sortKey => {
+    this.setState({ sortKey });
+  };
+
+  handleTagFilter = tagFilter => {
+    this.setState({ tagFilter });
+  };
+
+  handleMatchAllFilters = matchAllFilters => {
+    this.setState({ matchAllFilters });
   };
 
   static contextType = SettingsContext;
