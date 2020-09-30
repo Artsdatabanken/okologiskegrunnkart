@@ -59,7 +59,7 @@ class Backend {
 
   static async hentSteder(bokstav) {
     return this.getPromise(
-      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=${bokstav}*&antPerSide=50&eksakteForst=true&epsgKode=4326`
+      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=50&epsgKode=4326&side=0`
     );
   }
 

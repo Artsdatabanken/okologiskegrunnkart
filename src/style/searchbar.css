@@ -147,6 +147,9 @@
 .search_all .itemname {
   font-size: 12pt;
 }
+.itemtype {
+  max-width: calc(100% - 80px);
+}
 .itemtype,
 .itemnr {
   font-size: 9pt;
