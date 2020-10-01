@@ -621,12 +621,17 @@ class App extends React.Component {
         parseFloat(geostring.nord)
       ];
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      if (geostring.aust && geostring.nord) {
-        const lng = parseFloat(geostring.aust) || null;
-        const lat = parseFloat(geostring.nord) || null;
-        this.handleInfobox(true);
-        this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
-      }
+      if (!geostring.aust && !geostring.nord) return;
+      const lng = parseFloat(geostring.aust) || null;
+      const lat = parseFloat(geostring.nord) || null;
+      this.handleInfobox(true);
+      setTimeout(() => {
+        if (!this.state.showExtensiveInfo) {
+          this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
+        } else {
+          this.hentInfoAlleLag(lng, lat, this.state.zoom);
+        }
+      }, 250);
     } else {
       let koordinater = geostring.representasjonspunkt;
 
