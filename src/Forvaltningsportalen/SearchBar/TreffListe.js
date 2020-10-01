@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { KeyboardBackspace } from "@material-ui/icons";
-const TreffListe = props => {
-  let list_items = [];
-  let max_list_length = 200;
 
-  function addToList(inputlist, type, criteria) {
+const TreffListe = ({
+  onSelectSearchResult,
+  searchResultPage,
+  searchTerm,
+  handleSearchBar,
+  // onSearchButton,
+  treffliste_lag,
+  treffliste_underlag,
+  treffliste_sted,
+  treffliste_knr,
+  treffliste_gnr,
+  treffliste_bnr,
+  treffliste_knrgnrbnr,
+  removeValgtLag,
+  addValgtLag,
+  handleGeoSelection,
+  handleRemoveTreffliste,
+  isMobile,
+  handleSideBar,
+  handleInfobox,
+  handleFullscreenInfobox
+}) => {
+  const [listItems, setListItems] = useState([]);
+
+  function addToList(list_items, inputlist, type, criteria) {
     if (inputlist) {
       let list_to_update = inputlist;
       if (criteria) {
@@ -23,34 +44,62 @@ const TreffListe = props => {
     return list_items;
   }
 
-  if (!props.searchResultPage) {
+  useEffect(() => {
+    let list_items = [];
+    let max_list_length = 200;
+
+    if (!searchResultPage) {
+      list_items = addToList(
+        list_items,
+        [{ searchTerm: searchTerm }],
+        "Søkeelement",
+        null
+      );
+      max_list_length = 19;
+    }
+
+    list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
+    list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
+    list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
     list_items = addToList(
-      [{ searchTerm: props.searchTerm }],
-      "Søkeelement",
-      null
+      list_items,
+      treffliste_knrgnrbnr,
+      "KNR-GNR-BNR",
+      "adresser"
     );
-    max_list_length = 19;
-  }
 
-  list_items = addToList(props.treffliste_lag, "Kartlag", null);
-  list_items = addToList(props.treffliste_underlag, "Underlag", null);
-  list_items = addToList(props.treffliste_sted, "Stedsnavn", null);
-  list_items = addToList(props.treffliste_knrgnrbnr, "KNR-GNR-BNR", "adresser");
+    if (treffliste_knr && treffliste_knr.stedsnavn) {
+      let knr = treffliste_knr.stedsnavn;
+      knr["trefftype"] = "Kommune";
+      list_items = list_items.concat(knr);
+    }
 
-  if (props.treffliste_knr && props.treffliste_knr.stedsnavn) {
-    let knr = props.treffliste_knr.stedsnavn;
-    knr["trefftype"] = "Kommune";
-    list_items = list_items.concat(knr);
-  }
+    list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
+    list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
+    list_items = list_items.slice(0, max_list_length);
+    list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
 
-  list_items = addToList(props.treffliste_gnr, "GNR", "adresser");
-  list_items = addToList(props.treffliste_bnr, "BNR", "adresser");
+    setListItems(list_items);
+  }, [
+    searchTerm,
+    searchResultPage,
+    treffliste_lag,
+    treffliste_underlag,
+    treffliste_sted,
+    treffliste_knrgnrbnr,
+    treffliste_knr,
+    treffliste_gnr,
+    treffliste_bnr
+  ]);
 
   function movefocus(e, index) {
     if (e.keyCode === 27) {
-      if (props.handleRemoveTreffliste) {
-        props.handleRemoveTreffliste();
-        props.onSearchBar(null);
+      if (handleRemoveTreffliste) {
+        console.log("coming here");
+        handleRemoveTreffliste();
+        // props.onSearchBar(null);
+        handleSearchBar(null);
+        document.getElementById("searchfield").value = "";
         document.getElementById("searchfield").value = "";
         document.getElementById("searchfield").focus();
       }
@@ -58,7 +107,7 @@ const TreffListe = props => {
     if (document.getElementsByClassName("searchbar_item")) {
       // nedoverpil
       if (e.keyCode === 40) {
-        if (index < list_items.length - 1) {
+        if (index < listItems.length - 1) {
           document.getElementsByClassName("searchbar_item")[index + 1].focus();
         }
       }
@@ -75,35 +124,32 @@ const TreffListe = props => {
   }
 
   function onActivate(item, trefftype) {
-    if (props.searchResultPage) {
-      props.onSelectSearchResult(false);
+    if (searchResultPage) {
+      onSelectSearchResult(false);
     }
-    props.handleRemoveTreffliste();
-    props.removeValgtLag();
+    handleRemoveTreffliste();
+    removeValgtLag();
     document.getElementById("searchfield").value = "";
     if (trefftype === "Kartlag" || trefftype === "Underlag") {
-      props.addValgtLag(item, trefftype);
-      props.handleSideBar(true);
-      if (props.isMobile) {
-        props.handleInfobox(false);
-        props.handleFullscreenInfobox(false);
+      addValgtLag(item, trefftype);
+      handleSideBar(true);
+      if (isMobile) {
+        handleInfobox(false);
+        handleFullscreenInfobox(false);
       }
     } else {
-      props.handleGeoSelection(item);
+      handleGeoSelection(item);
     }
   }
 
-  list_items = list_items.slice(0, max_list_length);
-  list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
-
   return (
     <>
-      {props.searchResultPage && (
+      {searchResultPage && (
         <div className="valgtLag">
           <button
             className="listheadingbutton all-results"
             onClick={e => {
-              props.onSelectSearchResult(false);
+              onSelectSearchResult(false);
             }}
           >
             <span className="listheadingbutton-icon all-results">
@@ -115,7 +161,7 @@ const TreffListe = props => {
       )}
       <ul
         className={
-          props.searchResultPage ? "treffliste searchresultpage" : "treffliste"
+          searchResultPage ? "treffliste searchresultpage" : "treffliste"
         }
         id="treffliste"
         tabIndex="0"
@@ -125,8 +171,8 @@ const TreffListe = props => {
           }
         }}
       >
-        {list_items &&
-          list_items.map((item, index) => {
+        {listItems &&
+          listItems.map((item, index) => {
             let itemname = item.adressetekst || "";
             let trefftype = item.trefftype || "annet treff";
             let itemtype = item.navnetype || "";

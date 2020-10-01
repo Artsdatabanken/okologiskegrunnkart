@@ -382,6 +382,12 @@ class SearchBar extends React.Component {
   };
 
   handleSearchKeyDown = e => {
+    if (e.keyCode === 27) {
+      this.handleRemoveTreffliste();
+      this.handleSearchBar(null);
+      document.getElementById("search-button").focus();
+      return;
+    }
     const searchBar = document.getElementsByClassName("searchbar_item");
     const length = searchBar.length;
     if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
@@ -456,8 +462,7 @@ class SearchBar extends React.Component {
               searchResultPage={this.props.searchResultPage}
               searchTerm={this.state.searchTerm}
               handleSearchBar={this.handleSearchBar}
-              onSearchButton={this.handleSearchButton}
-              treffliste={this.state.treffliste}
+              // onSearchButton={this.handleSearchButton}
               treffliste_lag={this.state.treffliste_lag}
               treffliste_underlag={this.state.treffliste_underlag}
               treffliste_sted={this.state.treffliste_sted}

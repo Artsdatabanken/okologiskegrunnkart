@@ -625,6 +625,7 @@ class App extends React.Component {
       const lng = parseFloat(geostring.aust) || null;
       const lat = parseFloat(geostring.nord) || null;
       this.handleInfobox(true);
+      // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
         if (!this.state.showExtensiveInfo) {
           this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
