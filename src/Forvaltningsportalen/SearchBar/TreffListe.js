@@ -60,11 +60,11 @@ const TreffListe = ({
       max_list_length = 19;
     }
 
-    if (resultsType !== "places") {
+    if (resultsType === "all" || resultsType === "layers") {
       list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
       list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
     }
-    if (resultsType !== "layers") {
+    if (resultsType === "all" || resultsType === "places") {
       list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
       list_items = addToList(
         list_items,
