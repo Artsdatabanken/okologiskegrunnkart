@@ -24,6 +24,7 @@ class SearchBar extends React.Component {
     treffliste_knr: null,
     treffliste_gnr: null,
     treffliste_bnr: null,
+    treffliste_adresse: null,
     searchTerm: null,
     showHelpModal: false,
     manual: "",
@@ -39,7 +40,8 @@ class SearchBar extends React.Component {
       treffliste_knrgnrbnr: null,
       treffliste_knr: null,
       treffliste_gnr: null,
-      treffliste_bnr: null
+      treffliste_bnr: null,
+      treffliste_adresse: null
     });
   };
 
@@ -272,13 +274,17 @@ class SearchBar extends React.Component {
       //   max_items = 50;
       // }
       let max_items = 20;
-      let entries = resultat ? resultat.stedsnavn : {};
+      let entries = resultat ? resultat.stedsnavn : null;
       const resultatliste = {};
-      // If only one entrie is returned from backend, this is
+      // If only one entry is returned from backend, this is
       // returned as an object, not as array of objects.
       // In that case, convert to array
-      if (!Array.isArray(entries)) {
-        entries = [].push(entries);
+      if (!entries) {
+        entries = [];
+      } else if (!Array.isArray(entries) && entries.constructor === Object) {
+        const object = { ...entries };
+        entries = [];
+        entries.push(object);
       }
       for (const i in entries) {
         const id = entries[i].ssrId;
@@ -311,6 +317,55 @@ class SearchBar extends React.Component {
       this.setState({
         treffliste_sted: Object.values(prioritertliste)
       });
+    });
+
+    let address = [];
+    // Try with strict search term
+    backend.hentAdresse(searchTerm).then(resultat => {
+      let entries = resultat ? resultat.adresser : null;
+      // If only one entry is returned from backend, this is
+      // returned as an object, not as array of objects.
+      // In that case, convert to array
+      if (!entries) {
+        entries = [];
+      } else if (!Array.isArray(entries) && entries.constructor === Object) {
+        const object = { ...entries };
+        entries = [];
+        entries.push(object);
+      }
+      if (entries.length > 0) {
+        address = entries;
+      }
+
+      // Use less strict search term
+      if (address.length === 0) {
+        backend.hentAdresse(searchTerm + "*").then(resultat => {
+          entries = resultat ? resultat.adresser : null;
+          // If only one entry is returned from backend, this is
+          // returned as an object, not as array of objects.
+          // In that case, convert to array
+          if (!entries) {
+            entries = [];
+          } else if (
+            !Array.isArray(entries) &&
+            entries.constructor === Object
+          ) {
+            const object = { ...entries };
+            entries = [];
+            entries.push(object);
+          }
+          if (entries.length > 0) {
+            address = entries;
+          }
+          this.setState({
+            treffliste_adresse: address
+          });
+        });
+      } else {
+        this.setState({
+          treffliste_adresse: address
+        });
+      }
     });
   };
 
@@ -470,6 +525,7 @@ class SearchBar extends React.Component {
               treffliste_knr={this.state.treffliste_knr}
               treffliste_gnr={this.state.treffliste_gnr}
               treffliste_bnr={this.state.treffliste_bnr}
+              treffliste_adresse={this.state.treffliste_adresse}
               treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
               removeValgtLag={this.props.removeValgtLag}
               addValgtLag={this.props.addValgtLag}

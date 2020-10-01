@@ -53,13 +53,19 @@ class Backend {
 
   static async hentKommune(knr) {
     return this.getPromise(
-      `https://ws.geonorge.no/SKWS3Index/ssr/sok?navn=t*&fylkeKommuneListe=${knr}&antPerSide=1&epsgKode=4326`
+      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=t*&fylkeKommuneListe=${knr}&antPerSide=1&epsgKode=4326`
     );
   }
 
   static async hentSteder(bokstav, side = 0) {
     return this.getPromise(
       `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=${side}`
+    );
+  }
+
+  static async hentAdresse(bokstav, side = 0) {
+    return this.getPromise(
+      `https://ws.geonorge.no/adresser/v1/sok?sok=${bokstav}&treffPerSide=20&side=${side}`
     );
   }
 

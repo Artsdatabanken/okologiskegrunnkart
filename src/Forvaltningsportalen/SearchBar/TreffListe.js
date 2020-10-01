@@ -14,6 +14,7 @@ const TreffListe = ({
   treffliste_knr,
   treffliste_gnr,
   treffliste_bnr,
+  treffliste_adresse,
   treffliste_knrgnrbnr,
   removeValgtLag,
   addValgtLag,
@@ -50,7 +51,7 @@ const TreffListe = ({
 
   useEffect(() => {
     let list_items = [];
-    let max_list_length = 25;
+    const max_list_length = 19;
 
     if (!searchResultPage) {
       list_items = addToList(
@@ -59,7 +60,7 @@ const TreffListe = ({
         "Søkeelement",
         null
       );
-      max_list_length = 19;
+      // max_list_length = 19;
     }
 
     if (resultsType === "all" || resultsType === "layers") {
@@ -68,19 +69,22 @@ const TreffListe = ({
     }
     if (resultsType === "all" || resultsType === "places") {
       list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
+      if (treffliste_knr && treffliste_knr.stedsnavn) {
+        let knr = treffliste_knr.stedsnavn;
+        knr["trefftype"] = "Kommune";
+        list_items = list_items.concat(knr);
+      }
+    }
+    if (resultsType === "all" || resultsType === "addresses") {
+      list_items = addToList(list_items, treffliste_adresse, "Adresse", null);
+    }
+    if (resultsType === "all" || resultsType === "properties") {
       list_items = addToList(
         list_items,
         treffliste_knrgnrbnr,
         "KNR-GNR-BNR",
         "adresser"
       );
-
-      if (treffliste_knr && treffliste_knr.stedsnavn) {
-        let knr = treffliste_knr.stedsnavn;
-        knr["trefftype"] = "Kommune";
-        list_items = list_items.concat(knr);
-      }
-
       list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
       list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
     }
@@ -98,6 +102,7 @@ const TreffListe = ({
     treffliste_knr,
     treffliste_gnr,
     treffliste_bnr,
+    treffliste_adresse,
     resultsType
   ]);
 
@@ -173,11 +178,10 @@ const TreffListe = ({
                     ? "filter-search-button-selected"
                     : "filter-search-button"
                 }
-                size="large"
+                // size="large"
                 color="primary"
                 onClick={() => {
                   setResultsType("all");
-                  // handleMatchAllFilters(true);
                 }}
               >
                 Alle
@@ -188,14 +192,41 @@ const TreffListe = ({
                     ? "filter-search-button-selected"
                     : "filter-search-button"
                 }
-                size="large"
+                // size="large"
                 color="primary"
                 onClick={() => {
                   setResultsType("places");
-                  // handleMatchAllFilters(false);
                 }}
               >
                 Steder
+              </Button>
+              <Button
+                id={
+                  resultsType === "properties"
+                    ? "filter-search-button-selected"
+                    : "filter-search-button"
+                }
+                // size="large"
+                color="primary"
+                onClick={() => {
+                  setResultsType("properties");
+                }}
+              >
+                Eiendommer
+              </Button>
+              <Button
+                id={
+                  resultsType === "addresses"
+                    ? "filter-search-button-selected"
+                    : "filter-search-button"
+                }
+                // size="large"
+                color="primary"
+                onClick={() => {
+                  setResultsType("addresses");
+                }}
+              >
+                Adresser
               </Button>
               <Button
                 id={
@@ -203,11 +234,10 @@ const TreffListe = ({
                     ? "filter-search-button-selected"
                     : "filter-search-button"
                 }
-                size="large"
+                // size="large"
                 color="primary"
                 onClick={() => {
                   setResultsType("layers");
-                  // handleMatchAllFilters(false);
                 }}
               >
                 Kartlag
