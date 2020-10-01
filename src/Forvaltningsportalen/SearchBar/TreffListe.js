@@ -95,11 +95,8 @@ const TreffListe = ({
   function movefocus(e, index) {
     if (e.keyCode === 27) {
       if (handleRemoveTreffliste) {
-        console.log("coming here");
         handleRemoveTreffliste();
-        // props.onSearchBar(null);
         handleSearchBar(null);
-        document.getElementById("searchfield").value = "";
         document.getElementById("searchfield").value = "";
         document.getElementById("searchfield").focus();
       }
