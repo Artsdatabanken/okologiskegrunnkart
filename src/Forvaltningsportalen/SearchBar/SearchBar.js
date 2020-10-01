@@ -382,9 +382,14 @@ class SearchBar extends React.Component {
   };
 
   handleSearchKeyDown = e => {
-    if (e.keyCode === 27) {
+    if (e.keyCode === 27 && !this.props.searchResultPage) {
       this.handleRemoveTreffliste();
       this.handleSearchBar(null);
+      document.getElementById("searchfield").value = "";
+      document.getElementById("searchfield").focus();
+      return;
+    }
+    if (e.keyCode === 27 && this.props.searchResultPage) {
       document.getElementById("search-button").focus();
       return;
     }
