@@ -167,15 +167,44 @@
   font-weight: 500;
 }
 
-/* Treffliste search results oage */
+/* Treffliste search results page */
+.search-page-options {
+  background-color: white;
+  border-bottom: 1px solid #bbb;
+}
+.search-page-options-content {
+  background-color: rgba(105, 127, 138, 0.2);
+}
+#filter-search-button-selected.MuiButton-root,
+#filter-search-button.MuiButton-root {
+  text-transform: none;
+  border-radius: 0;
+}
+#filter-search-button-selected {
+  border-bottom: 2px solid #296d98;
+  padding-bottom: 6px;
+}
+#filter-search-button-selected.MuiButton-textPrimary {
+  color: #296d98;
+  font-weight: 600;
+}
+#filter-search-button.MuiButton-textPrimary {
+  font-weight: 500;
+  color: #888;
+}
+#filter-search-button-selected:hover,
+#filter-search-button:hover {
+  background-color: rgba(105, 127, 138, 0.2);
+  /* background: #eee; */
+}
 .treffliste.searchresultpage {
   position: absolute;
   background: #f0f0f0;
   width: 100%;
   margin: 0px;
   margin-top: 0px;
-  height: calc(100vh - 94px);
-  max-height: calc(100vh - 94px);
+  height: calc(100vh - 94px - 42px);
+  max-height: calc(100vh - 94px - 42px);
   overflow-y: auto;
   border: none;
   box-sizing: border-box;
@@ -187,8 +216,8 @@
 @media only screen and (max-width: 768px) {
   .treffliste.searchresultpage {
     max-width: 100%;
-    height: calc(100vh - 44px);
-    max-height: calc(100vh - 44px);
+    height: calc(100vh - 44px - 42px);
+    max-height: calc(100vh - 44px - 42px);
     padding-bottom: 150px;
   }
 }

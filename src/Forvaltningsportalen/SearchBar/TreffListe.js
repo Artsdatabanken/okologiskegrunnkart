@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { KeyboardBackspace } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
 
 const TreffListe = ({
   onSelectSearchResult,
@@ -24,6 +25,7 @@ const TreffListe = ({
   handleFullscreenInfobox
 }) => {
   const [listItems, setListItems] = useState([]);
+  const [resultsType, setResultsType] = useState("all");
 
   function addToList(list_items, inputlist, type, criteria) {
     if (inputlist) {
@@ -58,24 +60,28 @@ const TreffListe = ({
       max_list_length = 19;
     }
 
-    list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
-    list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
-    list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
-    list_items = addToList(
-      list_items,
-      treffliste_knrgnrbnr,
-      "KNR-GNR-BNR",
-      "adresser"
-    );
-
-    if (treffliste_knr && treffliste_knr.stedsnavn) {
-      let knr = treffliste_knr.stedsnavn;
-      knr["trefftype"] = "Kommune";
-      list_items = list_items.concat(knr);
+    if (resultsType !== "places") {
+      list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
+      list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
     }
+    if (resultsType !== "layers") {
+      list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
+      list_items = addToList(
+        list_items,
+        treffliste_knrgnrbnr,
+        "KNR-GNR-BNR",
+        "adresser"
+      );
 
-    list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
-    list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
+      if (treffliste_knr && treffliste_knr.stedsnavn) {
+        let knr = treffliste_knr.stedsnavn;
+        knr["trefftype"] = "Kommune";
+        list_items = list_items.concat(knr);
+      }
+
+      list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
+      list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
+    }
     list_items = list_items.slice(0, max_list_length);
     list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
 
@@ -89,7 +95,8 @@ const TreffListe = ({
     treffliste_knrgnrbnr,
     treffliste_knr,
     treffliste_gnr,
-    treffliste_bnr
+    treffliste_bnr,
+    resultsType
   ]);
 
   function movefocus(e, index) {
@@ -142,26 +149,77 @@ const TreffListe = ({
   return (
     <>
       {searchResultPage && (
-        <div className="valgtLag">
-          <button
-            className="listheadingbutton all-results"
-            onClick={e => {
-              onSelectSearchResult(false);
-            }}
-          >
-            <span className="listheadingbutton-icon all-results">
-              <KeyboardBackspace />
-            </span>
-            <span className="listheadingbutton-text">Søkeresultater</span>
-          </button>
-        </div>
+        <>
+          <div className="valgtLag">
+            <button
+              className="listheadingbutton all-results"
+              onClick={e => {
+                onSelectSearchResult(false);
+              }}
+            >
+              <span className="listheadingbutton-icon all-results">
+                <KeyboardBackspace />
+              </span>
+              <span className="listheadingbutton-text">Søkeresultater</span>
+            </button>
+          </div>
+          <div className="search-page-options">
+            <div className="search-page-options-content">
+              <Button
+                id={
+                  resultsType === "all"
+                    ? "filter-search-button-selected"
+                    : "filter-search-button"
+                }
+                size="large"
+                color="primary"
+                onClick={() => {
+                  setResultsType("all");
+                  // handleMatchAllFilters(true);
+                }}
+              >
+                Alle
+              </Button>
+              <Button
+                id={
+                  resultsType === "places"
+                    ? "filter-search-button-selected"
+                    : "filter-search-button"
+                }
+                size="large"
+                color="primary"
+                onClick={() => {
+                  setResultsType("places");
+                  // handleMatchAllFilters(false);
+                }}
+              >
+                Steder
+              </Button>
+              <Button
+                id={
+                  resultsType === "layers"
+                    ? "filter-search-button-selected"
+                    : "filter-search-button"
+                }
+                size="large"
+                color="primary"
+                onClick={() => {
+                  setResultsType("layers");
+                  // handleMatchAllFilters(false);
+                }}
+              >
+                Kartlag
+              </Button>
+            </div>
+          </div>
+        </>
       )}
       <ul
         className={
           searchResultPage ? "treffliste searchresultpage" : "treffliste"
         }
         id="treffliste"
-        tabIndex="0"
+        // tabIndex="0"
         onKeyDown={e => {
           if (e.keyCode === 40 || e.keyCode === 38) {
             e.preventDefault();

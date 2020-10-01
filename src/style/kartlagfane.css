@@ -321,6 +321,9 @@
 #filter-all-button.MuiButton-textSecondary {
   color: #888;
 }
+#filter-all-button:hover {
+  background-color: #eee;
+}
 #filter-layers-menu-item {
   width: 385px;
   max-width: calc(100vw - 30px);

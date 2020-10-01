@@ -488,6 +488,7 @@ class SearchBar extends React.Component {
 
           <button
             className="help_button"
+            tabIndex="0"
             onClick={e => {
               if (!this.props.loadingFeatures) {
                 this.handleOpenMenu(e);
