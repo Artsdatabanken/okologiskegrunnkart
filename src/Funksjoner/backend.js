@@ -57,9 +57,9 @@ class Backend {
     );
   }
 
-  static async hentSteder(bokstav) {
+  static async hentSteder(bokstav, side = 0) {
     return this.getPromise(
-      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=50&epsgKode=4326&side=0`
+      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=${side}`
     );
   }
 

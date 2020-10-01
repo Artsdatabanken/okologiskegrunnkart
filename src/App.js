@@ -331,7 +331,6 @@ class App extends React.Component {
                         setKartlagSearchResults={
                           this.handleSetKartlagSearchResult
                         }
-                        setGeoSearchResults={this.setGeoSearchResults}
                         handleGeoSelection={this.handleGeoSelection}
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
@@ -582,10 +581,6 @@ class App extends React.Component {
 
   handleSelectSearchResult = searchResultPage => {
     this.setState({ searchResultPage: searchResultPage });
-  };
-
-  setGeoSearchResults = geoSearchResults => {
-    this.setState({ geoSearchResults: geoSearchResults });
   };
 
   handleSetKartlagSearchResult = kartlagSearchResults => {

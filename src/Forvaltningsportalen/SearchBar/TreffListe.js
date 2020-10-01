@@ -26,6 +26,8 @@ const TreffListe = ({
 }) => {
   const [listItems, setListItems] = useState([]);
   const [resultsType, setResultsType] = useState("all");
+  const [numberPlaces, setNumberPlaces] = useState(0);
+  const [numberLayers, setNumberLayers] = useState(0);
 
   function addToList(list_items, inputlist, type, criteria) {
     if (inputlist) {
@@ -48,7 +50,7 @@ const TreffListe = ({
 
   useEffect(() => {
     let list_items = [];
-    let max_list_length = 200;
+    let max_list_length = 25;
 
     if (!searchResultPage) {
       list_items = addToList(

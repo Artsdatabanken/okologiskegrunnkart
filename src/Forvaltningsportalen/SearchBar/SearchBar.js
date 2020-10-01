@@ -271,7 +271,7 @@ class SearchBar extends React.Component {
       // if (resultpage) {
       //   max_items = 50;
       // }
-      let max_items = 50;
+      let max_items = 20;
       let entries = resultat ? resultat.stedsnavn : {};
       const resultatliste = {};
       // If only one entrie is returned from backend, this is
@@ -308,13 +308,9 @@ class SearchBar extends React.Component {
         const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
-      if (resultpage) {
-        this.props.setGeoSearchResults(Object.values(prioritertliste));
-      } else {
-        this.setState({
-          treffliste_sted: Object.values(prioritertliste)
-        });
-      }
+      this.setState({
+        treffliste_sted: Object.values(prioritertliste)
+      });
     });
   };
 
