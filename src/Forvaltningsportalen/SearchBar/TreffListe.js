@@ -166,12 +166,12 @@ const TreffListe = props => {
                 <div className="searchlist-item-wrapper">
                   <span className="itemname">{itemname} </span>
                   <span className="itemtype">
-                    {trefftype}{" "}
+                    {trefftype}
                     {trefftype === "Stedsnavn" ? (
-                      <>{itemtype} </>
+                      <>{`, ${itemtype} i ${item.kommunenavn}`} </>
                     ) : (
                       <>
-                        {item.postnummer} {item.poststed}
+                        {""} {item.postnummer} {item.poststed}
                       </>
                     )}
                   </span>

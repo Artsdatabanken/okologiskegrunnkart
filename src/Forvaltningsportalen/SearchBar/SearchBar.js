@@ -110,7 +110,7 @@ class SearchBar extends React.Component {
   };
 
   handleSearchBar = (term, resultpage) => {
-    let searchTerm = term.trim();
+    let searchTerm = term ? term.trim() : null;
     if (!searchTerm) {
       this.setState({
         isSearching: false,
@@ -267,10 +267,11 @@ class SearchBar extends React.Component {
     }
 
     backend.hentSteder(searchTerm).then(resultat => {
-      let max_items = 5;
-      if (resultpage) {
-        max_items = 50;
-      }
+      // let max_items = 5;
+      // if (resultpage) {
+      //   max_items = 50;
+      // }
+      let max_items = 50;
       let entries = resultat ? resultat.stedsnavn : {};
       const resultatliste = {};
       // If only one entrie is returned from backend, this is

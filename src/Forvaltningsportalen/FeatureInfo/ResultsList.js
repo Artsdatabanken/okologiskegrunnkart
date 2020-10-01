@@ -132,7 +132,7 @@ const ResultsList = ({
               </div>
             )}
             <List id="layers-results-list">
-              {allResults !== undefined &&
+              {allResults &&
                 Object.keys(allResults)
                   .reverse()
                   .map(key => {
