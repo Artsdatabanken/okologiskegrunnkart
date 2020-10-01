@@ -7,7 +7,6 @@ const TreffListe = ({
   searchResultPage,
   searchTerm,
   handleSearchBar,
-  // onSearchButton,
   treffliste_lag,
   treffliste_underlag,
   treffliste_sted,
@@ -27,8 +26,6 @@ const TreffListe = ({
 }) => {
   const [listItems, setListItems] = useState([]);
   const [resultsType, setResultsType] = useState("all");
-  const [numberPlaces, setNumberPlaces] = useState(0);
-  const [numberLayers, setNumberLayers] = useState(0);
 
   function addToList(list_items, inputlist, type, criteria) {
     if (inputlist) {

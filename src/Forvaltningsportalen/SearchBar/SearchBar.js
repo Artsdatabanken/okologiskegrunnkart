@@ -29,7 +29,11 @@ class SearchBar extends React.Component {
     showHelpModal: false,
     manual: "",
     countermax: 50,
-    anchorEl: null
+    anchorEl: null,
+    number_places: 0,
+    number_properties: 0,
+    number_addresses: 0,
+    number_layers: 0
   };
 
   handleRemoveTreffliste = () => {
@@ -41,7 +45,11 @@ class SearchBar extends React.Component {
       treffliste_knr: null,
       treffliste_gnr: null,
       treffliste_bnr: null,
-      treffliste_adresse: null
+      treffliste_adresse: null,
+      number_places: 0,
+      number_properties: 0,
+      number_addresses: 0,
+      number_layers: 0
     });
   };
 
@@ -52,8 +60,21 @@ class SearchBar extends React.Component {
         lagstring = JSON.stringify(layer[criteria]);
       }
       lagstring = lagstring.toLowerCase();
+      // Try with complete string
       if (lagstring.indexOf(searchTerm) !== -1) {
         return true;
+      }
+      // Break string only for title
+      if (criteria === "tittel") {
+        const termList = searchTerm.split(" ");
+        let match = true;
+        for (const element of termList) {
+          if (lagstring.indexOf(element) === -1) {
+            match = false;
+            break;
+          }
+        }
+        if (match) return true;
       }
     }
     return false;
@@ -120,6 +141,16 @@ class SearchBar extends React.Component {
       });
       return null;
     }
+    // Remove weird symbols from search
+    searchTerm = searchTerm.replace(/-/g, " ").replace(/&/g, " ");
+    searchTerm = searchTerm.replace(/\?/g, " ").replace(/!/g, " ");
+    searchTerm = searchTerm.replace(/"/g, " ").replace(/'/g, " ");
+    searchTerm = searchTerm.replace(/\+/g, " ").replace(/\*/g, " ");
+    searchTerm = searchTerm.replace(/\(/g, " ").replace(/\)/g, " ");
+    searchTerm = searchTerm.replace(/\{/g, " ").replace(/\}/g, " ");
+    searchTerm = searchTerm.replace(/\[/g, " ").replace(/\]/g, " ");
+    searchTerm = searchTerm.replace(/  +/g, " ").trim();
+
     if (resultpage) {
       this.props.onSelectSearchResult(true);
       this.setState({
@@ -320,7 +351,7 @@ class SearchBar extends React.Component {
     });
 
     let address = [];
-    // Try with strict search term
+    // Use strict search approach
     backend.hentAdresse(searchTerm).then(resultat => {
       let entries = resultat ? resultat.adresser : null;
       // If only one entry is returned from backend, this is
@@ -337,7 +368,7 @@ class SearchBar extends React.Component {
         address = entries;
       }
 
-      // Use less strict search term
+      // Use less strict search approach if no results
       if (address.length === 0) {
         backend.hentAdresse(searchTerm + "*").then(resultat => {
           entries = resultat ? resultat.adresser : null;
@@ -518,7 +549,6 @@ class SearchBar extends React.Component {
               searchResultPage={this.props.searchResultPage}
               searchTerm={this.state.searchTerm}
               handleSearchBar={this.handleSearchBar}
-              // onSearchButton={this.handleSearchButton}
               treffliste_lag={this.state.treffliste_lag}
               treffliste_underlag={this.state.treffliste_underlag}
               treffliste_sted={this.state.treffliste_sted}
