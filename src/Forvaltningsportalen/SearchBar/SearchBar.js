@@ -363,8 +363,11 @@ class SearchBar extends React.Component {
         const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
+      const number_places =
+        resultat && resultat.totaltAntallTreff ? resultat.totaltAntallTreff : 0;
       this.setState({
-        treffliste_sted: Object.values(prioritertliste)
+        treffliste_sted: Object.values(prioritertliste),
+        number_places
       });
     });
 
@@ -406,13 +409,23 @@ class SearchBar extends React.Component {
           if (entries.length > 0) {
             address = entries;
           }
+          const number_addresses =
+            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
+              ? resultat.metadata.totaltAntallTreff
+              : 0;
           this.setState({
-            treffliste_adresse: address
+            treffliste_adresse: address,
+            number_addresses
           });
         });
       } else {
+        const number_addresses =
+          resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
+            ? resultat.metadata.totaltAntallTreff
+            : 0;
         this.setState({
-          treffliste_adresse: address
+          treffliste_adresse: address,
+          number_addresses
         });
       }
     });
@@ -575,6 +588,10 @@ class SearchBar extends React.Component {
               treffliste_bnr={this.state.treffliste_bnr}
               treffliste_adresse={this.state.treffliste_adresse}
               treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+              number_places={this.state.number_places}
+              number_properties={this.state.number_properties}
+              number_addresses={this.state.number_addresses}
+              number_layers={this.state.number_layers}
               removeValgtLag={this.props.removeValgtLag}
               addValgtLag={this.props.addValgtLag}
               handleGeoSelection={this.props.handleGeoSelection}

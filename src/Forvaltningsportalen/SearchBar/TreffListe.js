@@ -16,6 +16,10 @@ const TreffListe = ({
   treffliste_bnr,
   treffliste_adresse,
   treffliste_knrgnrbnr,
+  number_places,
+  number_properties,
+  number_addresses,
+  number_layers,
   removeValgtLag,
   addValgtLag,
   handleGeoSelection,
@@ -28,8 +32,11 @@ const TreffListe = ({
 }) => {
   const [listItems, setListItems] = useState([]);
   const [resultsType, setResultsType] = useState("all");
+  const [listLength, setListLength] = useState(0);
+  const [pageLength, setPageLength] = useState(0);
+  const [numberPages, setNumberPages] = useState(0);
 
-  function addToList(list_items, inputlist, type, criteria) {
+  const addToList = (list_items, inputlist, type, criteria) => {
     if (inputlist) {
       let list_to_update = inputlist;
       if (criteria) {
@@ -46,7 +53,50 @@ const TreffListe = ({
       return list_items.concat(list_to_update);
     }
     return list_items;
-  }
+  };
+
+  useEffect(() => {
+    if (listLength === 0 || pageLength === 0) {
+      setNumberPages(0);
+    } else {
+      const pages = Math.ceil(listLength / pageLength);
+      setNumberPages(pages);
+    }
+  }, [listLength, pageLength]);
+
+  useEffect(() => {
+    let listLength = 0;
+    switch (resultsType) {
+      case "all":
+        listLength =
+          parseInt(number_places) +
+          parseInt(number_properties) +
+          parseInt(number_addresses) +
+          parseInt(number_layers);
+        break;
+      case "layers":
+        listLength = parseInt(number_layers);
+        break;
+      case "places":
+        listLength = parseInt(number_places);
+        break;
+      case "addresses":
+        listLength = parseInt(number_addresses);
+        break;
+      case "properties":
+        listLength = parseInt(number_properties);
+        break;
+      default:
+        listLength = 0;
+    }
+    setListLength(listLength);
+  }, [
+    resultsType,
+    number_places,
+    number_properties,
+    number_addresses,
+    number_layers
+  ]);
 
   useEffect(() => {
     let list_items = [];
@@ -72,6 +122,7 @@ const TreffListe = ({
       console.log("nRows: ", nRows);
       max_list_length = Math.max(nRows, min_list_length);
     }
+    setPageLength(max_list_length);
 
     if (resultsType === "all" || resultsType === "layers") {
       list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
@@ -118,7 +169,7 @@ const TreffListe = ({
     windowHeight
   ]);
 
-  function movefocus(e, index) {
+  const movefocus = (e, index) => {
     if (e.keyCode === 27) {
       if (handleRemoveTreffliste) {
         handleRemoveTreffliste();
@@ -144,9 +195,9 @@ const TreffListe = ({
         }
       }
     }
-  }
+  };
 
-  function onActivate(item, trefftype) {
+  const onActivate = (item, trefftype) => {
     if (searchResultPage) {
       onSelectSearchResult(false);
     }
@@ -163,7 +214,7 @@ const TreffListe = ({
     } else {
       handleGeoSelection(item);
     }
-  }
+  };
 
   return (
     <>
@@ -193,7 +244,6 @@ const TreffListe = ({
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
-                  // size="large"
                   color="primary"
                   onClick={() => {
                     setResultsType("all");
@@ -207,7 +257,6 @@ const TreffListe = ({
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
-                  // size="large"
                   color="primary"
                   onClick={() => {
                     setResultsType("layers");
@@ -221,7 +270,6 @@ const TreffListe = ({
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
-                  // size="large"
                   color="primary"
                   onClick={() => {
                     setResultsType("places");
@@ -235,7 +283,6 @@ const TreffListe = ({
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
-                  // size="large"
                   color="primary"
                   onClick={() => {
                     setResultsType("properties");
@@ -249,7 +296,6 @@ const TreffListe = ({
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
-                  // size="large"
                   color="primary"
                   onClick={() => {
                     setResultsType("addresses");
@@ -275,7 +321,6 @@ const TreffListe = ({
               searchResultPage ? "treffliste searchresultpage" : "treffliste"
             }
             id="treffliste"
-            // tabIndex="0"
             onKeyDown={e => {
               if (e.keyCode === 40 || e.keyCode === 38) {
                 e.preventDefault();
@@ -366,9 +411,13 @@ const TreffListe = ({
               })}
           </ul>
         </div>
-        {searchResultPage && (
+        {searchResultPage && numberPages > 0 && (
           <div className="search-pagination-container">
-            <Pagination count={20} shape="rounded" variant="outlined" />
+            <Pagination
+              count={numberPages}
+              shape="rounded"
+              variant="outlined"
+            />
           </div>
         )}
       </div>
