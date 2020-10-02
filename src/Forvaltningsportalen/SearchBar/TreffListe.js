@@ -31,10 +31,11 @@ const TreffListe = ({
   handleFullscreenInfobox
 }) => {
   const [listItems, setListItems] = useState([]);
-  const [resultsType, setResultsType] = useState("all");
+  const [resultType, setResultType] = useState("all");
   const [listLength, setListLength] = useState(0);
   const [pageLength, setPageLength] = useState(0);
   const [numberPages, setNumberPages] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const addToList = (list_items, inputlist, type, criteria) => {
     if (inputlist) {
@@ -55,6 +56,25 @@ const TreffListe = ({
     return list_items;
   };
 
+  const getNewPage = page => {
+    const term = document.getElementById("searchfield").value;
+    if (
+      resultType === "places" ||
+      resultType === "addresses" ||
+      resultType === "properties"
+    ) {
+      handleSearchBar(term, true, page, pageLength, resultType);
+    }
+    if (resultType === "layers") {
+      let list_items = [];
+      list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
+      list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
+      list_items = list_items.slice(pageLength * page, pageLength * (page + 1));
+      list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
+      setListItems(list_items);
+    }
+  };
+
   useEffect(() => {
     if (listLength === 0 || pageLength === 0) {
       setNumberPages(0);
@@ -66,7 +86,7 @@ const TreffListe = ({
 
   useEffect(() => {
     let listLength = 0;
-    switch (resultsType) {
+    switch (resultType) {
       case "all":
         listLength =
           parseInt(number_places) +
@@ -91,7 +111,7 @@ const TreffListe = ({
     }
     setListLength(listLength);
   }, [
-    resultsType,
+    resultType,
     number_places,
     number_properties,
     number_addresses,
@@ -119,16 +139,15 @@ const TreffListe = ({
       } else {
         nRows = Math.floor((windowHeight - 136 - 60) / 55);
       }
-      console.log("nRows: ", nRows);
       max_list_length = Math.max(nRows, min_list_length);
     }
     setPageLength(max_list_length);
 
-    if (resultsType === "all" || resultsType === "layers") {
+    if (resultType === "all" || resultType === "layers") {
       list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
       list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
     }
-    if (resultsType === "all" || resultsType === "places") {
+    if (resultType === "all" || resultType === "places") {
       list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
       if (treffliste_knr && treffliste_knr.stedsnavn) {
         let knr = treffliste_knr.stedsnavn;
@@ -136,10 +155,10 @@ const TreffListe = ({
         list_items = list_items.concat(knr);
       }
     }
-    if (resultsType === "all" || resultsType === "addresses") {
+    if (resultType === "all" || resultType === "addresses") {
       list_items = addToList(list_items, treffliste_adresse, "Adresse", null);
     }
-    if (resultsType === "all" || resultsType === "properties") {
+    if (resultType === "all" || resultType === "properties") {
       list_items = addToList(
         list_items,
         treffliste_knrgnrbnr,
@@ -151,7 +170,6 @@ const TreffListe = ({
     }
     list_items = list_items.slice(0, max_list_length);
     list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
-
     setListItems(list_items);
   }, [
     searchTerm,
@@ -164,7 +182,7 @@ const TreffListe = ({
     treffliste_gnr,
     treffliste_bnr,
     treffliste_adresse,
-    resultsType,
+    resultType,
     isMobile,
     windowHeight
   ]);
@@ -240,65 +258,70 @@ const TreffListe = ({
               <div className="search-page-options-content">
                 <Button
                   id={
-                    resultsType === "all"
+                    resultType === "all"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
                   color="primary"
                   onClick={() => {
-                    setResultsType("all");
+                    setResultType("all");
+                    setPageNumber(1);
                   }}
                 >
                   Alle
                 </Button>
                 <Button
                   id={
-                    resultsType === "layers"
+                    resultType === "layers"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
                   color="primary"
                   onClick={() => {
-                    setResultsType("layers");
+                    setResultType("layers");
+                    setPageNumber(1);
                   }}
                 >
                   Kartlag
                 </Button>
                 <Button
                   id={
-                    resultsType === "places"
+                    resultType === "places"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
                   color="primary"
                   onClick={() => {
-                    setResultsType("places");
+                    setResultType("places");
+                    setPageNumber(1);
                   }}
                 >
                   Steder
                 </Button>
                 <Button
                   id={
-                    resultsType === "properties"
+                    resultType === "properties"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
                   color="primary"
                   onClick={() => {
-                    setResultsType("properties");
+                    setResultType("properties");
+                    setPageNumber(1);
                   }}
                 >
                   Eiendommer
                 </Button>
                 <Button
                   id={
-                    resultsType === "addresses"
+                    resultType === "addresses"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
                   }
                   color="primary"
                   onClick={() => {
-                    setResultsType("addresses");
+                    setResultType("addresses");
+                    setPageNumber(1);
                   }}
                 >
                   Adresser
@@ -414,9 +437,17 @@ const TreffListe = ({
         {searchResultPage && numberPages > 0 && (
           <div className="search-pagination-container">
             <Pagination
+              id="search-pagination-component"
               count={numberPages}
               shape="rounded"
               variant="outlined"
+              color="primary"
+              page={pageNumber}
+              size="small"
+              onChange={(event, page) => {
+                setPageNumber(page);
+                getNewPage(page - 1);
+              }}
             />
           </div>
         )}

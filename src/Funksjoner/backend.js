@@ -57,15 +57,15 @@ class Backend {
     );
   }
 
-  static async hentSteder(bokstav, side = 0) {
+  static async hentSteder(bokstav, side = 0, numberPerPage = 20) {
     return this.getPromise(
-      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=${side}`
+      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
     );
   }
 
-  static async hentAdresse(bokstav, side = 0) {
+  static async hentAdresse(bokstav, side = 0, numberPerPage = 20) {
     return this.getPromise(
-      `https://ws.geonorge.no/adresser/v1/sok?sok=${bokstav}&treffPerSide=20&side=${side}`
+      `https://ws.geonorge.no/adresser/v1/sok?sok=${bokstav}&treffPerSide=${numberPerPage}&side=${side}`
     );
   }
 
@@ -75,7 +75,7 @@ class Backend {
     );
   }
 
-  static async hentKnrGnrBnr(knr, gnr, bnr) {
+  static async hentKnrGnrBnr(knr, gnr, bnr, side = 0, numberPerPage = 20) {
     let url = "https://ws.geonorge.no/adresser/v1/sok?";
     if (knr) {
       url += "kommunenummer=" + knr.replace(/[^0-9]/g, "");
@@ -93,7 +93,7 @@ class Backend {
       url += "bruksnummer=" + bnr.replace(/[^0-9]/g, "");
     }
 
-    url += "&treffPerSide=20&side=0";
+    url += `&treffPerSide=${numberPerPage}&side=${side}`;
     return this.getPromise(url);
   }
 

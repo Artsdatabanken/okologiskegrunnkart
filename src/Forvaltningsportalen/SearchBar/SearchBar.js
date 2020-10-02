@@ -132,7 +132,13 @@ class SearchBar extends React.Component {
     // document.getElementById("searchfield").value = "";
   };
 
-  handleSearchBar = (term, resultpage) => {
+  handleSearchBar = (
+    term,
+    resultpage,
+    page = 0,
+    numberPerPage = 20,
+    resultType = "all"
+  ) => {
     let searchTerm = term ? term.trim() : null;
     if (!searchTerm) {
       this.setState({
@@ -141,6 +147,7 @@ class SearchBar extends React.Component {
       });
       return null;
     }
+
     // Remove weird symbols from search
     searchTerm = searchTerm.replace(/-/g, " ").replace(/&/g, " ");
     searchTerm = searchTerm.replace(/\?/g, " ").replace(/!/g, " ");
@@ -166,6 +173,25 @@ class SearchBar extends React.Component {
       });
     }
     searchTerm = searchTerm.toLowerCase();
+
+    if (resultType === "all") {
+      this.fetchSearchLayers(searchTerm);
+      this.fetchSearchProperties(searchTerm);
+      this.fetchSearchPlaces(searchTerm, page);
+      this.fetchSearchAddresses(searchTerm, page);
+    } else if (resultType === "layers") {
+      this.fetchSearchLayers(searchTerm);
+    } else if (resultType === "properties") {
+      console.log("Coming here");
+      this.fetchSearchProperties(searchTerm, page, numberPerPage);
+    } else if (resultType === "places") {
+      this.fetchSearchPlaces(searchTerm, page, numberPerPage);
+    } else if (resultType === "addresses") {
+      this.fetchSearchAddresses(searchTerm, page, numberPerPage);
+    }
+  };
+
+  fetchSearchLayers = searchTerm => {
     let counter = 0;
     let treffliste_lag = [];
     let treffliste_underlag = [];
@@ -204,7 +230,9 @@ class SearchBar extends React.Component {
       treffliste_underlag,
       number_layers
     });
+  };
 
+  fetchSearchProperties = (searchTerm, page = 0, numberPerPage = 20) => {
     /* Kommunenummer, gårdsnummer og bruksnummer */
     let knr = null;
     let gnr = null;
@@ -228,18 +256,20 @@ class SearchBar extends React.Component {
         }
       }
 
-      backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
-        const treffliste_knrgnrbnr =
-          resultat && resultat.adresser ? resultat.adresser : [];
-        number_properties += treffliste_knrgnrbnr.length;
-        this.setState({
-          treffliste_knrgnrbnr: resultat,
-          treffliste_knr: null,
-          treffliste_gnr: null,
-          treffliste_bnr: null,
-          number_properties
+      backend
+        .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
+        .then(resultat => {
+          const treffliste_knrgnrbnr =
+            resultat && resultat.adresser ? resultat.adresser : [];
+          number_properties += treffliste_knrgnrbnr.length;
+          this.setState({
+            treffliste_knrgnrbnr: resultat,
+            treffliste_knr: null,
+            treffliste_gnr: null,
+            treffliste_bnr: null,
+            number_properties
+          });
         });
-      });
     } else if (!isNaN(searchTerm)) {
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       backend.hentKommune(searchTerm).then(resultat => {
@@ -256,26 +286,30 @@ class SearchBar extends React.Component {
           number_properties
         });
       });
-      backend.hentKnrGnrBnr(null, searchTerm, null).then(resultat => {
-        const treffliste_gnr =
-          resultat && resultat.adresser ? resultat.adresser : [];
-        number_properties += treffliste_gnr.length;
-        this.setState({
-          treffliste_knrgnrbnr: null,
-          treffliste_gnr: resultat,
-          number_properties
+      backend
+        .hentKnrGnrBnr(null, searchTerm, null, page, numberPerPage)
+        .then(resultat => {
+          const treffliste_gnr =
+            resultat && resultat.adresser ? resultat.adresser : [];
+          number_properties += treffliste_gnr.length;
+          this.setState({
+            treffliste_knrgnrbnr: null,
+            treffliste_gnr: resultat,
+            number_properties
+          });
         });
-      });
-      backend.hentKnrGnrBnr(null, null, searchTerm).then(resultat => {
-        const treffliste_bnr =
-          resultat && resultat.adresser ? resultat.adresser : [];
-        number_properties += treffliste_bnr.length;
-        this.setState({
-          treffliste_knrgnrbnr: null,
-          treffliste_bnr: resultat,
-          number_properties
+      backend
+        .hentKnrGnrBnr(null, null, searchTerm, page, numberPerPage)
+        .then(resultat => {
+          const treffliste_bnr =
+            resultat && resultat.adresser ? resultat.adresser : [];
+          number_properties += treffliste_bnr.length;
+          this.setState({
+            treffliste_knrgnrbnr: null,
+            treffliste_bnr: resultat,
+            number_properties
+          });
         });
-      });
     } else {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
       let numbercheck = searchTerm.replace(/ /g, "-");
@@ -294,18 +328,20 @@ class SearchBar extends React.Component {
         if (list[2]) {
           bnr = list[2];
         }
-        backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
-          const treffliste_knrgnrbnr =
-            resultat && resultat.adresser ? resultat.adresser : [];
-          number_properties += treffliste_knrgnrbnr.length;
-          this.setState({
-            treffliste_knrgnrbnr: resultat,
-            treffliste_knr: null,
-            treffliste_gnr: null,
-            treffliste_bnr: null,
-            number_properties
+        backend
+          .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
+          .then(resultat => {
+            const treffliste_knrgnrbnr =
+              resultat && resultat.adresser ? resultat.adresser : [];
+            number_properties += treffliste_knrgnrbnr.length;
+            this.setState({
+              treffliste_knrgnrbnr: resultat,
+              treffliste_knr: null,
+              treffliste_gnr: null,
+              treffliste_bnr: null,
+              number_properties
+            });
           });
-        });
       } else {
         this.setState({
           treffliste_knrgnrbnr: null,
@@ -316,8 +352,10 @@ class SearchBar extends React.Component {
         });
       }
     }
+  };
 
-    backend.hentSteder(searchTerm).then(resultat => {
+  fetchSearchPlaces = (searchTerm, page = 0, numberPerPage = 20) => {
+    backend.hentSteder(searchTerm, page, numberPerPage).then(resultat => {
       // let max_items = 5;
       // if (resultpage) {
       //   max_items = 50;
@@ -370,10 +408,12 @@ class SearchBar extends React.Component {
         number_places
       });
     });
+  };
 
+  fetchSearchAddresses = (searchTerm, page = 0, numberPerPage = 20) => {
     let address = [];
     // Use strict search approach
-    backend.hentAdresse(searchTerm).then(resultat => {
+    backend.hentAdresse(searchTerm, page, numberPerPage).then(resultat => {
       let entries = resultat ? resultat.adresser : null;
       // If only one entry is returned from backend, this is
       // returned as an object, not as array of objects.
@@ -391,33 +431,37 @@ class SearchBar extends React.Component {
 
       // Use less strict search approach if no results
       if (address.length === 0) {
-        backend.hentAdresse(searchTerm + "*").then(resultat => {
-          entries = resultat ? resultat.adresser : null;
-          // If only one entry is returned from backend, this is
-          // returned as an object, not as array of objects.
-          // In that case, convert to array
-          if (!entries) {
-            entries = [];
-          } else if (
-            !Array.isArray(entries) &&
-            entries.constructor === Object
-          ) {
-            const object = { ...entries };
-            entries = [];
-            entries.push(object);
-          }
-          if (entries.length > 0) {
-            address = entries;
-          }
-          const number_addresses =
-            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
-              ? resultat.metadata.totaltAntallTreff
-              : 0;
-          this.setState({
-            treffliste_adresse: address,
-            number_addresses
+        backend
+          .hentAdresse(searchTerm + "*", page, numberPerPage)
+          .then(resultat => {
+            entries = resultat ? resultat.adresser : null;
+            // If only one entry is returned from backend, this is
+            // returned as an object, not as array of objects.
+            // In that case, convert to array
+            if (!entries) {
+              entries = [];
+            } else if (
+              !Array.isArray(entries) &&
+              entries.constructor === Object
+            ) {
+              const object = { ...entries };
+              entries = [];
+              entries.push(object);
+            }
+            if (entries.length > 0) {
+              address = entries;
+            }
+            const number_addresses =
+              resultat &&
+              resultat.metadata &&
+              resultat.metadata.totaltAntallTreff
+                ? resultat.metadata.totaltAntallTreff
+                : 0;
+            this.setState({
+              treffliste_adresse: address,
+              number_addresses
+            });
           });
-        });
       } else {
         const number_addresses =
           resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
