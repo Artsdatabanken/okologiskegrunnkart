@@ -63,6 +63,7 @@ class App extends React.Component {
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
+    windowHeight: 0,
     showMarker: true,
     sortKey: "alfabetisk",
     tagFilter: {},
@@ -328,9 +329,6 @@ class App extends React.Component {
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
                         searchResultPage={this.state.searchResultPage}
-                        setKartlagSearchResults={
-                          this.handleSetKartlagSearchResult
-                        }
                         handleGeoSelection={this.handleGeoSelection}
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
@@ -341,6 +339,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                         isMobile={this.state.isMobile}
+                        windowHeight={this.state.windowHeight}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
                         handleInfobox={this.handleInfobox}
@@ -365,6 +364,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
+                        updateWindowHeight={this.updateWindowHeight}
                         handleSelectSearchResult={this.handleSelectSearchResult}
                         handleSortKey={this.handleSortKey}
                         handleTagFilter={this.handleTagFilter}
@@ -581,10 +581,6 @@ class App extends React.Component {
 
   handleSelectSearchResult = searchResultPage => {
     this.setState({ searchResultPage: searchResultPage });
-  };
-
-  handleSetKartlagSearchResult = kartlagSearchResults => {
-    this.setState({ kartlagSearchResults: kartlagSearchResults });
   };
 
   handleRemoveZoomCoordinates = () => {
@@ -1426,6 +1422,10 @@ class App extends React.Component {
 
   updateIsMobile = isMobile => {
     this.setState({ isMobile });
+  };
+
+  updateWindowHeight = windowHeight => {
+    this.setState({ windowHeight });
   };
 
   onTileStatus = (layerkey, sublayerkey, status) => {

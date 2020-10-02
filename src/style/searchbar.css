@@ -76,6 +76,26 @@
 }
 
 /* --------- Search lists ---------  */
+.search-results-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100vh - 136px);
+  max-height: calc(100vh - 136px);
+  background-color: white;
+  overflow-y: auto;
+  width: 100%;
+}
+@media only screen and (max-width: 768px) {
+  .search-results-container {
+    top: 84px;
+    max-width: 100%;
+    height: calc(100vh - 84px);
+    max-height: calc(100vh - 84px);
+    padding-bottom: 150px;
+  }
+}
 
 /* Treffliste */
 .treffliste {
@@ -182,7 +202,7 @@
 }
 #filter-search-button-selected {
   border-bottom: 2px solid #296d98;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
 }
 #filter-search-button-selected.MuiButton-textPrimary {
   color: #296d98;
@@ -198,27 +218,29 @@
   /* background: #eee; */
 }
 .treffliste.searchresultpage {
-  position: absolute;
+  /* position: absolute; */
   background: #f0f0f0;
   width: 100%;
   margin: 0px;
   margin-top: 0px;
-  height: calc(100vh - 94px - 42px);
-  max-height: calc(100vh - 94px - 42px);
-  overflow-y: auto;
+  /* height: calc(100vh - 136px);
+  max-height: calc(100vh - 136px); */
+  max-height: none;
+  overflow-y: hidden;
   border: none;
   box-sizing: border-box;
-  padding-bottom: 10px;
+  /* padding-bottom: 10px; */
   background-color: white;
   box-shadow: none;
   border-radius: 0;
 }
 @media only screen and (max-width: 768px) {
   .treffliste.searchresultpage {
+    top: 84px;
     max-width: 100%;
-    height: calc(100vh - 44px - 42px);
-    max-height: calc(100vh - 44px - 42px);
-    padding-bottom: 150px;
+    height: calc(100vh - 84px);
+    max-height: calc(100vh - 84px);
+    /* padding-bottom: 150px; */
   }
 }
 .treffliste.searchresultpage .searchbar_item {
@@ -234,6 +256,19 @@
   outline: none;
   cursor: pointer;
   font-weight: 500;
+}
+
+/* -------- Search results pagination ---------- */
+.search-pagination-container {
+  display: flex;
+  justify-content: center;
+  padding: 15px 10px;
+  z-index: 2;
+}
+@media only screen and (max-width: 768px) {
+  .search-pagination-container {
+    z-index: 175;
+  }
 }
 
 /* ----- Kartlagfanens treffliste -> søkebarens landingsside ----- */

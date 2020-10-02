@@ -23,6 +23,7 @@ const KartlagFanen = ({
   legendVisible,
   setLegendVisible,
   updateIsMobile,
+  updateWindowHeight,
   handleSelectSearchResult,
   handleSortKey,
   handleTagFilter,
@@ -88,7 +89,7 @@ const KartlagFanen = ({
     setSublayerDetailsVisible(true);
   };
 
-  const { isMobile } = useWindowDimensions();
+  const { isMobile, height } = useWindowDimensions();
 
   const toggleSideBarVisible = async () => {
     if (window.innerWidth > 768) {
@@ -408,6 +409,10 @@ const KartlagFanen = ({
   useEffect(() => {
     updateIsMobile(isMobile);
   }, [isMobile, updateIsMobile]);
+
+  useEffect(() => {
+    updateWindowHeight(height);
+  }, [height, updateWindowHeight]);
 
   useEffect(() => {
     if (!isMobile) return;

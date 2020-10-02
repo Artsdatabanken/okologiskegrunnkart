@@ -198,20 +198,18 @@ class SearchBar extends React.Component {
       );
       counter += tags_search.counter;
     }
-
-    if (resultpage) {
-      this.props.setKartlagSearchResults(treffliste_lag);
-    } else {
-      this.setState({
-        treffliste_lag,
-        treffliste_underlag
-      });
-    }
+    const number_layers = treffliste_lag.length + treffliste_underlag.length;
+    this.setState({
+      treffliste_lag,
+      treffliste_underlag,
+      number_layers
+    });
 
     /* Kommunenummer, gårdsnummer og bruksnummer */
     let knr = null;
     let gnr = null;
     let bnr = null;
+    let number_properties = 0;
 
     if (
       searchTerm.indexOf("knr") !== -1 ||
@@ -231,11 +229,15 @@ class SearchBar extends React.Component {
       }
 
       backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+        const treffliste_knrgnrbnr =
+          resultat && resultat.adresser ? resultat.adresser : [];
+        number_properties += treffliste_knrgnrbnr.length;
         this.setState({
           treffliste_knrgnrbnr: resultat,
           treffliste_knr: null,
           treffliste_gnr: null,
-          treffliste_bnr: null
+          treffliste_bnr: null,
+          number_properties
         });
       });
     } else if (!isNaN(searchTerm)) {
@@ -245,26 +247,37 @@ class SearchBar extends React.Component {
         if (resultat && resultat["stedsnavn"]) {
           resultat["stedsnavn"]["knr"] = searchTerm;
         }
+        const treffliste_knr =
+          resultat && resultat.adresser ? resultat.adresser : [];
+        number_properties += treffliste_knr.length;
         this.setState({
           treffliste_knrgnrbnr: null,
-          treffliste_knr: resultat
+          treffliste_knr: resultat,
+          number_properties
         });
       });
       backend.hentKnrGnrBnr(null, searchTerm, null).then(resultat => {
+        const treffliste_gnr =
+          resultat && resultat.adresser ? resultat.adresser : [];
+        number_properties += treffliste_gnr.length;
         this.setState({
           treffliste_knrgnrbnr: null,
-          treffliste_gnr: resultat
+          treffliste_gnr: resultat,
+          number_properties
         });
       });
       backend.hentKnrGnrBnr(null, null, searchTerm).then(resultat => {
+        const treffliste_bnr =
+          resultat && resultat.adresser ? resultat.adresser : [];
+        number_properties += treffliste_bnr.length;
         this.setState({
           treffliste_knrgnrbnr: null,
-          treffliste_bnr: resultat
+          treffliste_bnr: resultat,
+          number_properties
         });
       });
     } else {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
-
       let numbercheck = searchTerm.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");
       numbercheck = numbercheck.replace(/;/g, "-");
@@ -282,11 +295,15 @@ class SearchBar extends React.Component {
           bnr = list[2];
         }
         backend.hentKnrGnrBnr(knr, gnr, bnr).then(resultat => {
+          const treffliste_knrgnrbnr =
+            resultat && resultat.adresser ? resultat.adresser : [];
+          number_properties += treffliste_knrgnrbnr.length;
           this.setState({
             treffliste_knrgnrbnr: resultat,
             treffliste_knr: null,
             treffliste_gnr: null,
-            treffliste_bnr: null
+            treffliste_bnr: null,
+            number_properties
           });
         });
       } else {
@@ -294,7 +311,8 @@ class SearchBar extends React.Component {
           treffliste_knrgnrbnr: null,
           treffliste_knr: null,
           treffliste_gnr: null,
-          treffliste_bnr: null
+          treffliste_bnr: null,
+          number_properties
         });
       }
     }
@@ -562,6 +580,7 @@ class SearchBar extends React.Component {
               handleGeoSelection={this.props.handleGeoSelection}
               handleRemoveTreffliste={this.handleRemoveTreffliste}
               isMobile={this.props.isMobile}
+              windowHeight={this.props.windowHeight}
               handleSideBar={this.props.handleSideBar}
               handleInfobox={this.props.handleInfobox}
               handleFullscreenInfobox={this.props.handleFullscreenInfobox}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { KeyboardBackspace } from "@material-ui/icons";
 import { Button } from "@material-ui/core";
+import Pagination from "@material-ui/lab/Pagination";
 
 const TreffListe = ({
   onSelectSearchResult,
@@ -20,6 +21,7 @@ const TreffListe = ({
   handleGeoSelection,
   handleRemoveTreffliste,
   isMobile,
+  windowHeight,
   handleSideBar,
   handleInfobox,
   handleFullscreenInfobox
@@ -48,7 +50,9 @@ const TreffListe = ({
 
   useEffect(() => {
     let list_items = [];
-    const max_list_length = 19;
+    const min_list_length = isMobile ? 6 : 8;
+    let max_list_length = isMobile ? 8 : 10;
+    // const max_list_length = 10;
 
     if (!searchResultPage) {
       list_items = addToList(
@@ -57,7 +61,16 @@ const TreffListe = ({
         "Søkeelement",
         null
       );
-      // max_list_length = 19;
+      max_list_length = 19;
+    } else {
+      let nRows = max_list_length;
+      if (isMobile) {
+        nRows = Math.floor((windowHeight - 84 - 60) / 55);
+      } else {
+        nRows = Math.floor((windowHeight - 136 - 60) / 55);
+      }
+      console.log("nRows: ", nRows);
+      max_list_length = Math.max(nRows, min_list_length);
     }
 
     if (resultsType === "all" || resultsType === "layers") {
@@ -100,7 +113,9 @@ const TreffListe = ({
     treffliste_gnr,
     treffliste_bnr,
     treffliste_adresse,
-    resultsType
+    resultsType,
+    isMobile,
+    windowHeight
   ]);
 
   function movefocus(e, index) {
@@ -159,6 +174,10 @@ const TreffListe = ({
               className="listheadingbutton all-results"
               onClick={e => {
                 onSelectSearchResult(false);
+                handleRemoveTreffliste();
+                handleSearchBar(null);
+                document.getElementById("searchfield").value = "";
+                document.getElementById("searchfield").focus();
               }}
             >
               <span className="listheadingbutton-icon all-results">
@@ -166,178 +185,193 @@ const TreffListe = ({
               </span>
               <span className="listheadingbutton-text">Søkeresultater</span>
             </button>
-          </div>
-          <div className="search-page-options">
-            <div className="search-page-options-content">
-              <Button
-                id={
-                  resultsType === "all"
-                    ? "filter-search-button-selected"
-                    : "filter-search-button"
-                }
-                // size="large"
-                color="primary"
-                onClick={() => {
-                  setResultsType("all");
-                }}
-              >
-                Alle
-              </Button>
-              <Button
-                id={
-                  resultsType === "places"
-                    ? "filter-search-button-selected"
-                    : "filter-search-button"
-                }
-                // size="large"
-                color="primary"
-                onClick={() => {
-                  setResultsType("places");
-                }}
-              >
-                Steder
-              </Button>
-              <Button
-                id={
-                  resultsType === "properties"
-                    ? "filter-search-button-selected"
-                    : "filter-search-button"
-                }
-                // size="large"
-                color="primary"
-                onClick={() => {
-                  setResultsType("properties");
-                }}
-              >
-                Eiendommer
-              </Button>
-              <Button
-                id={
-                  resultsType === "addresses"
-                    ? "filter-search-button-selected"
-                    : "filter-search-button"
-                }
-                // size="large"
-                color="primary"
-                onClick={() => {
-                  setResultsType("addresses");
-                }}
-              >
-                Adresser
-              </Button>
-              <Button
-                id={
-                  resultsType === "layers"
-                    ? "filter-search-button-selected"
-                    : "filter-search-button"
-                }
-                // size="large"
-                color="primary"
-                onClick={() => {
-                  setResultsType("layers");
-                }}
-              >
-                Kartlag
-              </Button>
+            <div className="search-page-options">
+              <div className="search-page-options-content">
+                <Button
+                  id={
+                    resultsType === "all"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  // size="large"
+                  color="primary"
+                  onClick={() => {
+                    setResultsType("all");
+                  }}
+                >
+                  Alle
+                </Button>
+                <Button
+                  id={
+                    resultsType === "layers"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  // size="large"
+                  color="primary"
+                  onClick={() => {
+                    setResultsType("layers");
+                  }}
+                >
+                  Kartlag
+                </Button>
+                <Button
+                  id={
+                    resultsType === "places"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  // size="large"
+                  color="primary"
+                  onClick={() => {
+                    setResultsType("places");
+                  }}
+                >
+                  Steder
+                </Button>
+                <Button
+                  id={
+                    resultsType === "properties"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  // size="large"
+                  color="primary"
+                  onClick={() => {
+                    setResultsType("properties");
+                  }}
+                >
+                  Eiendommer
+                </Button>
+                <Button
+                  id={
+                    resultsType === "addresses"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  // size="large"
+                  color="primary"
+                  onClick={() => {
+                    setResultsType("addresses");
+                  }}
+                >
+                  Adresser
+                </Button>
+              </div>
             </div>
           </div>
         </>
       )}
-      <ul
+      <div
         className={
-          searchResultPage ? "treffliste searchresultpage" : "treffliste"
+          searchResultPage
+            ? "search-results-container"
+            : "search-results-compact"
         }
-        id="treffliste"
-        // tabIndex="0"
-        onKeyDown={e => {
-          if (e.keyCode === 40 || e.keyCode === 38) {
-            e.preventDefault();
-          }
-        }}
       >
-        {listItems &&
-          listItems.map((item, index) => {
-            let itemname = item.adressetekst || "";
-            let trefftype = item.trefftype || "annet treff";
-            let itemtype = item.navnetype || "";
-            let itemnr = "";
-            if (item.trefftype === "Kommune") {
-              itemname = item.kommunenavn || "finner ikke kommunenavnet";
-              itemnr = item.knr || "";
-            } else if (item.trefftype === "Kartlag") {
-              itemname = item.tittel;
-              itemnr = item.tema || "Kartlag";
-            } else if (item.trefftype === "Underlag") {
-              itemname = item.tittel;
-              itemnr = item.tema || "Underlag";
-            } else if (item.trefftype === "Stedsnavn") {
-              itemname = item.stedsnavn || "finner ikke stedsnavn";
-              itemtype = item.navnetype || "";
-              itemnr = item.ssrId || "";
+        <div>
+          <ul
+            className={
+              searchResultPage ? "treffliste searchresultpage" : "treffliste"
             }
+            id="treffliste"
+            // tabIndex="0"
+            onKeyDown={e => {
+              if (e.keyCode === 40 || e.keyCode === 38) {
+                e.preventDefault();
+              }
+            }}
+          >
+            {listItems &&
+              listItems.map((item, index) => {
+                let itemname = item.adressetekst || "";
+                let trefftype = item.trefftype || "annet treff";
+                let itemtype = item.navnetype || "";
+                let itemnr = "";
+                if (item.trefftype === "Kommune") {
+                  itemname = item.kommunenavn || "finner ikke kommunenavnet";
+                  itemnr = item.knr || "";
+                } else if (item.trefftype === "Kartlag") {
+                  itemname = item.tittel;
+                  itemnr = item.tema || "Kartlag";
+                } else if (item.trefftype === "Underlag") {
+                  itemname = item.tittel;
+                  itemnr = item.tema || "Underlag";
+                } else if (item.trefftype === "Stedsnavn") {
+                  itemname = item.stedsnavn || "finner ikke stedsnavn";
+                  itemtype = item.navnetype || "";
+                  itemnr = item.ssrId || "";
+                }
 
-            return (
-              <li
-                id={index}
-                key={index}
-                tabIndex="0"
-                className="searchbar_item"
-                onKeyDown={e => {
-                  if (e.keyCode === 13) {
-                    onActivate(item, trefftype);
-                  } else {
-                    movefocus(e, index);
-                  }
-                }}
-                onClick={() => {
-                  onActivate(item, trefftype);
-                }}
-              >
-                <div className="searchlist-item-wrapper">
-                  <span className="itemname">{itemname} </span>
-                  <span className="itemtype">
-                    {trefftype}
-                    {trefftype === "Stedsnavn" ? (
-                      <>{`, ${itemtype} i ${item.kommunenavn}`} </>
-                    ) : (
-                      <>
-                        {""} {item.postnummer} {item.poststed}
-                      </>
-                    )}
-                  </span>
-                  <span className="itemnr">
-                    {trefftype === "Kommune" ||
-                    trefftype === "Stedsnavn" ||
-                    trefftype === "Kartlag" ||
-                    trefftype === "Underlag" ? (
-                      <>{itemnr}</>
-                    ) : (
-                      <>
-                        {trefftype === "KNR" ? (
-                          <b>{item.kommunenummer}</b>
+                return (
+                  <li
+                    id={index}
+                    key={index}
+                    tabIndex="0"
+                    className="searchbar_item"
+                    onKeyDown={e => {
+                      if (e.keyCode === 13) {
+                        onActivate(item, trefftype);
+                      } else {
+                        movefocus(e, index);
+                      }
+                    }}
+                    onClick={() => {
+                      onActivate(item, trefftype);
+                    }}
+                  >
+                    <div className="searchlist-item-wrapper">
+                      <span className="itemname">{itemname} </span>
+                      <span className="itemtype">
+                        {trefftype}
+                        {trefftype === "Stedsnavn" ? (
+                          <>{`, ${itemtype} i ${item.kommunenavn}`} </>
                         ) : (
-                          <>{item.kommunenummer}</>
+                          <>
+                            {""} {item.postnummer} {item.poststed}
+                          </>
                         )}
-                        -
-                        {trefftype === "GNR" ? (
-                          <b>{item.gardsnummer}</b>
+                      </span>
+                      <span className="itemnr">
+                        {trefftype === "Kommune" ||
+                        trefftype === "Stedsnavn" ||
+                        trefftype === "Kartlag" ||
+                        trefftype === "Underlag" ? (
+                          <>{itemnr}</>
                         ) : (
-                          <>{item.gardsnummer}</>
+                          <>
+                            {trefftype === "KNR" ? (
+                              <b>{item.kommunenummer}</b>
+                            ) : (
+                              <>{item.kommunenummer}</>
+                            )}
+                            -
+                            {trefftype === "GNR" ? (
+                              <b>{item.gardsnummer}</b>
+                            ) : (
+                              <>{item.gardsnummer}</>
+                            )}
+                            -
+                            {trefftype === "BNR" ? (
+                              <b>{item.bruksnummer}</b>
+                            ) : (
+                              <>{item.bruksnummer}</>
+                            )}
+                          </>
                         )}
-                        -
-                        {trefftype === "BNR" ? (
-                          <b>{item.bruksnummer}</b>
-                        ) : (
-                          <>{item.bruksnummer}</>
-                        )}
-                      </>
-                    )}
-                  </span>
-                </div>
-              </li>
-            );
-          })}
-      </ul>
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+        {searchResultPage && (
+          <div className="search-pagination-container">
+            <Pagination count={20} shape="rounded" variant="outlined" />
+          </div>
+        )}
+      </div>
     </>
   );
 };
