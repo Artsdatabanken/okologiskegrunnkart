@@ -31,7 +31,10 @@ class SearchBar extends React.Component {
     countermax: 50,
     anchorEl: null,
     number_places: 0,
-    number_properties: 0,
+    number_knrgnrbnr: 0,
+    number_knr: 0,
+    number_gnr: 0,
+    number_bnr: 0,
     number_addresses: 0,
     number_layers: 0
   };
@@ -47,7 +50,10 @@ class SearchBar extends React.Component {
       treffliste_bnr: null,
       treffliste_adresse: null,
       number_places: 0,
-      number_properties: 0,
+      number_knrgnrbnr: 0,
+      number_knr: 0,
+      number_gnr: 0,
+      number_bnr: 0,
       number_addresses: 0,
       number_layers: 0
     });
@@ -137,7 +143,8 @@ class SearchBar extends React.Component {
     resultpage,
     page = 0,
     numberPerPage = 20,
-    resultType = "all"
+    resultType = "all",
+    propertyType = ""
   ) => {
     let searchTerm = term ? term.trim() : null;
     if (!searchTerm) {
@@ -183,7 +190,7 @@ class SearchBar extends React.Component {
       this.fetchSearchLayers(searchTerm);
     } else if (resultType === "properties") {
       console.log("Coming here");
-      this.fetchSearchProperties(searchTerm, page, numberPerPage);
+      this.fetchSearchProperties(searchTerm, page, numberPerPage, propertyType);
     } else if (resultType === "places") {
       this.fetchSearchPlaces(searchTerm, page, numberPerPage);
     } else if (resultType === "addresses") {
@@ -232,17 +239,28 @@ class SearchBar extends React.Component {
     });
   };
 
-  fetchSearchProperties = (searchTerm, page = 0, numberPerPage = 20) => {
+  fetchSearchProperties = (
+    searchTerm,
+    page = 0,
+    numberPerPage = 20,
+    propertyType = ""
+  ) => {
     /* Kommunenummer, gårdsnummer og bruksnummer */
+    this.setState({
+      number_knrgnrbnr: 0,
+      number_knr: 0,
+      number_gnr: 0,
+      number_bnr: 0
+    });
     let knr = null;
     let gnr = null;
     let bnr = null;
-    let number_properties = 0;
 
     if (
-      searchTerm.indexOf("knr") !== -1 ||
-      searchTerm.indexOf("bnr") !== -1 ||
-      searchTerm.indexOf("gnr") !== -1
+      (searchTerm.indexOf("knr") !== -1 ||
+        searchTerm.indexOf("bnr") !== -1 ||
+        searchTerm.indexOf("gnr") !== -1) &&
+      (propertyType === "knrgnrbnr" || propertyType === "")
     ) {
       // Hvis alt er skrevet på ønsket format = direkte oppslag
       let list = searchTerm.split(",");
@@ -259,58 +277,120 @@ class SearchBar extends React.Component {
       backend
         .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
         .then(resultat => {
-          const treffliste_knrgnrbnr =
-            resultat && resultat.adresser ? resultat.adresser : [];
-          number_properties += treffliste_knrgnrbnr.length;
+          // const treffliste_knrgnrbnr =
+          //   resultat && resultat.adresser ? resultat.adresser : [];
+          const number_knrgnrbnr =
+            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
+              ? resultat.metadata.totaltAntallTreff
+              : 0;
           this.setState({
             treffliste_knrgnrbnr: resultat,
             treffliste_knr: null,
             treffliste_gnr: null,
             treffliste_bnr: null,
-            number_properties
+            number_knrgnrbnr,
+            number_knr: 0,
+            number_gnr: 0,
+            number_bnr: 0
           });
         });
-    } else if (!isNaN(searchTerm)) {
+    } else if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
-      backend.hentKommune(searchTerm).then(resultat => {
-        // henter kommune fra ssr
-        if (resultat && resultat["stedsnavn"]) {
-          resultat["stedsnavn"]["knr"] = searchTerm;
+      // Only if there is no page
+      if (page === 0) {
+        backend.hentKommune(searchTerm).then(resultat => {
+          // henter kommune fra ssr
+          if (resultat && resultat["stedsnavn"]) {
+            resultat["stedsnavn"]["knr"] = searchTerm;
+          }
+          const treffliste_knr =
+            resultat && resultat.adresser ? resultat.adresser : [];
+          const number_knr = treffliste_knr.length;
+          this.setState({
+            treffliste_knrgnrbnr: null,
+            treffliste_knr: resultat,
+            number_knrgnrbnr: 0,
+            number_knr
+          });
+          // console.log("number_knr: ", parseInt(number_knr))
+        });
+      }
+      // If there is page, as specified by "propertyType" with
+      // format "gnr=[2:10],bnr=[0:5]" which specifies page and
+      // number per page for each.
+      // If not required, the format will be "gnr=[null:null],bnr=[1:15]"
+      let page_gnr = page;
+      let numberPerPage_gnr = numberPerPage;
+      let page_bnr = page;
+      let numberPerPage_bnr = numberPerPage;
+      if (page !== 0) {
+        const list = propertyType.split(",");
+        for (const type of list) {
+          if (type.includes("gnr")) {
+            const matches = type.match(/\[(.*?)\]/);
+            if (matches) {
+              const results = matches[1].split(":");
+              if (results.length === 2) {
+                page_gnr = results[0];
+                numberPerPage_gnr = results[1];
+              }
+            }
+          }
+          if (type.includes("bnr")) {
+            const matches = type.match(/\[(.*?)\]/);
+            if (matches) {
+              const results = matches[1].split(":");
+              if (results.length === 2) {
+                page_bnr = results[0];
+                numberPerPage_bnr = results[1];
+              }
+            }
+          }
         }
-        const treffliste_knr =
-          resultat && resultat.adresser ? resultat.adresser : [];
-        number_properties += treffliste_knr.length;
-        this.setState({
-          treffliste_knrgnrbnr: null,
-          treffliste_knr: resultat,
-          number_properties
-        });
-      });
-      backend
-        .hentKnrGnrBnr(null, searchTerm, null, page, numberPerPage)
-        .then(resultat => {
-          const treffliste_gnr =
-            resultat && resultat.adresser ? resultat.adresser : [];
-          number_properties += treffliste_gnr.length;
-          this.setState({
-            treffliste_knrgnrbnr: null,
-            treffliste_gnr: resultat,
-            number_properties
+      }
+      if (page_gnr !== "null") {
+        backend
+          .hentKnrGnrBnr(null, searchTerm, null, page_gnr, numberPerPage_gnr)
+          .then(resultat => {
+            this.setState({
+              treffliste_knrgnrbnr: null,
+              treffliste_gnr: resultat,
+              number_knrgnrbnr: 0
+            });
+            if (page === 0) {
+              const number_gnr =
+                resultat &&
+                resultat.metadata &&
+                resultat.metadata.totaltAntallTreff
+                  ? resultat.metadata.totaltAntallTreff
+                  : 0;
+              this.setState({ number_gnr });
+              // console.log("number_gnr: ", parseInt(number_gnr))
+            }
           });
-        });
-      backend
-        .hentKnrGnrBnr(null, null, searchTerm, page, numberPerPage)
-        .then(resultat => {
-          const treffliste_bnr =
-            resultat && resultat.adresser ? resultat.adresser : [];
-          number_properties += treffliste_bnr.length;
-          this.setState({
-            treffliste_knrgnrbnr: null,
-            treffliste_bnr: resultat,
-            number_properties
+      }
+      if (page_bnr !== "null") {
+        backend
+          .hentKnrGnrBnr(null, null, searchTerm, page_bnr, numberPerPage_bnr)
+          .then(resultat => {
+            this.setState({
+              treffliste_knrgnrbnr: null,
+              treffliste_bnr: resultat,
+              number_knrgnrbnr: 0
+            });
+            if (page === 0) {
+              const number_bnr =
+                resultat &&
+                resultat.metadata &&
+                resultat.metadata.totaltAntallTreff
+                  ? resultat.metadata.totaltAntallTreff
+                  : 0;
+              this.setState({ number_bnr });
+              // console.log("number_bnr: ", parseInt(number_bnr))
+            }
           });
-        });
-    } else {
+      }
+    } else if (propertyType === "knrgnrbnr" || propertyType === "") {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
       let numbercheck = searchTerm.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");
@@ -331,15 +411,21 @@ class SearchBar extends React.Component {
         backend
           .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
           .then(resultat => {
-            const treffliste_knrgnrbnr =
-              resultat && resultat.adresser ? resultat.adresser : [];
-            number_properties += treffliste_knrgnrbnr.length;
+            const number_knrgnrbnr =
+              resultat &&
+              resultat.metadata &&
+              resultat.metadata.totaltAntallTreff
+                ? resultat.metadata.totaltAntallTreff
+                : 0;
             this.setState({
               treffliste_knrgnrbnr: resultat,
               treffliste_knr: null,
               treffliste_gnr: null,
               treffliste_bnr: null,
-              number_properties
+              number_knrgnrbnr,
+              number_knr: 0,
+              number_gnr: 0,
+              number_bnr: 0
             });
           });
       } else {
@@ -348,7 +434,10 @@ class SearchBar extends React.Component {
           treffliste_knr: null,
           treffliste_gnr: null,
           treffliste_bnr: null,
-          number_properties
+          number_knrgnrbnr: 0,
+          number_knr: 0,
+          number_gnr: 0,
+          number_bnr: 0
         });
       }
     }
@@ -633,7 +722,10 @@ class SearchBar extends React.Component {
               treffliste_adresse={this.state.treffliste_adresse}
               treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
               number_places={this.state.number_places}
-              number_properties={this.state.number_properties}
+              number_knrgnrbnr={this.state.number_knrgnrbnr}
+              number_knr={this.state.number_knr}
+              number_gnr={this.state.number_gnr}
+              number_bnr={this.state.number_bnr}
               number_addresses={this.state.number_addresses}
               number_layers={this.state.number_layers}
               removeValgtLag={this.props.removeValgtLag}

@@ -17,7 +17,10 @@ const TreffListe = ({
   treffliste_adresse,
   treffliste_knrgnrbnr,
   number_places,
-  number_properties,
+  number_knrgnrbnr,
+  number_knr,
+  number_gnr,
+  number_bnr,
   number_addresses,
   number_layers,
   removeValgtLag,
@@ -58,12 +61,50 @@ const TreffListe = ({
 
   const getNewPage = page => {
     const term = document.getElementById("searchfield").value;
-    if (
-      resultType === "places" ||
-      resultType === "addresses" ||
-      resultType === "properties"
-    ) {
+    if (resultType === "places" || resultType === "addresses") {
       handleSearchBar(term, true, page, pageLength, resultType);
+    }
+    if (resultType === "properties") {
+      const knrgnrbnr = parseInt(number_knrgnrbnr);
+      const knr = parseInt(number_knr);
+      const gnr = parseInt(number_gnr);
+      const bnr = parseInt(number_bnr);
+      console.log("Total: ", knrgnrbnr + knr + gnr + bnr);
+      console.log("Number pages: ", (knrgnrbnr + knr + gnr + bnr) / pageLength);
+      if (page === 0) {
+        handleSearchBar(term, true);
+      } else if (knrgnrbnr > 0) {
+        handleSearchBar(term, true, page, pageLength, resultType);
+      } else {
+        let propertyType = "";
+        if (pageLength * page > knr + gnr) {
+          const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
+          propertyType = `gnr=[null:null],bnr=[${from}:${pageLength}]`;
+        } else if (
+          pageLength * page > knr &&
+          pageLength * (page + 1) < knr + gnr
+        ) {
+          const from = Math.floor((pageLength * page - knr) / pageLength);
+          propertyType = `gnr=[${from}:${pageLength}],bnr=[null:null]`;
+        } else if (
+          pageLength * page > knr &&
+          pageLength * page < knr + gnr &&
+          pageLength * (page + 1) > knr + gnr
+        ) {
+          const from_gnr = Math.floor((pageLength * page - knr) / pageLength);
+          const length_bnr = pageLength - (pageLength * page - knr - gnr);
+          propertyType = `gnr=[${from_gnr}:${pageLength}],bnr=[0:${length_bnr}]`;
+        }
+        // console.log("listLength: ", listLength)
+        // console.log("listLength: ", list)
+        // console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr))
+        // console.log("number_knr: ", parseInt(number_knr))
+        // console.log("number_gnr: ", parseInt(number_gnr))
+        // console.log("number_bnr: ", parseInt(number_bnr))
+        // handleSearchBar(term, true, page, pageLength, resultType, propertyType);
+        handleSearchBar(term, true, page, pageLength, resultType, propertyType);
+        console.log("propertyType: ", propertyType);
+      }
     }
     if (resultType === "layers") {
       let list_items = [];
@@ -90,7 +131,10 @@ const TreffListe = ({
       case "all":
         listLength =
           parseInt(number_places) +
-          parseInt(number_properties) +
+          parseInt(number_knrgnrbnr) +
+          parseInt(number_knr) +
+          parseInt(number_gnr) +
+          parseInt(number_bnr) +
           parseInt(number_addresses) +
           parseInt(number_layers);
         break;
@@ -104,7 +148,11 @@ const TreffListe = ({
         listLength = parseInt(number_addresses);
         break;
       case "properties":
-        listLength = parseInt(number_properties);
+        listLength =
+          parseInt(number_knrgnrbnr) +
+          parseInt(number_knr) +
+          parseInt(number_gnr) +
+          parseInt(number_bnr);
         break;
       default:
         listLength = 0;
@@ -113,7 +161,10 @@ const TreffListe = ({
   }, [
     resultType,
     number_places,
-    number_properties,
+    number_knrgnrbnr,
+    number_knr,
+    number_gnr,
+    number_bnr,
     number_addresses,
     number_layers
   ]);
@@ -300,20 +351,6 @@ const TreffListe = ({
                 </Button>
                 <Button
                   id={
-                    resultType === "properties"
-                      ? "filter-search-button-selected"
-                      : "filter-search-button"
-                  }
-                  color="primary"
-                  onClick={() => {
-                    setResultType("properties");
-                    setPageNumber(1);
-                  }}
-                >
-                  Eiendommer
-                </Button>
-                <Button
-                  id={
                     resultType === "addresses"
                       ? "filter-search-button-selected"
                       : "filter-search-button"
@@ -325,6 +362,20 @@ const TreffListe = ({
                   }}
                 >
                   Adresser
+                </Button>
+                <Button
+                  id={
+                    resultType === "properties"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  color="primary"
+                  onClick={() => {
+                    setResultType("properties");
+                    setPageNumber(1);
+                  }}
+                >
+                  Eiendommer
                 </Button>
               </div>
             </div>
