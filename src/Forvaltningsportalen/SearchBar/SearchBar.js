@@ -182,6 +182,7 @@ class SearchBar extends React.Component {
     searchTerm = searchTerm.toLowerCase();
 
     if (resultType === "all") {
+      console.log("Searching all");
       this.fetchSearchLayers(searchTerm);
       this.fetchSearchProperties(searchTerm);
       this.fetchSearchPlaces(searchTerm, page);
@@ -189,7 +190,7 @@ class SearchBar extends React.Component {
     } else if (resultType === "layers") {
       this.fetchSearchLayers(searchTerm);
     } else if (resultType === "properties") {
-      console.log("Coming here");
+      console.log("Searching properties");
       this.fetchSearchProperties(searchTerm, page, numberPerPage, propertyType);
     } else if (resultType === "places") {
       this.fetchSearchPlaces(searchTerm, page, numberPerPage);
@@ -246,58 +247,65 @@ class SearchBar extends React.Component {
     propertyType = ""
   ) => {
     /* Kommunenummer, gårdsnummer og bruksnummer */
-    this.setState({
-      number_knrgnrbnr: 0,
-      number_knr: 0,
-      number_gnr: 0,
-      number_bnr: 0
-    });
+    if (page === 0) {
+      this.setState({
+        number_knrgnrbnr: 0,
+        number_knr: 0,
+        number_gnr: 0,
+        number_bnr: 0
+      });
+    }
     let knr = null;
     let gnr = null;
     let bnr = null;
+    console.log("propertyType: ", propertyType);
 
-    if (
-      (searchTerm.indexOf("knr") !== -1 ||
-        searchTerm.indexOf("bnr") !== -1 ||
-        searchTerm.indexOf("gnr") !== -1) &&
-      (propertyType === "knrgnrbnr" || propertyType === "")
-    ) {
-      // Hvis alt er skrevet på ønsket format = direkte oppslag
-      let list = searchTerm.split(",");
-      for (let i in list) {
-        if (list[i].indexOf("knr") !== -1) {
-          knr = list[i].split("=")[1];
-        } else if (list[i].indexOf("gnr") !== -1) {
-          gnr = list[i].split("=")[1];
-        } else if (list[i].indexOf("bnr") !== -1) {
-          bnr = list[i].split("=")[1];
-        }
-      }
+    // if (
+    //   (searchTerm.indexOf("knr") !== -1 ||
+    //     searchTerm.indexOf("bnr") !== -1 ||
+    //     searchTerm.indexOf("gnr") !== -1) &&
+    //   (propertyType === "knrgnrbnr" || propertyType === "")
+    // ) {
+    //   console.log("Check 1")
+    //   // Hvis alt er skrevet på ønsket format = direkte oppslag
+    //   let list = searchTerm.split(",");
+    //   for (let i in list) {
+    //     if (list[i].indexOf("knr") !== -1) {
+    //       knr = list[i].split("=")[1];
+    //     } else if (list[i].indexOf("gnr") !== -1) {
+    //       gnr = list[i].split("=")[1];
+    //     } else if (list[i].indexOf("bnr") !== -1) {
+    //       bnr = list[i].split("=")[1];
+    //     }
+    //   }
 
-      backend
-        .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
-        .then(resultat => {
-          // const treffliste_knrgnrbnr =
-          //   resultat && resultat.adresser ? resultat.adresser : [];
-          const number_knrgnrbnr =
-            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
-              ? resultat.metadata.totaltAntallTreff
-              : 0;
-          this.setState({
-            treffliste_knrgnrbnr: resultat,
-            treffliste_knr: null,
-            treffliste_gnr: null,
-            treffliste_bnr: null,
-            number_knrgnrbnr,
-            number_knr: 0,
-            number_gnr: 0,
-            number_bnr: 0
-          });
-        });
-    } else if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
+    //   backend
+    //     .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
+    //     .then(resultat => {
+    //       // const treffliste_knrgnrbnr =
+    //       //   resultat && resultat.adresser ? resultat.adresser : [];
+    //       const number_knrgnrbnr =
+    //         resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
+    //           ? resultat.metadata.totaltAntallTreff
+    //           : 0;
+    //       this.setState({
+    //         treffliste_knrgnrbnr: resultat,
+    //         treffliste_knr: null,
+    //         treffliste_gnr: null,
+    //         treffliste_bnr: null,
+    //         number_knrgnrbnr,
+    //         number_knr: 0,
+    //         number_gnr: 0,
+    //         number_bnr: 0
+    //       });
+    //     });
+    // } else if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
+    if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
+      console.log("Check 2");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       // Only if there is no page
       if (page === 0) {
+        console.log("Searching knr");
         backend.hentKommune(searchTerm).then(resultat => {
           // henter kommune fra ssr
           if (resultat && resultat["stedsnavn"]) {
@@ -314,6 +322,8 @@ class SearchBar extends React.Component {
           });
           // console.log("number_knr: ", parseInt(number_knr))
         });
+      } else {
+        this.setState({ treffliste_knr: null });
       }
       // If there is page, as specified by "propertyType" with
       // format "gnr=[2:10],bnr=[0:5]" which specifies page and
@@ -349,6 +359,7 @@ class SearchBar extends React.Component {
         }
       }
       if (page_gnr !== "null") {
+        console.log("Searching gnr");
         backend
           .hentKnrGnrBnr(null, searchTerm, null, page_gnr, numberPerPage_gnr)
           .then(resultat => {
@@ -368,8 +379,12 @@ class SearchBar extends React.Component {
               // console.log("number_gnr: ", parseInt(number_gnr))
             }
           });
+      } else {
+        this.setState({ treffliste_gnr: null });
       }
+
       if (page_bnr !== "null") {
+        console.log("Searching bnr");
         backend
           .hentKnrGnrBnr(null, null, searchTerm, page_bnr, numberPerPage_bnr)
           .then(resultat => {
@@ -389,6 +404,8 @@ class SearchBar extends React.Component {
               // console.log("number_bnr: ", parseInt(number_bnr))
             }
           });
+      } else {
+        this.setState({ treffliste_bnr: null });
       }
     } else if (propertyType === "knrgnrbnr" || propertyType === "") {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
@@ -398,6 +415,7 @@ class SearchBar extends React.Component {
       numbercheck = numbercheck.replace(/,/g, "-");
       let checknr = numbercheck.replace(/-/g, "");
       if (!isNaN(checknr)) {
+        console.log("Check 3");
         let list = numbercheck.split("-");
         if (list[0]) {
           knr = list[0];
@@ -429,6 +447,7 @@ class SearchBar extends React.Component {
             });
           });
       } else {
+        console.log("Check 4");
         this.setState({
           treffliste_knrgnrbnr: null,
           treffliste_knr: null,

@@ -76,6 +76,9 @@ const TreffListe = ({
       } else if (knrgnrbnr > 0) {
         handleSearchBar(term, true, page, pageLength, resultType);
       } else {
+        // ----------------------------------------------------------- //
+        // ------------------- NOT WORKING YET ----------------------- //
+        // ----------------------------------------------------------- //
         let propertyType = "";
         if (pageLength * page > knr + gnr) {
           const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
@@ -103,7 +106,7 @@ const TreffListe = ({
         // console.log("number_bnr: ", parseInt(number_bnr))
         // handleSearchBar(term, true, page, pageLength, resultType, propertyType);
         handleSearchBar(term, true, page, pageLength, resultType, propertyType);
-        console.log("propertyType: ", propertyType);
+        // console.log("propertyType: ", propertyType);
       }
     }
     if (resultType === "layers") {
@@ -222,6 +225,8 @@ const TreffListe = ({
     list_items = list_items.slice(0, max_list_length);
     list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
     setListItems(list_items);
+    console.log("treffliste_gnr", treffliste_gnr);
+    console.log("treffliste_bnr", treffliste_bnr);
   }, [
     searchTerm,
     searchResultPage,
