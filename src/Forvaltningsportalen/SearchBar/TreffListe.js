@@ -219,14 +219,13 @@ const TreffListe = ({
         "KNR-GNR-BNR",
         "adresser"
       );
+      list_items = addToList(list_items, treffliste_knr, "KNR", "adresser");
       list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
       list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
     }
     list_items = list_items.slice(0, max_list_length);
     list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
     setListItems(list_items);
-    console.log("treffliste_gnr", treffliste_gnr);
-    console.log("treffliste_bnr", treffliste_bnr);
   }, [
     searchTerm,
     searchResultPage,
