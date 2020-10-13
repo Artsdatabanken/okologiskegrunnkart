@@ -262,7 +262,7 @@
 .search-pagination-container {
   display: flex;
   justify-content: center;
-  padding: 15px 10px;
+  padding: 10px 10px 15px 10px;
   z-index: 2;
 }
 @media only screen and (max-width: 768px) {

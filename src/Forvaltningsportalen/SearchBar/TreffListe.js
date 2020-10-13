@@ -62,23 +62,18 @@ const TreffListe = ({
   const getNewPage = page => {
     const term = document.getElementById("searchfield").value;
     if (resultType === "places" || resultType === "addresses") {
-      handleSearchBar(term, true, page, pageLength, resultType);
+      handleSearchBar(term, true, page, pageLength, resultType, "", true);
     }
     if (resultType === "properties") {
       const knrgnrbnr = parseInt(number_knrgnrbnr);
       const knr = parseInt(number_knr);
       const gnr = parseInt(number_gnr);
-      const bnr = parseInt(number_bnr);
-      console.log("Total: ", knrgnrbnr + knr + gnr + bnr);
-      console.log("Number pages: ", (knrgnrbnr + knr + gnr + bnr) / pageLength);
+      // const bnr = parseInt(number_bnr);
       if (page === 0) {
         handleSearchBar(term, true);
       } else if (knrgnrbnr > 0) {
-        handleSearchBar(term, true, page, pageLength, resultType);
+        handleSearchBar(term, true, page, pageLength, resultType, "", true);
       } else {
-        // ----------------------------------------------------------- //
-        // ------------------- NOT WORKING YET ----------------------- //
-        // ----------------------------------------------------------- //
         let propertyType = "";
         if (pageLength * page > knr + gnr) {
           const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
@@ -105,7 +100,15 @@ const TreffListe = ({
         // console.log("number_gnr: ", parseInt(number_gnr))
         // console.log("number_bnr: ", parseInt(number_bnr))
         // handleSearchBar(term, true, page, pageLength, resultType, propertyType);
-        handleSearchBar(term, true, page, pageLength, resultType, propertyType);
+        handleSearchBar(
+          term,
+          true,
+          page,
+          pageLength,
+          resultType,
+          propertyType,
+          true
+        );
         // console.log("propertyType: ", propertyType);
       }
     }
@@ -119,6 +122,13 @@ const TreffListe = ({
     }
   };
 
+  // Reset page number if search term changes
+  useEffect(() => {
+    setPageNumber(1);
+  }, [searchTerm]);
+
+  // Update number of pages when the number of element
+  // or number of elements per page change
   useEffect(() => {
     if (listLength === 0 || pageLength === 0) {
       setNumberPages(0);
@@ -128,6 +138,7 @@ const TreffListe = ({
     }
   }, [listLength, pageLength]);
 
+  // Update list length in result list when list or results type changes
   useEffect(() => {
     let listLength = 0;
     switch (resultType) {
@@ -172,9 +183,10 @@ const TreffListe = ({
     number_layers
   ]);
 
+  // Update elements in the list
   useEffect(() => {
     let list_items = [];
-    const min_list_length = isMobile ? 6 : 8;
+    const min_list_length = 1;
     let max_list_length = isMobile ? 8 : 10;
     // const max_list_length = 10;
 
@@ -189,9 +201,9 @@ const TreffListe = ({
     } else {
       let nRows = max_list_length;
       if (isMobile) {
-        nRows = Math.floor((windowHeight - 84 - 60) / 55);
+        nRows = Math.floor((windowHeight - 84 - 40) / 55);
       } else {
-        nRows = Math.floor((windowHeight - 136 - 60) / 55);
+        nRows = Math.floor((windowHeight - 136 - 40) / 55);
       }
       max_list_length = Math.max(nRows, min_list_length);
     }
@@ -393,102 +405,100 @@ const TreffListe = ({
             : "search-results-compact"
         }
       >
-        <div>
-          <ul
-            className={
-              searchResultPage ? "treffliste searchresultpage" : "treffliste"
+        <ul
+          className={
+            searchResultPage ? "treffliste searchresultpage" : "treffliste"
+          }
+          id="treffliste"
+          onKeyDown={e => {
+            if (e.keyCode === 40 || e.keyCode === 38) {
+              e.preventDefault();
             }
-            id="treffliste"
-            onKeyDown={e => {
-              if (e.keyCode === 40 || e.keyCode === 38) {
-                e.preventDefault();
+          }}
+        >
+          {listItems &&
+            listItems.map((item, index) => {
+              let itemname = item.adressetekst || "";
+              let trefftype = item.trefftype || "annet treff";
+              let itemtype = item.navnetype || "";
+              let itemnr = "";
+              if (item.trefftype === "Kommune") {
+                itemname = item.kommunenavn || "finner ikke kommunenavnet";
+                itemnr = item.knr || "";
+              } else if (item.trefftype === "Kartlag") {
+                itemname = item.tittel;
+                itemnr = item.tema || "Kartlag";
+              } else if (item.trefftype === "Underlag") {
+                itemname = item.tittel;
+                itemnr = item.tema || "Underlag";
+              } else if (item.trefftype === "Stedsnavn") {
+                itemname = item.stedsnavn || "finner ikke stedsnavn";
+                itemtype = item.navnetype || "";
+                itemnr = item.ssrId || "";
               }
-            }}
-          >
-            {listItems &&
-              listItems.map((item, index) => {
-                let itemname = item.adressetekst || "";
-                let trefftype = item.trefftype || "annet treff";
-                let itemtype = item.navnetype || "";
-                let itemnr = "";
-                if (item.trefftype === "Kommune") {
-                  itemname = item.kommunenavn || "finner ikke kommunenavnet";
-                  itemnr = item.knr || "";
-                } else if (item.trefftype === "Kartlag") {
-                  itemname = item.tittel;
-                  itemnr = item.tema || "Kartlag";
-                } else if (item.trefftype === "Underlag") {
-                  itemname = item.tittel;
-                  itemnr = item.tema || "Underlag";
-                } else if (item.trefftype === "Stedsnavn") {
-                  itemname = item.stedsnavn || "finner ikke stedsnavn";
-                  itemtype = item.navnetype || "";
-                  itemnr = item.ssrId || "";
-                }
 
-                return (
-                  <li
-                    id={index}
-                    key={index}
-                    tabIndex="0"
-                    className="searchbar_item"
-                    onKeyDown={e => {
-                      if (e.keyCode === 13) {
-                        onActivate(item, trefftype);
-                      } else {
-                        movefocus(e, index);
-                      }
-                    }}
-                    onClick={() => {
+              return (
+                <li
+                  id={index}
+                  key={index}
+                  tabIndex="0"
+                  className="searchbar_item"
+                  onKeyDown={e => {
+                    if (e.keyCode === 13) {
                       onActivate(item, trefftype);
-                    }}
-                  >
-                    <div className="searchlist-item-wrapper">
-                      <span className="itemname">{itemname} </span>
-                      <span className="itemtype">
-                        {trefftype}
-                        {trefftype === "Stedsnavn" ? (
-                          <>{`, ${itemtype} i ${item.kommunenavn}`} </>
-                        ) : (
-                          <>
-                            {""} {item.postnummer} {item.poststed}
-                          </>
-                        )}
-                      </span>
-                      <span className="itemnr">
-                        {trefftype === "Kommune" ||
-                        trefftype === "Stedsnavn" ||
-                        trefftype === "Kartlag" ||
-                        trefftype === "Underlag" ? (
-                          <>{itemnr}</>
-                        ) : (
-                          <>
-                            {trefftype === "KNR" ? (
-                              <b>{item.kommunenummer}</b>
-                            ) : (
-                              <>{item.kommunenummer}</>
-                            )}
-                            -
-                            {trefftype === "GNR" ? (
-                              <b>{item.gardsnummer}</b>
-                            ) : (
-                              <>{item.gardsnummer}</>
-                            )}
-                            -
-                            {trefftype === "BNR" ? (
-                              <b>{item.bruksnummer}</b>
-                            ) : (
-                              <>{item.bruksnummer}</>
-                            )}
-                          </>
-                        )}
-                      </span>
-                    </div>
-                  </li>
-                );
-              })}
-          </ul>
-        </div>
+                    } else {
+                      movefocus(e, index);
+                    }
+                  }}
+                  onClick={() => {
+                    onActivate(item, trefftype);
+                  }}
+                >
+                  <div className="searchlist-item-wrapper">
+                    <span className="itemname">{itemname} </span>
+                    <span className="itemtype">
+                      {trefftype}
+                      {trefftype === "Stedsnavn" ? (
+                        <>{`, ${itemtype} i ${item.kommunenavn}`} </>
+                      ) : (
+                        <>
+                          {""} {item.postnummer} {item.poststed}
+                        </>
+                      )}
+                    </span>
+                    <span className="itemnr">
+                      {trefftype === "Kommune" ||
+                      trefftype === "Stedsnavn" ||
+                      trefftype === "Kartlag" ||
+                      trefftype === "Underlag" ? (
+                        <>{itemnr}</>
+                      ) : (
+                        <>
+                          {trefftype === "KNR" ? (
+                            <b>{item.kommunenummer}</b>
+                          ) : (
+                            <>{item.kommunenummer}</>
+                          )}
+                          -
+                          {trefftype === "GNR" ? (
+                            <b>{item.gardsnummer}</b>
+                          ) : (
+                            <>{item.gardsnummer}</>
+                          )}
+                          -
+                          {trefftype === "BNR" ? (
+                            <b>{item.bruksnummer}</b>
+                          ) : (
+                            <>{item.bruksnummer}</>
+                          )}
+                        </>
+                      )}
+                    </span>
+                  </div>
+                </li>
+              );
+            })}
+        </ul>
         {searchResultPage && numberPages > 0 && (
           <div className="search-pagination-container">
             <Pagination

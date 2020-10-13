@@ -144,7 +144,8 @@ class SearchBar extends React.Component {
     page = 0,
     numberPerPage = 20,
     resultType = "all",
-    propertyType = ""
+    propertyType = "",
+    forceSearch = false
   ) => {
     let searchTerm = term ? term.trim() : null;
     if (!searchTerm) {
@@ -165,11 +166,15 @@ class SearchBar extends React.Component {
     searchTerm = searchTerm.replace(/\[/g, " ").replace(/\]/g, " ");
     searchTerm = searchTerm.replace(/  +/g, " ").trim();
 
+    // If no change in search term, return same results
+    let search = true;
+    if (this.state.searchTerm === searchTerm) search = false;
+
     if (resultpage) {
       this.props.onSelectSearchResult(true);
       this.setState({
         isSearching: false,
-        searchTerm: null,
+        searchTerm: searchTerm,
         countermax: 15
       });
     } else {
@@ -179,6 +184,9 @@ class SearchBar extends React.Component {
         countermax: 50
       });
     }
+    // DCo not search in no relevant change has happened
+    // i.e., either new search term or page change (force search)
+    if (!search && !forceSearch) return;
     searchTerm = searchTerm.toLowerCase();
 
     if (resultType === "all") {
@@ -258,7 +266,6 @@ class SearchBar extends React.Component {
     let knr = null;
     let gnr = null;
     let bnr = null;
-    console.log("propertyType: ", propertyType);
 
     // if (
     //   (searchTerm.indexOf("knr") !== -1 ||
