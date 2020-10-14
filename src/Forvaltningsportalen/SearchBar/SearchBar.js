@@ -33,6 +33,7 @@ class SearchBar extends React.Component {
     anchorEl: null,
     number_places: 0,
     number_knrgnrbnr: 0,
+    number_kommune: 0,
     number_knr: 0,
     number_gnr: 0,
     number_bnr: 0,
@@ -53,6 +54,7 @@ class SearchBar extends React.Component {
       treffliste_adresse: null,
       number_places: 0,
       number_knrgnrbnr: 0,
+      number_kommune: 0,
       number_knr: 0,
       number_gnr: 0,
       number_bnr: 0,
@@ -136,8 +138,10 @@ class SearchBar extends React.Component {
   };
 
   handleSearchButton = () => {
-    this.handleSearchBar(document.getElementById("searchfield").value, true);
-    // document.getElementById("searchfield").value = "";
+    const term = document.getElementById("searchfield").value;
+    this.setState({ searchTerm: null }, () => {
+      this.handleSearchBar(term, true);
+    });
   };
 
   handleSearchBar = (
@@ -282,18 +286,18 @@ class SearchBar extends React.Component {
           }
           const treffliste_kommune =
             resultat && resultat.stedsnavn ? resultat.stedsnavn : [];
-          const number_knr = Array.isArray(treffliste_kommune)
+          const number_kommune = Array.isArray(treffliste_kommune)
             ? treffliste_kommune.length
             : 1;
           this.setState({
             treffliste_knrgnrbnr: null,
             treffliste_kommune: resultat,
             number_knrgnrbnr: 0,
-            number_knr
+            number_kommune
           });
-          console.log("treffliste_kommune", treffliste_kommune);
-          console.log("number_knr: ", number_knr);
-          // console.log("number_knr: ", parseInt(number_knr))
+          // console.log("treffliste_kommune", treffliste_kommune);
+          // console.log("number_kommune: ", number_kommune);
+          // console.log("number_knr: ", parseInt(number_kommune))
         });
       } else {
         this.setState({ treffliste_kommune: null });
@@ -302,19 +306,55 @@ class SearchBar extends React.Component {
       // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
       // which specifies page and number of items per page for each.
       // If not required, the page and number are null
+      let page_knr = page;
+      let numberPerPage_knr = numberPerPage;
       let page_gnr = page;
       let numberPerPage_gnr = numberPerPage;
       let page_bnr = page;
       let numberPerPage_bnr = numberPerPage;
       if (page !== 0 && propertyType && JSON.stringify(propertyType) !== "{}") {
-        page_gnr = propertyType.bnr.page;
-        numberPerPage_gnr = propertyType.bnr.number;
-        page_bnr = propertyType.gnr.page;
-        numberPerPage_bnr = propertyType.gnr.number;
+        page_knr = propertyType.knr.page;
+        numberPerPage_knr = propertyType.knr.number;
+        page_gnr = propertyType.gnr.page;
+        numberPerPage_gnr = propertyType.gnr.number;
+        page_bnr = propertyType.bnr.page;
+        numberPerPage_bnr = propertyType.bnr.number;
       }
 
       console.log("propertyType;: ", propertyType);
-      console.log(page_gnr, numberPerPage_gnr, page_bnr, numberPerPage_bnr);
+      console.log(
+        page_knr,
+        numberPerPage_knr,
+        page_gnr,
+        numberPerPage_gnr,
+        page_bnr,
+        numberPerPage_bnr
+      );
+
+      if (page_knr !== null) {
+        console.log("Searching knr");
+        backend
+          .hentKnrGnrBnr(searchTerm, null, null, page_knr, numberPerPage_knr)
+          .then(resultat => {
+            this.setState({
+              treffliste_knrgnrbnr: null,
+              treffliste_knr: resultat,
+              number_knrgnrbnr: 0
+            });
+            if (page === 0) {
+              const number_knr =
+                resultat &&
+                resultat.metadata &&
+                resultat.metadata.totaltAntallTreff
+                  ? resultat.metadata.totaltAntallTreff
+                  : 0;
+              this.setState({ number_knr });
+              // console.log("number_knr: ", parseInt(number_knr))
+            }
+          });
+      } else {
+        this.setState({ treffliste_knr: null });
+      }
 
       if (page_gnr !== null) {
         console.log("Searching gnr");
@@ -705,6 +745,7 @@ class SearchBar extends React.Component {
               treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
               number_places={this.state.number_places}
               number_knrgnrbnr={this.state.number_knrgnrbnr}
+              number_kommune={this.state.number_kommune}
               number_knr={this.state.number_knr}
               number_gnr={this.state.number_gnr}
               number_bnr={this.state.number_bnr}

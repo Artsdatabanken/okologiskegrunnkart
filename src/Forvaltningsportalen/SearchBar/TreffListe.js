@@ -19,6 +19,7 @@ const TreffListe = ({
   treffliste_knrgnrbnr,
   number_places,
   number_knrgnrbnr,
+  number_kommune,
   number_knr,
   number_gnr,
   number_bnr,
@@ -36,10 +37,13 @@ const TreffListe = ({
 }) => {
   const [listItems, setListItems] = useState([]);
   const [resultType, setResultType] = useState("all");
-  const [listLength, setListLength] = useState(0);
+  // const [listLength, setListLength] = useState(0);
   const [pageLength, setPageLength] = useState(0);
   const [numberPages, setNumberPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
+  const [knr, setKnr] = useState(parseInt(number_knr));
+  const [gnr, setGnr] = useState(parseInt(number_gnr));
+  const [bnr, setBnr] = useState(parseInt(number_bnr));
 
   const addToList = (list_items, inputlist, type, criteria) => {
     if (inputlist) {
@@ -73,12 +77,11 @@ const TreffListe = ({
         handleSearchBar(term, true, page, pageLength, resultType, "", true);
       } else {
         const propertyType = getPropertyPage(page);
-        // console.log("listLength: ", listLength)
-        // console.log("listLength: ", list)
-        // console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr))
-        // console.log("number_knr: ", parseInt(number_knr))
-        // console.log("number_gnr: ", parseInt(number_gnr))
-        // console.log("number_bnr: ", parseInt(number_bnr))
+        console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr));
+        console.log("number_kommune: ", parseInt(number_kommune));
+        console.log("knr: ", knr);
+        console.log("gnr: ", gnr);
+        console.log("bnr: ", bnr);
         // handleSearchBar(term, true, page, pageLength, resultType, propertyType);
         handleSearchBar(
           term,
@@ -102,32 +105,46 @@ const TreffListe = ({
     }
   };
 
-  const getPropertyPage = page => {
-    const knr = parseInt(number_knr);
-    const gnr = parseInt(number_gnr);
+  const getPropertyPage = pageAPI => {
+    // NOTE: page in API starts from 0, while page in Pagination starts from 1
+    const page = pageAPI + 1;
+    // const knr = parseInt(number_knr);
+    // const gnr = parseInt(number_gnr);
+    // const bnr = parseInt(number_bnr);
     let propertyType = {};
-    if (pageLength * page > knr + gnr) {
-      const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
+    if (page <= Math.ceil(knr / pageLength)) {
+      // Only knr
+      const from = page - 1;
       propertyType = {
+        knr: { page: from, number: pageLength },
         gnr: { page: null, number: null },
-        bnr: { page: from, number: pageLength }
+        bnr: { page: null, number: null }
       };
-    } else if (pageLength * page > knr && pageLength * (page + 1) < knr + gnr) {
-      const from = Math.floor((pageLength * page - knr) / pageLength);
+    } else if (
+      page > Math.ceil(knr / pageLength) &&
+      page <= Math.ceil(knr / pageLength) + Math.ceil(gnr / pageLength)
+    ) {
+      // Only gnr
+      const from = page - 1 - Math.ceil(knr / pageLength);
       propertyType = {
+        knr: { page: null, number: null },
         gnr: { page: from, number: pageLength },
         bnr: { page: null, number: null }
       };
     } else if (
-      pageLength * page > knr &&
-      pageLength * page < knr + gnr &&
-      pageLength * (page + 1) > knr + gnr
+      page >
+      Math.ceil(knr / pageLength) + Math.ceil(gnr / pageLength)
     ) {
-      const from_gnr = Math.floor((pageLength * page - knr) / pageLength);
-      const length_bnr = pageLength - (pageLength * page - knr - gnr);
+      // Only bnr
+      const from =
+        page - 1 - Math.ceil(knr / pageLength) - Math.ceil(gnr / pageLength);
+      console.log("Calc 1: ", page - 1);
+      console.log("Calc 2: ", Math.floor(knr / pageLength));
+      console.log("Calc 3: ", Math.floor(gnr / pageLength));
       propertyType = {
-        gnr: { page: from_gnr, number: pageLength },
-        bnr: { page: 0, number: length_bnr }
+        knr: { page: null, number: null },
+        gnr: { page: null, number: null },
+        bnr: { page: from, number: pageLength }
       };
     }
     return propertyType;
@@ -138,60 +155,100 @@ const TreffListe = ({
     setPageNumber(1);
   }, [searchTerm]);
 
-  // Update number of pages when the number of element
-  // or number of elements per page change
+  // Update number of knr so we don't request more than 10000
+  // (this will cause an error with the last page)
   useEffect(() => {
-    if (listLength === 0 || pageLength === 0) {
-      setNumberPages(0);
+    let number = parseInt(number_knr);
+    if (number >= 10000) {
+      const pages = Math.floor(number / pageLength);
+      const newNumber = pages * pageLength;
+      setKnr(newNumber);
     } else {
-      const pages = Math.ceil(listLength / pageLength);
-      setNumberPages(pages);
+      setKnr(number);
     }
-  }, [listLength, pageLength]);
+  }, [number_knr, pageLength]);
+
+  // Update number of gnr so we don't request more than 10000
+  // (this will cause an error with the last page)
+  useEffect(() => {
+    let number = parseInt(number_gnr);
+    if (number >= 10000) {
+      const pages = Math.floor(number / pageLength);
+      const newNumber = pages * pageLength;
+      setGnr(newNumber);
+    } else {
+      setGnr(number);
+    }
+  }, [number_gnr, pageLength]);
+
+  // Update number of bnr so we don't request more than 10000
+  // (this will cause an error with the last page)
+  useEffect(() => {
+    let number = parseInt(number_bnr);
+    if (number >= 10000) {
+      const pages = Math.floor(number / pageLength);
+      const newNumber = pages * pageLength;
+      setBnr(newNumber);
+    } else {
+      setBnr(number);
+    }
+  }, [number_bnr, pageLength]);
 
   // Update list length in result list when list or results type changes
   useEffect(() => {
     let listLength = 0;
+    let pages = 0;
     switch (resultType) {
       case "all":
         listLength =
           parseInt(number_places) +
           parseInt(number_knrgnrbnr) +
-          parseInt(number_knr) +
-          parseInt(number_gnr) +
-          parseInt(number_bnr) +
+          // parseInt(number_kommune) +
+          knr +
+          gnr +
+          bnr +
           parseInt(number_addresses) +
           parseInt(number_layers);
+        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
         break;
       case "layers":
-        listLength = parseInt(number_layers);
+        listLength = parseInt(number_layers) || 0;
+        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
         break;
       case "places":
         listLength = parseInt(number_places);
+        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
         break;
       case "addresses":
         listLength = parseInt(number_addresses);
+        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
         break;
       case "properties":
-        listLength =
-          parseInt(number_knrgnrbnr) +
-          parseInt(number_knr) +
-          parseInt(number_gnr) +
-          parseInt(number_bnr);
+        listLength = parseInt(number_knrgnrbnr);
+        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = knr;
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = gnr;
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = bnr;
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
         break;
       default:
-        listLength = 0;
+        pages = 1;
     }
-    setListLength(listLength);
+    if (!pages || pages === 0) pages = 1;
+    setNumberPages(pages);
   }, [
     resultType,
     number_places,
     number_knrgnrbnr,
-    number_knr,
-    number_gnr,
-    number_bnr,
+    number_kommune,
+    knr,
+    gnr,
+    bnr,
     number_addresses,
-    number_layers
+    number_layers,
+    pageLength
   ]);
 
   // Update elements in the list
@@ -242,7 +299,7 @@ const TreffListe = ({
         "KNR-GNR-BNR",
         "adresser"
       );
-      // list_items = addToList(list_items, treffliste_knr, "KNR", "adresser");
+      list_items = addToList(list_items, treffliste_knr, "KNR", "adresser");
       list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
       list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
     }
