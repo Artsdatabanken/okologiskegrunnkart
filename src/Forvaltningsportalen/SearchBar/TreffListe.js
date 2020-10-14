@@ -11,6 +11,7 @@ const TreffListe = ({
   treffliste_lag,
   treffliste_underlag,
   treffliste_sted,
+  treffliste_kommune,
   treffliste_knr,
   treffliste_gnr,
   treffliste_bnr,
@@ -66,33 +67,12 @@ const TreffListe = ({
     }
     if (resultType === "properties") {
       const knrgnrbnr = parseInt(number_knrgnrbnr);
-      const knr = parseInt(number_knr);
-      const gnr = parseInt(number_gnr);
-      // const bnr = parseInt(number_bnr);
       if (page === 0) {
-        handleSearchBar(term, true);
+        handleSearchBar(term, true, 0, 20, resultType, "", true);
       } else if (knrgnrbnr > 0) {
         handleSearchBar(term, true, page, pageLength, resultType, "", true);
       } else {
-        let propertyType = "";
-        if (pageLength * page > knr + gnr) {
-          const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
-          propertyType = `gnr=[null:null],bnr=[${from}:${pageLength}]`;
-        } else if (
-          pageLength * page > knr &&
-          pageLength * (page + 1) < knr + gnr
-        ) {
-          const from = Math.floor((pageLength * page - knr) / pageLength);
-          propertyType = `gnr=[${from}:${pageLength}],bnr=[null:null]`;
-        } else if (
-          pageLength * page > knr &&
-          pageLength * page < knr + gnr &&
-          pageLength * (page + 1) > knr + gnr
-        ) {
-          const from_gnr = Math.floor((pageLength * page - knr) / pageLength);
-          const length_bnr = pageLength - (pageLength * page - knr - gnr);
-          propertyType = `gnr=[${from_gnr}:${pageLength}],bnr=[0:${length_bnr}]`;
-        }
+        const propertyType = getPropertyPage(page);
         // console.log("listLength: ", listLength)
         // console.log("listLength: ", list)
         // console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr))
@@ -120,6 +100,37 @@ const TreffListe = ({
       list_items = list_items.filter(item => item.trefftype !== "Søkeelement");
       setListItems(list_items);
     }
+  };
+
+  const getPropertyPage = page => {
+    const knr = parseInt(number_knr);
+    const gnr = parseInt(number_gnr);
+    let propertyType = {};
+    if (pageLength * page > knr + gnr) {
+      const from = Math.floor((pageLength * page - knr - gnr) / pageLength);
+      propertyType = {
+        gnr: { page: null, number: null },
+        bnr: { page: from, number: pageLength }
+      };
+    } else if (pageLength * page > knr && pageLength * (page + 1) < knr + gnr) {
+      const from = Math.floor((pageLength * page - knr) / pageLength);
+      propertyType = {
+        gnr: { page: from, number: pageLength },
+        bnr: { page: null, number: null }
+      };
+    } else if (
+      pageLength * page > knr &&
+      pageLength * page < knr + gnr &&
+      pageLength * (page + 1) > knr + gnr
+    ) {
+      const from_gnr = Math.floor((pageLength * page - knr) / pageLength);
+      const length_bnr = pageLength - (pageLength * page - knr - gnr);
+      propertyType = {
+        gnr: { page: from_gnr, number: pageLength },
+        bnr: { page: 0, number: length_bnr }
+      };
+    }
+    return propertyType;
   };
 
   // Reset page number if search term changes
@@ -215,8 +226,8 @@ const TreffListe = ({
     }
     if (resultType === "all" || resultType === "places") {
       list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
-      if (treffliste_knr && treffliste_knr.stedsnavn) {
-        let knr = treffliste_knr.stedsnavn;
+      if (treffliste_kommune && treffliste_kommune.stedsnavn) {
+        let knr = treffliste_kommune.stedsnavn;
         knr["trefftype"] = "Kommune";
         list_items = list_items.concat(knr);
       }
@@ -231,7 +242,7 @@ const TreffListe = ({
         "KNR-GNR-BNR",
         "adresser"
       );
-      list_items = addToList(list_items, treffliste_knr, "KNR", "adresser");
+      // list_items = addToList(list_items, treffliste_knr, "KNR", "adresser");
       list_items = addToList(list_items, treffliste_gnr, "GNR", "adresser");
       list_items = addToList(list_items, treffliste_bnr, "BNR", "adresser");
     }
@@ -245,6 +256,7 @@ const TreffListe = ({
     treffliste_underlag,
     treffliste_sted,
     treffliste_knrgnrbnr,
+    treffliste_kommune,
     treffliste_knr,
     treffliste_gnr,
     treffliste_bnr,

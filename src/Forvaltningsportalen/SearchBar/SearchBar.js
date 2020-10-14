@@ -21,6 +21,7 @@ class SearchBar extends React.Component {
     kommuner: null,
     isSearching: false,
     treffliste_knrgnrbnr: null,
+    treffliste_kommune: null,
     treffliste_knr: null,
     treffliste_gnr: null,
     treffliste_bnr: null,
@@ -45,6 +46,7 @@ class SearchBar extends React.Component {
       treffliste_lag: null,
       isSearching: false,
       treffliste_knrgnrbnr: null,
+      treffliste_kommune: null,
       treffliste_knr: null,
       treffliste_gnr: null,
       treffliste_bnr: null,
@@ -267,105 +269,54 @@ class SearchBar extends React.Component {
     let gnr = null;
     let bnr = null;
 
-    // if (
-    //   (searchTerm.indexOf("knr") !== -1 ||
-    //     searchTerm.indexOf("bnr") !== -1 ||
-    //     searchTerm.indexOf("gnr") !== -1) &&
-    //   (propertyType === "knrgnrbnr" || propertyType === "")
-    // ) {
-    //   console.log("Check 1")
-    //   // Hvis alt er skrevet på ønsket format = direkte oppslag
-    //   let list = searchTerm.split(",");
-    //   for (let i in list) {
-    //     if (list[i].indexOf("knr") !== -1) {
-    //       knr = list[i].split("=")[1];
-    //     } else if (list[i].indexOf("gnr") !== -1) {
-    //       gnr = list[i].split("=")[1];
-    //     } else if (list[i].indexOf("bnr") !== -1) {
-    //       bnr = list[i].split("=")[1];
-    //     }
-    //   }
-
-    //   backend
-    //     .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
-    //     .then(resultat => {
-    //       // const treffliste_knrgnrbnr =
-    //       //   resultat && resultat.adresser ? resultat.adresser : [];
-    //       const number_knrgnrbnr =
-    //         resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
-    //           ? resultat.metadata.totaltAntallTreff
-    //           : 0;
-    //       this.setState({
-    //         treffliste_knrgnrbnr: resultat,
-    //         treffliste_knr: null,
-    //         treffliste_gnr: null,
-    //         treffliste_bnr: null,
-    //         number_knrgnrbnr,
-    //         number_knr: 0,
-    //         number_gnr: 0,
-    //         number_bnr: 0
-    //       });
-    //     });
-    // } else if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
     if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
       console.log("Check 2");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
-      // Only if there is no page
+      // Only if there is no page, search for kommune
       if (page === 0) {
-        console.log("Searching knr");
+        console.log("Searching kommune");
         backend.hentKommune(searchTerm).then(resultat => {
           // henter kommune fra ssr
           if (resultat && resultat["stedsnavn"]) {
             resultat["stedsnavn"]["knr"] = searchTerm;
           }
-          const treffliste_knr =
-            resultat && resultat.adresser ? resultat.adresser : [];
-          const number_knr = treffliste_knr.length;
+          const treffliste_kommune =
+            resultat && resultat.stedsnavn ? resultat.stedsnavn : [];
+          const number_knr = Array.isArray(treffliste_kommune)
+            ? treffliste_kommune.length
+            : 1;
           this.setState({
             treffliste_knrgnrbnr: null,
-            treffliste_knr: resultat,
+            treffliste_kommune: resultat,
             number_knrgnrbnr: 0,
             number_knr
           });
+          console.log("treffliste_kommune", treffliste_kommune);
+          console.log("number_knr: ", number_knr);
           // console.log("number_knr: ", parseInt(number_knr))
         });
       } else {
-        this.setState({ treffliste_knr: null });
+        this.setState({ treffliste_kommune: null });
       }
-      // If there is page, as specified by "propertyType" with
-      // format "gnr=[2:10],bnr=[0:5]" which specifies page and
-      // number per page for each.
-      // If not required, the format will be "gnr=[null:null],bnr=[1:15]"
+      // If there is page, as specified by "propertyType" with format
+      // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
+      // which specifies page and number of items per page for each.
+      // If not required, the page and number are null
       let page_gnr = page;
       let numberPerPage_gnr = numberPerPage;
       let page_bnr = page;
       let numberPerPage_bnr = numberPerPage;
-      if (page !== 0) {
-        const list = propertyType.split(",");
-        for (const type of list) {
-          if (type.includes("gnr")) {
-            const matches = type.match(/\[(.*?)\]/);
-            if (matches) {
-              const results = matches[1].split(":");
-              if (results.length === 2) {
-                page_gnr = results[0];
-                numberPerPage_gnr = results[1];
-              }
-            }
-          }
-          if (type.includes("bnr")) {
-            const matches = type.match(/\[(.*?)\]/);
-            if (matches) {
-              const results = matches[1].split(":");
-              if (results.length === 2) {
-                page_bnr = results[0];
-                numberPerPage_bnr = results[1];
-              }
-            }
-          }
-        }
+      if (page !== 0 && propertyType && JSON.stringify(propertyType) !== "{}") {
+        page_gnr = propertyType.bnr.page;
+        numberPerPage_gnr = propertyType.bnr.number;
+        page_bnr = propertyType.gnr.page;
+        numberPerPage_bnr = propertyType.gnr.number;
       }
-      if (page_gnr !== "null") {
+
+      console.log("propertyType;: ", propertyType);
+      console.log(page_gnr, numberPerPage_gnr, page_bnr, numberPerPage_bnr);
+
+      if (page_gnr !== null) {
         console.log("Searching gnr");
         backend
           .hentKnrGnrBnr(null, searchTerm, null, page_gnr, numberPerPage_gnr)
@@ -390,7 +341,7 @@ class SearchBar extends React.Component {
         this.setState({ treffliste_gnr: null });
       }
 
-      if (page_bnr !== "null") {
+      if (page_bnr !== null) {
         console.log("Searching bnr");
         backend
           .hentKnrGnrBnr(null, null, searchTerm, page_bnr, numberPerPage_bnr)
@@ -746,6 +697,7 @@ class SearchBar extends React.Component {
               treffliste_lag={this.state.treffliste_lag}
               treffliste_underlag={this.state.treffliste_underlag}
               treffliste_sted={this.state.treffliste_sted}
+              treffliste_kommune={this.state.treffliste_kommune}
               treffliste_knr={this.state.treffliste_knr}
               treffliste_gnr={this.state.treffliste_gnr}
               treffliste_bnr={this.state.treffliste_bnr}
