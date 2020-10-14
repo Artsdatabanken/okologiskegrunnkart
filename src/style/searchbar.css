@@ -91,8 +91,8 @@
   .search-results-container {
     top: 84px;
     max-width: 100%;
-    height: calc(100vh - 84px);
-    max-height: calc(100vh - 84px);
+    height: calc(100vh - 84px + 150px);
+    max-height: calc(100vh - 84px + 150px);
     padding-bottom: 150px;
   }
 }
@@ -119,6 +119,7 @@
 }
 @media only screen and (max-width: 768px) {
   .treffliste {
+    /* max-height: min(80vh, 520px); */
     max-height: 80vh;
   }
   .searchbar {
@@ -238,8 +239,8 @@
   .treffliste.searchresultpage {
     top: 84px;
     max-width: 100%;
-    height: calc(100vh - 84px);
-    max-height: calc(100vh - 84px);
+    /* height: calc(100vh - 84px);
+    max-height: calc(100vh - 84px); */
     /* padding-bottom: 150px; */
   }
 }

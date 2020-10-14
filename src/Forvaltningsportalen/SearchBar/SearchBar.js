@@ -150,7 +150,7 @@ class SearchBar extends React.Component {
     page = 0,
     numberPerPage = 20,
     resultType = "all",
-    propertyType = "",
+    pageDistribution = "",
     forceSearch = false
   ) => {
     let searchTerm = term ? term.trim() : null;
@@ -205,7 +205,12 @@ class SearchBar extends React.Component {
       this.fetchSearchLayers(searchTerm);
     } else if (resultType === "properties") {
       console.log("Searching properties");
-      this.fetchSearchProperties(searchTerm, page, numberPerPage, propertyType);
+      this.fetchSearchProperties(
+        searchTerm,
+        page,
+        numberPerPage,
+        pageDistribution
+      );
     } else if (resultType === "places") {
       this.fetchSearchPlaces(searchTerm, page, numberPerPage);
     } else if (resultType === "addresses") {
@@ -258,7 +263,7 @@ class SearchBar extends React.Component {
     searchTerm,
     page = 0,
     numberPerPage = 20,
-    propertyType = ""
+    pageDistribution = ""
   ) => {
     /* Kommunenummer, gårdsnummer og bruksnummer */
     if (page === 0) {
@@ -273,7 +278,7 @@ class SearchBar extends React.Component {
     let gnr = null;
     let bnr = null;
 
-    if (!isNaN(searchTerm) && propertyType !== "knrgnrbnr") {
+    if (!isNaN(searchTerm) && pageDistribution !== "knrgnrbnr") {
       console.log("Check 2");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       // Only if there is no page, search for kommune
@@ -302,7 +307,7 @@ class SearchBar extends React.Component {
       } else {
         this.setState({ treffliste_kommune: null });
       }
-      // If there is page, as specified by "propertyType" with format
+      // If there is page, as specified by "pageDistribution" with format
       // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
       // which specifies page and number of items per page for each.
       // If not required, the page and number are null
@@ -312,16 +317,20 @@ class SearchBar extends React.Component {
       let numberPerPage_gnr = numberPerPage;
       let page_bnr = page;
       let numberPerPage_bnr = numberPerPage;
-      if (page !== 0 && propertyType && JSON.stringify(propertyType) !== "{}") {
-        page_knr = propertyType.knr.page;
-        numberPerPage_knr = propertyType.knr.number;
-        page_gnr = propertyType.gnr.page;
-        numberPerPage_gnr = propertyType.gnr.number;
-        page_bnr = propertyType.bnr.page;
-        numberPerPage_bnr = propertyType.bnr.number;
+      if (
+        page !== 0 &&
+        pageDistribution &&
+        JSON.stringify(pageDistribution) !== "{}"
+      ) {
+        page_knr = pageDistribution.knr.page;
+        numberPerPage_knr = pageDistribution.knr.number;
+        page_gnr = pageDistribution.gnr.page;
+        numberPerPage_gnr = pageDistribution.gnr.number;
+        page_bnr = pageDistribution.bnr.page;
+        numberPerPage_bnr = pageDistribution.bnr.number;
       }
 
-      console.log("propertyType;: ", propertyType);
+      console.log("pageDistribution;: ", pageDistribution);
       console.log(
         page_knr,
         numberPerPage_knr,
@@ -405,7 +414,7 @@ class SearchBar extends React.Component {
       } else {
         this.setState({ treffliste_bnr: null });
       }
-    } else if (propertyType === "knrgnrbnr" || propertyType === "") {
+    } else if (pageDistribution === "knrgnrbnr" || pageDistribution === "") {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
       let numbercheck = searchTerm.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");

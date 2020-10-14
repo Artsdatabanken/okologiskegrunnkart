@@ -76,23 +76,23 @@ const TreffListe = ({
       } else if (knrgnrbnr > 0) {
         handleSearchBar(term, true, page, pageLength, resultType, "", true);
       } else {
-        const propertyType = getPropertyPage(page);
+        const pageDistribution = getPropertyPageDistribution(page);
         console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr));
         console.log("number_kommune: ", parseInt(number_kommune));
         console.log("knr: ", knr);
         console.log("gnr: ", gnr);
         console.log("bnr: ", bnr);
-        // handleSearchBar(term, true, page, pageLength, resultType, propertyType);
+        // handleSearchBar(term, true, page, pageLength, resultType, pageDistribution);
         handleSearchBar(
           term,
           true,
           page,
           pageLength,
           resultType,
-          propertyType,
+          pageDistribution,
           true
         );
-        // console.log("propertyType: ", propertyType);
+        // console.log("pageDistribution: ", pageDistribution);
       }
     }
     if (resultType === "layers") {
@@ -105,17 +105,17 @@ const TreffListe = ({
     }
   };
 
-  const getPropertyPage = pageAPI => {
+  const getPropertyPageDistribution = pageAPI => {
     // NOTE: page in API starts from 0, while page in Pagination starts from 1
     const page = pageAPI + 1;
     // const knr = parseInt(number_knr);
     // const gnr = parseInt(number_gnr);
     // const bnr = parseInt(number_bnr);
-    let propertyType = {};
+    let pageDistribution = {};
     if (page <= Math.ceil(knr / pageLength)) {
       // Only knr
       const from = page - 1;
-      propertyType = {
+      pageDistribution = {
         knr: { page: from, number: pageLength },
         gnr: { page: null, number: null },
         bnr: { page: null, number: null }
@@ -126,7 +126,7 @@ const TreffListe = ({
     ) {
       // Only gnr
       const from = page - 1 - Math.ceil(knr / pageLength);
-      propertyType = {
+      pageDistribution = {
         knr: { page: null, number: null },
         gnr: { page: from, number: pageLength },
         bnr: { page: null, number: null }
@@ -141,13 +141,13 @@ const TreffListe = ({
       console.log("Calc 1: ", page - 1);
       console.log("Calc 2: ", Math.floor(knr / pageLength));
       console.log("Calc 3: ", Math.floor(gnr / pageLength));
-      propertyType = {
+      pageDistribution = {
         knr: { page: null, number: null },
         gnr: { page: null, number: null },
         bnr: { page: from, number: pageLength }
       };
     }
-    return propertyType;
+    return pageDistribution;
   };
 
   // Reset page number if search term changes
@@ -200,16 +200,17 @@ const TreffListe = ({
     let pages = 0;
     switch (resultType) {
       case "all":
-        listLength =
-          parseInt(number_places) +
-          parseInt(number_knrgnrbnr) +
-          // parseInt(number_kommune) +
-          knr +
-          gnr +
-          bnr +
-          parseInt(number_addresses) +
-          parseInt(number_layers);
+        listLength = parseInt(number_layers);
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = parseInt(number_places);
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = parseInt(number_addresses) + parseInt(number_kommune);
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        listLength = parseInt(number_knrgnrbnr);
         pages = listLength ? Math.ceil(listLength / pageLength) : 0;
+        pages += knr ? Math.ceil(knr / pageLength) : 0;
+        pages += gnr ? Math.ceil(gnr / pageLength) : 0;
+        pages += bnr ? Math.ceil(bnr / pageLength) : 0;
         break;
       case "layers":
         listLength = parseInt(number_layers) || 0;
@@ -225,13 +226,10 @@ const TreffListe = ({
         break;
       case "properties":
         listLength = parseInt(number_knrgnrbnr);
-        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
-        listLength = knr;
         pages += listLength ? Math.ceil(listLength / pageLength) : 0;
-        listLength = gnr;
-        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
-        listLength = bnr;
-        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
+        pages += knr ? Math.ceil(knr / pageLength) : 0;
+        pages += gnr ? Math.ceil(gnr / pageLength) : 0;
+        pages += bnr ? Math.ceil(bnr / pageLength) : 0;
         break;
       default:
         pages = 1;
