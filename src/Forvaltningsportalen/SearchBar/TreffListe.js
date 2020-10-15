@@ -172,18 +172,7 @@ const TreffListe = ({
   // Reset result type when changing search result page
   useEffect(() => {
     if (searchResultPage) {
-      // if (treffliste_lag)
-      if (parseInt(number_layers) > 0) {
-        setResultType("layers");
-      } else if (parseInt(number_places) > 0) {
-        setResultType("places");
-      } else if (parseInt(number_addresses) > 0) {
-        setResultType("addresses");
-      } else if (knr + gnr + bnr + parseInt(number_knrgnrbnr) > 0) {
-        setResultType("properties");
-      } else {
-        setResultType("layers");
-      }
+      setResultType("layers");
     } else {
       setResultType("all");
     }
