@@ -77,12 +77,6 @@ const TreffListe = ({
         handleSearchBar(term, true, page, pageLength, resultType, "", true);
       } else {
         const pageDistribution = getPropertyPageDistribution(page);
-        console.log("number_knrgnrbnr: ", parseInt(number_knrgnrbnr));
-        console.log("number_kommune: ", parseInt(number_kommune));
-        console.log("knr: ", knr);
-        console.log("gnr: ", gnr);
-        console.log("bnr: ", bnr);
-        // handleSearchBar(term, true, page, pageLength, resultType, pageDistribution);
         handleSearchBar(
           term,
           true,
@@ -92,7 +86,6 @@ const TreffListe = ({
           pageDistribution,
           true
         );
-        // console.log("pageDistribution: ", pageDistribution);
       }
     }
     if (resultType === "layers") {
@@ -108,9 +101,7 @@ const TreffListe = ({
   const getPropertyPageDistribution = pageAPI => {
     // NOTE: page in API starts from 0, while page in Pagination starts from 1
     const page = pageAPI + 1;
-    // const knr = parseInt(number_knr);
-    // const gnr = parseInt(number_gnr);
-    // const bnr = parseInt(number_bnr);
+
     let pageDistribution = {};
     if (page <= Math.ceil(knr / pageLength)) {
       // Only knr
@@ -138,9 +129,6 @@ const TreffListe = ({
       // Only bnr
       const from =
         page - 1 - Math.ceil(knr / pageLength) - Math.ceil(gnr / pageLength);
-      console.log("Calc 1: ", page - 1);
-      console.log("Calc 2: ", Math.floor(knr / pageLength));
-      console.log("Calc 3: ", Math.floor(gnr / pageLength));
       pageDistribution = {
         knr: { page: null, number: null },
         gnr: { page: null, number: null },
@@ -154,6 +142,26 @@ const TreffListe = ({
   useEffect(() => {
     setPageNumber(1);
   }, [searchTerm]);
+
+  // Reset result type when changing search result page
+  useEffect(() => {
+    if (searchResultPage) {
+      // if (treffliste_lag)
+      if (parseInt(number_layers) > 0) {
+        setResultType("layers");
+      } else if (parseInt(number_places) > 0) {
+        setResultType("places");
+      } else if (parseInt(number_addresses) > 0) {
+        setResultType("addresses");
+      } else if (knr + gnr + bnr + parseInt(number_knrgnrbnr) > 0) {
+        setResultType("properties");
+      } else {
+        setResultType("layers");
+      }
+    } else {
+      setResultType("all");
+    }
+  }, [searchResultPage]);
 
   // Update number of knr so we don't request more than 10000
   // (this will cause an error with the last page)
@@ -198,6 +206,10 @@ const TreffListe = ({
   useEffect(() => {
     let listLength = 0;
     let pages = 0;
+    if (!pageLength || pageLength === 0) {
+      setNumberPages(pages);
+      return;
+    }
     switch (resultType) {
       case "all":
         listLength = parseInt(number_layers);
@@ -207,7 +219,7 @@ const TreffListe = ({
         listLength = parseInt(number_addresses) + parseInt(number_kommune);
         pages += listLength ? Math.ceil(listLength / pageLength) : 0;
         listLength = parseInt(number_knrgnrbnr);
-        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
+        pages += listLength ? Math.ceil(listLength / pageLength) : 0;
         pages += knr ? Math.ceil(knr / pageLength) : 0;
         pages += gnr ? Math.ceil(gnr / pageLength) : 0;
         pages += bnr ? Math.ceil(bnr / pageLength) : 0;
@@ -390,20 +402,6 @@ const TreffListe = ({
             </button>
             <div className="search-page-options">
               <div className="search-page-options-content">
-                <Button
-                  id={
-                    resultType === "all"
-                      ? "filter-search-button-selected"
-                      : "filter-search-button"
-                  }
-                  color="primary"
-                  onClick={() => {
-                    setResultType("all");
-                    setPageNumber(1);
-                  }}
-                >
-                  Alle
-                </Button>
                 <Button
                   id={
                     resultType === "layers"

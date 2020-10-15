@@ -278,11 +278,11 @@ class SearchBar extends React.Component {
     let gnr = null;
     let bnr = null;
 
-    if (!isNaN(searchTerm) && pageDistribution !== "knrgnrbnr") {
+    if (!isNaN(searchTerm)) {
       console.log("Check 2");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
-      // Only if there is no page, search for kommune
       if (page === 0) {
+        // Only if there is no page, search for kommune
         console.log("Searching kommune");
         backend.hentKommune(searchTerm).then(resultat => {
           // henter kommune fra ssr
@@ -300,13 +300,11 @@ class SearchBar extends React.Component {
             number_knrgnrbnr: 0,
             number_kommune
           });
-          // console.log("treffliste_kommune", treffliste_kommune);
-          // console.log("number_kommune: ", number_kommune);
-          // console.log("number_knr: ", parseInt(number_kommune))
         });
       } else {
         this.setState({ treffliste_kommune: null });
       }
+
       // If there is page, as specified by "pageDistribution" with format
       // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
       // which specifies page and number of items per page for each.
@@ -414,7 +412,7 @@ class SearchBar extends React.Component {
       } else {
         this.setState({ treffliste_bnr: null });
       }
-    } else if (pageDistribution === "knrgnrbnr" || pageDistribution === "") {
+    } else {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
       let numbercheck = searchTerm.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");
@@ -516,12 +514,14 @@ class SearchBar extends React.Component {
         const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
-      const number_places =
-        resultat && resultat.totaltAntallTreff ? resultat.totaltAntallTreff : 0;
-      this.setState({
-        treffliste_sted: Object.values(prioritertliste),
-        number_places
-      });
+      this.setState({ treffliste_sted: Object.values(prioritertliste) });
+      if (page === 0) {
+        const number_places =
+          resultat && resultat.totaltAntallTreff
+            ? resultat.totaltAntallTreff
+            : 0;
+        this.setState({ number_places });
+      }
     });
   };
 
@@ -566,26 +566,26 @@ class SearchBar extends React.Component {
             if (entries.length > 0) {
               address = entries;
             }
-            const number_addresses =
-              resultat &&
-              resultat.metadata &&
-              resultat.metadata.totaltAntallTreff
-                ? resultat.metadata.totaltAntallTreff
-                : 0;
-            this.setState({
-              treffliste_adresse: address,
-              number_addresses
-            });
+            this.setState({ treffliste_adresse: address });
+            if (page === 0) {
+              const number_addresses =
+                resultat &&
+                resultat.metadata &&
+                resultat.metadata.totaltAntallTreff
+                  ? resultat.metadata.totaltAntallTreff
+                  : 0;
+              this.setState({ number_addresses });
+            }
           });
       } else {
-        const number_addresses =
-          resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
-            ? resultat.metadata.totaltAntallTreff
-            : 0;
-        this.setState({
-          treffliste_adresse: address,
-          number_addresses
-        });
+        this.setState({ treffliste_adresse: address });
+        if (page === 0) {
+          const number_addresses =
+            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
+              ? resultat.metadata.totaltAntallTreff
+              : 0;
+          this.setState({ number_addresses });
+        }
       }
     });
   };
