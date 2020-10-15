@@ -44,6 +44,8 @@ const TreffListe = ({
   const [knr, setKnr] = useState(parseInt(number_knr));
   const [gnr, setGnr] = useState(parseInt(number_gnr));
   const [bnr, setBnr] = useState(parseInt(number_bnr));
+  const [places, setPlaces] = useState(parseInt(number_places));
+  const [properties, setProperties] = useState(parseInt(number_knrgnrbnr));
 
   const addToList = (list_items, inputlist, type, criteria) => {
     if (inputlist) {
@@ -143,6 +145,30 @@ const TreffListe = ({
     setPageNumber(1);
   }, [searchTerm]);
 
+  // Calculate total number of places
+  useEffect(() => {
+    let number = 0;
+    if (number_places && parseInt(number_places)) {
+      number += parseInt(number_places);
+    }
+    if (number_kommune && parseInt(number_kommune)) {
+      number += parseInt(number_kommune);
+    }
+    setPlaces(number);
+  }, [number_places, number_kommune]);
+
+  // Calculate total number of properties
+  useEffect(() => {
+    let number = 0;
+    if (number_knrgnrbnr && parseInt(number_knrgnrbnr)) {
+      number += parseInt(number_knrgnrbnr);
+    }
+    if (knr) number += knr;
+    if (gnr) number += gnr;
+    if (bnr) number += bnr;
+    setProperties(number);
+  }, [number_knrgnrbnr, knr, gnr, bnr]);
+
   // Reset result type when changing search result page
   useEffect(() => {
     if (searchResultPage) {
@@ -164,7 +190,7 @@ const TreffListe = ({
   }, [searchResultPage]);
 
   // Update number of knr so we don't request more than 10000
-  // (this will cause an error with the last page)
+  // (this will cause an error when fetching the last page)
   useEffect(() => {
     let number = parseInt(number_knr);
     if (number >= 10000) {
@@ -177,7 +203,7 @@ const TreffListe = ({
   }, [number_knr, pageLength]);
 
   // Update number of gnr so we don't request more than 10000
-  // (this will cause an error with the last page)
+  // (this will cause an error when fetching the last page)
   useEffect(() => {
     let number = parseInt(number_gnr);
     if (number >= 10000) {
@@ -190,7 +216,7 @@ const TreffListe = ({
   }, [number_gnr, pageLength]);
 
   // Update number of bnr so we don't request more than 10000
-  // (this will cause an error with the last page)
+  // (this will cause an error when fetching the last page)
   useEffect(() => {
     let number = parseInt(number_bnr);
     if (number >= 10000) {
@@ -414,7 +440,12 @@ const TreffListe = ({
                     setPageNumber(1);
                   }}
                 >
-                  Kartlag
+                  <div className="search-tab-content">
+                    <span className="search-tab-title">Kartlag</span>
+                    <span className="search-tab-number">
+                      {number_layers ? `(${number_layers})` : "(0)"}
+                    </span>
+                  </div>
                 </Button>
                 <Button
                   id={
@@ -428,7 +459,12 @@ const TreffListe = ({
                     setPageNumber(1);
                   }}
                 >
-                  Steder
+                  <div className="search-tab-content">
+                    <span className="search-tab-title">Steder</span>
+                    <span className="search-tab-number">
+                      {places ? `(${places})` : "(0)"}
+                    </span>
+                  </div>
                 </Button>
                 <Button
                   id={
@@ -442,7 +478,12 @@ const TreffListe = ({
                     setPageNumber(1);
                   }}
                 >
-                  Adresser
+                  <div className="search-tab-content">
+                    <span className="search-tab-title">Adresser</span>
+                    <span className="search-tab-number">
+                      {number_addresses ? `(${number_addresses})` : "(0)"}
+                    </span>
+                  </div>
                 </Button>
                 <Button
                   id={
@@ -456,7 +497,12 @@ const TreffListe = ({
                     setPageNumber(1);
                   }}
                 >
-                  Eiendommer
+                  <div className="search-tab-content">
+                    <span className="search-tab-title">Eiendommer</span>
+                    <span className="search-tab-number">
+                      {properties ? `(${properties})` : "(0)"}
+                    </span>
+                  </div>
                 </Button>
               </div>
             </div>

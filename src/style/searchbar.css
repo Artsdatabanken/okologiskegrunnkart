@@ -89,10 +89,10 @@
 }
 @media only screen and (max-width: 768px) {
   .search-results-container {
-    top: 84px;
+    top: 91px;
     max-width: 100%;
-    height: calc(100vh - 84px + 150px);
-    max-height: calc(100vh - 84px + 150px);
+    height: calc(100vh - 91px + 150px);
+    max-height: calc(100vh - 91px + 150px);
     padding-bottom: 150px;
   }
 }
@@ -188,13 +188,14 @@
   font-weight: 500;
 }
 
-/* Treffliste search results page */
+/* Search results option tabs */
 .search-page-options {
   background-color: white;
   border-bottom: 1px solid #bbb;
 }
 .search-page-options-content {
   background-color: rgba(105, 127, 138, 0.2);
+  display: flex;
 }
 #filter-search-button-selected.MuiButton-root,
 #filter-search-button.MuiButton-root {
@@ -202,6 +203,7 @@
   border-radius: 0;
   padding-left: 12px;
   padding-right: 12px;
+  flex-grow: 1;
 }
 #filter-search-button-selected {
   border-bottom: 2px solid #296d98;
@@ -218,21 +220,29 @@
 #filter-search-button-selected:hover,
 #filter-search-button:hover {
   background-color: rgba(105, 127, 138, 0.2);
-  /* background: #eee; */
 }
+.search-tab-content {
+  display: flex;
+  flex-direction: column;
+}
+.search-tab-title {
+  line-height: 18px;
+}
+.search-tab-number {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+/* Treffliste search results page */
 .treffliste.searchresultpage {
-  /* position: absolute; */
   background: #f0f0f0;
   width: 100%;
   margin: 0px;
   margin-top: 0px;
-  /* height: calc(100vh - 136px);
-  max-height: calc(100vh - 136px); */
   max-height: none;
   overflow-y: hidden;
   border: none;
   box-sizing: border-box;
-  /* padding-bottom: 10px; */
   background-color: white;
   box-shadow: none;
   border-radius: 0;
@@ -241,9 +251,6 @@
   .treffliste.searchresultpage {
     top: 84px;
     max-width: 100%;
-    /* height: calc(100vh - 84px);
-    max-height: calc(100vh - 84px); */
-    /* padding-bottom: 150px; */
   }
 }
 .treffliste.searchresultpage .searchbar_item {

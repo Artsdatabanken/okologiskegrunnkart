@@ -196,7 +196,6 @@ class SearchBar extends React.Component {
     searchTerm = searchTerm.toLowerCase();
 
     if (resultType === "all") {
-      console.log("Searching all");
       this.fetchSearchLayers(searchTerm);
       this.fetchSearchProperties(searchTerm);
       this.fetchSearchPlaces(searchTerm, page);
@@ -204,7 +203,6 @@ class SearchBar extends React.Component {
     } else if (resultType === "layers") {
       this.fetchSearchLayers(searchTerm);
     } else if (resultType === "properties") {
-      console.log("Searching properties");
       this.fetchSearchProperties(
         searchTerm,
         page,
@@ -279,11 +277,9 @@ class SearchBar extends React.Component {
     let bnr = null;
 
     if (!isNaN(searchTerm)) {
-      console.log("Check 2");
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       if (page === 0) {
         // Only if there is no page, search for kommune
-        console.log("Searching kommune");
         backend.hentKommune(searchTerm).then(resultat => {
           // henter kommune fra ssr
           if (resultat && resultat["stedsnavn"]) {
@@ -328,18 +324,7 @@ class SearchBar extends React.Component {
         numberPerPage_bnr = pageDistribution.bnr.number;
       }
 
-      console.log("pageDistribution;: ", pageDistribution);
-      console.log(
-        page_knr,
-        numberPerPage_knr,
-        page_gnr,
-        numberPerPage_gnr,
-        page_bnr,
-        numberPerPage_bnr
-      );
-
       if (page_knr !== null) {
-        console.log("Searching knr");
         backend
           .hentKnrGnrBnr(searchTerm, null, null, page_knr, numberPerPage_knr)
           .then(resultat => {
@@ -356,7 +341,6 @@ class SearchBar extends React.Component {
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
               this.setState({ number_knr });
-              // console.log("number_knr: ", parseInt(number_knr))
             }
           });
       } else {
@@ -364,7 +348,6 @@ class SearchBar extends React.Component {
       }
 
       if (page_gnr !== null) {
-        console.log("Searching gnr");
         backend
           .hentKnrGnrBnr(null, searchTerm, null, page_gnr, numberPerPage_gnr)
           .then(resultat => {
@@ -381,7 +364,6 @@ class SearchBar extends React.Component {
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
               this.setState({ number_gnr });
-              // console.log("number_gnr: ", parseInt(number_gnr))
             }
           });
       } else {
@@ -389,7 +371,6 @@ class SearchBar extends React.Component {
       }
 
       if (page_bnr !== null) {
-        console.log("Searching bnr");
         backend
           .hentKnrGnrBnr(null, null, searchTerm, page_bnr, numberPerPage_bnr)
           .then(resultat => {
@@ -406,7 +387,6 @@ class SearchBar extends React.Component {
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
               this.setState({ number_bnr });
-              // console.log("number_bnr: ", parseInt(number_bnr))
             }
           });
       } else {
@@ -420,7 +400,6 @@ class SearchBar extends React.Component {
       numbercheck = numbercheck.replace(/,/g, "-");
       let checknr = numbercheck.replace(/-/g, "");
       if (!isNaN(checknr)) {
-        console.log("Check 3");
         let list = numbercheck.split("-");
         if (list[0]) {
           knr = list[0];
@@ -452,7 +431,6 @@ class SearchBar extends React.Component {
             });
           });
       } else {
-        console.log("Check 4");
         this.setState({
           treffliste_knrgnrbnr: null,
           treffliste_knr: null,
