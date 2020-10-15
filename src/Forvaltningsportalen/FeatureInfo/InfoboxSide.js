@@ -60,6 +60,9 @@ const InfoBox = ({
       if (showFullscreenInfobox) {
         handleFullscreenInfobox(false);
         handleInfobox(true);
+      } else if (showInfobox) {
+        handleFullscreenInfobox(false);
+        handleInfobox(false);
       }
       setY(0);
     }

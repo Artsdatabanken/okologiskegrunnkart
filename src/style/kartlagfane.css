@@ -109,6 +109,7 @@
 }
 .listheadingbutton.all-results {
   padding-left: 10px;
+  margin: 0;
 }
 .listheadingbutton:hover {
   background-color: rgba(145, 163, 176, 0.9);
