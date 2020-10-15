@@ -122,7 +122,6 @@ class Leaflet extends React.Component {
       this.updateMap(this.props);
     }
     if (this.coordinatesChanged(prevProps)) {
-      this.removeMarker();
       this.setState({
         coordinates_area: { lat: this.props.lat, lng: this.props.lng }
       });

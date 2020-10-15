@@ -63,6 +63,7 @@ class App extends React.Component {
     legendVisible: false,
     showFullscreenInfobox: false,
     isMobile: false,
+    windowHeight: 0,
     showMarker: true,
     sortKey: "alfabetisk",
     tagFilter: {},
@@ -328,10 +329,6 @@ class App extends React.Component {
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
                         searchResultPage={this.state.searchResultPage}
-                        setKartlagSearchResults={
-                          this.handleSetKartlagSearchResult
-                        }
-                        setGeoSearchResults={this.setGeoSearchResults}
                         handleGeoSelection={this.handleGeoSelection}
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
@@ -342,6 +339,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                         isMobile={this.state.isMobile}
+                        windowHeight={this.state.windowHeight}
                         showSideBar={this.state.showSideBar}
                         handleSideBar={this.handleSideBar}
                         handleInfobox={this.handleInfobox}
@@ -366,6 +364,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         updateIsMobile={this.updateIsMobile}
+                        updateWindowHeight={this.updateWindowHeight}
                         handleSelectSearchResult={this.handleSelectSearchResult}
                         handleSortKey={this.handleSortKey}
                         handleTagFilter={this.handleTagFilter}
@@ -584,14 +583,6 @@ class App extends React.Component {
     this.setState({ searchResultPage: searchResultPage });
   };
 
-  setGeoSearchResults = geoSearchResults => {
-    this.setState({ geoSearchResults: geoSearchResults });
-  };
-
-  handleSetKartlagSearchResult = kartlagSearchResults => {
-    this.setState({ kartlagSearchResults: kartlagSearchResults });
-  };
-
   handleRemoveZoomCoordinates = () => {
     this.setState({ zoomcoordinates: null });
   };
@@ -607,24 +598,47 @@ class App extends React.Component {
   };
 
   handleGeoSelection = geostring => {
+    let mincoord = null;
+    let maxcoord = null;
+    let centercoord = null;
+    let lng = null;
+    let lat = null;
+
     if (geostring.ssrId) {
-      let mincoord = [
+      mincoord = [
         parseFloat(geostring.aust) - 1,
         parseFloat(geostring.nord) - 1
       ];
-      let maxcoord = [
+      maxcoord = [
         parseFloat(geostring.aust) + 1,
         parseFloat(geostring.nord) + 1
       ];
-      let centercoord = [
-        parseFloat(geostring.aust),
-        parseFloat(geostring.nord)
+      centercoord = [parseFloat(geostring.aust), parseFloat(geostring.nord)];
+      lng = parseFloat(geostring.aust);
+      lat = parseFloat(geostring.nord);
+    } else {
+      let koordinater = geostring.representasjonspunkt;
+      mincoord = [
+        parseFloat(koordinater.lon) - 1,
+        parseFloat(koordinater.lat) - 1
       ];
+      maxcoord = [
+        parseFloat(koordinater.lon) + 1,
+        parseFloat(koordinater.lat) + 1
+      ];
+      centercoord = [parseFloat(koordinater.lon), parseFloat(koordinater.lat)];
+      lng = parseFloat(koordinater.lon);
+      lat = parseFloat(koordinater.lat);
+    }
+
+    // Update map position and zoom
+    if (mincoord && maxcoord && centercoord) {
       this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-      if (!geostring.aust && !geostring.nord) return;
-      const lng = parseFloat(geostring.aust) || null;
-      const lat = parseFloat(geostring.nord) || null;
+    }
+    // Update coordinates and infobox
+    if (lng && lat) {
       this.handleInfobox(true);
+      // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
         if (!this.state.showExtensiveInfo) {
           this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
@@ -632,23 +646,6 @@ class App extends React.Component {
           this.hentInfoAlleLag(lng, lat, this.state.zoom);
         }
       }, 250);
-    } else {
-      let koordinater = geostring.representasjonspunkt;
-
-      let mincoord = [
-        parseFloat(koordinater.lon) - 1,
-        parseFloat(koordinater.lat) - 1
-      ];
-      let maxcoord = [
-        parseFloat(koordinater.lon) + 1,
-        parseFloat(koordinater.lat) + 1
-      ];
-      let centercoord = [
-        parseFloat(koordinater.lon),
-        parseFloat(koordinater.lat)
-      ];
-
-      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
     }
   };
 
@@ -1425,6 +1422,10 @@ class App extends React.Component {
 
   updateIsMobile = isMobile => {
     this.setState({ isMobile });
+  };
+
+  updateWindowHeight = windowHeight => {
+    this.setState({ windowHeight });
   };
 
   onTileStatus = (layerkey, sublayerkey, status) => {
