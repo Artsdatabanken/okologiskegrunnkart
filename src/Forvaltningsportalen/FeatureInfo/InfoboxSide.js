@@ -9,7 +9,6 @@ import CustomIcon from "../../Common/CustomIcon";
 const InfoBox = ({
   markerType,
   coordinates_area,
-  layerevent,
   getBackendData,
   showInfobox,
   handleInfobox,
@@ -62,6 +61,9 @@ const InfoBox = ({
       if (showFullscreenInfobox) {
         handleFullscreenInfobox(false);
         handleInfobox(true);
+      } else if (showInfobox) {
+        handleFullscreenInfobox(false);
+        handleInfobox(false);
       }
       setY(0);
     }
@@ -221,7 +223,6 @@ const InfoBox = ({
       {markerType === "klikk" && (
         <ClickInfobox
           coordinates_area={coordinates_area}
-          layerevent={layerevent}
           getBackendData={getBackendData}
           layersResult={layersResult}
           allLayersResult={allLayersResult}

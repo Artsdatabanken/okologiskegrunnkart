@@ -29,7 +29,7 @@ class Leaflet extends React.Component {
     adresse: null,
     data: null,
     koordinat: null,
-    clickCoordinates: { x: 0, y: 0 },
+    // clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
     zoom: 0,
@@ -87,12 +87,45 @@ class Leaflet extends React.Component {
     if (this.props.token !== prevProps.token) return true;
   }
 
+  coordinatesChanged(prevProps) {
+    if ((this.props.lat || this.props.lng) && !this.state.coordinates_area)
+      return true;
+    if (
+      this.props.lat !== prevProps.lat &&
+      this.props.lat !== this.state.coordinates_area.lat
+    )
+      return true;
+    if (
+      this.props.lng !== prevProps.lng &&
+      this.props.lng !== this.state.coordinates_area.lng
+    )
+      return true;
+  }
+
+  updateUrlWithCoordinates(lng, lat) {
+    // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
+    let urlparams = (this.props.path || "").split("?");
+    let newurlstring = "";
+    for (let i in urlparams) {
+      if (!urlparams[i].includes("lng") && urlparams[i] !== "") {
+        newurlstring += "?" + urlparams[i];
+      }
+    }
+    this.props.history.push("?lng=" + lng + "&lat=" + lat + newurlstring);
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.zoomcoordinates) {
       this.goToSelectedZoomCoordinates();
     }
     if (this.erEndret(prevProps)) {
       this.updateMap(this.props);
+    }
+    if (this.coordinatesChanged(prevProps)) {
+      this.setState({
+        coordinates_area: { lat: this.props.lat, lng: this.props.lng }
+      });
+      this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
     }
   }
 
@@ -121,7 +154,7 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.endpoint);
   }
 
-  getBackendData = async (lng, lat, e) => {
+  getBackendData = async (lng, lat) => {
     const fetchAllData = !this.props.showExtensiveInfo;
     this.props.handleExtensiveInfo(!this.props.showExtensiveInfo);
     if (fetchAllData) {
@@ -269,10 +302,7 @@ class Leaflet extends React.Component {
     this.removeMarker();
 
     // Oppdatering av infoboksen
-    this.setState({
-      coordinates_area: e.latlng,
-      layerevent: e.layerPoint
-    });
+    this.setState({ coordinates_area: e.latlng });
 
     if (this.props.showExtensiveInfo) {
       this.props.handleAlleLag(e.latlng.lng, e.latlng.lat, this.map.getZoom());
@@ -283,18 +313,7 @@ class Leaflet extends React.Component {
         this.map.getZoom()
       );
     }
-
-    // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
-    let urlparams = (this.props.path || "").split("?");
-    let newurlstring = "";
-    for (let i in urlparams) {
-      if (!urlparams[i].includes("lng") && urlparams[i] !== "") {
-        newurlstring += "?" + urlparams[i];
-      }
-    }
-    this.props.history.push(
-      "?lng=" + e.latlng.lng + "&lat=" + e.latlng.lat + newurlstring
-    );
+    this.updateUrlWithCoordinates(e.latlng.lng, e.latlng.lat);
   }
 
   checkIntersectingLines(lat1, lng1, lat2, lng2, lat3, lng3, lat4, lng4) {
@@ -636,7 +655,6 @@ class Leaflet extends React.Component {
         <InfoboxSide
           markerType={this.state.markerType}
           coordinates_area={this.state.coordinates_area}
-          layerevent={this.state.layerevent}
           getBackendData={this.getBackendData}
           showInfobox={this.props.showInfobox}
           handleInfobox={this.props.handleInfobox}

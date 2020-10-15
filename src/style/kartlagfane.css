@@ -84,9 +84,9 @@
     padding: 0;
     background-color: white;
     z-index: 175;
-    position: absolute;
+    /* position: absolute;
     top: 0;
-    right: 0;
+    right: 0; */
     width: 100%;
     height: 100%;
   }
@@ -109,6 +109,7 @@
 }
 .listheadingbutton.all-results {
   padding-left: 10px;
+  margin: 0;
 }
 .listheadingbutton:hover {
   background-color: rgba(145, 163, 176, 0.9);
@@ -320,6 +321,9 @@
 }
 #filter-all-button.MuiButton-textSecondary {
   color: #888;
+}
+#filter-all-button:hover {
+  background-color: #eee;
 }
 #filter-layers-menu-item {
   width: 385px;
