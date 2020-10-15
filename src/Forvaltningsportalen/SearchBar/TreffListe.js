@@ -460,7 +460,7 @@ const TreffListe = ({
                   }}
                 >
                   <div className="search-tab-content">
-                    <span className="search-tab-title">Steder</span>
+                    <span className="search-tab-title">Stedsnavn</span>
                     <span className="search-tab-number">
                       {places ? `(${places})` : "(0)"}
                     </span>
