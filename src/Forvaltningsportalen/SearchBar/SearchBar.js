@@ -447,10 +447,6 @@ class SearchBar extends React.Component {
 
   fetchSearchPlaces = (searchTerm, page = 0, numberPerPage = 20) => {
     backend.hentSteder(searchTerm, page, numberPerPage).then(resultat => {
-      // let max_items = 5;
-      // if (resultpage) {
-      //   max_items = 50;
-      // }
       let max_items = 20;
       let entries = resultat ? resultat.stedsnavn : null;
       const resultatliste = {};
@@ -657,7 +653,14 @@ class SearchBar extends React.Component {
   render() {
     return (
       <>
-        <div className="searchbar_container" ref={this.setWrapperRef}>
+        <div
+          className={
+            this.props.isMobile && this.props.searchResultPage
+              ? "searchbar_container_results"
+              : "searchbar_container"
+          }
+          ref={this.setWrapperRef}
+        >
           <div className="searchbar">
             <input
               className="searchbarfield"

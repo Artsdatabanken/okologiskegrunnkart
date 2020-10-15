@@ -294,7 +294,7 @@ const TreffListe = ({
     } else {
       let nRows = max_list_length;
       if (isMobile) {
-        nRows = Math.floor((windowHeight - 84 - 40) / 55);
+        nRows = Math.floor((windowHeight - 142 - 40) / 55);
       } else {
         nRows = Math.floor((windowHeight - 136 - 40) / 55);
       }

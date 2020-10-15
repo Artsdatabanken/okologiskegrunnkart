@@ -11,7 +11,18 @@
 @media only screen and (max-width: 768px) {
   .searchbar_container {
     width: 100%;
-    top: 0;
+    top: 0px;
+    /* height: 100%; */
+  }
+  .searchbar_container_results {
+    position: absolute;
+    overflow: visible;
+    right: 0px;
+    z-index: 200;
+    background: #697f8a;
+    width: 100%;
+    top: 0px;
+    height: 100%;
   }
 }
 .searchbar {
@@ -89,11 +100,10 @@
 }
 @media only screen and (max-width: 768px) {
   .search-results-container {
-    top: 91px;
+    top: 142px;
     max-width: 100%;
-    height: calc(100vh - 91px + 150px);
-    max-height: calc(100vh - 91px + 150px);
-    padding-bottom: 150px;
+    height: calc(100% - 142px);
+    max-height: calc(100% - 142px);
   }
 }
 
