@@ -17,7 +17,7 @@ import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
-import proj4 from "proj4";
+// import proj4 from "proj4";
 
 class App extends React.Component {
   state = {
