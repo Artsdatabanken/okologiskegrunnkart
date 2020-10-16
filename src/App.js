@@ -17,6 +17,7 @@ import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
+import proj4 from "proj4";
 
 class App extends React.Component {
   state = {
@@ -26,7 +27,6 @@ class App extends React.Component {
     kartlag: {},
     valgteLag: {},
     navigation_history: [],
-    showCurrent: true,
     spraak: "nb",
     showExtensiveInfo: false,
     zoomcoordinates: null,
@@ -34,7 +34,7 @@ class App extends React.Component {
     searchResultPage: false,
     polygon: null,
     polyline: [],
-    showPolygon: true,
+    showPolygon: false,
     polygonResults: null,
     showSideBar: true,
     showInfobox: false,
@@ -68,7 +68,8 @@ class App extends React.Component {
     showMarker: true,
     sortKey: "alfabetisk",
     tagFilter: {},
-    matchAllFilters: true
+    matchAllFilters: true,
+    resultat: null
   };
 
   async lastNedKartlag() {
@@ -265,6 +266,7 @@ class App extends React.Component {
                       }
                     >
                       <Kart
+                        kartlag={this.state.kartlag}
                         polygon={this.state.polygon}
                         polyline={this.state.polyline}
                         showPolygon={this.state.showPolygon}
@@ -285,15 +287,12 @@ class App extends React.Component {
                         handleExtensiveInfo={this.handleExtensiveInfo}
                         handleAlleLag={this.hentInfoAlleLag}
                         handleValgteLag={this.hentInfoAlleValgteLag}
-                        forvaltningsportal={true}
-                        show_current={this.state.showCurrent}
-                        latitude={65.4}
-                        longitude={15.8}
+                        // forvaltningsportal={true}
                         zoom={this.state.zoom}
                         handleZoomChange={this.handleZoomChange}
                         aktiveLag={this.state.kartlag}
                         bakgrunnskart={this.state.bakgrunnskart}
-                        onMapMove={context.onMapMove}
+                        // onMapMove={context.onMapMove}
                         history={history}
                         sted={this.state.sted}
                         adresse={this.state.adresse}
@@ -319,7 +318,8 @@ class App extends React.Component {
                         matchAllFilters={this.state.matchAllFilters}
                         lat={this.state.lat}
                         lng={this.state.lng}
-                        {...this.state}
+                        resultat={this.state.resultat}
+                        // {...this.state}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -655,8 +655,9 @@ class App extends React.Component {
     if (this.state.lat === lat && this.state.lng === lng) return;
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, zoom);
-    this.handleMatrikkel(lng, lat);
+    this.handlePunktSok(lng, lat, zoom).then(() => {
+      this.handleMatrikkel(lng, lat);
+    });
     this.handleHoydedata(lng, lat);
   };
 
@@ -684,9 +685,10 @@ class App extends React.Component {
     });
   };
 
-  handlePunktSok = (lng, lat, zoom) => {
+  handlePunktSok = async (lng, lat, zoom) => {
     // returnerer punkt søk
-    const radius = Math.round(16500 / Math.pow(zoom, 2));
+    // const radius = Math.round(16500 / Math.pow(zoom, 2));
+    let radius = 250;
     backend.hentPunktSok(lng, lat, radius).then(punktSok => {
       if (punktSok && punktSok.adresser) {
         const adresse = punktSok.adresser.sort((a, b) =>
@@ -695,23 +697,66 @@ class App extends React.Component {
         this.setState({
           adresse: adresse.length > 0 ? adresse[0] : null
         });
+        console.log("Address first try: ", adresse);
       }
     });
   };
+
   handleMatrikkel = (lng, lat) => {
-    // returnerer punkt søk
+    // returnerer matrikkel søk
     backend.hentMatrikkel(lng, lat).then(data => {
-      console.log(data);
+      console.log("Matrikkel: ", data);
       let matrikeldata = data.filter(item => item.datasettkode === "MAT");
       if (matrikeldata.length === 0) this.setState({ matrikkel: null });
+      // Select the closest matrikkel to the point position
+      let matrikelResultat;
+      matrikelResultat = matrikeldata[0];
+      // if (matrikeldata.length === 1) {
+      //   matrikelResultat = matrikeldata[0];
+      // } else {
+      //   let dist = 99999999999999.9;
+      //   const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+      //   const utm33Projection =
+      //     "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+      //   const [coordX, coordY] = proj4(geographicProjection, utm33Projection, [
+      //     this.state.lng,
+      //     this.state.lat
+      //   ]);
+      //   for (const result of matrikeldata) {
+      //     const lng = result.data.representasjonspunkt[0];
+      //     const lat = result.data.representasjonspunkt[1];
+      //     const [x, y] = proj4(geographicProjection, utm33Projection, [
+      //       lng,
+      //       lat
+      //     ]);
+      //     const newDist = Math.sqrt(
+      //       Math.pow(x - coordX, 2) + Math.pow(y - coordY, 2)
+      //     );
+      //     console.log("dist: ", dist)
+      //     if (newDist < dist) {
+      //       dist = newDist;
+      //       matrikelResultat = result;
+      //     }
+      //   }
+      // }
       if (
-        matrikeldata[0] &&
-        matrikeldata[0].data &&
-        matrikeldata[0].data.matrikkelnr
+        matrikelResultat &&
+        matrikelResultat.data &&
+        matrikelResultat.data.matrikkelnr
       ) {
         // const matrikkel = matrikeldata[0].data.matrikkelnr.replace(" / ", "/");
-        const matrikkel = matrikeldata[0].data.matrikkelnr;
+        const matrikkel = matrikelResultat.data.matrikkelnr;
         this.setState({ matrikkel: matrikkel || null });
+
+        // Set address based on Matrikkel result if address API gave no results
+        if (!this.state.adresse || this.state.adresse.length === 0) {
+          const data = matrikelResultat.data;
+          if (!data.gardsnr || data.gardsnr === "0") return;
+          if (!data.bruksnr || data.bruksnr === "0") return;
+          const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
+          const adresse = { adressetekst: adressetekst };
+          this.setState({ adresse: adresse });
+        }
       }
     });
   };
