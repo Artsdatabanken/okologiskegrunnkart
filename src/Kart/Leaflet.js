@@ -64,9 +64,6 @@ class Leaflet extends React.Component {
       if (!e.hard) {
         const zoom = this.map.getZoom();
         if (zoom === this.props.zoom) return;
-        console.log("Zoom changed");
-        // this.drawMarker();
-        // this.drawPolygon();
         // this.syncWmsLayers(this.props.aktiveLag);
         this.props.handleZoomChange(zoom);
       }
@@ -353,7 +350,6 @@ class Leaflet extends React.Component {
       data: null
     });
     this.removeMarker();
-    console.log("Coming here");
 
     // Oppdatering av infoboksen
     this.setState({ coordinates_area: e.latlng });
@@ -444,7 +440,6 @@ class Leaflet extends React.Component {
   }
 
   handleClick = async e => {
-    console.log("markerType: ", this.state.markerType);
     if (this.state.markerType === "polygon") {
       this.polygonToolClick(e);
     } else if (this.state.markerType === "klikk") {
@@ -476,61 +471,123 @@ class Leaflet extends React.Component {
   }
 
   syncWmsLayers(aktive) {
+    let layers = { ...this.state.wmslayers };
+    let layersChanged = false;
     Object.keys(aktive).forEach(akey => {
       const kartlag = aktive[akey];
       if (!kartlag.wmsurl) return; // Not a WMS layer
-      Object.keys(kartlag.underlag).forEach(underlagsnøkkel =>
-        this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
-      );
-    });
-  }
+      Object.keys(kartlag.underlag).forEach(underlagsnøkkel => {
+        const underlag = kartlag.underlag[underlagsnøkkel];
+        // this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
+        let layer = layers[underlag.id];
+        if (!underlag.erSynlig) {
+          if (layer) {
+            this.map.removeLayer(layer);
+            delete layers[underlag.id];
+            layersChanged = true;
+          }
+          return;
+        }
 
-  syncUnderlag(kartlag, underlag) {
-    let layers = { ...this.state.wmslayers };
-    let layer = layers[underlag.id];
-    if (!underlag.erSynlig) {
-      if (layer) {
-        this.map.removeLayer(layer);
-        delete layers[underlag.id];
-        this.setState({ wmslayers: layers });
-      }
-      return;
-    }
-
-    const url = this.makeWmsUrl(kartlag.wmsurl);
-    let srs = "EPSG3857";
-    if (kartlag.projeksjon) {
-      srs = kartlag.projeksjon.replace(":", "");
-    }
-    if (!layer) {
-      layer = L.tileLayer.cachedOverview("", {
-        id: underlag.id,
-        zoomThreshold: underlag.minzoom,
-        layers: underlag.wmslayer,
-        transparent: true,
-        crs: L.CRS[srs],
-        format: "image/png",
-        maxZoom: MAX_MAP_ZOOM_LEVEL,
-        maxNativeZoom: underlag.maxzoom
-      });
-      layer.on("loading", () => {
-        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
-      });
-      layer.on("load", l => {
-        //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
-      });
-      layer.on("tileerror", e => {
-        if (!underlag.tileerror) {
-          this.props.onTileStatus(kartlag.id, underlag.id, "error");
+        const url = this.makeWmsUrl(kartlag.wmsurl);
+        let srs = "EPSG3857";
+        if (kartlag.projeksjon) {
+          srs = kartlag.projeksjon.replace(":", "");
+        }
+        if (!layer) {
+          layer = L.tileLayer.cachedOverview("", {
+            id: underlag.id,
+            zoomThreshold: underlag.minzoom,
+            layers: underlag.wmslayer,
+            transparent: true,
+            crs: L.CRS[srs],
+            format: "image/png",
+            maxZoom: MAX_MAP_ZOOM_LEVEL,
+            maxNativeZoom: underlag.maxzoom
+          });
+          layer.on("loading", () => {
+            this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+          });
+          layer.on("load", l => {
+            //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+          });
+          layer.on("tileerror", e => {
+            if (!underlag.tileerror) {
+              this.props.onTileStatus(kartlag.id, underlag.id, "error");
+            }
+          });
+          layers[underlag.id] = layer;
+          this.map.addLayer(layer);
+          layer.setUrl(url);
+          layer.setOpacity(underlag.opacity);
+          layersChanged = true;
+        } else if (
+          layer.options &&
+          layer.options.opacity &&
+          layer.options.opacity !== underlag.opacity
+        ) {
+          layer.setOpacity(underlag.opacity);
+          layersChanged = true;
         }
       });
-      layers[underlag.id] = layer;
+    });
+    if (layersChanged) {
       this.setState({ wmslayers: layers });
-      this.map.addLayer(layer);
     }
-    layer.setUrl(url);
-    layer.setOpacity(underlag.opacity);
   }
+
+  // syncUnderlag(kartlag, underlag) {
+  //   let layers = { ...this.state.wmslayers };
+  //   let layer = layers[underlag.id];
+  //   if (!underlag.erSynlig) {
+  //     if (layer) {
+  //       console.log("Removing layer", layer)
+  //       this.map.removeLayer(layer);
+  //       delete layers[underlag.id];
+  //       this.setState({ wmslayers: layers });
+  //     }
+  //     return;
+  //   }
+
+  //   const url = this.makeWmsUrl(kartlag.wmsurl);
+  //   let srs = "EPSG3857";
+  //   if (kartlag.projeksjon) {
+  //     srs = kartlag.projeksjon.replace(":", "");
+  //   }
+  //   if (!layer) {
+  //     layer = L.tileLayer.cachedOverview("", {
+  //       id: underlag.id,
+  //       zoomThreshold: underlag.minzoom,
+  //       layers: underlag.wmslayer,
+  //       transparent: true,
+  //       crs: L.CRS[srs],
+  //       format: "image/png",
+  //       maxZoom: MAX_MAP_ZOOM_LEVEL,
+  //       maxNativeZoom: underlag.maxzoom
+  //     });
+  //     layer.on("loading", () => {
+  //       this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+  //     });
+  //     layer.on("load", l => {
+  //       //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+  //     });
+  //     layer.on("tileerror", e => {
+  //       if (!underlag.tileerror) {
+  //         this.props.onTileStatus(kartlag.id, underlag.id, "error");
+  //       }
+  //     });
+  //     layers[underlag.id] = layer;
+  //     this.setState({ wmslayers: layers });
+  //     this.map.addLayer(layer);
+  //     console.log("Adding layer", layer)
+  //     layer.setUrl(url);
+  //     layer.setOpacity(underlag.opacity);
+  //   }
+  //   // layer.setUrl(url);
+  //   // layer.setOpacity(underlag.opacity);
+  //   // console.log("Updating layer", layer)
+  //   console.log("layers", { ...this.state.wmslayers })
+  // }
 
   makeWmsUrl(url) {
     url = url.replace(/request=GetCapabilities/gi, "");
