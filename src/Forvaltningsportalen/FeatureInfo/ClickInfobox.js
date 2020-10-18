@@ -25,7 +25,9 @@ const ClickInfobox = ({
   setLayerInfoboxDetails,
   sortKey,
   tagFilter,
-  matchAllFilters
+  matchAllFilters,
+  showPropertyGeom,
+  handlePropertyGeom
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -186,8 +188,25 @@ const ClickInfobox = ({
             </div>
           </div>
         </div>
+        <div className="show-property-button-wrapper">
+          <span className="infobox-switch-text">Gjem eiendom</span>
+          <CustomSwitch
+            tabIndex="0"
+            id="show-property-toggle"
+            checked={showPropertyGeom}
+            onChange={handlePropertyGeom}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                handlePropertyGeom();
+              }
+            }}
+          />
+          <span className="infobox-switch-text">Vis eiendom</span>
+        </div>
         <div className="search-layers-button-wrapper">
-          <span className="infobox-switch-text">Valgte kartlag</span>
+          <span className="infobox-switch-text" style={{ paddingRight: "4px" }}>
+            Valgte kartlag
+          </span>
           <CustomSwitch
             tabIndex="0"
             id="search-layers-toggle"

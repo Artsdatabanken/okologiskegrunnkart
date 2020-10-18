@@ -40,7 +40,9 @@ const InfoBox = ({
   handlePolygonResults,
   sortKey,
   tagFilter,
-  matchAllFilters
+  matchAllFilters,
+  showPropertyGeom,
+  handlePropertyGeom
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -241,6 +243,8 @@ const InfoBox = ({
           sortKey={sortKey}
           tagFilter={tagFilter}
           matchAllFilters={matchAllFilters}
+          showPropertyGeom={showPropertyGeom}
+          handlePropertyGeom={handlePropertyGeom}
         />
       )}
       {markerType === "polygon" && (

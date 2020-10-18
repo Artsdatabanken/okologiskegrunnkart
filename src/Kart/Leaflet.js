@@ -21,19 +21,9 @@ const MAX_MAP_ZOOM_LEVEL = 20;
 
 class Leaflet extends React.Component {
   state = {
-    // windowXpos: 0,
-    // windowYpos: 0,
-    // showPopup: false,
-    // buttonUrl: null,
-    // sted: null,
-    // adresse: null,
-    // data: null,
-    // koordinat: null,
-    // clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
     previousCoordinates: null,
-    // zoom: 0,
     showForbidden: false,
     closeWarning: null,
     wmslayers: {}
@@ -177,6 +167,21 @@ class Leaflet extends React.Component {
       this.removeEndPoint();
       this.removeStartPoint();
     }
+    // Draw property
+    if (
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
+        this.props.propertyGeom !== prevProps.propertyGeom) &&
+      this.props.showPropertyGeom
+    ) {
+      this.drawPropertyGeom();
+    }
+    // Remove property
+    if (
+      this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
+      !this.props.showPropertyGeom
+    ) {
+      this.removePropertyGeom();
+    }
   }
 
   removeMarker() {
@@ -202,6 +207,11 @@ class Leaflet extends React.Component {
   removeEndPoint() {
     if (!this.endpoint) return;
     this.map.removeLayer(this.endpoint);
+  }
+
+  removePropertyGeom() {
+    if (!this.propertyGeom) return;
+    this.map.removeLayer(this.propertyGeom);
   }
 
   getBackendData = async (lng, lat) => {
@@ -697,6 +707,22 @@ class Leaflet extends React.Component {
     }
   };
 
+  drawPropertyGeom = () => {
+    if (this.props.propertyGeom && this.props.showPropertyGeom) {
+      // Remove to avoid duplicates
+      this.removePropertyGeom();
+
+      // Draw polygon
+      if (this.props.propertyGeom.length > 0) {
+        // I dette tilfellet har vi utelukkende et polygon å tegne opp
+        this.propertyGeom = L.polygon(this.props.propertyGeom, {
+          color: "orange",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
   render() {
     return (
       <div className="leaflet-main-wrapper">
@@ -791,6 +817,8 @@ class Leaflet extends React.Component {
           sortKey={this.props.sortKey}
           tagFilter={this.props.tagFilter}
           matchAllFilters={this.props.matchAllFilters}
+          showPropertyGeom={this.props.showPropertyGeom}
+          handlePropertyGeom={this.props.handlePropertyGeom}
         />
         {this.state.markerType === "polygon" && (
           <div

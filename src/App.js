@@ -42,6 +42,8 @@ class App extends React.Component {
     sted: null,
     adresse: null,
     matrikkel: null,
+    propertyGeom: null,
+    showPropertyGeom: true,
     elevation: null,
     layersResult: {},
     allLayersResult: {},
@@ -287,16 +289,17 @@ class App extends React.Component {
                         handleExtensiveInfo={this.handleExtensiveInfo}
                         handleAlleLag={this.hentInfoAlleLag}
                         handleValgteLag={this.hentInfoAlleValgteLag}
-                        // forvaltningsportal={true}
                         zoom={this.state.zoom}
                         handleZoomChange={this.handleZoomChange}
                         aktiveLag={this.state.kartlag}
                         bakgrunnskart={this.state.bakgrunnskart}
-                        // onMapMove={context.onMapMove}
                         history={history}
                         sted={this.state.sted}
                         adresse={this.state.adresse}
                         matrikkel={this.state.matrikkel}
+                        propertyGeom={this.state.propertyGeom}
+                        showPropertyGeom={this.state.showPropertyGeom}
+                        handlePropertyGeom={this.handlePropertyGeom}
                         elevation={this.state.elevation}
                         layersResult={this.state.layersResult}
                         allLayersResult={this.state.allLayersResult}
@@ -319,7 +322,6 @@ class App extends React.Component {
                         lat={this.state.lat}
                         lng={this.state.lng}
                         resultat={this.state.resultat}
-                        // {...this.state}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -697,7 +699,7 @@ class App extends React.Component {
         this.setState({
           adresse: adresse.length > 0 ? adresse[0] : null
         });
-        console.log("Address first try: ", adresse);
+        console.log("Address: ", adresse);
       }
     });
   };
@@ -747,6 +749,14 @@ class App extends React.Component {
         // const matrikkel = matrikeldata[0].data.matrikkelnr.replace(" / ", "/");
         const matrikkel = matrikelResultat.data.matrikkelnr;
         this.setState({ matrikkel: matrikkel || null });
+
+        const geom = matrikelResultat.geom;
+        if (geom && geom.coordinates && geom.coordinates[0]) {
+          const sortedGeom = geom.coordinates[0].map(item => {
+            return [item[1], item[0]];
+          });
+          this.setState({ propertyGeom: sortedGeom });
+        }
 
         // Set address based on Matrikkel result if address API gave no results
         if (!this.state.adresse || this.state.adresse.length === 0) {
@@ -1489,6 +1499,10 @@ class App extends React.Component {
 
   updateWindowHeight = windowHeight => {
     this.setState({ windowHeight });
+  };
+
+  handlePropertyGeom = () => {
+    this.setState({ showPropertyGeom: !this.state.showPropertyGeom });
   };
 
   onTileStatus = (layerkey, sublayerkey, status) => {
