@@ -190,14 +190,18 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 18px 10px 5px 10px;
+  padding: 15px 10px 8px 10px;
   flex-shrink: 0;
   min-height: 114px;
+  max-width: 100%;
 }
 @media only screen and (max-width: 768px) {
   .infobox-content {
-    padding: 18px 10px 3px 10px;
+    padding: 12px 10px 5px 10px;
   }
+}
+#infobox-main-content-button.MuiListItem-root {
+  padding: 0;
 }
 .infobox-text-wrapper {
   display: flex;
@@ -256,7 +260,12 @@
 }
 #layer-results-header {
   border-top: 3px solid grey;
+  /* border-top: 1px solid grey; */
   border-bottom: 1px solid grey;
+}
+#layer-results-header.MuiListItem-root {
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 #layer-results-header.MuiListItem-gutters {
   padding-left: 12px;
@@ -377,19 +386,26 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 10px 10px 18px;
+  /* padding: 0 10px 0 18px; */
   flex-shrink: 0;
 }
-@media only screen and (max-width: 768px) {
+/* @media only screen and (max-width: 768px) {
   .search-layers-button-wrapper {
-    padding: 0 10px 7px 18px;
+    padding: 0 10px 0 18px;
   }
-}
+} */
 .search_layers:focus {
   border: 2px solid blue;
 }
+.infobox-switch-text-selected {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.85);
+}
 .infobox-switch-text {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.55);
 }
 
 /* ----------- Sorted layers extra components ------------ */
