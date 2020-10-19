@@ -17,7 +17,7 @@ import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
-// import proj4 from "proj4";
+import proj4 from "proj4";
 
 class App extends React.Component {
   state = {
@@ -657,9 +657,7 @@ class App extends React.Component {
     if (this.state.lat === lat && this.state.lng === lng) return;
     this.handleLatLng(lng, lat);
     this.handleStedsNavn(lng, lat, zoom);
-    this.handlePunktSok(lng, lat, zoom).then(() => {
-      this.handleMatrikkel(lng, lat);
-    });
+    this.handleMatrikkel(lng, lat);
     this.handleHoydedata(lng, lat);
   };
 
@@ -687,70 +685,88 @@ class App extends React.Component {
     });
   };
 
-  handlePunktSok = async (lng, lat, zoom) => {
-    // returnerer punkt søk
-    // const radius = Math.round(16500 / Math.pow(zoom, 2));
-    let radius = 250;
-    backend.hentPunktSok(lng, lat, radius).then(punktSok => {
-      if (punktSok && punktSok.adresser) {
-        const adresse = punktSok.adresser.sort((a, b) =>
-          a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
-        );
-        this.setState({
-          adresse: adresse.length > 0 ? adresse[0] : null
-        });
-        console.log("Address: ", adresse);
-      }
-    });
-  };
+  // handleAdressePunktSok = async (lng, lat, zoom) => {
+  //   // returnerer punkt søk
+  //   // const radius = Math.round(16500 / Math.pow(zoom, 2));
+  //   let radius = 250;
+  //   backend.hentAdressePunktSok(lng, lat, radius).then(punktSok => {
+  //     if (punktSok && punktSok.adresser) {
+  //       const adresse = punktSok.adresser.sort((a, b) =>
+  //         a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
+  //       );
+  //       this.setState({
+  //         adresse: adresse.length > 0 ? adresse[0] : null
+  //       });
+  //     }
+  //   });
+  // };
 
   handleMatrikkel = (lng, lat) => {
-    // returnerer matrikkel søk
+    // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
-      console.log("Matrikkel: ", data);
-      let matrikeldata = data.filter(item => item.datasettkode === "MAT");
-      if (matrikeldata.length === 0) this.setState({ matrikkel: null });
+      let propertyData = data.filter(item => item.datasettkode === "MAT");
+      if (propertyData.length === 0) {
+        this.setState({ matrikkel: null, adresse: null });
+        return;
+      }
       // Select the closest matrikkel to the point position
-      let matrikelResultat;
-      matrikelResultat = matrikeldata[0];
-      // if (matrikeldata.length === 1) {
-      //   matrikelResultat = matrikeldata[0];
-      // } else {
-      //   let dist = 99999999999999.9;
-      //   const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
-      //   const utm33Projection =
-      //     "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
-      //   const [coordX, coordY] = proj4(geographicProjection, utm33Projection, [
-      //     this.state.lng,
-      //     this.state.lat
-      //   ]);
-      //   for (const result of matrikeldata) {
-      //     const lng = result.data.representasjonspunkt[0];
-      //     const lat = result.data.representasjonspunkt[1];
-      //     const [x, y] = proj4(geographicProjection, utm33Projection, [
-      //       lng,
-      //       lat
-      //     ]);
-      //     const newDist = Math.sqrt(
-      //       Math.pow(x - coordX, 2) + Math.pow(y - coordY, 2)
-      //     );
-      //     console.log("dist: ", dist)
-      //     if (newDist < dist) {
-      //       dist = newDist;
-      //       matrikelResultat = result;
-      //     }
-      //   }
-      // }
+      let propertyResult = null;
+      let matrikkel = null;
+      let sortedGeom = null;
+      if (propertyData.length === 1 && propertyData[0].data) {
+        // Only one property
+        propertyResult = propertyData[0];
+        matrikkel = propertyResult.data.matrikkelnr;
+        const geom = propertyResult.geom;
+        if (geom && geom.coordinates && geom.coordinates[0]) {
+          sortedGeom = geom.coordinates[0].map(item => {
+            return [item[1], item[0]];
+          });
+        }
+        const knr = propertyResult.data.kommunenr;
+        const gnr = propertyResult.data.gardsnr;
+        const bnr = propertyResult.data.bruksnr;
+        backend.hentAdresseSok(knr, gnr, bnr).then(sok => {
+          this.selectAdress(sok, matrikkel, sortedGeom);
+        });
+      } else if (propertyData.length > 1 && propertyData[0].data) {
+        // Several properties. Loop and select the closest address
+        matrikkel = propertyData[0].data.matrikkelnr;
+        const geom = propertyData[0].geom;
+        if (geom && geom.coordinates && geom.coordinates[0]) {
+          sortedGeom = geom.coordinates[0].map(item => {
+            return [item[1], item[0]];
+          });
+        }
+        const countEnd = propertyData.length - 1;
+        for (let i = 0; i < propertyData.length; i++) {
+          const property = propertyData[i];
+          if (!property.data) return;
+          const knr = property.data.kommunenr;
+          const gnr = property.data.gardsnr;
+          const bnr = property.data.bruksnr;
+          let allAddresses = [];
+          backend.hentAdresseSok(knr, gnr, bnr).then(sok => {
+            if (sok && sok.adresser && sok.adresser.length > 0) {
+              allAddresses = allAddresses.concat(sok.adresser);
+            }
+            if (i === countEnd) {
+              const newSok = { adresser: allAddresses };
+              this.selectAdress(newSok, matrikkel, sortedGeom);
+            }
+          });
+        }
+      }
+
       if (
-        matrikelResultat &&
-        matrikelResultat.data &&
-        matrikelResultat.data.matrikkelnr
+        propertyResult &&
+        propertyResult.data &&
+        propertyResult.data.matrikkelnr
       ) {
-        // const matrikkel = matrikeldata[0].data.matrikkelnr.replace(" / ", "/");
-        const matrikkel = matrikelResultat.data.matrikkelnr;
+        const matrikkel = propertyResult.data.matrikkelnr;
         this.setState({ matrikkel: matrikkel || null });
 
-        const geom = matrikelResultat.geom;
+        const geom = propertyResult.geom;
         if (geom && geom.coordinates && geom.coordinates[0]) {
           const sortedGeom = geom.coordinates[0].map(item => {
             return [item[1], item[0]];
@@ -758,18 +774,80 @@ class App extends React.Component {
           this.setState({ propertyGeom: sortedGeom });
         }
 
-        // Set address based on Matrikkel result if address API gave no results
-        if (!this.state.adresse || this.state.adresse.length === 0) {
-          const data = matrikelResultat.data;
-          if (!data.gardsnr || data.gardsnr === "0") return;
-          if (!data.bruksnr || data.bruksnr === "0") return;
-          const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
-          const adresse = { adressetekst: adressetekst };
-          this.setState({ adresse: adresse });
-        }
+        // // Set address based on Matrikkel result if address API gave no results
+        // if (!this.state.adresse || this.state.adresse.length === 0) {
+        //   const data = propertyResult.data;
+        //   if (!data.gardsnr || data.gardsnr === "0") return;
+        //   if (!data.bruksnr || data.bruksnr === "0") return;
+        //   const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
+        //   const adresse = { adressetekst: adressetekst };
+        //   this.setState({ adresse: adresse });
+        // }
       }
     });
   };
+
+  selectAdress = (sok, matrikkel, sortedGeom) => {
+    let address = null;
+    if (sok && sok.adresser && sok.adresser.length === 1) {
+      address = sok.adresser[0];
+      this.setState({ adresse: address, matrikkel: matrikkel });
+    } else if (sok && sok.adresser && sok.adresser.length > 1) {
+      const vegAdresse = sok.adresser.filter(
+        item => item.objtype === "Vegadresse"
+      );
+      if (vegAdresse.length === 1) {
+        // Only one vegadresse
+        address = vegAdresse[0];
+        this.setState({
+          adresse: address,
+          matrikkel: matrikkel,
+          propertyGeom: sortedGeom
+        });
+      } else if (vegAdresse.length > 1) {
+        // Several vegadresser. Select the closest one
+        let dist = 99999999999999.9;
+        const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+        const utm33Projection =
+          "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+        const [coordX, coordY] = proj4(geographicProjection, utm33Projection, [
+          this.state.lng,
+          this.state.lat
+        ]);
+        for (const result of vegAdresse) {
+          const lng = result.representasjonspunkt.lon;
+          const lat = result.representasjonspunkt.lat;
+          const [x, y] = proj4(geographicProjection, utm33Projection, [
+            lng,
+            lat
+          ]);
+          const newDist = Math.sqrt(
+            Math.pow(x - coordX, 2) + Math.pow(y - coordY, 2)
+          );
+          if (newDist < dist) {
+            dist = newDist;
+            address = result;
+          }
+        }
+        this.setState({
+          adresse: address,
+          matrikkel: matrikkel,
+          propertyGeom: sortedGeom
+        });
+      } else {
+        // None vegadresser. Select other results, first matrikkeladresse
+        address = sok.adresser[0];
+        this.setState({
+          adresse: address,
+          matrikkel: matrikkel,
+          propertyGeom: sortedGeom
+        });
+      }
+    } else {
+      this.setState({ matrikkel: null, adresse: null });
+    }
+  };
+
   handleHoydedata = (lng, lat) => {
     // returnerer punkt søk
     backend.hentHoydedata(lng, lat).then(hoydedata => {
