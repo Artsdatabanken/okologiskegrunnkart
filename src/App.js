@@ -695,18 +695,19 @@ class App extends React.Component {
       }
       // Select the closest matrikkel to the point position
       let propertyResult = null;
-      // let matrikkelData = null;
-      let sortedGeom = null;
       if (propertyData.length === 1 && propertyData[0].data) {
         // Only one property
         propertyResult = propertyData[0];
-        // matrikkel = propertyResult.data.matrikkelnr;
         const geom = propertyResult.geom;
-        if (geom && geom.coordinates && geom.coordinates[0]) {
-          sortedGeom = geom.coordinates[0].map(item => {
-            return [item[1], item[0]];
-          });
-          this.setState({ propertyGeom: sortedGeom });
+        const allGeoms = [];
+        if (geom && geom.coordinates && geom.coordinates.length > 0) {
+          for (const coord of geom.coordinates) {
+            const sortedGeom = coord.map(item => {
+              return [item[1], item[0]];
+            });
+            allGeoms.push(sortedGeom);
+          }
+          this.setState({ propertyGeom: allGeoms });
         }
         const knr = propertyResult.data.kommunenr;
         const gnr = propertyResult.data.gardsnr;
@@ -718,11 +719,15 @@ class App extends React.Component {
         // Several properties. Loop and select the closest address
         propertyResult = propertyData[0];
         const geom = propertyData[0].geom;
-        if (geom && geom.coordinates && geom.coordinates[0]) {
-          sortedGeom = geom.coordinates[0].map(item => {
-            return [item[1], item[0]];
-          });
-          this.setState({ propertyGeom: sortedGeom });
+        const allGeoms = [];
+        if (geom && geom.coordinates && geom.coordinates.length > 0) {
+          for (const coord of geom.coordinates) {
+            const sortedGeom = coord.map(item => {
+              return [item[1], item[0]];
+            });
+            allGeoms.push(sortedGeom);
+          }
+          this.setState({ propertyGeom: allGeoms });
         }
         const countEnd = propertyData.length - 1;
         for (let i = 0; i < propertyData.length; i++) {

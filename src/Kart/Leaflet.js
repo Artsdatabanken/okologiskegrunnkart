@@ -714,7 +714,6 @@ class Leaflet extends React.Component {
 
       // Draw polygon
       if (this.props.propertyGeom.length > 0) {
-        // I dette tilfellet har vi utelukkende et polygon å tegne opp
         this.propertyGeom = L.polygon(this.props.propertyGeom, {
           color: "orange",
           lineJoin: "round"
