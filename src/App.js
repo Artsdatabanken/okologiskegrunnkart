@@ -752,7 +752,7 @@ class App extends React.Component {
   };
 
   selectAdress = (sok, propertyResult) => {
-    const matrikkel = propertyResult.data.matrikkelnr;
+    let matrikkel = propertyResult.data.matrikkelnr;
     let address = null;
     if (sok && sok.adresser && sok.adresser.length === 1) {
       // Only one address
@@ -800,14 +800,12 @@ class App extends React.Component {
       }
     } else if (matrikkel) {
       // Matrikkel exists but no addresses. Use matrikkel to select address
-      if (!this.state.adresse || this.state.adresse.length === 0) {
-        const data = propertyResult.data;
-        if (!data.gardsnr || data.gardsnr === "0") return;
-        if (!data.bruksnr || data.bruksnr === "0") return;
-        const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
-        const adresse = { adressetekst: adressetekst };
-        this.setState({ matrikkel: matrikkel, adresse: adresse });
-      }
+      const data = propertyResult.data;
+      if (!data.gardsnr || data.gardsnr === "0") return;
+      if (!data.bruksnr || data.bruksnr === "0") return;
+      const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
+      const adresse = { adressetekst: adressetekst };
+      this.setState({ matrikkel: matrikkel, adresse: adresse });
     } else {
       // No matrikkel or address
       this.setState({ matrikkel: null, adresse: null });
