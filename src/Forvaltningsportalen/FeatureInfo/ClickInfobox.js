@@ -51,25 +51,12 @@ const ClickInfobox = ({
   };
 
   const hentMatrikkel = matrikkel => {
+    if (!matrikkel) return "- / -";
     if (matrikkel && matrikkel.toLowerCase().includes("mangler")) {
       return "- / -";
     }
     return matrikkel;
   };
-
-  // const hentGardsnummer = adresse => {
-  //   if (adresse && adresse.gardsnummer) {
-  //     return adresse.gardsnummer;
-  //   }
-  //   return "-";
-  // };
-
-  // const hentBruksnummer = adresse => {
-  //   if (adresse && adresse.bruksnummer) {
-  //     return adresse.bruksnummer;
-  //   }
-  //   return "-";
-  // };
 
   const toggleAllLayers = () => {
     if (coordinates_area && coordinates_area.lng && coordinates_area.lat) {

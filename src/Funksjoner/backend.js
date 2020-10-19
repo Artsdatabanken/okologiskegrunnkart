@@ -97,11 +97,11 @@ class Backend {
     return this.getPromise(url);
   }
 
-  static async hentAdressePunktSok(lng, lat, radius) {
-    return this.getPromise(
-      `https://ws.geonorge.no/adresser/v1/punktsok?radius=${radius}&lat=${lat}&lon=${lng}`
-    );
-  }
+  // static async hentAdressePunktSok(lng, lat, radius) {
+  //   return this.getPromise(
+  //     `https://ws.geonorge.no/adresser/v1/punktsok?radius=${radius}&lat=${lat}&lon=${lng}`
+  //   );
+  // }
 
   static async hentAdresseSok(knr, gnr, bnr) {
     return this.getPromise(

@@ -685,22 +685,6 @@ class App extends React.Component {
     });
   };
 
-  // handleAdressePunktSok = async (lng, lat, zoom) => {
-  //   // returnerer punkt søk
-  //   // const radius = Math.round(16500 / Math.pow(zoom, 2));
-  //   let radius = 250;
-  //   backend.hentAdressePunktSok(lng, lat, radius).then(punktSok => {
-  //     if (punktSok && punktSok.adresser) {
-  //       const adresse = punktSok.adresser.sort((a, b) =>
-  //         a.meterDistanseTilPunkt > b.meterDistanseTilPunkt ? 1 : -1
-  //       );
-  //       this.setState({
-  //         adresse: adresse.length > 0 ? adresse[0] : null
-  //       });
-  //     }
-  //   });
-  // };
-
   handleMatrikkel = (lng, lat) => {
     // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
@@ -773,16 +757,6 @@ class App extends React.Component {
           });
           this.setState({ propertyGeom: sortedGeom });
         }
-
-        // // Set address based on Matrikkel result if address API gave no results
-        // if (!this.state.adresse || this.state.adresse.length === 0) {
-        //   const data = propertyResult.data;
-        //   if (!data.gardsnr || data.gardsnr === "0") return;
-        //   if (!data.bruksnr || data.bruksnr === "0") return;
-        //   const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
-        //   const adresse = { adressetekst: adressetekst };
-        //   this.setState({ adresse: adresse });
-        // }
       }
     });
   };
