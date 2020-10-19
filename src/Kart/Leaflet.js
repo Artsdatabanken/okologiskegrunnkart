@@ -21,20 +21,12 @@ const MAX_MAP_ZOOM_LEVEL = 20;
 
 class Leaflet extends React.Component {
   state = {
-    windowXpos: 0,
-    windowYpos: 0,
-    showPopup: false,
-    buttonUrl: null,
-    sted: null,
-    adresse: null,
-    data: null,
-    koordinat: null,
-    // clickCoordinates: { x: 0, y: 0 },
     markerType: "klikk",
     coordinates_area: null,
-    zoom: 0,
+    previousCoordinates: null,
     showForbidden: false,
-    closeWarning: null
+    closeWarning: null,
+    wmslayers: {}
   };
 
   componentDidMount() {
@@ -62,15 +54,16 @@ class Leaflet extends React.Component {
       if (!e.hard) {
         const zoom = this.map.getZoom();
         if (zoom === this.props.zoom) return;
-        this.syncWmsLayers(this.props.aktiveLag);
+        // this.syncWmsLayers(this.props.aktiveLag);
         this.props.handleZoomChange(zoom);
       }
     });
 
-    map.setView(
-      [this.props.latitude, this.props.longitude],
-      this.props.zoom * 1.8
-    );
+    // map.setView(
+    //   [this.props.latitude, this.props.longitude],
+    //   this.props.zoom * 1.8
+    // );
+    map.setView([65.4, 15.8], 3.1 * 1.8);
 
     L.control.zoom({ position: "topright" }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
@@ -79,12 +72,6 @@ class Leaflet extends React.Component {
       iconSize: [22, 36],
       iconAnchor: [11, 36]
     });
-  }
-  erEndret(prevProps) {
-    if (this.props.aktiveLag !== prevProps.aktiveLag) return true;
-    if (this.props.bakgrunnskart !== prevProps.bakgrunnskart) return true;
-    if (this.props.show_current !== prevProps.show_current) return true;
-    if (this.props.token !== prevProps.token) return true;
   }
 
   coordinatesChanged(prevProps) {
@@ -115,17 +102,87 @@ class Leaflet extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    // Render map when token is generated
+    if (this.props.token !== prevProps.token) {
+      this.updateBaseMap();
+      this.openLinksInNewTab();
+      this.positionZoomButtons();
+      this.positionleafletLink();
+      return true;
+    }
+    // Update map coordinates and zoom
     if (this.props.zoomcoordinates) {
       this.goToSelectedZoomCoordinates();
     }
-    if (this.erEndret(prevProps)) {
-      this.updateMap(this.props);
+    // Update layer tiles
+    if (this.props.aktiveLag !== prevProps.aktiveLag) {
+      this.updateMap(this.props.token, this.props.aktiveLag);
     }
+    // Update background map
+    if (this.props.bakgrunnskart !== prevProps.bakgrunnskart) {
+      this.updateBaseMap();
+      return true;
+    }
+    // Fly to new coordinates
     if (this.coordinatesChanged(prevProps)) {
       this.setState({
         coordinates_area: { lat: this.props.lat, lng: this.props.lng }
       });
       this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
+    }
+    // Update zoom buttons position
+    if (
+      this.props.showSideBar !== prevProps.showSideBar ||
+      this.props.isMobile !== prevProps.isMobile
+    ) {
+      this.positionZoomButtons();
+      this.positionleafletLink();
+    }
+    // Draw marker
+    if (
+      this.props.showMarker &&
+      (this.state.coordinates_area !== this.state.previousCoordinates ||
+        this.props.showMarker !== prevProps.showMarker)
+    ) {
+      this.drawMarker();
+    }
+    // Remove marker
+    if (
+      this.props.showMarker !== prevProps.showMarker &&
+      !this.props.showMarker
+    ) {
+      this.removeMarker();
+    }
+    // Draw polygon
+    if (this.props.showPolygon) {
+      this.drawPolygon();
+    }
+    // Remove polygon
+    if (
+      this.props.showPolygon !== prevProps.showPolygon &&
+      !this.props.showPolygon
+    ) {
+      this.removePolyline();
+      this.removePolygon();
+      this.removeEndPoint();
+      this.removeStartPoint();
+    }
+    // Draw property
+    if (
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
+        this.props.propertyGeom !== prevProps.propertyGeom) &&
+      this.props.showPropertyGeom
+    ) {
+      this.drawPropertyGeom();
+    }
+    // Remove property
+    if (
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
+        !this.props.showPropertyGeom) ||
+      (this.props.propertyGeom !== prevProps.propertyGeom &&
+        !this.props.propertyGeom)
+    ) {
+      this.removePropertyGeom();
     }
   }
 
@@ -152,6 +209,11 @@ class Leaflet extends React.Component {
   removeEndPoint() {
     if (!this.endpoint) return;
     this.map.removeLayer(this.endpoint);
+  }
+
+  removePropertyGeom() {
+    if (!this.propertyGeom) return;
+    this.map.removeLayer(this.propertyGeom);
   }
 
   getBackendData = async (lng, lat) => {
@@ -398,10 +460,9 @@ class Leaflet extends React.Component {
     return;
   };
 
-  updateMap(props) {
-    if (!this.props.token) return; // not yet loaded
-    this.updateBaseMap();
-    this.syncWmsLayers(props.aktiveLag);
+  updateMap(token, aktiveLag) {
+    if (!token) return; // not yet loaded
+    this.syncWmsLayers(aktiveLag);
   }
 
   updateBaseMap() {
@@ -422,60 +483,123 @@ class Leaflet extends React.Component {
   }
 
   syncWmsLayers(aktive) {
+    let layers = { ...this.state.wmslayers };
+    let layersChanged = false;
     Object.keys(aktive).forEach(akey => {
       const kartlag = aktive[akey];
       if (!kartlag.wmsurl) return; // Not a WMS layer
-      Object.keys(kartlag.underlag).forEach(underlagsnøkkel =>
-        this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
-      );
-    });
-  }
+      Object.keys(kartlag.underlag).forEach(underlagsnøkkel => {
+        const underlag = kartlag.underlag[underlagsnøkkel];
+        // this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
+        let layer = layers[underlag.id];
+        if (!underlag.erSynlig) {
+          if (layer) {
+            this.map.removeLayer(layer);
+            delete layers[underlag.id];
+            layersChanged = true;
+          }
+          return;
+        }
 
-  wmslayers = {};
-
-  syncUnderlag(kartlag, underlag) {
-    var layer = this.wmslayers[underlag.id];
-    if (!underlag.erSynlig) {
-      if (layer) {
-        this.map.removeLayer(layer);
-        delete this.wmslayers[underlag.id];
-      }
-      return;
-    }
-
-    var url = this.makeWmsUrl(kartlag.wmsurl);
-    let srs = "EPSG3857";
-    if (kartlag.projeksjon) {
-      srs = kartlag.projeksjon.replace(":", "");
-    }
-    if (!layer) {
-      layer = L.tileLayer.cachedOverview("", {
-        id: underlag.id,
-        zoomThreshold: underlag.minzoom,
-        layers: underlag.wmslayer,
-        transparent: true,
-        crs: L.CRS[srs],
-        format: "image/png",
-        maxZoom: MAX_MAP_ZOOM_LEVEL,
-        maxNativeZoom: underlag.maxzoom
-      });
-      layer.on("loading", () => {
-        this.props.onTileStatus(kartlag.id, underlag.id, "loading");
-      });
-      layer.on("load", l => {
-        //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
-      });
-      layer.on("tileerror", e => {
-        if (!underlag.tileerror) {
-          this.props.onTileStatus(kartlag.id, underlag.id, "error");
+        const url = this.makeWmsUrl(kartlag.wmsurl);
+        let srs = "EPSG3857";
+        if (kartlag.projeksjon) {
+          srs = kartlag.projeksjon.replace(":", "");
+        }
+        if (!layer) {
+          layer = L.tileLayer.cachedOverview("", {
+            id: underlag.id,
+            zoomThreshold: underlag.minzoom,
+            layers: underlag.wmslayer,
+            transparent: true,
+            crs: L.CRS[srs],
+            format: "image/png",
+            maxZoom: MAX_MAP_ZOOM_LEVEL,
+            maxNativeZoom: underlag.maxzoom
+          });
+          layer.on("loading", () => {
+            this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+          });
+          layer.on("load", l => {
+            //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+          });
+          layer.on("tileerror", e => {
+            if (!underlag.tileerror) {
+              this.props.onTileStatus(kartlag.id, underlag.id, "error");
+            }
+          });
+          layers[underlag.id] = layer;
+          this.map.addLayer(layer);
+          layer.setUrl(url);
+          layer.setOpacity(underlag.opacity);
+          layersChanged = true;
+        } else if (
+          layer.options &&
+          layer.options.opacity &&
+          layer.options.opacity !== underlag.opacity
+        ) {
+          layer.setOpacity(underlag.opacity);
+          layersChanged = true;
         }
       });
-      this.wmslayers[underlag.id] = layer;
-      this.map.addLayer(layer);
+    });
+    if (layersChanged) {
+      this.setState({ wmslayers: layers });
     }
-    layer.setUrl(url);
-    layer.setOpacity(underlag.opacity);
   }
+
+  // syncUnderlag(kartlag, underlag) {
+  //   let layers = { ...this.state.wmslayers };
+  //   let layer = layers[underlag.id];
+  //   if (!underlag.erSynlig) {
+  //     if (layer) {
+  //       console.log("Removing layer", layer)
+  //       this.map.removeLayer(layer);
+  //       delete layers[underlag.id];
+  //       this.setState({ wmslayers: layers });
+  //     }
+  //     return;
+  //   }
+
+  //   const url = this.makeWmsUrl(kartlag.wmsurl);
+  //   let srs = "EPSG3857";
+  //   if (kartlag.projeksjon) {
+  //     srs = kartlag.projeksjon.replace(":", "");
+  //   }
+  //   if (!layer) {
+  //     layer = L.tileLayer.cachedOverview("", {
+  //       id: underlag.id,
+  //       zoomThreshold: underlag.minzoom,
+  //       layers: underlag.wmslayer,
+  //       transparent: true,
+  //       crs: L.CRS[srs],
+  //       format: "image/png",
+  //       maxZoom: MAX_MAP_ZOOM_LEVEL,
+  //       maxNativeZoom: underlag.maxzoom
+  //     });
+  //     layer.on("loading", () => {
+  //       this.props.onTileStatus(kartlag.id, underlag.id, "loading");
+  //     });
+  //     layer.on("load", l => {
+  //       //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
+  //     });
+  //     layer.on("tileerror", e => {
+  //       if (!underlag.tileerror) {
+  //         this.props.onTileStatus(kartlag.id, underlag.id, "error");
+  //       }
+  //     });
+  //     layers[underlag.id] = layer;
+  //     this.setState({ wmslayers: layers });
+  //     this.map.addLayer(layer);
+  //     console.log("Adding layer", layer)
+  //     layer.setUrl(url);
+  //     layer.setOpacity(underlag.opacity);
+  //   }
+  //   // layer.setUrl(url);
+  //   // layer.setOpacity(underlag.opacity);
+  //   // console.log("Updating layer", layer)
+  //   console.log("layers", { ...this.state.wmslayers })
+  // }
 
   makeWmsUrl(url) {
     url = url.replace(/request=GetCapabilities/gi, "");
@@ -517,16 +641,28 @@ class Leaflet extends React.Component {
         this.props.zoomcoordinates.mincoord[0]
       ]
     ];
-    this.map.fitBounds(new_bounds);
+    this.map.flyToBounds(new_bounds);
     this.props.handleRemoveZoomCoordinates();
   };
 
-  render() {
-    this.openLinksInNewTab();
-    this.positionZoomButtons();
-    this.positionleafletLink();
-    // Polygontegning og Polylinjetegning
-    if (this.props.polyline || this.props.polygon) {
+  drawMarker = () => {
+    // Draw map marker
+    if (this.props.showMarker && this.state.coordinates_area) {
+      this.removeMarker();
+      this.setState({ previousCoordinates: this.state.coordinates_area });
+      this.marker = L.marker(
+        [this.state.coordinates_area.lat, this.state.coordinates_area.lng],
+        {
+          icon: this.icon
+        }
+      )
+        .addTo(this.map)
+        .on("click", () => this.clickMarkerInfobox());
+    }
+  };
+
+  drawPolygon = () => {
+    if ((this.props.polyline || this.props.polygon) && this.props.showPolygon) {
       // Starter med å fjerne forrige figur for å unngå duplikater
       this.removePolyline();
       this.removePolygon();
@@ -536,65 +672,59 @@ class Leaflet extends React.Component {
       // Draw polygon
       if (this.props.polyline && this.props.polyline.length > 0) {
         // I dette tilfellet har vi utelukkende en polylinje å tegne opp
-        if (this.props.showPolygon) {
-          let polygon_list = this.props.polyline;
+        let polygon_list = this.props.polyline;
 
-          // Tegn polylinjen:
-          if (polygon_list.length > 1) {
-            // Må ha mer enn et punkt for å tegne ei linje!
-            this.polyline = L.polyline(polygon_list, {
-              color: "red",
-              lineJoin: "round"
-            }).addTo(this.map);
-          }
-
-          // Tegn startspunktet på linjen
-          this.startpoint = L.marker(polygon_list[0], {
-            icon: inactiveIcon
-          })
-            .on("click", this.clickInactivePoint)
-            .addTo(this.map);
-
-          // Tegn sluttpunktet på linjen
-          let length = polygon_list.length - 1 || 0;
-          this.endpoint = L.marker(polygon_list[length], {
-            icon: activeIcon
-          })
-            .on("click", this.clickActivePoint)
-            .addTo(this.map);
+        // Tegn polylinjen:
+        if (polygon_list.length > 1) {
+          // Må ha mer enn et punkt for å tegne ei linje!
+          this.polyline = L.polyline(polygon_list, {
+            color: "red",
+            lineJoin: "round"
+          }).addTo(this.map);
         }
+
+        // Tegn startspunktet på linjen
+        this.startpoint = L.marker(polygon_list[0], {
+          icon: inactiveIcon
+        })
+          .on("click", this.clickInactivePoint)
+          .addTo(this.map);
+
+        // Tegn sluttpunktet på linjen
+        let length = polygon_list.length - 1 || 0;
+        this.endpoint = L.marker(polygon_list[length], {
+          icon: activeIcon
+        })
+          .on("click", this.clickActivePoint)
+          .addTo(this.map);
       } else if (this.props.polygon) {
         // I dette tilfellet har vi utelukkende et polygon å tegne opp
-        if (this.props.showPolygon) {
-          this.polygon = L.polygon(this.props.polygon, {
-            color: "blue",
-            lineJoin: "round"
-          })
-            .addTo(this.map)
-            .on("click", () => this.clickMarkerInfobox());
-        }
+        this.polygon = L.polygon(this.props.polygon, {
+          color: "blue",
+          lineJoin: "round"
+        })
+          .addTo(this.map)
+          .on("click", () => this.clickMarkerInfobox());
       }
     }
+  };
 
-    // Draw map marker
-    if (
-      this.props.showMarker &&
-      this.state.markerType === "klikk" &&
-      this.state.coordinates_area
-    ) {
-      this.removeMarker();
-      this.marker = L.marker(
-        [this.state.coordinates_area.lat, this.state.coordinates_area.lng],
-        {
-          icon: this.icon
-        }
-      )
-        .addTo(this.map)
-        .on("click", () => this.clickMarkerInfobox());
-    } else if (!this.props.showMarker) {
-      this.removeMarker();
+  drawPropertyGeom = () => {
+    if (this.props.propertyGeom && this.props.showPropertyGeom) {
+      // Remove to avoid duplicates
+      this.removePropertyGeom();
+
+      // Draw polygon
+      if (this.props.propertyGeom.length > 0) {
+        this.propertyGeom = L.polygon(this.props.propertyGeom, {
+          color: "orange",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
     }
+  };
 
+  render() {
     return (
       <div className="leaflet-main-wrapper">
         <div className={this.markerButtonClass()}>
@@ -665,6 +795,7 @@ class Leaflet extends React.Component {
           valgteLag={this.props.valgteLag}
           sted={this.props.sted}
           adresse={this.props.adresse}
+          matrikkel={this.props.matrikkel}
           elevation={this.props.elevation}
           resultat={this.props.resultat}
           kartlag={this.props.kartlag}
@@ -687,6 +818,8 @@ class Leaflet extends React.Component {
           sortKey={this.props.sortKey}
           tagFilter={this.props.tagFilter}
           matchAllFilters={this.props.matchAllFilters}
+          showPropertyGeom={this.props.showPropertyGeom}
+          handlePropertyGeom={this.props.handlePropertyGeom}
         />
         {this.state.markerType === "polygon" && (
           <div

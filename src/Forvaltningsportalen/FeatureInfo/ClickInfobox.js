@@ -14,6 +14,7 @@ const ClickInfobox = ({
   valgteLag,
   sted,
   adresse,
+  matrikkel,
   elevation,
   resultat,
   kartlag,
@@ -24,7 +25,9 @@ const ClickInfobox = ({
   setLayerInfoboxDetails,
   sortKey,
   tagFilter,
-  matchAllFilters
+  matchAllFilters,
+  showPropertyGeom,
+  handlePropertyGeom
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -47,18 +50,9 @@ const ClickInfobox = ({
     return "-";
   };
 
-  const hentGardsnummer = adresse => {
-    if (adresse && adresse.gardsnummer) {
-      return adresse.gardsnummer;
-    }
-    return "-";
-  };
-
-  const hentBruksnummer = adresse => {
-    if (adresse && adresse.bruksnummer) {
-      return adresse.bruksnummer;
-    }
-    return "-";
+  const hentMatrikkel = matrikkel => {
+    if (!matrikkel) return "- / -";
+    return matrikkel;
   };
 
   const toggleAllLayers = () => {
@@ -159,7 +153,8 @@ const ClickInfobox = ({
             <div className="infobox-text-multiple">
               <div className="infobox-text-primary">{hentAdresse(adresse)}</div>
               <div className="infobox-text-secondary">
-                {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`}
+                {/* {`${hentGardsnummer(adresse)}/${hentBruksnummer(adresse)}`} */}
+                {hentMatrikkel(matrikkel)}
               </div>
             </div>
           </div>
@@ -177,8 +172,25 @@ const ClickInfobox = ({
             </div>
           </div>
         </div>
+        <div className="show-property-button-wrapper">
+          <span className="infobox-switch-text">Gjem eiendom</span>
+          <CustomSwitch
+            tabIndex="0"
+            id="show-property-toggle"
+            checked={showPropertyGeom}
+            onChange={handlePropertyGeom}
+            onKeyDown={e => {
+              if (e.keyCode === 13) {
+                handlePropertyGeom();
+              }
+            }}
+          />
+          <span className="infobox-switch-text">Vis eiendom</span>
+        </div>
         <div className="search-layers-button-wrapper">
-          <span className="infobox-switch-text">Valgte kartlag</span>
+          <span className="infobox-switch-text" style={{ paddingRight: "4px" }}>
+            Valgte kartlag
+          </span>
           <CustomSwitch
             tabIndex="0"
             id="search-layers-toggle"

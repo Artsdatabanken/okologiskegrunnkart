@@ -37,7 +37,6 @@ const TreffListe = ({
 }) => {
   const [listItems, setListItems] = useState([]);
   const [resultType, setResultType] = useState("all");
-  // const [listLength, setListLength] = useState(0);
   const [pageLength, setPageLength] = useState(0);
   const [numberPages, setNumberPages] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);

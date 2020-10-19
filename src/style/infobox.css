@@ -359,7 +359,20 @@
   }
 }
 
-/* åpne ekstra info knapp */
+/* Infobox toggles */
+.show-property-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 10px 0px 18px;
+  flex-shrink: 0;
+}
+@media only screen and (max-width: 768px) {
+  .show-property-button-wrapper {
+    padding: 0 10px 0px 18px;
+  }
+}
+
 .search-layers-button-wrapper {
   display: flex;
   align-items: center;
@@ -367,16 +380,16 @@
   padding: 0 10px 10px 18px;
   flex-shrink: 0;
 }
+@media only screen and (max-width: 768px) {
+  .search-layers-button-wrapper {
+    padding: 0 10px 7px 18px;
+  }
+}
 .search_layers:focus {
   border: 2px solid blue;
 }
 .infobox-switch-text {
   font-size: 14px;
-}
-@media only screen and (max-width: 768px) {
-  .search-layers-button-wrapper {
-    padding: 0 10px 7px 18px;
-  }
 }
 
 /* ----------- Sorted layers extra components ------------ */

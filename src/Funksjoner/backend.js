@@ -97,9 +97,21 @@ class Backend {
     return this.getPromise(url);
   }
 
-  static async hentPunktSok(lng, lat, radius) {
+  // static async hentAdressePunktSok(lng, lat, radius) {
+  //   return this.getPromise(
+  //     `https://ws.geonorge.no/adresser/v1/punktsok?radius=${radius}&lat=${lat}&lon=${lng}`
+  //   );
+  // }
+
+  static async hentAdresseSok(knr, gnr, bnr) {
     return this.getPromise(
-      `https://ws.geonorge.no/adresser/v1/punktsok?radius=${radius}&lat=${lat}&lon=${lng}`
+      `https://ws.geonorge.no/adresser/v1/sok?kommunenummer=${knr}&gardsnummer=${gnr}&bruksnummer=${bnr}&treffPerSide=100`
+    );
+  }
+
+  static async hentMatrikkel(lng, lat) {
+    return this.getPromise(
+      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/punkt?lat=${lat}&lng=${lng}`
     );
   }
 
