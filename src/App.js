@@ -695,12 +695,13 @@ class App extends React.Component {
       }
       // Select the closest matrikkel to the point position
       let propertyResult = null;
-      let matrikkel = null;
+      // let matrikkelData = null;
       let sortedGeom = null;
       if (propertyData.length === 1 && propertyData[0].data) {
         // Only one property
+        console.log("One property: ", propertyData);
         propertyResult = propertyData[0];
-        matrikkel = propertyResult.data.matrikkelnr;
+        // matrikkel = propertyResult.data.matrikkelnr;
         const geom = propertyResult.geom;
         if (geom && geom.coordinates && geom.coordinates[0]) {
           sortedGeom = geom.coordinates[0].map(item => {
@@ -711,11 +712,12 @@ class App extends React.Component {
         const gnr = propertyResult.data.gardsnr;
         const bnr = propertyResult.data.bruksnr;
         backend.hentAdresseSok(knr, gnr, bnr).then(sok => {
-          this.selectAdress(sok, matrikkel, sortedGeom);
+          this.selectAdress(sok, propertyResult, sortedGeom);
         });
       } else if (propertyData.length > 1 && propertyData[0].data) {
         // Several properties. Loop and select the closest address
-        matrikkel = propertyData[0].data.matrikkelnr;
+        console.log("Several properties: ", propertyData);
+        propertyResult = propertyData[0];
         const geom = propertyData[0].geom;
         if (geom && geom.coordinates && geom.coordinates[0]) {
           sortedGeom = geom.coordinates[0].map(item => {
@@ -736,37 +738,40 @@ class App extends React.Component {
             }
             if (i === countEnd) {
               const newSok = { adresser: allAddresses };
-              this.selectAdress(newSok, matrikkel, sortedGeom);
+              this.selectAdress(newSok, propertyResult, sortedGeom);
             }
           });
         }
       }
 
-      if (
-        propertyResult &&
-        propertyResult.data &&
-        propertyResult.data.matrikkelnr
-      ) {
-        const matrikkel = propertyResult.data.matrikkelnr;
-        this.setState({ matrikkel: matrikkel || null });
+      // if (
+      //   propertyResult &&
+      //   propertyResult.data &&
+      //   propertyResult.data.matrikkelnr
+      // ) {
+      //   const matrikkel = propertyResult.data.matrikkelnr;
+      //   this.setState({ matrikkel: matrikkel || null });
 
-        const geom = propertyResult.geom;
-        if (geom && geom.coordinates && geom.coordinates[0]) {
-          const sortedGeom = geom.coordinates[0].map(item => {
-            return [item[1], item[0]];
-          });
-          this.setState({ propertyGeom: sortedGeom });
-        }
-      }
+      //   const geom = propertyResult.geom;
+      //   if (geom && geom.coordinates && geom.coordinates[0]) {
+      //     const sortedGeom = geom.coordinates[0].map(item => {
+      //       return [item[1], item[0]];
+      //     });
+      //     this.setState({ propertyGeom: sortedGeom });
+      //   }
+      // }
     });
   };
 
-  selectAdress = (sok, matrikkel, sortedGeom) => {
+  selectAdress = (sok, propertyResult, sortedGeom) => {
+    const matrikkel = propertyResult.data.matrikkelnr;
     let address = null;
     if (sok && sok.adresser && sok.adresser.length === 1) {
+      // Only one address
       address = sok.adresser[0];
       this.setState({ adresse: address, matrikkel: matrikkel });
     } else if (sok && sok.adresser && sok.adresser.length > 1) {
+      // Several addresses. Select one
       const vegAdresse = sok.adresser.filter(
         item => item.objtype === "Vegadresse"
       );
@@ -817,8 +822,27 @@ class App extends React.Component {
           propertyGeom: sortedGeom
         });
       }
+    } else if (matrikkel) {
+      // Matrikkel exists but no addresses. Use matrikkel to select address
+      if (!this.state.adresse || this.state.adresse.length === 0) {
+        const data = propertyResult.data;
+        if (!data.gardsnr || data.gardsnr === "0") return;
+        if (!data.bruksnr || data.bruksnr === "0") return;
+        const adressetekst = `${data.gardsnr} / ${data.bruksnr} / ${data.festenr}`;
+        const adresse = { adressetekst: adressetekst };
+        this.setState({
+          matrikkel: matrikkel,
+          adresse: adresse,
+          propertyGeom: sortedGeom
+        });
+      }
     } else {
-      this.setState({ matrikkel: null, adresse: null });
+      // No matrikkel or address
+      this.setState({
+        matrikkel: null,
+        adresse: null,
+        propertyGeom: sortedGeom
+      });
     }
   };
 

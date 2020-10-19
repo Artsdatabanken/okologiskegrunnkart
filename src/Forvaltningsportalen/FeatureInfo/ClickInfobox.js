@@ -52,9 +52,6 @@ const ClickInfobox = ({
 
   const hentMatrikkel = matrikkel => {
     if (!matrikkel) return "- / -";
-    if (matrikkel && matrikkel.toLowerCase().includes("mangler")) {
-      return "- / -";
-    }
     return matrikkel;
   };
 
