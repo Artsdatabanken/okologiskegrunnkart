@@ -690,7 +690,7 @@ class App extends React.Component {
     backend.hentMatrikkel(lng, lat).then(data => {
       let propertyData = data.filter(item => item.datasettkode === "MAT");
       if (propertyData.length === 0) {
-        this.setState({ matrikkel: null, adresse: null });
+        this.setState({ matrikkel: null, adresse: null, propertyGeom: null });
         return;
       }
       // Select the closest matrikkel to the point position
@@ -708,6 +708,8 @@ class App extends React.Component {
             allGeoms.push(sortedGeom);
           }
           this.setState({ propertyGeom: allGeoms });
+        } else {
+          this.setState({ propertyGeom: null });
         }
         const knr = propertyResult.data.kommunenr;
         const gnr = propertyResult.data.gardsnr;
@@ -728,6 +730,8 @@ class App extends React.Component {
             allGeoms.push(sortedGeom);
           }
           this.setState({ propertyGeom: allGeoms });
+        } else {
+          this.setState({ propertyGeom: null });
         }
         const countEnd = propertyData.length - 1;
         for (let i = 0; i < propertyData.length; i++) {
@@ -747,6 +751,8 @@ class App extends React.Component {
             }
           });
         }
+      } else {
+        this.setState({ matrikkel: null, adresse: null, propertyGeom: null });
       }
     });
   };

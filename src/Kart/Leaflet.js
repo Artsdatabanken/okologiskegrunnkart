@@ -177,8 +177,10 @@ class Leaflet extends React.Component {
     }
     // Remove property
     if (
-      this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
-      !this.props.showPropertyGeom
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
+        !this.props.showPropertyGeom) ||
+      (this.props.propertyGeom !== prevProps.propertyGeom &&
+        !this.props.propertyGeom)
     ) {
       this.removePropertyGeom();
     }
