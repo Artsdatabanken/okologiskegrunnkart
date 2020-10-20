@@ -244,6 +244,38 @@
   text-transform: lowercase;
 }
 
+/* Infobox expander content and toggles */
+.infobox-options-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(252, 252, 252);
+  border-top: 1px solid #aaa;
+  padding: 5px;
+}
+.infobox-switch-container {
+  display: flex;
+  align-items: center;
+}
+.infobox-switch-text {
+  padding-left: 5px;
+  font-size: 16px;
+}
+.infobox-radio-buttons-title {
+  font-size: 16px;
+  text-align: left;
+  padding: 15px 5px 3px 12px;
+}
+.infobox-radio-buttons-container {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-bottom: 4px;
+}
+#infobox-radio-label .MuiTypography-body1 {
+  font-size: 15px;
+  padding-left: 5px;
+}
+
 /* List with selected layers */
 .detailed-info-container-side {
   background-color: #eee;
@@ -372,7 +404,7 @@
   }
 }
 
-/* Infobox toggles */
+/* Infobox search layers toggle */
 .show-property-button-wrapper {
   display: flex;
   align-items: center;
@@ -401,12 +433,12 @@
 .search_layers:focus {
   border: 2px solid blue;
 }
-.infobox-switch-text-selected {
+.search-layers-switch-text-selected {
   font-size: 16px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.85);
 }
-.infobox-switch-text {
+.search-layers-switch-text {
   font-size: 16px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.55);
@@ -719,11 +751,6 @@ h4.container_header {
 }
 .infobox-expand-icon .MuiSvgIcon-colorPrimary {
   color: #444;
-}
-.infobox-options-container {
-  background-color: rgb(252, 252, 252);
-  border-top: 1px solid #aaa;
-  height: 250px;
 }
 
 /* Polygon layers */

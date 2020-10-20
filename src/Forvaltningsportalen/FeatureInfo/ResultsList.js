@@ -139,8 +139,8 @@ const ResultsList = ({
             <span
               className={
                 showExtensiveInfo
-                  ? "infobox-switch-text-selected"
-                  : "infobox-switch-text"
+                  ? "search-layers-switch-text-selected"
+                  : "search-layers-switch-text"
               }
             >
               Alle kartlag
