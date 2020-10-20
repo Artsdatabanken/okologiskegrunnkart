@@ -184,6 +184,40 @@ class Leaflet extends React.Component {
     ) {
       this.removePropertyGeom();
     }
+    // Draw fylke
+    if (
+      (this.props.showFylkeGeom !== prevProps.showFylkeGeom ||
+        this.props.fylkeGeom !== prevProps.fylkeGeom) &&
+      this.props.showFylkeGeom
+    ) {
+      console.log("fylke geom", this.props.fylkeGeom);
+      this.drawFylkeGeom();
+    }
+    // Remove fylke
+    if (
+      (this.props.showFylkeGeom !== prevProps.showFylkeGeom &&
+        !this.props.showFylkeGeom) ||
+      (this.props.fylkeGeom !== prevProps.fylkeGeom && !this.props.fylkeGeom)
+    ) {
+      this.removeFylkeGeom();
+    }
+    // Draw kommune
+    if (
+      (this.props.showKommuneGeom !== prevProps.showKommuneGeom ||
+        this.props.kommuneGeom !== prevProps.kommuneGeom) &&
+      this.props.showKommuneGeom
+    ) {
+      this.drawKommuneGeom();
+    }
+    // Remove kommune
+    if (
+      (this.props.showKommuneGeom !== prevProps.showKommuneGeom &&
+        !this.props.showKommuneGeom) ||
+      (this.props.kommuneGeom !== prevProps.kommuneGeom &&
+        !this.props.kommuneGeom)
+    ) {
+      this.removeKommuneGeom();
+    }
   }
 
   removeMarker() {
@@ -215,6 +249,49 @@ class Leaflet extends React.Component {
     if (!this.propertyGeom) return;
     this.map.removeLayer(this.propertyGeom);
   }
+
+  removeFylkeGeom() {
+    if (!this.fylkeGeom) return;
+    this.map.removeLayer(this.fylkeGeom);
+  }
+
+  removeKommuneGeom() {
+    if (!this.kommuneGeom) return;
+    this.map.removeLayer(this.kommuneGeom);
+  }
+
+  activateMarker = () => {
+    this.setState({ markerType: "klikk" });
+    this.props.hideAndShowPolygon(false);
+    this.props.hideAndShowMarker(true);
+    this.props.handleInfobox(true);
+    if (this.props.showPropertyGeom) {
+      this.drawPropertyGeom();
+    }
+    if (this.props.showFylkeGeom) {
+      this.drawFylkeGeom();
+    }
+    if (this.props.showKommuneGeom) {
+      this.drawKommuneGeom();
+    }
+    this.removePolyline();
+    this.removePolygon();
+    this.removeEndPoint();
+    this.removeStartPoint();
+  };
+
+  activatePolygon = () => {
+    this.setState({ markerType: "polygon" });
+    this.props.hideAndShowMarker(false);
+    this.props.hideAndShowPolygon(true);
+    this.props.handleInfobox(true);
+    if (this.props.showPolygon) {
+      this.drawPolygon();
+    }
+    this.removePropertyGeom();
+    this.removeFylkeGeom();
+    this.removeKommuneGeom();
+  };
 
   getBackendData = async (lng, lat) => {
     const fetchAllData = !this.props.showExtensiveInfo;
@@ -724,6 +801,36 @@ class Leaflet extends React.Component {
     }
   };
 
+  drawFylkeGeom = () => {
+    if (this.props.fylkeGeom && this.props.showFylkeGeom) {
+      // Remove to avoid duplicates
+      this.removeFylkeGeom();
+
+      // Draw polygon
+      if (this.props.fylkeGeom.length > 0) {
+        this.fylkeGeom = L.polygon(this.props.fylkeGeom, {
+          color: "red",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
+  drawKommuneGeom = () => {
+    if (this.props.kommuneGeom && this.props.showKommuneGeom) {
+      // Remove to avoid duplicates
+      this.removeKommuneGeom();
+
+      // Draw polygon
+      if (this.props.kommuneGeom.length > 0) {
+        this.kommuneGeom = L.polygon(this.props.kommuneGeom, {
+          color: "blue",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
   render() {
     return (
       <div className="leaflet-main-wrapper">
@@ -733,14 +840,7 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
             alt="Marker tool"
-            onClick={() => {
-              this.setState({
-                markerType: "klikk"
-              });
-              this.props.hideAndShowPolygon(false);
-              this.props.hideAndShowMarker(true);
-              this.props.handleInfobox(true);
-            }}
+            onClick={() => this.activateMarker()}
             onMouseDown={e => e.preventDefault()}
           >
             <WhereToVote />
@@ -750,14 +850,7 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"
-            onClick={() => {
-              this.setState({
-                markerType: "polygon"
-              });
-              this.props.hideAndShowMarker(false);
-              this.props.hideAndShowPolygon(true);
-              this.props.handleInfobox(true);
-            }}
+            onClick={() => this.activatePolygon()}
             onMouseDown={e => e.preventDefault()}
           >
             <Gesture />
@@ -820,6 +913,10 @@ class Leaflet extends React.Component {
           matchAllFilters={this.props.matchAllFilters}
           showPropertyGeom={this.props.showPropertyGeom}
           handlePropertyGeom={this.props.handlePropertyGeom}
+          showFylkeGeom={this.props.showFylkeGeom}
+          handleFylkeGeom={this.props.handleFylkeGeom}
+          showKommuneGeom={this.props.showKommuneGeom}
+          handleKommuneGeom={this.props.handleKommuneGeom}
         />
         {this.state.markerType === "polygon" && (
           <div

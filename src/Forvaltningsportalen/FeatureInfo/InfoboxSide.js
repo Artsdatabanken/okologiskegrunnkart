@@ -42,7 +42,11 @@ const InfoBox = ({
   tagFilter,
   matchAllFilters,
   showPropertyGeom,
-  handlePropertyGeom
+  handlePropertyGeom,
+  showFylkeGeom,
+  handleFylkeGeom,
+  showKommuneGeom,
+  handleKommuneGeom
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -245,6 +249,10 @@ const InfoBox = ({
           matchAllFilters={matchAllFilters}
           showPropertyGeom={showPropertyGeom}
           handlePropertyGeom={handlePropertyGeom}
+          showFylkeGeom={showFylkeGeom}
+          handleFylkeGeom={handleFylkeGeom}
+          showKommuneGeom={showKommuneGeom}
+          handleKommuneGeom={handleKommuneGeom}
         />
       )}
       {markerType === "polygon" && (

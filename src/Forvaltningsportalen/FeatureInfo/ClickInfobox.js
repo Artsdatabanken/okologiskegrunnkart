@@ -11,7 +11,6 @@ import {
   ListItem,
   Collapse,
   RadioGroup,
-  Radio,
   FormControlLabel
 } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
@@ -42,7 +41,11 @@ const ClickInfobox = ({
   tagFilter,
   matchAllFilters,
   showPropertyGeom,
-  handlePropertyGeom
+  handlePropertyGeom,
+  showFylkeGeom,
+  handleFylkeGeom,
+  showKommuneGeom,
+  handleKommuneGeom
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -230,11 +233,11 @@ const ClickInfobox = ({
               <CustomSwitch
                 tabIndex="0"
                 id="show-property-toggle"
-                checked={showPropertyGeom}
-                onChange={handlePropertyGeom}
+                checked={showFylkeGeom}
+                onChange={handleFylkeGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    handlePropertyGeom();
+                    handleFylkeGeom();
                   }
                 }}
               />
@@ -244,11 +247,11 @@ const ClickInfobox = ({
               <CustomSwitch
                 tabIndex="0"
                 id="show-property-toggle"
-                checked={showPropertyGeom}
-                onChange={handlePropertyGeom}
+                checked={showKommuneGeom}
+                onChange={handleKommuneGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
-                    handlePropertyGeom();
+                    handleKommuneGeom();
                   }
                 }}
               />

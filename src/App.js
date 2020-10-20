@@ -71,7 +71,11 @@ class App extends React.Component {
     sortKey: "alfabetisk",
     tagFilter: {},
     matchAllFilters: true,
-    resultat: null
+    resultat: null,
+    fylkeGeom: null,
+    showFylkeGeom: false,
+    kommuneGeom: null,
+    showKommuneGeom: false
   };
 
   async lastNedKartlag() {
@@ -322,6 +326,12 @@ class App extends React.Component {
                         lat={this.state.lat}
                         lng={this.state.lng}
                         resultat={this.state.resultat}
+                        fylkeGeom={this.state.fylkeGeom}
+                        showFylkeGeom={this.state.showFylkeGeom}
+                        handleFylkeGeom={this.handleFylkeGeom}
+                        kommuneGeom={this.state.kommuneGeom}
+                        showKommuneGeom={this.state.showKommuneGeom}
+                        handleKommuneGeom={this.handleKommuneGeom}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -688,6 +698,17 @@ class App extends React.Component {
   handleMatrikkel = (lng, lat) => {
     // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
+      // Get fylke geometry
+      const fylkeData = data.filter(item => item.datasettkode === "FYL");
+      if (fylkeData.length > 0) {
+        this.handleFylkeData(fylkeData[0]);
+      }
+      // Get kommune geometry
+      const kommuneData = data.filter(item => item.datasettkode === "KOM");
+      if (kommuneData.length > 0) {
+        this.handleKommuneData(kommuneData[0]);
+      }
+      // Get property data
       let propertyData = data.filter(item => item.datasettkode === "MAT");
       if (propertyData.length === 0) {
         this.setState({ matrikkel: null, adresse: null, propertyGeom: null });
@@ -815,6 +836,38 @@ class App extends React.Component {
     } else {
       // No matrikkel or address
       this.setState({ matrikkel: null, adresse: null });
+    }
+  };
+
+  handleFylkeData = fylkeData => {
+    const geom = fylkeData.geom;
+    const allGeoms = [];
+    if (geom && geom.coordinates && geom.coordinates.length > 0) {
+      for (const coord of geom.coordinates) {
+        const sortedGeom = coord.map(item => {
+          return [item[1], item[0]];
+        });
+        allGeoms.push(sortedGeom);
+      }
+      this.setState({ fylkeGeom: allGeoms });
+    } else {
+      this.setState({ fylkeGeom: null });
+    }
+  };
+
+  handleKommuneData = kommuneData => {
+    const geom = kommuneData.geom;
+    const allGeoms = [];
+    if (geom && geom.coordinates && geom.coordinates.length > 0) {
+      for (const coord of geom.coordinates) {
+        const sortedGeom = coord.map(item => {
+          return [item[1], item[0]];
+        });
+        allGeoms.push(sortedGeom);
+      }
+      this.setState({ kommuneGeom: allGeoms });
+    } else {
+      this.setState({ kommuneGeom: null });
     }
   };
 
@@ -1551,6 +1604,14 @@ class App extends React.Component {
 
   handlePropertyGeom = () => {
     this.setState({ showPropertyGeom: !this.state.showPropertyGeom });
+  };
+
+  handleFylkeGeom = () => {
+    this.setState({ showFylkeGeom: !this.state.showFylkeGeom });
+  };
+
+  handleKommuneGeom = () => {
+    this.setState({ showKommuneGeom: !this.state.showKommuneGeom });
   };
 
   onTileStatus = (layerkey, sublayerkey, status) => {
