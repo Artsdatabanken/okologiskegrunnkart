@@ -47,7 +47,9 @@ const PolygonInfobox = ({
   addPolygon,
   addPolyline,
   polygonResults,
-  handlePolygonResults
+  handlePolygonResults,
+  grensePolygon,
+  handleGrensePolygon
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -70,9 +72,9 @@ const PolygonInfobox = ({
 
     let points = polyline;
     // If polygon, add the first point as the last one
-    if (polygon) {
-      points = [...polygon];
-      points.push(polygon[0]);
+    if (polygon && polygon.length > 0) {
+      points = [...polygon[0]];
+      points.push(polygon[0][0]);
     }
 
     if (points.length < 2) {
@@ -122,20 +124,21 @@ const PolygonInfobox = ({
   }, [polygon, polygonJSON, polyline, polylineJSON]);
 
   useEffect(() => {
-    if (!polygon || polygon.length < 3) {
+    if (!polygon || polygon.length === 0 || polygon[0].length < 3) {
       setArea(null);
       return;
     }
 
-    const pointsCount = polygon.length;
+    const points = polygon[0];
+    const pointsCount = points.length;
     let area = 0;
     let unit = "m";
     if (pointsCount > 2) {
       for (var i = 0; i < pointsCount; i++) {
-        const lat1 = polygon[i][0];
-        const lng1 = polygon[i][1];
-        const lat2 = polygon[(i + 1) % pointsCount][0];
-        const lng2 = polygon[(i + 1) % pointsCount][1];
+        const lat1 = points[i][0];
+        const lng1 = points[i][1];
+        const lat2 = points[(i + 1) % pointsCount][0];
+        const lng2 = points[(i + 1) % pointsCount][1];
 
         // Calculate projections of real coordinates
         const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
@@ -215,6 +218,7 @@ const PolygonInfobox = ({
             addPolygon={addPolygon}
             addPolyline={addPolyline}
             handlePolygonResults={handlePolygonResults}
+            grensePolygon={grensePolygon}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">

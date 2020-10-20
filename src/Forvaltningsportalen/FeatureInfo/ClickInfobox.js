@@ -14,7 +14,7 @@ import {
   FormControlLabel
 } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
-import CustomSwitch from "../../Common/CustomSwitch";
+import SmallSwitch from "../../Common/SmallSwitch";
 import CustomRadio from "../../Common/CustomRadio";
 import "../../style/infobox.css";
 import ResultsList from "./ResultsList";
@@ -45,7 +45,11 @@ const ClickInfobox = ({
   showFylkeGeom,
   handleFylkeGeom,
   showKommuneGeom,
-  handleKommuneGeom
+  handleKommuneGeom,
+  grensePolygon,
+  handleGrensePolygon,
+  showMarkerOptions,
+  setShowMarkerOptions
 }) => {
   const [resultLayer, setResultLayer] = useState(null);
   const [primaryText, setPrimaryText] = useState(null);
@@ -53,8 +57,6 @@ const ClickInfobox = ({
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
   const [infoboxScroll, setInfoboxScroll] = useState(0);
-  const [showOptions, setShowOptions] = useState(false);
-  const [radioValue, setRadioValue] = useState("none");
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
   const longitude = coordinates_area ? coordinates_area.lng : 0;
@@ -76,7 +78,7 @@ const ClickInfobox = ({
   };
 
   const handleRadioChange = event => {
-    setRadioValue(event.target.value);
+    handleGrensePolygon(event.target.value);
   };
 
   // const handleRadioKey = event => {
@@ -153,7 +155,7 @@ const ClickInfobox = ({
           id="infobox-main-content-button"
           button
           onClick={e => {
-            setShowOptions(!showOptions);
+            setShowMarkerOptions(!showMarkerOptions);
           }}
         >
           <div className="infobox-content">
@@ -213,7 +215,7 @@ const ClickInfobox = ({
               </div>
             </div>
             <div className="infobox-expand-icon">
-              {showOptions ? (
+              {showMarkerOptions ? (
                 <ExpandLess color="primary" />
               ) : (
                 <ExpandMore color="primary" />
@@ -223,14 +225,15 @@ const ClickInfobox = ({
         </ListItem>
 
         <Collapse
-          in={showOptions}
+          in={showMarkerOptions}
           timeout="auto"
           unmountOnExit
           // Underelementet
         >
           <div className="infobox-options-container">
+            <div className="infobox-switch-title">Marker grenser</div>
             <div className="infobox-switch-container">
-              <CustomSwitch
+              <SmallSwitch
                 tabIndex="0"
                 id="show-property-toggle"
                 checked={showFylkeGeom}
@@ -241,10 +244,10 @@ const ClickInfobox = ({
                   }
                 }}
               />
-              <span className="infobox-switch-text">Marker fylke</span>
+              <span className="infobox-switch-text">Fylke</span>
             </div>
             <div className="infobox-switch-container">
-              <CustomSwitch
+              <SmallSwitch
                 tabIndex="0"
                 id="show-property-toggle"
                 checked={showKommuneGeom}
@@ -255,10 +258,10 @@ const ClickInfobox = ({
                   }
                 }}
               />
-              <span className="infobox-switch-text">Marker kommune</span>
+              <span className="infobox-switch-text">Kommune</span>
             </div>
             <div className="infobox-switch-container">
-              <CustomSwitch
+              <SmallSwitch
                 tabIndex="0"
                 id="show-property-toggle"
                 checked={showPropertyGeom}
@@ -269,23 +272,23 @@ const ClickInfobox = ({
                   }
                 }}
               />
-              <span className="infobox-switch-text">Marker eiendom</span>
+              <span className="infobox-switch-text">Eiendom</span>
             </div>
             <div className="infobox-radio-buttons-title">
-              Bruk automatisk som polygon
+              Definer polygon fra grenser
             </div>
             <div className="infobox-radio-buttons-container">
               <RadioGroup
                 aria-label="export"
                 name="export1"
-                value={radioValue}
+                value={grensePolygon}
                 onChange={handleRadioChange}
               >
                 <FormControlLabel
                   id="infobox-radio-label"
                   value="none"
                   control={<CustomRadio />}
-                  label="Ingen"
+                  label="Ingen (selvtegnet)"
                 />
                 <FormControlLabel
                   id="infobox-radio-label"

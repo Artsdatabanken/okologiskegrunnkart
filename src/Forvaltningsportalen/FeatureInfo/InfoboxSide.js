@@ -46,12 +46,17 @@ const InfoBox = ({
   showFylkeGeom,
   handleFylkeGeom,
   showKommuneGeom,
-  handleKommuneGeom
+  handleKommuneGeom,
+  grensePolygon,
+  grensePolygonGeom,
+  handleGrensePolygon
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
   const [screenHeight, setScreenHeight] = useState(0);
   const [inTransition, setInTransition] = useState(null);
+  const [showMarkerOptions, setShowMarkerOptions] = useState(false);
+  const [showPolygonOptions, setShowPolygonOptions] = useState(false);
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
@@ -253,11 +258,15 @@ const InfoBox = ({
           handleFylkeGeom={handleFylkeGeom}
           showKommuneGeom={showKommuneGeom}
           handleKommuneGeom={handleKommuneGeom}
+          grensePolygon={grensePolygon}
+          handleGrensePolygon={handleGrensePolygon}
+          showMarkerOptions={showMarkerOptions}
+          setShowMarkerOptions={setShowMarkerOptions}
         />
       )}
       {markerType === "polygon" && (
         <PolygonInfobox
-          polygon={polygon}
+          polygon={grensePolygon === "none" ? polygon : grensePolygonGeom}
           polyline={polyline}
           showPolygon={showPolygon}
           hideAndShowPolygon={hideAndShowPolygon}
@@ -266,6 +275,8 @@ const InfoBox = ({
           addPolyline={addPolyline}
           polygonResults={polygonResults}
           handlePolygonResults={handlePolygonResults}
+          grensePolygon={grensePolygon}
+          handleGrensePolygon={handleGrensePolygon}
         />
       )}
     </div>

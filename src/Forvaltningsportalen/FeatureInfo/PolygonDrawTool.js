@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   VisibilityOutlined,
   VisibilityOffOutlined,
@@ -22,6 +22,10 @@ const useStyles = makeStyles(() => ({
     },
     "&:hover": {
       backgroundColor: "rgba(145, 163, 176, 0.5)"
+    },
+    "&.Mui-disabled": {
+      color: "#999",
+      border: "1px solid #999"
     }
   }
 }));
@@ -34,15 +38,31 @@ const PolygonDrawTool = ({
   handleEditable,
   addPolygon,
   addPolyline,
-  handlePolygonResults
+  handlePolygonResults,
+  grensePolygon
 }) => {
   const classes = useStyles();
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (grensePolygon !== "none") {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [grensePolygon]);
 
   return (
     <>
       <div className="polygon-tool-wrapper">
         <div className="polygon-tool-label">
-          <Typography variant="body1">Geometri</Typography>
+          <Typography
+            id={disabled ? "geometry-tool-disabled" : ""}
+            variant="body1"
+          >
+            Geometri
+          </Typography>
         </div>
         <div className="polygon-buttons-wrapper">
           {polygon ? (
@@ -55,6 +75,7 @@ const PolygonDrawTool = ({
                   handleEditable(true);
                   handlePolygonResults(null);
                 }}
+                disabled={disabled}
               >
                 <Create />
               </IconButton>
@@ -70,6 +91,7 @@ const PolygonDrawTool = ({
                       addPolyline(polyline);
                     }
                   }}
+                  disabled={disabled}
                 >
                   <Undo />
                 </IconButton>
@@ -83,6 +105,7 @@ const PolygonDrawTool = ({
                       addPolyline([]);
                     }
                   }}
+                  disabled={disabled}
                 >
                   <Done />
                 </IconButton>
@@ -96,6 +119,7 @@ const PolygonDrawTool = ({
               onClick={() => {
                 hideAndShowPolygon(!showPolygon);
               }}
+              disabled={disabled}
             >
               {showPolygon ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
             </IconButton>
@@ -111,6 +135,7 @@ const PolygonDrawTool = ({
                 handleEditable(true);
                 handlePolygonResults(null);
               }}
+              disabled={disabled}
             >
               <Delete />
             </IconButton>

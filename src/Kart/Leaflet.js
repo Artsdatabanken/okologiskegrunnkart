@@ -54,7 +54,6 @@ class Leaflet extends React.Component {
       if (!e.hard) {
         const zoom = this.map.getZoom();
         if (zoom === this.props.zoom) return;
-        // this.syncWmsLayers(this.props.aktiveLag);
         this.props.handleZoomChange(zoom);
       }
     });
@@ -218,6 +217,23 @@ class Leaflet extends React.Component {
     ) {
       this.removeKommuneGeom();
     }
+    // Draw border geometry
+    if (
+      (this.props.grensePolygon !== prevProps.grensePolygon ||
+        this.props.grensePolygonGeom !== prevProps.grensePolygonGeom) &&
+      this.props.grensePolygon !== "none"
+    ) {
+      this.drawGrenseGeom();
+    }
+    // Remove border geometry
+    if (
+      (this.props.grensePolygon !== prevProps.grensePolygon &&
+        this.props.grensePolygon === "none") ||
+      (this.props.grensePolygonGeom !== prevProps.grensePolygonGeom &&
+        !this.props.grensePolygonGeom)
+    ) {
+      this.removeGrenseGeom();
+    }
   }
 
   removeMarker() {
@@ -260,34 +276,45 @@ class Leaflet extends React.Component {
     this.map.removeLayer(this.kommuneGeom);
   }
 
+  removeGrenseGeom() {
+    if (!this.grensePolygonGeom) return;
+    this.map.removeLayer(this.grensePolygonGeom);
+  }
+
   activateMarker = () => {
-    this.setState({ markerType: "klikk" });
+    this.setState({ markerType: "klikk" }, () => {
+      if (this.props.showPropertyGeom) {
+        this.drawPropertyGeom();
+      }
+      if (this.props.showFylkeGeom) {
+        this.drawFylkeGeom();
+      }
+      if (this.props.showKommuneGeom) {
+        this.drawKommuneGeom();
+      }
+    });
     this.props.hideAndShowPolygon(false);
     this.props.hideAndShowMarker(true);
     this.props.handleInfobox(true);
-    if (this.props.showPropertyGeom) {
-      this.drawPropertyGeom();
-    }
-    if (this.props.showFylkeGeom) {
-      this.drawFylkeGeom();
-    }
-    if (this.props.showKommuneGeom) {
-      this.drawKommuneGeom();
-    }
     this.removePolyline();
     this.removePolygon();
     this.removeEndPoint();
     this.removeStartPoint();
+    this.removeGrenseGeom();
   };
 
   activatePolygon = () => {
-    this.setState({ markerType: "polygon" });
+    this.setState({ markerType: "polygon" }, () => {
+      if (this.props.grensePolygon === "none") {
+        this.drawPolygon();
+      }
+      if (this.props.grensePolygon !== "none") {
+        this.drawGrenseGeom();
+      }
+    });
     this.props.hideAndShowMarker(false);
     this.props.hideAndShowPolygon(true);
     this.props.handleInfobox(true);
-    if (this.props.showPolygon) {
-      this.drawPolygon();
-    }
     this.removePropertyGeom();
     this.removeFylkeGeom();
     this.removeKommuneGeom();
@@ -824,6 +851,22 @@ class Leaflet extends React.Component {
       // Draw polygon
       if (this.props.kommuneGeom.length > 0) {
         this.kommuneGeom = L.polygon(this.props.kommuneGeom, {
+          color: "#274e88",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
+  drawGrenseGeom = () => {
+    console.log("markerType: ", this.state.markerType);
+    if (this.props.grensePolygonGeom && this.state.markerType === "polygon") {
+      // Remove to avoid duplicates
+      this.removeGrenseGeom();
+
+      // Draw polygon
+      if (this.props.grensePolygonGeom.length > 0) {
+        this.grensePolygonGeom = L.polygon(this.props.grensePolygonGeom, {
           color: "blue",
           lineJoin: "round"
         }).addTo(this.map);
@@ -917,6 +960,9 @@ class Leaflet extends React.Component {
           handleFylkeGeom={this.props.handleFylkeGeom}
           showKommuneGeom={this.props.showKommuneGeom}
           handleKommuneGeom={this.props.handleKommuneGeom}
+          grensePolygon={this.props.grensePolygon}
+          grensePolygonGeom={this.props.grensePolygonGeom}
+          handleGrensePolygon={this.props.handleGrensePolygon}
         />
         {this.state.markerType === "polygon" && (
           <div

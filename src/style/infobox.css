@@ -255,6 +255,12 @@
 .infobox-switch-container {
   display: flex;
   align-items: center;
+  padding-left: 4px;
+}
+.infobox-switch-title {
+  font-size: 16px;
+  text-align: left;
+  padding: 10px 5px 3px 12px;
 }
 .infobox-switch-text {
   padding-left: 5px;
@@ -723,6 +729,9 @@ h4.container_header {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+#geometry-tool-disabled.MuiTypography-root {
+  color: #777;
 }
 .infobox-text-wrapper-polygon {
   display: flex;
