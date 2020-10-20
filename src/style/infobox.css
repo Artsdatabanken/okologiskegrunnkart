@@ -190,14 +190,15 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 15px 10px 8px 10px;
+  padding: 15px 10px 4px 10px;
   flex-shrink: 0;
   min-height: 114px;
+  width: 100%;
   max-width: 100%;
 }
 @media only screen and (max-width: 768px) {
   .infobox-content {
-    padding: 12px 10px 5px 10px;
+    padding: 12px 10px 2px 10px;
   }
 }
 #infobox-main-content-button.MuiListItem-root {
@@ -209,6 +210,9 @@
   text-transform: capitalize;
   padding-bottom: 5px;
   font-size: 16px;
+}
+.infobox-text-wrapper.infobox-text-last {
+  padding-bottom: 0;
 }
 .infobox-text-wrapper svg {
   display: inline-block;
@@ -708,6 +712,18 @@ h4.container_header {
   .detailed-info-container-polygon {
     padding-bottom: 150px;
   }
+}
+.infobox-expand-icon {
+  display: flex;
+  justify-content: center;
+}
+.infobox-expand-icon .MuiSvgIcon-colorPrimary {
+  color: #444;
+}
+.infobox-options-container {
+  background-color: rgb(252, 252, 252);
+  border-top: 1px solid #aaa;
+  height: 250px;
 }
 
 /* Polygon layers */

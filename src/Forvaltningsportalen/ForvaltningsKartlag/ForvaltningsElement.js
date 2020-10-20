@@ -104,6 +104,15 @@ const ForvaltningsElement = ({
                   />
                 </ListItemIcon>
                 <ListItemText primary={allcategorieslayer.tittel} />
+                <ListItemIcon id="open-details-icon">
+                  <CustomIcon
+                    id="open-details"
+                    icon="chevron-right"
+                    size={20}
+                    padding={0}
+                    color="#666"
+                  />
+                </ListItemIcon>
                 {/* <ListItemIcon id="bookmark-icon">
                   <CustomIcon
                     id="bookmark"

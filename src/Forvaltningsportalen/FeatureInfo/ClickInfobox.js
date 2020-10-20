@@ -1,6 +1,13 @@
 import React, { useState, useCallback } from "react";
-import { Place, Home, Flag, Terrain } from "@material-ui/icons";
-import { ListItem } from "@material-ui/core";
+import {
+  Place,
+  Home,
+  Flag,
+  Terrain,
+  ExpandLess,
+  ExpandMore
+} from "@material-ui/icons";
+import { ListItem, Collapse } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
 // import CustomSwitch from "../../Common/CustomSwitch";
 import "../../style/infobox.css";
@@ -36,6 +43,7 @@ const ClickInfobox = ({
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
   const [infoboxScroll, setInfoboxScroll] = useState(0);
+  const [showOptions, setShowOptions] = useState(false);
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
   const longitude = coordinates_area ? coordinates_area.lng : 0;
@@ -115,7 +123,7 @@ const ClickInfobox = ({
           id="infobox-main-content-button"
           button
           onClick={e => {
-            console.log("Open");
+            setShowOptions(!showOptions);
           }}
         >
           <div className="infobox-content">
@@ -161,7 +169,7 @@ const ClickInfobox = ({
                 </div>
               </div>
             </div>
-            <div className="infobox-text-wrapper">
+            <div className="infobox-text-wrapper infobox-text-last">
               <CustomTooltip placement="right" title="Koordinater / Høyde">
                 <Place />
               </CustomTooltip>
@@ -174,8 +182,24 @@ const ClickInfobox = ({
                 </div>
               </div>
             </div>
+            <div className="infobox-expand-icon">
+              {showOptions ? (
+                <ExpandLess color="primary" />
+              ) : (
+                <ExpandMore color="primary" />
+              )}
+            </div>
           </div>
         </ListItem>
+
+        <Collapse
+          in={showOptions}
+          timeout="auto"
+          unmountOnExit
+          // Underelementet
+        >
+          <div className="infobox-options-container" />
+        </Collapse>
         {/* <div className="show-property-button-wrapper">
           <span className="infobox-switch-text">Gjem eiendom</span>
           <CustomSwitch

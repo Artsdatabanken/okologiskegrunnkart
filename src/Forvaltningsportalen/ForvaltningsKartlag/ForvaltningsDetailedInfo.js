@@ -316,7 +316,7 @@ const ForvaltningsDetailedInfo = ({
           <ListItemText
             primary={allCategories ? "Alle kategorier" : underlag.tittel}
           />
-          {sublayer.suggested && (
+          {/* {sublayer.suggested && (
             <ListItemIcon id="bookmark-icon">
               <CustomIcon
                 id="bookmark"
@@ -326,7 +326,7 @@ const ForvaltningsDetailedInfo = ({
                 color={visible ? "#666" : "#999"}
               />
             </ListItemIcon>
-          )}
+          )} */}
         </ListItem>
 
         <div className="sublayer-details-wrapper">

@@ -539,8 +539,9 @@
 #bookmark.layer-icon-wrapper {
   margin-bottom: 2px;
 }
-#bookmark-icon.MuiListItemIcon-root {
+#open-details-icon.MuiListItemIcon-root {
   justify-content: flex-end;
+  min-width: 35px;
 }
 #tile-error-icon.MuiListItemIcon-root {
   justify-content: flex-end;

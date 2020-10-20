@@ -319,7 +319,16 @@ const GeneriskElement = ({
             <div className="generic-element-secondary-text">{layer.tittel}</div>
             <div className="generic-element-data-owner">{layer.dataeier}</div>
           </div>
-          {faktaark_url && (
+          <ListItemIcon id="open-details-icon">
+            <CustomIcon
+              id="open-details"
+              icon="chevron-right"
+              size={20}
+              padding={0}
+              color="#666"
+            />
+          </ListItemIcon>
+          {/* {faktaark_url && (
             <CustomTooltip placement="right" title="Vis faktaark">
               <IconButton
                 id="show-faktaark-button"
@@ -332,7 +341,7 @@ const GeneriskElement = ({
                 <Info id="open-facts-icon" color="primary" />
               </IconButton>
             </CustomTooltip>
-          )}
+          )} */}
         </ListItem>
       )}
 
