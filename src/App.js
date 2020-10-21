@@ -575,7 +575,7 @@ class App extends React.Component {
   };
 
   addPolygon = polygon => {
-    this.setState({ polygon: [polygon] });
+    this.setState({ polygon: polygon });
   };
 
   hideAndShowPolygon = showPolygon => {
@@ -913,7 +913,7 @@ class App extends React.Component {
     if (value === "eiendom") {
       this.setState({ grensePolygonGeom: this.state.propertyGeom });
     }
-    this.setState({ grensePolygon: value });
+    this.setState({ grensePolygon: value, polygonResults: null });
   };
 
   handleHoydedata = (lng, lat) => {

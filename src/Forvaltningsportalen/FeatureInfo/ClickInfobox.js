@@ -81,21 +81,6 @@ const ClickInfobox = ({
     handleGrensePolygon(event.target.value);
   };
 
-  // const handleRadioKey = event => {
-  //   if (event.keyCode === 27) {
-  //     // Enter
-  //     setRadioValue(event.target.value);
-  //   }
-  //   if (event.keyCode === 40) {
-  //     // Arrow down
-  //     console.log("Arrow down")
-  //   }
-  //   // Arrow up
-  //   if (event.keyCode === 38) {
-  //     console.log("Arrow up")
-  //   }
-  // };
-
   const showDetailedResults = useCallback(
     (layer, listResults, primaryText, secondaryText, numberResults) => {
       // Remember scroll position of infobox

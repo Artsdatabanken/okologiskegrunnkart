@@ -9,6 +9,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
+import getPolygonDepth from "../../Funksjoner/getPolygonDepth";
 
 const PolygonLayers = ({
   availableLayers,
@@ -23,7 +24,7 @@ const PolygonLayers = ({
   const polygonJSON = JSON.stringify(polygon);
 
   const calculateAreaReport = () => {
-    if (!polygon || polygon.length < 2) return;
+    if (!polygon || polygon.length === 0) return;
     handlePolygonResults(null);
     const layerCodes = [];
     let errorResult = {};
@@ -33,8 +34,16 @@ const PolygonLayers = ({
       errorResult[layer.code] = { error: true };
     }
     if (layerCodes.length > 0) {
+      const depth = getPolygonDepth(polygon);
+      let points;
+      if (depth === 2) points = polygon;
+      else if (depth === 3) points = polygon[0];
+      else {
+        handlePolygonResults(errorResult);
+        return;
+      }
       handleLoadingFeatures(true);
-      backend.makeAreaReport(layerCodes, polygon).then(result => {
+      backend.makeAreaReport(layerCodes, points).then(result => {
         if (!result) handlePolygonResults(errorResult);
         else handlePolygonResults(result);
         handleLoadingFeatures(false);
@@ -53,8 +62,15 @@ const PolygonLayers = ({
   };
 
   useEffect(() => {
-    if (!polygon || polygon.length < 3) setDisabled(true);
-    else setDisabled(false);
+    if (!polygon) {
+      setDisabled(true);
+      return;
+    }
+    const depth = getPolygonDepth(polygon);
+    // Only one polygon
+    if (depth === 2 && polygon.length > 2) setDisabled(false);
+    else if (depth === 3 && polygon[0].length > 2) setDisabled(false);
+    else setDisabled(true);
   }, [polygon, polygonJSON]);
 
   return (

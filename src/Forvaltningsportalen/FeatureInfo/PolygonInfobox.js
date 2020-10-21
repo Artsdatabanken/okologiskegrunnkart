@@ -14,6 +14,7 @@ import proj4 from "proj4";
 import { makeStyles } from "@material-ui/core/styles";
 import PolygonElement from "./PolygonElement";
 import PolygonDetailed from "./PolygonDetailed";
+import getPolygonDepth from "../../Funksjoner/getPolygonDepth";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -70,11 +71,23 @@ const PolygonInfobox = ({
       return;
     }
 
-    let points = polyline;
+    let points = [...polyline];
     // If polygon, add the first point as the last one
     if (polygon && polygon.length > 0) {
-      points = [...polygon[0]];
-      points.push(polygon[0][0]);
+      const depht = getPolygonDepth(polygon);
+      if (depht === 2) {
+        // Only one polygon
+        points = [...polygon];
+        points.push(polygon[0]);
+      } else if (depht === 3) {
+        // Only one polygon with holes
+        points = [...polygon[0]];
+        points.push(polygon[0][0]);
+      } else {
+        // Something is wrong
+        setPerimeter(null);
+        return;
+      }
     }
 
     if (points.length < 2) {
@@ -124,18 +137,30 @@ const PolygonInfobox = ({
   }, [polygon, polygonJSON, polyline, polylineJSON]);
 
   useEffect(() => {
-    if (!polygon || polygon.length === 0 || polygon[0].length < 3) {
+    if (!polygon || polygon.length === 0) {
       setArea(null);
       return;
     }
 
     // Calculate main area
+    let points;
     let area = 0;
-    const points = polygon[0];
+    const depht = getPolygonDepth(polygon);
+    if (depht === 2) {
+      // Only one polygon
+      points = polygon;
+    } else if (depht === 3) {
+      // Only one polygon with holes
+      points = polygon[0];
+    } else {
+      // Something is wrong
+      setArea(null);
+      return;
+    }
     area = calculateArea(points);
 
     // Substract areas if there are holes
-    if (polygon.length > 1) {
+    if (depht === 3 && polygon.length > 1) {
       for (let i = 1; i < polygon.length; i++) {
         const hole = polygon[i];
         if (hole.length < 3) continue;
