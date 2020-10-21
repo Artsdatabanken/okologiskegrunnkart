@@ -4,7 +4,10 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  LinearProgress
+  LinearProgress,
+  Collapse,
+  RadioGroup,
+  FormControlLabel
 } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
@@ -15,6 +18,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PolygonElement from "./PolygonElement";
 import PolygonDetailed from "./PolygonDetailed";
 import getPolygonDepth from "../../Funksjoner/getPolygonDepth";
+import CustomRadio from "../../Common/CustomRadio";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -50,7 +54,9 @@ const PolygonInfobox = ({
   polygonResults,
   handlePolygonResults,
   grensePolygon,
-  handleGrensePolygon
+  handleGrensePolygon,
+  showPolygonOptions,
+  setShowPolygonOptions
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -64,6 +70,10 @@ const PolygonInfobox = ({
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
+
+  const handleRadioChange = event => {
+    handleGrensePolygon(event.target.value);
+  };
 
   useEffect(() => {
     if (!polygon && !polyline) {
@@ -261,36 +271,93 @@ const PolygonInfobox = ({
             handlePolygonResults={handlePolygonResults}
             grensePolygon={grensePolygon}
           />
-          <div className="infobox-content">
-            <div className="infobox-text-wrapper-polygon">
-              <CustomIcon
-                id="polygon-icon"
-                icon="hexagon-outline"
-                color="grey"
-                size={24}
-              />
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">Omkrets / perimeter</div>
-                <div className="infobox-text-secondary">
-                  {perimeter ? perimeter + " " + perimeterUnit : "---"}
+          <ListItem
+            id="infobox-main-content-button"
+            button
+            onClick={e => {
+              setShowPolygonOptions(!showPolygonOptions);
+            }}
+          >
+            <div className="infobox-content">
+              <div className="infobox-text-wrapper-polygon">
+                <CustomIcon
+                  id="polygon-icon"
+                  icon="hexagon-outline"
+                  color="grey"
+                  size={24}
+                />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">
+                    Omkrets / perimeter
+                  </div>
+                  <div className="infobox-text-secondary">
+                    {perimeter ? perimeter + " " + perimeterUnit : "---"}
+                  </div>
+                </div>
+              </div>
+              <div className="infobox-text-wrapper-polygon">
+                <CustomIcon
+                  id="polygon-icon"
+                  icon="hexagon-slice-6"
+                  color="grey"
+                  size={24}
+                />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Areal</div>
+                  <div className="infobox-text-secondary">
+                    {area ? area + " " + areaUnit + "²" : "---"}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="infobox-text-wrapper-polygon">
-              <CustomIcon
-                id="polygon-icon"
-                icon="hexagon-slice-6"
-                color="grey"
-                size={24}
-              />
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">Areal</div>
-                <div className="infobox-text-secondary">
-                  {area ? area + " " + areaUnit + "²" : "---"}
-                </div>
+          </ListItem>
+
+          <Collapse
+            in={showPolygonOptions}
+            timeout="auto"
+            unmountOnExit
+            // Underelementet
+          >
+            <div className="infobox-options-container">
+              <div className="infobox-radio-buttons-title">
+                Definer polygon fra grenser
+              </div>
+              <div className="infobox-radio-buttons-container">
+                <RadioGroup
+                  aria-label="export"
+                  name="export1"
+                  value={grensePolygon}
+                  onChange={handleRadioChange}
+                >
+                  <FormControlLabel
+                    id="infobox-radio-label"
+                    value="none"
+                    control={<CustomRadio />}
+                    label="Ingen (selvtegnet)"
+                  />
+                  <FormControlLabel
+                    id="infobox-radio-label"
+                    value="fylke"
+                    control={<CustomRadio />}
+                    label="Fylke"
+                  />
+                  <FormControlLabel
+                    id="infobox-radio-label"
+                    value="kommune"
+                    control={<CustomRadio />}
+                    label="Kommune"
+                  />
+                  <FormControlLabel
+                    id="infobox-radio-label"
+                    value="eiendom"
+                    control={<CustomRadio />}
+                    label="Eiendom"
+                  />
+                </RadioGroup>
               </div>
             </div>
-          </div>
+          </Collapse>
+
           <PolygonLayers
             availableLayers={availableLayers}
             polygon={polygon}

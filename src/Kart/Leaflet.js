@@ -158,8 +158,9 @@ class Leaflet extends React.Component {
     }
     // Remove polygon
     if (
-      this.props.showPolygon !== prevProps.showPolygon &&
-      !this.props.showPolygon
+      (this.props.showPolygon !== prevProps.showPolygon &&
+        !this.props.showPolygon) ||
+      this.props.grensePolygon !== "none"
     ) {
       this.removePolyline();
       this.removePolygon();

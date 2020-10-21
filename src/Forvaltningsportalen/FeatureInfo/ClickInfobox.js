@@ -7,15 +7,9 @@ import {
   ExpandLess,
   ExpandMore
 } from "@material-ui/icons";
-import {
-  ListItem,
-  Collapse,
-  RadioGroup,
-  FormControlLabel
-} from "@material-ui/core";
+import { ListItem, Collapse } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
 import SmallSwitch from "../../Common/SmallSwitch";
-import CustomRadio from "../../Common/CustomRadio";
 import "../../style/infobox.css";
 import ResultsList from "./ResultsList";
 import DetailedResults from "./DetailedResults";
@@ -75,10 +69,6 @@ const ClickInfobox = ({
   const hentMatrikkel = matrikkel => {
     if (!matrikkel) return "- / -";
     return matrikkel;
-  };
-
-  const handleRadioChange = event => {
-    handleGrensePolygon(event.target.value);
   };
 
   const showDetailedResults = useCallback(
@@ -260,59 +250,9 @@ const ClickInfobox = ({
               />
               <span className="infobox-switch-text">Eiendom</span>
             </div>
-            <div className="infobox-radio-buttons-title">
-              Definer polygon fra grenser
-            </div>
-            <div className="infobox-radio-buttons-container">
-              <RadioGroup
-                aria-label="export"
-                name="export1"
-                value={grensePolygon}
-                onChange={handleRadioChange}
-              >
-                <FormControlLabel
-                  id="infobox-radio-label"
-                  value="none"
-                  control={<CustomRadio />}
-                  label="Ingen (selvtegnet)"
-                />
-                <FormControlLabel
-                  id="infobox-radio-label"
-                  value="fylke"
-                  control={<CustomRadio />}
-                  label="Fylke"
-                />
-                <FormControlLabel
-                  id="infobox-radio-label"
-                  value="kommune"
-                  control={<CustomRadio />}
-                  label="Kommune"
-                />
-                <FormControlLabel
-                  id="infobox-radio-label"
-                  value="eiendom"
-                  control={<CustomRadio />}
-                  label="Eiendom"
-                />
-              </RadioGroup>
-            </div>
           </div>
         </Collapse>
-        {/* <div className="show-property-button-wrapper">
-          <span className="infobox-switch-text">Gjem eiendom</span>
-          <CustomSwitch
-            tabIndex="0"
-            id="show-property-toggle"
-            checked={showPropertyGeom}
-            onChange={handlePropertyGeom}
-            onKeyDown={e => {
-              if (e.keyCode === 13) {
-                handlePropertyGeom();
-              }
-            }}
-          />
-          <span className="infobox-switch-text">Vis eiendom</span>
-        </div> */}
+
         <ResultsList
           showExtensiveInfo={showExtensiveInfo}
           kartlag={showExtensiveInfo ? kartlag : valgteLag}
