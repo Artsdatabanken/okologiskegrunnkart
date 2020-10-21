@@ -743,6 +743,12 @@ h4.container_header {
   padding-bottom: 5px;
   font-size: 16px;
 }
+.infobox-text-wrapper-polygon-last {
+  display: flex;
+  align-items: flex-start;
+  font-size: 16px;
+}
+.infobox-text-wrapper-polygon-last svg,
 .infobox-text-wrapper-polygon svg {
   display: inline-block;
   vertical-align: text-top;

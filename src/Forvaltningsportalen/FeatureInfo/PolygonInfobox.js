@@ -9,6 +9,7 @@ import {
   RadioGroup,
   FormControlLabel
 } from "@material-ui/core";
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
@@ -295,7 +296,7 @@ const PolygonInfobox = ({
                   </div>
                 </div>
               </div>
-              <div className="infobox-text-wrapper-polygon">
+              <div className="infobox-text-wrapper-polygon-last">
                 <CustomIcon
                   id="polygon-icon"
                   icon="hexagon-slice-6"
@@ -308,6 +309,13 @@ const PolygonInfobox = ({
                     {area ? area + " " + areaUnit + "²" : "---"}
                   </div>
                 </div>
+              </div>
+              <div className="infobox-expand-icon">
+                {showPolygonOptions ? (
+                  <ExpandLess color="primary" />
+                ) : (
+                  <ExpandMore color="primary" />
+                )}
               </div>
             </div>
           </ListItem>
