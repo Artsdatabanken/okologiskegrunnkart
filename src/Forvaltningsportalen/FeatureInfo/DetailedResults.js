@@ -1,9 +1,18 @@
-import React from "react";
-import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Info } from "@material-ui/icons";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Badge,
+  IconButton
+} from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { translateInfobox } from "../../Funksjoner/translate";
+import url_formatter from "../../Funksjoner/url_formatter";
+import CustomTooltip from "../../Common/CustomTooltip";
 
 const DetailedResults = ({
   resultLayer,
@@ -11,13 +20,35 @@ const DetailedResults = ({
   primaryText,
   secondaryText,
   numberResults,
-  hideDetailedResults
+  hideDetailedResults,
+  coordinates_area
 }) => {
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
       tema
     );
   };
+
+  const [faktaark_url, setFaktaark_url] = useState(null);
+  const listResultsJSON = JSON.stringify(listResults);
+
+  const openInNewTabWithoutOpener = url => {
+    // Done this way for security reasons
+    var newTab = window.open();
+    newTab.opener = null;
+    newTab.location = url;
+  };
+
+  useEffect(() => {
+    if (!resultLayer || !resultLayer.faktaark) {
+      setFaktaark_url(null);
+      return;
+    }
+    const faktUrl = url_formatter(resultLayer.faktaark, {
+      ...coordinates_area
+    });
+    setFaktaark_url(faktUrl);
+  }, [resultLayer, listResults, listResultsJSON, coordinates_area]);
 
   if (!resultLayer) return null;
   const sublayers = resultLayer.underlag;
@@ -62,6 +93,20 @@ const DetailedResults = ({
             primary={resultLayer.tittel}
             secondary={resultLayer.dataeier}
           />
+          {faktaark_url && (
+            <CustomTooltip placement="right" title="Åpne faktaark i egen fane">
+              <IconButton
+                id="show-faktaark-button"
+                onClick={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  openInNewTabWithoutOpener(faktaark_url);
+                }}
+              >
+                <Info id="open-facts-icon" color="primary" />
+              </IconButton>
+            </CustomTooltip>
+          )}
         </ListItem>
         <div className="infobox-details-wrapper">
           {sublayers &&

@@ -1,17 +1,8 @@
-import { OpenInNew, Info, Close } from "@material-ui/icons";
-import {
-  ListItem,
-  ListItemIcon,
-  Modal,
-  Button,
-  IconButton
-} from "@material-ui/core";
+import { ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
-import url_formatter from "../../Funksjoner/url_formatter";
 import CustomIcon from "../../Common/CustomIcon";
-import CustomTooltip from "../../Common/CustomTooltip";
 
 const modifyResult = (resultat, clickText, clickText2) => {
   let tempResult = resultat.underlag || resultat;
@@ -61,10 +52,10 @@ const GeneriskElement = ({
   resultLayer,
   showDetailedResults
 }) => {
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(0);
-  const [faktaark_url, setFaktaark_url] = useState(null);
+  // const [faktaark_url, setFaktaark_url] = useState(null);
 
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
@@ -248,18 +239,6 @@ const GeneriskElement = ({
     showDetailedResults
   ]);
 
-  useEffect(() => {
-    if (!layer || !layer.faktaark) {
-      setFaktaark_url(null);
-      return;
-    }
-    const faktUrl = url_formatter(layer.faktaark, {
-      ...coordinates_area,
-      ...resultat
-    });
-    setFaktaark_url(faktUrl);
-  }, [layer, resultat, resultatJSON, coordinates_area]);
-
   if (!layer) return null;
 
   return (
@@ -328,67 +307,8 @@ const GeneriskElement = ({
               color="#666"
             />
           </ListItemIcon>
-          {/* {faktaark_url && (
-            <CustomTooltip placement="right" title="Vis faktaark">
-              <IconButton
-                id="show-faktaark-button"
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setOpen(true);
-                }}
-              >
-                <Info id="open-facts-icon" color="primary" />
-              </IconButton>
-            </CustomTooltip>
-          )} */}
         </ListItem>
       )}
-
-      <Modal
-        open={open}
-        onClose={() => {
-          setOpen(false);
-        }}
-        className="facts-modal-body"
-      >
-        <div className="facts-modal-wrapper">
-          <div className="facts-modal-title">
-            <div>Faktaark</div>
-            <div className="facts-modal-buttons-div">
-              <Button
-                id="infobox-detail-facts"
-                size="small"
-                variant="outlined"
-                color="primary"
-                onClick={() => window.open(faktaark_url)}
-                endIcon={<OpenInNew />}
-              >
-                Åpne i nytt vindu
-              </Button>
-              <button
-                tabIndex="0"
-                className="close-modal-button-wrapper"
-                onClick={() => {
-                  setOpen(false);
-                }}
-              >
-                <div className="close-modal-button">
-                  <Close />
-                </div>
-              </button>
-            </div>
-          </div>
-          {layer.type !== "naturtype" && (
-            <iframe
-              className="facts-modal-content"
-              allowtransparency="true"
-              title="Faktaark"
-              src={faktaark_url}
-            />
-          )}
-        </div>
-      </Modal>
     </div>
   );
 };

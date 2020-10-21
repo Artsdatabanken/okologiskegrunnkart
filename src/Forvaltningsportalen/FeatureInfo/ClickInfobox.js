@@ -133,6 +133,7 @@ const ClickInfobox = ({
           secondaryText={secondaryText}
           numberResults={numberResults}
           hideDetailedResults={hideDetailedResults}
+          coordinates_area={coordinates_area}
         />
       )}
       <div className={infoboxDetailsVisible ? "infobox-content-hidden" : ""}>

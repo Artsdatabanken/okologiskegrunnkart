@@ -609,6 +609,9 @@
     border-top: 1px solid #aaa;
   }
 }
+#infobox-details-title-wrapper:hover {
+  background-color: rgba(145, 163, 176, 0.7);
+}
 #infobox-details-title-wrapper.MuiListItem-gutters {
   padding-left: 12px;
   padding-right: 12px;
@@ -637,6 +640,7 @@
 }
 #infobox-details-layer.MuiListItem-gutters {
   padding-left: 12px;
+  padding-right: 5px;
 }
 #infobox-details-layer.MuiListItem-root {
   padding-top: 4px;
