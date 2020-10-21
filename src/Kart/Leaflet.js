@@ -153,7 +153,7 @@ class Leaflet extends React.Component {
       this.removeMarker();
     }
     // Draw polygon
-    if (this.props.showPolygon) {
+    if (this.props.showPolygon && this.props.grensePolygon === "none") {
       this.drawPolygon();
     }
     // Remove polygon
@@ -651,59 +651,6 @@ class Leaflet extends React.Component {
       this.setState({ wmslayers: layers });
     }
   }
-
-  // syncUnderlag(kartlag, underlag) {
-  //   let layers = { ...this.state.wmslayers };
-  //   let layer = layers[underlag.id];
-  //   if (!underlag.erSynlig) {
-  //     if (layer) {
-  //       console.log("Removing layer", layer)
-  //       this.map.removeLayer(layer);
-  //       delete layers[underlag.id];
-  //       this.setState({ wmslayers: layers });
-  //     }
-  //     return;
-  //   }
-
-  //   const url = this.makeWmsUrl(kartlag.wmsurl);
-  //   let srs = "EPSG3857";
-  //   if (kartlag.projeksjon) {
-  //     srs = kartlag.projeksjon.replace(":", "");
-  //   }
-  //   if (!layer) {
-  //     layer = L.tileLayer.cachedOverview("", {
-  //       id: underlag.id,
-  //       zoomThreshold: underlag.minzoom,
-  //       layers: underlag.wmslayer,
-  //       transparent: true,
-  //       crs: L.CRS[srs],
-  //       format: "image/png",
-  //       maxZoom: MAX_MAP_ZOOM_LEVEL,
-  //       maxNativeZoom: underlag.maxzoom
-  //     });
-  //     layer.on("loading", () => {
-  //       this.props.onTileStatus(kartlag.id, underlag.id, "loading");
-  //     });
-  //     layer.on("load", l => {
-  //       //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
-  //     });
-  //     layer.on("tileerror", e => {
-  //       if (!underlag.tileerror) {
-  //         this.props.onTileStatus(kartlag.id, underlag.id, "error");
-  //       }
-  //     });
-  //     layers[underlag.id] = layer;
-  //     this.setState({ wmslayers: layers });
-  //     this.map.addLayer(layer);
-  //     console.log("Adding layer", layer)
-  //     layer.setUrl(url);
-  //     layer.setOpacity(underlag.opacity);
-  //   }
-  //   // layer.setUrl(url);
-  //   // layer.setOpacity(underlag.opacity);
-  //   // console.log("Updating layer", layer)
-  //   console.log("layers", { ...this.state.wmslayers })
-  // }
 
   makeWmsUrl(url) {
     url = url.replace(/request=GetCapabilities/gi, "");

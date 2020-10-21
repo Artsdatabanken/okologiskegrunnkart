@@ -129,10 +129,42 @@ const PolygonInfobox = ({
       return;
     }
 
+    // Calculate main area
+    let area = 0;
     const points = polygon[0];
+    area = calculateArea(points);
+
+    // Substract areas if there are holes
+    if (polygon.length > 1) {
+      for (let i = 1; i < polygon.length; i++) {
+        const hole = polygon[i];
+        if (hole.length < 3) continue;
+        area -= calculateArea(hole);
+      }
+    }
+
+    let unit = "m";
+    if (area >= 1000000000) {
+      area = Math.round(area / 100000) / 10;
+      unit = "km";
+    } else if (area >= 100000000) {
+      area = Math.round(area / 10000) / 100;
+      unit = "km";
+    } else if (area >= 1000000) {
+      area = Math.round(area / 1000) / 1000;
+      unit = "km";
+    } else if (area > 1000) {
+      area = Math.round(area);
+    } else {
+      area = Math.round(area * 10) / 10;
+    }
+    setArea(area);
+    setAreaUnit(unit);
+  }, [polygon, polygonJSON]);
+
+  const calculateArea = points => {
     const pointsCount = points.length;
     let area = 0;
-    let unit = "m";
     if (pointsCount > 2) {
       for (var i = 0; i < pointsCount; i++) {
         const lat1 = points[i][0];
@@ -164,24 +196,8 @@ const PolygonInfobox = ({
       }
     }
     area = Math.abs(area);
-
-    if (area >= 1000000000) {
-      area = Math.round(area / 100000) / 10;
-      unit = "km";
-    } else if (area >= 100000000) {
-      area = Math.round(area / 10000) / 100;
-      unit = "km";
-    } else if (area >= 1000000) {
-      area = Math.round(area / 1000) / 1000;
-      unit = "km";
-    } else if (area > 1000) {
-      area = Math.round(area);
-    } else {
-      area = Math.round(area * 10) / 10;
-    }
-    setArea(area);
-    setAreaUnit(unit);
-  }, [polygon, polygonJSON]);
+    return area;
+  };
 
   const handleLoadingFeatures = loading => {
     setLoadingFeatures(loading);
