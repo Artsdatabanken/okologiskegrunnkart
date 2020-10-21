@@ -18,6 +18,12 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   return (
     <>
       <TextField2
+        title="Faktaark url"
+        dockey="faktaark"
+        doc={underlag}
+        onUpdate={onUpdate}
+      />
+      <TextField2
         title="Formatstreng linje 1"
         dockey="klikktekst"
         doc={underlag}

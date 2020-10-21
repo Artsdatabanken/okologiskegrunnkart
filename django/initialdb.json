@@ -98,6 +98,14 @@
   },
   {
     "model": "sessions.session",
+    "pk": "6lrqnx6tei2k9q8kdapnfrpg8kiv8hr1",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-10-05T10:04:00.297Z"
+    }
+  },
+  {
+    "model": "sessions.session",
     "pk": "7xv376vmpvac67mp9skchzs8z90kcoek",
     "fields": {
       "session_data": "NDUxN2MxZTgzNTQzMTI4YTZhN2RhNjJhYjhkNzc3NjhmYTExNzczNzp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI5ZmVhMGUwZmRmYjk2ZGYzNTViNDUwNzZjYzQ3MDFhMTMzODg2NzNlIn0=",
@@ -150,6 +158,14 @@
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
       "expire_date": "2020-04-14T09:37:01.733Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "b77izomwy1jo02ac7w4jtqpwphdjfkjy",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-10-09T13:41:25.251Z"
     }
   },
   {
@@ -274,6 +290,14 @@
   },
   {
     "model": "sessions.session",
+    "pk": "pn2u3prlmadkyan9q6lvrgdusobcbouy",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-10-28T10:04:14.092Z"
+    }
+  },
+  {
+    "model": "sessions.session",
     "pk": "q7wailqhmneoxjhks0rgahrlm9kf4mis",
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
@@ -334,6 +358,14 @@
     "fields": {
       "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
       "expire_date": "2020-04-28T09:55:42.324Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "x9wubxxxz69ayec14odzvx777e6b2gza",
+    "fields": {
+      "session_data": "ZGJiOGFmMTVhMmYyMDMwYzFiY2EzODRkNmEyOGE2ZjdiODViOGQ5Yzp7Il9hdXRoX3VzZXJfaWQiOiIzIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiIxODZjODliZmQzZWY1MGY2MTMzMWFiYzIyMTRjODI5MzhiZDg1MmRjIn0=",
+      "expire_date": "2020-10-26T10:49:09.594Z"
     }
   },
   {
@@ -741,7 +773,7 @@
       "publiser": false,
       "wmsurl": "https://kart.artsdatabanken.no/WMS/lkm.aspx?https://kart.artsdatabanken.no/wms/lkm.aspx?VERSION=1.3.0&TRANSPARENT=true&LAYERS=seksjoner2017&request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
-      "projeksjon": "",
+      "projeksjon": "3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
@@ -765,7 +797,7 @@
       "publiser": false,
       "wmsurl": "https://kart.artsdatabanken.no/wms/lkm.aspx?VERSION=1.3.0&TRANSPARENT=true&LAYERS=seksjoner2017&request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
-      "projeksjon": "",
+      "projeksjon": "3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
@@ -1147,7 +1179,7 @@
       "dataeier": 5,
       "tema": 9,
       "publiser": false,
-      "wmsurl": "https://geo.ngu.no/mapserver/BerggrunnN50WMS?request=GetCapabilities&service=WMS2",
+      "wmsurl": "https://geo.ngu.no/mapserver/BerggrunnWMS2?req uest=GetCapabilities&SERVICE=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
@@ -1603,13 +1635,13 @@
       "dataeier": 5,
       "tema": 9,
       "publiser": false,
-      "wmsurl": "https://geo.ngu.no/mapserver/BerggrunnWMS?request=GetCapabilities&service=WMS2",
+      "wmsurl": "https://geo.ngu.no/mapserver/BerggrunnWMS?request=GetCapabilities&service=WMS",
       "wmsversion": "1.3.0",
       "projeksjon": "EPSG:3857",
       "wmsinfoformat": "application/vnd.ogc.gml",
       "testkoordinater": "",
       "klikkurl": "",
-      "klikktekst": "{Bergart_flate_N250_layer.Bergart_flate_N250_feature.hbergnavn}",
+      "klikktekst": "",
       "klikktekst2": "",
       "aggregatedwmslayer": "",
       "type": null,
@@ -1996,8 +2028,8 @@
       "suggested": true,
       "testkoordinater": "11.297378540039062,62.41104675757116",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SO",
-      "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -2016,8 +2048,8 @@
       "suggested": true,
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -3196,8 +3228,8 @@
       "suggested": false,
       "testkoordinater": "8.06136320057219,63.28143064966482",
       "klikkurl": "",
-      "klikktekst": "{SE_punkt_layer.SE_punkt_feature.NorskNavn} {HI_punkt_layer.HI_punkt_feature.NorskNavn} {LO_punkt_layer.LO_punkt_feature.NorskNavn} {NK_punkt_layer.NK_punkt_feature.NorskNavn}{PH_punkt_layer.PH_punkt_feature.NorskNavn}",
-      "klikktekst2": ""
+      "klikktekst": "{PH_punkt_layer.PH_punkt_feature.NorskNavn} {PH_punkt_layer.PH_punkt_feature.ScientificName}",
+      "klikktekst2": "{PH_punkt_layer.gml:name}"
     }
   },
   {
@@ -3284,7 +3316,7 @@
     "model": "forvaltningsportal.sublag",
     "pk": 93,
     "fields": {
-      "tittel": "Bergart flate N50",
+      "tittel": "Bergartsflate 1:50 000",
       "wmslayer": "Bergart_flate_N50",
       "legendeurl": "https://geo.ngu.no/mapserver/BerggrunnN50WMS?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Bergart_flate_N50&format=image/png&sld_version=1.1.0",
       "publiser": true,
@@ -7016,8 +7048,8 @@
       "suggested": false,
       "testkoordinater": "",
       "klikkurl": "",
-      "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -7036,8 +7068,8 @@
       "suggested": false,
       "testkoordinater": "",
       "klikkurl": "",
-      "klikktekst": "{trinn.tittel.nb} (PCA2={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -7056,8 +7088,8 @@
       "suggested": false,
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -7076,8 +7108,8 @@
       "suggested": false,
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -7096,8 +7128,8 @@
       "suggested": false,
       "testkoordinater": "",
       "klikkurl": "https://punkt.test.artsdatabanken.no/v1/punkt?lat={lat}&lng={lng}&layer=NN-NA-BS-6SE",
-      "klikktekst": "{trinn.tittel.nb} (PCA1={v})",
-      "klikktekst2": "{beskrivelse.nb}"
+      "klikktekst": "{trinn.tittel.nb}",
+      "klikktekst2": "{v}{beskrivelse.nb}"
     }
   },
   {
@@ -17924,7 +17956,7 @@
     "model": "forvaltningsportal.sublag",
     "pk": 829,
     "fields": {
-      "tittel": "Andre_ pes_hensynskr_arter_omr",
+      "tittel": "Andre spesielt hensynskrevende arter - omr\u00e5der",
       "wmslayer": "Andre_spes_hensynskr_arter_omr",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Andre_spes_hensynskr_arter_omr&format=image/png&sld_version=1.1.0",
       "publiser": true,
@@ -17944,7 +17976,7 @@
     "model": "forvaltningsportal.sublag",
     "pk": 830,
     "fields": {
-      "tittel": "Andre_spes_hensynskr_arter_omr_punktsymbolisert",
+      "tittel": "Andre spesielt hensynskrevende arter - omr\u00e5der som punkt",
       "wmslayer": "Andre_spes_hensynskr_arter_omr_punktsymbolisert",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Andre_spes_hensynskr_arter_omr_punktsymbolisert&format=image/png&sld_version=1.1.0",
       "publiser": true,
@@ -17964,7 +17996,7 @@
     "model": "forvaltningsportal.sublag",
     "pk": 831,
     "fields": {
-      "tittel": "Andre_spes_hensynskr_arter_pkt",
+      "tittel": "Andre spesielt hensynskrevende arter - punkt",
       "wmslayer": "Andre_spes_hensynskr_arter_pkt",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Andre_spes_hensynskr_arter_pkt&format=image/png&sld_version=1.1.0",
       "publiser": true,
@@ -17984,10 +18016,10 @@
     "model": "forvaltningsportal.sublag",
     "pk": 832,
     "fields": {
-      "tittel": "Trua_arter_omr",
+      "tittel": "Trua arter - omr\u00e5der",
       "wmslayer": "Trua_arter_omr",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Trua_arter_omr&format=image/png&sld_version=1.1.0",
-      "publiser": false,
+      "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 30,
       "queryable": true,
@@ -18004,7 +18036,7 @@
     "model": "forvaltningsportal.sublag",
     "pk": 833,
     "fields": {
-      "tittel": "Trua_arter_omr_punktsymbolisert",
+      "tittel": "Trua arter - omr\u00e5der som punkt",
       "wmslayer": "Trua_arter_omr_punktsymbolisert",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Trua_arter_omr_punktsymbolisert&format=image/png&sld_version=1.1.0",
       "publiser": false,
@@ -18024,10 +18056,10 @@
     "model": "forvaltningsportal.sublag",
     "pk": 834,
     "fields": {
-      "tittel": "Trua_arter_pkt",
+      "tittel": "Trua arter - punkt",
       "wmslayer": "Trua_arter_pkt",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Trua_arter_pkt&format=image/png&sld_version=1.1.0",
-      "publiser": false,
+      "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 30,
       "queryable": true,
@@ -18044,10 +18076,10 @@
     "model": "forvaltningsportal.sublag",
     "pk": 835,
     "fields": {
-      "tittel": "Ansvarsarter_omr",
+      "tittel": "Ansvarsarter - omr\u00e5der",
       "wmslayer": "Ansvarsarter_omr",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Ansvarsarter_omr&format=image/png&sld_version=1.1.0",
-      "publiser": false,
+      "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 30,
       "queryable": true,
@@ -18064,10 +18096,10 @@
     "model": "forvaltningsportal.sublag",
     "pk": 836,
     "fields": {
-      "tittel": "Ansvarsarter_omr_punktsymbolisert",
+      "tittel": "Ansvarsarter - omr\u00e5der som punkt",
       "wmslayer": "Ansvarsarter_omr_punktsymbolisert",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Ansvarsarter_omr_punktsymbolisert&format=image/png&sld_version=1.1.0",
-      "publiser": false,
+      "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 30,
       "queryable": true,
@@ -18084,10 +18116,10 @@
     "model": "forvaltningsportal.sublag",
     "pk": 837,
     "fields": {
-      "tittel": "Ansvarsarter_pkt",
+      "tittel": "Ansvarsarter punkt",
       "wmslayer": "Ansvarsarter_pkt",
       "legendeurl": "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?version=1.3.0&service=WMS&request=GetLegendGraphic&layer=Ansvarsarter_pkt&format=image/png&sld_version=1.1.0",
-      "publiser": false,
+      "publiser": true,
       "erSynlig": false,
       "hovedkartlag": 30,
       "queryable": true,
@@ -19871,7 +19903,7 @@
     "pk": 3,
     "fields": {
       "password": "pbkdf2_sha256$180000$iIVaKRsOl7pS$+ElNqzucI5jUsTY7llXp6ChRgrc1ejZ1P7ya5TJ2vgI=",
-      "last_login": "2020-09-17T12:57:52.230Z",
+      "last_login": "2020-10-14T10:04:14.086Z",
       "is_superuser": true,
       "username": "root",
       "first_name": "",
@@ -29307,6 +29339,240 @@
       "object_repr": "H\u00f8ydedata",
       "action_flag": 2,
       "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Terreng h\\u00f8yde 10m (DTM)\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 726,
+    "fields": {
+      "action_time": "2020-09-21T10:51:16.093Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "57",
+      "object_repr": "Berggrunn N250",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 727,
+    "fields": {
+      "action_time": "2020-09-21T11:35:49.798Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "59",
+      "object_repr": "Skredhendelser",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Oversikt - skred\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 728,
+    "fields": {
+      "action_time": "2020-09-21T11:38:52.836Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "59",
+      "object_repr": "Skredhendelser",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Oversikt - skred\", \"fields\": [\"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 729,
+    "fields": {
+      "action_time": "2020-09-22T08:38:59.524Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikktekst\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikktekst\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske soner 2017\", \"fields\": [\"Klikktekst\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 730,
+    "fields": {
+      "action_time": "2020-09-22T08:59:43.086Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk seksjon\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske soner 2017\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 731,
+    "fields": {
+      "action_time": "2020-09-22T09:20:46.670Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatisk sone\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Data fra Artskart\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Bioklimatiske seksjoner 2017\", \"fields\": [\"Klikktekst\", \"Klikktekst2\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 732,
+    "fields": {
+      "action_time": "2020-09-25T07:03:22.268Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "30",
+      "object_repr": "Arter av nasjonal forvaltningsinteresse",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskevende arter - omr\\u00e5der\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskevende arter - omr\\u00e5der som punkt\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskevende arter - punkt\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Trua arter - omr\\u00e5der\", \"fields\": [\"Tittel\", \"Publiser\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Trua arter - omr\\u00e5der som punkt\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Trua arter - punkt\", \"fields\": [\"Tittel\", \"Publiser\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ansvarsarter - omr\\u00e5der\", \"fields\": [\"Tittel\", \"Publiser\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ansvarsarter - omr\\u00e5der som punkt\", \"fields\": [\"Tittel\", \"Publiser\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Ansvarsarter punkt\", \"fields\": [\"Tittel\", \"Publiser\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 733,
+    "fields": {
+      "action_time": "2020-09-25T07:05:44.174Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "20",
+      "object_repr": "Bioklimatisk sone",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Projeksjon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 734,
+    "fields": {
+      "action_time": "2020-09-25T07:07:16.646Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "21",
+      "object_repr": "Bioklimatisk seksjon",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Projeksjon\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 735,
+    "fields": {
+      "action_time": "2020-09-25T13:52:39.257Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "30",
+      "object_repr": "Arter av nasjonal forvaltningsinteresse",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskrevende arter - omr\\u00e5der\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskrevende arter - omr\\u00e5der som punkt\", \"fields\": [\"Tittel\"]}}, {\"changed\": {\"name\": \"sublag\", \"object\": \"Andre spesielt hensynskrevende arter - punkt\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 736,
+    "fields": {
+      "action_time": "2020-10-12T10:49:35.985Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "38",
+      "object_repr": "Berggrunn N50",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 737,
+    "fields": {
+      "action_time": "2020-10-12T10:52:28.909Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "57",
+      "object_repr": "Berggrunn N250",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 738,
+    "fields": {
+      "action_time": "2020-10-14T06:29:15.109Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "57",
+      "object_repr": "Berggrunn N250",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 739,
+    "fields": {
+      "action_time": "2020-10-14T06:32:12.103Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "57",
+      "object_repr": "Berggrunn N250",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 740,
+    "fields": {
+      "action_time": "2020-10-14T10:05:43.439Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "38",
+      "object_repr": "Berggrunn N50",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 741,
+    "fields": {
+      "action_time": "2020-10-14T10:08:36.979Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "38",
+      "object_repr": "Berggrunn N50",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"name\": \"sublag\", \"object\": \"Bergartsflate 1:50 000\", \"fields\": [\"Tittel\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 742,
+    "fields": {
+      "action_time": "2020-10-16T20:04:02.582Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "38",
+      "object_repr": "Berggrunn N50",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 743,
+    "fields": {
+      "action_time": "2020-10-16T20:04:24.107Z",
+      "user": 3,
+      "content_type": 11,
+      "object_id": "57",
+      "object_repr": "Berggrunn N250",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Wmsurl\"]}}]"
     }
   }
 ]

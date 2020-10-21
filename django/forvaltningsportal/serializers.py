@@ -37,9 +37,6 @@ class KartlagSerializer(serializers.ModelSerializer):
             'tag',
             'publiser',
             'wmsurl',
-            'wmsversion',
-            'projeksjon',
-            'wmsinfoformat',
             'type'
         )
 
@@ -62,7 +59,8 @@ class SublagSerializer(serializers.ModelSerializer):
             'testkoordinater',
             'klikkurl',
             'klikktekst',
-            'klikktekst2'
+            'klikktekst2',
+            'faktaark'
         )
         read_only_fields = (
             'id',
