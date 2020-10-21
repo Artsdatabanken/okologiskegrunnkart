@@ -189,7 +189,6 @@ class Leaflet extends React.Component {
         this.props.fylkeGeom !== prevProps.fylkeGeom) &&
       this.props.showFylkeGeom
     ) {
-      console.log("fylke geom", this.props.fylkeGeom);
       this.drawFylkeGeom();
     }
     // Remove fylke
@@ -806,7 +805,6 @@ class Leaflet extends React.Component {
   };
 
   drawGrenseGeom = () => {
-    console.log("markerType: ", this.state.markerType);
     if (this.props.grensePolygonGeom && this.state.markerType === "polygon") {
       // Remove to avoid duplicates
       this.removeGrenseGeom();

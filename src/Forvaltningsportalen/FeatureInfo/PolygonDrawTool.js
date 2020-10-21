@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
     "&.MuiIconButton-root": {
       color: "#666",
       border: "1px solid #666",
-      marginLeft: "10px",
       backgroundColor: "rgba(145, 163, 176, 0)",
       padding: "10px"
     },
@@ -66,79 +65,113 @@ const PolygonDrawTool = ({
         </div>
         <div className="polygon-buttons-wrapper">
           {polygon ? (
-            <BottomTooltip placement="bottom" title="Rediger">
+            <BottomTooltip
+              placement="bottom"
+              title="Rediger"
+              disableHoverListener={disabled}
+            >
+              <span className="geometry-tool-button">
+                <IconButton
+                  className={classes.customIconButtom}
+                  onClick={() => {
+                    addPolygon(null);
+                    addPolyline(polygon);
+                    handleEditable(true);
+                    handlePolygonResults(null);
+                  }}
+                  disabled={disabled}
+                >
+                  <Create />
+                </IconButton>
+              </span>
+            </BottomTooltip>
+          ) : (
+            <>
+              <BottomTooltip
+                placement="bottom"
+                title="Angre sist"
+                disableHoverListener={disabled}
+              >
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      if (polyline.length > 0) {
+                        polyline.pop();
+                        addPolyline(polyline);
+                      }
+                    }}
+                    disabled={disabled}
+                  >
+                    <Undo />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+              <BottomTooltip
+                placement="bottom"
+                title="Ferdig"
+                disableHoverListener={disabled}
+              >
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      if (polyline.length > 1) {
+                        addPolygon(polyline);
+                        addPolyline([]);
+                      }
+                    }}
+                    disabled={disabled}
+                  >
+                    <Done />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+            </>
+          )}
+
+          <BottomTooltip
+            placement="bottom"
+            title="Vis/Gjem"
+            disableHoverListener={disabled}
+          >
+            <span className="geometry-tool-button">
+              <IconButton
+                className={classes.customIconButtom}
+                onClick={() => {
+                  hideAndShowPolygon(!showPolygon);
+                }}
+                disabled={disabled}
+              >
+                {showPolygon ? (
+                  <VisibilityOutlined />
+                ) : (
+                  <VisibilityOffOutlined />
+                )}
+              </IconButton>
+            </span>
+          </BottomTooltip>
+
+          <BottomTooltip
+            placement="bottom"
+            title="Fjern"
+            disableHoverListener={disabled}
+          >
+            <span className="geometry-tool-button">
               <IconButton
                 className={classes.customIconButtom}
                 onClick={() => {
                   addPolygon(null);
-                  addPolyline(polygon);
+                  addPolyline([]);
+                  hideAndShowPolygon(true);
                   handleEditable(true);
                   handlePolygonResults(null);
                 }}
                 disabled={disabled}
               >
-                <Create />
+                <Delete />
               </IconButton>
-            </BottomTooltip>
-          ) : (
-            <>
-              <BottomTooltip placement="bottom" title="Angre sist">
-                <IconButton
-                  className={classes.customIconButtom}
-                  onClick={() => {
-                    if (polyline.length > 0) {
-                      polyline.pop();
-                      addPolyline(polyline);
-                    }
-                  }}
-                  disabled={disabled}
-                >
-                  <Undo />
-                </IconButton>
-              </BottomTooltip>
-              <BottomTooltip placement="bottom" title="Ferdig">
-                <IconButton
-                  className={classes.customIconButtom}
-                  onClick={() => {
-                    if (polyline.length > 1) {
-                      addPolygon(polyline);
-                      addPolyline([]);
-                    }
-                  }}
-                  disabled={disabled}
-                >
-                  <Done />
-                </IconButton>
-              </BottomTooltip>
-            </>
-          )}
-
-          <BottomTooltip placement="bottom" title="Vis/Gjem">
-            <IconButton
-              className={classes.customIconButtom}
-              onClick={() => {
-                hideAndShowPolygon(!showPolygon);
-              }}
-              disabled={disabled}
-            >
-              {showPolygon ? <VisibilityOutlined /> : <VisibilityOffOutlined />}
-            </IconButton>
-          </BottomTooltip>
-
-          <BottomTooltip placement="bottom" title="Fjern">
-            <IconButton
-              className={classes.customIconButtom}
-              onClick={() => {
-                addPolygon(null);
-                addPolyline([]);
-                hideAndShowPolygon(true);
-                handleEditable(true);
-                handlePolygonResults(null);
-              }}
-              disabled={disabled}
-            >
-              <Delete />
-            </IconButton>
+            </span>
           </BottomTooltip>
         </div>
       </div>

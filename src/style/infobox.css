@@ -722,9 +722,9 @@ h4.container_header {
   display: flex;
   align-items: center;
 }
-.visibility_button.visibility_button {
+/* .visibility_button.visibility_button {
   padding: 10px;
-}
+} */
 .polygon-tool-label {
   display: flex;
   align-items: center;
@@ -760,6 +760,9 @@ h4.container_header {
 }
 .infobox-expand-icon .MuiSvgIcon-colorPrimary {
   color: #444;
+}
+.geometry-tool-button {
+  margin-left: 10px;
 }
 
 /* Polygon layers */
