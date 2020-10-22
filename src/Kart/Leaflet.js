@@ -3,9 +3,10 @@ import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
+import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
+import CustomIcon from "../Common/CustomIcon";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -835,14 +836,21 @@ class Leaflet extends React.Component {
             <WhereToVote />
           </button>
           <button
-            id="poligon-button-map"
+            id="polygon-button-map"
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"
             onClick={() => this.activatePolygon()}
             onMouseDown={e => e.preventDefault()}
           >
-            <Gesture />
+            {/* <Gesture /> */}
+            <CustomIcon
+              id="polygon-button-icon"
+              icon="hexagon-slice-4"
+              size={24}
+              // padding={iconSize(resultLayer.icon).padding || 0}
+              color={"#FFFFFF"}
+            />
           </button>
         </div>
 

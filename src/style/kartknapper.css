@@ -168,7 +168,7 @@
 
 /* Marker buttons */
 #marker-button-map,
-#poligon-button-map {
+#polygon-button-map {
   display: flex;
   justify-items: center;
   align-content: center;
@@ -183,30 +183,31 @@
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
-#marker-button-map {
+#marker-button-map,
+#polygon-button-map {
   padding: 7px;
 }
-#poligon-button-map {
+/* #polygon-button-map {
   padding: 6px 7px 7px 7px;
-}
+} */
 #marker-button-map.active,
-#poligon-button-map.active {
+#polygon-button-map.active {
   padding: 6px;
   border: 2px solid white;
   background: rgba(95, 117, 128, 1);
   color: rgba(255, 255, 255, 1);
 }
 #marker-button-map:hover:not(.active),
-#poligon-button-map:hover:not(.active) {
+#polygon-button-map:hover:not(.active) {
   background: rgba(95, 117, 128, 0.75);
 }
 #marker-button-map:focus,
-#poligon-button-map:focus {
+#polygon-button-map:focus {
   padding: 6px;
   border: 2px solid white;
 }
 
-/* #poligon-button-map {
+/* #polygon-button-map {
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 } */

@@ -267,6 +267,14 @@
   padding-left: 5px;
   font-size: 16px;
 }
+.polygon-options-container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(248, 248, 248);
+  background-color: rgba(145, 163, 176, 0.2);
+  border-bottom: 1px solid #bbb;
+  padding: 0 5px 5px 5px;
+}
 .infobox-radio-buttons-title {
   font-size: 16px;
   text-align: left;
@@ -735,9 +743,6 @@ h4.container_header {
   align-items: center;
   justify-content: flex-start;
 }
-#geometry-tool-disabled.MuiTypography-root {
-  color: #777;
-}
 .infobox-text-wrapper-polygon {
   display: flex;
   align-items: flex-start;
@@ -798,7 +803,7 @@ h4.container_header {
   color: #444;
 }
 .geometry-tool-button {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 /* Polygon layers */
@@ -830,7 +835,7 @@ h4.container_header {
   padding-left: 14px;
 }
 .polygon-layers-content {
-  background: rgba(145, 163, 176, 0.15);
+  background: rgba(145, 163, 176, 0.2);
 }
 .polygon-checkbox-content {
   padding: 10px 10px 8px 14px;
