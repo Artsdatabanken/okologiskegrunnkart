@@ -10,4 +10,16 @@ function getPolygonDepth(polygon) {
   return 4;
 }
 
-export default getPolygonDepth;
+function sortPolygonCoord(geom) {
+  if (!geom || !geom.coordinates) return [];
+  const allGeoms = [];
+  for (const coord of geom.coordinates) {
+    const sortedGeom = coord.map(item => {
+      return [item[1], item[0]];
+    });
+    allGeoms.push(sortedGeom);
+  }
+  return allGeoms;
+}
+
+export { getPolygonDepth, sortPolygonCoord };

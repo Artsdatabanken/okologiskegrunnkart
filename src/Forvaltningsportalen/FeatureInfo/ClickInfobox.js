@@ -7,7 +7,7 @@ import {
   ExpandLess,
   ExpandMore
 } from "@material-ui/icons";
-import { ListItem, Collapse } from "@material-ui/core";
+import { ListItem, ListItemText, Collapse } from "@material-ui/core";
 import CustomTooltip from "../../Common/CustomTooltip";
 import SmallSwitch from "../../Common/SmallSwitch";
 import "../../style/infobox.css";
@@ -190,15 +190,27 @@ const ClickInfobox = ({
                 </div>
               </div>
             </div>
-            <div className="infobox-expand-icon">
+            {/* <div className="infobox-expand-icon">
               {showMarkerOptions ? (
                 <ExpandLess color="primary" />
               ) : (
                 <ExpandMore color="primary" />
               )}
-            </div>
+            </div> */}
           </div>
         </ListItem>
+        <div className="infobox-options-listitem-wrapper">
+          <ListItem
+            id="infobox-options-listitem"
+            button
+            onClick={e => {
+              setShowMarkerOptions(!showMarkerOptions);
+            }}
+          >
+            <ListItemText primary="Marker grenser" />
+            {showMarkerOptions ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+        </div>
 
         <Collapse
           in={showMarkerOptions}
@@ -207,7 +219,7 @@ const ClickInfobox = ({
           // Underelementet
         >
           <div className="infobox-options-container">
-            <div className="infobox-switch-title">Marker grenser</div>
+            {/* <div className="infobox-switch-title">Marker grenser</div> */}
             <div className="infobox-switch-container">
               <SmallSwitch
                 tabIndex="0"

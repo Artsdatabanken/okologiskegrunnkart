@@ -9,7 +9,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
-import getPolygonDepth from "../../Funksjoner/getPolygonDepth";
+import { getPolygonDepth } from "../../Funksjoner/polygonTools";
 
 const PolygonLayers = ({
   availableLayers,

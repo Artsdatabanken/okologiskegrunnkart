@@ -171,7 +171,7 @@ class Leaflet extends React.Component {
     // Draw property
     if (
       (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
-        this.props.propertyGeom !== prevProps.propertyGeom) &&
+        this.props.eiendomGeom !== prevProps.eiendomGeom) &&
       this.props.showPropertyGeom
     ) {
       this.drawPropertyGeom();
@@ -180,8 +180,8 @@ class Leaflet extends React.Component {
     if (
       (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
         !this.props.showPropertyGeom) ||
-      (this.props.propertyGeom !== prevProps.propertyGeom &&
-        !this.props.propertyGeom)
+      (this.props.eiendomGeom !== prevProps.eiendomGeom &&
+        !this.props.eiendomGeom)
     ) {
       this.removePropertyGeom();
     }
@@ -263,8 +263,8 @@ class Leaflet extends React.Component {
   }
 
   removePropertyGeom() {
-    if (!this.propertyGeom) return;
-    this.map.removeLayer(this.propertyGeom);
+    if (!this.eiendomGeom) return;
+    this.map.removeLayer(this.eiendomGeom);
   }
 
   removeFylkeGeom() {
@@ -556,9 +556,21 @@ class Leaflet extends React.Component {
     }
   }
 
+  handleGetNewPolygon(e) {
+    console.log("Here");
+    this.props.handleInfobox(true);
+    const latlng = e.latlng;
+    console.log("latlng: ", latlng);
+  }
+
   handleClick = async e => {
-    if (this.state.markerType === "polygon") {
+    if (
+      this.state.markerType === "polygon" &&
+      this.props.grensePolygon === "none"
+    ) {
       this.polygonToolClick(e);
+    } else if (this.state.markerType === "polygon") {
+      this.handleGetNewPolygon(e);
     } else if (this.state.markerType === "klikk") {
       this.markerClick(e).then(() => this.props.handleInfobox(true));
     }
@@ -762,13 +774,13 @@ class Leaflet extends React.Component {
   };
 
   drawPropertyGeom = () => {
-    if (this.props.propertyGeom && this.props.showPropertyGeom) {
+    if (this.props.eiendomGeom && this.props.showPropertyGeom) {
       // Remove to avoid duplicates
       this.removePropertyGeom();
 
       // Draw polygon
-      if (this.props.propertyGeom.length > 0) {
-        this.propertyGeom = L.polygon(this.props.propertyGeom, {
+      if (this.props.eiendomGeom.length > 0) {
+        this.eiendomGeom = L.polygon(this.props.eiendomGeom, {
           color: "orange",
           lineJoin: "round"
         }).addTo(this.map);

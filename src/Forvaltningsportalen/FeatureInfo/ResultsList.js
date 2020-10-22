@@ -119,8 +119,8 @@ const ResultsList = ({
             <span
               className={
                 showExtensiveInfo
-                  ? "infobox-switch-text"
-                  : "infobox-switch-text-selected"
+                  ? "search-layers-switch-text"
+                  : "search-layers-switch-text-selected"
               }
             >
               Valgte kartlag

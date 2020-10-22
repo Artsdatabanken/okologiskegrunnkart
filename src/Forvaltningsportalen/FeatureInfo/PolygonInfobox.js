@@ -14,7 +14,7 @@ import proj4 from "proj4";
 import { makeStyles } from "@material-ui/core/styles";
 import PolygonElement from "./PolygonElement";
 import PolygonDetailed from "./PolygonDetailed";
-import getPolygonDepth from "../../Funksjoner/getPolygonDepth";
+import { getPolygonDepth } from "../../Funksjoner/polygonTools";
 
 const useStyles = makeStyles(() => ({
   root: {

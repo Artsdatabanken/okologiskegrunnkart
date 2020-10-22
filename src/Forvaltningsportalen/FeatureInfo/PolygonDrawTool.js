@@ -6,14 +6,17 @@ import {
   Create,
   Done,
   Undo,
-  Settings
+  ExpandLess,
+  ExpandMore
 } from "@material-ui/icons";
 import {
   IconButton,
   Typography,
   Collapse,
   RadioGroup,
-  FormControlLabel
+  FormControlLabel,
+  ListItem,
+  ListItemText
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
@@ -25,7 +28,7 @@ const useStyles = makeStyles(() => ({
       color: "#666",
       border: "1px solid #666",
       backgroundColor: "rgba(145, 163, 176, 0)",
-      padding: "8px"
+      padding: "10px"
     },
     "&:hover": {
       backgroundColor: "rgba(145, 163, 176, 0.5)"
@@ -59,6 +62,64 @@ const PolygonDrawTool = ({
 
   return (
     <>
+      <div className="polygon-options-listitem-wrapper">
+        <ListItem
+          id="polygon-options-listitem"
+          button
+          onClick={e => {
+            setShowPolygonOptions(!showPolygonOptions);
+          }}
+        >
+          <ListItemText primary="Velg polygon" />
+          {showPolygonOptions ? <ExpandLess /> : <ExpandMore />}
+        </ListItem>
+      </div>
+      <Collapse
+        in={showPolygonOptions}
+        timeout="auto"
+        unmountOnExit
+        // Underelementet
+      >
+        <div className="polygon-options-container">
+          <div className="infobox-radio-buttons-title">
+            Definer polygon fra grenser
+          </div>
+          <div className="infobox-radio-buttons-container">
+            <RadioGroup
+              aria-label="export"
+              name="export1"
+              value={grensePolygon}
+              onChange={handleRadioChange}
+            >
+              <FormControlLabel
+                id="infobox-radio-label"
+                value="none"
+                control={<CustomRadio />}
+                label="Ingen (selvtegnet)"
+              />
+              <FormControlLabel
+                id="infobox-radio-label"
+                value="fylke"
+                control={<CustomRadio />}
+                label="Fylke"
+              />
+              <FormControlLabel
+                id="infobox-radio-label"
+                value="kommune"
+                control={<CustomRadio />}
+                label="Kommune"
+              />
+              <FormControlLabel
+                id="infobox-radio-label"
+                value="eiendom"
+                control={<CustomRadio />}
+                label="Eiendom"
+              />
+            </RadioGroup>
+          </div>
+        </div>
+      </Collapse>
+
       <div className="polygon-tool-wrapper">
         <div className="polygon-tool-label">
           <Typography variant="body1">Geometri</Typography>
@@ -116,7 +177,7 @@ const PolygonDrawTool = ({
             </>
           )}
 
-          <BottomTooltip placement="bottom" title="Innstillinger">
+          {/* <BottomTooltip placement="bottom" title="Innstillinger">
             <span className="geometry-tool-button">
               <IconButton
                 className={classes.customIconButtom}
@@ -127,7 +188,7 @@ const PolygonDrawTool = ({
                 <Settings />
               </IconButton>
             </span>
-          </BottomTooltip>
+          </BottomTooltip> */}
           <BottomTooltip placement="bottom" title="Vis/Gjem">
             <span className="geometry-tool-button">
               <IconButton
@@ -163,7 +224,8 @@ const PolygonDrawTool = ({
           </BottomTooltip>
         </div>
       </div>
-      <Collapse
+
+      {/* <Collapse
         in={showPolygonOptions}
         timeout="auto"
         unmountOnExit
@@ -207,7 +269,7 @@ const PolygonDrawTool = ({
             </RadioGroup>
           </div>
         </div>
-      </Collapse>
+      </Collapse> */}
     </>
   );
 };
