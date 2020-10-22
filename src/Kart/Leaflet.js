@@ -168,23 +168,6 @@ class Leaflet extends React.Component {
       this.removeEndPoint();
       this.removeStartPoint();
     }
-    // Draw property
-    if (
-      (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
-        this.props.eiendomGeom !== prevProps.eiendomGeom) &&
-      this.props.showPropertyGeom
-    ) {
-      this.drawPropertyGeom();
-    }
-    // Remove property
-    if (
-      (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
-        !this.props.showPropertyGeom) ||
-      (this.props.eiendomGeom !== prevProps.eiendomGeom &&
-        !this.props.eiendomGeom)
-    ) {
-      this.removePropertyGeom();
-    }
     // Draw fylke
     if (
       (this.props.showFylkeGeom !== prevProps.showFylkeGeom ||
@@ -217,6 +200,23 @@ class Leaflet extends React.Component {
         !this.props.kommuneGeom)
     ) {
       this.removeKommuneGeom();
+    }
+    // Draw property
+    if (
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
+        this.props.eiendomGeom !== prevProps.eiendomGeom) &&
+      this.props.showPropertyGeom
+    ) {
+      this.drawPropertyGeom();
+    }
+    // Remove property
+    if (
+      (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
+        !this.props.showPropertyGeom) ||
+      (this.props.eiendomGeom !== prevProps.eiendomGeom &&
+        !this.props.eiendomGeom)
+    ) {
+      this.removePropertyGeom();
     }
     // Draw border geometry
     if (
@@ -557,10 +557,9 @@ class Leaflet extends React.Component {
   }
 
   handleGetNewPolygon(e) {
-    console.log("Here");
     this.props.handleInfobox(true);
     const latlng = e.latlng;
-    console.log("latlng: ", latlng);
+    this.props.fetchGrensePolygon(latlng.lat, latlng.lng);
   }
 
   handleClick = async e => {
@@ -773,23 +772,12 @@ class Leaflet extends React.Component {
     }
   };
 
-  drawPropertyGeom = () => {
-    if (this.props.eiendomGeom && this.props.showPropertyGeom) {
-      // Remove to avoid duplicates
-      this.removePropertyGeom();
-
-      // Draw polygon
-      if (this.props.eiendomGeom.length > 0) {
-        this.eiendomGeom = L.polygon(this.props.eiendomGeom, {
-          color: "orange",
-          lineJoin: "round"
-        }).addTo(this.map);
-      }
-    }
-  };
-
   drawFylkeGeom = () => {
-    if (this.props.fylkeGeom && this.props.showFylkeGeom) {
+    if (
+      this.props.fylkeGeom &&
+      this.props.showFylkeGeom &&
+      this.state.markerType === "klikk"
+    ) {
       // Remove to avoid duplicates
       this.removeFylkeGeom();
 
@@ -804,7 +792,11 @@ class Leaflet extends React.Component {
   };
 
   drawKommuneGeom = () => {
-    if (this.props.kommuneGeom && this.props.showKommuneGeom) {
+    if (
+      this.props.kommuneGeom &&
+      this.props.showKommuneGeom &&
+      this.state.markerType === "klikk"
+    ) {
       // Remove to avoid duplicates
       this.removeKommuneGeom();
 
@@ -812,6 +804,25 @@ class Leaflet extends React.Component {
       if (this.props.kommuneGeom.length > 0) {
         this.kommuneGeom = L.polygon(this.props.kommuneGeom, {
           color: "#274e88",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
+  drawPropertyGeom = () => {
+    if (
+      this.props.eiendomGeom &&
+      this.props.showPropertyGeom &&
+      this.state.markerType === "klikk"
+    ) {
+      // Remove to avoid duplicates
+      this.removePropertyGeom();
+
+      // Draw polygon
+      if (this.props.eiendomGeom.length > 0) {
+        this.eiendomGeom = L.polygon(this.props.eiendomGeom, {
+          color: "orange",
           lineJoin: "round"
         }).addTo(this.map);
       }

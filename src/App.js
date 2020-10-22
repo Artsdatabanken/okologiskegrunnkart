@@ -342,6 +342,7 @@ class App extends React.Component {
                         grensePolygonGeom={this.state.grensePolygonGeom}
                         grensePolygon={this.state.grensePolygon}
                         handleGrensePolygon={this.handleGrensePolygon}
+                        fetchGrensePolygon={this.fetchGrensePolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -947,29 +948,20 @@ class App extends React.Component {
       // Get fylke geometry
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
-        this.handleFylkeData(fylkeData[0]);
+        this.handleFylkePolygon(fylkeData[0]);
       }
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
-        this.handleKommuneData(kommuneData[0]);
+        this.handleKommunePolygon(kommuneData[0]);
       }
       // Get property data
       const propertyData = data.filter(item => item.datasettkode === "MAT");
-      if (propertyData.length === 0) {
-        this.setState({ matrikkel: null, adresse: null, eiendomGeom: null });
-        return;
+      if (propertyData.length > 0) {
+        this.handleEiendomPolygon(propertyData[0]);
       }
-      // if (grensePolygon === "fylke") {
-      //   this.setState({ grensePolygonGeom: this.state.fylkeGeom });
-      // }
-      // if (grensePolygon === "kommune") {
-      //   this.setState({ grensePolygonGeom: this.state.kommuneGeom });
-      // }
-      // if (grensePolygon === "eiendom") {
-      //   this.setState({ grensePolygonGeom: this.state.eiendomGeom });
-      // }
-      this.setState({ polygonResults: null });
+      // Update rest of relevant state variables
+      this.setState({ polygonResults: null, updatePolygonWithMarker: false });
     });
   };
 
