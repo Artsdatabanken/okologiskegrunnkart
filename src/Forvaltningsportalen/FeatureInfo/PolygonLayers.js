@@ -35,10 +35,28 @@ const PolygonLayers = ({
     }
     if (layerCodes.length > 0) {
       const depth = getPolygonDepth(polygon);
-      let points;
-      if (depth === 2) points = polygon;
-      else if (depth === 3) points = polygon[0];
-      else {
+      let points = "";
+      if (depth === 2) {
+        for (const coord of polygon) {
+          points = points + coord[1] + " " + coord[0] + ",";
+        }
+        // Last point has to be the same as the initial point
+        points = points + polygon[0][1] + " " + polygon[0][0];
+        points = "((" + points + "))";
+      } else if (depth === 3) {
+        for (const poly of polygon) {
+          points = "(";
+          for (const coord of poly) {
+            points = points + coord[1] + " " + coord[0] + ",";
+          }
+          // Remove last comma
+          points = points.slice(0, -1);
+          points = points + "),";
+        }
+        // Remove last comma
+        points = points.slice(0, -1);
+        points = "(" + points + ")";
+      } else {
         handlePolygonResults(errorResult);
         return;
       }
@@ -78,7 +96,6 @@ const PolygonLayers = ({
       <ListItem
         id={disabled ? "polygon-layer-disabled" : "polygon-layer-expander"}
         button
-        divider
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <ListItemText

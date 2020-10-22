@@ -296,7 +296,7 @@ const PolygonInfobox = ({
                   </div>
                 </div>
               </div>
-              <div className="infobox-text-wrapper-polygon-last">
+              <div className="infobox-text-wrapper-polygon">
                 <CustomIcon
                   id="polygon-icon"
                   icon="hexagon-slice-6"

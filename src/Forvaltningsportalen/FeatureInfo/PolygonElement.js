@@ -16,6 +16,8 @@ const PolygonElement = ({
     return { size: 30, padding: 0 };
   };
 
+  if (!polygonLayer) return null;
+
   return (
     <div className="generic_element">
       <ListItem

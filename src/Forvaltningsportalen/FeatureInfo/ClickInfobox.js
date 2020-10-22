@@ -177,7 +177,7 @@ const ClickInfobox = ({
                 </div>
               </div>
             </div>
-            <div className="infobox-text-wrapper infobox-text-last">
+            <div className="infobox-text-wrapper">
               <CustomTooltip placement="right" title="Koordinater / Høyde">
                 <Place />
               </CustomTooltip>

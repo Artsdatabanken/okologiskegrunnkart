@@ -190,7 +190,7 @@
 .infobox-content {
   display: flex;
   flex-direction: column;
-  padding: 15px 10px 4px 10px;
+  padding: 15px 0 0 0;
   flex-shrink: 0;
   min-height: 114px;
   width: 100%;
@@ -208,12 +208,13 @@
   display: flex;
   align-items: flex-start;
   text-transform: capitalize;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   font-size: 16px;
+  padding: 0 10px 5px 10px;
 }
-.infobox-text-wrapper.infobox-text-last {
+/* .infobox-text-wrapper.infobox-text-last {
   padding-bottom: 0;
-}
+} */
 .infobox-text-wrapper svg {
   display: inline-block;
   vertical-align: text-top;
@@ -248,9 +249,9 @@
 .infobox-options-container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(252, 252, 252);
-  border-top: 1px solid #aaa;
-  padding: 5px;
+  background-color: rgb(248, 248, 248);
+  border-top: 1px solid #bbb;
+  padding: 0 5px 5px 5px;
 }
 .infobox-switch-container {
   display: flex;
@@ -719,7 +720,7 @@ h4.container_header {
   align-content: center;
   flex-shrink: 0;
   padding: 14px 15px 14px 14px;
-  border-bottom: 1px solid #bbb;
+  border-bottom: 1px solid #aaa;
   background: rgba(145, 163, 176, 0.5);
 }
 .polygon-buttons-wrapper {
@@ -740,15 +741,16 @@ h4.container_header {
 .infobox-text-wrapper-polygon {
   display: flex;
   align-items: flex-start;
-  padding-bottom: 5px;
+  /* padding-bottom: 5px; */
   font-size: 16px;
+  padding: 0 10px 5px 10px;
 }
-.infobox-text-wrapper-polygon-last {
+/* .infobox-text-wrapper-polygon-last {
   display: flex;
   align-items: flex-start;
   font-size: 16px;
-}
-.infobox-text-wrapper-polygon-last svg,
+} */
+/* .infobox-text-wrapper-polygon-last svg, */
 .infobox-text-wrapper-polygon svg {
   display: inline-block;
   vertical-align: text-top;
@@ -767,6 +769,30 @@ h4.container_header {
 .infobox-expand-icon {
   display: flex;
   justify-content: center;
+  /* background-color: rgb(225, 225, 225); */
+  /* background-color:#ddd; */
+  /* border: 1px solid #bbb; */
+  /* border-radius: 3px; */
+  /* border-top: 1px solid #bbb; */
+  /* border-left: 1px solid #bbb; */
+  /* border-right: 1px solid #bbb; */
+  /* margin: 4px 32px 0 32px; */
+  /* background-image: linear-gradient(#ddd, #eee); */
+  /* background-image: linear-gradient(to right,#ccc, rgb(233, 233, 233)); */
+  /* background-image: linear-gradient(to bottom right,#ddd, #eee); */
+  /* background-image: linear-gradient(to top,#ddd, #eee); */
+  /* background-image: linear-gradient(to top, rgb(205, 205, 205), #eee); */
+  /* background-image: linear-gradient(to top, rgb(215, 215, 215), #eee); */
+  /* border-radius: 0 0 8px 8px; */
+  /* box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); */
+  /* border-radius: 8px; */
+  background-image: linear-gradient(
+    to top,
+    rgba(205, 205, 205, 0.8),
+    rgba(238, 238, 238, 0)
+  );
+  /* margin: 2px 20px 0 20px; */
 }
 .infobox-expand-icon .MuiSvgIcon-colorPrimary {
   color: #444;
@@ -781,11 +807,12 @@ h4.container_header {
   flex-direction: column;
   align-content: flex-start;
   justify-items: center;
-  border-top: 1px solid #bbb;
+  border-top: 1px solid #aaa;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
   background: rgba(145, 163, 176, 0.3);
+  border-bottom: 1px solid #aaa;
 }
 #polygon-layer-disabled {
   color: #777;
