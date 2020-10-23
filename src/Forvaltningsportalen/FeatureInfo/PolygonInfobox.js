@@ -6,7 +6,7 @@ import {
   ListItemText,
   LinearProgress
 } from "@material-ui/core";
-import { Place, Home, Flag, Terrain } from "@material-ui/icons";
+import { Home, Flag, Terrain } from "@material-ui/icons";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
@@ -70,6 +70,7 @@ const PolygonInfobox = ({
   const [showResults, setShowResults] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
   const [detailResult, setDetailResult] = useState(null);
+  const [extraInfo, setExtraInfo] = useState(null);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -255,6 +256,46 @@ const PolygonInfobox = ({
     setShowResults(false);
   }, [grensePolygonGeom, grensePolygonGeomJSON]);
 
+  useEffect(() => {
+    if (
+      grensePolygon === "fylke" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.fylke
+    ) {
+      const data = grensePolygonData.fylke;
+      if (data.fylkesnavn && data.fylkesnummer) {
+        const info = `${data.fylkesnavn[0]} (${data.fylkesnummer[0]})`;
+        setExtraInfo(info);
+      }
+    } else if (
+      grensePolygon === "kommune" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.kommune
+    ) {
+      const data = grensePolygonData.kommune;
+      if (data.kommunenavn && data.kommunenummer) {
+        const info = `${data.kommunenavn[0]} (${data.kommunenummer[0]})`;
+        setExtraInfo(info);
+      }
+    } else if (
+      grensePolygon === "eiendom" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.eiendom
+    ) {
+      setExtraInfo(grensePolygonData.eiendom);
+    } else {
+      setExtraInfo(null);
+    }
+  }, [
+    grensePolygon,
+    grensePolygonGeom,
+    grensePolygonGeomJSON,
+    grensePolygonData
+  ]);
+
   return (
     <div className="infobox-side">
       {showResults ? (
@@ -312,15 +353,39 @@ const PolygonInfobox = ({
                 </div>
               </div>
             </div>
-            <div className="infobox-text-wrapper-polygon">
-              <Terrain />
-              <div className="infobox-text-multiple">
-                <div className="infobox-text-primary">Fylke</div>
-                <div className="infobox-text-secondary">
-                  {area ? area + " " + areaUnit + "²" : "---"}
+            {extraInfo && grensePolygon === "fylke" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Terrain />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Fylke</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+            {extraInfo && grensePolygon === "kommune" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Flag />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Kommune</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
+                </div>
+              </div>
+            )}
+            {extraInfo && grensePolygon === "eiendom" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Home />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Matrikkel</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           <PolygonLayers

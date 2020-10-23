@@ -286,8 +286,8 @@ const InfoBox = ({
           showFylkePolygon={showFylkePolygon}
           showKommunePolygon={showKommunePolygon}
           showEiendomPolygon={showEiendomPolygon}
-          grensePolygonData={grensePolygonData}
           grensePolygonGeom={grensePolygonGeom}
+          grensePolygonData={grensePolygonData}
         />
       )}
     </div>

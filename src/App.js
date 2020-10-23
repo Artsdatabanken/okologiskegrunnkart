@@ -943,9 +943,9 @@ class App extends React.Component {
     });
   };
 
-  handleStedsNavnPolygon = (lng, lat, zoom) => {
+  handleStedsNavnPolygon = (lng, lat) => {
     // returnerer stedsnavn som vist øverst i feltet
-    backend.hentStedsnavn(lng, lat, zoom).then(sted => {
+    backend.hentStedsnavn(lng, lat, 20).then(sted => {
       if (!sted) return null;
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
@@ -973,7 +973,7 @@ class App extends React.Component {
       if (fylkeData.length > 0) {
         if (this.state.grensePolygon === "fylke") {
           this.handleFylkePolygon(fylkeData[0]);
-          this.handleStedsNavnPolygon(lng, lat, this.state.zoom);
+          this.handleStedsNavnPolygon(lng, lat);
         }
       }
       // Get kommune geometry
@@ -981,7 +981,7 @@ class App extends React.Component {
       if (kommuneData.length > 0) {
         if (this.state.grensePolygon === "kommune") {
           this.handleKommunePolygon(kommuneData[0]);
-          this.handleStedsNavnPolygon(lng, lat, this.state.zoom);
+          this.handleStedsNavnPolygon(lng, lat);
         }
       }
       // Get property data
