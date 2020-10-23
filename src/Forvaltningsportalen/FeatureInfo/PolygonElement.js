@@ -1,20 +1,34 @@
 import { ListItem, ListItemIcon } from "@material-ui/core";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Badge } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 
 const PolygonElement = ({
   polygonLayer,
   result,
-  showDetailedPolygonResults
+  showDetailedPolygonResults,
+  grensePolygon
 }) => {
-  const numberResults = result ? result.length : 0;
+  const [numberResults, setNumberResults] = useState(0);
+  const [detailedResult, setDetailedResult] = useState(0);
+
+  const resultJSON = JSON.stringify(result);
 
   const iconSize = icon => {
     if (icon && ["terrain", "flag"].includes(icon))
       return { size: 28, padding: 1 };
     return { size: 30, padding: 0 };
   };
+
+  useEffect(() => {
+    let filtered = result;
+    if (grensePolygon === "fylke" || grensePolygon === "kommune") {
+      filtered = result.filter(item => item.km2 >= 0.1);
+    }
+    const number = filtered ? filtered.length : 0;
+    setNumberResults(number);
+    setDetailedResult(filtered);
+  }, [result, resultJSON, grensePolygon]);
 
   if (!polygonLayer) return null;
 
@@ -27,7 +41,9 @@ const PolygonElement = ({
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
-          if (!result.error) showDetailedPolygonResults(polygonLayer, result);
+          if (!result.error) {
+            showDetailedPolygonResults(polygonLayer, detailedResult);
+          }
         }}
       >
         <ListItemIcon className="infobox-list-icon-wrapper">

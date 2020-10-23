@@ -84,7 +84,8 @@ class App extends React.Component {
     kommunePolygon: null,
     showKommunePolygon: true,
     eiendomPolygon: null,
-    showEiendomPolygon: true
+    showEiendomPolygon: true,
+    grensePolygonData: {}
   };
 
   async lastNedKartlag() {
@@ -350,6 +351,7 @@ class App extends React.Component {
                         showFylkePolygon={this.state.showFylkePolygon}
                         showKommunePolygon={this.state.showKommunePolygon}
                         showEiendomPolygon={this.state.showEiendomPolygon}
+                        grensePolygonData={this.state.grensePolygonData}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -941,16 +943,37 @@ class App extends React.Component {
     });
   };
 
+  handleStedsNavnPolygon = (lng, lat, zoom) => {
+    // returnerer stedsnavn som vist øverst i feltet
+    backend.hentStedsnavn(lng, lat, zoom).then(sted => {
+      if (!sted) return null;
+      sted = sted.sort((a, b) =>
+        a.distancemeters > b.distancemeters ? 1 : -1
+      );
+      if (sted.length > 0) {
+        const newData = {
+          ...this.state.grensePolygonData,
+          [this.state.grensePolygon]: sted[0]
+        };
+        this.setState({
+          grensePolygonData: newData
+        });
+      }
+    });
+  };
+
   fetchGrensePolygon = (lat, lng) => {
     const grensePolygon = this.state.grensePolygon;
     if (grensePolygon === "none") return;
 
     backend.hentMatrikkel(lng, lat).then(data => {
+      console.log("Data: ", data);
       // Get fylke geometry
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
         if (this.state.grensePolygon === "fylke") {
           this.handleFylkePolygon(fylkeData[0]);
+          this.handleStedsNavnPolygon(lng, lat, this.state.zoom);
         }
       }
       // Get kommune geometry
@@ -958,6 +981,7 @@ class App extends React.Component {
       if (kommuneData.length > 0) {
         if (this.state.grensePolygon === "kommune") {
           this.handleKommunePolygon(kommuneData[0]);
+          this.handleStedsNavnPolygon(lng, lat, this.state.zoom);
         }
       }
       // Get property data
@@ -965,6 +989,13 @@ class App extends React.Component {
       if (propertyData.length > 0) {
         if (this.state.grensePolygon === "eiendom") {
           this.handleEiendomPolygon(propertyData[0]);
+          const newData = {
+            ...this.state.grensePolygonData,
+            [this.state.grensePolygon]: propertyData[0].id
+          };
+          this.setState({
+            grensePolygonData: newData
+          });
         }
       }
       // Update rest of relevant state variables

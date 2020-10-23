@@ -6,6 +6,7 @@ import {
   ListItemText,
   LinearProgress
 } from "@material-ui/core";
+import { Place, Home, Flag, Terrain } from "@material-ui/icons";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
@@ -56,7 +57,9 @@ const PolygonInfobox = ({
   setShowPolygonOptions,
   showFylkePolygon,
   showKommunePolygon,
-  showEiendomPolygon
+  showEiendomPolygon,
+  grensePolygonGeom,
+  grensePolygonData
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -246,6 +249,12 @@ const PolygonInfobox = ({
     setDetailResult(null);
   };
 
+  const grensePolygonGeomJSON = JSON.stringify(grensePolygonGeom);
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [grensePolygonGeom, grensePolygonGeomJSON]);
+
   return (
     <div className="infobox-side">
       {showResults ? (
@@ -303,6 +312,15 @@ const PolygonInfobox = ({
                 </div>
               </div>
             </div>
+            <div className="infobox-text-wrapper-polygon">
+              <Terrain />
+              <div className="infobox-text-multiple">
+                <div className="infobox-text-primary">Fylke</div>
+                <div className="infobox-text-secondary">
+                  {area ? area + " " + areaUnit + "²" : "---"}
+                </div>
+              </div>
+            </div>
           </div>
 
           <PolygonLayers
@@ -344,6 +362,7 @@ const PolygonInfobox = ({
                             showDetailedPolygonResults={
                               showDetailedPolygonResults
                             }
+                            grensePolygon={grensePolygon}
                           />
                         );
                       })}

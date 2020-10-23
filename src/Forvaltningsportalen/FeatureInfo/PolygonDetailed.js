@@ -15,7 +15,6 @@ const PolygonDetailed = ({
   const detailResultJSON = JSON.stringify(detailResult);
 
   useEffect(() => {
-    const number = detailResult ? detailResult.length : 0;
     let area = 0;
     for (let i = 0; i < detailResult.length; i++) {
       area += detailResult[i].km2;
@@ -23,6 +22,7 @@ const PolygonDetailed = ({
     const sorted = detailResult.sort((a, b) => {
       return b.km2 - a.km2;
     });
+    const number = sorted ? sorted.length : 0;
     setSortedResult(sorted);
     setNumberResults(number);
     setTotalArea(area);

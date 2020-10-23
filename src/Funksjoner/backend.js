@@ -227,7 +227,7 @@ class Backend {
     // to "well-known text representation of geometry"
     // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
     let url =
-      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk_wkt";
+      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk";
 
     const codes = layerCodes.join(",");
     const wkt = `SRID=4326;POLYGON ${polygon}`;
