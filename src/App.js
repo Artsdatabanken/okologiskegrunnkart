@@ -169,6 +169,7 @@ class App extends React.Component {
         acc[ul.id] = ul;
         listFavoriteSublayerIds.push(ul.key);
         ul.tileerror = false;
+        ul.erSynlig = false;
 
         // Replace pseudo-sublayer for all categories if an actual sublayer exists
         ul.aggregatedwmslayer = ul.wmslayer === k.aggregatedwmslayer;
