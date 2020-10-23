@@ -81,8 +81,7 @@ class App extends React.Component {
     grensePolygonGeom: null,
     fylkePolygon: null,
     kommunePolygon: null,
-    eiendomPolygon: null,
-    updatePolygonWithMarker: true
+    eiendomPolygon: null
   };
 
   async lastNedKartlag() {
@@ -343,6 +342,7 @@ class App extends React.Component {
                         grensePolygon={this.state.grensePolygon}
                         handleGrensePolygon={this.handleGrensePolygon}
                         fetchGrensePolygon={this.fetchGrensePolygon}
+                        removeGrensePolygon={this.removeGrensePolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -833,15 +833,15 @@ class App extends React.Component {
     if (geom && geom.coordinates && geom.coordinates.length > 0) {
       const allGeoms = sortPolygonCoord(geom);
       this.setState({ fylkeGeom: allGeoms });
-      if (this.state.updatePolygonWithMarker) {
-        this.setState({ fylkePolygon: allGeoms });
-      }
-      if (
-        this.state.grensePolygon === "fylke" &&
-        this.state.updatePolygonWithMarker
-      ) {
-        this.setState({ grensePolygonGeom: allGeoms });
-      }
+      // if (this.state.updatePolygonWithMarker) {
+      //   this.setState({ fylkePolygon: allGeoms });
+      // }
+      // if (
+      //   this.state.grensePolygon === "fylke" &&
+      //   this.state.updatePolygonWithMarker
+      // ) {
+      //   this.setState({ grensePolygonGeom: allGeoms });
+      // }
     } else {
       this.setState({ fylkeGeom: null });
     }
@@ -852,15 +852,15 @@ class App extends React.Component {
     if (geom && geom.coordinates && geom.coordinates.length > 0) {
       const allGeoms = sortPolygonCoord(geom);
       this.setState({ kommuneGeom: allGeoms });
-      if (this.state.updatePolygonWithMarker) {
-        this.setState({ kommunePolygon: allGeoms });
-      }
-      if (
-        this.state.grensePolygon === "kommune" &&
-        this.state.updatePolygonWithMarker
-      ) {
-        this.setState({ grensePolygonGeom: allGeoms });
-      }
+      // if (this.state.updatePolygonWithMarker) {
+      //   this.setState({ kommunePolygon: allGeoms });
+      // }
+      // if (
+      //   this.state.grensePolygon === "kommune" &&
+      //   this.state.updatePolygonWithMarker
+      // ) {
+      //   this.setState({ grensePolygonGeom: allGeoms });
+      // }
     } else {
       this.setState({ kommuneGeom: null });
     }
@@ -871,15 +871,15 @@ class App extends React.Component {
     if (geom && geom.coordinates && geom.coordinates.length > 0) {
       const allGeoms = sortPolygonCoord(geom);
       this.setState({ eiendomGeom: allGeoms });
-      if (this.state.updatePolygonWithMarker) {
-        this.setState({ eiendomPolygon: allGeoms });
-      }
-      if (
-        this.state.grensePolygon === "eiendom" &&
-        this.state.updatePolygonWithMarker
-      ) {
-        this.setState({ grensePolygonGeom: allGeoms });
-      }
+      // if (this.state.updatePolygonWithMarker) {
+      //   this.setState({ eiendomPolygon: allGeoms });
+      // }
+      // if (
+      //   this.state.grensePolygon === "eiendom" &&
+      //   this.state.updatePolygonWithMarker
+      // ) {
+      //   this.setState({ grensePolygonGeom: allGeoms });
+      // }
     } else {
       this.setState({ eiendomGeom: null });
     }
@@ -937,7 +937,11 @@ class App extends React.Component {
     if (value === "eiendom") {
       this.setState({ grensePolygonGeom: this.state.eiendomPolygon });
     }
-    this.setState({ grensePolygon: value, polygonResults: null });
+    this.setState({
+      grensePolygon: value,
+      polygonResults: null,
+      showPolygon: true
+    });
   };
 
   fetchGrensePolygon = (lat, lng) => {
@@ -948,21 +952,40 @@ class App extends React.Component {
       // Get fylke geometry
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
-        this.handleFylkePolygon(fylkeData[0]);
+        if (this.state.grensePolygon === "fylke") {
+          this.handleFylkePolygon(fylkeData[0]);
+        }
       }
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
-        this.handleKommunePolygon(kommuneData[0]);
+        if (this.state.grensePolygon === "kommune") {
+          this.handleKommunePolygon(kommuneData[0]);
+        }
       }
       // Get property data
       const propertyData = data.filter(item => item.datasettkode === "MAT");
       if (propertyData.length > 0) {
-        this.handleEiendomPolygon(propertyData[0]);
+        if (this.state.grensePolygon === "eiendom") {
+          this.handleEiendomPolygon(propertyData[0]);
+        }
       }
       // Update rest of relevant state variables
-      this.setState({ polygonResults: null, updatePolygonWithMarker: false });
+      this.setState({ polygonResults: null, showPolygon: true });
     });
+  };
+
+  removeGrensePolygon = () => {
+    this.setState({ grensePolygonGeom: null });
+    if (this.state.grensePolygon === "fylke") {
+      this.setState({ fylkePolygon: null });
+    }
+    if (this.state.grensePolygon === "kommune") {
+      this.setState({ kommunePolygon: null });
+    }
+    if (this.state.grensePolygon === "eiendom") {
+      this.setState({ eiendomPolygon: null });
+    }
   };
 
   handleHoydedata = (lng, lat) => {

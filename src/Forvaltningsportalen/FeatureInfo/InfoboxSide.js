@@ -49,7 +49,8 @@ const InfoBox = ({
   handleKommuneGeom,
   grensePolygon,
   grensePolygonGeom,
-  handleGrensePolygon
+  handleGrensePolygon,
+  removeGrensePolygon
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -277,6 +278,7 @@ const InfoBox = ({
           handlePolygonResults={handlePolygonResults}
           grensePolygon={grensePolygon}
           handleGrensePolygon={handleGrensePolygon}
+          removeGrensePolygon={removeGrensePolygon}
           showPolygonOptions={showPolygonOptions}
           setShowPolygonOptions={setShowPolygonOptions}
         />

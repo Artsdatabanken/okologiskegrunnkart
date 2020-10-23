@@ -51,6 +51,7 @@ const PolygonInfobox = ({
   handlePolygonResults,
   grensePolygon,
   handleGrensePolygon,
+  removeGrensePolygon,
   showPolygonOptions,
   setShowPolygonOptions
 }) => {
@@ -267,6 +268,7 @@ const PolygonInfobox = ({
             handlePolygonResults={handlePolygonResults}
             grensePolygon={grensePolygon}
             handleGrensePolygon={handleGrensePolygon}
+            removeGrensePolygon={removeGrensePolygon}
             showPolygonOptions={showPolygonOptions}
             setShowPolygonOptions={setShowPolygonOptions}
           />

@@ -51,6 +51,7 @@ const PolygonDrawTool = ({
   handlePolygonResults,
   grensePolygon,
   handleGrensePolygon,
+  removeGrensePolygon,
   showPolygonOptions,
   setShowPolygonOptions
 }) => {
@@ -58,6 +59,18 @@ const PolygonDrawTool = ({
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
+  };
+
+  const deletePolygon = () => {
+    if (grensePolygon === "none") {
+      addPolygon(null);
+      addPolyline([]);
+      handleEditable(true);
+    } else {
+      removeGrensePolygon();
+    }
+    hideAndShowPolygon(true);
+    handlePolygonResults(null);
   };
 
   return (
@@ -177,18 +190,6 @@ const PolygonDrawTool = ({
             </>
           )}
 
-          {/* <BottomTooltip placement="bottom" title="Innstillinger">
-            <span className="geometry-tool-button">
-              <IconButton
-                className={classes.customIconButtom}
-                onClick={() => {
-                  setShowPolygonOptions(!showPolygonOptions);
-                }}
-              >
-                <Settings />
-              </IconButton>
-            </span>
-          </BottomTooltip> */}
           <BottomTooltip placement="bottom" title="Vis/Gjem">
             <span className="geometry-tool-button">
               <IconButton
@@ -210,13 +211,7 @@ const PolygonDrawTool = ({
             <span className="geometry-tool-button">
               <IconButton
                 className={classes.customIconButtom}
-                onClick={() => {
-                  addPolygon(null);
-                  addPolyline([]);
-                  hideAndShowPolygon(true);
-                  handleEditable(true);
-                  handlePolygonResults(null);
-                }}
+                onClick={() => deletePolygon()}
               >
                 <Delete />
               </IconButton>
@@ -224,52 +219,6 @@ const PolygonDrawTool = ({
           </BottomTooltip>
         </div>
       </div>
-
-      {/* <Collapse
-        in={showPolygonOptions}
-        timeout="auto"
-        unmountOnExit
-        // Underelementet
-      >
-        <div className="polygon-options-container">
-          <div className="infobox-radio-buttons-title">
-            Definer polygon fra grenser
-          </div>
-          <div className="infobox-radio-buttons-container">
-            <RadioGroup
-              aria-label="export"
-              name="export1"
-              value={grensePolygon}
-              onChange={handleRadioChange}
-            >
-              <FormControlLabel
-                id="infobox-radio-label"
-                value="none"
-                control={<CustomRadio />}
-                label="Ingen (selvtegnet)"
-              />
-              <FormControlLabel
-                id="infobox-radio-label"
-                value="fylke"
-                control={<CustomRadio />}
-                label="Fylke"
-              />
-              <FormControlLabel
-                id="infobox-radio-label"
-                value="kommune"
-                control={<CustomRadio />}
-                label="Kommune"
-              />
-              <FormControlLabel
-                id="infobox-radio-label"
-                value="eiendom"
-                control={<CustomRadio />}
-                label="Eiendom"
-              />
-            </RadioGroup>
-          </div>
-        </div>
-      </Collapse> */}
     </>
   );
 };

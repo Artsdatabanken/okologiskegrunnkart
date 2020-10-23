@@ -830,7 +830,7 @@ class Leaflet extends React.Component {
   };
 
   drawGrenseGeom = () => {
-    if (this.props.grensePolygonGeom && this.state.markerType === "polygon") {
+    if (this.props.grensePolygonGeom) {
       // Remove to avoid duplicates
       this.removeGrenseGeom();
 
@@ -940,6 +940,7 @@ class Leaflet extends React.Component {
           grensePolygon={this.props.grensePolygon}
           grensePolygonGeom={this.props.grensePolygonGeom}
           handleGrensePolygon={this.props.handleGrensePolygon}
+          removeGrensePolygon={this.props.removeGrensePolygon}
         />
         {this.state.markerType === "polygon" && (
           <div
