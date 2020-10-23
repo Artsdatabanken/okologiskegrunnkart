@@ -967,7 +967,6 @@ class App extends React.Component {
     if (grensePolygon === "none") return;
 
     backend.hentMatrikkel(lng, lat).then(data => {
-      console.log("Data: ", data);
       // Get fylke geometry
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
