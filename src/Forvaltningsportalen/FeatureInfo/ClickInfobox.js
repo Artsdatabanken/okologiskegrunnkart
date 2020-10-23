@@ -40,8 +40,6 @@ const ClickInfobox = ({
   handleFylkeGeom,
   showKommuneGeom,
   handleKommuneGeom,
-  grensePolygon,
-  handleGrensePolygon,
   showMarkerOptions,
   setShowMarkerOptions
 }) => {
@@ -190,13 +188,6 @@ const ClickInfobox = ({
                 </div>
               </div>
             </div>
-            {/* <div className="infobox-expand-icon">
-              {showMarkerOptions ? (
-                <ExpandLess color="primary" />
-              ) : (
-                <ExpandMore color="primary" />
-              )}
-            </div> */}
           </div>
         </ListItem>
         <div className="infobox-options-listitem-wrapper">
@@ -219,7 +210,6 @@ const ClickInfobox = ({
           // Underelementet
         >
           <div className="infobox-options-container">
-            {/* <div className="infobox-switch-title">Marker grenser</div> */}
             <div className="infobox-switch-container">
               <SmallSwitch
                 tabIndex="0"

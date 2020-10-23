@@ -41,7 +41,6 @@ const ForvaltningsElement = ({
         // Elementet som inneholder tittel, ikon og droppned-knapp
         id="layer-list-item"
         button
-        // divider
         onClick={() => {
           if (!valgt) {
             setOpen(!open);
@@ -113,15 +112,6 @@ const ForvaltningsElement = ({
                     color="#666"
                   />
                 </ListItemIcon>
-                {/* <ListItemIcon id="bookmark-icon">
-                  <CustomIcon
-                    id="bookmark"
-                    icon="check-decagram"
-                    size={20}
-                    padding={0}
-                    color={allcategorieslayer.erSynlig ? "#666" : "#888"}
-                  />
-                </ListItemIcon> */}
               </ListItem>
             </div>
           )}

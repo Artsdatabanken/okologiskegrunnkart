@@ -276,7 +276,6 @@
   flex-direction: column;
   background-color: rgb(248, 248, 248);
   background-color: rgba(145, 163, 176, 0.2);
-  /* border-bottom: 1px solid #bbb; */
   border-bottom: 1px solid #aaa;
   padding: 0 5px 5px 5px;
 }
@@ -316,7 +315,6 @@
 }
 #layer-results-header {
   border-top: 3px solid grey;
-  /* border-top: 1px solid grey; */
   border-bottom: 1px solid grey;
 }
 #layer-results-header.MuiListItem-root {
@@ -442,14 +440,8 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* padding: 0 10px 0 18px; */
   flex-shrink: 0;
 }
-/* @media only screen and (max-width: 768px) {
-  .search-layers-button-wrapper {
-    padding: 0 10px 0 18px;
-  }
-} */
 .search_layers:focus {
   border: 2px solid blue;
 }
@@ -772,18 +764,6 @@ h4.container_header {
     padding-bottom: 150px;
   }
 }
-/* .infobox-expand-icon {
-  display: flex;
-  justify-content: center;
-  background-image: linear-gradient(
-    to top,
-    rgba(205, 205, 205, 0.8),
-    rgba(238, 238, 238, 0)
-  );
-}
-.infobox-expand-icon .MuiSvgIcon-colorPrimary {
-  color: #444;
-} */
 .geometry-tool-button {
   margin-left: 8px;
 }

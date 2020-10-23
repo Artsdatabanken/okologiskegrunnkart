@@ -223,8 +223,9 @@ class Backend {
   }
 
   static async makeAreaReport(layerCodes, polygon) {
-    // NOTE: API uses coordinates in lat/lng, same as defined
-    // in polygon
+    // NOTE: polygon need to be preprocessed according
+    // to "well-known text representation of geometry"
+    // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
     let url =
       "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk_wkt";
 

@@ -329,28 +329,15 @@ class Leaflet extends React.Component {
         this.drawKommuneGeom();
       }
     });
-    // this.props.hideAndShowPolygon(false);
     this.props.hideAndShowMarker(true);
     this.props.handleInfobox(true);
-    // this.removePolyline();
-    // this.removePolygon();
     this.removeEndPoint();
     this.removeStartPoint();
-    // this.removeGrenseGeom();
   };
 
   activatePolygon = () => {
-    // this.setState({ markerType: "polygon" }, () => {
-    //   if (this.props.grensePolygon === "none") {
-    //     this.drawPolygon();
-    //   }
-    //   if (this.props.grensePolygon !== "none") {
-    //     this.drawGrenseGeom();
-    //   }
-    // });
     this.setState({ markerType: "polygon" });
     this.props.hideAndShowMarker(false);
-    // this.props.hideAndShowPolygon(true);
     this.props.handleInfobox(true);
     this.removePropertyGeom();
     this.removeFylkeGeom();
@@ -642,7 +629,6 @@ class Leaflet extends React.Component {
       if (!kartlag.wmsurl) return; // Not a WMS layer
       Object.keys(kartlag.underlag).forEach(underlagsnøkkel => {
         const underlag = kartlag.underlag[underlagsnøkkel];
-        // this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
         let layer = layers[underlag.id];
         if (!underlag.erSynlig) {
           if (layer) {
@@ -902,12 +888,10 @@ class Leaflet extends React.Component {
             onClick={() => this.activatePolygon()}
             onMouseDown={e => e.preventDefault()}
           >
-            {/* <Gesture /> */}
             <CustomIcon
               id="polygon-button-icon"
               icon="hexagon-slice-4"
               size={24}
-              // padding={iconSize(resultLayer.icon).padding || 0}
               color={"#FFFFFF"}
             />
           </button>

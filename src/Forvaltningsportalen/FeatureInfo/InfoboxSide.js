@@ -262,8 +262,6 @@ const InfoBox = ({
           handleFylkeGeom={handleFylkeGeom}
           showKommuneGeom={showKommuneGeom}
           handleKommuneGeom={handleKommuneGeom}
-          grensePolygon={grensePolygon}
-          handleGrensePolygon={handleGrensePolygon}
           showMarkerOptions={showMarkerOptions}
           setShowMarkerOptions={setShowMarkerOptions}
         />
