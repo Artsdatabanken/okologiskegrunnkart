@@ -53,7 +53,10 @@ const PolygonInfobox = ({
   handleGrensePolygon,
   removeGrensePolygon,
   showPolygonOptions,
-  setShowPolygonOptions
+  setShowPolygonOptions,
+  showFylkePolygon,
+  showKommunePolygon,
+  showEiendomPolygon
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -67,10 +70,6 @@ const PolygonInfobox = ({
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
-
-  // const handleRadioChange = event => {
-  //   handleGrensePolygon(event.target.value);
-  // };
 
   useEffect(() => {
     if (!polygon && !polyline) {
@@ -271,6 +270,9 @@ const PolygonInfobox = ({
             removeGrensePolygon={removeGrensePolygon}
             showPolygonOptions={showPolygonOptions}
             setShowPolygonOptions={setShowPolygonOptions}
+            showFylkePolygon={showFylkePolygon}
+            showKommunePolygon={showKommunePolygon}
+            showEiendomPolygon={showEiendomPolygon}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">

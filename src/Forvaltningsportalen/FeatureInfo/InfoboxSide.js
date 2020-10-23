@@ -50,7 +50,10 @@ const InfoBox = ({
   grensePolygon,
   grensePolygonGeom,
   handleGrensePolygon,
-  removeGrensePolygon
+  removeGrensePolygon,
+  showFylkePolygon,
+  showKommunePolygon,
+  showEiendomPolygon
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -281,6 +284,9 @@ const InfoBox = ({
           removeGrensePolygon={removeGrensePolygon}
           showPolygonOptions={showPolygonOptions}
           setShowPolygonOptions={setShowPolygonOptions}
+          showFylkePolygon={showFylkePolygon}
+          showKommunePolygon={showKommunePolygon}
+          showEiendomPolygon={showEiendomPolygon}
         />
       )}
     </div>

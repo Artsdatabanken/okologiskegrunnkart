@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   VisibilityOutlined,
   VisibilityOffOutlined,
@@ -53,9 +53,14 @@ const PolygonDrawTool = ({
   handleGrensePolygon,
   removeGrensePolygon,
   showPolygonOptions,
-  setShowPolygonOptions
+  setShowPolygonOptions,
+  showFylkePolygon,
+  showKommunePolygon,
+  showEiendomPolygon
 }) => {
   const classes = useStyles();
+
+  const [polygonVisible, setPolygonVisible] = useState(true);
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
@@ -72,6 +77,36 @@ const PolygonDrawTool = ({
     hideAndShowPolygon(true);
     handlePolygonResults(null);
   };
+
+  const hideShowPolygon = () => {
+    if (grensePolygon === "none") {
+      hideAndShowPolygon(!showPolygon);
+    } else if (grensePolygon === "fylke") {
+      hideAndShowPolygon(!showFylkePolygon);
+    } else if (grensePolygon === "kommune") {
+      hideAndShowPolygon(!showKommunePolygon);
+    } else if (grensePolygon === "eiendom") {
+      hideAndShowPolygon(!showEiendomPolygon);
+    }
+  };
+
+  useEffect(() => {
+    if (grensePolygon === "none") {
+      setPolygonVisible(showPolygon);
+    } else if (grensePolygon === "fylke") {
+      setPolygonVisible(showFylkePolygon);
+    } else if (grensePolygon === "kommune") {
+      setPolygonVisible(showKommunePolygon);
+    } else if (grensePolygon === "eiendom") {
+      setPolygonVisible(showEiendomPolygon);
+    }
+  }, [
+    grensePolygon,
+    showPolygon,
+    showFylkePolygon,
+    showKommunePolygon,
+    showEiendomPolygon
+  ]);
 
   return (
     <>
@@ -194,11 +229,9 @@ const PolygonDrawTool = ({
             <span className="geometry-tool-button">
               <IconButton
                 className={classes.customIconButtom}
-                onClick={() => {
-                  hideAndShowPolygon(!showPolygon);
-                }}
+                onClick={() => hideShowPolygon()}
               >
-                {showPolygon ? (
+                {polygonVisible ? (
                   <VisibilityOutlined />
                 ) : (
                   <VisibilityOffOutlined />
