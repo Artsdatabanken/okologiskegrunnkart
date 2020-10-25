@@ -36,7 +36,6 @@ const ForvaltningsDetailedInfo = ({
 }) => {
   const [tags, setTags] = useState(null);
   const [isLargeIcon, setIsLargeIcon] = useState(false);
-  const [sublayer, setSublayer] = useState(null);
   const [underlagTittel, setUnderlagTittel] = useState(null);
   const [erSynlig, setErSynlig] = useState(null);
   const [visible, setVisible] = useState(null);
@@ -62,7 +61,6 @@ const ForvaltningsDetailedInfo = ({
   useEffect(() => {
     if (kartlag) {
       const sublayer = underlag ? underlag : kartlag.allcategorieslayer;
-      setSublayer(sublayer);
       setUnderlagTittel(sublayer.tittel);
       setErSynlig(sublayer.erSynlig);
       const visible = underlag ? sublayer.visible : sublayer.erSynlig;
@@ -316,17 +314,6 @@ const ForvaltningsDetailedInfo = ({
           <ListItemText
             primary={allCategories ? "Alle kategorier" : underlag.tittel}
           />
-          {sublayer.suggested && (
-            <ListItemIcon id="bookmark-icon">
-              <CustomIcon
-                id="bookmark"
-                icon="check-decagram"
-                size={20}
-                padding={0}
-                color={visible ? "#666" : "#999"}
-              />
-            </ListItemIcon>
-          )}
         </ListItem>
 
         <div className="sublayer-details-wrapper">

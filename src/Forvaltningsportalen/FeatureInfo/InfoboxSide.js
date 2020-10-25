@@ -42,12 +42,26 @@ const InfoBox = ({
   tagFilter,
   matchAllFilters,
   showPropertyGeom,
-  handlePropertyGeom
+  handlePropertyGeom,
+  showFylkeGeom,
+  handleFylkeGeom,
+  showKommuneGeom,
+  handleKommuneGeom,
+  grensePolygon,
+  grensePolygonGeom,
+  handleGrensePolygon,
+  removeGrensePolygon,
+  showFylkePolygon,
+  showKommunePolygon,
+  showEiendomPolygon,
+  grensePolygonData
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
   const [screenHeight, setScreenHeight] = useState(0);
   const [inTransition, setInTransition] = useState(null);
+  const [showMarkerOptions, setShowMarkerOptions] = useState(false);
+  const [showPolygonOptions, setShowPolygonOptions] = useState(false);
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
@@ -245,11 +259,17 @@ const InfoBox = ({
           matchAllFilters={matchAllFilters}
           showPropertyGeom={showPropertyGeom}
           handlePropertyGeom={handlePropertyGeom}
+          showFylkeGeom={showFylkeGeom}
+          handleFylkeGeom={handleFylkeGeom}
+          showKommuneGeom={showKommuneGeom}
+          handleKommuneGeom={handleKommuneGeom}
+          showMarkerOptions={showMarkerOptions}
+          setShowMarkerOptions={setShowMarkerOptions}
         />
       )}
       {markerType === "polygon" && (
         <PolygonInfobox
-          polygon={polygon}
+          polygon={grensePolygon === "none" ? polygon : grensePolygonGeom}
           polyline={polyline}
           showPolygon={showPolygon}
           hideAndShowPolygon={hideAndShowPolygon}
@@ -258,6 +278,16 @@ const InfoBox = ({
           addPolyline={addPolyline}
           polygonResults={polygonResults}
           handlePolygonResults={handlePolygonResults}
+          grensePolygon={grensePolygon}
+          handleGrensePolygon={handleGrensePolygon}
+          removeGrensePolygon={removeGrensePolygon}
+          showPolygonOptions={showPolygonOptions}
+          setShowPolygonOptions={setShowPolygonOptions}
+          showFylkePolygon={showFylkePolygon}
+          showKommunePolygon={showKommunePolygon}
+          showEiendomPolygon={showEiendomPolygon}
+          grensePolygonGeom={grensePolygonGeom}
+          grensePolygonData={grensePolygonData}
         />
       )}
     </div>

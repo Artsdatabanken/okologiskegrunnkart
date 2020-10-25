@@ -11,14 +11,19 @@ const PolygonDetailed = ({
 }) => {
   const [numberResults, setNumberResults] = useState(0);
   const [totalArea, setTotalArea] = useState(0);
+  const [sortedResult, setSortedResult] = useState(0);
   const detailResultJSON = JSON.stringify(detailResult);
 
   useEffect(() => {
-    const number = detailResult ? detailResult.length : 0;
     let area = 0;
     for (let i = 0; i < detailResult.length; i++) {
       area += detailResult[i].km2;
     }
+    const sorted = detailResult.sort((a, b) => {
+      return b.km2 - a.km2;
+    });
+    const number = sorted ? sorted.length : 0;
+    setSortedResult(sorted);
     setNumberResults(number);
     setTotalArea(area);
   }, [detailResult, detailResultJSON]);
@@ -71,8 +76,8 @@ const PolygonDetailed = ({
           />
         </ListItem>
         <div className="infobox-details-wrapper">
-          {detailResult &&
-            detailResult.map((item, index) => {
+          {sortedResult &&
+            sortedResult.map((item, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">
                   <div className="polygon-details-text-wrapper">

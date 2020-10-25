@@ -9,6 +9,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
+import { getPolygonDepth } from "../../Funksjoner/polygonTools";
 
 const PolygonLayers = ({
   availableLayers,
@@ -23,7 +24,7 @@ const PolygonLayers = ({
   const polygonJSON = JSON.stringify(polygon);
 
   const calculateAreaReport = () => {
-    if (!polygon || polygon.length < 2) return;
+    if (!polygon || polygon.length === 0) return;
     handlePolygonResults(null);
     const layerCodes = [];
     let errorResult = {};
@@ -33,8 +34,34 @@ const PolygonLayers = ({
       errorResult[layer.code] = { error: true };
     }
     if (layerCodes.length > 0) {
+      const depth = getPolygonDepth(polygon);
+      let points = "";
+      if (depth === 2) {
+        for (const coord of polygon) {
+          points = points + coord[1] + " " + coord[0] + ",";
+        }
+        // Last point has to be the same as the initial point
+        points = points + polygon[0][1] + " " + polygon[0][0];
+        points = "((" + points + "))";
+      } else if (depth === 3) {
+        for (const poly of polygon) {
+          points = "(";
+          for (const coord of poly) {
+            points = points + coord[1] + " " + coord[0] + ",";
+          }
+          // Remove last comma
+          points = points.slice(0, -1);
+          points = points + "),";
+        }
+        // Remove last comma
+        points = points.slice(0, -1);
+        points = "(" + points + ")";
+      } else {
+        handlePolygonResults(errorResult);
+        return;
+      }
       handleLoadingFeatures(true);
-      backend.makeAreaReport(layerCodes, polygon).then(result => {
+      backend.makeAreaReport(layerCodes, points).then(result => {
         if (!result) handlePolygonResults(errorResult);
         else handlePolygonResults(result);
         handleLoadingFeatures(false);
@@ -53,8 +80,15 @@ const PolygonLayers = ({
   };
 
   useEffect(() => {
-    if (!polygon || polygon.length < 3) setDisabled(true);
-    else setDisabled(false);
+    if (!polygon) {
+      setDisabled(true);
+      return;
+    }
+    const depth = getPolygonDepth(polygon);
+    // Only one polygon
+    if (depth === 2 && polygon.length > 2) setDisabled(false);
+    else if (depth === 3 && polygon[0].length > 2) setDisabled(false);
+    else setDisabled(true);
   }, [polygon, polygonJSON]);
 
   return (
@@ -62,7 +96,6 @@ const PolygonLayers = ({
       <ListItem
         id={disabled ? "polygon-layer-disabled" : "polygon-layer-expander"}
         button
-        divider
         onClick={() => setMenuOpen(!menuOpen)}
       >
         <ListItemText

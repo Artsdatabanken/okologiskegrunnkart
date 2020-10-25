@@ -6,7 +6,7 @@ class Backend {
   static async getPromise(url) {
     try {
       const response = await fetch(url, {
-        method: "get",
+        method: "GET",
         headers: {
           Accept: "application/json"
         }
@@ -22,12 +22,29 @@ class Backend {
   static async getPromiseText(url) {
     try {
       const response = await fetch(url, {
-        method: "get",
+        method: "GET",
         headers: {
           Accept: "application/json"
         }
       });
       const json = await response.text();
+      return json;
+    } catch (e) {
+      console.error(url, e);
+      return null;
+    }
+  }
+
+  static async postPromise(url, body) {
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(body)
+      });
+      const json = await response.json();
       return json;
     } catch (e) {
       console.error(url, e);
@@ -206,26 +223,17 @@ class Backend {
   }
 
   static async makeAreaReport(layerCodes, polygon) {
-    // NOTE: API uses coordinates in lat/lng, same as defined
-    // in polygon
+    // NOTE: polygon need to be preprocessed according
+    // to "well-known text representation of geometry"
+    // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
     let url =
-      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk?kartlag=";
+      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk";
 
     const codes = layerCodes.join(",");
-    url = url + codes;
-    url = url + "&koordinater=";
-    for (let i = 0; i < polygon.length; i++) {
-      if (i === 0 && polygon[i].length === 2) {
-        url = url + polygon[i][0] + " " + polygon[i][1];
-      } else if (polygon[i].length === 2) {
-        url = url + ", " + polygon[i][0] + " " + polygon[i][1];
-      }
-    }
-    // Last point has to be the same as the initial point
-    url = url + ", " + polygon[0][0] + " " + polygon[0][1];
+    const wkt = `SRID=4326;POLYGON ${polygon}`;
+    const body = { kartlag: codes, wkt };
 
-    url = encodeURI(url);
-    return this.getPromise(url);
+    return this.postPromise(url, body);
   }
 }
 

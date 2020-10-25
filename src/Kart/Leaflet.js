@@ -3,9 +3,10 @@ import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import { LocationSearching, WhereToVote, Gesture } from "@material-ui/icons";
+import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
+import CustomIcon from "../Common/CustomIcon";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -54,7 +55,6 @@ class Leaflet extends React.Component {
       if (!e.hard) {
         const zoom = this.map.getZoom();
         if (zoom === this.props.zoom) return;
-        // this.syncWmsLayers(this.props.aktiveLag);
         this.props.handleZoomChange(zoom);
       }
     });
@@ -87,6 +87,50 @@ class Leaflet extends React.Component {
       this.props.lng !== this.state.coordinates_area.lng
     )
       return true;
+  }
+
+  borderPolygonVisible(prevProps) {
+    if (
+      ((this.props.grensePolygon !== prevProps.grensePolygon ||
+        this.props.grensePolygonGeom !== prevProps.grensePolygonGeom ||
+        this.props.showFylkePolygon !== prevProps.showFylkePolygon) &&
+        this.props.grensePolygon === "fylke" &&
+        this.props.showFylkePolygon) ||
+      ((this.props.grensePolygon !== prevProps.grensePolygon ||
+        this.props.grensePolygonGeom !== prevProps.grensePolygonGeom ||
+        this.props.showKommunePolygon !== prevProps.showKommunePolygon) &&
+        this.props.grensePolygon === "kommune" &&
+        this.props.showKommunePolygon) ||
+      ((this.props.grensePolygon !== prevProps.grensePolygon ||
+        this.props.grensePolygonGeom !== prevProps.grensePolygonGeom ||
+        this.props.showEiendomPolygon !== prevProps.showEiendomPolygon) &&
+        this.props.grensePolygon === "eiendom" &&
+        this.props.showEiendomPolygon)
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  borderPolygonInvisible(prevProps) {
+    if (
+      (this.props.grensePolygon !== prevProps.grensePolygon &&
+        this.props.grensePolygon === "none") ||
+      (this.props.grensePolygonGeom !== prevProps.grensePolygonGeom &&
+        !this.props.grensePolygonGeom) ||
+      (this.props.showFylkePolygon !== prevProps.showFylkePolygon &&
+        !this.props.showFylkePolygon &&
+        this.props.grensePolygon === "fylke") ||
+      (this.props.showKommunePolygon !== prevProps.showKommunePolygon &&
+        !this.props.showKommunePolygon &&
+        this.props.grensePolygon === "kommune") ||
+      (this.props.showEiendomPolygon !== prevProps.showEiendomPolygon &&
+        !this.props.showEiendomPolygon &&
+        this.props.grensePolygon === "eiendom")
+    ) {
+      return true;
+    }
+    return false;
   }
 
   updateUrlWithCoordinates(lng, lat) {
@@ -154,23 +198,57 @@ class Leaflet extends React.Component {
       this.removeMarker();
     }
     // Draw polygon
-    if (this.props.showPolygon) {
+    if (this.props.showPolygon && this.props.grensePolygon === "none") {
       this.drawPolygon();
     }
     // Remove polygon
     if (
-      this.props.showPolygon !== prevProps.showPolygon &&
-      !this.props.showPolygon
+      (this.props.showPolygon !== prevProps.showPolygon &&
+        !this.props.showPolygon) ||
+      this.props.grensePolygon !== "none"
     ) {
       this.removePolyline();
       this.removePolygon();
       this.removeEndPoint();
       this.removeStartPoint();
     }
+    // Draw fylke
+    if (
+      (this.props.showFylkeGeom !== prevProps.showFylkeGeom ||
+        this.props.fylkeGeom !== prevProps.fylkeGeom) &&
+      this.props.showFylkeGeom
+    ) {
+      this.drawFylkeGeom();
+    }
+    // Remove fylke
+    if (
+      (this.props.showFylkeGeom !== prevProps.showFylkeGeom &&
+        !this.props.showFylkeGeom) ||
+      (this.props.fylkeGeom !== prevProps.fylkeGeom && !this.props.fylkeGeom)
+    ) {
+      this.removeFylkeGeom();
+    }
+    // Draw kommune
+    if (
+      (this.props.showKommuneGeom !== prevProps.showKommuneGeom ||
+        this.props.kommuneGeom !== prevProps.kommuneGeom) &&
+      this.props.showKommuneGeom
+    ) {
+      this.drawKommuneGeom();
+    }
+    // Remove kommune
+    if (
+      (this.props.showKommuneGeom !== prevProps.showKommuneGeom &&
+        !this.props.showKommuneGeom) ||
+      (this.props.kommuneGeom !== prevProps.kommuneGeom &&
+        !this.props.kommuneGeom)
+    ) {
+      this.removeKommuneGeom();
+    }
     // Draw property
     if (
       (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
-        this.props.propertyGeom !== prevProps.propertyGeom) &&
+        this.props.eiendomGeom !== prevProps.eiendomGeom) &&
       this.props.showPropertyGeom
     ) {
       this.drawPropertyGeom();
@@ -179,10 +257,18 @@ class Leaflet extends React.Component {
     if (
       (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
         !this.props.showPropertyGeom) ||
-      (this.props.propertyGeom !== prevProps.propertyGeom &&
-        !this.props.propertyGeom)
+      (this.props.eiendomGeom !== prevProps.eiendomGeom &&
+        !this.props.eiendomGeom)
     ) {
       this.removePropertyGeom();
+    }
+    // Draw border geometry
+    if (this.borderPolygonVisible(prevProps)) {
+      this.drawGrenseGeom();
+    }
+    // Remove border geometry
+    if (this.borderPolygonInvisible(prevProps)) {
+      this.removeGrenseGeom();
     }
   }
 
@@ -212,9 +298,51 @@ class Leaflet extends React.Component {
   }
 
   removePropertyGeom() {
-    if (!this.propertyGeom) return;
-    this.map.removeLayer(this.propertyGeom);
+    if (!this.eiendomGeom) return;
+    this.map.removeLayer(this.eiendomGeom);
   }
+
+  removeFylkeGeom() {
+    if (!this.fylkeGeom) return;
+    this.map.removeLayer(this.fylkeGeom);
+  }
+
+  removeKommuneGeom() {
+    if (!this.kommuneGeom) return;
+    this.map.removeLayer(this.kommuneGeom);
+  }
+
+  removeGrenseGeom() {
+    if (!this.grensePolygonGeom) return;
+    this.map.removeLayer(this.grensePolygonGeom);
+  }
+
+  activateMarker = () => {
+    this.setState({ markerType: "klikk" }, () => {
+      if (this.props.showPropertyGeom) {
+        this.drawPropertyGeom();
+      }
+      if (this.props.showFylkeGeom) {
+        this.drawFylkeGeom();
+      }
+      if (this.props.showKommuneGeom) {
+        this.drawKommuneGeom();
+      }
+    });
+    this.props.hideAndShowMarker(true);
+    this.props.handleInfobox(true);
+    this.removeEndPoint();
+    this.removeStartPoint();
+  };
+
+  activatePolygon = () => {
+    this.setState({ markerType: "polygon" });
+    this.props.hideAndShowMarker(false);
+    this.props.handleInfobox(true);
+    this.removePropertyGeom();
+    this.removeFylkeGeom();
+    this.removeKommuneGeom();
+  };
 
   getBackendData = async (lng, lat) => {
     const fetchAllData = !this.props.showExtensiveInfo;
@@ -451,9 +579,20 @@ class Leaflet extends React.Component {
     }
   }
 
+  handleGetNewPolygon(e) {
+    this.props.handleInfobox(true);
+    const latlng = e.latlng;
+    this.props.fetchGrensePolygon(latlng.lat, latlng.lng);
+  }
+
   handleClick = async e => {
-    if (this.state.markerType === "polygon") {
+    if (
+      this.state.markerType === "polygon" &&
+      this.props.grensePolygon === "none"
+    ) {
       this.polygonToolClick(e);
+    } else if (this.state.markerType === "polygon") {
+      this.handleGetNewPolygon(e);
     } else if (this.state.markerType === "klikk") {
       this.markerClick(e).then(() => this.props.handleInfobox(true));
     }
@@ -490,7 +629,6 @@ class Leaflet extends React.Component {
       if (!kartlag.wmsurl) return; // Not a WMS layer
       Object.keys(kartlag.underlag).forEach(underlagsnøkkel => {
         const underlag = kartlag.underlag[underlagsnøkkel];
-        // this.syncUnderlag(kartlag, kartlag.underlag[underlagsnøkkel])
         let layer = layers[underlag.id];
         if (!underlag.erSynlig) {
           if (layer) {
@@ -547,59 +685,6 @@ class Leaflet extends React.Component {
       this.setState({ wmslayers: layers });
     }
   }
-
-  // syncUnderlag(kartlag, underlag) {
-  //   let layers = { ...this.state.wmslayers };
-  //   let layer = layers[underlag.id];
-  //   if (!underlag.erSynlig) {
-  //     if (layer) {
-  //       console.log("Removing layer", layer)
-  //       this.map.removeLayer(layer);
-  //       delete layers[underlag.id];
-  //       this.setState({ wmslayers: layers });
-  //     }
-  //     return;
-  //   }
-
-  //   const url = this.makeWmsUrl(kartlag.wmsurl);
-  //   let srs = "EPSG3857";
-  //   if (kartlag.projeksjon) {
-  //     srs = kartlag.projeksjon.replace(":", "");
-  //   }
-  //   if (!layer) {
-  //     layer = L.tileLayer.cachedOverview("", {
-  //       id: underlag.id,
-  //       zoomThreshold: underlag.minzoom,
-  //       layers: underlag.wmslayer,
-  //       transparent: true,
-  //       crs: L.CRS[srs],
-  //       format: "image/png",
-  //       maxZoom: MAX_MAP_ZOOM_LEVEL,
-  //       maxNativeZoom: underlag.maxzoom
-  //     });
-  //     layer.on("loading", () => {
-  //       this.props.onTileStatus(kartlag.id, underlag.id, "loading");
-  //     });
-  //     layer.on("load", l => {
-  //       //        this.props.onTileStatus(kartlag.id, underlag.id, "loaded");
-  //     });
-  //     layer.on("tileerror", e => {
-  //       if (!underlag.tileerror) {
-  //         this.props.onTileStatus(kartlag.id, underlag.id, "error");
-  //       }
-  //     });
-  //     layers[underlag.id] = layer;
-  //     this.setState({ wmslayers: layers });
-  //     this.map.addLayer(layer);
-  //     console.log("Adding layer", layer)
-  //     layer.setUrl(url);
-  //     layer.setOpacity(underlag.opacity);
-  //   }
-  //   // layer.setUrl(url);
-  //   // layer.setOpacity(underlag.opacity);
-  //   // console.log("Updating layer", layer)
-  //   console.log("layers", { ...this.state.wmslayers })
-  // }
 
   makeWmsUrl(url) {
     url = url.replace(/request=GetCapabilities/gi, "");
@@ -709,15 +794,72 @@ class Leaflet extends React.Component {
     }
   };
 
+  drawFylkeGeom = () => {
+    if (
+      this.props.fylkeGeom &&
+      this.props.showFylkeGeom &&
+      this.state.markerType === "klikk"
+    ) {
+      // Remove to avoid duplicates
+      this.removeFylkeGeom();
+
+      // Draw polygon
+      if (this.props.fylkeGeom.length > 0) {
+        this.fylkeGeom = L.polygon(this.props.fylkeGeom, {
+          color: "red",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
+  drawKommuneGeom = () => {
+    if (
+      this.props.kommuneGeom &&
+      this.props.showKommuneGeom &&
+      this.state.markerType === "klikk"
+    ) {
+      // Remove to avoid duplicates
+      this.removeKommuneGeom();
+
+      // Draw polygon
+      if (this.props.kommuneGeom.length > 0) {
+        this.kommuneGeom = L.polygon(this.props.kommuneGeom, {
+          color: "#274e88",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
   drawPropertyGeom = () => {
-    if (this.props.propertyGeom && this.props.showPropertyGeom) {
+    if (
+      this.props.eiendomGeom &&
+      this.props.showPropertyGeom &&
+      this.state.markerType === "klikk"
+    ) {
       // Remove to avoid duplicates
       this.removePropertyGeom();
 
       // Draw polygon
-      if (this.props.propertyGeom.length > 0) {
-        this.propertyGeom = L.polygon(this.props.propertyGeom, {
+      if (this.props.eiendomGeom.length > 0) {
+        this.eiendomGeom = L.polygon(this.props.eiendomGeom, {
           color: "orange",
+          lineJoin: "round"
+        }).addTo(this.map);
+      }
+    }
+  };
+
+  drawGrenseGeom = () => {
+    if (this.props.grensePolygonGeom) {
+      // Remove to avoid duplicates
+      this.removeGrenseGeom();
+
+      // Draw polygon
+      if (this.props.grensePolygonGeom.length > 0) {
+        this.grensePolygonGeom = L.polygon(this.props.grensePolygonGeom, {
+          color: "blue",
           lineJoin: "round"
         }).addTo(this.map);
       }
@@ -733,34 +875,25 @@ class Leaflet extends React.Component {
             className={this.state.markerType === "klikk" ? "active" : ""}
             title="Marker tool"
             alt="Marker tool"
-            onClick={() => {
-              this.setState({
-                markerType: "klikk"
-              });
-              this.props.hideAndShowPolygon(false);
-              this.props.hideAndShowMarker(true);
-              this.props.handleInfobox(true);
-            }}
+            onClick={() => this.activateMarker()}
             onMouseDown={e => e.preventDefault()}
           >
             <WhereToVote />
           </button>
           <button
-            id="poligon-button-map"
+            id="polygon-button-map"
             className={this.state.markerType === "polygon" ? "active" : ""}
             title="Polygon tool"
             alt="Polygon tool"
-            onClick={() => {
-              this.setState({
-                markerType: "polygon"
-              });
-              this.props.hideAndShowMarker(false);
-              this.props.hideAndShowPolygon(true);
-              this.props.handleInfobox(true);
-            }}
+            onClick={() => this.activatePolygon()}
             onMouseDown={e => e.preventDefault()}
           >
-            <Gesture />
+            <CustomIcon
+              id="polygon-button-icon"
+              icon="hexagon-slice-4"
+              size={24}
+              color={"#FFFFFF"}
+            />
           </button>
         </div>
 
@@ -820,6 +953,18 @@ class Leaflet extends React.Component {
           matchAllFilters={this.props.matchAllFilters}
           showPropertyGeom={this.props.showPropertyGeom}
           handlePropertyGeom={this.props.handlePropertyGeom}
+          showFylkeGeom={this.props.showFylkeGeom}
+          handleFylkeGeom={this.props.handleFylkeGeom}
+          showKommuneGeom={this.props.showKommuneGeom}
+          handleKommuneGeom={this.props.handleKommuneGeom}
+          grensePolygon={this.props.grensePolygon}
+          grensePolygonGeom={this.props.grensePolygonGeom}
+          handleGrensePolygon={this.props.handleGrensePolygon}
+          removeGrensePolygon={this.props.removeGrensePolygon}
+          showFylkePolygon={this.props.showFylkePolygon}
+          showKommunePolygon={this.props.showKommunePolygon}
+          showEiendomPolygon={this.props.showEiendomPolygon}
+          grensePolygonData={this.props.grensePolygonData}
         />
         {this.state.markerType === "polygon" && (
           <div

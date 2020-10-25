@@ -4,7 +4,6 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   LinearProgress,
   ListSubheader
 } from "@material-ui/core";
@@ -12,6 +11,7 @@ import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { makeStyles } from "@material-ui/core/styles";
+import CustomSwitch from "../../Common/CustomSwitch";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -30,26 +30,20 @@ const ResultsList = ({
   showDetailedResults,
   sortKey,
   tagFilter,
-  matchAllFilters
+  matchAllFilters,
+  getBackendData
 }) => {
   const classes = useStyles("Ingen kartlag valgt");
 
-  const [title, setTitle] = useState(null);
   const [allResults, setAllResults] = useState({});
 
   const layersResultJSON = JSON.stringify(layersResult);
 
-  useEffect(() => {
-    const emptyKartlag =
-      Object.keys(kartlag).length === 0 && kartlag.constructor === Object;
-    let title = "Ingen kartlag valgt";
-    if (showExtensiveInfo && !emptyKartlag) {
-      title = "Resultat fra alle kartlag";
-    } else if (!showExtensiveInfo && !emptyKartlag) {
-      title = "Resultat fra valgte kartlag";
+  const toggleAllLayers = () => {
+    if (coordinates_area && coordinates_area.lng && coordinates_area.lat) {
+      getBackendData(coordinates_area.lng, coordinates_area.lat);
     }
-    setTitle(title);
-  }, [kartlag, showExtensiveInfo]);
+  };
 
   useEffect(() => {
     // Sort results
@@ -121,7 +115,37 @@ const ResultsList = ({
           <ListItemIcon>
             <CustomIcon icon="layers" size={32} color="#777" padding={0} />
           </ListItemIcon>
-          <ListItemText primary={title} />
+          <div className="search-layers-button-wrapper">
+            <span
+              className={
+                showExtensiveInfo
+                  ? "search-layers-switch-text"
+                  : "search-layers-switch-text-selected"
+              }
+            >
+              Valgte kartlag
+            </span>
+            <CustomSwitch
+              tabIndex="0"
+              id="search-layers-toggle"
+              checked={showExtensiveInfo}
+              onChange={toggleAllLayers}
+              onKeyDown={e => {
+                if (e.keyCode === 13) {
+                  toggleAllLayers();
+                }
+              }}
+            />
+            <span
+              className={
+                showExtensiveInfo
+                  ? "search-layers-switch-text-selected"
+                  : "search-layers-switch-text"
+              }
+            >
+              Alle kartlag
+            </span>
+          </div>
         </ListItem>
 
         {coordinates_area && coordinates_area.lat && (

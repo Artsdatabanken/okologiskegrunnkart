@@ -6,6 +6,7 @@ import {
   ListItemText,
   LinearProgress
 } from "@material-ui/core";
+import { Home, Flag, Terrain } from "@material-ui/icons";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
@@ -14,6 +15,7 @@ import proj4 from "proj4";
 import { makeStyles } from "@material-ui/core/styles";
 import PolygonElement from "./PolygonElement";
 import PolygonDetailed from "./PolygonDetailed";
+import { getPolygonDepth } from "../../Funksjoner/polygonTools";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -47,7 +49,17 @@ const PolygonInfobox = ({
   addPolygon,
   addPolyline,
   polygonResults,
-  handlePolygonResults
+  handlePolygonResults,
+  grensePolygon,
+  handleGrensePolygon,
+  removeGrensePolygon,
+  showPolygonOptions,
+  setShowPolygonOptions,
+  showFylkePolygon,
+  showKommunePolygon,
+  showEiendomPolygon,
+  grensePolygonGeom,
+  grensePolygonData
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -58,6 +70,7 @@ const PolygonInfobox = ({
   const [showResults, setShowResults] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
   const [detailResult, setDetailResult] = useState(null);
+  const [extraInfo, setExtraInfo] = useState(null);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -68,11 +81,23 @@ const PolygonInfobox = ({
       return;
     }
 
-    let points = polyline;
+    let points = [...polyline];
     // If polygon, add the first point as the last one
-    if (polygon) {
-      points = [...polygon];
-      points.push(polygon[0]);
+    if (polygon && polygon.length > 0) {
+      const depht = getPolygonDepth(polygon);
+      if (depht === 2) {
+        // Only one polygon
+        points = [...polygon];
+        points.push(polygon[0]);
+      } else if (depht === 3) {
+        // Only one polygon with holes
+        points = [...polygon[0]];
+        points.push(polygon[0][0]);
+      } else {
+        // Something is wrong
+        setPerimeter(null);
+        return;
+      }
     }
 
     if (points.length < 2) {
@@ -122,20 +147,65 @@ const PolygonInfobox = ({
   }, [polygon, polygonJSON, polyline, polylineJSON]);
 
   useEffect(() => {
-    if (!polygon || polygon.length < 3) {
+    if (!polygon || polygon.length === 0) {
       setArea(null);
       return;
     }
 
-    const pointsCount = polygon.length;
+    // Calculate main area
+    let points;
     let area = 0;
+    const depht = getPolygonDepth(polygon);
+    if (depht === 2) {
+      // Only one polygon
+      points = polygon;
+    } else if (depht === 3) {
+      // Only one polygon with holes
+      points = polygon[0];
+    } else {
+      // Something is wrong
+      setArea(null);
+      return;
+    }
+    area = calculateArea(points);
+
+    // Substract areas if there are holes
+    if (depht === 3 && polygon.length > 1) {
+      for (let i = 1; i < polygon.length; i++) {
+        const hole = polygon[i];
+        if (hole.length < 3) continue;
+        area -= calculateArea(hole);
+      }
+    }
+
     let unit = "m";
+    if (area >= 1000000000) {
+      area = Math.round(area / 100000) / 10;
+      unit = "km";
+    } else if (area >= 100000000) {
+      area = Math.round(area / 10000) / 100;
+      unit = "km";
+    } else if (area >= 1000000) {
+      area = Math.round(area / 1000) / 1000;
+      unit = "km";
+    } else if (area > 1000) {
+      area = Math.round(area);
+    } else {
+      area = Math.round(area * 10) / 10;
+    }
+    setArea(area);
+    setAreaUnit(unit);
+  }, [polygon, polygonJSON]);
+
+  const calculateArea = points => {
+    const pointsCount = points.length;
+    let area = 0;
     if (pointsCount > 2) {
       for (var i = 0; i < pointsCount; i++) {
-        const lat1 = polygon[i][0];
-        const lng1 = polygon[i][1];
-        const lat2 = polygon[(i + 1) % pointsCount][0];
-        const lng2 = polygon[(i + 1) % pointsCount][1];
+        const lat1 = points[i][0];
+        const lng1 = points[i][1];
+        const lat2 = points[(i + 1) % pointsCount][0];
+        const lng2 = points[(i + 1) % pointsCount][1];
 
         // Calculate projections of real coordinates
         const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
@@ -161,24 +231,8 @@ const PolygonInfobox = ({
       }
     }
     area = Math.abs(area);
-
-    if (area >= 1000000000) {
-      area = Math.round(area / 100000) / 10;
-      unit = "km";
-    } else if (area >= 100000000) {
-      area = Math.round(area / 10000) / 100;
-      unit = "km";
-    } else if (area >= 1000000) {
-      area = Math.round(area / 1000) / 1000;
-      unit = "km";
-    } else if (area > 1000) {
-      area = Math.round(area);
-    } else {
-      area = Math.round(area * 10) / 10;
-    }
-    setArea(area);
-    setAreaUnit(unit);
-  }, [polygon, polygonJSON]);
+    return area;
+  };
 
   const handleLoadingFeatures = loading => {
     setLoadingFeatures(loading);
@@ -195,6 +249,52 @@ const PolygonInfobox = ({
     setDetailLayer(null);
     setDetailResult(null);
   };
+
+  const grensePolygonGeomJSON = JSON.stringify(grensePolygonGeom);
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [grensePolygonGeom, grensePolygonGeomJSON]);
+
+  useEffect(() => {
+    if (
+      grensePolygon === "fylke" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.fylke
+    ) {
+      const data = grensePolygonData.fylke;
+      if (data.fylkesnavn && data.fylkesnummer) {
+        const info = `${data.fylkesnavn[0]} (${data.fylkesnummer[0]})`;
+        setExtraInfo(info);
+      }
+    } else if (
+      grensePolygon === "kommune" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.kommune
+    ) {
+      const data = grensePolygonData.kommune;
+      if (data.kommunenavn && data.kommunenummer) {
+        const info = `${data.kommunenavn[0]} (${data.kommunenummer[0]})`;
+        setExtraInfo(info);
+      }
+    } else if (
+      grensePolygon === "eiendom" &&
+      grensePolygonGeom &&
+      grensePolygonData &&
+      grensePolygonData.eiendom
+    ) {
+      setExtraInfo(grensePolygonData.eiendom);
+    } else {
+      setExtraInfo(null);
+    }
+  }, [
+    grensePolygon,
+    grensePolygonGeom,
+    grensePolygonGeomJSON,
+    grensePolygonData
+  ]);
 
   return (
     <div className="infobox-side">
@@ -215,6 +315,14 @@ const PolygonInfobox = ({
             addPolygon={addPolygon}
             addPolyline={addPolyline}
             handlePolygonResults={handlePolygonResults}
+            grensePolygon={grensePolygon}
+            handleGrensePolygon={handleGrensePolygon}
+            removeGrensePolygon={removeGrensePolygon}
+            showPolygonOptions={showPolygonOptions}
+            setShowPolygonOptions={setShowPolygonOptions}
+            showFylkePolygon={showFylkePolygon}
+            showKommunePolygon={showKommunePolygon}
+            showEiendomPolygon={showEiendomPolygon}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">
@@ -245,7 +353,41 @@ const PolygonInfobox = ({
                 </div>
               </div>
             </div>
+            {extraInfo && grensePolygon === "fylke" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Terrain />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Fylke</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
+                </div>
+              </div>
+            )}
+            {extraInfo && grensePolygon === "kommune" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Flag />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Kommune</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
+                </div>
+              </div>
+            )}
+            {extraInfo && grensePolygon === "eiendom" && (
+              <div className="infobox-text-wrapper-polygon">
+                <Home />
+                <div className="infobox-text-multiple">
+                  <div className="infobox-text-primary">Matrikkel</div>
+                  <div className="infobox-text-secondary">
+                    {extraInfo ? extraInfo : "-"}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
+
           <PolygonLayers
             availableLayers={availableLayers}
             polygon={polygon}
@@ -285,6 +427,7 @@ const PolygonInfobox = ({
                             showDetailedPolygonResults={
                               showDetailedPolygonResults
                             }
+                            grensePolygon={grensePolygon}
                           />
                         );
                       })}

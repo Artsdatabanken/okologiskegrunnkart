@@ -72,6 +72,15 @@ const ForvaltningsUnderElement = ({
             />
           </ListItemIcon>
         )} */}
+        <ListItemIcon id="open-details-icon">
+          <CustomIcon
+            id="open-details"
+            icon="chevron-right"
+            size={20}
+            padding={0}
+            color="#666"
+          />
+        </ListItemIcon>
         {sublayer.visible && sublayer.tileerror && (
           <BottomTooltip placement="bottom" title="Får ikke svar">
             <ListItemIcon id="tile-error-icon">
