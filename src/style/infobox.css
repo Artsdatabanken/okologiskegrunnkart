@@ -699,27 +699,11 @@
   justify-content: center;
   overflow-y: auto;
 }
-/* .infobox-details-content-wrapper {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  width: 100%;
-  border-bottom: 1px solid #ddd;
-}
-.infobox-details-content-text {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  color: rgba(0, 0, 0, 0.75);
-  width: calc(100% - 44px);
-} */
 .infobox-details-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  /* padding: 12px; */
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
   border-bottom: 1px solid #ddd;
@@ -732,7 +716,6 @@
   padding: 12px;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
-  /* border-bottom: 1px solid #ddd; */
 }
 .infobox-details-content-faktaark {
   display: flex;
@@ -742,7 +725,6 @@
   padding: 12px 12px 6px 12px;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
-  /* border-bottom: 1px solid #ddd; */
 }
 .polygon-details-content-wrapper {
   display: flex;
