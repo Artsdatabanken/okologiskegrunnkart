@@ -19,6 +19,7 @@ import {
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import { sortPolygonCoord } from "./Funksjoner/polygonTools";
+import AppName from "./Forvaltningsportalen/AppName";
 
 class App extends React.Component {
   state = {
@@ -85,7 +86,8 @@ class App extends React.Component {
     showKommunePolygon: true,
     eiendomPolygon: null,
     showEiendomPolygon: true,
-    grensePolygonData: {}
+    grensePolygonData: {},
+    showAppName: true
   };
 
   async lastNedKartlag() {
@@ -282,6 +284,10 @@ class App extends React.Component {
                         this.state.editLayersMode ? "hidden-app-content" : ""
                       }
                     >
+                      <AppName
+                        showAppName={this.state.showAppName}
+                        closeAppName={this.closeAppName}
+                      />
                       <Kart
                         kartlag={this.state.kartlag}
                         polygon={this.state.polygon}
@@ -1803,6 +1809,10 @@ class App extends React.Component {
 
   handleMatchAllFilters = matchAllFilters => {
     this.setState({ matchAllFilters });
+  };
+
+  closeAppName = () => {
+    this.setState({ showAppName: false });
   };
 
   static contextType = SettingsContext;
