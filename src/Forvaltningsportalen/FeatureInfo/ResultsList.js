@@ -166,7 +166,6 @@ const ResultsList = ({
                         {Object.keys(allResults[key]).map(resultkey => {
                           return (
                             <GeneriskElement
-                              coordinates_area={coordinates_area}
                               key={resultkey}
                               kartlag={kartlag}
                               resultat={allResults[key][resultkey]}
