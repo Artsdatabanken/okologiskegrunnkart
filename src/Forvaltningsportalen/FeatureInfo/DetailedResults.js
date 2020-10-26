@@ -42,7 +42,6 @@ const DetailedResults = ({
   };
 
   useEffect(() => {
-    console.log("faktaark: ", faktaark);
     if (!faktaark) {
       setFaktaark_url(null);
       return;

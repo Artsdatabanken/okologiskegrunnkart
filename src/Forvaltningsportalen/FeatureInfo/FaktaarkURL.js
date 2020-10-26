@@ -58,11 +58,17 @@ function countDecimals(number) {
 
 function matchInput(formatstring, input) {
   let elementer;
+  formatstring = formatstring.trim();
   const matches = formatstring.matchAll(/\{(?<variable>.*?)\}/g);
 
   elementer = Array.from(matches);
 
-  if (!elementer && elementer.length === 0) return { harData: false };
+  if (!elementer || elementer.length === 0) {
+    if (typeof formatstring === "string" && formatstring.length > 0) {
+      return { harData: true, faktaark: formatstring };
+    }
+    return { harData: false };
+  }
   const element = elementer[0];
   if (!element.groups || !element.groups.variable) return { harData: false };
   const variable = element.groups.variable;
@@ -70,8 +76,9 @@ function matchInput(formatstring, input) {
   if (!result || result.constructor !== Object) return { harData: false };
   if (Object.keys(result).length === 0) return { harData: false };
 
-  // Get first property value
-  const faktaark = result[Object.keys(result)[0]];
+  // Get first property value an dreplace in orginal string
+  let faktaark = result[Object.keys(result)[0]];
+  faktaark = formatstring.replace(/\{(.+?)\}/g, faktaark);
 
   return { harData: true, faktaark };
 }
