@@ -253,6 +253,10 @@
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
 }
+.infobox-options-listitem-wrapper-closed {
+  background-color: rgba(145, 163, 176, 0.5);
+  border-top: 1px solid #aaa;
+}
 .infobox-switch-container {
   display: flex;
   align-items: center;
@@ -646,7 +650,8 @@
 
 /* Layer info */
 #infobox-details-layer {
-  background-color: #eee;
+  background-color: #ddd;
+  border-bottom: 1px solid #aaa;
 }
 #infobox-details-layer.MuiListItem-gutters {
   padding-left: 12px;
@@ -655,6 +660,35 @@
 #infobox-details-layer.MuiListItem-root {
   padding-top: 4px;
   padding-bottom: 4px;
+}
+#faktaark-kartlag-layer-item {
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+}
+#faktaark-kartlag-layer-item.MuiListItem-gutters {
+  padding-left: 12px;
+}
+#faktaark-kartlag-layer-item:hover {
+  background-color: #ccc;
+}
+#faktaark-kartlag-layer-item.MuiListItem-root.Mui-focusVisible {
+  background-color: #ccc;
+}
+#faktaark-kartlag-sublayer-item {
+  background-color: #eee;
+}
+#faktaark-kartlag-sublayer-item.MuiListItem-gutters {
+  padding-left: 12px;
+}
+#faktaark-kartlag-sublayer-item.MuiListItem-root {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+#faktaark-kartlag-sublayer-item:hover {
+  background-color: #ddd;
+}
+#faktaark-kartlag-sublayer-item.MuiListItem-root.Mui-focusVisible {
+  background-color: #ddd;
 }
 
 /* Content */
@@ -665,7 +699,7 @@
   justify-content: center;
   overflow-y: auto;
 }
-.infobox-details-content-wrapper {
+/* .infobox-details-content-wrapper {
   display: flex;
   align-items: center;
   padding: 12px;
@@ -679,6 +713,36 @@
   justify-content: center;
   color: rgba(0, 0, 0, 0.75);
   width: calc(100% - 44px);
+} */
+.infobox-details-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  /* padding: 12px; */
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.infobox-details-content-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px;
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  /* border-bottom: 1px solid #ddd; */
+}
+.infobox-details-content-faktaark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px 12px 6px 12px;
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  /* border-bottom: 1px solid #ddd; */
 }
 .polygon-details-content-wrapper {
   display: flex;

@@ -201,7 +201,13 @@ const ClickInfobox = ({
             </div>
           </div>
         </ListItem>
-        <div className="infobox-options-listitem-wrapper">
+        <div
+          className={
+            showMarkerOptions
+              ? "infobox-options-listitem-wrapper"
+              : "infobox-options-listitem-wrapper-closed"
+          }
+        >
           <ListItem
             id="infobox-options-listitem"
             button

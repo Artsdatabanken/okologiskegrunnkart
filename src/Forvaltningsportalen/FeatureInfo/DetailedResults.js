@@ -7,7 +7,7 @@ import {
   Badge,
   IconButton
 } from "@material-ui/core";
-import { KeyboardBackspace } from "@material-ui/icons";
+import { KeyboardBackspace, OpenInNew } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { translateInfobox } from "../../Funksjoner/translate";
@@ -122,21 +122,19 @@ const DetailedResults = ({
             primary={resultLayer.tittel}
             secondary={resultLayer.dataeier}
           />
-          {faktaark_url && (
-            <CustomTooltip placement="right" title="Åpne faktaark i egen fane">
-              <IconButton
-                id="show-faktaark-button"
-                onClick={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  openInNewTabWithoutOpener(faktaark_url);
-                }}
-              >
-                <Info id="open-facts-icon" color="primary" />
-              </IconButton>
-            </CustomTooltip>
-          )}
         </ListItem>
+        {faktaark_url && (
+          <ListItem
+            id="faktaark-kartlag-layer-item"
+            button
+            onClick={() => {
+              openInNewTabWithoutOpener(faktaark_url);
+            }}
+          >
+            <ListItemText primary="Faktaark" />
+            <OpenInNew id="open-facts-icon" color="primary" />
+          </ListItem>
+        )}
         <div className="infobox-details-wrapper">
           {sublayers &&
             primaryText &&
@@ -144,7 +142,14 @@ const DetailedResults = ({
             listResults.map((key, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">
-                  <div className="infobox-details-content-text">
+                  <div
+                    key={index}
+                    className={
+                      faktaarkObject && faktaarkObject[key]
+                        ? "infobox-details-content-faktaark"
+                        : "infobox-details-content-text"
+                    }
+                  >
                     <div className="infobox-details-title">
                       {sublayers[key] ? sublayers[key].tittel : ""}
                     </div>
@@ -222,23 +227,20 @@ const DetailedResults = ({
                       )}
                   </div>
                   {faktaarkObject && faktaarkObject[key] && (
-                    <CustomTooltip
-                      placement="right"
-                      title="Åpne faktaark i egen fane"
+                    <ListItem
+                      id="faktaark-kartlag-sublayer-item"
+                      button
+                      onClick={() => {
+                        openInNewTabWithoutOpener(faktaarkObject[key].faktaark);
+                      }}
                     >
-                      <IconButton
-                        id="show-faktaark-button-sublag"
-                        onClick={e => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          openInNewTabWithoutOpener(
-                            faktaarkObject[key].faktaark
-                          );
-                        }}
-                      >
-                        <Info id="open-facts-icon" color="primary" />
-                      </IconButton>
-                    </CustomTooltip>
+                      <ListItemText primary="Faktaark" />
+                      <OpenInNew
+                        id="open-facts-icon"
+                        color="primary"
+                        fontSize="small"
+                      />
+                    </ListItem>
                   )}
                 </div>
               );
