@@ -55,7 +55,7 @@ const GeneriskElement = ({
   // const [open, setOpen] = useState(false);
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(0);
-  // const [faktaark_url, setFaktaark_url] = useState(null);
+  const [faktaark_url, setFaktaark_url] = useState(null);
 
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
@@ -89,8 +89,6 @@ const GeneriskElement = ({
 
     const wmsinfoformat = layer.wmsinfoformat;
     const klikkurl = layer.klikkurl || "";
-
-    console.log("resultat: ", resultat);
 
     if (resultat.error) {
       setPrimaryTextHeader({ harData: false, elementer: [] });
@@ -196,7 +194,7 @@ const GeneriskElement = ({
     let faktaarkURL;
     if (!faktaark) {
       faktaarkURL = layer.faktaark;
-      console.log("faktaarkURL: ", faktaarkURL);
+      setFaktaark_url(faktaarkURL);
     } else {
       faktaarkURL = formatterFaktaarkURL(
         faktaark,
@@ -204,7 +202,7 @@ const GeneriskElement = ({
         aggregatedLayerKey,
         wmsinfoformat
       );
-      console.log("faktaarkURL: ", faktaarkURL);
+      setFaktaark_url(faktaarkURL);
     }
 
     if (Object.keys(primary).length > 0) {
@@ -259,7 +257,8 @@ const GeneriskElement = ({
         listResults,
         primaryText,
         secondaryText,
-        numberResults
+        numberResults,
+        faktaark_url
       );
     }
   }, [
@@ -270,7 +269,8 @@ const GeneriskElement = ({
     secondaryText,
     numberResults,
     infoboxDetailsVisible,
-    showDetailedResults
+    showDetailedResults,
+    faktaark_url
   ]);
 
   if (!layer) return null;
@@ -290,7 +290,8 @@ const GeneriskElement = ({
               listResults,
               primaryText,
               secondaryText,
-              numberResults
+              numberResults,
+              faktaark_url
             );
           }}
         >

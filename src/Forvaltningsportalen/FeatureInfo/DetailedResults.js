@@ -21,7 +21,8 @@ const DetailedResults = ({
   secondaryText,
   numberResults,
   hideDetailedResults,
-  coordinates_area
+  coordinates_area,
+  faktaark
 }) => {
   const isLargeIcon = tema => {
     return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
@@ -30,7 +31,8 @@ const DetailedResults = ({
   };
 
   const [faktaark_url, setFaktaark_url] = useState(null);
-  const listResultsJSON = JSON.stringify(listResults);
+  const [faktaarkObject, setfaktaarkObject] = useState(null);
+  // const listResultsJSON = JSON.stringify(listResults);
 
   const openInNewTabWithoutOpener = url => {
     // Done this way for security reasons
@@ -40,15 +42,43 @@ const DetailedResults = ({
   };
 
   useEffect(() => {
-    if (!resultLayer || !resultLayer.faktaark) {
+    console.log("faktaark: ", faktaark);
+    if (!faktaark) {
       setFaktaark_url(null);
       return;
     }
-    const faktUrl = url_formatter(resultLayer.faktaark, {
-      ...coordinates_area
-    });
-    setFaktaark_url(faktUrl);
-  }, [resultLayer, listResults, listResultsJSON, coordinates_area]);
+    if (typeof faktaark === "string") {
+      const faktUrl = url_formatter(faktaark, {
+        ...coordinates_area
+      });
+      setFaktaark_url(faktUrl);
+      setfaktaarkObject(null);
+    } else if (
+      faktaark.constructor === Object &&
+      Object.keys(faktaark).length > 0
+    ) {
+      // If all URLs are the same, use only one link at the header
+      const url = faktaark[Object.keys(faktaark)[0]].faktaark;
+      let sameURL = true;
+      for (const key in faktaark) {
+        const newURL = faktaark[key].faktaark;
+        if (newURL !== url) {
+          sameURL = false;
+          break;
+        }
+      }
+      if (sameURL) {
+        setFaktaark_url(url);
+        setfaktaarkObject(null);
+      } else {
+        setFaktaark_url(null);
+        setfaktaarkObject(faktaark);
+      }
+    } else {
+      setFaktaark_url(null);
+      setfaktaarkObject(null);
+    }
+  }, [faktaark, coordinates_area]);
 
   if (!resultLayer) return null;
   const sublayers = resultLayer.underlag;
@@ -115,79 +145,102 @@ const DetailedResults = ({
             listResults.map((key, index) => {
               return (
                 <div key={index} className="infobox-details-content-wrapper">
-                  <div className="infobox-details-title">
-                    {sublayers[key] ? sublayers[key].tittel : ""}
+                  <div className="infobox-details-content-text">
+                    <div className="infobox-details-title">
+                      {sublayers[key] ? sublayers[key].tittel : ""}
+                    </div>
+                    {primaryText &&
+                      primaryText[key] &&
+                      primaryText[key].elementer && (
+                        <>
+                          {primaryText[key].elementer.map((element, index) => {
+                            const allkeys = Object.keys(element);
+                            const elemkey =
+                              allkeys && allkeys.length > 0 ? allkeys[0] : "";
+                            const elem =
+                              allkeys && allkeys.length > 0
+                                ? Object.values(element)[0]
+                                : "";
+                            return (
+                              <div
+                                className="infobox-details-content"
+                                key={index}
+                              >
+                                <div className="infobox-details-primary-title">
+                                  {elemkey
+                                    ? translateInfobox(
+                                        elemkey,
+                                        resultLayer.tittel,
+                                        elemkey
+                                      )
+                                    : ""}
+                                  :
+                                </div>
+                                <div className="infobox-details-primary-text">
+                                  {elem ? elem : ""}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </>
+                      )}
+                    {secondaryText &&
+                      secondaryText[key] &&
+                      secondaryText[key].elementer && (
+                        <>
+                          {secondaryText[key].elementer.map(
+                            (element, index) => {
+                              const allkeys = Object.keys(element);
+                              const elemkey =
+                                allkeys && allkeys.length > 0 ? allkeys[0] : "";
+                              const elem =
+                                allkeys && allkeys.length > 0
+                                  ? Object.values(element)[0]
+                                  : "";
+                              return (
+                                <div
+                                  className="infobox-details-content"
+                                  key={index}
+                                >
+                                  <div className="infobox-details-secondary-title">
+                                    {elemkey
+                                      ? translateInfobox(
+                                          elemkey,
+                                          resultLayer.tittel,
+                                          elemkey
+                                        )
+                                      : ""}
+                                    :
+                                  </div>
+                                  <div className="infobox-details-secondary-text">
+                                    {elem ? elem : ""}
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </>
+                      )}
                   </div>
-                  {primaryText &&
-                    primaryText[key] &&
-                    primaryText[key].elementer && (
-                      <>
-                        {primaryText[key].elementer.map((element, index) => {
-                          const allkeys = Object.keys(element);
-                          const elemkey =
-                            allkeys && allkeys.length > 0 ? allkeys[0] : "";
-                          const elem =
-                            allkeys && allkeys.length > 0
-                              ? Object.values(element)[0]
-                              : "";
-                          return (
-                            <div
-                              className="infobox-details-content"
-                              key={index}
-                            >
-                              <div className="infobox-details-primary-title">
-                                {elemkey
-                                  ? translateInfobox(
-                                      elemkey,
-                                      resultLayer.tittel,
-                                      elemkey
-                                    )
-                                  : ""}
-                                :
-                              </div>
-                              <div className="infobox-details-primary-text">
-                                {elem ? elem : ""}
-                              </div>
-                            </div>
+                  {faktaarkObject && faktaarkObject[key] && (
+                    <CustomTooltip
+                      placement="right"
+                      title="Åpne faktaark i egen fane"
+                    >
+                      <IconButton
+                        id="show-faktaark-button-sublag"
+                        onClick={e => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          openInNewTabWithoutOpener(
+                            faktaarkObject[key].faktaark
                           );
-                        })}
-                      </>
-                    )}
-                  {secondaryText &&
-                    secondaryText[key] &&
-                    secondaryText[key].elementer && (
-                      <>
-                        {secondaryText[key].elementer.map((element, index) => {
-                          const allkeys = Object.keys(element);
-                          const elemkey =
-                            allkeys && allkeys.length > 0 ? allkeys[0] : "";
-                          const elem =
-                            allkeys && allkeys.length > 0
-                              ? Object.values(element)[0]
-                              : "";
-                          return (
-                            <div
-                              className="infobox-details-content"
-                              key={index}
-                            >
-                              <div className="infobox-details-secondary-title">
-                                {elemkey
-                                  ? translateInfobox(
-                                      elemkey,
-                                      resultLayer.tittel,
-                                      elemkey
-                                    )
-                                  : ""}
-                                :
-                              </div>
-                              <div className="infobox-details-secondary-text">
-                                {elem ? elem : ""}
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </>
-                    )}
+                        }}
+                      >
+                        <Info id="open-facts-icon" color="primary" />
+                      </IconButton>
+                    </CustomTooltip>
+                  )}
                 </div>
               );
             })}

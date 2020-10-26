@@ -367,6 +367,10 @@
 #show-faktaark-button.MuiIconButton-root {
   padding: 10px;
 }
+#show-faktaark-button-sublag.MuiIconButton-root {
+  padding: 10px;
+  max-height: 44px;
+}
 #open-facts-icon.MuiSvgIcon-colorPrimary {
   color: #777;
 }
@@ -662,6 +666,21 @@
   overflow-y: auto;
 }
 .infobox-details-content-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.infobox-details-content-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.75);
+  width: calc(100% - 44px);
+}
+.polygon-details-content-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

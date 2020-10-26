@@ -68,7 +68,7 @@ function matchInput(formatstring, input) {
   const variable = element.groups.variable;
   const result = lookup(input, variable);
   if (!result || result.constructor !== Object) return { harData: false };
-  if (!Object.keys(result).length === 0) return { harData: false };
+  if (Object.keys(result).length === 0) return { harData: false };
 
   // Get first property value
   const faktaark = result[Object.keys(result)[0]];
