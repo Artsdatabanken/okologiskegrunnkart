@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Info } from "@material-ui/icons";
-import {
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Badge,
-  IconButton
-} from "@material-ui/core";
+import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import { KeyboardBackspace, OpenInNew } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { translateInfobox } from "../../Funksjoner/translate";
 import url_formatter from "../../Funksjoner/url_formatter";
-import CustomTooltip from "../../Common/CustomTooltip";
 
 const DetailedResults = ({
   resultLayer,
