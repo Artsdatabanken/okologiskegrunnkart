@@ -869,33 +869,36 @@ class Leaflet extends React.Component {
   render() {
     return (
       <div className="leaflet-main-wrapper">
-        <div className={this.markerButtonClass()}>
-          <button
-            id="marker-button-map"
-            className={this.state.markerType === "klikk" ? "active" : ""}
-            title="Marker tool"
-            alt="Marker tool"
-            onClick={() => this.activateMarker()}
-            onMouseDown={e => e.preventDefault()}
-          >
-            <WhereToVote />
-          </button>
-          <button
-            id="polygon-button-map"
-            className={this.state.markerType === "polygon" ? "active" : ""}
-            title="Polygon tool"
-            alt="Polygon tool"
-            onClick={() => this.activatePolygon()}
-            onMouseDown={e => e.preventDefault()}
-          >
-            <CustomIcon
-              id="polygon-button-icon"
-              icon="hexagon-slice-4"
-              size={24}
-              color={"#FFFFFF"}
-            />
-          </button>
-        </div>
+        {(!this.props.isMobile ||
+          (this.props.isMobile && !this.props.showAppName)) && (
+          <div className={this.markerButtonClass()}>
+            <button
+              id="marker-button-map"
+              className={this.state.markerType === "klikk" ? "active" : ""}
+              title="Marker tool"
+              alt="Marker tool"
+              onClick={() => this.activateMarker()}
+              onMouseDown={e => e.preventDefault()}
+            >
+              <WhereToVote />
+            </button>
+            <button
+              id="polygon-button-map"
+              className={this.state.markerType === "polygon" ? "active" : ""}
+              title="Polygon tool"
+              alt="Polygon tool"
+              onClick={() => this.activatePolygon()}
+              onMouseDown={e => e.preventDefault()}
+            >
+              <CustomIcon
+                id="polygon-button-icon"
+                icon="hexagon-slice-4"
+                size={24}
+                color={"#FFFFFF"}
+              />
+            </button>
+          </div>
+        )}
 
         <div
           style={{ zIndex: -100, cursor: "default" }}

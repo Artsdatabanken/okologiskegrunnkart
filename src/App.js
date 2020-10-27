@@ -19,6 +19,7 @@ import {
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import { sortPolygonCoord } from "./Funksjoner/polygonTools";
+import AppName from "./Forvaltningsportalen/AppName";
 
 class App extends React.Component {
   state = {
@@ -85,7 +86,10 @@ class App extends React.Component {
     showKommunePolygon: true,
     eiendomPolygon: null,
     showEiendomPolygon: true,
-    grensePolygonData: {}
+    grensePolygonData: {},
+    showAppName: true,
+    showAboutModal: false,
+    aboutPage: null
   };
 
   async lastNedKartlag() {
@@ -290,6 +294,13 @@ class App extends React.Component {
                         this.state.editLayersMode ? "hidden-app-content" : ""
                       }
                     >
+                      <AppName
+                        showAppName={this.state.showAppName}
+                        closeAppName={this.closeAppName}
+                        showAboutModal={this.state.showAboutModal}
+                        handleAboutModal={this.handleAboutModal}
+                        aboutPage={this.state.aboutPage}
+                      />
                       <Kart
                         kartlag={this.state.kartlag}
                         polygon={this.state.polygon}
@@ -360,6 +371,7 @@ class App extends React.Component {
                         showKommunePolygon={this.state.showKommunePolygon}
                         showEiendomPolygon={this.state.showEiendomPolygon}
                         grensePolygonData={this.state.grensePolygonData}
+                        showAppName={this.state.showAppName}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -387,6 +399,7 @@ class App extends React.Component {
                         handleInfobox={this.handleInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         loadingFeatures={this.state.loadingFeatures}
+                        handleAboutModal={this.handleAboutModal}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -1811,6 +1824,21 @@ class App extends React.Component {
 
   handleMatchAllFilters = matchAllFilters => {
     this.setState({ matchAllFilters });
+  };
+
+  closeAppName = () => {
+    this.setState({ showAppName: false });
+  };
+
+  handleAboutModal = value => {
+    this.setState({ showAboutModal: value });
+    if (value) this.openAboutPage();
+  };
+
+  openAboutPage = () => {
+    backend.getAboutPageWiki().then(aboutPage => {
+      this.setState({ aboutPage });
+    });
   };
 
   static contextType = SettingsContext;
