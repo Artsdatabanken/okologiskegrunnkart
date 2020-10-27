@@ -162,6 +162,7 @@ class App extends React.Component {
       // Get all klikktekst input for aggregated layers
       let aggClickText = {};
       let aggClickText2 = {};
+      let aggFaktaark = {};
       let aggKey = null;
 
       k.underlag = k.underlag || {};
@@ -198,6 +199,12 @@ class App extends React.Component {
             ...aggClickText2,
             [ul.id]: ul.klikktekst2
           };
+          if (ul.faktaark && ul.faktaark.length > 0) {
+            aggFaktaark = {
+              ...aggFaktaark,
+              [ul.id]: ul.faktaark
+            };
+          }
         }
 
         // Check if sublayer is already stored in indexed DB. Add sublayer if not
@@ -231,6 +238,7 @@ class App extends React.Component {
       if (aggKey) {
         k.allcategorieslayer.klikktekst = { [aggKey]: aggClickText };
         k.allcategorieslayer.klikktekst2 = { [aggKey]: aggClickText2 };
+        k.allcategorieslayer.faktaark = { [aggKey]: aggFaktaark };
       }
     });
     this.setState({

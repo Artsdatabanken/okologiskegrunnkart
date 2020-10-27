@@ -49,6 +49,7 @@ const ClickInfobox = ({
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(null);
   const [infoboxScroll, setInfoboxScroll] = useState(0);
+  const [faktaark, setFaktaark] = useState(null);
 
   const latitude = coordinates_area ? coordinates_area.lat : 0;
   const longitude = coordinates_area ? coordinates_area.lng : 0;
@@ -70,7 +71,14 @@ const ClickInfobox = ({
   };
 
   const showDetailedResults = useCallback(
-    (layer, listResults, primaryText, secondaryText, numberResults) => {
+    (
+      layer,
+      listResults,
+      primaryText,
+      secondaryText,
+      numberResults,
+      faktaarkURL
+    ) => {
       // Remember scroll position of infobox
       if (!infoboxDetailsVisible) {
         const wrapper = document.querySelector(".infobox-side");
@@ -84,6 +92,7 @@ const ClickInfobox = ({
       setSecondaryText(secondaryText);
       setNumberResults(numberResults);
       setLayerInfoboxDetails(kartlag[layer.id]);
+      setFaktaark(faktaarkURL);
     },
     [
       infoboxDetailsVisible,
@@ -100,6 +109,7 @@ const ClickInfobox = ({
     setSecondaryText(null);
     setNumberResults(null);
     setLayerInfoboxDetails(null);
+    setFaktaark(null);
 
     // Set scroll position to original value
     let wrapper = document.querySelector(".infobox-side");
@@ -122,6 +132,7 @@ const ClickInfobox = ({
           numberResults={numberResults}
           hideDetailedResults={hideDetailedResults}
           coordinates_area={coordinates_area}
+          faktaark={faktaark}
         />
       )}
       <div className={infoboxDetailsVisible ? "infobox-content-hidden" : ""}>
@@ -190,7 +201,13 @@ const ClickInfobox = ({
             </div>
           </div>
         </ListItem>
-        <div className="infobox-options-listitem-wrapper">
+        <div
+          className={
+            showMarkerOptions
+              ? "infobox-options-listitem-wrapper"
+              : "infobox-options-listitem-wrapper-closed"
+          }
+        >
           <ListItem
             id="infobox-options-listitem"
             button

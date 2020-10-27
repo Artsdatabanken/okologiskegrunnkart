@@ -282,7 +282,6 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid #ddd;
 }
 .sort-filter-layers-wrapper {
   display: flex;
@@ -298,6 +297,7 @@
 .selected-tags-wrapper {
   padding: 5px 16px 10px 16px;
   background-color: white;
+  border-top: 1px solid #ddd;
 }
 .selected-tags-tittle {
   display: flex;
@@ -360,9 +360,23 @@
   z-index: 10;
 }
 .legend-link-wrapper {
-  background-color: rgba(145, 163, 176, 0.5);
   border-top: 1px solid #aaa;
   border-bottom: 1px solid #aaa;
+  background-color: white;
+}
+#legend-link-list-item {
+  background-color: rgba(145, 163, 176, 0.5);
+}
+#legend-link-list-item.Mui-disabled {
+  opacity: 1;
+  color: #ccc;
+}
+#legend-link-list-item.Mui-disabled .MuiListItemText-root .legend-text {
+  color: #888;
+}
+#legend-link-list-item:hover,
+#legend-link-list-item.MuiListItem-root.Mui-focusVisible {
+  background-color: rgba(145, 163, 176, 0.85);
 }
 #legend-icon.layer-icon-wrapper {
   margin-left: 4px;
