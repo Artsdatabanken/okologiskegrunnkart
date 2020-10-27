@@ -92,6 +92,12 @@ class Backend {
     );
   }
 
+  static async getAboutPageWiki() {
+    return this.getPromiseText(
+      `https://raw.githubusercontent.com/wiki/Artsdatabanken/forvaltningsportal/Om-"Økologiske-grunnkart".md`
+    );
+  }
+
   static async hentKnrGnrBnr(knr, gnr, bnr, side = 0, numberPerPage = 20) {
     let url = "https://ws.geonorge.no/adresser/v1/sok?";
     if (knr) {

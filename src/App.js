@@ -87,7 +87,9 @@ class App extends React.Component {
     eiendomPolygon: null,
     showEiendomPolygon: true,
     grensePolygonData: {},
-    showAppName: true
+    showAppName: true,
+    showAboutModal: false,
+    aboutPage: null
   };
 
   async lastNedKartlag() {
@@ -295,6 +297,9 @@ class App extends React.Component {
                       <AppName
                         showAppName={this.state.showAppName}
                         closeAppName={this.closeAppName}
+                        showAboutModal={this.state.showAboutModal}
+                        handleAboutModal={this.handleAboutModal}
+                        aboutPage={this.state.aboutPage}
                       />
                       <Kart
                         kartlag={this.state.kartlag}
@@ -366,6 +371,7 @@ class App extends React.Component {
                         showKommunePolygon={this.state.showKommunePolygon}
                         showEiendomPolygon={this.state.showEiendomPolygon}
                         grensePolygonData={this.state.grensePolygonData}
+                        showAppName={this.state.showAppName}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -393,6 +399,7 @@ class App extends React.Component {
                         handleInfobox={this.handleInfobox}
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         loadingFeatures={this.state.loadingFeatures}
+                        handleAboutModal={this.handleAboutModal}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -1821,6 +1828,18 @@ class App extends React.Component {
 
   closeAppName = () => {
     this.setState({ showAppName: false });
+  };
+
+  handleAboutModal = value => {
+    this.setState({ showAboutModal: value });
+    if (value) this.openAboutPage();
+  };
+
+  openAboutPage = () => {
+    // returnerer om siden fra wiki
+    backend.getAboutPageWiki().then(aboutPage => {
+      this.setState({ aboutPage });
+    });
   };
 
   static contextType = SettingsContext;

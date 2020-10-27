@@ -44,8 +44,6 @@ const ForvaltningsGruppering = ({
     setAllLayers(layers);
   }, [kartlag, selectedTags, matchAllFilters]);
 
-  console.log("element: ", element);
-
   if (allLayers.length <= 0) return null;
   return (
     <div className="sorted-layers-subheaders">

@@ -3,16 +3,48 @@ import "../style/appname.css";
 import { Snackbar, Button, Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 
-const AppName = ({ showAppName, closeAppName }) => {
-  const [showAboutModal, setShowAboutModal] = useState(false);
+const AppName = ({
+  showAppName,
+  closeAppName,
+  showAboutModal,
+  handleAboutModal,
+  aboutPage
+}) => {
+  // const [showAboutModal, setShowAboutModal] = useState(false);
 
-  const openAboutModal = () => {
-    setShowAboutModal(true);
-    console.log("Opening");
-  };
+  // const openAboutModal = () => {
+  //   setShowAboutModal(true);
+  //   console.log("Opening");
+  // };
 
-  const closeAboutModal = () => {
-    setShowAboutModal(false);
+  // const closeAboutModal = () => {
+  //   setShowAboutModal(false);
+  // };
+
+  const formattedAboutPage = () => {
+    if (!aboutPage || aboutPage === "") {
+      return [];
+    }
+    const array = aboutPage.split(/\r?\n/);
+    const items = [];
+    for (const [index, value] of array.entries()) {
+      if (!value || value === "") {
+        continue;
+      } else if (value.startsWith("## ")) {
+        items.push(
+          <p key={index} className="help-text-line-header">
+            {value.substring(3, value.length)}
+          </p>
+        );
+      } else {
+        items.push(
+          <p key={index} className="help-text-line">
+            {value}
+          </p>
+        );
+      }
+    }
+    return items;
   };
 
   return (
@@ -31,7 +63,10 @@ const AppName = ({ showAppName, closeAppName }) => {
             id="read-more-about"
             variant="contained"
             size="small"
-            onClick={() => openAboutModal()}
+            onClick={() => {
+              closeAppName();
+              handleAboutModal(true);
+            }}
             color="primary"
           >
             Mer info
@@ -41,7 +76,7 @@ const AppName = ({ showAppName, closeAppName }) => {
 
       <Modal
         open={showAboutModal}
-        onClose={closeAboutModal}
+        onClose={() => handleAboutModal(false)}
         className="help-modal-body"
       >
         <div className="help-modal-wrapper">
@@ -50,16 +85,14 @@ const AppName = ({ showAppName, closeAppName }) => {
             <button
               tabIndex="0"
               className="close-modal-button-wrapper"
-              onClick={e => {
-                closeAboutModal();
-              }}
+              onClick={() => handleAboutModal(false)}
             >
               <div className="close-modal-button">
                 <Close />
               </div>
             </button>
           </div>
-          <div className="help-modal-content">This is a description</div>
+          <div className="help-modal-content">{formattedAboutPage()}</div>
         </div>
       </Modal>
     </>
