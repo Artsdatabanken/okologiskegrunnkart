@@ -784,6 +784,15 @@ class SearchBar extends React.Component {
             <MenuItem
               id="settings-menu-user-manual"
               onClick={() => {
+                this.props.handleAboutModal(true);
+                this.handleCloseMenu();
+              }}
+            >
+              <ListItemText primary={`Om "Økologiske Grunnkart"`} />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-user-manual"
+              onClick={() => {
                 this.openHelp();
                 this.handleCloseMenu();
               }}
