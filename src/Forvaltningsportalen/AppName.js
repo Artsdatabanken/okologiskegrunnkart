@@ -10,17 +10,6 @@ const AppName = ({
   handleAboutModal,
   aboutPage
 }) => {
-  // const [showAboutModal, setShowAboutModal] = useState(false);
-
-  // const openAboutModal = () => {
-  //   setShowAboutModal(true);
-  //   console.log("Opening");
-  // };
-
-  // const closeAboutModal = () => {
-  //   setShowAboutModal(false);
-  // };
-
   const formattedAboutPage = () => {
     if (!aboutPage || aboutPage === "") {
       return [];

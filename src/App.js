@@ -1836,7 +1836,6 @@ class App extends React.Component {
   };
 
   openAboutPage = () => {
-    // returnerer om siden fra wiki
     backend.getAboutPageWiki().then(aboutPage => {
       this.setState({ aboutPage });
     });
