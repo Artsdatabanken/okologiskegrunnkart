@@ -90,6 +90,9 @@ class App extends React.Component {
     automaticZoomUpdate: false,
     trefftype: null,
     treffitemtype: null,
+    // mincoord: null,
+    // maxcoord: null,
+    centercoord: null,
     showAppName: true,
     showAboutModal: false,
     aboutPage: null
@@ -270,28 +273,105 @@ class App extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.fylkeGeom !== prevState.fylkeGeom &&
-      this.state.treffitemtype === "Fylke"
-    ) {
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.isFylke(prevState)) {
       console.log("Update Zoom fylke: ", this.state.fylkeGeom);
+      console.log("Previous geometry: ", prevState.fylkeGeom);
+      const geom = this.state.fylkeGeom;
+      this.updateZoomWithGeometry(geom);
+      this.setState({ automaticZoomUpdate: false });
     }
-    if (
-      this.state.fylkeGeom !== prevState.fylkeGeom &&
-      this.state.treffitemtype === "Kommune"
-    ) {
-      console.log("Update Zoom kommune: ", this.state.fylkeGeom);
+    if (this.isKommune(prevState) || this.isGeneral(prevState)) {
+      console.log("Update Zoom kommune: ", this.state.kommuneGeom);
+      console.log("Previous geometry: ", prevState.kommuneGeom);
+      const geom = this.state.kommuneGeom;
+      this.updateZoomWithGeometry(geom);
+      this.setState({ automaticZoomUpdate: false });
     }
-    if (
-      this.state.fylkeGeom !== prevState.fylkeGeom &&
-      (this.state.trefftype.includes("KNR") ||
-        this.state.trefftype.includes("GNR") ||
-        this.state.trefftype.includes("BNR"))
-    ) {
-      console.log("Update Zoom eiendom: ", this.state.fylkeGeom);
+    if (this.isEiendom(prevState)) {
+      console.log("Update Zoom eiendom: ", this.state.eiendomGeom);
+      console.log("Previous geometry: ", prevState.eiendomGeom);
+      const geom = this.state.eiendomGeom;
+      this.updateZoomWithGeometry(geom);
+      this.setState({ automaticZoomUpdate: false });
     }
   }
+
+  isFylke = prevState => {
+    if (
+      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      this.state.treffitemtype === "Fylke" &&
+      this.state.automaticZoomUpdate
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  isKommune = prevState => {
+    if (
+      this.state.kommuneGeom !== prevState.kommuneGeom &&
+      this.state.treffitemtype === "Kommune" &&
+      this.state.automaticZoomUpdate
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  isEiendom = prevState => {
+    if (
+      this.state.eiendomGeom !== prevState.eiendomGeom &&
+      this.state.automaticZoomUpdate &&
+      (this.state.trefftype.includes("KNR") ||
+        this.state.trefftype.includes("GNR") ||
+        this.state.trefftype.includes("BNR") ||
+        this.state.trefftype === "Adresse")
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  isGeneral = prevState => {
+    if (
+      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      this.state.automaticZoomUpdate &&
+      this.state.treffitemtype !== "Fylke" &&
+      this.state.treffitemtype !== "Kommune" &&
+      !this.state.trefftype.includes("KNR") &&
+      !this.state.trefftype.includes("GNR") &&
+      !this.state.trefftype.includes("BNR") &&
+      this.state.trefftype !== "Adresse"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  updateZoomWithGeometry = geom => {
+    if (!geom || geom.length === 0) return;
+    let maxLat = 0;
+    let minLat = 9999999999;
+    let maxLng = 0;
+    let minLng = 9999999999;
+    for (const coord of geom[0]) {
+      if (coord[0] > maxLat) maxLat = coord[0];
+      if (coord[0] < minLat) minLat = coord[0];
+      if (coord[1] > maxLng) maxLng = coord[1];
+      if (coord[1] < minLng) minLng = coord[1];
+    }
+    const diffLng = (maxLng - minLng) * 0.02;
+    const diffLat = (maxLat - minLat) * 0.02;
+    const mincoord = [minLng - diffLng, minLat - diffLat];
+    const maxcoord = [maxLng + diffLng, maxLat + diffLat];
+    console.log("mincoord: ", mincoord);
+    console.log("maxcoord: ", maxcoord);
+    console.log("centercoord: ", this.state.centercoord);
+    if (mincoord && maxcoord && this.state.centercoord) {
+      this.handleSetZoomCoordinates(mincoord, maxcoord, this.state.centercoord);
+    }
+  };
 
   render() {
     const { history } = this.props;
@@ -690,39 +770,41 @@ class App extends React.Component {
     console.log("geostring: ", geostring);
     console.log("trefftype: ", trefftype);
     console.log("itemtype: ", itemtype);
-    let mincoord = null;
-    let maxcoord = null;
+    // let mincoord = null;
+    // let maxcoord = null;
     let centercoord = null;
     let lng = null;
     let lat = null;
     // console.log("kommuneGeom first: ", this.state.kommuneGeom);
 
     if (geostring.ssrId) {
-      mincoord = [
-        parseFloat(geostring.aust) - 1,
-        parseFloat(geostring.nord) - 1
-      ];
-      maxcoord = [
-        parseFloat(geostring.aust) + 1,
-        parseFloat(geostring.nord) + 1
-      ];
+      // mincoord = [
+      //   parseFloat(geostring.aust) - 1,
+      //   parseFloat(geostring.nord) - 1
+      // ];
+      // maxcoord = [
+      //   parseFloat(geostring.aust) + 1,
+      //   parseFloat(geostring.nord) + 1
+      // ];
       centercoord = [parseFloat(geostring.aust), parseFloat(geostring.nord)];
       lng = parseFloat(geostring.aust);
       lat = parseFloat(geostring.nord);
     } else {
       let koordinater = geostring.representasjonspunkt;
-      mincoord = [
-        parseFloat(koordinater.lon) - 1,
-        parseFloat(koordinater.lat) - 1
-      ];
-      maxcoord = [
-        parseFloat(koordinater.lon) + 1,
-        parseFloat(koordinater.lat) + 1
-      ];
+      // mincoord = [
+      //   parseFloat(koordinater.lon) - 1,
+      //   parseFloat(koordinater.lat) - 1
+      // ];
+      // maxcoord = [
+      //   parseFloat(koordinater.lon) + 1,
+      //   parseFloat(koordinater.lat) + 1
+      // ];
       centercoord = [parseFloat(koordinater.lon), parseFloat(koordinater.lat)];
       lng = parseFloat(koordinater.lon);
       lat = parseFloat(koordinater.lat);
     }
+
+    if (centercoord) this.setState({ centercoord });
 
     // Update map position and zoom
     // if (mincoord && maxcoord && centercoord) {
