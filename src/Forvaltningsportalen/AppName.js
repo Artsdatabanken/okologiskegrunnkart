@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../style/appname.css";
 import { Snackbar, Button, Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
