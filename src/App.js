@@ -85,7 +85,10 @@ class App extends React.Component {
     showKommunePolygon: true,
     eiendomPolygon: null,
     showEiendomPolygon: true,
-    grensePolygonData: {}
+    grensePolygonData: {},
+    automaticZoomUpdate: false,
+    trefftype: null,
+    treffitemtype: null
   };
 
   async lastNedKartlag() {
@@ -261,6 +264,29 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      this.state.treffitemtype === "Fylke"
+    ) {
+      console.log("Update Zoom fylke: ", this.state.fylkeGeom);
+    }
+    if (
+      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      this.state.treffitemtype === "Kommune"
+    ) {
+      console.log("Update Zoom kommune: ", this.state.fylkeGeom);
+    }
+    if (
+      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      (this.state.trefftype.includes("KNR") ||
+        this.state.trefftype.includes("GNR") ||
+        this.state.trefftype.includes("BNR"))
+    ) {
+      console.log("Update Zoom eiendom: ", this.state.fylkeGeom);
+    }
   }
 
   render() {
@@ -647,12 +673,16 @@ class App extends React.Component {
     });
   };
 
-  handleGeoSelection = geostring => {
+  handleGeoSelection = async (geostring, trefftype, itemtype) => {
+    console.log("geostring: ", geostring);
+    console.log("trefftype: ", trefftype);
+    console.log("itemtype: ", itemtype);
     let mincoord = null;
     let maxcoord = null;
     let centercoord = null;
     let lng = null;
     let lat = null;
+    // console.log("kommuneGeom first: ", this.state.kommuneGeom);
 
     if (geostring.ssrId) {
       mincoord = [
@@ -682,12 +712,17 @@ class App extends React.Component {
     }
 
     // Update map position and zoom
-    if (mincoord && maxcoord && centercoord) {
-      this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-    }
+    // if (mincoord && maxcoord && centercoord) {
+    //   this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    // }
     // Update coordinates and infobox
     if (lng && lat) {
       this.handleInfobox(true);
+      this.setState({
+        automaticZoomUpdate: true,
+        trefftype,
+        treffitemtype: itemtype
+      });
       // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
         if (!this.state.showExtensiveInfo) {
@@ -697,6 +732,14 @@ class App extends React.Component {
         }
       }, 250);
     }
+
+    // if (mincoord && maxcoord && centercoord) {
+    //   this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
+    // }
+
+    // setTimeout(() => {
+    //   console.log("kommuneGeom second: ", this.state.kommuneGeom);
+    // }, 2750);
   };
 
   handleMapMarkerSearch = async (lng, lat, zoom) => {
