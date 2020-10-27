@@ -162,11 +162,12 @@ const ResultsList = ({
                   .map(key => {
                     return (
                       <div key={key} className="layers-results-subheaders">
-                        <ListSubheader disableSticky>{key}</ListSubheader>
+                        {key !== "" && (
+                          <ListSubheader disableSticky>{key}</ListSubheader>
+                        )}
                         {Object.keys(allResults[key]).map(resultkey => {
                           return (
                             <GeneriskElement
-                              coordinates_area={coordinates_area}
                               key={resultkey}
                               kartlag={kartlag}
                               resultat={allResults[key][resultkey]}

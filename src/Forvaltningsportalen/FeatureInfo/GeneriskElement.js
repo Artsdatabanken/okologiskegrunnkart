@@ -2,6 +2,7 @@ import { ListItem, ListItemIcon } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import { Badge } from "@material-ui/core";
 import formatterKlikktekst from "./Klikktekst";
+import formatterFaktaarkURL from "./FaktaarkURL";
 import CustomIcon from "../../Common/CustomIcon";
 
 const modifyResult = (resultat, clickText, clickText2) => {
@@ -44,7 +45,6 @@ const modifyResult = (resultat, clickText, clickText2) => {
 };
 
 const GeneriskElement = ({
-  coordinates_area,
   kartlag,
   resultat,
   element,
@@ -55,7 +55,7 @@ const GeneriskElement = ({
   // const [open, setOpen] = useState(false);
   const [listResults, setListResults] = useState(null);
   const [numberResults, setNumberResults] = useState(0);
-  // const [faktaark_url, setFaktaark_url] = useState(null);
+  const [faktaark_url, setFaktaark_url] = useState(null);
 
   const [primaryTextHeader, setPrimaryTextHeader] = useState({
     harData: false,
@@ -83,6 +83,7 @@ const GeneriskElement = ({
     let noResults = 0;
     let clickText;
     let clickText2;
+    let faktaark;
     let aggregatedLayerKey = null;
     if (!layer) return;
 
@@ -105,6 +106,9 @@ const GeneriskElement = ({
         const sublayer = layer.underlag[subkey];
         clickText = { ...clickText, [subkey]: sublayer.klikktekst };
         clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
+        if (sublayer.faktaark && sublayer.faktaark.length > 0) {
+          faktaark = { ...faktaark, [subkey]: sublayer.faktaark };
+        }
         if (sublayer.aggregatedwmslayer) {
           clickText = {
             ...clickText,
@@ -113,6 +117,10 @@ const GeneriskElement = ({
           clickText2 = {
             ...clickText2,
             ...layer.allcategorieslayer.klikktekst2[subkey]
+          };
+          faktaark = {
+            ...faktaark,
+            ...layer.allcategorieslayer.faktaark[subkey]
           };
           aggregatedLayerKey = subkey;
         }
@@ -124,6 +132,9 @@ const GeneriskElement = ({
       if (clickText2 && clickText2[aggregatedLayerKey]) {
         delete clickText2[aggregatedLayerKey];
       }
+      if (faktaark && faktaark[aggregatedLayerKey]) {
+        delete faktaark[aggregatedLayerKey];
+      }
     } else {
       // Use GetFeatureInfo per sublayer
       Object.keys(layer.underlag).forEach(subkey => {
@@ -134,11 +145,18 @@ const GeneriskElement = ({
         const sublayer = layer.underlag[subkey];
         clickText = { ...clickText, [subkey]: sublayer.klikktekst };
         clickText2 = { ...clickText2, [subkey]: sublayer.klikktekst2 };
+        if (sublayer.faktaark && sublayer.faktaark.length > 0) {
+          faktaark = { ...faktaark, [subkey]: sublayer.faktaark };
+        }
         if (sublayer.aggregatedwmslayer) {
           clickText = { ...clickText, ...layer.allcategorieslayer.klikktekst };
           clickText2 = {
             ...clickText2,
             ...layer.allcategorieslayer.klikktekst2
+          };
+          faktaark = {
+            ...faktaark,
+            ...layer.allcategorieslayer.faktaark
           };
           aggregatedLayerKey = subkey;
         }
@@ -172,6 +190,20 @@ const GeneriskElement = ({
       aggregatedLayerKey,
       wmsinfoformat
     );
+
+    let faktaarkURL;
+    if (!faktaark) {
+      faktaarkURL = layer.faktaark;
+      setFaktaark_url(faktaarkURL);
+    } else {
+      faktaarkURL = formatterFaktaarkURL(
+        faktaark,
+        result,
+        aggregatedLayerKey,
+        wmsinfoformat
+      );
+      setFaktaark_url(faktaarkURL);
+    }
 
     if (Object.keys(primary).length > 0) {
       const indices = Object.keys(primary);
@@ -225,7 +257,8 @@ const GeneriskElement = ({
         listResults,
         primaryText,
         secondaryText,
-        numberResults
+        numberResults,
+        faktaark_url
       );
     }
   }, [
@@ -236,7 +269,8 @@ const GeneriskElement = ({
     secondaryText,
     numberResults,
     infoboxDetailsVisible,
-    showDetailedResults
+    showDetailedResults,
+    faktaark_url
   ]);
 
   if (!layer) return null;
@@ -256,7 +290,8 @@ const GeneriskElement = ({
               listResults,
               primaryText,
               secondaryText,
-              numberResults
+              numberResults,
+              faktaark_url
             );
           }}
         >

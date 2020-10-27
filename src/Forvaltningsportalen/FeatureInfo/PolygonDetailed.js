@@ -79,7 +79,7 @@ const PolygonDetailed = ({
           {sortedResult &&
             sortedResult.map((item, index) => {
               return (
-                <div key={index} className="infobox-details-content-wrapper">
+                <div key={index} className="polygon-details-content-wrapper">
                   <div className="polygon-details-text-wrapper">
                     <div className="polygon-details-title">{item.navn}</div>
                     <div className="polygon-details-primary-text">
