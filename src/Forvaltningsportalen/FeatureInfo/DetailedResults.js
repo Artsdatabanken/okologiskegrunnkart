@@ -124,7 +124,7 @@ const DetailedResults = ({
             }}
           >
             <ListItemText primary="Faktaark" />
-            <OpenInNew id="open-facts-icon" color="primary" />
+            <OpenInNew id="open-facts-icon-layer" color="primary" />
           </ListItem>
         )}
         <div className="infobox-details-wrapper">
@@ -228,7 +228,7 @@ const DetailedResults = ({
                     >
                       <ListItemText primary="Faktaark" />
                       <OpenInNew
-                        id="open-facts-icon"
+                        id="open-facts-icon-sublayer"
                         color="primary"
                         fontSize="small"
                       />

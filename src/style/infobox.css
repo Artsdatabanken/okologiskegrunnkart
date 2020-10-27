@@ -375,8 +375,11 @@
   padding: 10px;
   max-height: 44px;
 }
-#open-facts-icon.MuiSvgIcon-colorPrimary {
+#open-facts-icon-layer.MuiSvgIcon-colorPrimary {
   color: #777;
+}
+#open-facts-icon-sublayer.MuiSvgIcon-colorPrimary {
+  color: #697f8a;
 }
 .infobox-list-icon-wrapper .MuiBadge-root .MuiBadge-colorError {
   background-color: #cc0000;
@@ -663,19 +666,14 @@
 }
 #faktaark-kartlag-layer-item {
   background-color: #eee;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #bbb;
 }
 #faktaark-kartlag-layer-item.MuiListItem-gutters {
   padding-left: 12px;
 }
-#faktaark-kartlag-layer-item:hover {
-  background-color: #ccc;
-}
+#faktaark-kartlag-layer-item:hover,
 #faktaark-kartlag-layer-item.MuiListItem-root.Mui-focusVisible {
   background-color: #ccc;
-}
-#faktaark-kartlag-sublayer-item {
-  background-color: #eee;
 }
 #faktaark-kartlag-sublayer-item.MuiListItem-gutters {
   padding-left: 12px;
@@ -684,9 +682,12 @@
   padding-top: 0;
   padding-bottom: 0;
 }
-#faktaark-kartlag-sublayer-item:hover {
-  background-color: #ddd;
+#faktaark-kartlag-sublayer-item .MuiListItemText-root .MuiTypography-body1 {
+  font-size: 15px;
+  text-decoration: underline;
+  color: #697f8a;
 }
+#faktaark-kartlag-sublayer-item:hover,
 #faktaark-kartlag-sublayer-item.MuiListItem-root.Mui-focusVisible {
   background-color: #ddd;
 }
@@ -725,16 +726,6 @@
   padding: 12px 12px 6px 12px;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
-}
-.polygon-details-content-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 12px;
-  color: rgba(0, 0, 0, 0.75);
-  width: 100%;
-  border-bottom: 1px solid #ddd;
 }
 .infobox-details-title {
   font-weight: 500;
@@ -834,6 +825,16 @@ h4.container_header {
 }
 
 /* Polygon layers */
+.polygon-details-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 12px;
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
 .polygon-layers-wrapper {
   display: flex;
   flex-direction: column;
