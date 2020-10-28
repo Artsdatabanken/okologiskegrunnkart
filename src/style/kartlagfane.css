@@ -416,6 +416,12 @@
   font-size: 17px;
   font-weight: 500;
 }
+#legend-icon-left-side.MuiSvgIcon-colorPrimary {
+  color: #555;
+}
+#legend-icon-left-side.MuiSvgIcon-colorSecondary {
+  color: #999;
+}
 
 /* ----------- Legend menu ------------- */
 .legend-wrapper-right {

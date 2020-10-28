@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Grid,
   Typography,
@@ -10,6 +10,40 @@ import {
 import { KeyboardBackspace } from "@material-ui/icons";
 
 const Tegnforklaring = ({ layers, setLegendVisible, legendPosition }) => {
+  const [legendItems, setLegendItems] = useState({});
+
+  const layersJSON = JSON.stringify(layers);
+
+  useEffect(() => {
+    let activeLayers = {};
+    Object.keys(layers).forEach(layerkey => {
+      const layer = layers[layerkey];
+      let sublayers = {};
+      Object.keys(layer.underlag || {}).forEach(sublayerKey => {
+        const sublayer = layer.underlag[sublayerKey];
+        if (sublayer.erSynlig) {
+          sublayers = { ...sublayers, [sublayerKey]: sublayer };
+        }
+      });
+      if (
+        Object.keys(sublayers).length > 0 &&
+        sublayers.constructor === Object
+      ) {
+        const activeLayer = { ...layer, underlag: sublayers };
+        activeLayers = { ...activeLayers, [layerkey]: activeLayer };
+      }
+    });
+    if (
+      Object.keys(activeLayers).length > 0 &&
+      activeLayers.constructor === Object
+    ) {
+      setLegendItems(activeLayers);
+    } else {
+      setLegendItems({});
+      setLegendVisible(false);
+    }
+  }, [layers, layersJSON, setLegendVisible]);
+
   return (
     <div className={`legend-wrapper-${legendPosition}`}>
       <ListItem
@@ -27,8 +61,8 @@ const Tegnforklaring = ({ layers, setLegendVisible, legendPosition }) => {
         </ListItemText>
       </ListItem>
       <div className="legend-content-wrapper">
-        {Object.keys(layers).map(id => {
-          const layer = layers[id];
+        {Object.keys(legendItems).map(id => {
+          const layer = legendItems[id];
           const items = Object.values(layer.underlag || {})
             .filter(ul => ul.erSynlig)
             .map(ul => (
