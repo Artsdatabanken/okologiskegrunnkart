@@ -73,11 +73,11 @@ class App extends React.Component {
     matchAllFilters: true,
     resultat: null,
     fylkeGeom: null,
-    showFylkeGeom: true,
+    showFylkeGeom: false,
     kommuneGeom: null,
-    showKommuneGeom: true,
+    showKommuneGeom: false,
     eiendomGeom: null,
-    showEiendomGeom: true,
+    showEiendomGeom: false,
     grensePolygon: "none",
     grensePolygonGeom: null,
     fylkePolygon: null,
@@ -878,7 +878,6 @@ class App extends React.Component {
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
-        console.log("kommuneData: ", kommuneData);
         this.handleKommuneData(kommuneData[0]);
       }
       // Get property data
