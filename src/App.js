@@ -906,7 +906,6 @@ class App extends React.Component {
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
-        console.log("kommuneData: ", kommuneData);
         this.handleKommuneData(kommuneData[0]);
       }
       // Get property data

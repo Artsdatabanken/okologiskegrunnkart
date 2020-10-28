@@ -70,7 +70,7 @@ const TegnforklaringLink = ({
             icon="map-legend"
             size={26}
             padding={2}
-            color={disabled ? "#888" : "#555"}
+            color={disabled ? "#999" : "#555"}
           />
         </StyledBadge>
       </ListItemIcon>
@@ -85,7 +85,10 @@ const TegnforklaringLink = ({
               e.stopPropagation();
             }}
           >
-            <BorderLeft />
+            <BorderLeft
+              id="legend-icon-left-side"
+              color={disabled ? "secondary" : "primary"}
+            />
           </IconButton>
         </BottomTooltip>
       )}
