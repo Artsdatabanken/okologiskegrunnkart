@@ -247,16 +247,16 @@ class Leaflet extends React.Component {
     }
     // Draw property
     if (
-      (this.props.showPropertyGeom !== prevProps.showPropertyGeom ||
+      (this.props.showEiendomGeom !== prevProps.showEiendomGeom ||
         this.props.eiendomGeom !== prevProps.eiendomGeom) &&
-      this.props.showPropertyGeom
+      this.props.showEiendomGeom
     ) {
       this.drawPropertyGeom();
     }
     // Remove property
     if (
-      (this.props.showPropertyGeom !== prevProps.showPropertyGeom &&
-        !this.props.showPropertyGeom) ||
+      (this.props.showEiendomGeom !== prevProps.showEiendomGeom &&
+        !this.props.showEiendomGeom) ||
       (this.props.eiendomGeom !== prevProps.eiendomGeom &&
         !this.props.eiendomGeom)
     ) {
@@ -319,7 +319,7 @@ class Leaflet extends React.Component {
 
   activateMarker = () => {
     this.setState({ markerType: "klikk" }, () => {
-      if (this.props.showPropertyGeom) {
+      if (this.props.showEiendomGeom) {
         this.drawPropertyGeom();
       }
       if (this.props.showFylkeGeom) {
@@ -835,7 +835,7 @@ class Leaflet extends React.Component {
   drawPropertyGeom = () => {
     if (
       this.props.eiendomGeom &&
-      this.props.showPropertyGeom &&
+      this.props.showEiendomGeom &&
       this.state.markerType === "klikk"
     ) {
       // Remove to avoid duplicates
@@ -954,7 +954,7 @@ class Leaflet extends React.Component {
           sortKey={this.props.sortKey}
           tagFilter={this.props.tagFilter}
           matchAllFilters={this.props.matchAllFilters}
-          showPropertyGeom={this.props.showPropertyGeom}
+          showEiendomGeom={this.props.showEiendomGeom}
           handlePropertyGeom={this.props.handlePropertyGeom}
           showFylkeGeom={this.props.showFylkeGeom}
           handleFylkeGeom={this.props.handleFylkeGeom}

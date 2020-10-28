@@ -41,7 +41,7 @@ const InfoBox = ({
   sortKey,
   tagFilter,
   matchAllFilters,
-  showPropertyGeom,
+  showEiendomGeom,
   handlePropertyGeom,
   showFylkeGeom,
   handleFylkeGeom,
@@ -60,8 +60,8 @@ const InfoBox = ({
   const [DY, setDY] = useState(0);
   const [screenHeight, setScreenHeight] = useState(0);
   const [inTransition, setInTransition] = useState(null);
-  const [showMarkerOptions, setShowMarkerOptions] = useState(false);
-  const [showPolygonOptions, setShowPolygonOptions] = useState(false);
+  const [showMarkerOptions, setShowMarkerOptions] = useState(true);
+  const [showPolygonOptions, setShowPolygonOptions] = useState(true);
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
@@ -257,7 +257,7 @@ const InfoBox = ({
           sortKey={sortKey}
           tagFilter={tagFilter}
           matchAllFilters={matchAllFilters}
-          showPropertyGeom={showPropertyGeom}
+          showEiendomGeom={showEiendomGeom}
           handlePropertyGeom={handlePropertyGeom}
           showFylkeGeom={showFylkeGeom}
           handleFylkeGeom={handleFylkeGeom}

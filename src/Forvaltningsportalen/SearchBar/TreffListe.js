@@ -375,7 +375,7 @@ const TreffListe = ({
     }
   };
 
-  const onActivate = (item, trefftype) => {
+  const onActivate = (item, trefftype, itemtype) => {
     if (searchResultPage) {
       onSelectSearchResult(false);
     }
@@ -390,7 +390,7 @@ const TreffListe = ({
         handleFullscreenInfobox(false);
       }
     } else {
-      handleGeoSelection(item);
+      handleGeoSelection(item, trefftype, itemtype);
     }
   };
 
@@ -544,13 +544,13 @@ const TreffListe = ({
                   className="searchbar_item"
                   onKeyDown={e => {
                     if (e.keyCode === 13) {
-                      onActivate(item, trefftype);
+                      onActivate(item, trefftype, itemtype);
                     } else {
                       movefocus(e, index);
                     }
                   }}
                   onClick={() => {
-                    onActivate(item, trefftype);
+                    onActivate(item, trefftype, itemtype);
                   }}
                 >
                   <div className="searchlist-item-wrapper">
@@ -558,7 +558,11 @@ const TreffListe = ({
                     <span className="itemtype">
                       {trefftype}
                       {trefftype === "Stedsnavn" ? (
-                        <>{`, ${itemtype} i ${item.kommunenavn}`} </>
+                        itemtype === "Kommune" || itemtype === "Fylke" ? (
+                          <>{`, ${itemtype}`} </>
+                        ) : (
+                          <>{`, ${itemtype} i ${item.kommunenavn}`} </>
+                        )
                       ) : (
                         <>
                           {""} {item.postnummer} {item.poststed}
