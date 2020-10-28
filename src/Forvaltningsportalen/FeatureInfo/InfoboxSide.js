@@ -41,7 +41,7 @@ const InfoBox = ({
   sortKey,
   tagFilter,
   matchAllFilters,
-  showPropertyGeom,
+  showEiendomGeom,
   handlePropertyGeom,
   showFylkeGeom,
   handleFylkeGeom,
@@ -257,7 +257,7 @@ const InfoBox = ({
           sortKey={sortKey}
           tagFilter={tagFilter}
           matchAllFilters={matchAllFilters}
-          showPropertyGeom={showPropertyGeom}
+          showEiendomGeom={showEiendomGeom}
           handlePropertyGeom={handlePropertyGeom}
           showFylkeGeom={showFylkeGeom}
           handleFylkeGeom={handleFylkeGeom}

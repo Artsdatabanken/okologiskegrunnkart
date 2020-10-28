@@ -34,7 +34,7 @@ const ClickInfobox = ({
   sortKey,
   tagFilter,
   matchAllFilters,
-  showPropertyGeom,
+  showEiendomGeom,
   handlePropertyGeom,
   showFylkeGeom,
   handleFylkeGeom,
@@ -259,7 +259,7 @@ const ClickInfobox = ({
               <SmallSwitch
                 tabIndex="0"
                 id="show-property-toggle"
-                checked={showPropertyGeom}
+                checked={showEiendomGeom}
                 onChange={handlePropertyGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {

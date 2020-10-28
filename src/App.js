@@ -73,11 +73,11 @@ class App extends React.Component {
     matchAllFilters: true,
     resultat: null,
     fylkeGeom: null,
-    showFylkeGeom: false,
+    showFylkeGeom: true,
     kommuneGeom: null,
-    showKommuneGeom: false,
+    showKommuneGeom: true,
     eiendomGeom: null,
-    showPropertyGeom: false,
+    showEiendomGeom: true,
     grensePolygon: "none",
     grensePolygonGeom: null,
     fylkePolygon: null,
@@ -90,8 +90,8 @@ class App extends React.Component {
     automaticZoomUpdate: false,
     trefftype: null,
     treffitemtype: null,
-    // mincoord: null,
-    // maxcoord: null,
+    mincoord: null,
+    maxcoord: null,
     centercoord: null,
     showAppName: true,
     showAboutModal: false,
@@ -477,7 +477,7 @@ class App extends React.Component {
                         kommuneGeom={this.state.kommuneGeom}
                         showKommuneGeom={this.state.showKommuneGeom}
                         eiendomGeom={this.state.eiendomGeom}
-                        showPropertyGeom={this.state.showPropertyGeom}
+                        showEiendomGeom={this.state.showEiendomGeom}
                         handleKommuneGeom={this.handleKommuneGeom}
                         grensePolygonGeom={this.state.grensePolygonGeom}
                         grensePolygon={this.state.grensePolygon}
@@ -878,6 +878,7 @@ class App extends React.Component {
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
+        console.log("kommuneData: ", kommuneData);
         this.handleKommuneData(kommuneData[0]);
       }
       // Get property data
@@ -1892,7 +1893,7 @@ class App extends React.Component {
   };
 
   handlePropertyGeom = () => {
-    this.setState({ showPropertyGeom: !this.state.showPropertyGeom });
+    this.setState({ showEiendomGeom: !this.state.showEiendomGeom });
   };
 
   handleFylkeGeom = () => {
