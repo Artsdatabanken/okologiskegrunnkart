@@ -88,7 +88,15 @@ const GeneriskElement = ({
     if (!layer) return;
 
     const wmsinfoformat = layer.wmsinfoformat;
-    const klikkurl = layer.klikkurl || "";
+    // let klikkurl = layer.klikkurl || "";
+    let klikkurl = "";
+    for (const key in layer.underlag) {
+      const sublayer = layer.underlag[key];
+      if (sublayer.klikkurl !== "") {
+        klikkurl = sublayer.klikkurl;
+        break;
+      }
+    }
 
     if (resultat.error) {
       setPrimaryTextHeader({ harData: false, elementer: [] });
