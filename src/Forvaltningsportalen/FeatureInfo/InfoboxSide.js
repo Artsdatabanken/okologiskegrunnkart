@@ -5,6 +5,7 @@ import "../../style/infobox.css";
 import ClickInfobox from "./ClickInfobox";
 import PolygonInfobox from "./PolygonInfobox";
 import CustomIcon from "../../Common/CustomIcon";
+import Tegnforklaring from "../../Tegnforklaring/Tegnforklaring";
 
 const InfoBox = ({
   markerType,
@@ -54,7 +55,10 @@ const InfoBox = ({
   showFylkePolygon,
   showKommunePolygon,
   showEiendomPolygon,
-  grensePolygonData
+  grensePolygonData,
+  legendVisible,
+  setLegendVisible,
+  legendPosition
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -236,59 +240,69 @@ const InfoBox = ({
           </div>
         </button>
       </div>
-      {markerType === "klikk" && (
-        <ClickInfobox
-          coordinates_area={coordinates_area}
-          getBackendData={getBackendData}
-          layersResult={layersResult}
-          allLayersResult={allLayersResult}
-          valgteLag={valgteLag}
-          sted={sted}
-          adresse={adresse}
-          matrikkel={matrikkel}
-          elevation={elevation}
-          resultat={resultat}
-          kartlag={kartlag}
-          showExtensiveInfo={showExtensiveInfo}
-          loadingFeatures={loadingFeatures}
-          infoboxDetailsVisible={infoboxDetailsVisible}
-          setInfoboxDetailsVisible={setInfoboxDetailsVisible}
-          setLayerInfoboxDetails={setLayerInfoboxDetails}
-          sortKey={sortKey}
-          tagFilter={tagFilter}
-          matchAllFilters={matchAllFilters}
-          showEiendomGeom={showEiendomGeom}
-          handlePropertyGeom={handlePropertyGeom}
-          showFylkeGeom={showFylkeGeom}
-          handleFylkeGeom={handleFylkeGeom}
-          showKommuneGeom={showKommuneGeom}
-          handleKommuneGeom={handleKommuneGeom}
-          showMarkerOptions={showMarkerOptions}
-          setShowMarkerOptions={setShowMarkerOptions}
+      {legendVisible && legendPosition === "left" ? (
+        <Tegnforklaring
+          layers={kartlag}
+          setLegendVisible={setLegendVisible}
+          legendPosition={legendPosition}
         />
-      )}
-      {markerType === "polygon" && (
-        <PolygonInfobox
-          polygon={grensePolygon === "none" ? polygon : grensePolygonGeom}
-          polyline={polyline}
-          showPolygon={showPolygon}
-          hideAndShowPolygon={hideAndShowPolygon}
-          handleEditable={handleEditable}
-          addPolygon={addPolygon}
-          addPolyline={addPolyline}
-          polygonResults={polygonResults}
-          handlePolygonResults={handlePolygonResults}
-          grensePolygon={grensePolygon}
-          handleGrensePolygon={handleGrensePolygon}
-          removeGrensePolygon={removeGrensePolygon}
-          showPolygonOptions={showPolygonOptions}
-          setShowPolygonOptions={setShowPolygonOptions}
-          showFylkePolygon={showFylkePolygon}
-          showKommunePolygon={showKommunePolygon}
-          showEiendomPolygon={showEiendomPolygon}
-          grensePolygonGeom={grensePolygonGeom}
-          grensePolygonData={grensePolygonData}
-        />
+      ) : (
+        <>
+          {markerType === "klikk" && (
+            <ClickInfobox
+              coordinates_area={coordinates_area}
+              getBackendData={getBackendData}
+              layersResult={layersResult}
+              allLayersResult={allLayersResult}
+              valgteLag={valgteLag}
+              sted={sted}
+              adresse={adresse}
+              matrikkel={matrikkel}
+              elevation={elevation}
+              resultat={resultat}
+              kartlag={kartlag}
+              showExtensiveInfo={showExtensiveInfo}
+              loadingFeatures={loadingFeatures}
+              infoboxDetailsVisible={infoboxDetailsVisible}
+              setInfoboxDetailsVisible={setInfoboxDetailsVisible}
+              setLayerInfoboxDetails={setLayerInfoboxDetails}
+              sortKey={sortKey}
+              tagFilter={tagFilter}
+              matchAllFilters={matchAllFilters}
+              showEiendomGeom={showEiendomGeom}
+              handlePropertyGeom={handlePropertyGeom}
+              showFylkeGeom={showFylkeGeom}
+              handleFylkeGeom={handleFylkeGeom}
+              showKommuneGeom={showKommuneGeom}
+              handleKommuneGeom={handleKommuneGeom}
+              showMarkerOptions={showMarkerOptions}
+              setShowMarkerOptions={setShowMarkerOptions}
+            />
+          )}
+          {markerType === "polygon" && (
+            <PolygonInfobox
+              polygon={grensePolygon === "none" ? polygon : grensePolygonGeom}
+              polyline={polyline}
+              showPolygon={showPolygon}
+              hideAndShowPolygon={hideAndShowPolygon}
+              handleEditable={handleEditable}
+              addPolygon={addPolygon}
+              addPolyline={addPolyline}
+              polygonResults={polygonResults}
+              handlePolygonResults={handlePolygonResults}
+              grensePolygon={grensePolygon}
+              handleGrensePolygon={handleGrensePolygon}
+              removeGrensePolygon={removeGrensePolygon}
+              showPolygonOptions={showPolygonOptions}
+              setShowPolygonOptions={setShowPolygonOptions}
+              showFylkePolygon={showFylkePolygon}
+              showKommunePolygon={showKommunePolygon}
+              showEiendomPolygon={showEiendomPolygon}
+              grensePolygonGeom={grensePolygonGeom}
+              grensePolygonData={grensePolygonData}
+            />
+          )}
+        </>
       )}
     </div>
   );

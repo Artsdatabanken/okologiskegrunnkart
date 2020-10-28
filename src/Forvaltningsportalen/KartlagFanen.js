@@ -22,6 +22,8 @@ const KartlagFanen = ({
   setSublayerDetailsVisible,
   legendVisible,
   setLegendVisible,
+  legendPosition,
+  handleLegendPosition,
   updateIsMobile,
   updateWindowHeight,
   handleSelectSearchResult,
@@ -535,7 +537,9 @@ const KartlagFanen = ({
               ? " side-bar-open"
               : ""
           }${
-            legendVisible || sublayerDetailsVisible || valgtLag
+            (legendVisible && legendPosition === "right") ||
+            sublayerDetailsVisible ||
+            valgtLag
               ? " popup-visible"
               : ""
           }`}
@@ -567,10 +571,11 @@ const KartlagFanen = ({
             : ""
         }`}
       >
-        {legendVisible && (
+        {legendVisible && legendPosition === "right" && (
           <Tegnforklaring
             layers={kartlag}
             setLegendVisible={setLegendVisible}
+            legendPosition={legendPosition}
           />
         )}
         {searchResultPage ? (
@@ -608,7 +613,8 @@ const KartlagFanen = ({
           <>
             <div
               className={
-                sublayerDetailsVisible || legendVisible
+                sublayerDetailsVisible ||
+                (legendVisible && legendPosition === "right")
                   ? "hidden-app-content"
                   : ""
               }
@@ -623,10 +629,14 @@ const KartlagFanen = ({
                   toggleSublayer={toggleSublayer}
                   toggleAllSublayers={toggleAllSublayers}
                   showSublayerDetails={showSublayerDetails}
+                  legendVisible={legendVisible}
                   setLegendVisible={setLegendVisible}
+                  legendPosition={legendPosition}
+                  handleLegendPosition={handleLegendPosition}
                   handleSortKey={handleSortKey}
                   handleTagFilter={handleTagFilter}
                   handleMatchAllFilters={handleMatchAllFilters}
+                  isMobile={isMobile}
                 />
               </div>
             </div>

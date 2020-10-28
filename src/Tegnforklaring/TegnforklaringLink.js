@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
+import {
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Badge,
+  IconButton
+} from "@material-ui/core";
+import { BorderLeft } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { withStyles } from "@material-ui/core/styles";
+import BottomTooltip from "../Common/BottomTooltip";
 
 const StyledBadge = withStyles(() => ({
   badge: {
@@ -9,7 +17,12 @@ const StyledBadge = withStyles(() => ({
   }
 }))(Badge);
 
-const TegnforklaringLink = ({ layers, setLegendVisible }) => {
+const TegnforklaringLink = ({
+  layers,
+  setLegendVisible,
+  handleLegendPosition,
+  isMobile
+}) => {
   const [numberActive, setNumberActive] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
@@ -64,6 +77,18 @@ const TegnforklaringLink = ({ layers, setLegendVisible }) => {
       <ListItemText>
         <span className="legend-text">Tegnforklaring</span>
       </ListItemText>
+      {!isMobile && (
+        <BottomTooltip placement="bottom" title="Åpne på venstre side">
+          <IconButton
+            onClick={e => {
+              handleLegendPosition();
+              e.stopPropagation();
+            }}
+          >
+            <BorderLeft />
+          </IconButton>
+        </BottomTooltip>
+      )}
     </ListItem>
   );
 };

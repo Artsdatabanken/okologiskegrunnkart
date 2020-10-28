@@ -10,10 +10,14 @@ const ForvaltningsKartlag = ({
   toggleSublayer,
   toggleAllSublayers,
   showSublayerDetails,
+  legendVisible,
   setLegendVisible,
+  legendPosition,
+  handleLegendPosition,
   handleSortKey,
   handleTagFilter,
-  handleMatchAllFilters
+  handleMatchAllFilters,
+  isMobile
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   const [sortKey, setSortKey] = useState("alfabetisk");
@@ -22,6 +26,7 @@ const ForvaltningsKartlag = ({
   const [sorted, setSorted] = useState({});
   const [taglist, setTaglist] = useState([]);
   const [tags, setTags] = useState(null);
+  const [legendOpenLeft, setLegendOpenLeft] = useState(false);
 
   const handleFilterTag = (tag, value) => {
     let tagFilterTemp = { ...tagFilter };
@@ -100,10 +105,24 @@ const ForvaltningsKartlag = ({
     setTags(tags);
   }, [taglist, tagFilter, handleTagFilter]);
 
+  useEffect(() => {
+    if (legendVisible && legendPosition === "left") {
+      setLegendOpenLeft(true);
+    } else {
+      setLegendOpenLeft(false);
+    }
+  }, [legendVisible, legendPosition]);
+
   return (
     <>
       <div className="header-layers-menu">
-        <div className="sort-filter-layers-wrapper">
+        <div
+          className={
+            legendOpenLeft && (!tags || tags.length === 0)
+              ? "sort-filter-layers-wrapper-line"
+              : "sort-filter-layers-wrapper"
+          }
+        >
           <div>
             <Typography variant="h6">Kartlag</Typography>
             <Typography variant="body2">
@@ -121,7 +140,13 @@ const ForvaltningsKartlag = ({
         </div>
       </div>
       {tags && tags.length > 0 && (
-        <div className="selected-tags-wrapper">
+        <div
+          className={
+            legendOpenLeft
+              ? "selected-tags-wrapper-line"
+              : "selected-tags-wrapper"
+          }
+        >
           <div className="selected-tags-tittle">
             <Typography id="filters-header" variant="body2">
               Filtrer
@@ -160,14 +185,18 @@ const ForvaltningsKartlag = ({
         </div>
       )}
 
-      <div className="legend-link-background">
-        <div className="legend-link-wrapper">
-          <TegnforklaringLink
-            layers={kartlag}
-            setLegendVisible={setLegendVisible}
-          />
+      {!legendVisible && (
+        <div className="legend-link-background">
+          <div className="legend-link-wrapper">
+            <TegnforklaringLink
+              layers={kartlag}
+              setLegendVisible={setLegendVisible}
+              handleLegendPosition={handleLegendPosition}
+              isMobile={isMobile}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <List id="layers-list-wrapper">
         {Object.keys(sorted)

@@ -9,9 +9,9 @@ import {
 } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 
-const Tegnforklaring = ({ layers, setLegendVisible }) => {
+const Tegnforklaring = ({ layers, setLegendVisible, legendPosition }) => {
   return (
-    <div className="legend-wrapper">
+    <div className={`legend-wrapper-${legendPosition}`}>
       <ListItem
         id="legend-title-wrapper"
         button

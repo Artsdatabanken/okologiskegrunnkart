@@ -64,6 +64,7 @@ class App extends React.Component {
     infoboxDetailsVisible: false,
     layerInfoboxDetails: null,
     legendVisible: false,
+    legendPosition: "right",
     showFullscreenInfobox: false,
     isMobile: false,
     windowHeight: 0,
@@ -489,6 +490,9 @@ class App extends React.Component {
                         showEiendomPolygon={this.state.showEiendomPolygon}
                         grensePolygonData={this.state.grensePolygonData}
                         showAppName={this.state.showAppName}
+                        legendVisible={this.state.legendVisible}
+                        setLegendVisible={this.setLegendVisible}
+                        legendPosition={this.state.legendPosition}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -535,6 +539,8 @@ class App extends React.Component {
                         }
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
+                        legendPosition={this.state.legendPosition}
+                        handleLegendPosition={this.handleLegendPosition}
                         updateIsMobile={this.updateIsMobile}
                         updateWindowHeight={this.updateWindowHeight}
                         handleSelectSearchResult={this.handleSelectSearchResult}
@@ -567,6 +573,22 @@ class App extends React.Component {
 
   setLegendVisible = visible => {
     this.setState({ legendVisible: visible });
+    if (!visible) {
+      this.setState({ legendPosition: "right" });
+    }
+  };
+
+  handleLegendPosition = () => {
+    if (this.state.legendPosition === "right") {
+      this.setState({
+        showInfobox: true,
+        legendVisible: true,
+        legendPosition: "left"
+      });
+    }
+    if (this.state.legendPosition === "left") {
+      this.setState({ legendPosition: "right" });
+    }
   };
 
   toggleEditLayers = () => {
@@ -878,6 +900,7 @@ class App extends React.Component {
       // Get kommune geometry
       const kommuneData = data.filter(item => item.datasettkode === "KOM");
       if (kommuneData.length > 0) {
+        console.log("kommuneData: ", kommuneData);
         this.handleKommuneData(kommuneData[0]);
       }
       // Get property data

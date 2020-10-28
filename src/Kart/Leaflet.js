@@ -968,6 +968,9 @@ class Leaflet extends React.Component {
           showKommunePolygon={this.props.showKommunePolygon}
           showEiendomPolygon={this.props.showEiendomPolygon}
           grensePolygonData={this.props.grensePolygonData}
+          legendVisible={this.props.legendVisible}
+          setLegendVisible={this.props.setLegendVisible}
+          legendPosition={this.props.legendPosition}
         />
         {this.state.markerType === "polygon" && (
           <div
