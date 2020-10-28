@@ -61,7 +61,7 @@ const InfoBox = ({
   const [screenHeight, setScreenHeight] = useState(0);
   const [inTransition, setInTransition] = useState(null);
   const [showMarkerOptions, setShowMarkerOptions] = useState(true);
-  const [showPolygonOptions, setShowPolygonOptions] = useState(false);
+  const [showPolygonOptions, setShowPolygonOptions] = useState(true);
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
