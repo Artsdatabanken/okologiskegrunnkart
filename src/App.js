@@ -275,24 +275,23 @@ class App extends React.Component {
 
   componentDidUpdate(_prevProps, prevState) {
     if (this.isFylke(prevState)) {
-      console.log("Update Zoom fylke: ", this.state.fylkeGeom);
-      console.log("Previous geometry: ", prevState.fylkeGeom);
       const geom = this.state.fylkeGeom;
-      this.updateZoomWithGeometry(geom);
+      this.updateZoomWithGeometry(geom, "Fylke");
       this.setState({ automaticZoomUpdate: false });
     }
-    if (this.isKommune(prevState) || this.isGeneral(prevState)) {
-      console.log("Update Zoom kommune: ", this.state.kommuneGeom);
-      console.log("Previous geometry: ", prevState.kommuneGeom);
+    if (this.isKommune(prevState)) {
       const geom = this.state.kommuneGeom;
-      this.updateZoomWithGeometry(geom);
+      this.updateZoomWithGeometry(geom, "Kommune");
       this.setState({ automaticZoomUpdate: false });
     }
     if (this.isEiendom(prevState)) {
-      console.log("Update Zoom eiendom: ", this.state.eiendomGeom);
-      console.log("Previous geometry: ", prevState.eiendomGeom);
       const geom = this.state.eiendomGeom;
-      this.updateZoomWithGeometry(geom);
+      this.updateZoomWithGeometry(geom, "Eiendom");
+      this.setState({ automaticZoomUpdate: false });
+    }
+    if (this.isStedsnavn(prevState)) {
+      const geom = this.state.eiendomGeom;
+      this.updateZoomWithGeometry(geom, "Stedsnavn");
       this.setState({ automaticZoomUpdate: false });
     }
   }
@@ -311,8 +310,9 @@ class App extends React.Component {
   isKommune = prevState => {
     if (
       this.state.kommuneGeom !== prevState.kommuneGeom &&
-      this.state.treffitemtype === "Kommune" &&
-      this.state.automaticZoomUpdate
+      this.state.automaticZoomUpdate &&
+      (this.state.treffitemtype === "Kommune" ||
+        this.state.treffitemtype === "By")
     ) {
       return true;
     }
@@ -333,23 +333,34 @@ class App extends React.Component {
     return false;
   };
 
-  isGeneral = prevState => {
+  isStedsnavn = prevState => {
     if (
-      this.state.fylkeGeom !== prevState.fylkeGeom &&
+      this.state.eiendomGeom !== prevState.eiendomGeom &&
       this.state.automaticZoomUpdate &&
+      this.state.trefftype === "Stedsnavn" &&
       this.state.treffitemtype !== "Fylke" &&
       this.state.treffitemtype !== "Kommune" &&
-      !this.state.trefftype.includes("KNR") &&
-      !this.state.trefftype.includes("GNR") &&
-      !this.state.trefftype.includes("BNR") &&
-      this.state.trefftype !== "Adresse"
+      this.state.treffitemtype !== "By"
     ) {
       return true;
     }
     return false;
   };
 
-  updateZoomWithGeometry = geom => {
+  // isGeneral = prevState => {
+  //   if (
+  //     !this.isFylke(prevState) &&
+  //     !this.isKommune(prevState) &&
+  //     !this.isEiendom(prevState) &&
+  //     !this.isStedsnavn(prevState) &&
+  //     this.state.automaticZoomUpdate
+  //   ) {
+  //     return true;
+  //   }
+  //   return false;
+  // };
+
+  updateZoomWithGeometry = (geom, type = null) => {
     if (!geom || geom.length === 0) return;
     let maxLat = 0;
     let minLat = 9999999999;
@@ -361,13 +372,13 @@ class App extends React.Component {
       if (coord[1] > maxLng) maxLng = coord[1];
       if (coord[1] < minLng) minLng = coord[1];
     }
-    const diffLng = (maxLng - minLng) * 0.02;
-    const diffLat = (maxLat - minLat) * 0.02;
+    let margin = 0.02;
+    if (type === "Eiendom") margin = 0.1;
+    if (type === "Stedsnavn") margin = 0.2;
+    const diffLng = (maxLng - minLng) * margin;
+    const diffLat = (maxLat - minLat) * margin;
     const mincoord = [minLng - diffLng, minLat - diffLat];
     const maxcoord = [maxLng + diffLng, maxLat + diffLat];
-    console.log("mincoord: ", mincoord);
-    console.log("maxcoord: ", maxcoord);
-    console.log("centercoord: ", this.state.centercoord);
     if (mincoord && maxcoord && this.state.centercoord) {
       this.handleSetZoomCoordinates(mincoord, maxcoord, this.state.centercoord);
     }
@@ -767,49 +778,44 @@ class App extends React.Component {
   };
 
   handleGeoSelection = async (geostring, trefftype, itemtype) => {
-    console.log("geostring: ", geostring);
-    console.log("trefftype: ", trefftype);
-    console.log("itemtype: ", itemtype);
-    // let mincoord = null;
-    // let maxcoord = null;
+    let mincoord = null;
+    let maxcoord = null;
     let centercoord = null;
     let lng = null;
     let lat = null;
-    // console.log("kommuneGeom first: ", this.state.kommuneGeom);
 
     if (geostring.ssrId) {
-      // mincoord = [
-      //   parseFloat(geostring.aust) - 1,
-      //   parseFloat(geostring.nord) - 1
-      // ];
-      // maxcoord = [
-      //   parseFloat(geostring.aust) + 1,
-      //   parseFloat(geostring.nord) + 1
-      // ];
+      mincoord = [
+        parseFloat(geostring.aust) - 0.5,
+        parseFloat(geostring.nord) - 0.5
+      ];
+      maxcoord = [
+        parseFloat(geostring.aust) + 0.5,
+        parseFloat(geostring.nord) + 0.5
+      ];
       centercoord = [parseFloat(geostring.aust), parseFloat(geostring.nord)];
       lng = parseFloat(geostring.aust);
       lat = parseFloat(geostring.nord);
     } else {
       let koordinater = geostring.representasjonspunkt;
-      // mincoord = [
-      //   parseFloat(koordinater.lon) - 1,
-      //   parseFloat(koordinater.lat) - 1
-      // ];
-      // maxcoord = [
-      //   parseFloat(koordinater.lon) + 1,
-      //   parseFloat(koordinater.lat) + 1
-      // ];
+      mincoord = [
+        parseFloat(koordinater.lon) - 0.5,
+        parseFloat(koordinater.lat) - 0.5
+      ];
+      maxcoord = [
+        parseFloat(koordinater.lon) + 0.5,
+        parseFloat(koordinater.lat) + 0.5
+      ];
       centercoord = [parseFloat(koordinater.lon), parseFloat(koordinater.lat)];
       lng = parseFloat(koordinater.lon);
       lat = parseFloat(koordinater.lat);
     }
 
+    // Update state
     if (centercoord) this.setState({ centercoord });
+    if (maxcoord) this.setState({ maxcoord });
+    if (mincoord) this.setState({ mincoord });
 
-    // Update map position and zoom
-    // if (mincoord && maxcoord && centercoord) {
-    //   this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-    // }
     // Update coordinates and infobox
     if (lng && lat) {
       this.handleInfobox(true);
@@ -827,14 +833,6 @@ class App extends React.Component {
         }
       }, 250);
     }
-
-    // if (mincoord && maxcoord && centercoord) {
-    //   this.handleSetZoomCoordinates(mincoord, maxcoord, centercoord);
-    // }
-
-    // setTimeout(() => {
-    //   console.log("kommuneGeom second: ", this.state.kommuneGeom);
-    // }, 2750);
   };
 
   handleMapMarkerSearch = async (lng, lat, zoom) => {
