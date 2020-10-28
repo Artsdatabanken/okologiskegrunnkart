@@ -42,7 +42,7 @@ export default function Sortering({ sort, onChangeSort }) {
           color="primary"
           onClick={handleClick}
         >
-          <SortIcon></SortIcon>
+          <SortIcon />
         </IconButton>
       </BottomTooltip>
       <Paper elevation={3}>
