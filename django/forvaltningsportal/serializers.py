@@ -54,7 +54,8 @@ class SublagSerializer(serializers.ModelSerializer):
             'klikkurl',
             'klikktekst',
             'klikktekst2',
-            'faktaark'
+            'faktaark',
+            'position'
         )
         read_only_fields = (
             'id',

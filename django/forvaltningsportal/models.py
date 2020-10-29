@@ -73,6 +73,7 @@ class Sublag(models.Model):
     klikktekst = models.CharField(max_length=500, blank=True)
     klikktekst2 = models.CharField(max_length=500, blank=True)
     faktaark = models.CharField(max_length=500, blank=True)
+    position = models.PositiveIntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.tittel
@@ -140,6 +141,7 @@ def createJSON(sender, instance, **kwargs):
                 lag_json['klikktekst'] = lag.klikktekst
                 lag_json['klikktekst2'] = lag.klikktekst2
                 lag_json['faktaark'] = lag.faktaark
+                lag_json['position'] = lag.position
                 underlag[lag.id] = lag_json
 
                 ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
