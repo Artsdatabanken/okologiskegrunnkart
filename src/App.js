@@ -892,7 +892,6 @@ class App extends React.Component {
     // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
       // Get fylke geometry
-      console.log("Geometries: ", data);
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
         this.handleFylkeData(fylkeData[0]);

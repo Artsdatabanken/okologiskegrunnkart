@@ -35,15 +35,18 @@ const PolygonLayers = ({
     }
     if (layerCodes.length > 0) {
       const depth = getPolygonDepth(polygon);
-      let points = "";
+      let wkt;
       if (depth === 2) {
+        let points = "";
         for (const coord of polygon) {
           points = points + coord[1] + " " + coord[0] + ",";
         }
         // Last point has to be the same as the initial point
         points = points + polygon[0][1] + " " + polygon[0][0];
         points = "((" + points + "))";
+        wkt = `SRID=4326;POLYGON ${points}`;
       } else if (depth === 3) {
+        let points = "";
         for (const poly of polygon) {
           points = "(";
           for (const coord of poly) {
@@ -56,12 +59,33 @@ const PolygonLayers = ({
         // Remove last comma
         points = points.slice(0, -1);
         points = "(" + points + ")";
+        wkt = `SRID=4326;POLYGON ${points}`;
+      } else if (depth === 4) {
+        let points = "";
+        for (const multi of polygon) {
+          for (const poly of multi) {
+            points = "(";
+            for (const coord of poly) {
+              points = points + coord[1] + " " + coord[0] + ",";
+            }
+            // Remove last comma
+            points = points.slice(0, -1);
+            points = points + "),";
+          }
+          // Remove last comma
+          points = points.slice(0, -1);
+          points = "(" + points + "),";
+        }
+        // Remove last comma
+        points = points.slice(0, -1);
+        points = "(" + points + ")";
+        wkt = `SRID=4326;MULTIPOLYGON ${points}`;
       } else {
         handlePolygonResults(errorResult);
         return;
       }
       handleLoadingFeatures(true);
-      backend.makeAreaReport(layerCodes, points).then(result => {
+      backend.makeAreaReport(layerCodes, wkt).then(result => {
         if (!result) handlePolygonResults(errorResult);
         else handlePolygonResults(result);
         handleLoadingFeatures(false);
@@ -88,6 +112,7 @@ const PolygonLayers = ({
     // Only one polygon
     if (depth === 2 && polygon.length > 2) setDisabled(false);
     else if (depth === 3 && polygon[0].length > 2) setDisabled(false);
+    else if (depth === 4 && polygon[0][0].length > 2) setDisabled(false);
     else setDisabled(true);
   }, [polygon, polygonJSON]);
 
