@@ -438,7 +438,7 @@
   height: 100%;
   position: absolute;
   top: 0;
-  height: 100%;
+  width: 100%;
 }
 #legend-title-wrapper {
   display: flex;

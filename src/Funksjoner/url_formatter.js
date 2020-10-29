@@ -1,9 +1,19 @@
 import proj4 from "proj4";
 
 export function getFeatureInfoUrl(layer, sublayer, coords) {
-  if (layer.klikkurl && layer.klikkurl !== "") {
+  let klikkurl = "";
+  if (layer.underlag) {
+    for (const key in layer.underlag) {
+      const sublayer = layer.underlag[key];
+      if (sublayer.klikkurl !== "") {
+        klikkurl = sublayer.klikkurl;
+        break;
+      }
+    }
+  }
+  if (klikkurl !== "") {
     // Generic API
-    return url_formatter(layer.klikkurl, coords);
+    return url_formatter(klikkurl, coords);
   }
 
   return getWmsFeatureUrl(layer, sublayer, coords);

@@ -237,9 +237,6 @@ class KartlagAPIView(APIView):
                             sublag.maxscaledenominator = max_zoom
                             if sublag.legendeurl != legendeurl:
                                 sublag.legendeurl = legendeurl
-                            if sublag.erSynlig:
-                                sublag.suggested = True
-                                sublag.erSynlig = False
                             
                             sublag.save()
                             
