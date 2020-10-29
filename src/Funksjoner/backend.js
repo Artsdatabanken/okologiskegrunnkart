@@ -228,7 +228,7 @@ class Backend {
     });
   }
 
-  static async makeAreaReport(layerCodes, polygon) {
+  static async makeAreaReport(layerCodes, wkt) {
     // NOTE: polygon need to be preprocessed according
     // to "well-known text representation of geometry"
     // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
@@ -236,7 +236,6 @@ class Backend {
       "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk";
 
     const codes = layerCodes.join(",");
-    const wkt = `SRID=4326;POLYGON ${polygon}`;
     const body = { kartlag: codes, wkt };
 
     return this.postPromise(url, body);
