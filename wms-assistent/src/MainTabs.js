@@ -2,8 +2,9 @@ import React from "react";
 import { Paper, Tabs, Tab, Button } from "@material-ui/core";
 import Tjeneste from "./Tjeneste";
 import TextField2 from "./TextField2";
-import { Create as CreateIcon, Save as SaveIcon } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
+import { Save as SaveIcon } from "@material-ui/icons";
+// import { Create as CreateIcon } from "@material-ui/icons";
+// import { useHistory } from "react-router-dom";
 import KartlagListItem from "./KartlagListItem";
 import KlikkResultatPreview from "./KlikkResultatPreview";
 
@@ -22,7 +23,7 @@ const MainTabs = ({
   writeUpdateLayer,
   writeUpdateSublayer
 }) => {
-  const history = useHistory();
+  // const history = useHistory();
   if (!doc) return null;
   if (!doc.underlag) return null;
   const layer = doc.underlag[selectedLayerIndex];
@@ -49,12 +50,6 @@ const MainTabs = ({
             onUpdate={onUpdate}
           />
           <TextField2
-            title="API URL (hvis tom brukes WMS url)"
-            dockey="klikkurl"
-            doc={doc}
-            onUpdate={onUpdate}
-          />
-          <TextField2
             title="Featureinfo format"
             dockey="wmsinfoformat"
             doc={doc}
@@ -65,10 +60,16 @@ const MainTabs = ({
             dockey="faktaark"
             doc={doc}
             onUpdate={onUpdate}
-            onIconClick={() => {
-              history.push(`?id=${doc._id}&sub=faktaark`);
-            }}
-            icon={<CreateIcon />}
+            // onIconClick={() => {
+            //   history.push(`?id=${doc._id}&sub=faktaark`);
+            // }}
+            // icon={<CreateIcon />}
+          />
+          <TextField2
+            title="Produktark URL"
+            dockey="produktark"
+            doc={doc}
+            onUpdate={onUpdate}
           />
           <Button
             style={{ width: 476, margin: 16 }}

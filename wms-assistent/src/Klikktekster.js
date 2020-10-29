@@ -18,8 +18,22 @@ const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
   return (
     <>
       <TextField2
-        title="Faktaark url"
+        title="Faktaark URL"
         dockey="faktaark"
+        doc={underlag}
+        onUpdate={onUpdate}
+        onIconClick={() => goToEditmode("faktaark")}
+        icon={<CreateIcon />}
+      />
+      <TextField2
+        title="Legend URL"
+        dockey="legendeurl"
+        doc={underlag}
+        onUpdate={onUpdate}
+      />
+      <TextField2
+        title="API URL (hvis tom brukes WMS url)"
+        dockey="klikkurl"
         doc={underlag}
         onUpdate={onUpdate}
       />
