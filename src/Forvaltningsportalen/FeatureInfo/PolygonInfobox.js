@@ -81,7 +81,8 @@ const PolygonInfobox = ({
       return;
     }
 
-    let points = [...polyline];
+    let dist = 0;
+    let points;
     // If polygon, add the first point as the last one
     if (polygon && polygon.length > 0) {
       const depht = getPolygonDepth(polygon);
@@ -89,15 +90,27 @@ const PolygonInfobox = ({
         // Only one polygon
         points = [...polygon];
         points.push(polygon[0]);
+        dist += calculatePerimeter(points);
       } else if (depht === 3) {
         // Only one polygon with holes
         points = [...polygon[0]];
         points.push(polygon[0][0]);
+        dist += calculatePerimeter(points);
+      } else if (depht === 4) {
+        // Multipolygon
+        for (const poly of polygon) {
+          points = [...poly[0]];
+          points.push(poly[0][0]);
+          dist += calculatePerimeter(points);
+        }
       } else {
         // Something is wrong
         setPerimeter(null);
         return;
       }
+    } else if (polyline) {
+      points = [...polyline];
+      dist += calculatePerimeter(points);
     }
 
     if (points.length < 2) {
@@ -105,31 +118,7 @@ const PolygonInfobox = ({
       return;
     }
 
-    let dist = 0;
     let unit = "m";
-    for (let i = 1; i < points.length; i++) {
-      const lat1 = points[i - 1][0];
-      const lng1 = points[i - 1][1];
-      const lat2 = points[i][0];
-      const lng2 = points[i][1];
-
-      // Calculate projections of real coordinates
-      const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
-      const utm33Projection =
-        "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
-
-      const [x1, y1] = proj4(geographicProjection, utm33Projection, [
-        lng1,
-        lat1
-      ]);
-      const [x2, y2] = proj4(geographicProjection, utm33Projection, [
-        lng2,
-        lat2
-      ]);
-
-      dist += Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
-
     if (dist >= 100000) {
       dist = Math.round(dist / 100) / 10;
       unit = "km";
@@ -159,23 +148,35 @@ const PolygonInfobox = ({
     if (depht === 2) {
       // Only one polygon
       points = polygon;
+      area += calculateArea(points);
     } else if (depht === 3) {
-      // Only one polygon with holes
+      // Polygon with holes. Substract areas if there are holes
       points = polygon[0];
+      area += calculateArea(points);
+      if (polygon.length > 1) {
+        for (let i = 1; i < polygon.length; i++) {
+          const hole = polygon[i];
+          if (hole.length < 3) continue;
+          area -= calculateArea(hole);
+        }
+      }
+    } else if (depht === 4) {
+      // Multipolygon. Substract areas if there are holes
+      for (const poly of polygon) {
+        points = poly[0];
+        area += calculateArea(points);
+        if (poly.length > 1) {
+          for (let i = 1; i < poly.length; i++) {
+            const hole = poly[i];
+            if (hole.length < 3) continue;
+            area -= calculateArea(hole);
+          }
+        }
+      }
     } else {
       // Something is wrong
       setArea(null);
       return;
-    }
-    area = calculateArea(points);
-
-    // Substract areas if there are holes
-    if (depht === 3 && polygon.length > 1) {
-      for (let i = 1; i < polygon.length; i++) {
-        const hole = polygon[i];
-        if (hole.length < 3) continue;
-        area -= calculateArea(hole);
-      }
     }
 
     let unit = "m";
@@ -196,6 +197,33 @@ const PolygonInfobox = ({
     setArea(area);
     setAreaUnit(unit);
   }, [polygon, polygonJSON]);
+
+  const calculatePerimeter = points => {
+    let dist = 0;
+    for (let i = 1; i < points.length; i++) {
+      const lat1 = points[i - 1][0];
+      const lng1 = points[i - 1][1];
+      const lat2 = points[i][0];
+      const lng2 = points[i][1];
+
+      // Calculate projections of real coordinates
+      const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+      const utm33Projection =
+        "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+
+      const [x1, y1] = proj4(geographicProjection, utm33Projection, [
+        lng1,
+        lat1
+      ]);
+      const [x2, y2] = proj4(geographicProjection, utm33Projection, [
+        lng2,
+        lat2
+      ]);
+
+      dist += Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+    return dist;
+  };
 
   const calculateArea = points => {
     const pointsCount = points.length;

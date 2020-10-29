@@ -18,7 +18,7 @@ import {
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
-import { sortPolygonCoord } from "./Funksjoner/polygonTools";
+import { sortPolygonCoord, getPolygonDepth } from "./Funksjoner/polygonTools";
 import AppName from "./Forvaltningsportalen/AppName";
 
 class App extends React.Component {
@@ -348,31 +348,30 @@ class App extends React.Component {
     return false;
   };
 
-  // isGeneral = prevState => {
-  //   if (
-  //     !this.isFylke(prevState) &&
-  //     !this.isKommune(prevState) &&
-  //     !this.isEiendom(prevState) &&
-  //     !this.isStedsnavn(prevState) &&
-  //     this.state.automaticZoomUpdate
-  //   ) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-
   updateZoomWithGeometry = (geom, type = null) => {
     if (!geom || geom.length === 0) return;
+    const depth = getPolygonDepth(geom);
     let maxLat = 0;
     let minLat = 9999999999;
     let maxLng = 0;
     let minLng = 9999999999;
-    for (const coord of geom[0]) {
-      if (coord[0] > maxLat) maxLat = coord[0];
-      if (coord[0] < minLat) minLat = coord[0];
-      if (coord[1] > maxLng) maxLng = coord[1];
-      if (coord[1] < minLng) minLng = coord[1];
-    }
+    if (depth === 3) {
+      for (const coord of geom[0]) {
+        if (coord[0] > maxLat) maxLat = coord[0];
+        if (coord[0] < minLat) minLat = coord[0];
+        if (coord[1] > maxLng) maxLng = coord[1];
+        if (coord[1] < minLng) minLng = coord[1];
+      }
+    } else if (depth === 4) {
+      for (const poly of geom) {
+        for (const coord of poly[0]) {
+          if (coord[0] > maxLat) maxLat = coord[0];
+          if (coord[0] < minLat) minLat = coord[0];
+          if (coord[1] > maxLng) maxLng = coord[1];
+          if (coord[1] < minLng) minLng = coord[1];
+        }
+      }
+    } else return;
     let margin = 0.02;
     if (type === "Eiendom") margin = 0.1;
     if (type === "Stedsnavn") margin = 0.2;
@@ -893,6 +892,7 @@ class App extends React.Component {
     // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
       // Get fylke geometry
+      console.log("Geometries: ", data);
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
         this.handleFylkeData(fylkeData[0]);
