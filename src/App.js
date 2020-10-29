@@ -160,12 +160,6 @@ class App extends React.Component {
         this.setState({ someLayersFavorite: true });
       }
 
-      // ---- REMOVE KLIKK DATA ------
-      delete k.klikktekst;
-      delete k.klikktekst2;
-      delete k.klikkurl;
-      delete k.testkoordinater;
-
       // Add a pseudo-sublayer for all categories
       k.allcategorieslayer = {
         erSynlig: false,

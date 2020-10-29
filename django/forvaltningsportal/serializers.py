@@ -19,11 +19,7 @@ class KartlagSerializer(serializers.ModelSerializer):
             'wmsurl',
             'wmsversion',
             'projeksjon',
-            'testkoordinater',
             'wmsinfoformat',
-            'klikkurl',
-            'klikktekst',
-            'klikktekst2',
             'aggregatedwmslayer',
             'type'
         )
@@ -50,7 +46,6 @@ class SublagSerializer(serializers.ModelSerializer):
             'wmslayer',
             'legendeurl',
             'publiser',
-            'erSynlig',
             'hovedkartlag',
             'queryable',
             'minscaledenominator',
@@ -68,10 +63,8 @@ class SublagSerializer(serializers.ModelSerializer):
             'wmslayer',
             'legendeurl',
             'publiser',
-            'erSynlig',
             'hovedkartlag',
             'queryable',
             'minscaledenominator',
-            'maxscaledenominator',
-            'suggested'
+            'maxscaledenominator'
         )
