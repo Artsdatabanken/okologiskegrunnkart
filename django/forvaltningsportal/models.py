@@ -51,10 +51,6 @@ class Kartlag(models.Model):
     wmsversion = models.CharField(max_length=500, blank=True)
     projeksjon = models.CharField(max_length=500, blank=True)
     wmsinfoformat = models.CharField(max_length=500, blank=True)
-    # testkoordinater = models.CharField(max_length=500, blank=True) # Can be removed
-    # klikkurl = models.CharField(max_length=500, blank=True) # Can be removed
-    # klikktekst = models.CharField(max_length=500, blank=True) # Can be removed
-    # klikktekst2 = models.CharField(max_length=500, blank=True) # Can be removed
     aggregatedwmslayer = models.CharField(max_length=100, blank=True)
     type = models.ForeignKey(
         Type, on_delete=models.SET_NULL, null=True, blank=True)
@@ -67,7 +63,6 @@ class Sublag(models.Model):
     wmslayer = models.CharField(max_length=100, blank=True)
     legendeurl = models.CharField(max_length=500, blank=True)
     publiser = models.BooleanField(default=False)
-    # erSynlig = models.BooleanField(default=False) # Can be removed
     hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
     queryable = models.BooleanField(default=False)
     minscaledenominator = models.PositiveIntegerField(null=True, blank=True)
@@ -139,7 +134,6 @@ def createJSON(sender, instance, **kwargs):
                 lag_json['queryable'] = lag.queryable
                 lag_json['minscaledenominator'] = lag.minscaledenominator
                 lag_json['maxscaledenominator'] = lag.maxscaledenominator
-                # lag_json['erSynlig'] = lag.erSynlig
                 lag_json['suggested'] = lag.suggested
                 lag_json['testkoordinater'] = lag.testkoordinater
                 lag_json['klikkurl'] = lag.klikkurl
@@ -212,14 +206,6 @@ def createJSON(sender, instance, **kwargs):
                 dict[kartlag.id]['projeksjon'] = kartlag.projeksjon
             if kartlag.wmsinfoformat:
                 dict[kartlag.id]['wmsinfoformat'] = kartlag.wmsinfoformat
-            # if kartlag.testkoordinater:
-            #     dict[kartlag.id]['testkoordinater'] = kartlag.testkoordinater
-            # if kartlag.klikkurl:
-            #     dict[kartlag.id]['klikkurl'] = kartlag.klikkurl
-            # if kartlag.klikktekst:
-            #     dict[kartlag.id]['klikktekst'] = kartlag.klikktekst
-            # if kartlag.klikktekst:
-            #     dict[kartlag.id]['klikktekst2'] = kartlag.klikktekst2
             if kartlag.aggregatedwmslayer:
                 dict[kartlag.id]['aggregatedwmslayer'] = kartlag.aggregatedwmslayer
 
