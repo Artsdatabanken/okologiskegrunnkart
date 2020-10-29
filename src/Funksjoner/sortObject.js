@@ -1,19 +1,40 @@
-function sortKartlag(object) {
+function sortKartlag(object, mode = "alphabetical") {
   // Convert object to array and sort based on title
   const array = Object.entries(object);
-  const sortedArray = array.sort((a, b) => {
-    const textA =
-      a.length === 2 && a[1].tittel ? a[1].tittel.toLowerCase() : "";
-    const textB =
-      b.length === 2 && b[1].tittel ? b[1].tittel.toLowerCase() : "";
-    return textA < textB ? -1 : textA > textB ? 1 : 0;
-  });
+  let sortedArray;
+  if (mode === "position") {
+    sortedArray = array.sort((a, b) => {
+      return a[1].position - b[1].position;
+    });
+  } else {
+    sortedArray = array.sort((a, b) => {
+      const textA =
+        a.length === 2 && a[1].tittel ? a[1].tittel.toLowerCase() : "";
+      const textB =
+        b.length === 2 && b[1].tittel ? b[1].tittel.toLowerCase() : "";
+      return textA < textB ? -1 : textA > textB ? 1 : 0;
+    });
+  }
 
   // Sort also underlag if exists (recursive function)
   const fullySortedArray = sortedArray.map(item => {
     if (item.length === 2 && item[1].underlag) {
       const itemObject = item[1];
-      const sortedUnderlag = sortKartlag(itemObject.underlag);
+      let position = true;
+      let sortedUnderlag;
+      for (const sublayerKey in itemObject.underlag) {
+        const sublayer = itemObject.underlag[sublayerKey];
+        if (!sublayer.position || sublayer.position < 0) {
+          position = false;
+          break;
+        }
+      }
+      // Use positionn or alphabetical sorting
+      if (position) {
+        sortedUnderlag = sortKartlag(itemObject.underlag, "position");
+      } else {
+        sortedUnderlag = sortKartlag(itemObject.underlag);
+      }
       const newItemObject = { ...itemObject, underlag: sortedUnderlag };
       return [item[0], newItemObject];
     } else {
@@ -23,9 +44,18 @@ function sortKartlag(object) {
 
   // Convert array to object
   const sortedObject = fullySortedArray.reduce((result, item) => {
-    const key = String(item[0]); //first property: a, b, c
-    result[" " + key] = item[1];
-    return result;
+    if (parseInt(item[0]) >= 0) {
+      // If property is an integer (as string),
+      // you need to add " " to maintain order
+      const key = String(item[0]);
+      result[" " + key] = item[1];
+      return result;
+    } else {
+      // If is a string, order is maintained
+      const key = String(item[0]);
+      result[key] = item[1];
+      return result;
+    }
   }, {});
 
   return sortedObject;
