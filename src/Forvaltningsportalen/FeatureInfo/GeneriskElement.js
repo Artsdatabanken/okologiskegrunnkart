@@ -88,7 +88,6 @@ const GeneriskElement = ({
     if (!layer) return;
 
     const wmsinfoformat = layer.wmsinfoformat;
-    // let klikkurl = layer.klikkurl || "";
     let klikkurl = "";
     for (const key in layer.underlag) {
       const sublayer = layer.underlag[key];
