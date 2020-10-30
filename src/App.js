@@ -96,8 +96,7 @@ class App extends React.Component {
     centercoord: null,
     showAppName: true,
     showAboutModal: false,
-    aboutPage: null,
-    location: null
+    aboutPage: null
   };
 
   async lastNedKartlag() {
@@ -275,9 +274,14 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
-    this.setState({ location: window.location }, () => {
-      console.log("Mounted", this.state.location);
-    });
+    const urlParams = new URLSearchParams(window.location.search);
+    let lat = urlParams.get("lat");
+    let lng = urlParams.get("lng");
+    if (!lat && !lng) return;
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    if (!lat && !lng) return;
+    this.handleCoordinatesUrl(lat, lng);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -302,7 +306,6 @@ class App extends React.Component {
       this.setState({ automaticZoomUpdate: false });
     }
     if (this.props.location !== prevProps.location) {
-      console.log();
       console.log("current", this.props.location);
       console.log("previous", prevProps.location);
     }
@@ -856,6 +859,21 @@ class App extends React.Component {
         trefftype,
         treffitemtype: itemtype
       });
+      // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
+      setTimeout(() => {
+        if (!this.state.showExtensiveInfo) {
+          this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
+        } else {
+          this.hentInfoAlleLag(lng, lat, this.state.zoom);
+        }
+      }, 250);
+    }
+  };
+
+  handleCoordinatesUrl = async (lat, lng) => {
+    // Update coordinates and infobox
+    if (lng && lat) {
+      this.handleInfobox(true);
       // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
         if (!this.state.showExtensiveInfo) {
