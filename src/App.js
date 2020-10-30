@@ -121,9 +121,6 @@ class App extends React.Component {
 
     const alphaNumericOnly = s => s.replace(/[^a-zA-Z0-9]/g, "");
 
-    // Sort kartlag object aplhabetically based on title
-    const sortedKartlag = sortKartlag(kartlag);
-
     // Get layers and sublayers from indexed DB
     const layersdb = await db.layers.toArray();
     const sublayersdb = await db.sublayers.toArray();
@@ -131,7 +128,7 @@ class App extends React.Component {
     const listFavoriteSublayerIds = [];
 
     // Modify and store kartlag in state
-    Object.entries(sortedKartlag).forEach(async ([key, k]) => {
+    Object.entries(kartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
       k.expanded = false;
@@ -250,6 +247,11 @@ class App extends React.Component {
         k.allcategorieslayer.faktaark = { [aggKey]: aggFaktaark };
       }
     });
+
+    // Sort kartlag object aplhabetically based on title.
+    // Sublayers are ordered alphabetically or based on position.
+    const sortedKartlag = sortKartlag(kartlag);
+
     this.setState({
       completeKartlag: sortedKartlag,
       listFavoriteLayerIds,
