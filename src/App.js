@@ -96,7 +96,8 @@ class App extends React.Component {
     centercoord: null,
     showAppName: true,
     showAboutModal: false,
-    aboutPage: null
+    aboutPage: null,
+    updateChangeInUrl: true
   };
 
   async lastNedKartlag() {
@@ -274,14 +275,14 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
-    const urlParams = new URLSearchParams(window.location.search);
-    let lat = urlParams.get("lat");
-    let lng = urlParams.get("lng");
-    if (!lat && !lng) return;
-    lat = parseFloat(lat);
-    lng = parseFloat(lng);
-    if (!lat && !lng) return;
-    this.handleCoordinatesUrl(lat, lng);
+    // const urlParams = new URLSearchParams(window.location.search);
+    // let lat = urlParams.get("lat");
+    // let lng = urlParams.get("lng");
+    // if (!lat && !lng) return;
+    // lat = parseFloat(lat);
+    // lng = parseFloat(lng);
+    // if (!lat && !lng) return;
+    // this.handleCoordinatesUrl(lat, lng);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -305,9 +306,21 @@ class App extends React.Component {
       this.updateZoomWithGeometry(geom, "Stedsnavn");
       this.setState({ automaticZoomUpdate: false });
     }
-    if (this.props.location !== prevProps.location) {
+    if (
+      this.state.updateChangeInUrl &&
+      this.props.location !== prevProps.location
+    ) {
       console.log("current", this.props.location);
       console.log("previous", prevProps.location);
+      const urlParams = new URLSearchParams(this.props.location.search);
+      let lat = urlParams.get("lat");
+      let lng = urlParams.get("lng");
+      if (!lat && !lng) return;
+      lat = parseFloat(lat);
+      lng = parseFloat(lng);
+      if (lat && lng && lat !== this.state.lat && lng !== this.state.lng) {
+        this.handleCoordinatesUrl(lat, lng);
+      }
     }
   }
 
@@ -506,6 +519,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
+                        handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -2012,6 +2026,10 @@ class App extends React.Component {
     backend.getAboutPageWiki().then(aboutPage => {
       this.setState({ aboutPage });
     });
+  };
+
+  handleUpdateChangeInUrl = value => {
+    this.setState({ updateChangeInUrl: value });
   };
 
   static contextType = SettingsContext;
