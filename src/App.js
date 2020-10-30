@@ -96,7 +96,8 @@ class App extends React.Component {
     centercoord: null,
     showAppName: true,
     showAboutModal: false,
-    aboutPage: null
+    aboutPage: null,
+    location: null
   };
 
   async lastNedKartlag() {
@@ -272,9 +273,12 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
+    this.setState({ location: window.location }, () => {
+      console.log("Mounted", this.state.location);
+    });
   }
 
-  componentDidUpdate(_prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.isFylke(prevState)) {
       const geom = this.state.fylkeGeom;
       this.updateZoomWithGeometry(geom, "Fylke");
@@ -294,6 +298,11 @@ class App extends React.Component {
       const geom = this.state.eiendomGeom;
       this.updateZoomWithGeometry(geom, "Stedsnavn");
       this.setState({ automaticZoomUpdate: false });
+    }
+    if (this.props.location !== prevProps.location) {
+      console.log();
+      console.log("current", this.props.location);
+      console.log("previous", prevProps.location);
     }
   }
 
