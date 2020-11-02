@@ -275,14 +275,8 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
-    // const urlParams = new URLSearchParams(window.location.search);
-    // let lat = urlParams.get("lat");
-    // let lng = urlParams.get("lng");
-    // if (!lat && !lng) return;
-    // lat = parseFloat(lat);
-    // lng = parseFloat(lng);
-    // if (!lat && !lng) return;
-    // this.handleCoordinatesUrl(lat, lng);
+    const urlParams = new URLSearchParams(window.location.search);
+    this.updateLocationFromUrl(urlParams);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -310,17 +304,8 @@ class App extends React.Component {
       this.state.updateChangeInUrl &&
       this.props.location !== prevProps.location
     ) {
-      console.log("current", this.props.location);
-      console.log("previous", prevProps.location);
       const urlParams = new URLSearchParams(this.props.location.search);
-      let lat = urlParams.get("lat");
-      let lng = urlParams.get("lng");
-      if (!lat && !lng) return;
-      lat = parseFloat(lat);
-      lng = parseFloat(lng);
-      if (lat && lng && lat !== this.state.lat && lng !== this.state.lng) {
-        this.handleCoordinatesUrl(lat, lng);
-      }
+      this.updateLocationFromUrl(urlParams);
     }
   }
 
@@ -411,6 +396,17 @@ class App extends React.Component {
     }
   };
 
+  updateLocationFromUrl = urlParams => {
+    let lat = urlParams.get("lat");
+    let lng = urlParams.get("lng");
+    if (!lat && !lng) return;
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    if (lat && lng && lat !== this.state.lat && lng !== this.state.lng) {
+      this.handleCoordinatesUrl(lat, lng);
+    }
+  };
+
   render() {
     const { history } = this.props;
     const basiskart = this.state.bakgrunnskart;
@@ -444,6 +440,8 @@ class App extends React.Component {
                         showAboutModal={this.state.showAboutModal}
                         handleAboutModal={this.handleAboutModal}
                         aboutPage={this.state.aboutPage}
+                        showInfobox={this.state.showInfobox}
+                        isMobile={this.state.isMobile}
                       />
                       <Kart
                         kartlag={this.state.kartlag}

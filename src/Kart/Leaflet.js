@@ -174,7 +174,7 @@ class Leaflet extends React.Component {
       this.setState({
         coordinates_area: { lat: this.props.lat, lng: this.props.lng }
       });
-      this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
+      // this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
     }
     // Update zoom buttons position
     if (
