@@ -750,6 +750,7 @@ class App extends React.Component {
     // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
+
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
   };
