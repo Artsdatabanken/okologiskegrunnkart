@@ -283,6 +283,9 @@
   border-bottom: 1px solid #aaa;
   padding: 0 5px 5px 5px;
 }
+#select-polygon-collapse {
+  min-height: 183px !important;
+}
 .infobox-radio-buttons-title {
   font-size: 16px;
   text-align: left;

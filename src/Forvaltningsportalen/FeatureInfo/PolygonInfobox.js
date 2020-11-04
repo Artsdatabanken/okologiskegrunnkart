@@ -37,6 +37,13 @@ const availableLayers = [
     code: "KOM",
     icon: "flag",
     owner: "Kartverket"
+  },
+  {
+    name: "Naturtype - DN Håndbook 13",
+    selected: false,
+    code: "N13",
+    icon: "Naturtyper",
+    owner: "Miljødirektoratet"
   }
 ];
 
