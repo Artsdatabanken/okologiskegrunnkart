@@ -135,6 +135,7 @@ class Leaflet extends React.Component {
 
   updateUrlWithCoordinates(lng, lat) {
     // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
+    this.props.handleUpdateChangeInUrl(false);
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";
     for (let i in urlparams) {
@@ -143,6 +144,7 @@ class Leaflet extends React.Component {
       }
     }
     this.props.history.push("?lng=" + lng + "&lat=" + lat + newurlstring);
+    this.props.handleUpdateChangeInUrl(true);
   }
 
   componentDidUpdate(prevProps) {
@@ -172,7 +174,7 @@ class Leaflet extends React.Component {
       this.setState({
         coordinates_area: { lat: this.props.lat, lng: this.props.lng }
       });
-      this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
+      // this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
     }
     // Update zoom buttons position
     if (

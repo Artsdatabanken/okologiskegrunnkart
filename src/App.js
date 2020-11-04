@@ -96,7 +96,8 @@ class App extends React.Component {
     centercoord: null,
     showAppName: true,
     showAboutModal: false,
-    aboutPage: null
+    aboutPage: null,
+    updateChangeInUrl: true
   };
 
   async lastNedKartlag() {
@@ -274,9 +275,11 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
+    const urlParams = new URLSearchParams(window.location.search);
+    this.updateLocationFromUrl(urlParams);
   }
 
-  componentDidUpdate(_prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.isFylke(prevState)) {
       const geom = this.state.fylkeGeom;
       this.updateZoomWithGeometry(geom, "Fylke");
@@ -296,6 +299,13 @@ class App extends React.Component {
       const geom = this.state.eiendomGeom;
       this.updateZoomWithGeometry(geom, "Stedsnavn");
       this.setState({ automaticZoomUpdate: false });
+    }
+    if (
+      this.state.updateChangeInUrl &&
+      this.props.location !== prevProps.location
+    ) {
+      const urlParams = new URLSearchParams(this.props.location.search);
+      this.updateLocationFromUrl(urlParams);
     }
   }
 
@@ -386,6 +396,17 @@ class App extends React.Component {
     }
   };
 
+  updateLocationFromUrl = urlParams => {
+    let lat = urlParams.get("lat");
+    let lng = urlParams.get("lng");
+    if (!lat && !lng) return;
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    if (lat && lng && lat !== this.state.lat && lng !== this.state.lng) {
+      this.handleCoordinatesUrl(lat, lng);
+    }
+  };
+
   render() {
     const { history } = this.props;
     const basiskart = this.state.bakgrunnskart;
@@ -419,6 +440,8 @@ class App extends React.Component {
                         showAboutModal={this.state.showAboutModal}
                         handleAboutModal={this.handleAboutModal}
                         aboutPage={this.state.aboutPage}
+                        showInfobox={this.state.showInfobox}
+                        isMobile={this.state.isMobile}
                       />
                       <Kart
                         kartlag={this.state.kartlag}
@@ -494,6 +517,7 @@ class App extends React.Component {
                         legendVisible={this.state.legendVisible}
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
+                        handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -726,6 +750,7 @@ class App extends React.Component {
     // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
+
   handleSpraak = spraak => {
     this.setState({ spraak: spraak });
   };
@@ -847,6 +872,21 @@ class App extends React.Component {
         trefftype,
         treffitemtype: itemtype
       });
+      // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
+      setTimeout(() => {
+        if (!this.state.showExtensiveInfo) {
+          this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
+        } else {
+          this.hentInfoAlleLag(lng, lat, this.state.zoom);
+        }
+      }, 250);
+    }
+  };
+
+  handleCoordinatesUrl = async (lat, lng) => {
+    // Update coordinates and infobox
+    if (lng && lat) {
+      this.handleInfobox(true);
       // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
         if (!this.state.showExtensiveInfo) {
@@ -1985,6 +2025,10 @@ class App extends React.Component {
     backend.getAboutPageWiki().then(aboutPage => {
       this.setState({ aboutPage });
     });
+  };
+
+  handleUpdateChangeInUrl = value => {
+    this.setState({ updateChangeInUrl: value });
   };
 
   static contextType = SettingsContext;

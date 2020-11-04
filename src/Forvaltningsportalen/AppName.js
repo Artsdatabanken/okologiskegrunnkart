@@ -8,7 +8,9 @@ const AppName = ({
   closeAppName,
   showAboutModal,
   handleAboutModal,
-  aboutPage
+  aboutPage,
+  showInfobox,
+  isMobile
 }) => {
   const formattedAboutPage = () => {
     if (!aboutPage || aboutPage === "") {
@@ -46,7 +48,13 @@ const AppName = ({
         open={showAppName}
         onClose={() => closeAppName()}
       >
-        <div className="app-name-wrapper">
+        <div
+          className={
+            !isMobile && showInfobox
+              ? "app-name-wrapper centered"
+              : "app-name-wrapper"
+          }
+        >
           <div className="app-name-text">Økologiske grunnkart</div>
           <Button
             id="read-more-about"
