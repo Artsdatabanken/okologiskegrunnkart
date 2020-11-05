@@ -9,6 +9,7 @@ const PolygonElement = ({
   showDetailedPolygonResults,
   grensePolygon
 }) => {
+  if (!result) result = [];
   const [numberResults, setNumberResults] = useState(0);
   const [detailedResult, setDetailedResult] = useState(0);
 
@@ -33,7 +34,6 @@ const PolygonElement = ({
   }, [result, resultJSON, grensePolygon, polygonLayer]);
 
   if (!polygonLayer) return null;
-  if (!result) return null;
 
   return (
     <div className="generic_element">
