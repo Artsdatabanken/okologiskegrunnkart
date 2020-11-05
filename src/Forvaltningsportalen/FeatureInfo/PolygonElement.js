@@ -33,6 +33,7 @@ const PolygonElement = ({
   }, [result, resultJSON, grensePolygon, polygonLayer]);
 
   if (!polygonLayer) return null;
+  if (!result) return null;
 
   return (
     <div className="generic_element">
