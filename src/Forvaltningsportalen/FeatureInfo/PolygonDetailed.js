@@ -3,6 +3,8 @@ import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
 import { KeyboardBackspace } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
+import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
+import PolygonDetailedDescription from "./PolygonDetailedDescription";
 
 const PolygonDetailed = ({
   resultLayer,
@@ -14,19 +16,36 @@ const PolygonDetailed = ({
   const [sortedResult, setSortedResult] = useState(0);
   const detailResultJSON = JSON.stringify(detailResult);
 
+  const areaToPresent = item => {
+    let area = parseFloat(item.km2);
+    if (area >= 10) return area.toFixed(1);
+    if (area >= 0.1) return area.toFixed(2);
+    if (area >= 0.01) return area.toFixed(3);
+    else return area.toFixed(4);
+  };
+
   useEffect(() => {
     let area = 0;
     for (let i = 0; i < detailResult.length; i++) {
       area += detailResult[i].km2;
     }
-    const sorted = detailResult.sort((a, b) => {
+    let sorted = detailResult.sort((a, b) => {
       return b.km2 - a.km2;
     });
+    if (resultLayer.code === "N13") {
+      sorted = sorted.map(item => {
+        return {
+          ...item,
+          navn: getTextAreaReport("N13", item.kode, "name"),
+          beskrivelse: getTextAreaReport("N13", item.kode, "description")
+        };
+      });
+    }
     const number = sorted ? sorted.length : 0;
     setSortedResult(sorted);
     setNumberResults(number);
     setTotalArea(area);
-  }, [detailResult, detailResultJSON]);
+  }, [detailResult, detailResultJSON, resultLayer]);
 
   const iconSize = icon => {
     if (icon && ["terrain", "flag"].includes(icon))
@@ -79,7 +98,15 @@ const PolygonDetailed = ({
           {sortedResult &&
             sortedResult.map((item, index) => {
               return (
-                <div key={index} className="polygon-details-content-wrapper">
+                <div
+                  key={index}
+                  // className="polygon-details-content-wrapper"
+                  className={
+                    item.beskrivelse
+                      ? "polygon-details-content-wrapper-description"
+                      : "polygon-details-content-wrapper"
+                  }
+                >
                   <div className="polygon-details-text-wrapper">
                     <div className="polygon-details-title">{item.navn}</div>
                     <div className="polygon-details-primary-text">
@@ -88,12 +115,15 @@ const PolygonDetailed = ({
                   </div>
                   <div className="polygon-details-text-wrapper space-between">
                     <div className="polygon-details-secondary-text">
-                      {`${Math.round(item.km2 * 10) / 10} km²`}
+                      {`${areaToPresent(item)} km²`}
                     </div>
                     <div className="polygon-details-secondary-text end-line">
-                      {`(${Math.round((item.km2 / totalArea) * 1000) / 10}%)`}
+                      {`(${((item.km2 / totalArea) * 100).toFixed(1)}%)`}
                     </div>
                   </div>
+                  {item.beskrivelse && (
+                    <PolygonDetailedDescription item={item} />
+                  )}
                 </div>
               );
             })}

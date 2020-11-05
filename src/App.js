@@ -69,7 +69,7 @@ class App extends React.Component {
     isMobile: false,
     windowHeight: 0,
     showMarker: true,
-    sortKey: "alfabetisk",
+    sortKey: "tema",
     tagFilter: {},
     matchAllFilters: true,
     resultat: null,

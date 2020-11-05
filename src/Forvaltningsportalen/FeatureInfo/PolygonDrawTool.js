@@ -123,6 +123,7 @@ const PolygonDrawTool = ({
         </ListItem>
       </div>
       <Collapse
+        id="select-polygon-collapse"
         in={showPolygonOptions}
         timeout="auto"
         unmountOnExit

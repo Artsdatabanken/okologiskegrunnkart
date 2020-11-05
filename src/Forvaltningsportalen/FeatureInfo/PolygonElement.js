@@ -22,13 +22,15 @@ const PolygonElement = ({
 
   useEffect(() => {
     let filtered = result;
-    if (grensePolygon === "fylke" || grensePolygon === "kommune") {
-      filtered = result.filter(item => item.km2 >= 0.1);
+    if (polygonLayer.code === "FYL" || polygonLayer.code === "KOM") {
+      if (grensePolygon === "fylke" || grensePolygon === "kommune") {
+        filtered = result.filter(item => item.km2 >= 0.1);
+      }
     }
     const number = filtered ? filtered.length : 0;
     setNumberResults(number);
     setDetailedResult(filtered);
-  }, [result, resultJSON, grensePolygon]);
+  }, [result, resultJSON, grensePolygon, polygonLayer]);
 
   if (!polygonLayer) return null;
 

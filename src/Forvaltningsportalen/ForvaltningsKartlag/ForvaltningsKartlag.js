@@ -20,7 +20,7 @@ const ForvaltningsKartlag = ({
   isMobile
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
-  const [sortKey, setSortKey] = useState("alfabetisk");
+  const [sortKey, setSortKey] = useState("tema");
   const [tagFilter, setTagFilter] = useState({});
   const [matchAllFilters, setMatchAllFilters] = useState(true);
   const [sorted, setSorted] = useState({});
@@ -49,6 +49,35 @@ const ForvaltningsKartlag = ({
   useEffect(() => {
     let lag = kartlag;
     let sorted = {};
+    if (sortKey === "tema") {
+      sorted = {
+        Arter: [],
+        Arealressurs: [],
+        Naturtyper: [],
+        Skog: [],
+        Marint: [],
+        Ferskvann: [],
+        Landskap: [],
+        Geologi: [],
+        Miljøvariabel: [],
+        "Administrative støttekart": []
+      };
+    }
+    if (sortKey === "dataeier") {
+      const listOwners = [];
+      let owner = null;
+      for (const l in lag) {
+        const layer = lag[l];
+        owner = layer.dataeier;
+        if (!listOwners.includes(owner)) {
+          listOwners.push(owner);
+        }
+      }
+      const sortedOwners = listOwners.sort();
+      for (const own of sortedOwners) {
+        sorted[own] = [];
+      }
+    }
 
     // Henter ut unike tags for checklistegenerering
     let taglist = {};
@@ -61,7 +90,7 @@ const ForvaltningsKartlag = ({
     setTaglist(taglist);
 
     // Sorterer listen på valgt kriterie
-    for (let item in lag) {
+    for (const item in lag) {
       let criteria = lag[item][sortKey];
       let new_list = [];
       if (!criteria) {
@@ -199,22 +228,20 @@ const ForvaltningsKartlag = ({
       )}
 
       <List id="layers-list-wrapper">
-        {Object.keys(sorted)
-          .reverse()
-          .map(element => {
-            return (
-              <ForvaltningsGruppering
-                tagFilter={tagFilter}
-                matchAllFilters={matchAllFilters}
-                kartlag={sorted[element]}
-                element={element}
-                key={element}
-                toggleSublayer={toggleSublayer}
-                toggleAllSublayers={toggleAllSublayers}
-                showSublayerDetails={showSublayerDetails}
-              />
-            );
-          })}
+        {Object.keys(sorted).map(element => {
+          return (
+            <ForvaltningsGruppering
+              tagFilter={tagFilter}
+              matchAllFilters={matchAllFilters}
+              kartlag={sorted[element]}
+              element={element}
+              key={element}
+              toggleSublayer={toggleSublayer}
+              toggleAllSublayers={toggleAllSublayers}
+              showSublayerDetails={showSublayerDetails}
+            />
+          );
+        })}
       </List>
     </>
   );
