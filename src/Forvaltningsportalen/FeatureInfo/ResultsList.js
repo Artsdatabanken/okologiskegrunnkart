@@ -49,9 +49,38 @@ const ResultsList = ({
     // Sort results
     let lag = layersResult;
     let sorted = {};
+    if (sortKey === "tema") {
+      sorted = {
+        Arter: [],
+        Arealressurs: [],
+        Naturtyper: [],
+        Skog: [],
+        Marint: [],
+        Ferskvann: [],
+        Landskap: [],
+        Geologi: [],
+        Miljøvariabel: [],
+        "Administrative støttekart": []
+      };
+    }
+    if (sortKey === "dataeier") {
+      const listOwners = [];
+      let owner = null;
+      for (const l in lag) {
+        const layer = lag[l];
+        owner = layer.dataeier;
+        if (!listOwners.includes(owner)) {
+          listOwners.push(owner);
+        }
+      }
+      const sortedOwners = listOwners.sort();
+      for (const own of sortedOwners) {
+        sorted[own] = [];
+      }
+    }
 
     // Sorterer listen på valgt kriterie
-    for (let item in lag) {
+    for (const item in lag) {
       let criteria = lag[item][sortKey];
       let new_list = [];
       if (!criteria) {
@@ -157,45 +186,28 @@ const ResultsList = ({
             )}
             <List id="layers-results-list">
               {allResults &&
-                Object.keys(allResults)
-                  .reverse()
-                  .map(key => {
-                    return (
-                      <div key={key} className="layers-results-subheaders">
-                        {key !== "" && (
-                          <ListSubheader disableSticky>{key}</ListSubheader>
-                        )}
-                        {Object.keys(allResults[key]).map(resultkey => {
-                          return (
-                            <GeneriskElement
-                              key={resultkey}
-                              kartlag={kartlag}
-                              resultat={allResults[key][resultkey]}
-                              element={resultkey}
-                              infoboxDetailsVisible={infoboxDetailsVisible}
-                              resultLayer={resultLayer}
-                              showDetailedResults={showDetailedResults}
-                            />
-                          );
-                        })}
-                      </div>
-                    );
-                  })}
-              {/* {layersResult !== undefined &&
-                Object.keys(layersResult).map(key => {
+                Object.keys(allResults).map(key => {
                   return (
-                    <GeneriskElement
-                      coordinates_area={coordinates_area}
-                      key={key}
-                      kartlag={kartlag}
-                      resultat={layersResult[key]}
-                      element={key}
-                      infoboxDetailsVisible={infoboxDetailsVisible}
-                      resultLayer={resultLayer}
-                      showDetailedResults={showDetailedResults}
-                    />
+                    <div key={key} className="layers-results-subheaders">
+                      {key !== "" && (
+                        <ListSubheader disableSticky>{key}</ListSubheader>
+                      )}
+                      {Object.keys(allResults[key]).map(resultkey => {
+                        return (
+                          <GeneriskElement
+                            key={resultkey}
+                            kartlag={kartlag}
+                            resultat={allResults[key][resultkey]}
+                            element={resultkey}
+                            infoboxDetailsVisible={infoboxDetailsVisible}
+                            resultLayer={resultLayer}
+                            showDetailedResults={showDetailedResults}
+                          />
+                        );
+                      })}
+                    </div>
                   );
-                })} */}
+                })}
             </List>
           </div>
         )}
