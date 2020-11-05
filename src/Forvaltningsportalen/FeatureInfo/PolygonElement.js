@@ -9,7 +9,6 @@ const PolygonElement = ({
   showDetailedPolygonResults,
   grensePolygon
 }) => {
-  if (!result) result = [];
   const [numberResults, setNumberResults] = useState(0);
   const [detailedResult, setDetailedResult] = useState(0);
 
@@ -22,6 +21,11 @@ const PolygonElement = ({
   };
 
   useEffect(() => {
+    if (!result) {
+      setNumberResults(0);
+      setDetailedResult([]);
+      return;
+    }
     let filtered = result;
     if (polygonLayer.code === "FYL" || polygonLayer.code === "KOM") {
       if (grensePolygon === "fylke" || grensePolygon === "kommune") {
@@ -39,20 +43,20 @@ const PolygonElement = ({
     <div className="generic_element">
       <ListItem
         id="polygon-element-list"
-        button={result.error ? false : true}
+        button={numberResults > 0 ? true : false}
         divider
         onClick={e => {
           e.preventDefault();
           e.stopPropagation();
-          if (!result.error) {
+          if (result && !result.error) {
             showDetailedPolygonResults(polygonLayer, detailedResult);
           }
         }}
       >
         <ListItemIcon className="infobox-list-icon-wrapper">
           <Badge
-            badgeContent={result.error ? "!" : numberResults}
-            color={result.error ? "error" : "primary"}
+            badgeContent={result && result.error ? "!" : numberResults}
+            color={result && result.error ? "error" : "primary"}
           >
             <CustomIcon
               id="infobox-list-icon"

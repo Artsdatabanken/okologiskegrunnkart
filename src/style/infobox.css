@@ -702,6 +702,7 @@
   align-items: flex-start;
   justify-content: center;
   overflow-y: auto;
+  width: 100%;
 }
 .infobox-details-content-wrapper {
   display: flex;
@@ -947,11 +948,13 @@ h4.container_header {
   justify-content: space-between;
   margin-top: 4px;
   padding: 2px 0 6px 0;
+  width: 100%;
 }
 .polygon-details-description-wrapper-open {
   margin-top: 4px;
   padding: 2px 0 6px 0;
   padding-right: 12px;
+  width: 100%;
 }
 .polygon-details-description-wrapper-open:focus,
 .polygon-details-description-wrapper:focus {
@@ -976,8 +979,8 @@ h4.container_header {
   padding: 0 0 0 12px;
 }
 .polygon-details-description-text {
-  width: calc(350px - 91px);
-  max-width: calc(350 - 91px);
+  width: calc(100% - 91px);
+  max-width: calc(100% - 91px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
