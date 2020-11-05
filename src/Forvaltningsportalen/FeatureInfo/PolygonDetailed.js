@@ -41,6 +41,16 @@ const PolygonDetailed = ({
         };
       });
     }
+    if (resultLayer.code === "ANF") {
+      sorted = sorted.map(item => {
+        return {
+          ...item,
+          navn: item.kode,
+          kode: ""
+          // beskrivelse: getTextAreaReport("ANF", item.kode, "description")
+        };
+      });
+    }
     const number = sorted ? sorted.length : 0;
     setSortedResult(sorted);
     setNumberResults(number);
@@ -100,7 +110,6 @@ const PolygonDetailed = ({
               return (
                 <div
                   key={index}
-                  // className="polygon-details-content-wrapper"
                   className={
                     item.beskrivelse
                       ? "polygon-details-content-wrapper-description"
