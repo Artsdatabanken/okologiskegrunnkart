@@ -90,7 +90,6 @@ const ForvaltningsKartlag = ({
     setTaglist(taglist);
 
     // Sorterer listen på valgt kriterie
-    console.log("sortKey: ", sortKey);
     for (const item in lag) {
       let criteria = lag[item][sortKey];
       let new_list = [];
@@ -105,7 +104,6 @@ const ForvaltningsKartlag = ({
       sorted[criteria] = new_list;
     }
     setSorted(sorted);
-    console.log(sorted);
   }, [kartlag, sortKey]);
 
   useEffect(() => {
