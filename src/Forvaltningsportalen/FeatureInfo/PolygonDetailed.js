@@ -4,6 +4,7 @@ import { KeyboardBackspace } from "@material-ui/icons";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
+import PolygonDetailedDescription from "./PolygonDetailedDescription";
 
 const PolygonDetailed = ({
   resultLayer,
@@ -99,12 +100,12 @@ const PolygonDetailed = ({
               return (
                 <div
                   key={index}
-                  className="polygon-details-content-wrapper"
-                  // className={
-                  //   item.beskrivelse
-                  //     ? "polygon-details-content-wrapper-description"
-                  //     : "polygon-details-content-wrapper"
-                  // }
+                  // className="polygon-details-content-wrapper"
+                  className={
+                    item.beskrivelse
+                      ? "polygon-details-content-wrapper-description"
+                      : "polygon-details-content-wrapper"
+                  }
                 >
                   <div className="polygon-details-text-wrapper">
                     <div className="polygon-details-title">{item.navn}</div>
@@ -120,9 +121,9 @@ const PolygonDetailed = ({
                       {`(${((item.km2 / totalArea) * 100).toFixed(1)}%)`}
                     </div>
                   </div>
-                  {/* {item.beskrivelse && (
+                  {item.beskrivelse && (
                     <PolygonDetailedDescription item={item} />
-                  )} */}
+                  )}
                 </div>
               );
             })}

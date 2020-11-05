@@ -345,7 +345,7 @@ const reports = {
       code: "ikkeForsuretRestområde",
       initial_value: "E11",
       description:
-        "Naturtypen er bare interessant i (kraftig) forsurete områder der det foreligger tilbakegang og tap av forsuringsfølsomme arter over større arealer. Her opptrer de følsomme artene bare med små restforekomster («refugier») i ikke-forsurete lokaliteter, dvs. lokaliteter med et relativt høyt, naturlig kalkinnhold (kalsium-innhold &gt; 2-3 mg Ca/l). Opptrer i fattige grunnfjellsområder gjerne der det er amfibolittganger, breksjesoner eller løsmasser under marin grense. Bare naturlig kalkrike lokaliteter inngår (dvs. kalkete lokaliteter kart­legges normalt ikke, men kan inkluderes der de er langtidskalket og fungerer som viktige refugier). ",
+        "Naturtypen er bare interessant i (kraftig) forsurete områder der det foreligger tilbakegang og tap av forsuringsfølsomme arter over større arealer. Her opptrer de følsomme artene bare med små restforekomster («refugier») i ikke-forsurete lokaliteter, dvs. lokaliteter med et relativt høyt, naturlig kalkinnhold (kalsium-innhold > 2-3 mg Ca/l). Opptrer i fattige grunnfjellsområder gjerne der det er amfibolittganger, breksjesoner eller løsmasser under marin grense. Bare naturlig kalkrike lokaliteter inngår (dvs. kalkete lokaliteter kart­legges normalt ikke, men kan inkluderes der de er langtidskalket og fungerer som viktige refugier). ",
       name_english: "",
       description_english: "",
       name: "Ikke forsuret restområde"
@@ -445,7 +445,7 @@ const reports = {
       code: "kalksjø",
       initial_value: "E07",
       description:
-        "Små, (sterkt) kalkrike, næringsfattige innsjøer, gjerne med kalkutfellinger på vegetasjon og på bunnen (kalsium &gt; 20 mg Ca/l). Karakterisert av kransalgevegetasjon (mest Chara spp.) som bygger opp kalkmergelbanker, noen ganger også vel­utviklet langskuddsvegetasjon (overgang mot «tjønnaks-sjøer»; se kulturlandskapssjøer). Videre karakterisert bl.a. av kalkavhengige, skallbærende snegler og muslinger, svamper, samt kalsifile insekter. Også en del mer eller mindre kalk­krevende dyreplanktonarter (eks. Daphniaspp.).",
+        "Små, (sterkt) kalkrike, næringsfattige innsjøer, gjerne med kalkutfellinger på vegetasjon og på bunnen (kalsium > 20 mg Ca/l). Karakterisert av kransalgevegetasjon (mest Chara spp.) som bygger opp kalkmergelbanker, noen ganger også vel­utviklet langskuddsvegetasjon (overgang mot «tjønnaks-sjøer»; se kulturlandskapssjøer). Videre karakterisert bl.a. av kalkavhengige, skallbærende snegler og muslinger, svamper, samt kalsifile insekter. Også en del mer eller mindre kalk­krevende dyreplanktonarter (eks. Daphniaspp.).",
       name_english: "",
       description_english: "",
       name: "Kalksjø"
@@ -489,7 +489,7 @@ const reports = {
       code: "kroksjøerFlomdamOgMeandrerendeElveparti",
       initial_value: "E03",
       description:
-        "Flomdammer er små, grunne (&lt; 5 m) vannforekomster på elvesletter som oversvømmes ved flom. Ofte med begrenset levetid. Kroksjøer er avsnørte elvebuer (meanderbuer). Flomdammene er ofte rester av gamle flomløp, oppdemte bekkemunninger o.l. Forekomstene er karakterisert av arter som finnes spredt til sjelden i selve elvestrengen, og dels arter som hører hjemme i små, grunne vannforekomster. Meandrerende elveparti er partier­ der elva slynger seg i store buer over en flat elveslette. Elva graver i ytterkant, og sedimenterer i innerkant av meanderbuen. ",
+        "Flomdammer er små, grunne (< 5 m) vannforekomster på elvesletter som oversvømmes ved flom. Ofte med begrenset levetid. Kroksjøer er avsnørte elvebuer (meanderbuer). Flomdammene er ofte rester av gamle flomløp, oppdemte bekkemunninger o.l. Forekomstene er karakterisert av arter som finnes spredt til sjelden i selve elvestrengen, og dels arter som hører hjemme i små, grunne vannforekomster. Meandrerende elveparti er partier­ der elva slynger seg i store buer over en flat elveslette. Elva graver i ytterkant, og sedimenterer i innerkant av meanderbuen. ",
       name_english: "",
       description_english: "",
       name: "Kroksjøer flomdam og meandrerende elveparti"
