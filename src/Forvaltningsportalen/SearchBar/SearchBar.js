@@ -621,11 +621,64 @@ class SearchBar extends React.Component {
           </p>
         );
       } else {
-        items.push(
-          <p key={index} className="help-text-line">
-            {value}
-          </p>
+        const matches = value.matchAll(
+          /\((?<link>.*?)\)|\[(?<linkname>.*?)\]/g
         );
+        let allmatches = Array.from(matches);
+        allmatches = allmatches.map(e => {
+          const r = e.groups;
+          return r;
+        });
+        let links = allmatches.map(e => {
+          if (e.link) return e.link;
+          return null;
+        });
+        let linknames = allmatches.map(e => {
+          if (e.linkname) return e.linkname;
+          return null;
+        });
+        links = links.filter(e => e != null);
+        linknames = linknames.filter(e => e != null);
+        if (links.length > 0 && linknames.length > 0) {
+          let text = value;
+          let elements = [];
+          for (let i = 0; i < links.length; i++) {
+            text = text.split("[" + linknames[i] + "](" + links[i] + ")");
+            if (text.length > 1) {
+              elements.push(text[0]);
+              text = text[1];
+            } else {
+              elements.push(text[0]);
+              text = text[0];
+            }
+          }
+          let elementsWithLinks = [];
+          for (let i = 0; i < elements.length; i++) {
+            if (links[i]) {
+              elementsWithLinks.push(
+                <>
+                  {elements[i]}
+                  <a href={links[i]} target="_blank" rel="noopener noreferrer">
+                    {linknames[i]}
+                  </a>
+                </>
+              );
+            } else {
+              elementsWithLinks.push(<>{elements[i]}</>);
+            }
+          }
+          items.push(
+            <p key={index} className="help-text-line">
+              {elementsWithLinks}
+            </p>
+          );
+        } else {
+          items.push(
+            <p key={index} className="help-text-line">
+              {value}
+            </p>
+          );
+        }
       }
     }
     return items;
