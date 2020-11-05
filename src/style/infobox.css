@@ -833,7 +833,17 @@ h4.container_header {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  padding: 12px;
+  padding: 12px 0;
+  color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.polygon-details-content-wrapper-description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12px;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
   border-bottom: 1px solid #ddd;
@@ -896,10 +906,14 @@ h4.container_header {
 .polygon-details-text-wrapper {
   display: flex;
   align-items: center;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .polygon-details-text-wrapper.space-between {
   justify-content: space-between;
   width: 100%;
+  padding-left: 12px;
+  padding-right: 12px;
 }
 .polygon-details-title {
   font-weight: 500;
@@ -923,6 +937,32 @@ h4.container_header {
 }
 .polygon-details-secondary-text.end-line {
   margin-left: 8px;
+}
+
+/* Polygon details desription */
+#detailed-result-description.MuiListItem-gutters {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+#detailed-result-description.MuiListItem-root {
+  margin-top: 2px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
+#detailed-result-description .MuiListItemText-root .MuiTypography-body1 {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.65);
+}
+#detailed-result-description .MuiListItemIcon-root {
+  min-width: 24px;
+}
+.polygon-details-description-text {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  margin-bottom: 3px;
+  text-align: left;
+  line-height: 14px;
+  padding: 0 12px 12px 12px;
 }
 
 /* ---------- General transitions -----------  */

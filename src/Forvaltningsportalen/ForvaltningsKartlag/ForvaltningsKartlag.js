@@ -20,7 +20,7 @@ const ForvaltningsKartlag = ({
   isMobile
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
-  const [sortKey, setSortKey] = useState("alfabetisk");
+  const [sortKey, setSortKey] = useState("tema");
   const [tagFilter, setTagFilter] = useState({});
   const [matchAllFilters, setMatchAllFilters] = useState(true);
   const [sorted, setSorted] = useState({});
