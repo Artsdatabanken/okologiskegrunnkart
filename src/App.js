@@ -10,7 +10,11 @@ import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
-import { sortKartlag, sortUnderlag } from "./Funksjoner/sortObject";
+import {
+  initialKartlagSort,
+  sortKartlag,
+  sortUnderlag
+} from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
@@ -127,6 +131,8 @@ class App extends React.Component {
     const sublayersdb = await db.sublayers.toArray();
     const listFavoriteLayerIds = [];
     const listFavoriteSublayerIds = [];
+
+    kartlag = initialKartlagSort(kartlag);
 
     // Modify and store kartlag in state
     Object.entries(kartlag).forEach(async ([key, k]) => {
