@@ -105,6 +105,12 @@ class App extends React.Component {
   };
 
   async lastNedKartlag() {
+    // Run hard refresh the first time page is loaded
+    if (!window.location.hash) {
+      window.location = window.location + "#/";
+      window.location.reload();
+    }
+
     // Get kartlag.json file from server as default
     let kartlag = await backend.hentLokalFil(
       "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
