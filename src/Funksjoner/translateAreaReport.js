@@ -1,4 +1,77 @@
 const reports = {
+  ANF: {
+    "1": {
+      code: "Annen spesielt hensynskrevende art",
+      initial_value: "1",
+      description:
+        "art som det er knyttet spesielle forvaltningsmessige problemstillinger til. ",
+      name_english: "",
+      description_english: "",
+      name: "Annen spesielt hensynskrevende art"
+    },
+    "2": {
+      code: "Ansvarsart",
+      initial_value: "2",
+      description:
+        "arter der man finner mer enn 25 % av europeisk bestand i Norge. flere av disse artene er relativt vanlige i Norge.",
+      name_english: "",
+      description_english: "",
+      name: "Ansvarsart"
+    },
+    "3": {
+      code: "Fredet art",
+      initial_value: "3",
+      description: "art som er fredet ved Kongelig resolusjon",
+      name_english: "",
+      description_english: "",
+      name: "Fredet art"
+    },
+    "4": {
+      code: "Fremmed art",
+      initial_value: "4",
+      description:
+        "arter som er fremmed for Norge og med høy eller svært høy økologisk risiko, samt arter som er internt spredd i Norge med høy økologisk risiko, ihht svartelister",
+      name_english: "",
+      description_english: "",
+      name: "Fremmed art"
+    },
+    "5": {
+      code: "Nær trua art",
+      initial_value: "5",
+      description:
+        "art i som er plassert i kategorien NT-nær truet i gjeldende norsk rødliste",
+      name_english: "",
+      description_english: "",
+      name: "Nær trua art"
+    },
+    "6": {
+      code: "Prioritert art",
+      initial_value: "6",
+      description:
+        "art som har status som prioritert art ihht naturmangfolddloven",
+      name_english: "",
+      description_english: "",
+      name: "Prioritert art"
+    },
+    "7": {
+      code: "Spesiell økologisk form",
+      initial_value: "7",
+      description:
+        "angir økologisk form av en art som må ivaretas særskilt. f.eks. namdalsbleke i Namsen",
+      name_english: "",
+      description_english: "",
+      name: "Spesiell økologisk form"
+    },
+    "8": {
+      code: "Trua art",
+      initial_value: "8",
+      description:
+        "art som er plassert i en av følgende kategorier i gjeldende norsk rødliste: CR-kritisk truet, EN-truet, VU-sårbar",
+      name_english: "",
+      description_english: "",
+      name: "Trua art"
+    }
+  },
   N13: {
     D23: {
       code: "andreViktigeKulturmarkstyper",

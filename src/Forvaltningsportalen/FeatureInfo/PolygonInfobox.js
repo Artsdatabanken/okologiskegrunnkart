@@ -39,13 +39,50 @@ const availableLayers = [
     owner: "Kartverket"
   },
   {
+    name: "Arter nasjonal forvaltningsinteresse",
+    selected: false,
+    code: "ANF",
+    icon: "Arter",
+    owner: "Miljødirektoratet"
+  },
+  // {
+  //   name: "Breer i Norge",
+  //   selected: false,
+  //   code: "BRE",
+  //   icon: "Geologi",
+  //   owner: "Norges vassdrags- og energidirektorat"
+  // },
+  // {
+  //   name: "Elvenett Elvis",
+  //   selected: false,
+  //   code: "ELV",
+  //   icon: "Ferskvann",
+  //   owner: "Norges vassdrags- og energidirektorat"
+  // },
+  {
     name: "Naturtype - DN Håndbook 13",
     selected: false,
     code: "N13",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
   }
+  // {
+  //   name: "Flomsoner",
+  //   selected: false,
+  //   code: "FLO",
+  //   icon: "Ferskvann",
+  //   owner: "Norges vassdrags- og energidirektorat"
+  // }
+  // {
+  //   name: "Verneplan for Vassdrag",
+  //   selected: false,
+  //   code: "VVS",
+  //   icon: "Ferskvann",
+  //   owner: "Norges vassdrags- og energidirektorat"
+  // }
 ];
+
+const resultsOrder = ["FYL", "KOM", "ANF", "N13"];
 
 const PolygonInfobox = ({
   polygon,
@@ -331,6 +368,8 @@ const PolygonInfobox = ({
     grensePolygonData
   ]);
 
+  console.log("polygonResults", polygonResults);
+
   return (
     <div className="infobox-side">
       {showResults ? (
@@ -451,7 +490,9 @@ const PolygonInfobox = ({
                   )}
                   <List id="layers-results-list">
                     {polygonResults &&
-                      Object.keys(polygonResults).map(key => {
+                      resultsOrder.map(key => {
+                        if (!polygonResults[key]) return null;
+                        console.log("resutl: ", polygonResults[key]);
                         return (
                           <PolygonElement
                             polygonLayer={availableLayers.find(
@@ -466,6 +507,23 @@ const PolygonInfobox = ({
                           />
                         );
                       })}
+                    {/* {polygonResults &&
+                      Object.keys(polygonResults).map(key => {
+                        console.log("resutl: ", polygonResults[key])
+                        return (
+                          <PolygonElement
+                            polygonLayer={availableLayers.find(
+                              item => item.code === key
+                            )}
+                            key={key}
+                            result={polygonResults[key]}
+                            showDetailedPolygonResults={
+                              showDetailedPolygonResults
+                            }
+                            grensePolygon={grensePolygon}
+                          />
+                        );
+                      })} */}
                   </List>
                 </div>
               </div>
