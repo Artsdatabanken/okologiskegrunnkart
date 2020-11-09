@@ -10,7 +10,11 @@ import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
-import { sortKartlag, sortUnderlag } from "./Funksjoner/sortObject";
+import {
+  initialKartlagSort,
+  sortKartlag,
+  sortUnderlag
+} from "./Funksjoner/sortObject";
 import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
@@ -101,6 +105,12 @@ class App extends React.Component {
   };
 
   async lastNedKartlag() {
+    // Run hard refresh the first time page is loaded
+    if (!window.location.hash) {
+      window.location = window.location + "#/";
+      window.location.reload();
+    }
+
     // Get kartlag.json file from server as default
     let kartlag = await backend.hentLokalFil(
       "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
@@ -127,6 +137,8 @@ class App extends React.Component {
     const sublayersdb = await db.sublayers.toArray();
     const listFavoriteLayerIds = [];
     const listFavoriteSublayerIds = [];
+
+    kartlag = initialKartlagSort(kartlag);
 
     // Modify and store kartlag in state
     Object.entries(kartlag).forEach(async ([key, k]) => {
