@@ -696,10 +696,15 @@ class SearchBar extends React.Component {
       document.getElementById("search-button").focus();
       return;
     }
-    const searchBar = document.getElementsByClassName("searchbar_item");
+    const searchBar = document.getElementsByClassName(
+      "searchlist-item-wrapper"
+    );
     const length = searchBar.length;
     if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
       searchBar[0].focus();
+      console.log("Coming here");
+      console.log(e.keyCode, e.key);
+      console.log(searchBar[0]);
     }
   };
 

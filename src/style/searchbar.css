@@ -141,7 +141,7 @@
 }
 .treffliste .searchbar_item .searchlist-item-wrapper {
   padding: 6px 0;
-  margin: 0 10px;
+  /* margin: 0 10px; */
   text-align: left;
   display: flex;
   justify-content: space-between;
@@ -152,21 +152,24 @@
   border: none;
   padding-bottom: 10px;
 }
-.treffliste li span {
+.treffliste .searchbar_item .searchlist-item-wrapper span {
   display: inline-block;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
-.treffliste li::-moz-focus-inner {
+.treffliste .searchbar_item .searchlist-item-wrapper::-moz-focus-inner {
   border: 0;
 }
-.treffliste li:hover,
-.treffliste li:focus {
-  background: rgba(105, 127, 138, 0.4);
+.treffliste .searchbar_item .searchlist-item-wrapper:hover,
+.treffliste .searchbar_item .searchlist-item-wrapper:focus {
+  background: rgba(105, 127, 138, 0.2);
   outline: none;
   cursor: pointer;
   font-weight: 500;
 }
+/* .treffliste li div:focus {
+  outline: none;
+} */
 .itemname {
   width: 100%;
   font-size: 11pt;
@@ -268,8 +271,8 @@
 .treffliste.searchresultpage .searchbar_item .searchlist-item-wrapper {
   padding: 10px 0;
 }
-.treffliste.searchresultpage .searchbar_item:hover,
-.treffliste.searchresultpage .searchbar_item:focus {
+.treffliste.searchresultpage .searchbar_item .searchlist-item-wrapper:hover,
+.treffliste.searchresultpage .searchbar_item .searchlist-item-wrapper:focus {
   background: rgba(145, 163, 176, 0.2);
   outline: none;
   cursor: pointer;

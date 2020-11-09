@@ -356,11 +356,13 @@ const TreffListe = ({
         document.getElementById("searchfield").focus();
       }
     }
-    if (document.getElementsByClassName("searchbar_item")) {
+    if (document.getElementsByClassName("searchlist-item-wrapper")) {
       // nedoverpil
       if (e.keyCode === 40) {
         if (index < listItems.length - 1) {
-          document.getElementsByClassName("searchbar_item")[index + 1].focus();
+          document
+            .getElementsByClassName("searchlist-item-wrapper")
+            [index + 1].focus();
         }
       }
       // oppoverpil
@@ -369,7 +371,9 @@ const TreffListe = ({
         if (nextindex < 0) {
           document.getElementById("searchfield").focus();
         } else {
-          document.getElementsByClassName("searchbar_item")[index - 1].focus();
+          document
+            .getElementsByClassName("searchlist-item-wrapper")
+            [index - 1].focus();
         }
       }
     }
@@ -509,11 +513,11 @@ const TreffListe = ({
             searchResultPage ? "treffliste searchresultpage" : "treffliste"
           }
           id="treffliste"
-          onKeyDown={e => {
-            if (e.keyCode === 40 || e.keyCode === 38) {
-              e.preventDefault();
-            }
-          }}
+          // onKeyDown={e => {
+          //   if (e.keyCode === 40 || e.keyCode === 38) {
+          //     e.preventDefault();
+          //   }
+          // }}
         >
           {listItems &&
             listItems.map((item, index) => {
@@ -540,20 +544,34 @@ const TreffListe = ({
                 <li
                   id={index}
                   key={index}
-                  tabIndex="0"
                   className="searchbar_item"
-                  onKeyDown={e => {
-                    if (e.keyCode === 13) {
-                      onActivate(item, trefftype, itemtype);
-                    } else {
-                      movefocus(e, index);
-                    }
-                  }}
-                  onClick={() => {
-                    onActivate(item, trefftype, itemtype);
-                  }}
+                  // tabIndex="0"
+                  // onKeyDown={e => {
+                  //   if (e.keyCode === 13) {
+                  //     onActivate(item, trefftype, itemtype);
+                  //   } else {
+                  //     movefocus(e, index);
+                  //   }
+                  // }}
+                  // onClick={() => {
+                  //   onActivate(item, trefftype, itemtype);
+                  // }}
                 >
-                  <div className="searchlist-item-wrapper">
+                  <div
+                    className="searchlist-item-wrapper"
+                    role="button"
+                    tabIndex="0"
+                    onKeyDown={e => {
+                      if (e.keyCode === 13) {
+                        onActivate(item, trefftype, itemtype);
+                      } else {
+                        movefocus(e, index);
+                      }
+                    }}
+                    onClick={() => {
+                      onActivate(item, trefftype, itemtype);
+                    }}
+                  >
                     <span className="itemname">{itemname} </span>
                     <span className="itemtype">
                       {trefftype}
