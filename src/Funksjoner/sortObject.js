@@ -1,3 +1,42 @@
+function initialKartlagSort(object) {
+  // ----------------- NOTE ------------------- //
+  // This method CAN BE RUN ONLY ONCE first time kartlag file is uploaded.
+  // Since <kartlag key> is an integer, sorting does not work.
+  // This method converts the key from integer to
+  // string by adding space <<" " + key>>.
+  // Therefore, if this method is run more than once, the key
+  // will be changed and most of the functionality will be broken.
+
+  // Convert object to array and sort based on title
+  const array = Object.entries(object);
+  let sortedArray;
+  sortedArray = array.sort((a, b) => {
+    const textA =
+      a.length === 2 && a[1].tittel ? a[1].tittel.toLowerCase() : "";
+    const textB =
+      b.length === 2 && b[1].tittel ? b[1].tittel.toLowerCase() : "";
+    return textA < textB ? -1 : textA > textB ? 1 : 0;
+  });
+
+  // Convert array to object
+  const sortedObject = sortedArray.reduce((result, item) => {
+    if (parseInt(item[0]) >= 0) {
+      // If property is an integer (as string),
+      // you need to add " " to maintain order
+      const key = String(item[0]);
+      result[" " + key] = item[1];
+      return result;
+    } else {
+      // If is a string, order is maintained
+      const key = String(item[0]);
+      result[key] = item[1];
+      return result;
+    }
+  }, {});
+
+  return sortedObject;
+}
+
 function sortKartlag(object, mode = "alphabetical") {
   // Convert object to array and sort based on title
   const array = Object.entries(object);
@@ -44,18 +83,9 @@ function sortKartlag(object, mode = "alphabetical") {
 
   // Convert array to object
   const sortedObject = fullySortedArray.reduce((result, item) => {
-    if (parseInt(item[0]) >= 0) {
-      // If property is an integer (as string),
-      // you need to add " " to maintain order
-      const key = String(item[0]);
-      result[" " + key] = item[1];
-      return result;
-    } else {
-      // If is a string, order is maintained
-      const key = String(item[0]);
-      result[key] = item[1];
-      return result;
-    }
+    const key = String(item[0]);
+    result[key] = item[1];
+    return result;
   }, {});
 
   return sortedObject;
@@ -80,4 +110,4 @@ function sortUnderlag(object) {
   return sortedObject;
 }
 
-export { sortKartlag, sortUnderlag };
+export { initialKartlagSort, sortKartlag, sortUnderlag };
