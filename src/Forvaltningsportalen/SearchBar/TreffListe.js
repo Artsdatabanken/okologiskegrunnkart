@@ -513,11 +513,6 @@ const TreffListe = ({
             searchResultPage ? "treffliste searchresultpage" : "treffliste"
           }
           id="treffliste"
-          // onKeyDown={e => {
-          //   if (e.keyCode === 40 || e.keyCode === 38) {
-          //     e.preventDefault();
-          //   }
-          // }}
         >
           {listItems &&
             listItems.map((item, index) => {
@@ -541,22 +536,7 @@ const TreffListe = ({
               }
 
               return (
-                <li
-                  id={index}
-                  key={index}
-                  className="searchbar_item"
-                  // tabIndex="0"
-                  // onKeyDown={e => {
-                  //   if (e.keyCode === 13) {
-                  //     onActivate(item, trefftype, itemtype);
-                  //   } else {
-                  //     movefocus(e, index);
-                  //   }
-                  // }}
-                  // onClick={() => {
-                  //   onActivate(item, trefftype, itemtype);
-                  // }}
-                >
+                <li id={index} key={index} className="searchbar_item">
                   <div
                     className="searchlist-item-wrapper"
                     role="button"
