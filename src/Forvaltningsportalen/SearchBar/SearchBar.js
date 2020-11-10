@@ -702,9 +702,6 @@ class SearchBar extends React.Component {
     const length = searchBar.length;
     if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
       searchBar[0].focus();
-      console.log("Coming here");
-      console.log(e.keyCode, e.key);
-      console.log(searchBar[0]);
     }
   };
 

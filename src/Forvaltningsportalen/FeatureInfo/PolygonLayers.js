@@ -48,7 +48,7 @@ const PolygonLayers = ({
       } else if (depth === 3) {
         let points = "";
         for (const poly of polygon) {
-          points = "(";
+          points = points + "(";
           for (const coord of poly) {
             points = points + coord[1] + " " + coord[0] + ",";
           }
@@ -63,8 +63,9 @@ const PolygonLayers = ({
       } else if (depth === 4) {
         let points = "";
         for (const multi of polygon) {
+          points = points + "(";
           for (const poly of multi) {
-            points = "(";
+            points = points + "(";
             for (const coord of poly) {
               points = points + coord[1] + " " + coord[0] + ",";
             }
@@ -74,7 +75,8 @@ const PolygonLayers = ({
           }
           // Remove last comma
           points = points.slice(0, -1);
-          points = "(" + points + "),";
+          // points = "(" + points + "),";
+          points = points + "),";
         }
         // Remove last comma
         points = points.slice(0, -1);
@@ -117,7 +119,11 @@ const PolygonLayers = ({
   }, [polygon, polygonJSON]);
 
   return (
-    <div className="polygon-layers-wrapper">
+    <div
+      className={
+        menuOpen ? "polygon-layers-wrapper expanded" : "polygon-layers-wrapper"
+      }
+    >
       <ListItem
         id={disabled ? "polygon-layer-disabled" : "polygon-layer-expander"}
         button

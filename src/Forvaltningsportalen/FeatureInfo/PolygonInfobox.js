@@ -368,8 +368,6 @@ const PolygonInfobox = ({
     grensePolygonData
   ]);
 
-  console.log("polygonResults", polygonResults);
-
   return (
     <div className="infobox-side">
       {showResults ? (
@@ -492,7 +490,6 @@ const PolygonInfobox = ({
                     {polygonResults &&
                       resultsOrder.map(key => {
                         if (!polygonResults[key]) return null;
-                        console.log("resutl: ", polygonResults[key]);
                         return (
                           <PolygonElement
                             polygonLayer={availableLayers.find(
@@ -509,7 +506,6 @@ const PolygonInfobox = ({
                       })}
                     {/* {polygonResults &&
                       Object.keys(polygonResults).map(key => {
-                        console.log("resutl: ", polygonResults[key])
                         return (
                           <PolygonElement
                             polygonLayer={availableLayers.find(

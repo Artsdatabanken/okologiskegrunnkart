@@ -788,14 +788,25 @@ h4.container_header {
   border-bottom: 1px solid #aaa;
   background: rgba(145, 163, 176, 0.5);
 }
+.polygon-tool-wrapper.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 15px 14px 14px;
+}
 .polygon-buttons-wrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 }
 .polygon-tool-label {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+.polygon-tool-label.vertical {
+  padding-bottom: 8px;
+  align-self: flex-start;
 }
 .infobox-text-wrapper-polygon {
   display: flex;
@@ -827,6 +838,9 @@ h4.container_header {
 .geometry-tool-button {
   margin-left: 8px;
 }
+.geometry-tool-button.first-tool {
+  margin: 0;
+}
 
 /* Polygon layers */
 .polygon-details-content-wrapper {
@@ -855,6 +869,10 @@ h4.container_header {
   align-content: flex-start;
   justify-items: center;
   border-top: 1px solid #aaa;
+  min-height: 50px;
+}
+.polygon-layers-wrapper.expanded {
+  min-height: 249px;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
@@ -878,9 +896,11 @@ h4.container_header {
 }
 .polygon-layers-content {
   background: rgba(145, 163, 176, 0.2);
+  min-height: 199px;
 }
 .polygon-checkbox-content {
   padding: 10px 10px 8px 14px;
+  min-height: 154px;
 }
 .polygon-button-wrapper {
   padding-bottom: 15px;

@@ -7,7 +7,10 @@ import {
   Done,
   Undo,
   ExpandLess,
-  ExpandMore
+  ExpandMore,
+  Forward,
+  Folder,
+  Save
 } from "@material-ui/icons";
 import {
   IconButton,
@@ -21,6 +24,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
+import { sortPolygonCoord } from "../../Funksjoner/polygonTools";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {
@@ -88,6 +92,40 @@ const PolygonDrawTool = ({
     } else if (grensePolygon === "eiendom") {
       hideAndShowPolygon(!showEiendomPolygon);
     }
+  };
+
+  const selectFile = () => {
+    const fileSelector = document.getElementById("file-input");
+    fileSelector.click();
+
+    fileSelector.onchange = () => {
+      const selectedFiles = fileSelector.files;
+      if (fileSelector.files.length > 0) {
+        const reader = new FileReader();
+
+        // This event will happen when the reader has read the file
+        reader.onload = () => {
+          var result = JSON.parse(reader.result);
+          if (result && result.features && result.features.length > 0) {
+            const allGeoms = [];
+            for (const geom of result.features) {
+              if (
+                geom.geometry &&
+                geom.geometry &&
+                geom.geometry.coordinates &&
+                geom.geometry.coordinates.length > 0
+              ) {
+                allGeoms.push(sortPolygonCoord(geom.geometry));
+              }
+            }
+            addPolygon(allGeoms);
+            addPolyline([]);
+          }
+          document.getElementById("file-input").value = "";
+        };
+        reader.readAsText(selectedFiles[0]);
+      }
+    };
   };
 
   useEffect(() => {
@@ -169,28 +207,91 @@ const PolygonDrawTool = ({
         </div>
       </Collapse>
 
-      <div className="polygon-tool-wrapper">
-        <div className="polygon-tool-label">
+      <div
+        className={
+          grensePolygon === "none"
+            ? "polygon-tool-wrapper vertical"
+            : "polygon-tool-wrapper"
+        }
+      >
+        <div
+          className={
+            grensePolygon === "none"
+              ? "polygon-tool-label vertical"
+              : "polygon-tool-label"
+          }
+        >
           <Typography variant="body1">Geometri</Typography>
         </div>
         <div className="polygon-buttons-wrapper">
-          {polygon && grensePolygon === "none" && (
-            <BottomTooltip placement="bottom" title="Rediger">
-              <span className="geometry-tool-button">
-                <IconButton
-                  className={classes.customIconButtom}
-                  onClick={() => {
-                    addPolygon(null);
-                    addPolyline(polygon);
-                    handleEditable(true);
-                    handlePolygonResults(null);
-                  }}
-                >
-                  <Create />
-                </IconButton>
-              </span>
-            </BottomTooltip>
+          {/* !polygon && polyline.length === 0 && grensePolygon === "none" && */}
+          {grensePolygon === "none" && (
+            <>
+              <BottomTooltip placement="bottom" title="Laste opp polygon">
+                <span className="geometry-tool-button first-tool">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      selectFile();
+                    }}
+                  >
+                    <Forward style={{ transform: "rotate(-90deg)" }} />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+              <BottomTooltip placement="bottom" title="Åpne lagret polygon">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      if (polyline.length > 0) {
+                        polyline.pop();
+                        addPolyline(polyline);
+                      }
+                    }}
+                  >
+                    <Folder />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+            </>
           )}
+
+          {polygon && grensePolygon === "none" && (
+            <>
+              <BottomTooltip placement="bottom" title="Lagre polygon">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      addPolygon(null);
+                      addPolyline(polygon);
+                      handleEditable(true);
+                      handlePolygonResults(null);
+                    }}
+                  >
+                    <Save />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+              <BottomTooltip placement="bottom" title="Rediger">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      addPolygon(null);
+                      addPolyline(polygon);
+                      handleEditable(true);
+                      handlePolygonResults(null);
+                    }}
+                  >
+                    <Create />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+            </>
+          )}
+
           {!polygon && grensePolygon === "none" && (
             <>
               <BottomTooltip placement="bottom" title="Angre sist">
@@ -253,6 +354,13 @@ const PolygonDrawTool = ({
           </BottomTooltip>
         </div>
       </div>
+      <input
+        style={{ display: "none" }}
+        type="file"
+        id="file-input"
+        name="file"
+        accept=".geojson, .json"
+      />
     </>
   );
 };
