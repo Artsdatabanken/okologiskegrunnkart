@@ -103,7 +103,9 @@ const PolygonInfobox = ({
   showKommunePolygon,
   showEiendomPolygon,
   grensePolygonGeom,
-  grensePolygonData
+  grensePolygonData,
+  uploadedPolygon,
+  handleUploadedPolygon
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -395,6 +397,8 @@ const PolygonInfobox = ({
             showFylkePolygon={showFylkePolygon}
             showKommunePolygon={showKommunePolygon}
             showEiendomPolygon={showEiendomPolygon}
+            uploadedPolygon={uploadedPolygon}
+            handleUploadedPolygon={handleUploadedPolygon}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">

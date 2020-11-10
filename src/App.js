@@ -101,7 +101,8 @@ class App extends React.Component {
     showAppName: true,
     showAboutModal: false,
     aboutPage: null,
-    updateChangeInUrl: true
+    updateChangeInUrl: true,
+    uploadedPolygon: false
   };
 
   async lastNedKartlag() {
@@ -530,6 +531,8 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
+                        uploadedPolygon={this.state.uploadedPolygon}
+                        handleUploadedPolygon={this.handleUploadedPolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -2041,6 +2044,10 @@ class App extends React.Component {
 
   handleUpdateChangeInUrl = value => {
     this.setState({ updateChangeInUrl: value });
+  };
+
+  handleUploadedPolygon = value => {
+    this.setState({ uploadedPolygon: value });
   };
 
   static contextType = SettingsContext;

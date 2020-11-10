@@ -19,8 +19,10 @@ import {
   RadioGroup,
   FormControlLabel,
   ListItem,
-  ListItemText
+  ListItemText,
+  Snackbar
 } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
@@ -60,11 +62,14 @@ const PolygonDrawTool = ({
   setShowPolygonOptions,
   showFylkePolygon,
   showKommunePolygon,
-  showEiendomPolygon
+  showEiendomPolygon,
+  uploadedPolygon,
+  handleUploadedPolygon
 }) => {
   const classes = useStyles();
 
   const [polygonVisible, setPolygonVisible] = useState(true);
+  const [showUploadError, setShowUploadError] = useState(false);
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
@@ -80,6 +85,7 @@ const PolygonDrawTool = ({
     }
     hideAndShowPolygon(true);
     handlePolygonResults(null);
+    handleUploadedPolygon(false);
   };
 
   const hideShowPolygon = () => {
@@ -106,8 +112,8 @@ const PolygonDrawTool = ({
         // This event will happen when the reader has read the file
         reader.onload = () => {
           var result = JSON.parse(reader.result);
+          const allGeoms = [];
           if (result && result.features && result.features.length > 0) {
-            const allGeoms = [];
             for (const geom of result.features) {
               if (
                 geom.geometry &&
@@ -120,12 +126,26 @@ const PolygonDrawTool = ({
             }
             addPolygon(allGeoms);
             addPolyline([]);
+            handleUploadedPolygon(true);
+          } else {
+            setShowUploadError(true);
+          }
+
+          if (allGeoms.length === 0) {
+            setShowUploadError(true);
           }
           document.getElementById("file-input").value = "";
         };
         reader.readAsText(selectedFiles[0]);
       }
     };
+  };
+
+  const closeUploadError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowUploadError(false);
   };
 
   useEffect(() => {
@@ -231,9 +251,7 @@ const PolygonDrawTool = ({
                 <span className="geometry-tool-button first-tool">
                   <IconButton
                     className={classes.customIconButtom}
-                    onClick={() => {
-                      selectFile();
-                    }}
+                    onClick={() => selectFile()}
                   >
                     <Forward style={{ transform: "rotate(-90deg)" }} />
                   </IconButton>
@@ -244,10 +262,7 @@ const PolygonDrawTool = ({
                   <IconButton
                     className={classes.customIconButtom}
                     onClick={() => {
-                      if (polyline.length > 0) {
-                        polyline.pop();
-                        addPolyline(polyline);
-                      }
+                      console.log("Functionality not implemented");
                     }}
                   >
                     <Folder />
@@ -264,10 +279,7 @@ const PolygonDrawTool = ({
                   <IconButton
                     className={classes.customIconButtom}
                     onClick={() => {
-                      addPolygon(null);
-                      addPolyline(polygon);
-                      handleEditable(true);
-                      handlePolygonResults(null);
+                      console.log("Functionality not implemented");
                     }}
                   >
                     <Save />
@@ -284,6 +296,7 @@ const PolygonDrawTool = ({
                       handleEditable(true);
                       handlePolygonResults(null);
                     }}
+                    disabled={uploadedPolygon}
                   >
                     <Create />
                   </IconButton>
@@ -361,6 +374,13 @@ const PolygonDrawTool = ({
         name="file"
         accept=".geojson, .json"
       />
+      <Snackbar
+        open={showUploadError}
+        autoHideDuration={3000}
+        onClose={closeUploadError}
+      >
+        <Alert severity="error">Kunne ikke laste opp filen</Alert>
+      </Snackbar>
     </>
   );
 };
