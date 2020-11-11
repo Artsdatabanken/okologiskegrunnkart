@@ -8,7 +8,6 @@ import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
 import { Snackbar } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -988,7 +987,9 @@ class Leaflet extends React.Component {
           autoHideDuration={3000}
           onClose={this.props.closeUploadError}
         >
-          <Alert severity="error">Kunne ikke laste opp filen</Alert>
+          <div className="uploaded-polygon-warning">
+            Kunne ikke laste opp filen
+          </div>
         </Snackbar>
       </div>
     );
