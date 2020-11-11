@@ -132,18 +132,18 @@ const PolygonInfobox = ({
     let points;
     // If polygon, add the first point as the last one
     if (polygon && polygon.length > 0) {
-      const depht = getPolygonDepth(polygon);
-      if (depht === 2) {
+      const depth = getPolygonDepth(polygon);
+      if (depth === 2) {
         // Only one polygon
         points = [...polygon];
         points.push(polygon[0]);
         dist += calculatePerimeter(points);
-      } else if (depht === 3) {
+      } else if (depth === 3) {
         // Only one polygon with holes
         points = [...polygon[0]];
         points.push(polygon[0][0]);
         dist += calculatePerimeter(points);
-      } else if (depht === 4) {
+      } else if (depth === 4) {
         // Multipolygon
         for (const poly of polygon) {
           points = [...poly[0]];

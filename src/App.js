@@ -23,11 +23,12 @@ import {
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
-  sortPolygonCoord,
   getPolygonDepth,
+  sortPolygonCoord,
   transformUploadedPolygon
 } from "./Funksjoner/polygonTools";
 import AppName from "./Forvaltningsportalen/AppName";
+import getProjection from "./Funksjoner/getProjection";
 
 class App extends React.Component {
   state = {
@@ -2063,7 +2064,7 @@ class App extends React.Component {
         // This event will happen when the reader has read the file
         reader.onload = () => {
           var result = JSON.parse(reader.result);
-          const allGeoms = [];
+          let allGeoms = [];
           if (result && result.features && result.features.length > 0) {
             this.setState({ automaticZoomUpdate: true });
 
@@ -2074,17 +2075,8 @@ class App extends React.Component {
               result.crs.properties &&
               result.crs.properties.name
             ) {
-              let name = result.crs.properties.name;
-              name = name.toLowerCase();
-              if (name.includes("epsg") && name.includes("3857")) {
-                projection = "EPSG:3857";
-              } else if (name.includes("epsg") && name.includes("3785")) {
-                projection = "EPSG:3857";
-              } else if (name.includes("epsg") && name.includes("900913")) {
-                projection = "EPSG:3857";
-              } else if (name.includes("epsg") && name.includes("102113")) {
-                projection = "EPSG:3857";
-              }
+              let crs = result.crs.properties.name;
+              projection = getProjection(crs);
             }
 
             for (const geom of result.features) {
@@ -2094,9 +2086,16 @@ class App extends React.Component {
                 geom.geometry.coordinates &&
                 geom.geometry.coordinates.length > 0
               ) {
-                allGeoms.push(
-                  transformUploadedPolygon(geom.geometry, projection)
+                const depth = getPolygonDepth(geom.geometry.coordinates);
+                const result = transformUploadedPolygon(
+                  geom.geometry,
+                  projection
                 );
+                if (depth === 2 || depth === 3) {
+                  allGeoms.push(result);
+                } else if (depth === 4) {
+                  allGeoms = allGeoms.concat(result);
+                }
               }
             }
             this.addPolygon(allGeoms);
