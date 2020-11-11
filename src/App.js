@@ -22,7 +22,11 @@ import {
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
-import { sortPolygonCoord, getPolygonDepth } from "./Funksjoner/polygonTools";
+import {
+  sortPolygonCoord,
+  getPolygonDepth,
+  transformUploadedPolygon
+} from "./Funksjoner/polygonTools";
 import AppName from "./Forvaltningsportalen/AppName";
 
 class App extends React.Component {
@@ -2074,6 +2078,27 @@ class App extends React.Component {
           const allGeoms = [];
           if (result && result.features && result.features.length > 0) {
             this.setState({ automaticZoomUpdate: true });
+
+            // Get projection
+            let projection = "";
+            if (
+              result.crs &&
+              result.crs.properties &&
+              result.crs.properties.name
+            ) {
+              let name = result.crs.properties.name;
+              name = name.toLowerCase();
+              if (name.includes("epsg") && name.includes("3857")) {
+                projection = "EPSG:3857";
+              } else if (name.includes("epsg") && name.includes("3785")) {
+                projection = "EPSG:3857";
+              } else if (name.includes("epsg") && name.includes("900913")) {
+                projection = "EPSG:3857";
+              } else if (name.includes("epsg") && name.includes("102113")) {
+                projection = "EPSG:3857";
+              }
+            }
+
             for (const geom of result.features) {
               if (
                 geom.geometry &&
@@ -2081,7 +2106,9 @@ class App extends React.Component {
                 geom.geometry.coordinates &&
                 geom.geometry.coordinates.length > 0
               ) {
-                allGeoms.push(sortPolygonCoord(geom.geometry));
+                allGeoms.push(
+                  transformUploadedPolygon(geom.geometry, projection)
+                );
               }
             }
             this.addPolygon(allGeoms);

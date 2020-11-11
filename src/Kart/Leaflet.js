@@ -993,7 +993,7 @@ class Leaflet extends React.Component {
           type="file"
           id="file-input"
           name="file"
-          accept=".json"
+          accept=".geojson, .json"
         />
         <Snackbar
           open={this.props.showUploadError}

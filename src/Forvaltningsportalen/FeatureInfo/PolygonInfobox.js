@@ -510,22 +510,6 @@ const PolygonInfobox = ({
                           />
                         );
                       })}
-                    {/* {polygonResults &&
-                      Object.keys(polygonResults).map(key => {
-                        return (
-                          <PolygonElement
-                            polygonLayer={availableLayers.find(
-                              item => item.code === key
-                            )}
-                            key={key}
-                            result={polygonResults[key]}
-                            showDetailedPolygonResults={
-                              showDetailedPolygonResults
-                            }
-                            grensePolygon={grensePolygon}
-                          />
-                        );
-                      })} */}
                   </List>
                 </div>
               </div>
