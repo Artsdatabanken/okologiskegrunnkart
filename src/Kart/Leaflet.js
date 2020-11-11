@@ -988,6 +988,13 @@ class Leaflet extends React.Component {
             Polygon kanter kan ikke krysse
           </div>
         )}
+        <input
+          style={{ display: "none" }}
+          type="file"
+          id="file-input"
+          name="file"
+          accept=".geojson, .json"
+        />
         <Snackbar
           open={this.props.showUploadError}
           autoHideDuration={3000}

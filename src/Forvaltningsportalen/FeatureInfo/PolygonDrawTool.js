@@ -316,13 +316,6 @@ const PolygonDrawTool = ({
           </BottomTooltip>
         </div>
       </div>
-      <input
-        style={{ display: "none" }}
-        type="file"
-        id="file-input"
-        name="file"
-        accept=".geojson, .json"
-      />
     </>
   );
 };

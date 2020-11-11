@@ -899,6 +899,42 @@ class SearchBar extends React.Component {
             >
               <ListItemText primary="Editere favoritt kartlag" />
             </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.uploadPolygonFile();
+                this.handleCloseMenu();
+              }}
+            >
+              <ListItemText primary="Laste opp polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Åpne lagret polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Lagre polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Editere lagrede polygoner" />
+            </MenuItem>
           </Menu>
         </div>
 
