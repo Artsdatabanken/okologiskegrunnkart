@@ -696,7 +696,9 @@ class SearchBar extends React.Component {
       document.getElementById("search-button").focus();
       return;
     }
-    const searchBar = document.getElementsByClassName("searchbar_item");
+    const searchBar = document.getElementsByClassName(
+      "searchlist-item-wrapper"
+    );
     const length = searchBar.length;
     if (e.key === "ArrowDown" && e.keyCode === 40 && searchBar && length > 0) {
       searchBar[0].focus();
@@ -896,6 +898,42 @@ class SearchBar extends React.Component {
               }}
             >
               <ListItemText primary="Editere favoritt kartlag" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                this.props.uploadPolygonFile();
+                this.handleCloseMenu();
+              }}
+            >
+              <ListItemText primary="Laste opp polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Åpne lagret polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Lagre polygon" />
+            </MenuItem>
+            <MenuItem
+              id="settings-menu-kartlag"
+              onClick={() => {
+                console.log("Functionality not implemented");
+              }}
+              disabled={true}
+            >
+              <ListItemText primary="Editere lagrede polygoner" />
             </MenuItem>
           </Menu>
         </div>

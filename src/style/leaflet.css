@@ -200,6 +200,19 @@
   display: none;
 }
 
+/* ------------ Polygon warning ------------- */
+.uploaded-polygon-warning {
+  background: #971500;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 550;
+  text-align: center;
+  padding: 8px 100px;
+  display: block;
+  border: 2px solid white;
+}
+
 /* ---------- General transitions -----------  */
 .margin-animation {
   -webkit-transition: margin 0.5s;

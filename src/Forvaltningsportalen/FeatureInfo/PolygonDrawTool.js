@@ -7,7 +7,10 @@ import {
   Done,
   Undo,
   ExpandLess,
-  ExpandMore
+  ExpandMore,
+  Forward,
+  Folder,
+  Save
 } from "@material-ui/icons";
 import {
   IconButton,
@@ -56,7 +59,10 @@ const PolygonDrawTool = ({
   setShowPolygonOptions,
   showFylkePolygon,
   showKommunePolygon,
-  showEiendomPolygon
+  showEiendomPolygon,
+  uploadedPolygon,
+  handleUploadedPolygon,
+  uploadPolygonFile
 }) => {
   const classes = useStyles();
 
@@ -76,6 +82,7 @@ const PolygonDrawTool = ({
     }
     hideAndShowPolygon(true);
     handlePolygonResults(null);
+    handleUploadedPolygon(false);
   };
 
   const hideShowPolygon = () => {
@@ -169,28 +176,84 @@ const PolygonDrawTool = ({
         </div>
       </Collapse>
 
-      <div className="polygon-tool-wrapper">
-        <div className="polygon-tool-label">
+      <div
+        className={
+          grensePolygon === "none"
+            ? "polygon-tool-wrapper vertical"
+            : "polygon-tool-wrapper"
+        }
+      >
+        <div
+          className={
+            grensePolygon === "none"
+              ? "polygon-tool-label vertical"
+              : "polygon-tool-label"
+          }
+        >
           <Typography variant="body1">Geometri</Typography>
         </div>
         <div className="polygon-buttons-wrapper">
-          {polygon && grensePolygon === "none" && (
-            <BottomTooltip placement="bottom" title="Rediger">
-              <span className="geometry-tool-button">
-                <IconButton
-                  className={classes.customIconButtom}
-                  onClick={() => {
-                    addPolygon(null);
-                    addPolyline(polygon);
-                    handleEditable(true);
-                    handlePolygonResults(null);
-                  }}
-                >
-                  <Create />
-                </IconButton>
-              </span>
-            </BottomTooltip>
+          {/* !polygon && polyline.length === 0 && grensePolygon === "none" && */}
+          {grensePolygon === "none" && (
+            <>
+              <BottomTooltip placement="bottom" title="Laste opp polygon">
+                <span className="geometry-tool-button first-tool">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => uploadPolygonFile()}
+                  >
+                    <Forward style={{ transform: "rotate(-90deg)" }} />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+              <BottomTooltip placement="bottom" title="Åpne lagret polygon">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      console.log("Functionality not implemented");
+                    }}
+                  >
+                    <Folder />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+            </>
           )}
+
+          {polygon && grensePolygon === "none" && (
+            <>
+              <BottomTooltip placement="bottom" title="Lagre polygon">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      console.log("Functionality not implemented");
+                    }}
+                  >
+                    <Save />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+              <BottomTooltip placement="bottom" title="Rediger">
+                <span className="geometry-tool-button">
+                  <IconButton
+                    className={classes.customIconButtom}
+                    onClick={() => {
+                      addPolygon(null);
+                      addPolyline(polygon);
+                      handleEditable(true);
+                      handlePolygonResults(null);
+                    }}
+                    disabled={uploadedPolygon}
+                  >
+                    <Create />
+                  </IconButton>
+                </span>
+              </BottomTooltip>
+            </>
+          )}
+
           {!polygon && grensePolygon === "none" && (
             <>
               <BottomTooltip placement="bottom" title="Angre sist">

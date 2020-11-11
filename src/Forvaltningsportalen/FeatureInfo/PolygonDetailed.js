@@ -34,10 +34,19 @@ const PolygonDetailed = ({
     });
     if (resultLayer.code === "N13") {
       sorted = sorted.map(item => {
+        // NOTE: A08 has been moved to A11, but data still returns A08
         return {
           ...item,
-          navn: getTextAreaReport("N13", item.kode, "name"),
-          beskrivelse: getTextAreaReport("N13", item.kode, "description")
+          navn: getTextAreaReport(
+            "N13",
+            item.kode === "A08" ? "A11" : item.kode,
+            "name"
+          ),
+          beskrivelse: getTextAreaReport(
+            "N13",
+            item.kode === "A08" ? "A11" : item.kode,
+            "description"
+          )
         };
       });
     }

@@ -22,8 +22,13 @@ import {
   removeUnusedLayersIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
-import { sortPolygonCoord, getPolygonDepth } from "./Funksjoner/polygonTools";
+import {
+  getPolygonDepth,
+  sortPolygonCoord,
+  transformUploadedPolygon
+} from "./Funksjoner/polygonTools";
 import AppName from "./Forvaltningsportalen/AppName";
+import getProjection from "./Funksjoner/getProjection";
 
 class App extends React.Component {
   state = {
@@ -95,13 +100,12 @@ class App extends React.Component {
     automaticZoomUpdate: false,
     trefftype: null,
     treffitemtype: null,
-    mincoord: null,
-    maxcoord: null,
-    centercoord: null,
     showAppName: true,
     showAboutModal: false,
     aboutPage: null,
-    updateChangeInUrl: true
+    updateChangeInUrl: true,
+    uploadedPolygon: false,
+    showUploadError: false
   };
 
   async lastNedKartlag() {
@@ -403,8 +407,8 @@ class App extends React.Component {
     const diffLat = (maxLat - minLat) * margin;
     const mincoord = [minLng - diffLng, minLat - diffLat];
     const maxcoord = [maxLng + diffLng, maxLat + diffLat];
-    if (mincoord && maxcoord && this.state.centercoord) {
-      this.handleSetZoomCoordinates(mincoord, maxcoord, this.state.centercoord);
+    if (mincoord && maxcoord) {
+      this.handleSetZoomCoordinates(mincoord, maxcoord);
     }
   };
 
@@ -530,6 +534,11 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
+                        uploadedPolygon={this.state.uploadedPolygon}
+                        handleUploadedPolygon={this.handleUploadedPolygon}
+                        uploadPolygonFile={this.uploadPolygonFile}
+                        showUploadError={this.state.showUploadError}
+                        closeUploadError={this.closeUploadError}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -558,6 +567,7 @@ class App extends React.Component {
                         handleFullscreenInfobox={this.handleFullscreenInfobox}
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
+                        uploadPolygonFile={this.uploadPolygonFile}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -827,12 +837,11 @@ class App extends React.Component {
     this.setState({ zoomcoordinates: null });
   };
 
-  handleSetZoomCoordinates = (mincoord, maxcoord, centercoord) => {
+  handleSetZoomCoordinates = (mincoord, maxcoord) => {
     this.setState({
       zoomcoordinates: {
         mincoord: mincoord,
-        maxcoord: maxcoord,
-        centercoord: centercoord
+        maxcoord: maxcoord
       }
     });
   };
@@ -840,7 +849,6 @@ class App extends React.Component {
   handleGeoSelection = async (geostring, trefftype, itemtype) => {
     let mincoord = null;
     let maxcoord = null;
-    let centercoord = null;
     let lng = null;
     let lat = null;
 
@@ -853,7 +861,6 @@ class App extends React.Component {
         parseFloat(geostring.aust) + 0.5,
         parseFloat(geostring.nord) + 0.5
       ];
-      centercoord = [parseFloat(geostring.aust), parseFloat(geostring.nord)];
       lng = parseFloat(geostring.aust);
       lat = parseFloat(geostring.nord);
     } else {
@@ -866,13 +873,11 @@ class App extends React.Component {
         parseFloat(koordinater.lon) + 0.5,
         parseFloat(koordinater.lat) + 0.5
       ];
-      centercoord = [parseFloat(koordinater.lon), parseFloat(koordinater.lat)];
       lng = parseFloat(koordinater.lon);
       lat = parseFloat(koordinater.lat);
     }
 
     // Update state
-    if (centercoord) this.setState({ centercoord });
     if (maxcoord) this.setState({ maxcoord });
     if (mincoord) this.setState({ mincoord });
 
@@ -2041,6 +2046,85 @@ class App extends React.Component {
 
   handleUpdateChangeInUrl = value => {
     this.setState({ updateChangeInUrl: value });
+  };
+
+  handleUploadedPolygon = value => {
+    this.setState({ uploadedPolygon: value });
+  };
+
+  uploadPolygonFile = () => {
+    const fileSelector = document.getElementById("file-input");
+    fileSelector.click();
+
+    fileSelector.onchange = () => {
+      const selectedFiles = fileSelector.files;
+      if (fileSelector.files.length > 0) {
+        const reader = new FileReader();
+
+        // This event will happen when the reader has read the file
+        reader.onload = () => {
+          var result = JSON.parse(reader.result);
+          let allGeoms = [];
+          if (result && result.features && result.features.length > 0) {
+            this.setState({ automaticZoomUpdate: true });
+
+            // Get projection
+            let projection = "";
+            if (
+              result.crs &&
+              result.crs.properties &&
+              result.crs.properties.name
+            ) {
+              let crs = result.crs.properties.name;
+              projection = getProjection(crs);
+            }
+
+            for (const geom of result.features) {
+              if (
+                geom.geometry &&
+                geom.geometry &&
+                geom.geometry.coordinates &&
+                geom.geometry.coordinates.length > 0
+              ) {
+                const depth = getPolygonDepth(geom.geometry.coordinates);
+                const result = transformUploadedPolygon(
+                  geom.geometry,
+                  projection
+                );
+                if (depth === 2 || depth === 3) {
+                  allGeoms.push(result);
+                } else if (depth === 4) {
+                  allGeoms = allGeoms.concat(result);
+                }
+              }
+            }
+            this.addPolygon(allGeoms);
+            this.addPolyline([]);
+            this.handleUploadedPolygon(true);
+            this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
+            this.setState({ automaticZoomUpdate: false });
+          } else {
+            this.handleUploadError(true);
+          }
+          if (allGeoms.length === 0) {
+            this.handleUploadError(true);
+          }
+          document.getElementById("file-input").value = "";
+        };
+        reader.readAsText(selectedFiles[0]);
+      }
+    };
+  };
+
+  handleUploadError = value => {
+    this.setState({ showUploadError: value });
+  };
+
+  closeUploadError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ showUploadError: false });
   };
 
   static contextType = SettingsContext;

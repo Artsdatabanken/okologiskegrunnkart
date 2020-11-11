@@ -7,6 +7,7 @@ import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
+import { Snackbar } from "@material-ui/core";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -705,18 +706,6 @@ class Leaflet extends React.Component {
   }
 
   goToSelectedZoomCoordinates = () => {
-    // Opptegning av markør
-    this.removeMarker();
-    this.marker = L.marker(
-      [
-        this.props.zoomcoordinates.centercoord[1],
-        this.props.zoomcoordinates.centercoord[0]
-      ],
-      {
-        icon: this.icon
-      }
-    ).addTo(this.map);
-
     // Zooming av kart?
     let new_bounds = [
       [
@@ -973,6 +962,9 @@ class Leaflet extends React.Component {
           legendVisible={this.props.legendVisible}
           setLegendVisible={this.props.setLegendVisible}
           legendPosition={this.props.legendPosition}
+          uploadedPolygon={this.props.uploadedPolygon}
+          handleUploadedPolygon={this.props.handleUploadedPolygon}
+          uploadPolygonFile={this.props.uploadPolygonFile}
         />
         {this.state.markerType === "polygon" && (
           <div
@@ -983,6 +975,22 @@ class Leaflet extends React.Component {
             Polygon kanter kan ikke krysse
           </div>
         )}
+        <input
+          style={{ display: "none" }}
+          type="file"
+          id="file-input"
+          name="file"
+          accept=".geojson, .json"
+        />
+        <Snackbar
+          open={this.props.showUploadError}
+          autoHideDuration={3000}
+          onClose={this.props.closeUploadError}
+        >
+          <div className="uploaded-polygon-warning">
+            Kunne ikke laste opp filen
+          </div>
+        </Snackbar>
       </div>
     );
   }

@@ -103,7 +103,10 @@ const PolygonInfobox = ({
   showKommunePolygon,
   showEiendomPolygon,
   grensePolygonGeom,
-  grensePolygonData
+  grensePolygonData,
+  uploadedPolygon,
+  handleUploadedPolygon,
+  uploadPolygonFile
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -129,18 +132,18 @@ const PolygonInfobox = ({
     let points;
     // If polygon, add the first point as the last one
     if (polygon && polygon.length > 0) {
-      const depht = getPolygonDepth(polygon);
-      if (depht === 2) {
+      const depth = getPolygonDepth(polygon);
+      if (depth === 2) {
         // Only one polygon
         points = [...polygon];
         points.push(polygon[0]);
         dist += calculatePerimeter(points);
-      } else if (depht === 3) {
+      } else if (depth === 3) {
         // Only one polygon with holes
         points = [...polygon[0]];
         points.push(polygon[0][0]);
         dist += calculatePerimeter(points);
-      } else if (depht === 4) {
+      } else if (depth === 4) {
         // Multipolygon
         for (const poly of polygon) {
           points = [...poly[0]];
@@ -368,8 +371,6 @@ const PolygonInfobox = ({
     grensePolygonData
   ]);
 
-  console.log("polygonResults", polygonResults);
-
   return (
     <div className="infobox-side">
       {showResults ? (
@@ -397,6 +398,9 @@ const PolygonInfobox = ({
             showFylkePolygon={showFylkePolygon}
             showKommunePolygon={showKommunePolygon}
             showEiendomPolygon={showEiendomPolygon}
+            uploadedPolygon={uploadedPolygon}
+            handleUploadedPolygon={handleUploadedPolygon}
+            uploadPolygonFile={uploadPolygonFile}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">
@@ -492,7 +496,6 @@ const PolygonInfobox = ({
                     {polygonResults &&
                       resultsOrder.map(key => {
                         if (!polygonResults[key]) return null;
-                        console.log("resutl: ", polygonResults[key]);
                         return (
                           <PolygonElement
                             polygonLayer={availableLayers.find(
@@ -507,23 +510,6 @@ const PolygonInfobox = ({
                           />
                         );
                       })}
-                    {/* {polygonResults &&
-                      Object.keys(polygonResults).map(key => {
-                        console.log("resutl: ", polygonResults[key])
-                        return (
-                          <PolygonElement
-                            polygonLayer={availableLayers.find(
-                              item => item.code === key
-                            )}
-                            key={key}
-                            result={polygonResults[key]}
-                            showDetailedPolygonResults={
-                              showDetailedPolygonResults
-                            }
-                            grensePolygon={grensePolygon}
-                          />
-                        );
-                      })} */}
                   </List>
                 </div>
               </div>

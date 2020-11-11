@@ -8,8 +8,6 @@ class SettingsContainer extends Component {
     width: window.innerWidth
   };
 
-  componentDidMount() { }
-
   render() {
     return (
       <SettingsContext.Provider
@@ -30,7 +28,6 @@ class SettingsContainer extends Component {
     );
   }
 
-  handleMapMove = () => { };
   handleUpdateValue = (key, value) => {
     this.setState({ [key]: value });
     localStorage.setItem(key, value);
