@@ -7,6 +7,8 @@ import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
+import { Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -975,6 +977,7 @@ class Leaflet extends React.Component {
           legendPosition={this.props.legendPosition}
           uploadedPolygon={this.props.uploadedPolygon}
           handleUploadedPolygon={this.props.handleUploadedPolygon}
+          uploadPolygonFile={this.props.uploadPolygonFile}
         />
         {this.state.markerType === "polygon" && (
           <div
@@ -985,6 +988,13 @@ class Leaflet extends React.Component {
             Polygon kanter kan ikke krysse
           </div>
         )}
+        <Snackbar
+          open={this.props.showUploadError}
+          autoHideDuration={3000}
+          onClose={this.props.closeUploadError}
+        >
+          <Alert severity="error">Kunne ikke laste opp filen</Alert>
+        </Snackbar>
       </div>
     );
   }

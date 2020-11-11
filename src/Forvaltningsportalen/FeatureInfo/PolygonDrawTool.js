@@ -19,14 +19,11 @@ import {
   RadioGroup,
   FormControlLabel,
   ListItem,
-  ListItemText,
-  Snackbar
+  ListItemText
 } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
-import { sortPolygonCoord } from "../../Funksjoner/polygonTools";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {
@@ -64,12 +61,12 @@ const PolygonDrawTool = ({
   showKommunePolygon,
   showEiendomPolygon,
   uploadedPolygon,
-  handleUploadedPolygon
+  handleUploadedPolygon,
+  uploadPolygonFile
 }) => {
   const classes = useStyles();
 
   const [polygonVisible, setPolygonVisible] = useState(true);
-  const [showUploadError, setShowUploadError] = useState(false);
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
@@ -98,54 +95,6 @@ const PolygonDrawTool = ({
     } else if (grensePolygon === "eiendom") {
       hideAndShowPolygon(!showEiendomPolygon);
     }
-  };
-
-  const selectFile = () => {
-    const fileSelector = document.getElementById("file-input");
-    fileSelector.click();
-
-    fileSelector.onchange = () => {
-      const selectedFiles = fileSelector.files;
-      if (fileSelector.files.length > 0) {
-        const reader = new FileReader();
-
-        // This event will happen when the reader has read the file
-        reader.onload = () => {
-          var result = JSON.parse(reader.result);
-          const allGeoms = [];
-          if (result && result.features && result.features.length > 0) {
-            for (const geom of result.features) {
-              if (
-                geom.geometry &&
-                geom.geometry &&
-                geom.geometry.coordinates &&
-                geom.geometry.coordinates.length > 0
-              ) {
-                allGeoms.push(sortPolygonCoord(geom.geometry));
-              }
-            }
-            addPolygon(allGeoms);
-            addPolyline([]);
-            handleUploadedPolygon(true);
-          } else {
-            setShowUploadError(true);
-          }
-
-          if (allGeoms.length === 0) {
-            setShowUploadError(true);
-          }
-          document.getElementById("file-input").value = "";
-        };
-        reader.readAsText(selectedFiles[0]);
-      }
-    };
-  };
-
-  const closeUploadError = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setShowUploadError(false);
   };
 
   useEffect(() => {
@@ -251,7 +200,7 @@ const PolygonDrawTool = ({
                 <span className="geometry-tool-button first-tool">
                   <IconButton
                     className={classes.customIconButtom}
-                    onClick={() => selectFile()}
+                    onClick={() => uploadPolygonFile()}
                   >
                     <Forward style={{ transform: "rotate(-90deg)" }} />
                   </IconButton>
@@ -374,13 +323,6 @@ const PolygonDrawTool = ({
         name="file"
         accept=".geojson, .json"
       />
-      <Snackbar
-        open={showUploadError}
-        autoHideDuration={3000}
-        onClose={closeUploadError}
-      >
-        <Alert severity="error">Kunne ikke laste opp filen</Alert>
-      </Snackbar>
     </>
   );
 };

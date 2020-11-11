@@ -102,7 +102,8 @@ class App extends React.Component {
     showAboutModal: false,
     aboutPage: null,
     updateChangeInUrl: true,
-    uploadedPolygon: false
+    uploadedPolygon: false,
+    showUploadError: false
   };
 
   async lastNedKartlag() {
@@ -533,6 +534,9 @@ class App extends React.Component {
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
                         uploadedPolygon={this.state.uploadedPolygon}
                         handleUploadedPolygon={this.handleUploadedPolygon}
+                        uploadPolygonFile={this.uploadPolygonFile}
+                        showUploadError={this.state.showUploadError}
+                        closeUploadError={this.closeUploadError}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -2048,6 +2052,57 @@ class App extends React.Component {
 
   handleUploadedPolygon = value => {
     this.setState({ uploadedPolygon: value });
+  };
+
+  uploadPolygonFile = () => {
+    const fileSelector = document.getElementById("file-input");
+    fileSelector.click();
+
+    fileSelector.onchange = () => {
+      const selectedFiles = fileSelector.files;
+      if (fileSelector.files.length > 0) {
+        const reader = new FileReader();
+
+        // This event will happen when the reader has read the file
+        reader.onload = () => {
+          var result = JSON.parse(reader.result);
+          const allGeoms = [];
+          if (result && result.features && result.features.length > 0) {
+            for (const geom of result.features) {
+              if (
+                geom.geometry &&
+                geom.geometry &&
+                geom.geometry.coordinates &&
+                geom.geometry.coordinates.length > 0
+              ) {
+                allGeoms.push(sortPolygonCoord(geom.geometry));
+              }
+            }
+            this.addPolygon(allGeoms);
+            this.addPolyline([]);
+            this.handleUploadedPolygon(true);
+          } else {
+            this.handleUploadError(true);
+          }
+          if (allGeoms.length === 0) {
+            this.handleUploadError(true);
+          }
+          document.getElementById("file-input").value = "";
+        };
+        reader.readAsText(selectedFiles[0]);
+      }
+    };
+  };
+
+  handleUploadError = value => {
+    this.setState({ showUploadError: value });
+  };
+
+  closeUploadError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ showUploadError: false });
   };
 
   static contextType = SettingsContext;
