@@ -381,8 +381,6 @@ class App extends React.Component {
     let minLat = 9999999999;
     let maxLng = 0;
     let minLng = 9999999999;
-    console.log("depth: ", depth);
-    console.log("geom to update zoom: ", geom);
     if (depth === 3) {
       for (const coord of geom[0]) {
         if (coord[0] > maxLat) maxLat = coord[0];
@@ -407,9 +405,6 @@ class App extends React.Component {
     const diffLat = (maxLat - minLat) * margin;
     const mincoord = [minLng - diffLng, minLat - diffLat];
     const maxcoord = [maxLng + diffLng, maxLat + diffLat];
-    console.log("mincoord: ", mincoord);
-    console.log("maxcoord: ", maxcoord);
-    console.log("centercoord: ", this.state.centercoord);
     if (mincoord && maxcoord && this.state.centercoord) {
       this.handleSetZoomCoordinates(mincoord, maxcoord, this.state.centercoord);
     } else if (mincoord && maxcoord) {
@@ -2077,7 +2072,6 @@ class App extends React.Component {
         reader.onload = () => {
           var result = JSON.parse(reader.result);
           const allGeoms = [];
-          console.log("Uploaded polygon: ", result);
           if (result && result.features && result.features.length > 0) {
             this.setState({ automaticZoomUpdate: true });
             for (const geom of result.features) {
