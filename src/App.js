@@ -99,9 +99,6 @@ class App extends React.Component {
     automaticZoomUpdate: false,
     trefftype: null,
     treffitemtype: null,
-    mincoord: null,
-    maxcoord: null,
-    centercoord: null,
     showAppName: true,
     showAboutModal: false,
     aboutPage: null,
@@ -409,12 +406,8 @@ class App extends React.Component {
     const diffLat = (maxLat - minLat) * margin;
     const mincoord = [minLng - diffLng, minLat - diffLat];
     const maxcoord = [maxLng + diffLng, maxLat + diffLat];
-    if (mincoord && maxcoord && this.state.centercoord) {
-      this.handleSetZoomCoordinates(mincoord, maxcoord, this.state.centercoord);
-    } else if (mincoord && maxcoord) {
-      const centerLat = (maxcoord[0] + mincoord[0]) / 2;
-      const centerLng = (maxcoord[1] + mincoord[1]) / 2;
-      this.handleSetZoomCoordinates(mincoord, maxcoord, [centerLat, centerLng]);
+    if (mincoord && maxcoord) {
+      this.handleSetZoomCoordinates(mincoord, maxcoord);
     }
   };
 
@@ -843,12 +836,11 @@ class App extends React.Component {
     this.setState({ zoomcoordinates: null });
   };
 
-  handleSetZoomCoordinates = (mincoord, maxcoord, centercoord) => {
+  handleSetZoomCoordinates = (mincoord, maxcoord) => {
     this.setState({
       zoomcoordinates: {
         mincoord: mincoord,
-        maxcoord: maxcoord,
-        centercoord: centercoord
+        maxcoord: maxcoord
       }
     });
   };
@@ -856,7 +848,6 @@ class App extends React.Component {
   handleGeoSelection = async (geostring, trefftype, itemtype) => {
     let mincoord = null;
     let maxcoord = null;
-    let centercoord = null;
     let lng = null;
     let lat = null;
 
@@ -869,7 +860,6 @@ class App extends React.Component {
         parseFloat(geostring.aust) + 0.5,
         parseFloat(geostring.nord) + 0.5
       ];
-      centercoord = [parseFloat(geostring.aust), parseFloat(geostring.nord)];
       lng = parseFloat(geostring.aust);
       lat = parseFloat(geostring.nord);
     } else {
@@ -882,13 +872,11 @@ class App extends React.Component {
         parseFloat(koordinater.lon) + 0.5,
         parseFloat(koordinater.lat) + 0.5
       ];
-      centercoord = [parseFloat(koordinater.lon), parseFloat(koordinater.lat)];
       lng = parseFloat(koordinater.lon);
       lat = parseFloat(koordinater.lat);
     }
 
     // Update state
-    if (centercoord) this.setState({ centercoord });
     if (maxcoord) this.setState({ maxcoord });
     if (mincoord) this.setState({ mincoord });
 

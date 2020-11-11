@@ -707,18 +707,6 @@ class Leaflet extends React.Component {
   }
 
   goToSelectedZoomCoordinates = () => {
-    // Opptegning av markør
-    this.removeMarker();
-    this.marker = L.marker(
-      [
-        this.props.zoomcoordinates.centercoord[1],
-        this.props.zoomcoordinates.centercoord[0]
-      ],
-      {
-        icon: this.icon
-      }
-    ).addTo(this.map);
-
     // Zooming av kart?
     let new_bounds = [
       [
