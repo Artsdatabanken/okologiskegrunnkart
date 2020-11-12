@@ -575,7 +575,7 @@ class App extends React.Component {
                         uploadPolygonFile={this.uploadPolygonFile}
                         disableSavePolygon={
                           !this.state.polygon ||
-                          !this.state.grensePolygon === "none"
+                          this.state.grensePolygon !== "none"
                         }
                         handlePolygonSaveModal={this.handlePolygonSaveModal}
                       />

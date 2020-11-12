@@ -119,7 +119,6 @@ const PolygonDrawTool = ({
 
   useEffect(() => {
     const depth = getPolygonDepth(polygon);
-    console.log("depth: ", depth);
     if (depth === 2) setPolygonEditable(true);
     else setPolygonEditable(false);
   }, [polygon, polygonJSON]);
