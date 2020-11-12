@@ -104,8 +104,6 @@ const PolygonInfobox = ({
   showEiendomPolygon,
   grensePolygonGeom,
   grensePolygonData,
-  uploadedPolygon,
-  handleUploadedPolygon,
   uploadPolygonFile
 }) => {
   const classes = useStyles();
@@ -403,8 +401,6 @@ const PolygonInfobox = ({
             showFylkePolygon={showFylkePolygon}
             showKommunePolygon={showKommunePolygon}
             showEiendomPolygon={showEiendomPolygon}
-            uploadedPolygon={uploadedPolygon}
-            handleUploadedPolygon={handleUploadedPolygon}
             uploadPolygonFile={uploadPolygonFile}
           />
           <div className="infobox-content">

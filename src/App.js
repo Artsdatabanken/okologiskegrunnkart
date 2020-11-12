@@ -104,7 +104,6 @@ class App extends React.Component {
     showAboutModal: false,
     aboutPage: null,
     updateChangeInUrl: true,
-    uploadedPolygon: false,
     showUploadError: false
   };
 
@@ -534,8 +533,6 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
-                        uploadedPolygon={this.state.uploadedPolygon}
-                        handleUploadedPolygon={this.handleUploadedPolygon}
                         uploadPolygonFile={this.uploadPolygonFile}
                         showUploadError={this.state.showUploadError}
                         closeUploadError={this.closeUploadError}
@@ -2048,10 +2045,6 @@ class App extends React.Component {
     this.setState({ updateChangeInUrl: value });
   };
 
-  handleUploadedPolygon = value => {
-    this.setState({ uploadedPolygon: value });
-  };
-
   uploadPolygonFile = () => {
     const fileSelector = document.getElementById("file-input");
     fileSelector.click();
@@ -2100,7 +2093,6 @@ class App extends React.Component {
             }
             this.addPolygon(allGeoms);
             this.addPolyline([]);
-            this.handleUploadedPolygon(true);
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({ automaticZoomUpdate: false });
           } else {

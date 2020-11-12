@@ -962,8 +962,6 @@ class Leaflet extends React.Component {
           legendVisible={this.props.legendVisible}
           setLegendVisible={this.props.setLegendVisible}
           legendPosition={this.props.legendPosition}
-          uploadedPolygon={this.props.uploadedPolygon}
-          handleUploadedPolygon={this.props.handleUploadedPolygon}
           uploadPolygonFile={this.props.uploadPolygonFile}
         />
         {this.state.markerType === "polygon" && (
