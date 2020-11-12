@@ -573,7 +573,11 @@ class App extends React.Component {
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
                         uploadPolygonFile={this.uploadPolygonFile}
-                        handleChangeInfoboxState={this.handleChangeInfoboxState}
+                        disableSavePolygon={
+                          !this.state.polygon ||
+                          !this.state.grensePolygon === "none"
+                        }
+                        handlePolygonSaveModal={this.handlePolygonSaveModal}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2054,7 +2058,7 @@ class App extends React.Component {
     this.setState({ updateChangeInUrl: value });
   };
 
-  uploadPolygonFile = () => {
+  uploadPolygonFile = (from = null) => {
     const fileSelector = document.getElementById("file-input");
     fileSelector.click();
 
@@ -2104,6 +2108,12 @@ class App extends React.Component {
             this.addPolyline([]);
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({ automaticZoomUpdate: false });
+            if (from === "menu") {
+              this.setState({
+                grensePolygon: "none",
+                changeInfoboxState: "polygon"
+              });
+            }
           } else {
             this.setState({
               polygonActionResult: [
@@ -2131,7 +2141,7 @@ class App extends React.Component {
     this.setState({ showPolygonSaveModal: value });
   };
 
-  savePolygon = name => {
+  savePolygon = (name, from = null) => {
     if (!name || name === "") {
       this.setState({
         polygonActionResult: [
@@ -2148,6 +2158,12 @@ class App extends React.Component {
           polygonActionResult: ["save_success", "Polygon lagret"]
         });
         this.setState({ showPolygonSaveModal: false });
+        if (from === "menu") {
+          this.setState({
+            grensePolygon: "none",
+            changeInfoboxState: "polygon"
+          });
+        }
       })
       .catch(() => {
         this.setState({

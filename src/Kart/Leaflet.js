@@ -286,6 +286,15 @@ class Leaflet extends React.Component {
     ) {
       this.setState({ polygonName: "" });
     }
+    // Change infobox state
+    if (
+      this.props.changeInfoboxState !== prevProps.changeInfoboxState &&
+      this.props.changeInfoboxState === "polygon" &&
+      this.state.markerType === "klikk"
+    ) {
+      this.setState({ markerType: "polygon" });
+      this.props.handleChangeInfoboxState(null);
+    }
   }
 
   removeMarker() {
