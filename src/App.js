@@ -20,7 +20,8 @@ import db from "./IndexedDB/IndexedDB";
 import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
-  savePolygonIndexedDB
+  savePolygonIndexedDB,
+  getPolygonsIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -107,7 +108,9 @@ class App extends React.Component {
     updateChangeInUrl: true,
     showPolygonSaveModal: false,
     polygonActionResult: null,
-    changeInfoboxState: null
+    changeInfoboxState: null,
+    showSavedPolygons: false,
+    savedPolygons: []
   };
 
   async lastNedKartlag() {
@@ -544,6 +547,11 @@ class App extends React.Component {
                         closePolygonActionResult={this.closePolygonActionResult}
                         changeInfoboxState={this.state.changeInfoboxState}
                         handleChangeInfoboxState={this.handleChangeInfoboxState}
+                        showSavedPolygons={this.state.showSavedPolygons}
+                        savedPolygons={this.state.savedPolygons}
+                        getSavedPolygons={this.getSavedPolygons}
+                        handleShowSavedPolygons={this.handleShowSavedPolygons}
+                        openSavedPolygon={this.openSavedPolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -578,6 +586,7 @@ class App extends React.Component {
                           this.state.grensePolygon !== "none"
                         }
                         handlePolygonSaveModal={this.handlePolygonSaveModal}
+                        getSavedPolygons={this.getSavedPolygons}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2174,6 +2183,36 @@ class App extends React.Component {
           ]
         });
       });
+  };
+
+  getSavedPolygons = () => {
+    getPolygonsIndexedDB().then(polygons => {
+      this.setState({ savedPolygons: polygons });
+    });
+    this.setState({ showSavedPolygons: true });
+  };
+
+  openSavedPolygon = polygon => {
+    if (polygon && polygon.geometry) {
+      const geom = polygon.geometry;
+      this.setState({ automaticZoomUpdate: true });
+      this.addPolygon(geom);
+      this.addPolyline([]);
+      this.updateZoomWithGeometry(geom, "UploadedPolygon");
+      this.setState({ automaticZoomUpdate: false, showSavedPolygons: false });
+      this.setState({
+        grensePolygon: "none",
+        changeInfoboxState: "polygon"
+      });
+    } else {
+      this.setState({
+        polygonActionResult: ["open_error", "Kunne ikke åpne polygonen"]
+      });
+    }
+  };
+
+  handleShowSavedPolygons = value => {
+    this.setState({ showSavedPolygons: value });
   };
 
   closePolygonActionResult = (event, reason) => {

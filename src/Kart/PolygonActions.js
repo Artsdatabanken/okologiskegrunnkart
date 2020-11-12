@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Close, Save } from "@material-ui/icons";
 import "../style/leaflet.css";
-import { Snackbar, Modal, TextField, Button } from "@material-ui/core";
+import {
+  Snackbar,
+  Modal,
+  TextField,
+  Button,
+  ListItem,
+  ListItemText
+} from "@material-ui/core";
 import "leaflet/dist/leaflet.css";
 
 const PolygonActions = ({
@@ -11,7 +18,11 @@ const PolygonActions = ({
   handlePolygonSaveModal,
   polygonActionResult,
   closePolygonActionResult,
-  savePolygon
+  savePolygon,
+  showSavedPolygons,
+  savedPolygons,
+  handleShowSavedPolygons,
+  openSavedPolygon
 }) => {
   const [polygonName, setPolygonName] = useState("");
 
@@ -89,6 +100,47 @@ const PolygonActions = ({
                 </Button>
               </div>
             </form>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        open={showSavedPolygons}
+        onClose={() => handleShowSavedPolygons(false)}
+        className="saved-polygon-modal-body"
+      >
+        <div className="saved-polygon-modal-wrapper">
+          <div className="polygon-modal-title">
+            <div>Åpne lagret polygon</div>
+            <button
+              tabIndex="0"
+              className="polygon-modal-button-wrapper"
+              onClick={() => handleShowSavedPolygons(false)}
+            >
+              <div className="polygon-modal-button">
+                <Close />
+              </div>
+            </button>
+          </div>
+          <div className="saved-polygons-content">
+            {savedPolygons.map((polygon, index) => {
+              return (
+                <ListItem
+                  key={index}
+                  id="saved-polygons-row"
+                  button
+                  onClick={() => openSavedPolygon(polygon)}
+                >
+                  <ListItemText
+                    id="saved-polygons-name"
+                    primary={polygon.name}
+                  />
+                  <ListItemText
+                    id="saved-polygons-date"
+                    primary={polygon.date.toLocaleDateString("nb")}
+                  />
+                </ListItem>
+              );
+            })}
           </div>
         </div>
       </Modal>

@@ -105,7 +105,8 @@ const PolygonInfobox = ({
   grensePolygonGeom,
   grensePolygonData,
   uploadPolygonFile,
-  handlePolygonSaveModal
+  handlePolygonSaveModal,
+  getSavedPolygons
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -404,6 +405,7 @@ const PolygonInfobox = ({
             showEiendomPolygon={showEiendomPolygon}
             uploadPolygonFile={uploadPolygonFile}
             handlePolygonSaveModal={handlePolygonSaveModal}
+            getSavedPolygons={getSavedPolygons}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">

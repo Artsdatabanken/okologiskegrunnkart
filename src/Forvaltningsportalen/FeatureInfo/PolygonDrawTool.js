@@ -62,7 +62,8 @@ const PolygonDrawTool = ({
   showKommunePolygon,
   showEiendomPolygon,
   uploadPolygonFile,
-  handlePolygonSaveModal
+  handlePolygonSaveModal,
+  getSavedPolygons
 }) => {
   const classes = useStyles();
 
@@ -218,9 +219,7 @@ const PolygonDrawTool = ({
                 <span className="geometry-tool-button">
                   <IconButton
                     className={classes.customIconButtom}
-                    onClick={() => {
-                      console.log("Functionality not implemented");
-                    }}
+                    onClick={() => getSavedPolygons()}
                   >
                     <Folder />
                   </IconButton>

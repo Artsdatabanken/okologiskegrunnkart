@@ -61,12 +61,18 @@ const savePolygonIndexedDB = async (name, polygon) => {
   // Return promise
   return db.polygons.add({
     name: name,
-    geometry: polygon
+    geometry: polygon,
+    date: new Date()
   });
+};
+
+const getPolygonsIndexedDB = async () => {
+  return db.polygons.reverse().toArray();
 };
 
 export {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
-  savePolygonIndexedDB
+  savePolygonIndexedDB,
+  getPolygonsIndexedDB
 };

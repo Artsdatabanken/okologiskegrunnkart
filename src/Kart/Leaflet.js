@@ -279,8 +279,6 @@ class Leaflet extends React.Component {
       this.props.changeInfoboxState === "polygon" &&
       this.state.markerType === "klikk"
     ) {
-      console.log(prevProps.changeInfoboxState);
-      console.log(this.props.changeInfoboxState);
       this.setState({ markerType: "polygon" });
       this.props.handleChangeInfoboxState(null);
     }
@@ -975,6 +973,7 @@ class Leaflet extends React.Component {
           legendPosition={this.props.legendPosition}
           uploadPolygonFile={this.props.uploadPolygonFile}
           handlePolygonSaveModal={this.props.handlePolygonSaveModal}
+          getSavedPolygons={this.props.getSavedPolygons}
         />
         <PolygonActions
           markerType={this.state.markerType}
@@ -984,6 +983,10 @@ class Leaflet extends React.Component {
           polygonActionResult={this.props.polygonActionResult}
           closePolygonActionResult={this.props.closePolygonActionResult}
           savePolygon={this.props.savePolygon}
+          showSavedPolygons={this.props.showSavedPolygons}
+          savedPolygons={this.props.savedPolygons}
+          handleShowSavedPolygons={this.props.handleShowSavedPolygons}
+          openSavedPolygon={this.props.openSavedPolygon}
         />
       </div>
     );

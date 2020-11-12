@@ -12,7 +12,7 @@ const db = new Dexie("GrunnkartDB");
 const store = {
   layers: "&id, title, favorite",
   sublayers: "&id, title, favorite",
-  polygons: "++id, &name, geometry"
+  polygons: "++id, &name, geometry, date"
 };
 db.version(2).stores(store);
 
