@@ -59,7 +59,8 @@ const InfoBox = ({
   legendVisible,
   setLegendVisible,
   legendPosition,
-  uploadPolygonFile
+  uploadPolygonFile,
+  handlePolygonSaveModal
 }) => {
   const [Y, setY] = useState(0);
   const [DY, setDY] = useState(0);
@@ -302,6 +303,7 @@ const InfoBox = ({
               grensePolygonGeom={grensePolygonGeom}
               grensePolygonData={grensePolygonData}
               uploadPolygonFile={uploadPolygonFile}
+              handlePolygonSaveModal={handlePolygonSaveModal}
             />
           )}
         </>

@@ -201,7 +201,7 @@
 }
 
 /* ------------ Polygon warning ------------- */
-.uploaded-polygon-warning {
+.polygon-action-error {
   background: #971500;
   color: white;
   border-radius: 5px;
@@ -212,6 +212,29 @@
   display: block;
   border: 2px solid white;
 }
+.polygon-action-success {
+  background: #338333;
+  color: white;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 550;
+  text-align: center;
+  padding: 8px 100px;
+  display: block;
+  border: 2px solid white;
+}
+@media only screen and (max-width: 768px) {
+  .polygon-action-error {
+    width: 95vw;
+    min-width: 95vw;
+    padding: 8px 25px;
+  }
+  .polygon-action-success {
+    width: 95vw;
+    min-width: 95vw;
+    padding: 8px 25px;
+  }
+}
 
 /* ---------- General transitions -----------  */
 .margin-animation {
@@ -221,4 +244,135 @@
   -o-transition: margin 0.5s;
   transition: margin 0.5s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ----------- Save polygon modal ---------- */
+.polygon-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.polygon-modal-wrapper {
+  background-color: white;
+  width: 750px;
+  max-width: 80vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+@media only screen and (max-width: 768px) {
+  .polygon-modal-wrapper {
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+.polygon-modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #697f8a;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  padding-left: 25px;
+}
+@media only screen and (max-width: 768px) {
+  .polygon-modal-title {
+    font-size: 24px;
+  }
+}
+.polygon-modal-content {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 15px 25px 25px 25px;
+}
+@media only screen and (max-width: 768px) {
+  .polygon-modal-content {
+    padding: 15px 20px 150px 20px;
+  }
+}
+#polygon-input-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+#polygon-input-form .MuiFormControl-root {
+  width: 100%;
+}
+.polygon-save-button-wrapper {
+  margin-left: 40px;
+}
+@media only screen and (max-width: 768px) {
+  #polygon-input-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  #polygon-input-form .MuiFormControl-root {
+    width: 100%;
+  }
+  .polygon-save-button-wrapper {
+    margin-left: 0;
+    margin-top: 25px;
+  }
+}
+
+/* ----------- Close save polygon modal button ----------- */
+.polygon-modal-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  width: 0;
+  margin: 28px 40px 28px 22px;
+  padding: 0;
+  background-color: rgba(145, 163, 176, 0);
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.polygon-modal-button-wrapper:hover {
+  background-color: rgba(145, 163, 176, 0);
+}
+.polygon-modal-button-wrapper:focus {
+  background-color: rgba(145, 163, 176, 1);
+  outline: none;
+  height: 46px;
+  width: 44px;
+  margin: 5px 18px 5px 0;
+}
+.polygon-modal-button {
+  padding: 1px;
+  display: flex;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+.polygon-modal-button:hover {
+  background-color: rgba(145, 163, 176, 1);
+}
+@media only screen and (max-width: 768px) {
+  .polygon-modal-button-wrapper {
+    z-index: 255;
+    margin: 31px 29px 34px 22px;
+  }
+  .polygon-modal-button {
+    z-index: 255;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    padding: 0;
+  }
+  .polygon-modal-button-wrapper:focus {
+    margin: 9px 7px 11px 0;
+  }
 }

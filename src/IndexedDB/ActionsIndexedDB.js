@@ -57,4 +57,33 @@ const removeUnusedLayersIndexedDB = async (
   }
 };
 
-export { updateLayersIndexedDB, removeUnusedLayersIndexedDB };
+const savePolygonIndexedDB = async (name, polygon) => {
+  // Get polygons already stored in indexed DB
+  // const polygonsdb = await db.polygons.toArray();
+
+  // If a polygon with a same title exists, do not save
+  return db.polygons.add({
+    name: name,
+    geometry: polygon
+  });
+  // const existingPolygon = polygonsdb.filter(e => e.name === name);
+  // if (existingPolygon.length > 0) {
+  //   console.log("Comming here");
+  //   return false;
+  // } else {
+  //   return db.polygons
+  //     .add({
+  //       name: name,
+  //       geometry: polygon
+  //     })
+  //     .then(() => {
+  //       return true;
+  //     });
+  // }
+};
+
+export {
+  updateLayersIndexedDB,
+  removeUnusedLayersIndexedDB,
+  savePolygonIndexedDB
+};

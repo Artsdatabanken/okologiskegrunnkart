@@ -3,11 +3,16 @@ import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import {
+  LocationSearching,
+  WhereToVote,
+  Close,
+  Save
+} from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
-import { Snackbar } from "@material-ui/core";
+import { Snackbar, Modal, TextField, Button } from "@material-ui/core";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -28,7 +33,8 @@ class Leaflet extends React.Component {
     previousCoordinates: null,
     showForbidden: false,
     closeWarning: null,
-    wmslayers: {}
+    wmslayers: {},
+    polygonName: ""
   };
 
   componentDidMount() {
@@ -272,6 +278,13 @@ class Leaflet extends React.Component {
     // Remove border geometry
     if (this.borderPolygonInvisible(prevProps)) {
       this.removeGrenseGeom();
+    }
+    // Remove text when closing save polygon input
+    if (
+      this.props.showPolygonSaveModal !== prevProps.showPolygonSaveModal &&
+      !this.props.showPolygonSaveModal
+    ) {
+      this.setState({ polygonName: "" });
     }
   }
 
@@ -857,6 +870,11 @@ class Leaflet extends React.Component {
     }
   };
 
+  updatePolygonName = event => {
+    const name = event.target.value;
+    this.setState({ polygonName: name });
+  };
+
   render() {
     return (
       <div className="leaflet-main-wrapper">
@@ -963,6 +981,7 @@ class Leaflet extends React.Component {
           setLegendVisible={this.props.setLegendVisible}
           legendPosition={this.props.legendPosition}
           uploadPolygonFile={this.props.uploadPolygonFile}
+          handlePolygonSaveModal={this.props.handlePolygonSaveModal}
         />
         {this.state.markerType === "polygon" && (
           <div
@@ -980,13 +999,84 @@ class Leaflet extends React.Component {
           name="file"
           accept=".geojson, .json"
         />
-        <Snackbar
-          open={this.props.showUploadError}
-          autoHideDuration={3000}
-          onClose={this.props.closeUploadError}
+        <Modal
+          open={this.props.showPolygonSaveModal}
+          onClose={() => this.props.handlePolygonSaveModal(false)}
+          className="polygon-modal-body"
         >
-          <div className="uploaded-polygon-warning">
-            Kunne ikke laste opp filen
+          <div className="polygon-modal-wrapper">
+            <div className="polygon-modal-title">
+              <div>Lagre polygon</div>
+              <button
+                tabIndex="0"
+                className="polygon-modal-button-wrapper"
+                onClick={() => this.props.handlePolygonSaveModal(false)}
+              >
+                <div className="polygon-modal-button">
+                  <Close />
+                </div>
+              </button>
+            </div>
+            <div className="polygon-modal-content">
+              <form id="polygon-input-form" noValidate autoComplete="off">
+                <TextField
+                  id="polygon-name-input"
+                  label="Navn"
+                  value={this.state.polygonName}
+                  onChange={e => this.updatePolygonName(e)}
+                  error={
+                    this.props.polygonActionResult &&
+                    this.props.polygonActionResult[0] === "save_error"
+                  }
+                  helperText={
+                    this.props.polygonActionResult &&
+                    this.props.polygonActionResult[0] === "save_error"
+                      ? this.props.polygonActionResult[2]
+                      : null
+                  }
+                />
+                <div className="polygon-save-button-wrapper">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    startIcon={<Save />}
+                    onClick={() =>
+                      this.props.savePolygon(this.state.polygonName)
+                    }
+                  >
+                    Lagre
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </Modal>
+        <Snackbar
+          open={
+            this.props.polygonActionResult &&
+            this.props.polygonActionResult[0].includes("error")
+          }
+          autoHideDuration={3000}
+          onClose={this.props.closePolygonActionResult}
+        >
+          <div className="polygon-action-error">
+            {this.props.polygonActionResult
+              ? this.props.polygonActionResult[1]
+              : ""}
+          </div>
+        </Snackbar>
+        <Snackbar
+          open={
+            this.props.polygonActionResult &&
+            this.props.polygonActionResult[0].includes("success")
+          }
+          autoHideDuration={3000}
+          onClose={this.props.closePolygonActionResult}
+        >
+          <div className="polygon-action-success">
+            {this.props.polygonActionResult
+              ? this.props.polygonActionResult[1]
+              : ""}
           </div>
         </Snackbar>
       </div>

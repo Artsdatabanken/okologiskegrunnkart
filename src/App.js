@@ -19,7 +19,8 @@ import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
   updateLayersIndexedDB,
-  removeUnusedLayersIndexedDB
+  removeUnusedLayersIndexedDB,
+  savePolygonIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -104,7 +105,9 @@ class App extends React.Component {
     showAboutModal: false,
     aboutPage: null,
     updateChangeInUrl: true,
-    showUploadError: false
+    showPolygonSaveModal: false,
+    polygonActionResult: null,
+    changeInfoboxState: null
   };
 
   async lastNedKartlag() {
@@ -534,8 +537,13 @@ class App extends React.Component {
                         legendPosition={this.state.legendPosition}
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
                         uploadPolygonFile={this.uploadPolygonFile}
-                        showUploadError={this.state.showUploadError}
-                        closeUploadError={this.closeUploadError}
+                        showPolygonSaveModal={this.state.showPolygonSaveModal}
+                        handlePolygonSaveModal={this.handlePolygonSaveModal}
+                        savePolygon={this.savePolygon}
+                        polygonActionResult={this.state.polygonActionResult}
+                        closePolygonActionResult={this.closePolygonActionResult}
+                        changeInfoboxState={this.state.changeInfoboxState}
+                        handleChangeInfoboxState={this.handleChangeInfoboxState}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -565,6 +573,7 @@ class App extends React.Component {
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
                         uploadPolygonFile={this.uploadPolygonFile}
+                        handleChangeInfoboxState={this.handleChangeInfoboxState}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2096,10 +2105,20 @@ class App extends React.Component {
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({ automaticZoomUpdate: false });
           } else {
-            this.handleUploadError(true);
+            this.setState({
+              polygonActionResult: [
+                "upload_error",
+                "Kunne ikke laste opp filen"
+              ]
+            });
           }
           if (allGeoms.length === 0) {
-            this.handleUploadError(true);
+            this.setState({
+              polygonActionResult: [
+                "upload_error",
+                "Kunne ikke laste opp filen"
+              ]
+            });
           }
           document.getElementById("file-input").value = "";
         };
@@ -2108,15 +2127,48 @@ class App extends React.Component {
     };
   };
 
-  handleUploadError = value => {
-    this.setState({ showUploadError: value });
+  handlePolygonSaveModal = value => {
+    this.setState({ showPolygonSaveModal: value });
   };
 
-  closeUploadError = (event, reason) => {
+  savePolygon = name => {
+    if (!name || name === "") {
+      this.setState({
+        polygonActionResult: [
+          "save_error",
+          "Kunne ikke lagre polygonen",
+          "Navnet kan ikke være tomt"
+        ]
+      });
+      return;
+    }
+    savePolygonIndexedDB(name, this.state.polygon)
+      .then(() => {
+        this.setState({
+          polygonActionResult: ["save_success", "Polygon lagret"]
+        });
+        this.setState({ showPolygonSaveModal: false });
+      })
+      .catch(() => {
+        this.setState({
+          polygonActionResult: [
+            "save_error",
+            "Kunne ikke lagre polygonen",
+            "Navn allerede brukt"
+          ]
+        });
+      });
+  };
+
+  closePolygonActionResult = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    this.setState({ showUploadError: false });
+    this.setState({ polygonActionResult: null });
+  };
+
+  handleChangeInfoboxState = change => {
+    this.setState({ changeInfoboxState: change });
   };
 
   static contextType = SettingsContext;
