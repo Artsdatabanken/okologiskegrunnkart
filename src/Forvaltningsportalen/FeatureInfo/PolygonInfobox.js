@@ -113,6 +113,7 @@ const PolygonInfobox = ({
   const [perimeterUnit, setPerimeterUnit] = useState("m");
   const [area, setArea] = useState(null);
   const [areaUnit, setAreaUnit] = useState("m");
+  const [totalArea, setTotalArea] = useState(null);
   const [loadingFeatures, setLoadingFeatures] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
@@ -185,6 +186,7 @@ const PolygonInfobox = ({
   useEffect(() => {
     if (!polygon || polygon.length === 0) {
       setArea(null);
+      setTotalArea(null);
       return;
     }
 
@@ -223,9 +225,11 @@ const PolygonInfobox = ({
     } else {
       // Something is wrong
       setArea(null);
+      setTotalArea(null);
       return;
     }
 
+    setTotalArea(area / 1000000);
     let unit = "m";
     if (area >= 1000000000) {
       area = Math.round(area / 100000) / 10;
@@ -378,6 +382,7 @@ const PolygonInfobox = ({
           resultLayer={detailLayer}
           detailResult={detailResult}
           hideDetailedResults={hideDetailedResults}
+          totalArea={totalArea}
         />
       ) : (
         <>
