@@ -7,7 +7,7 @@ import { LocationSearching, WhereToVote } from "@material-ui/icons";
 import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
-import { Snackbar } from "@material-ui/core";
+import PolygonActions from "./PolygonActions";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -272,6 +272,15 @@ class Leaflet extends React.Component {
     // Remove border geometry
     if (this.borderPolygonInvisible(prevProps)) {
       this.removeGrenseGeom();
+    }
+    // Change infobox state
+    if (
+      this.props.changeInfoboxState !== prevProps.changeInfoboxState &&
+      this.props.changeInfoboxState === "polygon" &&
+      this.state.markerType === "klikk"
+    ) {
+      this.setState({ markerType: "polygon" });
+      this.props.handleChangeInfoboxState(null);
     }
   }
 
@@ -962,35 +971,23 @@ class Leaflet extends React.Component {
           legendVisible={this.props.legendVisible}
           setLegendVisible={this.props.setLegendVisible}
           legendPosition={this.props.legendPosition}
-          uploadedPolygon={this.props.uploadedPolygon}
-          handleUploadedPolygon={this.props.handleUploadedPolygon}
           uploadPolygonFile={this.props.uploadPolygonFile}
+          handlePolygonSaveModal={this.props.handlePolygonSaveModal}
+          getSavedPolygons={this.props.getSavedPolygons}
         />
-        {this.state.markerType === "polygon" && (
-          <div
-            className={`polygon-warning-wrapper${
-              this.state.showForbidden ? "" : " hidden-warning"
-            }`}
-          >
-            Polygon kanter kan ikke krysse
-          </div>
-        )}
-        <input
-          style={{ display: "none" }}
-          type="file"
-          id="file-input"
-          name="file"
-          accept=".geojson, .json"
+        <PolygonActions
+          markerType={this.state.markerType}
+          showForbidden={this.state.showForbidden}
+          showPolygonSaveModal={this.props.showPolygonSaveModal}
+          handlePolygonSaveModal={this.props.handlePolygonSaveModal}
+          polygonActionResult={this.props.polygonActionResult}
+          closePolygonActionResult={this.props.closePolygonActionResult}
+          savePolygon={this.props.savePolygon}
+          showSavedPolygons={this.props.showSavedPolygons}
+          savedPolygons={this.props.savedPolygons}
+          handleShowSavedPolygons={this.props.handleShowSavedPolygons}
+          openSavedPolygon={this.props.openSavedPolygon}
         />
-        <Snackbar
-          open={this.props.showUploadError}
-          autoHideDuration={3000}
-          onClose={this.props.closeUploadError}
-        >
-          <div className="uploaded-polygon-warning">
-            Kunne ikke laste opp filen
-          </div>
-        </Snackbar>
       </div>
     );
   }

@@ -24,6 +24,7 @@ import {
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
+import { getPolygonDepth } from "../../Funksjoner/polygonTools";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {
@@ -60,13 +61,14 @@ const PolygonDrawTool = ({
   showFylkePolygon,
   showKommunePolygon,
   showEiendomPolygon,
-  uploadedPolygon,
-  handleUploadedPolygon,
-  uploadPolygonFile
+  uploadPolygonFile,
+  handlePolygonSaveModal,
+  getSavedPolygons
 }) => {
   const classes = useStyles();
 
   const [polygonVisible, setPolygonVisible] = useState(true);
+  const [polygonEditable, setPolygonEditable] = useState(true);
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
@@ -82,7 +84,6 @@ const PolygonDrawTool = ({
     }
     hideAndShowPolygon(true);
     handlePolygonResults(null);
-    handleUploadedPolygon(false);
   };
 
   const hideShowPolygon = () => {
@@ -114,6 +115,14 @@ const PolygonDrawTool = ({
     showKommunePolygon,
     showEiendomPolygon
   ]);
+
+  const polygonJSON = JSON.stringify(polygon);
+
+  useEffect(() => {
+    const depth = getPolygonDepth(polygon);
+    if (depth === 2) setPolygonEditable(true);
+    else setPolygonEditable(false);
+  }, [polygon, polygonJSON]);
 
   return (
     <>
@@ -210,9 +219,7 @@ const PolygonDrawTool = ({
                 <span className="geometry-tool-button">
                   <IconButton
                     className={classes.customIconButtom}
-                    onClick={() => {
-                      console.log("Functionality not implemented");
-                    }}
+                    onClick={() => getSavedPolygons()}
                   >
                     <Folder />
                   </IconButton>
@@ -227,9 +234,7 @@ const PolygonDrawTool = ({
                 <span className="geometry-tool-button">
                   <IconButton
                     className={classes.customIconButtom}
-                    onClick={() => {
-                      console.log("Functionality not implemented");
-                    }}
+                    onClick={() => handlePolygonSaveModal(true)}
                   >
                     <Save />
                   </IconButton>
@@ -245,7 +250,7 @@ const PolygonDrawTool = ({
                       handleEditable(true);
                       handlePolygonResults(null);
                     }}
-                    disabled={uploadedPolygon}
+                    disabled={!polygonEditable}
                   >
                     <Create />
                   </IconButton>

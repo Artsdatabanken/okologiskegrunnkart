@@ -19,7 +19,9 @@ import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
   updateLayersIndexedDB,
-  removeUnusedLayersIndexedDB
+  removeUnusedLayersIndexedDB,
+  savePolygonIndexedDB,
+  getPolygonsIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -104,8 +106,11 @@ class App extends React.Component {
     showAboutModal: false,
     aboutPage: null,
     updateChangeInUrl: true,
-    uploadedPolygon: false,
-    showUploadError: false
+    showPolygonSaveModal: false,
+    polygonActionResult: null,
+    changeInfoboxState: null,
+    showSavedPolygons: false,
+    savedPolygons: []
   };
 
   async lastNedKartlag() {
@@ -383,7 +388,14 @@ class App extends React.Component {
     let minLat = 9999999999;
     let maxLng = 0;
     let minLng = 9999999999;
-    if (depth === 3) {
+    if (depth === 2) {
+      for (const coord of geom) {
+        if (coord[0] > maxLat) maxLat = coord[0];
+        if (coord[0] < minLat) minLat = coord[0];
+        if (coord[1] > maxLng) maxLng = coord[1];
+        if (coord[1] < minLng) minLng = coord[1];
+      }
+    } else if (depth === 3) {
       for (const coord of geom[0]) {
         if (coord[0] > maxLat) maxLat = coord[0];
         if (coord[0] < minLat) minLat = coord[0];
@@ -534,11 +546,19 @@ class App extends React.Component {
                         setLegendVisible={this.setLegendVisible}
                         legendPosition={this.state.legendPosition}
                         handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
-                        uploadedPolygon={this.state.uploadedPolygon}
-                        handleUploadedPolygon={this.handleUploadedPolygon}
                         uploadPolygonFile={this.uploadPolygonFile}
-                        showUploadError={this.state.showUploadError}
-                        closeUploadError={this.closeUploadError}
+                        showPolygonSaveModal={this.state.showPolygonSaveModal}
+                        handlePolygonSaveModal={this.handlePolygonSaveModal}
+                        savePolygon={this.savePolygon}
+                        polygonActionResult={this.state.polygonActionResult}
+                        closePolygonActionResult={this.closePolygonActionResult}
+                        changeInfoboxState={this.state.changeInfoboxState}
+                        handleChangeInfoboxState={this.handleChangeInfoboxState}
+                        showSavedPolygons={this.state.showSavedPolygons}
+                        savedPolygons={this.state.savedPolygons}
+                        getSavedPolygons={this.getSavedPolygons}
+                        handleShowSavedPolygons={this.handleShowSavedPolygons}
+                        openSavedPolygon={this.openSavedPolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -568,6 +588,12 @@ class App extends React.Component {
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
                         uploadPolygonFile={this.uploadPolygonFile}
+                        disableSavePolygon={
+                          !this.state.polygon ||
+                          this.state.grensePolygon !== "none"
+                        }
+                        handlePolygonSaveModal={this.handlePolygonSaveModal}
+                        getSavedPolygons={this.getSavedPolygons}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2048,11 +2074,7 @@ class App extends React.Component {
     this.setState({ updateChangeInUrl: value });
   };
 
-  handleUploadedPolygon = value => {
-    this.setState({ uploadedPolygon: value });
-  };
-
-  uploadPolygonFile = () => {
+  uploadPolygonFile = (from = null) => {
     const fileSelector = document.getElementById("file-input");
     fileSelector.click();
 
@@ -2100,14 +2122,29 @@ class App extends React.Component {
             }
             this.addPolygon(allGeoms);
             this.addPolyline([]);
-            this.handleUploadedPolygon(true);
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({ automaticZoomUpdate: false });
+            if (from === "menu") {
+              this.setState({
+                grensePolygon: "none",
+                changeInfoboxState: "polygon"
+              });
+            }
           } else {
-            this.handleUploadError(true);
+            this.setState({
+              polygonActionResult: [
+                "upload_error",
+                "Kunne ikke laste opp filen"
+              ]
+            });
           }
           if (allGeoms.length === 0) {
-            this.handleUploadError(true);
+            this.setState({
+              polygonActionResult: [
+                "upload_error",
+                "Kunne ikke laste opp filen"
+              ]
+            });
           }
           document.getElementById("file-input").value = "";
         };
@@ -2116,15 +2153,84 @@ class App extends React.Component {
     };
   };
 
-  handleUploadError = value => {
-    this.setState({ showUploadError: value });
+  savePolygon = (name, from = null) => {
+    if (!name || name === "") {
+      this.setState({
+        polygonActionResult: [
+          "save_error",
+          "Kunne ikke lagre polygonen",
+          "Navnet kan ikke være tomt"
+        ]
+      });
+      return;
+    }
+    savePolygonIndexedDB(name, this.state.polygon)
+      .then(() => {
+        this.setState({
+          polygonActionResult: ["save_success", "Polygon lagret"]
+        });
+        this.setState({ showPolygonSaveModal: false });
+        if (from === "menu") {
+          this.setState({
+            grensePolygon: "none",
+            changeInfoboxState: "polygon"
+          });
+        }
+      })
+      .catch(() => {
+        this.setState({
+          polygonActionResult: [
+            "save_error",
+            "Kunne ikke lagre polygonen",
+            "Navn allerede brukt"
+          ]
+        });
+      });
   };
 
-  closeUploadError = (event, reason) => {
+  getSavedPolygons = () => {
+    getPolygonsIndexedDB().then(polygons => {
+      this.setState({ savedPolygons: polygons });
+    });
+    this.setState({ showSavedPolygons: true });
+  };
+
+  openSavedPolygon = polygon => {
+    if (polygon && polygon.geometry) {
+      const geom = polygon.geometry;
+      this.setState({ automaticZoomUpdate: true });
+      this.addPolygon(geom);
+      this.addPolyline([]);
+      this.updateZoomWithGeometry(geom, "UploadedPolygon");
+      this.setState({ automaticZoomUpdate: false, showSavedPolygons: false });
+      this.setState({
+        grensePolygon: "none",
+        changeInfoboxState: "polygon"
+      });
+    } else {
+      this.setState({
+        polygonActionResult: ["open_error", "Kunne ikke åpne polygonen"]
+      });
+    }
+  };
+
+  handlePolygonSaveModal = value => {
+    this.setState({ showPolygonSaveModal: value });
+  };
+
+  handleShowSavedPolygons = value => {
+    this.setState({ showSavedPolygons: value });
+  };
+
+  closePolygonActionResult = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    this.setState({ showUploadError: false });
+    this.setState({ polygonActionResult: null });
+  };
+
+  handleChangeInfoboxState = change => {
+    this.setState({ changeInfoboxState: change });
   };
 
   static contextType = SettingsContext;

@@ -9,10 +9,10 @@ import PolygonDetailedDescription from "./PolygonDetailedDescription";
 const PolygonDetailed = ({
   resultLayer,
   detailResult,
-  hideDetailedResults
+  hideDetailedResults,
+  totalArea
 }) => {
   const [numberResults, setNumberResults] = useState(0);
-  const [totalArea, setTotalArea] = useState(0);
   const [sortedResult, setSortedResult] = useState(0);
   const detailResultJSON = JSON.stringify(detailResult);
 
@@ -24,11 +24,16 @@ const PolygonDetailed = ({
     else return area.toFixed(4);
   };
 
+  const percentageToPresent = item => {
+    if (!totalArea) return "0.00";
+    let area = parseFloat(item.km2);
+    const percentage = (area / totalArea) * 100;
+    if (percentage >= 1) return percentage.toFixed(1);
+    if (percentage >= 0.1) return percentage.toFixed(2);
+    else return percentage.toFixed(3);
+  };
+
   useEffect(() => {
-    let area = 0;
-    for (let i = 0; i < detailResult.length; i++) {
-      area += detailResult[i].km2;
-    }
     let sorted = detailResult.sort((a, b) => {
       return b.km2 - a.km2;
     });
@@ -63,7 +68,6 @@ const PolygonDetailed = ({
     const number = sorted ? sorted.length : 0;
     setSortedResult(sorted);
     setNumberResults(number);
-    setTotalArea(area);
   }, [detailResult, detailResultJSON, resultLayer]);
 
   const iconSize = icon => {
@@ -136,7 +140,7 @@ const PolygonDetailed = ({
                       {`${areaToPresent(item)} km²`}
                     </div>
                     <div className="polygon-details-secondary-text end-line">
-                      {`(${((item.km2 / totalArea) * 100).toFixed(1)}%)`}
+                      {`(${percentageToPresent(item)}%)`}
                     </div>
                   </div>
                   {item.beskrivelse && (
