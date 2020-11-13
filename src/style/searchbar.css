@@ -290,6 +290,16 @@
 #search-pagination-component ul li .MuiPaginationItem-outlinedPrimary {
   background-color: rgba(105, 127, 138, 0.2);
 }
+#search-pagination-component ul li .MuiPaginationItem-outlinedPrimary:hover {
+  background-color: rgba(105, 127, 138, 0.4);
+}
+#search-pagination-component
+  ul
+  li
+  .MuiPaginationItem-outlinedPrimary:focus-visible {
+  background-color: rgba(105, 127, 138, 0.4);
+  border: 1px solid rgba(55, 55, 55, 0.8);
+}
 #search-pagination-component
   ul
   li
@@ -297,6 +307,19 @@
   color: rgba(0, 0, 0, 0.95);
   background-color: rgba(105, 127, 138, 0.5);
   border: 1px solid rgba(136, 136, 136, 0.8);
+}
+#search-pagination-component
+  ul
+  li
+  .MuiPaginationItem-outlinedPrimary.Mui-selected:hover {
+  background-color: rgba(105, 127, 138, 0.7);
+}
+#search-pagination-component
+  ul
+  li
+  .MuiPaginationItem-outlinedPrimary.Mui-selected:focus-visible {
+  background-color: rgba(105, 127, 138, 0.7);
+  border: 1px solid rgba(55, 55, 55, 1);
 }
 
 /* ----- Kartlagfanens treffliste -> søkebarens landingsside ----- */
