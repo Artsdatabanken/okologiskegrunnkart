@@ -34,6 +34,13 @@ const PolygonActions = ({
   useEffect(() => {
     if (!showPolygonSaveModal) {
       setPolygonName("");
+    } else {
+      setTimeout(() => {
+        const input = document.getElementById("polygon-name-input");
+        if (input) {
+          input.focus();
+        }
+      }, 50);
     }
   }, [showPolygonSaveModal]);
 
@@ -88,6 +95,11 @@ const PolygonActions = ({
                     ? polygonActionResult[2]
                     : null
                 }
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    savePolygon(polygonName);
+                  }
+                }}
               />
               <div className="polygon-save-button-wrapper">
                 <Button
@@ -122,25 +134,34 @@ const PolygonActions = ({
             </button>
           </div>
           <div className="saved-polygons-content">
-            {savedPolygons.map((polygon, index) => {
-              return (
-                <ListItem
-                  key={index}
-                  id="saved-polygons-row"
-                  button
-                  onClick={() => openSavedPolygon(polygon)}
-                >
-                  <ListItemText
-                    id="saved-polygons-name"
-                    primary={polygon.name}
-                  />
-                  <ListItemText
-                    id="saved-polygons-date"
-                    primary={polygon.date.toLocaleDateString("nb")}
-                  />
-                </ListItem>
-              );
-            })}
+            {savedPolygons.length > 0 &&
+              savedPolygons.map((polygon, index) => {
+                return (
+                  <ListItem
+                    key={index}
+                    id="saved-polygons-row"
+                    button
+                    onClick={() => openSavedPolygon(polygon)}
+                  >
+                    <ListItemText
+                      id="saved-polygons-name"
+                      primary={polygon.name}
+                    />
+                    <ListItemText
+                      id="saved-polygons-date"
+                      primary={polygon.date.toLocaleDateString("nb")}
+                    />
+                  </ListItem>
+                );
+              })}
+            {savedPolygons.length === 0 && (
+              <ListItem id="saved-polygons-row">
+                <ListItemText
+                  id="saved-polygons-name"
+                  primary="Ingen polygon lagret"
+                />
+              </ListItem>
+            )}
           </div>
         </div>
       </Modal>

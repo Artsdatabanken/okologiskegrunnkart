@@ -388,7 +388,14 @@ class App extends React.Component {
     let minLat = 9999999999;
     let maxLng = 0;
     let minLng = 9999999999;
-    if (depth === 3) {
+    if (depth === 2) {
+      for (const coord of geom) {
+        if (coord[0] > maxLat) maxLat = coord[0];
+        if (coord[0] < minLat) minLat = coord[0];
+        if (coord[1] > maxLng) maxLng = coord[1];
+        if (coord[1] < minLng) minLng = coord[1];
+      }
+    } else if (depth === 3) {
       for (const coord of geom[0]) {
         if (coord[0] > maxLat) maxLat = coord[0];
         if (coord[0] < minLat) minLat = coord[0];
@@ -2146,10 +2153,6 @@ class App extends React.Component {
     };
   };
 
-  handlePolygonSaveModal = value => {
-    this.setState({ showPolygonSaveModal: value });
-  };
-
   savePolygon = (name, from = null) => {
     if (!name || name === "") {
       this.setState({
@@ -2209,6 +2212,10 @@ class App extends React.Component {
         polygonActionResult: ["open_error", "Kunne ikke åpne polygonen"]
       });
     }
+  };
+
+  handlePolygonSaveModal = value => {
+    this.setState({ showPolygonSaveModal: value });
   };
 
   handleShowSavedPolygons = value => {
