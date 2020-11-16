@@ -236,6 +236,12 @@
 }
 
 /* Input form */
+#polygon-edit-input-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 #polygon-edit-input-form .MuiInputBase-root {
   font-size: 14px;
   font-weight: 500;

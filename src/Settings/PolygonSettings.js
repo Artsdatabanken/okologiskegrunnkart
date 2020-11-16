@@ -86,8 +86,12 @@ const PolygonSettings = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [polygonToDelete, setPolygonToDelete] = useState(null);
   const [editPolygon, setEditPolygon] = useState(null);
+  const [nameWidth, setNameWidth] = useState(0);
 
-  // const savedPolygonsJSON = JSON.stringify(savedPolygons);
+  const savedPolygonNames = savedPolygons.map(item => {
+    return { name: item.name };
+  });
+  const savedPolygonsJSON = JSON.stringify(savedPolygonNames);
 
   const enableEditPolygon = (id, value) => {
     let modifiedPolygons = [...savedPolygons];
@@ -120,6 +124,7 @@ const PolygonSettings = ({
     // Update polygon in indexed DB
     if (newPolygon && newPolygon.name !== newPolygon.editname) {
       updateSavedPolygon(newPolygon);
+      setEditPolygon(null);
     }
   };
 
@@ -144,6 +149,16 @@ const PolygonSettings = ({
     setPolygons(modifiedPolygons);
   }, [savedPolygons]);
 
+  useEffect(() => {
+    let polygons = JSON.parse(savedPolygonsJSON);
+    let width = 0;
+    for (const polygon of polygons) {
+      const tempWidth = polygon.name.length * 5.65 + 40;
+      if (tempWidth > width) width = tempWidth;
+    }
+    setNameWidth(width);
+  }, [savedPolygonsJSON]);
+
   return (
     <>
       <div className="settings-layers-wrapper">
@@ -156,9 +171,16 @@ const PolygonSettings = ({
               <TableRow>
                 {columns.map(column => (
                   <TableCell
+                    id={`header-${column.id}`}
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    style={
+                      !isMobile &&
+                      column.id === "name" &&
+                      nameWidth > column.minWidth
+                        ? { minWidth: nameWidth }
+                        : { minWidth: column.minWidth }
+                    }
                   >
                     {column.label}
                   </TableCell>
@@ -180,16 +202,13 @@ const PolygonSettings = ({
                             autoComplete="off"
                           >
                             <TextField
-                              id="polygon-edit-name-input"
-                              // label="Navn"
+                              id={`polygon-edit-name-input polygon-${polygon.id}`}
                               value={editPolygon ? editPolygon.editname : ""}
                               onChange={e => {
                                 if (editPolygon) {
                                   updatePolygonName(e);
                                 }
                               }}
-                              // value={polygonName}
-                              // onChange={e => updatePolygonName(e)}
                               // error={
                               //   polygonActionResult && polygonActionResult[0] === "save_error"
                               // }
