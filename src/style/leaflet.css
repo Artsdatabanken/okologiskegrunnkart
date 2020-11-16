@@ -376,6 +376,17 @@
   padding-left: 10px;
   padding-right: 10px;
 }
+#saved-polygons-name {
+  max-width: calc(80vw - 150px);
+}
+@media only screen and (max-width: 768px) {
+  #saved-polygons-name {
+    max-width: calc(100vw - 150px);
+  }
+}
+#saved-polygons-date.MuiListItemText-root {
+  padding-left: 20px;
+}
 #saved-polygons-date .MuiTypography-displayBlock {
   text-align: right;
 }

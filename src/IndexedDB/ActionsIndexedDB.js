@@ -70,9 +70,18 @@ const getPolygonsIndexedDB = async () => {
   return db.polygons.reverse().toArray();
 };
 
+const deletePolygonIndexedDB = async id => {
+  // Return promise
+  return db.polygons
+    .where("id")
+    .equals(id)
+    .delete();
+};
+
 export {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
   savePolygonIndexedDB,
-  getPolygonsIndexedDB
+  getPolygonsIndexedDB,
+  deletePolygonIndexedDB
 };

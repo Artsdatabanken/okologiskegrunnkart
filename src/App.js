@@ -7,6 +7,7 @@ import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
+import PolygonSettings from "./Settings/PolygonSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
@@ -21,7 +22,8 @@ import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
   savePolygonIndexedDB,
-  getPolygonsIndexedDB
+  getPolygonsIndexedDB,
+  deletePolygonIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -110,7 +112,8 @@ class App extends React.Component {
     polygonActionResult: null,
     changeInfoboxState: null,
     showSavedPolygons: false,
-    savedPolygons: []
+    savedPolygons: [],
+    editPolygonsMode: false
   };
 
   async lastNedKartlag() {
@@ -457,6 +460,14 @@ class App extends React.Component {
                         isMobile={this.state.isMobile}
                       />
                     )}
+                    {this.state.editPolygonsMode && (
+                      <PolygonSettings
+                        savedPolygons={this.state.savedPolygons}
+                        toggleEditPolygons={this.toggleEditPolygons}
+                        deleteSavedPolygon={this.deleteSavedPolygon}
+                        isMobile={this.state.isMobile}
+                      />
+                    )}
                     <div
                       className={
                         this.state.editLayersMode ? "hidden-app-content" : ""
@@ -594,6 +605,7 @@ class App extends React.Component {
                         }
                         handlePolygonSaveModal={this.handlePolygonSaveModal}
                         getSavedPolygons={this.getSavedPolygons}
+                        toggleEditPolygons={this.toggleEditPolygons}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2231,6 +2243,32 @@ class App extends React.Component {
 
   handleChangeInfoboxState = change => {
     this.setState({ changeInfoboxState: change });
+  };
+
+  toggleEditPolygons = () => {
+    if (!this.state.editPolygonsMode) {
+      getPolygonsIndexedDB().then(polygons => {
+        this.setState({ savedPolygons: polygons, editPolygonsMode: true });
+      });
+    } else {
+      this.setState({ editPolygonsMode: false });
+    }
+  };
+
+  deleteSavedPolygon = id => {
+    deletePolygonIndexedDB(id)
+      .then(() => {
+        this.refreshSavedPolygons();
+      })
+      .catch(() => {
+        console.log("Could not delete polygon");
+      });
+  };
+
+  refreshSavedPolygons = () => {
+    getPolygonsIndexedDB().then(polygons => {
+      this.setState({ savedPolygons: polygons });
+    });
   };
 
   static contextType = SettingsContext;

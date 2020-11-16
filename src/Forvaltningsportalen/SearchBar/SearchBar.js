@@ -927,9 +927,9 @@ class SearchBar extends React.Component {
             <MenuItem
               id="settings-menu-kartlag"
               onClick={() => {
-                console.log("Functionality not implemented");
+                this.props.toggleEditPolygons();
+                this.handleCloseMenu();
               }}
-              disabled={true}
             >
               <ListItemText primary="Editere lagrede polygoner" />
             </MenuItem>
