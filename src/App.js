@@ -23,7 +23,8 @@ import {
   removeUnusedLayersIndexedDB,
   savePolygonIndexedDB,
   getPolygonsIndexedDB,
-  deletePolygonIndexedDB
+  deletePolygonIndexedDB,
+  updatePolygonIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -465,6 +466,7 @@ class App extends React.Component {
                         savedPolygons={this.state.savedPolygons}
                         toggleEditPolygons={this.toggleEditPolygons}
                         deleteSavedPolygon={this.deleteSavedPolygon}
+                        updateSavedPolygon={this.updateSavedPolygon}
                         isMobile={this.state.isMobile}
                       />
                     )}
@@ -2265,7 +2267,41 @@ class App extends React.Component {
       });
   };
 
-  refreshSavedPolygons = () => {
+  updateSavedPolygon = async polygon => {
+    if (
+      !polygon ||
+      !polygon.id ||
+      !polygon.editname ||
+      polygon.editname === ""
+    ) {
+      this.setState({
+        polygonEditResult: [
+          "save_error",
+          "Kunne ikke lagre polygonen",
+          "Navnet kan ikke være tomt"
+        ]
+      });
+      return;
+    }
+    updatePolygonIndexedDB(polygon)
+      .then(() => {
+        this.setState({
+          polygonEditResult: ["save_success", "Polygon lagret"]
+        });
+        this.refreshSavedPolygons();
+      })
+      .catch(() => {
+        this.setState({
+          polygonEditResult: [
+            "save_error",
+            "Kunne ikke lagre polygonen",
+            "Navn allerede brukt"
+          ]
+        });
+      });
+  };
+
+  refreshSavedPolygons = async () => {
     getPolygonsIndexedDB().then(polygons => {
       this.setState({ savedPolygons: polygons });
     });

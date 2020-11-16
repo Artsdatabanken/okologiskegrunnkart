@@ -103,8 +103,9 @@ const PolygonActions = ({
               />
               <div className="polygon-save-button-wrapper">
                 <Button
+                  id="confirm-save-polygon"
                   variant="contained"
-                  color="primary"
+                  color="secondary"
                   startIcon={<Save />}
                   onClick={() => savePolygon(polygonName)}
                 >

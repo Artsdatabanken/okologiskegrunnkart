@@ -78,10 +78,19 @@ const deletePolygonIndexedDB = async id => {
     .delete();
 };
 
+const updatePolygonIndexedDB = async polygon => {
+  // Return promise
+  return db.polygons
+    .where("id")
+    .equals(polygon.id)
+    .modify({ name: polygon.editname });
+};
+
 export {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
   savePolygonIndexedDB,
   getPolygonsIndexedDB,
-  deletePolygonIndexedDB
+  deletePolygonIndexedDB,
+  updatePolygonIndexedDB
 };
