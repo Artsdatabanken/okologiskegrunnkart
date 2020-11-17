@@ -78,6 +78,7 @@ const PolygonSettings = ({
   toggleEditPolygons,
   deleteSavedPolygon,
   updateSavedPolygon,
+  polygonActionResult,
   isMobile
 }) => {
   const classes = useStyles(isMobile)();
@@ -100,6 +101,12 @@ const PolygonSettings = ({
         polygon.edit = value;
         if (value) {
           setEditPolygon(polygon);
+          setTimeout(() => {
+            const input = document.getElementById("polygon-edit-name-input");
+            if (input) {
+              input.focus();
+            }
+          }, 50);
         } else {
           setEditPolygon(null);
         }
@@ -111,20 +118,20 @@ const PolygonSettings = ({
   };
 
   const saveEditedPolygon = newPolygon => {
-    // Update polygon name automatically
-    let modifiedPolygons = [...savedPolygons];
-    for (const polygon of modifiedPolygons) {
-      if (polygon.id === newPolygon.id) {
-        polygon.name = newPolygon.editname;
-        polygon.edit = false;
-        setPolygons(modifiedPolygons);
-        break;
-      }
-    }
     // Update polygon in indexed DB
     if (newPolygon && newPolygon.name !== newPolygon.editname) {
       updateSavedPolygon(newPolygon);
-      setEditPolygon(null);
+    } else {
+      // Update polygon name automatically
+      let modifiedPolygons = [...savedPolygons];
+      for (const polygon of modifiedPolygons) {
+        if (polygon.id === newPolygon.id) {
+          polygon.name = newPolygon.editname;
+          polygon.edit = false;
+          setPolygons(modifiedPolygons);
+          break;
+        }
+      }
     }
   };
 
@@ -158,6 +165,15 @@ const PolygonSettings = ({
     }
     setNameWidth(width);
   }, [savedPolygonsJSON]);
+
+  useEffect(() => {
+    if (!polygonActionResult || polygonActionResult.length === 0) {
+      return;
+    }
+    if (polygonActionResult[0] === "edit_success") {
+      setEditPolygon(null);
+    }
+  }, [polygonActionResult]);
 
   return (
     <>
@@ -202,21 +218,23 @@ const PolygonSettings = ({
                             autoComplete="off"
                           >
                             <TextField
-                              id={`polygon-edit-name-input polygon-${polygon.id}`}
+                              id="polygon-edit-name-input"
                               value={editPolygon ? editPolygon.editname : ""}
                               onChange={e => {
                                 if (editPolygon) {
                                   updatePolygonName(e);
                                 }
                               }}
-                              // error={
-                              //   polygonActionResult && polygonActionResult[0] === "save_error"
-                              // }
-                              // helperText={
-                              //   polygonActionResult && polygonActionResult[0] === "save_error"
-                              //     ? polygonActionResult[2]
-                              //     : null
-                              // }
+                              error={
+                                polygonActionResult &&
+                                polygonActionResult[0] === "edit_error"
+                              }
+                              helperText={
+                                polygonActionResult &&
+                                polygonActionResult[0] === "edit_error"
+                                  ? polygonActionResult[2]
+                                  : null
+                              }
                               onKeyDown={e => {
                                 if (e.key === "Enter") {
                                   saveEditedPolygon(editPolygon);

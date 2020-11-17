@@ -467,6 +467,7 @@ class App extends React.Component {
                         toggleEditPolygons={this.toggleEditPolygons}
                         deleteSavedPolygon={this.deleteSavedPolygon}
                         updateSavedPolygon={this.updateSavedPolygon}
+                        polygonActionResult={this.state.polygonActionResult}
                         isMobile={this.state.isMobile}
                       />
                     )}
@@ -2260,10 +2261,15 @@ class App extends React.Component {
   deleteSavedPolygon = id => {
     deletePolygonIndexedDB(id)
       .then(() => {
+        this.setState({
+          polygonActionResult: ["delete_success", "Polygon slettet"]
+        });
         this.refreshSavedPolygons();
       })
       .catch(() => {
-        console.log("Could not delete polygon");
+        this.setState({
+          polygonActionResult: ["delete_error", "Kunne ikke slette polygonen"]
+        });
       });
   };
 
@@ -2275,9 +2281,9 @@ class App extends React.Component {
       polygon.editname === ""
     ) {
       this.setState({
-        polygonEditResult: [
-          "save_error",
-          "Kunne ikke lagre polygonen",
+        polygonActionResult: [
+          "edit_error",
+          "Kunne ikke endre polygonen",
           "Navnet kan ikke være tomt"
         ]
       });
@@ -2286,15 +2292,15 @@ class App extends React.Component {
     updatePolygonIndexedDB(polygon)
       .then(() => {
         this.setState({
-          polygonEditResult: ["save_success", "Polygon lagret"]
+          polygonActionResult: ["edit_success", "Polygon endret"]
         });
         this.refreshSavedPolygons();
       })
       .catch(() => {
         this.setState({
-          polygonEditResult: [
-            "save_error",
-            "Kunne ikke lagre polygonen",
+          polygonActionResult: [
+            "edit_error",
+            "Kunne ikke endre polygonen",
             "Navn allerede brukt"
           ]
         });
