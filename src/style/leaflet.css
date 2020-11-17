@@ -312,6 +312,12 @@
 .polygon-save-button-wrapper {
   margin-left: 40px;
 }
+#polygon-input-form .MuiInput-colorSecondary.MuiInput-underline:after {
+  border-bottom-color: #1976d2;
+}
+#polygon-input-form .MuiFormLabel-colorSecondary.Mui-focused {
+  color: #1976d2;
+}
 @media only screen and (max-width: 768px) {
   #polygon-input-form {
     display: flex;
@@ -428,7 +434,7 @@
 }
 .edit-buttons-wrapper {
   display: flex;
-  padding: 9px 0;
+  padding: 10px 0;
 }
 
 /* ----------- Edit polygons input form ---------- */

@@ -56,6 +56,13 @@ const PolygonActions = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [polygonToDelete, setPolygonToDelete] = useState(null);
   const [editPolygon, setEditPolygon] = useState(null);
+  const [nameWidth, setNameWidth] = useState(0);
+  const [nameLength, setNameLength] = useState(0);
+
+  const savedPolygonNames = savedPolygons.map(item => {
+    return { name: item.name };
+  });
+  const savedPolygonsJSON = JSON.stringify(savedPolygonNames);
 
   const createPolygonName = event => {
     const name = event.target.value;
@@ -75,6 +82,10 @@ const PolygonActions = ({
       if (polygon.id === id) {
         polygon.edit = value;
         if (value) {
+          const column = document.getElementById("saved-polygons-row");
+          if (column && column.offsetWidth) {
+            setNameWidth(column.offsetWidth - 30);
+          }
           setEditPolygon(polygon);
           setTimeout(() => {
             const input = document.getElementById("polygon-edit-name-input");
@@ -132,6 +143,26 @@ const PolygonActions = ({
     setPolygons(modifiedPolygons);
   }, [savedPolygons]);
 
+  useEffect(() => {
+    let polygons = JSON.parse(savedPolygonsJSON);
+    let length = 0;
+    for (const polygon of polygons) {
+      if (length > polygon.name.length) {
+        length = polygon.name.length;
+      }
+    }
+    setNameLength(length);
+  }, [savedPolygonsJSON]);
+
+  useEffect(() => {
+    if (!polygonActionResult || polygonActionResult.length === 0) {
+      return;
+    }
+    if (polygonActionResult[0] === "edit_success") {
+      setEditPolygon(null);
+    }
+  }, [polygonActionResult]);
+
   return (
     <>
       {markerType === "polygon" && (
@@ -174,6 +205,7 @@ const PolygonActions = ({
               <TextField
                 id="polygon-name-input"
                 label="Navn"
+                color="secondary"
                 value={polygonName}
                 onChange={e => createPolygonName(e)}
                 error={
@@ -255,12 +287,18 @@ const PolygonActions = ({
                           id="polygon-edit-input-form"
                           noValidate
                           autoComplete="off"
+                          style={
+                            !isMobile &&
+                            editPolygon &&
+                            editPolygon.name.length >= nameLength
+                              ? { minWidth: nameWidth }
+                              : null
+                          }
                         >
                           <TextField
                             id="polygon-edit-name-input"
                             label="Navn"
                             color="secondary"
-                            // variant="outlined"
                             value={editPolygon ? editPolygon.editname : ""}
                             onChange={e => {
                               if (editPolygon) {
@@ -284,10 +322,6 @@ const PolygonActions = ({
                             }}
                           />
                         </form>
-                        <ListItemText
-                          id="saved-polygons-date"
-                          primary={polygon.date.toLocaleDateString("nb")}
-                        />
                       </ListItem>
                     )}
                     <div className="edit-buttons-wrapper">
