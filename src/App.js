@@ -573,6 +573,8 @@ class App extends React.Component {
                         getSavedPolygons={this.getSavedPolygons}
                         handleShowSavedPolygons={this.handleShowSavedPolygons}
                         openSavedPolygon={this.openSavedPolygon}
+                        deleteSavedPolygon={this.deleteSavedPolygon}
+                        updateSavedPolygon={this.updateSavedPolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
