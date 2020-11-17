@@ -2122,7 +2122,10 @@ class App extends React.Component {
             this.addPolygon(allGeoms);
             this.addPolyline([]);
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
-            this.setState({ automaticZoomUpdate: false });
+            this.setState({
+              automaticZoomUpdate: false,
+              polygonResults: null
+            });
             if (from === "menu") {
               this.setState({
                 grensePolygon: "none",
@@ -2206,7 +2209,8 @@ class App extends React.Component {
       this.setState({
         grensePolygon: "none",
         changeInfoboxState: "polygon",
-        showInfobox: true
+        showInfobox: true,
+        polygonResults: null
       });
     } else {
       this.setState({
