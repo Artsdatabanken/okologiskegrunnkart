@@ -7,7 +7,6 @@ import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
-import PolygonSettings from "./Settings/PolygonSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
 import { setValue } from "./Funksjoner/setValue";
@@ -113,8 +112,7 @@ class App extends React.Component {
     polygonActionResult: null,
     changeInfoboxState: null,
     showSavedPolygons: false,
-    savedPolygons: [],
-    editPolygonsMode: false
+    savedPolygons: []
   };
 
   async lastNedKartlag() {
@@ -461,16 +459,6 @@ class App extends React.Component {
                         isMobile={this.state.isMobile}
                       />
                     )}
-                    {this.state.editPolygonsMode && (
-                      <PolygonSettings
-                        savedPolygons={this.state.savedPolygons}
-                        toggleEditPolygons={this.toggleEditPolygons}
-                        deleteSavedPolygon={this.deleteSavedPolygon}
-                        updateSavedPolygon={this.updateSavedPolygon}
-                        polygonActionResult={this.state.polygonActionResult}
-                        isMobile={this.state.isMobile}
-                      />
-                    )}
                     <div
                       className={
                         this.state.editLayersMode ? "hidden-app-content" : ""
@@ -604,13 +592,7 @@ class App extends React.Component {
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
                         uploadPolygonFile={this.uploadPolygonFile}
-                        disableSavePolygon={
-                          !this.state.polygon ||
-                          this.state.grensePolygon !== "none"
-                        }
-                        handlePolygonSaveModal={this.handlePolygonSaveModal}
                         getSavedPolygons={this.getSavedPolygons}
-                        toggleEditPolygons={this.toggleEditPolygons}
                       />
                       <KartlagFanen
                         searchResultPage={this.state.searchResultPage}
@@ -2144,7 +2126,8 @@ class App extends React.Component {
             if (from === "menu") {
               this.setState({
                 grensePolygon: "none",
-                changeInfoboxState: "polygon"
+                changeInfoboxState: "polygon",
+                showInfobox: true
               });
             }
           } else {
@@ -2222,7 +2205,8 @@ class App extends React.Component {
       this.setState({ automaticZoomUpdate: false, showSavedPolygons: false });
       this.setState({
         grensePolygon: "none",
-        changeInfoboxState: "polygon"
+        changeInfoboxState: "polygon",
+        showInfobox: true
       });
     } else {
       this.setState({
@@ -2248,16 +2232,6 @@ class App extends React.Component {
 
   handleChangeInfoboxState = change => {
     this.setState({ changeInfoboxState: change });
-  };
-
-  toggleEditPolygons = () => {
-    if (!this.state.editPolygonsMode) {
-      getPolygonsIndexedDB().then(polygons => {
-        this.setState({ savedPolygons: polygons, editPolygonsMode: true });
-      });
-    } else {
-      this.setState({ editPolygonsMode: false });
-    }
   };
 
   deleteSavedPolygon = id => {

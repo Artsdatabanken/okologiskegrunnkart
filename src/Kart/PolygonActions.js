@@ -398,7 +398,7 @@ const PolygonActions = ({
             <div>Slette polygon</div>
             <button
               tabIndex="0"
-              className="polygon-modal-button-wrapper"
+              className="polygon-delete-modal-button-wrapper"
               onClick={() => setShowDeleteModal(false)}
             >
               <div className="polygon-delete-modal-button">
