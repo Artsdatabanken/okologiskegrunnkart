@@ -94,6 +94,7 @@ const AppName = ({
   return (
     <>
       <Snackbar
+        id="app-name-snackbar"
         anchorOrigin={{
           vertical: "top",
           horizontal: "center"

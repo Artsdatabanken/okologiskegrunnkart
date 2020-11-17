@@ -21,7 +21,9 @@ import {
   updateLayersIndexedDB,
   removeUnusedLayersIndexedDB,
   savePolygonIndexedDB,
-  getPolygonsIndexedDB
+  getPolygonsIndexedDB,
+  deletePolygonIndexedDB,
+  updatePolygonIndexedDB
 } from "./IndexedDB/ActionsIndexedDB";
 import proj4 from "proj4";
 import {
@@ -559,6 +561,8 @@ class App extends React.Component {
                         getSavedPolygons={this.getSavedPolygons}
                         handleShowSavedPolygons={this.handleShowSavedPolygons}
                         openSavedPolygon={this.openSavedPolygon}
+                        deleteSavedPolygon={this.deleteSavedPolygon}
+                        updateSavedPolygon={this.updateSavedPolygon}
                       />
                       <KartVelger
                         onUpdateLayerProp={this.handleSetBakgrunnskart}
@@ -588,11 +592,6 @@ class App extends React.Component {
                         loadingFeatures={this.state.loadingFeatures}
                         handleAboutModal={this.handleAboutModal}
                         uploadPolygonFile={this.uploadPolygonFile}
-                        disableSavePolygon={
-                          !this.state.polygon ||
-                          this.state.grensePolygon !== "none"
-                        }
-                        handlePolygonSaveModal={this.handlePolygonSaveModal}
                         getSavedPolygons={this.getSavedPolygons}
                       />
                       <KartlagFanen
@@ -2123,11 +2122,15 @@ class App extends React.Component {
             this.addPolygon(allGeoms);
             this.addPolyline([]);
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
-            this.setState({ automaticZoomUpdate: false });
+            this.setState({
+              automaticZoomUpdate: false,
+              polygonResults: null
+            });
             if (from === "menu") {
               this.setState({
                 grensePolygon: "none",
-                changeInfoboxState: "polygon"
+                changeInfoboxState: "polygon",
+                showInfobox: true
               });
             }
           } else {
@@ -2205,7 +2208,9 @@ class App extends React.Component {
       this.setState({ automaticZoomUpdate: false, showSavedPolygons: false });
       this.setState({
         grensePolygon: "none",
-        changeInfoboxState: "polygon"
+        changeInfoboxState: "polygon",
+        showInfobox: true,
+        polygonResults: null
       });
     } else {
       this.setState({
@@ -2231,6 +2236,61 @@ class App extends React.Component {
 
   handleChangeInfoboxState = change => {
     this.setState({ changeInfoboxState: change });
+  };
+
+  deleteSavedPolygon = id => {
+    deletePolygonIndexedDB(id)
+      .then(() => {
+        this.setState({
+          polygonActionResult: ["delete_success", "Polygon slettet"]
+        });
+        this.refreshSavedPolygons();
+      })
+      .catch(() => {
+        this.setState({
+          polygonActionResult: ["delete_error", "Kunne ikke slette polygonen"]
+        });
+      });
+  };
+
+  updateSavedPolygon = async polygon => {
+    if (
+      !polygon ||
+      !polygon.id ||
+      !polygon.editname ||
+      polygon.editname === ""
+    ) {
+      this.setState({
+        polygonActionResult: [
+          "edit_error",
+          "Kunne ikke endre polygonen",
+          "Navnet kan ikke være tomt"
+        ]
+      });
+      return;
+    }
+    updatePolygonIndexedDB(polygon)
+      .then(() => {
+        this.setState({
+          polygonActionResult: ["edit_success", "Polygon endret"]
+        });
+        this.refreshSavedPolygons();
+      })
+      .catch(() => {
+        this.setState({
+          polygonActionResult: [
+            "edit_error",
+            "Kunne ikke endre polygonen",
+            "Navn allerede brukt"
+          ]
+        });
+      });
+  };
+
+  refreshSavedPolygons = async () => {
+    getPolygonsIndexedDB().then(polygons => {
+      this.setState({ savedPolygons: polygons });
+    });
   };
 
   static contextType = SettingsContext;

@@ -27,7 +27,8 @@ const PolygonElement = ({
       return;
     }
     let filtered = result;
-    if (polygonLayer.code === "FYL" || polygonLayer.code === "KOM") {
+    const code = polygonLayer.code;
+    if (result && Array.isArray(result) && (code === "FYL" || code === "KOM")) {
       if (grensePolygon === "fylke" || grensePolygon === "kommune") {
         filtered = result.filter(item => item.km2 >= 0.1);
       }

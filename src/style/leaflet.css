@@ -246,7 +246,7 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ----------- Save polygon modal ---------- */
+/* ----------- SAVE POLYGON MODAL ---------- */
 .polygon-modal-body {
   display: flex;
   align-items: center;
@@ -298,6 +298,8 @@
     padding: 15px 20px 150px 20px;
   }
 }
+
+/* ------ Save polygon input form ------ */
 #polygon-input-form {
   display: flex;
   justify-content: space-between;
@@ -309,6 +311,12 @@
 }
 .polygon-save-button-wrapper {
   margin-left: 40px;
+}
+#polygon-input-form .MuiInput-colorSecondary.MuiInput-underline:after {
+  border-bottom-color: #1976d2;
+}
+#polygon-input-form .MuiFormLabel-colorSecondary.Mui-focused {
+  color: #1976d2;
 }
 @media only screen and (max-width: 768px) {
   #polygon-input-form {
@@ -325,7 +333,7 @@
   }
 }
 
-/* Open saved polygpns modal */
+/* ----------- OPEN SAVED POLYGONS MODAL ----------- */
 .saved-polygon-modal-body {
   display: flex;
   align-items: center;
@@ -334,10 +342,15 @@
 .saved-polygon-modal-wrapper {
   background-color: white;
   min-width: 450px;
-  max-width: 80vw;
+  max-width: 50vw;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   max-height: 95vh;
   overflow-y: auto;
+}
+@media only screen and (max-width: 1445px) {
+  .saved-polygon-modal-wrapper {
+    max-width: 70vw;
+  }
 }
 @media only screen and (max-width: 768px) {
   .saved-polygon-modal-wrapper {
@@ -363,21 +376,94 @@
     padding: 5px 15px 150px 15px;
   }
 }
+.saved-polygons-listitem-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #bbb;
+}
+.saved-polygons-listitem-wrapper:last-child {
+  border-bottom: none;
+}
+@media only screen and (max-width: 768px) {
+  .saved-polygons-listitem-wrapper:last-child {
+    border-bottom: 1px solid #bbb;
+  }
+}
+.saved-polygons-listitem-wrapper:hover {
+  background-color: #eee;
+}
+.saved-polygons-listitem-wrapper.editing:hover {
+  background-color: transparent;
+}
 #saved-polygons-row.MuiListItem-root {
   justify-content: space-between;
   padding-top: 4px;
   padding-bottom: 4px;
-  border-bottom: 1px solid #bbb;
 }
-#saved-polygons-row.MuiListItem-root:last-child {
-  border-bottom: none;
+#saved-polygons-row.MuiListItem-root:hover {
+  background-color: transparent;
 }
 #saved-polygons-row.MuiListItem-gutters {
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 20px;
+}
+#saved-polygons-name {
+  max-width: calc(50vw - 260px);
+}
+@media only screen and (max-width: 1445px) {
+  #saved-polygons-name {
+    max-width: calc(70vw - 260px);
+  }
+}
+@media only screen and (max-width: 768px) {
+  #saved-polygons-name {
+    max-width: calc(100vw - 250px);
+  }
+}
+#saved-polygons-date.MuiListItemText-root {
+  padding-left: 20px;
 }
 #saved-polygons-date .MuiTypography-displayBlock {
   text-align: right;
+}
+.edit-buttons-wrapper {
+  display: flex;
+  padding: 10px 0;
+}
+
+/* ----------- Edit polygons input form ---------- */
+#polygon-edit-input-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+#polygon-edit-input-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+#polygon-edit-input-form .MuiFormControl-root {
+  width: 100%;
+}
+#polygon-edit-input-form .MuiInput-colorSecondary.MuiInput-underline:after {
+  border-bottom-color: #1976d2;
+}
+#polygon-edit-input-form .MuiFormLabel-colorSecondary.Mui-focused {
+  color: #1976d2;
+}
+@media only screen and (max-width: 768px) {
+  #polygon-edit-input-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  #polygon-edit-input-form .MuiFormControl-root {
+    width: 100%;
+  }
 }
 
 /* ----------- Close save polygon modal button ----------- */
@@ -430,4 +516,85 @@
   .polygon-modal-button-wrapper:focus {
     margin: 9px 7px 11px 0;
   }
+}
+
+/* ------- POLYGON DELETE MODAL -------- */
+.polygon-delete-modal-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.polygon-delete-modal-wrapper {
+  background-color: white;
+  min-width: 300px;
+  max-width: 80vw;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+.polygon-delete-modal-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #697f8a;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  padding-left: 25px;
+}
+@media only screen and (max-width: 768px) {
+  .polygon-delete-modal-title {
+    font-size: 24px;
+  }
+}
+.polygon-delete-modal-content {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 15px 25px 25px 25px;
+}
+.polygon-delete-button-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 225px;
+}
+#confirm-delete-polygon.MuiButton-containedSecondary {
+  background-color: #bd1a00;
+}
+
+/* ----------- Close save polygon modal button ----------- */
+.polygon-delete-modal-button-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0;
+  width: 0;
+  margin: 28px 40px 28px 22px;
+  padding: 0;
+  background-color: rgba(145, 163, 176, 0);
+  border: none;
+  border-radius: 10px;
+  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.polygon-delete-modal-button-wrapper:hover {
+  background-color: rgba(145, 163, 176, 0);
+}
+.polygon-delete-modal-button-wrapper:focus {
+  background-color: rgba(145, 163, 176, 1);
+  outline: none;
+  height: 46px;
+  width: 44px;
+  margin: 5px 18px 5px 0;
+}
+.polygon-delete-modal-button {
+  padding: 1px;
+  display: flex;
+  color: white;
+  border: 2px solid white;
+  border-radius: 5px;
+}
+.polygon-delete-modal-button:hover {
+  background-color: rgba(145, 163, 176, 1);
 }

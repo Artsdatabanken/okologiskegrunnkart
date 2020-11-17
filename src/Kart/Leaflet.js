@@ -987,6 +987,9 @@ class Leaflet extends React.Component {
           savedPolygons={this.props.savedPolygons}
           handleShowSavedPolygons={this.props.handleShowSavedPolygons}
           openSavedPolygon={this.props.openSavedPolygon}
+          deleteSavedPolygon={this.props.deleteSavedPolygon}
+          updateSavedPolygon={this.props.updateSavedPolygon}
+          isMobile={this.props.isMobile}
         />
       </div>
     );

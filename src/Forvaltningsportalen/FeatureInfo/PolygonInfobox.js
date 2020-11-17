@@ -500,7 +500,10 @@ const PolygonInfobox = ({
                   <List id="layers-results-list">
                     {polygonResults &&
                       resultsOrder.map(key => {
-                        if (!polygonResults[key]) return null;
+                        // If layer has not been selected in infobox, we get undefined
+                        if (polygonResults[key] === undefined) return null;
+                        // If layer has been selected but there is no data, we get null
+                        // and it is shown as a list item with no results
                         return (
                           <PolygonElement
                             polygonLayer={availableLayers.find(

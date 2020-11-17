@@ -917,22 +917,6 @@ class SearchBar extends React.Component {
             >
               <ListItemText primary="Åpne lagret polygon" />
             </MenuItem>
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => this.props.handlePolygonSaveModal(true)}
-              disabled={this.props.disableSavePolygon}
-            >
-              <ListItemText primary="Lagre polygon" />
-            </MenuItem>
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                console.log("Functionality not implemented");
-              }}
-              disabled={true}
-            >
-              <ListItemText primary="Editere lagrede polygoner" />
-            </MenuItem>
           </Menu>
         </div>
 
