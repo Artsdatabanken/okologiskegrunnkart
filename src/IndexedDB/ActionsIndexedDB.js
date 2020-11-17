@@ -58,6 +58,8 @@ const removeUnusedLayersIndexedDB = async (
 };
 
 const savePolygonIndexedDB = async (name, polygon) => {
+  // Trim name
+  name = name.trim();
   // Return promise
   return db.polygons.add({
     name: name,
@@ -79,11 +81,13 @@ const deletePolygonIndexedDB = async id => {
 };
 
 const updatePolygonIndexedDB = async polygon => {
+  // Trim name
+  const name = polygon.editname.trim();
   // Return promise
   return db.polygons
     .where("id")
     .equals(polygon.id)
-    .modify({ name: polygon.editname });
+    .modify({ name: name });
 };
 
 export {
