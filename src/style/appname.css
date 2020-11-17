@@ -1,3 +1,8 @@
+@media only screen and (max-width: 768px) {
+  #app-name-snackbar {
+    z-index: 190;
+  }
+}
 .app-name-wrapper {
   display: flex;
   justify-content: center;
