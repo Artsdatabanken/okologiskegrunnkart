@@ -37,6 +37,15 @@ const PolygonDetailed = ({
     let sorted = detailResult.sort((a, b) => {
       return b.km2 - a.km2;
     });
+    if (resultLayer.code === "MAT") {
+      sorted = sorted.map(item => {
+        return {
+          ...item,
+          navn: item.kode,
+          kode: ""
+        };
+      });
+    }
     if (resultLayer.code === "N13") {
       sorted = sorted.map(item => {
         // NOTE: A08 has been moved to A11, but data still returns A08
@@ -131,7 +140,11 @@ const PolygonDetailed = ({
                 >
                   <div className="polygon-details-text-wrapper">
                     <div className="polygon-details-title">{item.navn}</div>
-                    <div className="polygon-details-primary-text">
+                    <div
+                      className={`polygon-details-primary-text${
+                        !item.navn ? " no-title" : ""
+                      }`}
+                    >
                       {item.kode}
                     </div>
                   </div>

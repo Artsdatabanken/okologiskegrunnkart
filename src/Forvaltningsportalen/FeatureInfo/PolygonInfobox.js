@@ -39,6 +39,13 @@ const availableLayers = [
     owner: "Kartverket"
   },
   {
+    name: "Matrikkel",
+    selected: false,
+    code: "MAT",
+    icon: "home",
+    owner: "Kartverket"
+  },
+  {
     name: "Arter nasjonal forvaltningsinteresse",
     selected: false,
     code: "ANF",
@@ -65,6 +72,20 @@ const availableLayers = [
     code: "N13",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
+  },
+  {
+    name: "Innsjødatabase",
+    selected: false,
+    code: "ISJ",
+    icon: "Ferskvann",
+    owner: "Norges vassdrags- og energidirektorat"
+  },
+  {
+    name: "Vannkraft - Magasin",
+    selected: false,
+    code: "MAG",
+    icon: "Ferskvann",
+    owner: "Miljødirektoratet"
   }
   // {
   //   name: "Flomsoner",
@@ -82,7 +103,7 @@ const availableLayers = [
   // }
 ];
 
-const resultsOrder = ["FYL", "KOM", "ANF", "N13"];
+const resultsOrder = ["FYL", "KOM", "MAT", "ANF", "N13", "ISJ", "MAG"];
 
 const PolygonInfobox = ({
   polygon,

@@ -58,6 +58,7 @@ const PolygonElement = ({
           <Badge
             badgeContent={result && result.error ? "!" : numberResults}
             color={result && result.error ? "error" : "primary"}
+            max={numberResults > 999 ? 999 : 99}
           >
             <CustomIcon
               id="infobox-list-icon"

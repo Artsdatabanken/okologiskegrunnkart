@@ -872,7 +872,7 @@ h4.container_header {
   min-height: 50px;
 }
 .polygon-layers-wrapper.expanded {
-  min-height: 249px;
+  min-height: 349px;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
@@ -896,11 +896,11 @@ h4.container_header {
 }
 .polygon-layers-content {
   background: rgba(145, 163, 176, 0.2);
-  min-height: 199px;
+  min-height: 299px;
 }
 .polygon-checkbox-content {
   padding: 10px 10px 8px 14px;
-  min-height: 154px;
+  min-height: 254px;
 }
 .polygon-button-wrapper {
   padding-bottom: 15px;
@@ -952,6 +952,9 @@ h4.container_header {
   line-height: 14px;
   margin-left: 8px;
   margin-top: 1.5px;
+}
+.polygon-details-primary-text.no-title {
+  margin-left: 0;
 }
 .polygon-details-secondary-text {
   color: rgba(0, 0, 0, 0.54);
