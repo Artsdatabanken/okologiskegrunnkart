@@ -1008,8 +1008,8 @@ h4.container_header {
   padding: 0 0 0 12px;
 }
 .polygon-details-description-text {
-  width: calc(100% - 91px);
-  max-width: calc(100% - 91px);
+  width: calc(100% - 85px);
+  max-width: calc(100% - 85px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -9,9 +9,9 @@ const PolygonDetailedDescription = ({ item }) => {
   useEffect(() => {
     // Set description
     if ((open || !item.expandable) && item.beskrivelse) {
-      setDescription("Beskrivelse: " + item.beskrivelse);
+      setDescription(item.beskrivelse);
     } else if (item.beskrivelse) {
-      const text = "Beskrivelse: " + item.beskrivelse.substring(0, 30);
+      const text = item.beskrivelse.substring(0, 45);
       setDescription(text);
     } else {
       setDescription("");
