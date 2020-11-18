@@ -68,6 +68,7 @@ const PolygonDetailed = ({
               className={"badge-enabled"}
               badgeContent={numberResults || 0}
               color="primary"
+              max={numberResults > 999 ? 999 : 99}
             >
               <CustomIcon
                 id="infobox-list-icon"
