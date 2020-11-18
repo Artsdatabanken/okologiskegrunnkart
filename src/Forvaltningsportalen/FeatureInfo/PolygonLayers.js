@@ -100,6 +100,10 @@ const PolygonLayers = ({
     let extendedResult = {};
     for (const code in result) {
       const detailResult = result[code];
+      if (!detailResult || !Array.isArray(detailResult)) {
+        extendedResult[code] = detailResult;
+        continue;
+      }
       let sorted = detailResult.sort((a, b) => {
         return b.km2 - a.km2;
       });
