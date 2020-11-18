@@ -126,7 +126,8 @@ const PolygonLayers = ({
               "N13",
               item.kode === "A08" ? "A11" : item.kode,
               "description"
-            )
+            ),
+            expandable: true
           };
         });
       }
@@ -137,6 +138,16 @@ const PolygonLayers = ({
             navn: item.kode,
             kode: ""
             // beskrivelse: getTextAreaReport("ANF", item.kode, "description")
+          };
+        });
+      }
+      if (code === "MAG") {
+        sorted = sorted.map(item => {
+          return {
+            ...item,
+            navn: item.navn,
+            kode: item.kode,
+            beskrivelse: getTextAreaReport("MAG", item.kode, "code")
           };
         });
       }

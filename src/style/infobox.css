@@ -975,8 +975,14 @@ h4.container_header {
 }
 .polygon-details-description-wrapper-open {
   margin-top: 4px;
-  padding: 2px 0 6px 0;
-  padding-right: 12px;
+  padding: 2px 12px 6px 0;
+  width: 100%;
+}
+.polygon-details-description-wrapper-fixed {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding: 2px 0 10px 0;
   width: 100%;
 }
 .polygon-details-description-wrapper-open:focus,
@@ -1013,6 +1019,13 @@ h4.container_header {
     width: calc(100vw - 75px);
     max-width: calc(100vw - 75px);
   }
+}
+.polygon-details-description-text-fixed {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  text-align: left;
+  line-height: 16px;
+  padding: 0 0 0 12px;
 }
 .polygon-details-description-link-open,
 .polygon-details-description-link {
