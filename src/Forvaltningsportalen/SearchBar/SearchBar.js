@@ -2,16 +2,8 @@ import React from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import {
-  Modal,
-  Menu,
-  MenuItem,
-  ListItemText,
-  ListItemIcon,
-  Divider
-} from "@material-ui/core";
-import { Close } from "@material-ui/icons";
-import { Menu as MenuIcon, Done } from "@material-ui/icons";
+import { Menu as MenuIcon } from "@material-ui/icons";
+import DrawerMenu from "./DrawerMenu";
 
 class SearchBar extends React.Component {
   state = {
@@ -27,8 +19,6 @@ class SearchBar extends React.Component {
     treffliste_bnr: null,
     treffliste_adresse: null,
     searchTerm: null,
-    showHelpModal: false,
-    manual: "",
     countermax: 50,
     anchorEl: null,
     number_places: 0,
@@ -38,7 +28,8 @@ class SearchBar extends React.Component {
     number_gnr: 0,
     number_bnr: 0,
     number_addresses: 0,
-    number_layers: 0
+    number_layers: 0,
+    openDrawer: false
   };
 
   handleRemoveTreffliste = () => {
@@ -586,102 +577,12 @@ class SearchBar extends React.Component {
     this.wrapperRef = node;
   };
 
-  openHelp = () => {
-    // returnerer brukermanualen fra wiki
-    backend.getUserManualWiki().then(manual => {
-      this.setState({ showHelpModal: true, manual });
-    });
+  handleOpenDrawer = () => {
+    this.setState({ openDrawer: true });
   };
 
-  closeHelpModal = () => {
-    this.setState({ showHelpModal: false });
-  };
-
-  handleOpenMenu = event => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleCloseMenu = () => {
-    this.setState({ anchorEl: null });
-  };
-
-  formattedManual = () => {
-    if (!this.state.manual || this.state.manual === "") {
-      return [];
-    }
-    const array = this.state.manual.split(/\r?\n/);
-    const items = [];
-    for (const [index, value] of array.entries()) {
-      if (!value || value === "") {
-        continue;
-      } else if (value.startsWith("## ")) {
-        items.push(
-          <p key={index} className="help-text-line-header">
-            {value.substring(3, value.length)}
-          </p>
-        );
-      } else {
-        const matches = value.matchAll(
-          /\((?<link>.*?)\)|\[(?<linkname>.*?)\]/g
-        );
-        let allmatches = Array.from(matches);
-        allmatches = allmatches.map(e => {
-          const r = e.groups;
-          return r;
-        });
-        let links = allmatches.map(e => {
-          if (e.link) return e.link;
-          return null;
-        });
-        let linknames = allmatches.map(e => {
-          if (e.linkname) return e.linkname;
-          return null;
-        });
-        links = links.filter(e => e != null);
-        linknames = linknames.filter(e => e != null);
-        if (links.length > 0 && linknames.length > 0) {
-          let text = value;
-          let elements = [];
-          for (let i = 0; i < links.length; i++) {
-            text = text.split("[" + linknames[i] + "](" + links[i] + ")");
-            if (text.length > 1) {
-              elements.push(text[0]);
-              text = text[1];
-            } else {
-              elements.push(text[0]);
-              text = text[0];
-            }
-          }
-          let elementsWithLinks = [];
-          for (let i = 0; i < elements.length; i++) {
-            if (links[i]) {
-              elementsWithLinks.push(
-                <>
-                  {elements[i]}
-                  <a href={links[i]} target="_blank" rel="noopener noreferrer">
-                    {linknames[i]}
-                  </a>
-                </>
-              );
-            } else {
-              elementsWithLinks.push(<>{elements[i]}</>);
-            }
-          }
-          items.push(
-            <p key={index} className="help-text-line">
-              {elementsWithLinks}
-            </p>
-          );
-        } else {
-          items.push(
-            <p key={index} className="help-text-line">
-              {value}
-            </p>
-          );
-        }
-      }
-    }
-    return items;
+  handleCloseDrawer = () => {
+    this.setState({ openDrawer: false });
   };
 
   handleSearchKeyDown = e => {
@@ -811,138 +712,26 @@ class SearchBar extends React.Component {
           <button
             className="help_button"
             tabIndex="0"
-            onClick={e => {
+            onClick={() => {
               if (!this.props.loadingFeatures) {
-                this.handleOpenMenu(e);
+                this.handleOpenDrawer();
               }
             }}
           >
             <MenuIcon />
           </button>
-          <Menu
-            id="settings-menu"
+          <DrawerMenu
             anchorEl={this.state.anchorEl}
-            keepMounted
-            variant="menu"
-            open={Boolean(this.state.anchorEl)}
-            onClose={this.handleCloseMenu}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "right"
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right"
-            }}
-            getContentAnchorEl={null}
-          >
-            <MenuItem
-              id="settings-menu-user-manual"
-              onClick={() => {
-                this.props.handleAboutModal(true);
-                this.handleCloseMenu();
-              }}
-            >
-              <ListItemText primary={`Om "Økologiske Grunnkart"`} />
-            </MenuItem>
-            <MenuItem
-              id="settings-menu-user-manual"
-              onClick={() => {
-                this.openHelp();
-                this.handleCloseMenu();
-              }}
-            >
-              <ListItemText primary="Brukermanual" />
-            </MenuItem>
-            <Divider variant="middle" />
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                this.props.toggleShowFavoriteLayers(true);
-                this.handleCloseMenu();
-              }}
-              selected={this.props.showFavoriteLayers}
-            >
-              <ListItemText primary="Vis favoritt kartlag" />
-              <ListItemIcon id="filter-layers-menu-icon">
-                {this.props.showFavoriteLayers ? (
-                  <Done fontSize="small" />
-                ) : (
-                  <div />
-                )}
-              </ListItemIcon>
-            </MenuItem>
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                this.props.toggleShowFavoriteLayers(false);
-                this.handleCloseMenu();
-              }}
-              selected={!this.props.showFavoriteLayers}
-            >
-              <ListItemText primary="Vis fullstendig kartlag" />
-              <ListItemIcon id="filter-layers-menu-icon">
-                {!this.props.showFavoriteLayers ? (
-                  <Done fontSize="small" />
-                ) : (
-                  <div />
-                )}
-              </ListItemIcon>
-            </MenuItem>
-            <Divider variant="middle" />
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                this.props.toggleEditLayers();
-                this.handleCloseMenu();
-              }}
-            >
-              <ListItemText primary="Editere favoritt kartlag" />
-            </MenuItem>
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                this.props.uploadPolygonFile("menu");
-                this.handleCloseMenu();
-              }}
-            >
-              <ListItemText primary="Laste opp polygon" />
-            </MenuItem>
-            <MenuItem
-              id="settings-menu-kartlag"
-              onClick={() => {
-                this.props.getSavedPolygons();
-                this.handleCloseMenu();
-              }}
-            >
-              <ListItemText primary="Åpne lagret polygon" />
-            </MenuItem>
-          </Menu>
+            openDrawer={this.state.openDrawer}
+            handleCloseDrawer={this.handleCloseDrawer}
+            handleAboutModal={this.props.handleAboutModal}
+            showFavoriteLayers={this.props.showFavoriteLayers}
+            toggleShowFavoriteLayers={this.props.toggleShowFavoriteLayers}
+            toggleEditLayers={this.props.toggleEditLayers}
+            uploadPolygonFile={this.props.uploadPolygonFile}
+            getSavedPolygons={this.props.getSavedPolygons}
+          />
         </div>
-
-        <Modal
-          open={this.state.showHelpModal}
-          onClose={this.closeHelpModal}
-          className="help-modal-body"
-        >
-          <div className="help-modal-wrapper">
-            <div className="help-modal-title">
-              <div>Brukermanual</div>
-              <button
-                tabIndex="0"
-                className="close-modal-button-wrapper"
-                onClick={e => {
-                  this.closeHelpModal();
-                }}
-              >
-                <div className="close-modal-button">
-                  <Close />
-                </div>
-              </button>
-            </div>
-            <div className="help-modal-content">{this.formattedManual()}</div>
-          </div>
-        </Modal>
       </>
     );
   }
