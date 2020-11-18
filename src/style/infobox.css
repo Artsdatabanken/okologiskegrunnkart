@@ -872,7 +872,7 @@ h4.container_header {
   min-height: 50px;
 }
 .polygon-layers-wrapper.expanded {
-  min-height: 249px;
+  min-height: 349px;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
@@ -896,11 +896,11 @@ h4.container_header {
 }
 .polygon-layers-content {
   background: rgba(145, 163, 176, 0.2);
-  min-height: 199px;
+  min-height: 299px;
 }
 .polygon-checkbox-content {
   padding: 10px 10px 8px 14px;
-  min-height: 154px;
+  min-height: 254px;
 }
 .polygon-button-wrapper {
   padding-bottom: 15px;
@@ -953,6 +953,9 @@ h4.container_header {
   margin-left: 8px;
   margin-top: 1.5px;
 }
+.polygon-details-primary-text.no-title {
+  margin-left: 0;
+}
 .polygon-details-secondary-text {
   color: rgba(0, 0, 0, 0.54);
   font-size: 14px;
@@ -972,8 +975,14 @@ h4.container_header {
 }
 .polygon-details-description-wrapper-open {
   margin-top: 4px;
-  padding: 2px 0 6px 0;
-  padding-right: 12px;
+  padding: 2px 12px 6px 0;
+  width: 100%;
+}
+.polygon-details-description-wrapper-fixed {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+  padding: 2px 0 10px 0;
   width: 100%;
 }
 .polygon-details-description-wrapper-open:focus,
@@ -999,8 +1008,8 @@ h4.container_header {
   padding: 0 0 0 12px;
 }
 .polygon-details-description-text {
-  width: calc(100% - 91px);
-  max-width: calc(100% - 91px);
+  width: calc(100% - 85px);
+  max-width: calc(100% - 85px);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1010,6 +1019,13 @@ h4.container_header {
     width: calc(100vw - 75px);
     max-width: calc(100vw - 75px);
   }
+}
+.polygon-details-description-text-fixed {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  text-align: left;
+  line-height: 16px;
+  padding: 0 0 0 12px;
 }
 .polygon-details-description-link-open,
 .polygon-details-description-link {

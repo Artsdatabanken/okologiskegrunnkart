@@ -1017,6 +1017,12 @@ const reports = {
       description_english: "",
       name: "Åpen kalkmark i oslofeltet"
     }
+  },
+  MAG: {
+    OA: { code: "Innsjø oppdemt til andre formål" },
+    OK: { code: "Innsjø oppdemt til kraftproduksjon" },
+    RA: { code: "Reguleringsmagasin til andre formål" },
+    RK: { code: "Reguleringsmagasin til kraftproduksjon" }
   }
 };
 

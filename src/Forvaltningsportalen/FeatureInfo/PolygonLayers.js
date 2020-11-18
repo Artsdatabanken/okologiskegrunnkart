@@ -10,6 +10,7 @@ import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
 import { getPolygonDepth } from "../../Funksjoner/polygonTools";
+import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
 
 const PolygonLayers = ({
   availableLayers,
@@ -89,10 +90,74 @@ const PolygonLayers = ({
       handleLoadingFeatures(true);
       backend.makeAreaReport(layerCodes, wkt).then(result => {
         if (!result) handlePolygonResults(errorResult);
-        else handlePolygonResults(result);
+        else sortAndHandlePolygonResults(result);
         handleLoadingFeatures(false);
       });
     }
+  };
+
+  const sortAndHandlePolygonResults = result => {
+    let extendedResult = {};
+    for (const code in result) {
+      const detailResult = result[code];
+      if (!detailResult || !Array.isArray(detailResult)) {
+        extendedResult[code] = detailResult;
+        continue;
+      }
+      let sorted = detailResult.sort((a, b) => {
+        return b.km2 - a.km2;
+      });
+      if (code === "MAT") {
+        sorted = sorted.map(item => {
+          return {
+            ...item,
+            navn: item.kode,
+            kode: ""
+          };
+        });
+      }
+      if (code === "N13") {
+        sorted = sorted.map(item => {
+          // NOTE: A08 has been moved to A11, but data still returns A08
+          return {
+            ...item,
+            navn: getTextAreaReport(
+              "N13",
+              item.kode === "A08" ? "A11" : item.kode,
+              "name"
+            ),
+            beskrivelse: getTextAreaReport(
+              "N13",
+              item.kode === "A08" ? "A11" : item.kode,
+              "description"
+            ),
+            expandable: true
+          };
+        });
+      }
+      if (code === "ANF") {
+        sorted = sorted.map(item => {
+          return {
+            ...item,
+            navn: item.kode,
+            kode: ""
+            // beskrivelse: getTextAreaReport("ANF", item.kode, "description")
+          };
+        });
+      }
+      if (code === "MAG") {
+        sorted = sorted.map(item => {
+          return {
+            ...item,
+            navn: item.navn,
+            kode: item.kode,
+            beskrivelse: getTextAreaReport("MAG", item.kode, "code")
+          };
+        });
+      }
+      extendedResult[code] = sorted;
+    }
+    handlePolygonResults(extendedResult);
   };
 
   const handleChange = (e, selectedLayerName) => {
