@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Done, Close } from "@material-ui/icons";
+import {
+  Done,
+  Close,
+  Map,
+  MenuBook,
+  Layers,
+  Forward,
+  Folder
+} from "@material-ui/icons";
 import {
   MenuItem,
+  ListItem,
   ListItemText,
   ListItemIcon,
   Divider,
@@ -9,6 +18,7 @@ import {
   Drawer
 } from "@material-ui/core";
 import backend from "../../Funksjoner/backend";
+import CustomIcon from "../../Common/CustomIcon";
 
 const DrawerMenu = ({
   openDrawer,
@@ -117,83 +127,132 @@ const DrawerMenu = ({
   return (
     <>
       <Drawer
-        id="settings-menu"
+        id="settings-drawer"
         anchor="right"
         keepMounted
         open={openDrawer}
         onClose={handleCloseDrawer}
       >
+        <ListItem id="settings-drawer-titel">
+          <button
+            tabIndex="0"
+            className="close-drawer-button-wrapper"
+            onClick={() => {
+              console.log("Click in button");
+              handleCloseDrawer();
+            }}
+          >
+            <div className="close-drawer-button">
+              <CustomIcon
+                id="drawer-minimize"
+                icon="chevron-doble-right"
+                color="#fff"
+                size={24}
+              />
+            </div>
+          </button>
+          <ListItemText primary={"Økologiske grunnkart"} />
+        </ListItem>
+
         <MenuItem
-          id="settings-menu-user-manual"
+          id="settings-drawer-user-manual"
           onClick={() => {
             handleAboutModal(true);
             handleCloseDrawer();
           }}
+          tabIndex="0"
         >
+          <ListItemIcon id="drawer-item-icon">
+            <Map />
+          </ListItemIcon>
           <ListItemText primary={`Om "Økologiske Grunnkart"`} />
         </MenuItem>
+
         <MenuItem
-          id="settings-menu-user-manual"
+          id="settings-drawer-about-info"
           onClick={() => {
             openHelp();
             handleCloseDrawer();
           }}
+          tabIndex="0"
         >
+          <ListItemIcon id="drawer-item-icon">
+            <MenuBook />
+          </ListItemIcon>
           <ListItemText primary="Brukermanual" />
         </MenuItem>
-        <Divider variant="middle" />
+
+        <Divider variant="fullWidth" />
+
         <MenuItem
-          id="settings-menu-kartlag"
+          id="settings-drawer-favourite-kartlag"
           onClick={() => {
             toggleShowFavoriteLayers(true);
-            handleCloseDrawer();
           }}
           selected={showFavoriteLayers}
+          tabIndex="0"
         >
           <ListItemText primary="Vis favoritt kartlag" />
           <ListItemIcon id="filter-layers-menu-icon">
             {showFavoriteLayers ? <Done fontSize="small" /> : <div />}
           </ListItemIcon>
         </MenuItem>
+
         <MenuItem
-          id="settings-menu-kartlag"
+          id="settings-drawer-all-kartlag"
           onClick={() => {
             toggleShowFavoriteLayers(false);
-            handleCloseDrawer();
           }}
           selected={!showFavoriteLayers}
+          tabIndex="0"
         >
           <ListItemText primary="Vis fullstendig kartlag" />
           <ListItemIcon id="filter-layers-menu-icon">
             {!showFavoriteLayers ? <Done fontSize="small" /> : <div />}
           </ListItemIcon>
         </MenuItem>
-        <Divider variant="middle" />
+
         <MenuItem
-          id="settings-menu-kartlag"
+          id="settings-drawer-edit-kartlag"
           onClick={() => {
             toggleEditLayers();
             handleCloseDrawer();
           }}
+          tabIndex="0"
         >
+          <ListItemIcon id="drawer-item-icon">
+            <Layers />
+          </ListItemIcon>
           <ListItemText primary="Editere favoritt kartlag" />
         </MenuItem>
+
+        <Divider variant="fullWidth" />
+
         <MenuItem
-          id="settings-menu-kartlag"
+          id="settings-drawer-upload-polygon"
           onClick={() => {
             uploadPolygonFile("menu");
             handleCloseDrawer();
           }}
+          tabIndex="0"
         >
+          <ListItemIcon id="drawer-item-icon">
+            <Forward style={{ transform: "rotate(-90deg)" }} />
+          </ListItemIcon>
           <ListItemText primary="Laste opp polygon" />
         </MenuItem>
+
         <MenuItem
-          id="settings-menu-kartlag"
+          id="settings-drawer-saved-polygon"
           onClick={() => {
             getSavedPolygons();
             handleCloseDrawer();
           }}
+          tabIndex="0"
         >
+          <ListItemIcon id="drawer-item-icon">
+            <Folder />
+          </ListItemIcon>
           <ListItemText primary="Åpne lagret polygon" />
         </MenuItem>
       </Drawer>

@@ -582,6 +582,7 @@ class SearchBar extends React.Component {
   };
 
   handleCloseDrawer = () => {
+    console.log("Coming here");
     this.setState({ openDrawer: false });
   };
 
