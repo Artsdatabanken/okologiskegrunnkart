@@ -201,7 +201,12 @@ const PolygonLayers = ({
         />
         {menuOpen ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
-      <Collapse in={menuOpen} timeout="auto" unmountOnExit>
+      <Collapse
+        id="polygon-layers-collapse"
+        in={menuOpen}
+        timeout="auto"
+        unmountOnExit
+      >
         <div className="polygon-layers-content">
           <div className="polygon-checkbox-content">
             {searchLayers.map((layer, index) => {
