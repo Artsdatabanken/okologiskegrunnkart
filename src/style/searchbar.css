@@ -481,20 +481,33 @@
   background-color: #697f8a;
   color: white;
 }
+#settings-drawer-titel.MuiListItem-gutters {
+  padding-left: 4px;
+}
 #settings-drawer-titel .MuiTypography-body1 {
   font-size: 20px;
   font-weight: 550;
 }
+#drawer-title-text {
+  margin-left: 10px;
+}
 #drawer-item-icon.MuiListItemIcon-root {
   min-width: 45px;
 }
-#settings-drawer-favourite-kartlag.MuiListItem-gutters,
-#settings-drawer-all-kartlag.MuiListItem-gutters {
+#drawer-item-image {
+  margin-right: 21px;
+}
+/* #drawer-menuitem-favourite-kartlag.MuiListItem-gutters,
+#drawer-menuitem-all-kartlag.MuiListItem-gutters {
   padding-left: 62px;
+} */
+.drawer-menuitem.MuiMenuItem-root {
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 /* -------- Close drawer button --------- */
-.close-drawer-button-wrapper {
+/* .close-drawer-button-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -526,26 +539,20 @@
   border-radius: 5px;
   height: 28px;
   width: 28px;
-  /* z-index: 2500; */
+  z-index: 0;
 }
 .close-drawer-button:hover {
   background-color: rgba(145, 163, 176, 1);
 }
+#drawer-minimize {
+  z-index: 0;
+}
 @media only screen and (max-width: 768px) {
   .close-drawer-button-wrapper {
     z-index: 205;
-    margin: 38px 29px 23px 22px;
+    margin: 23px 29px 23px 22px;
   }
   .close-drawer-button-wrapper:focus {
-    margin: 15px 7px 0 0;
+    margin: 0 7px 0 0;
   }
-  .close-drawer-button {
-    z-index: 205;
-    position: absolute;
-    top: 24px;
-    right: 15px;
-  }
-  #drawer-minimize {
-    transform: rotate(-90deg);
-  }
-}
+} */
