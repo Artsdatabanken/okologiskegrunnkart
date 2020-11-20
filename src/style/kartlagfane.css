@@ -376,8 +376,11 @@
   border: 1px solid #ddd;
 }
 #favourites-layers-menu-item.MuiListItem-gutters {
-  padding-left: 25px;
+  padding-left: 15px;
   padding-right: 25px;
+}
+#favourites-item-icon.MuiListItemIcon-root {
+  min-width: 45px;
 }
 
 /* ---------- LEGEND LINK ---------- */

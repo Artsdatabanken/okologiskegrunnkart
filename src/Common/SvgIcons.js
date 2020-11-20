@@ -12,14 +12,6 @@ const FilterIcon = () => {
 const AllLayersIcon = () => {
   return (
     <SvgIcon>
-      <path d="M14,10H2V12H14V10M14,6H2V8H14V6M2,16H10V14H2V16M21.5,11.5L23,13L16,20L11.5,15.5L13,14L16,17L21.5,11.5Z"></path>
-    </SvgIcon>
-  );
-};
-
-const AllLayersIcon2 = () => {
-  return (
-    <SvgIcon>
       <path d="M4,5H20V7H4V5M4,9H20V11H4V9M4,13H20V15H4V13M4,17H14V19H4V17Z"></path>
     </SvgIcon>
   );
@@ -52,7 +44,6 @@ const ChevronDobleRightWhite = () => {
 export {
   FilterIcon,
   AllLayersIcon,
-  AllLayersIcon2,
   FavouriteLayesIcon,
   EditLayesIcon,
   ChevronDobleRightWhite

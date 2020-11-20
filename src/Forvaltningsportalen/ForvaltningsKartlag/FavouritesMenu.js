@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, Paper } from "@material-ui/core";
+import { IconButton, Paper, ListItemIcon } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -64,6 +64,9 @@ export default function FavouritesMenu({
             selected={showFavoriteLayers}
             tabIndex={0}
           >
+            <ListItemIcon id="favourites-item-icon">
+              <FavouriteLayesIcon />
+            </ListItemIcon>
             <ListItemText primary="Vis favoritt kartlag" />
           </MenuItem>
 
@@ -76,6 +79,9 @@ export default function FavouritesMenu({
             selected={!showFavoriteLayers}
             tabIndex={0}
           >
+            <ListItemIcon id="favourites-item-icon">
+              <AllLayersIcon />
+            </ListItemIcon>
             <ListItemText primary="Vis fullstendig kartlag" />
           </MenuItem>
         </Menu>
