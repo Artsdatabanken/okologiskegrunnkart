@@ -337,7 +337,8 @@
 /* ------------- Filter --------------- */
 #filter-menu .MuiPopover-paper {
   /* border: 3px solid rgb(145, 167, 178); */
-  border: 2px solid #697f8a;
+  /* border: 2px solid #697f8a; */
+  border: 1px solid #ddd;
 }
 #filter-layers-menu-item {
   width: 380px;
@@ -364,11 +365,15 @@
 }
 /* ------------- Sort --------------- */
 #sort-menu .MuiPopover-paper {
-  border: 2px solid #697f8a;
+  border: 1px solid #ddd;
 }
 #sort-layers-menu-item.MuiListItem-gutters {
   padding-left: 25px;
   padding-right: 25px;
+}
+/* ------------- Favourites ------------ */
+#favourites-menu .MuiPopover-paper {
+  border: 1px solid #ddd;
 }
 
 /* ---------- LEGEND LINK ---------- */

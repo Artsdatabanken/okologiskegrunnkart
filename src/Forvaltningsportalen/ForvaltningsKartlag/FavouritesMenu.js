@@ -53,7 +53,7 @@ export default function FavouritesMenu({
       </BottomTooltip>
       <Paper elevation={3}>
         <Menu
-          id="sort-menu"
+          id="favourites-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
