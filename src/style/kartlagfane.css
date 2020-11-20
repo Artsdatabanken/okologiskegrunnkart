@@ -254,7 +254,6 @@
     height: 35px;
   }
 }
-
 #show-layers-icon {
   display: flex;
   align-items: center;
@@ -273,6 +272,12 @@
 }
 
 /* ---------- SORTERING, FILTRERING OG SØK DELEN ---------- */
+.layers-icon-button-wrapper {
+  margin-right: 10px;
+}
+.layers-icon-button-wrapper-last {
+  margin-right: 5px;
+}
 .header-layers-menu {
   background-color: white;
   position: -webkit-sticky;
@@ -437,12 +442,6 @@
   color: rgba(0, 0, 0, 0.64);
   font-size: 17px;
   font-weight: 500;
-}
-#legend-icon-left-side.MuiSvgIcon-colorPrimary {
-  color: #555;
-}
-#legend-icon-left-side.MuiSvgIcon-colorSecondary {
-  color: #999;
 }
 
 /* ----------- LEGEND MENU ------------- */

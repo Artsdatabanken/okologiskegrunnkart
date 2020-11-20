@@ -1,10 +1,11 @@
 import React from "react";
-import { IconButton, Paper, ListItemIcon } from "@material-ui/core";
+import { Paper, ListItemIcon } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import BottomTooltip from "../../Common/BottomTooltip";
 import { AllLayersIcon, FavouriteLayesIcon } from "../../Common/SvgIcons";
+import CustomIconButton from "../../Common/CustomIconButton";
 
 export default function FavouritesMenu({
   showFavoriteLayers,
@@ -22,21 +23,23 @@ export default function FavouritesMenu({
 
   return (
     <>
-      <BottomTooltip
-        id="tooltip-sort-filter-button"
-        placement="bottom"
-        title="Favoritter"
-      >
-        <IconButton
-          aria-controls="favourites-menu"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={handleClick}
+      <div className="layers-icon-button-wrapper">
+        <BottomTooltip
+          id="tooltip-sort-filter-button"
+          placement="bottom"
+          title="Favoritter"
         >
-          {showFavoriteLayers ? <FavouriteLayesIcon /> : <AllLayersIcon />}
-        </IconButton>
-      </BottomTooltip>
+          <CustomIconButton
+            aria-controls="favourites-menu"
+            aria-haspopup="true"
+            variant="contained"
+            color="primary"
+            onClick={handleClick}
+          >
+            {showFavoriteLayers ? <FavouriteLayesIcon /> : <AllLayersIcon />}
+          </CustomIconButton>
+        </BottomTooltip>
+      </div>
       <Paper elevation={3}>
         <Menu
           id="favourites-menu"
