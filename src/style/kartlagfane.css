@@ -375,6 +375,10 @@
 #favourites-menu .MuiPopover-paper {
   border: 1px solid #ddd;
 }
+#favourites-layers-menu-item.MuiListItem-gutters {
+  padding-left: 25px;
+  padding-right: 25px;
+}
 
 /* ---------- LEGEND LINK ---------- */
 .legend-link-background {

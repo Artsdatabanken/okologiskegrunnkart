@@ -167,8 +167,6 @@ const ForvaltningsKartlag = ({
             <FavouritesMenu
               showFavoriteLayers={showFavoriteLayers}
               toggleShowFavoriteLayers={toggleShowFavoriteLayers}
-              sort={sortKey}
-              onChangeSort={handleChangeSort}
             />
             <Sortering sort={sortKey} onChangeSort={handleChangeSort} />
             <Filtrering

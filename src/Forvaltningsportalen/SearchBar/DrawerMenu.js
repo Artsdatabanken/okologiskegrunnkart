@@ -195,6 +195,7 @@ const DrawerMenu = ({
           className="drawer-menuitem"
           onClick={() => {
             toggleShowFavoriteLayers(true);
+            handleCloseDrawer();
           }}
           selected={showFavoriteLayers}
           tabIndex={0}
@@ -213,6 +214,7 @@ const DrawerMenu = ({
           className="drawer-menuitem"
           onClick={() => {
             toggleShowFavoriteLayers(false);
+            handleCloseDrawer();
           }}
           selected={!showFavoriteLayers}
           tabIndex={0}

@@ -1,5 +1,4 @@
 import React from "react";
-import { Sort as SortIcon } from "@material-ui/icons";
 import { IconButton, Paper } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -9,9 +8,7 @@ import { AllLayersIcon, FavouriteLayesIcon } from "../../Common/SvgIcons";
 
 export default function FavouritesMenu({
   showFavoriteLayers,
-  toggleShowFavoriteLayers,
-  sort,
-  onChangeSort
+  toggleShowFavoriteLayers
 }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -23,23 +20,12 @@ export default function FavouritesMenu({
     setAnchorEl(null);
   };
 
-  const handleSelect = sortkey => {
-    onChangeSort(sortkey);
-    handleClose();
-  };
-
-  const sorteringsmåter = {
-    alfabetisk: "Alfabetisk",
-    dataeier: "Dataeier",
-    tema: "Tema"
-  };
-
   return (
     <>
       <BottomTooltip
         id="tooltip-sort-filter-button"
         placement="bottom"
-        title="Sortere"
+        title="Favoritter"
       >
         <IconButton
           aria-controls="favourites-menu"
@@ -69,16 +55,29 @@ export default function FavouritesMenu({
           }}
           getContentAnchorEl={null}
         >
-          {Object.keys(sorteringsmåter).map(måte => (
-            <MenuItem
-              id="sort-layers-menu-item"
-              key={måte}
-              onClick={() => handleSelect(måte)}
-              selected={måte === sort}
-            >
-              <ListItemText primary={sorteringsmåter[måte]} />
-            </MenuItem>
-          ))}
+          <MenuItem
+            id="favourites-layers-menu-item"
+            onClick={() => {
+              toggleShowFavoriteLayers(true);
+              handleClose();
+            }}
+            selected={showFavoriteLayers}
+            tabIndex={0}
+          >
+            <ListItemText primary="Vis favoritt kartlag" />
+          </MenuItem>
+
+          <MenuItem
+            id="favourites-layers-menu-item"
+            onClick={() => {
+              toggleShowFavoriteLayers(false);
+              handleClose();
+            }}
+            selected={!showFavoriteLayers}
+            tabIndex={0}
+          >
+            <ListItemText primary="Vis fullstendig kartlag" />
+          </MenuItem>
         </Menu>
       </Paper>
     </>
