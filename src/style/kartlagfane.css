@@ -272,7 +272,7 @@
   padding-bottom: 5px;
 }
 
-/* ---------- Sortering, filtrering og søk -delen ---------- */
+/* ---------- SORTERING, FILTRERING OG SØK DELEN ---------- */
 .header-layers-menu {
   background-color: white;
   position: -webkit-sticky;
@@ -333,8 +333,14 @@
 #filter-all-button:hover {
   background-color: #eee;
 }
+
+/* ------------- Filter --------------- */
+#filter-menu .MuiPopover-paper {
+  /* border: 3px solid rgb(145, 167, 178); */
+  border: 2px solid #697f8a;
+}
 #filter-layers-menu-item {
-  width: 385px;
+  width: 380px;
   max-width: calc(100vw - 30px);
 }
 @media only screen and (max-width: 768px) {
@@ -353,15 +359,19 @@
   min-width: 35px;
   max-width: 35px;
 }
+#layers-filter-chips.MuiChip-colorPrimary {
+  background-color: #697f8a;
+}
+/* ------------- Sort --------------- */
+#sort-menu .MuiPopover-paper {
+  border: 2px solid #697f8a;
+}
 #sort-layers-menu-item.MuiListItem-gutters {
   padding-left: 25px;
   padding-right: 25px;
 }
-#layers-filter-chips.MuiChip-colorPrimary {
-  background-color: #697f8a;
-}
 
-/* ---------- Leyend link ---------- */
+/* ---------- LEGEND LINK ---------- */
 .legend-link-background {
   background-color: #eee;
   position: -webkit-sticky;
@@ -423,7 +433,7 @@
   color: #999;
 }
 
-/* ----------- Legend menu ------------- */
+/* ----------- LEGEND MENU ------------- */
 .legend-wrapper-right {
   background-color: #fff;
   height: 100%;

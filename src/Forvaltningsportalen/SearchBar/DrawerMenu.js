@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Done,
   Close,
   Map,
   MenuBook,
-  Layers,
   Forward,
   Folder,
   CloudDownload,
@@ -19,12 +18,15 @@ import {
   Divider,
   Modal,
   Drawer,
-  IconButton,
-  ListItemSecondaryAction,
-  SvgIcon
+  IconButton
 } from "@material-ui/core";
 import backend from "../../Funksjoner/backend";
-import CustomIcon from "../../Common/CustomIcon";
+import {
+  AllLayersIcon,
+  FavouriteLayesIcon,
+  EditLayesIcon,
+  ChevronDobleRightWhite
+} from "../../Common/SvgIcons";
 
 const DrawerMenu = ({
   openDrawer,
@@ -137,31 +139,6 @@ const DrawerMenu = ({
     newTab.location = url;
   };
 
-  const closeDrawerButton = () => {
-    return (
-      <>
-        <button
-          tabIndex="0"
-          className="close-drawer-button-wrapper"
-          onClick={() => {
-            console.log("Click in button");
-            handleCloseDrawer();
-          }}
-        >
-          <div className="close-drawer-button">
-            <CustomIcon
-              id="drawer-minimize"
-              icon="chevron-doble-right"
-              color="#fff"
-              size={24}
-            />
-          </div>
-        </button>
-        <ListItemText primary={"Økologiske grunnkart"} />
-      </>
-    );
-  };
-
   return (
     <>
       <Drawer
@@ -173,38 +150,13 @@ const DrawerMenu = ({
       >
         <ListItem id="settings-drawer-titel">
           <IconButton onClick={() => handleCloseDrawer()}>
-            <SvgIcon htmlColor="#fff">
-              <path d="M5.59,7.41L7,6L13,12L7,18L5.59,16.59L10.17,12L5.59,7.41M11.59,7.41L13,6L19,12L13,18L11.59,16.59L16.17,12L11.59,7.41Z" />
-            </SvgIcon>
+            <ChevronDobleRightWhite />
           </IconButton>
           <ListItemText
             id="drawer-title-text"
             primary={"Økologiske grunnkart"}
           />
         </ListItem>
-
-        {/* <ListItem id="settings-drawer-titel" children={closeDrawerButton()} /> */}
-
-        {/* <ListItem id="settings-drawer-titel">
-          <button
-            tabIndex="0"
-            className="close-drawer-button-wrapper"
-            onClick={() => {
-              console.log("Click in button");
-              handleCloseDrawer();
-            }}
-          >
-            <div className="close-drawer-button">
-              <CustomIcon
-                id="drawer-minimize"
-                icon="chevron-doble-right"
-                color="#fff"
-                size={24}
-              />
-            </div>
-          </button>
-          <ListItemText primary={"Økologiske grunnkart"} />
-        </ListItem> */}
 
         <MenuItem
           id="drawer-menuitem-about-info"
@@ -213,7 +165,7 @@ const DrawerMenu = ({
             handleAboutModal(true);
             handleCloseDrawer();
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <Map />
@@ -228,7 +180,7 @@ const DrawerMenu = ({
             openHelp();
             handleCloseDrawer();
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <MenuBook />
@@ -245,15 +197,15 @@ const DrawerMenu = ({
             toggleShowFavoriteLayers(true);
           }}
           selected={showFavoriteLayers}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
-            {showFavoriteLayers ? <Done fontSize="small" /> : <div />}
+            <FavouriteLayesIcon />
           </ListItemIcon>
           <ListItemText primary="Vis favoritt kartlag" />
-          {/* <ListItemIcon id="filter-layers-menu-icon">
+          <ListItemIcon id="filter-layers-menu-icon">
             {showFavoriteLayers ? <Done fontSize="small" /> : <div />}
-          </ListItemIcon> */}
+          </ListItemIcon>
         </MenuItem>
 
         <MenuItem
@@ -263,15 +215,15 @@ const DrawerMenu = ({
             toggleShowFavoriteLayers(false);
           }}
           selected={!showFavoriteLayers}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
-            {!showFavoriteLayers ? <Done fontSize="small" /> : <div />}
+            <AllLayersIcon />
           </ListItemIcon>
           <ListItemText primary="Vis fullstendig kartlag" />
-          {/* <ListItemIcon id="filter-layers-menu-icon">
+          <ListItemIcon id="filter-layers-menu-icon">
             {!showFavoriteLayers ? <Done fontSize="small" /> : <div />}
-          </ListItemIcon> */}
+          </ListItemIcon>
         </MenuItem>
 
         <MenuItem
@@ -281,10 +233,10 @@ const DrawerMenu = ({
             toggleEditLayers();
             handleCloseDrawer();
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
-            <Layers />
+            <EditLayesIcon />
           </ListItemIcon>
           <ListItemText primary="Editere favoritt kartlag" />
         </MenuItem>
@@ -298,7 +250,7 @@ const DrawerMenu = ({
             uploadPolygonFile("menu");
             handleCloseDrawer();
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <Forward style={{ transform: "rotate(-90deg)" }} />
@@ -313,7 +265,7 @@ const DrawerMenu = ({
             getSavedPolygons();
             handleCloseDrawer();
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <Folder />
@@ -332,7 +284,7 @@ const DrawerMenu = ({
               "https://kartkatalog.geonorge.no/?nationalinitiative=%C3%98kologiskGrunnkart";
             openInNewTabWithoutOpener(url);
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <CloudDownload />
@@ -348,7 +300,7 @@ const DrawerMenu = ({
             const url = "https://github.com/Artsdatabanken/forvaltningsportal";
             openInNewTabWithoutOpener(url);
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <GitHub />
@@ -365,7 +317,7 @@ const DrawerMenu = ({
               "mailto:postmottak@artsdatabanken.no?subject=Tilbakemelding%20%C3%98kologiske%20grunnkart";
             openInNewTabWithoutOpener(url);
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <ListItemIcon id="drawer-item-icon">
             <Comment />
@@ -381,7 +333,7 @@ const DrawerMenu = ({
             const url = " https://artsdatabanken.no/";
             openInNewTabWithoutOpener(url);
           }}
-          tabIndex="0"
+          tabIndex={0}
         >
           <img
             id="drawer-item-image"

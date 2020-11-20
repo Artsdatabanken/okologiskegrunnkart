@@ -29,7 +29,9 @@ const KartlagFanen = ({
   handleSelectSearchResult,
   handleSortKey,
   handleTagFilter,
-  handleMatchAllFilters
+  handleMatchAllFilters,
+  showFavoriteLayers,
+  toggleShowFavoriteLayers
 }) => {
   // Detail panel data
   const [underlagDetails, setUnderlagDetails] = useState(null);
@@ -637,6 +639,8 @@ const KartlagFanen = ({
                   handleTagFilter={handleTagFilter}
                   handleMatchAllFilters={handleMatchAllFilters}
                   isMobile={isMobile}
+                  showFavoriteLayers={showFavoriteLayers}
+                  toggleShowFavoriteLayers={toggleShowFavoriteLayers}
                 />
               </div>
             </div>
