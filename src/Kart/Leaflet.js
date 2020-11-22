@@ -868,56 +868,7 @@ class Leaflet extends React.Component {
 
   render() {
     return (
-      <div className="leaflet-main-wrapper">
-        {(!this.props.isMobile ||
-          (this.props.isMobile && !this.props.showAppName)) && (
-          <div className={this.markerButtonClass()}>
-            <button
-              id="marker-button-map"
-              className={this.state.markerType === "klikk" ? "active" : ""}
-              title="Marker tool"
-              alt="Marker tool"
-              onClick={() => this.activateMarker()}
-              onMouseDown={e => e.preventDefault()}
-            >
-              <WhereToVote />
-            </button>
-            <button
-              id="polygon-button-map"
-              className={this.state.markerType === "polygon" ? "active" : ""}
-              title="Polygon tool"
-              alt="Polygon tool"
-              onClick={() => this.activatePolygon()}
-              onMouseDown={e => e.preventDefault()}
-            >
-              <CustomIcon
-                id="polygon-button-icon"
-                icon="hexagon-slice-4"
-                size={24}
-                color={"#FFFFFF"}
-              />
-            </button>
-          </div>
-        )}
-
-        <div
-          style={{ zIndex: -100, cursor: "default" }}
-          ref={ref => {
-            this.mapEl = ref;
-          }}
-        />
-
-        <button
-          className="map_button currentlyhidden"
-          alt="Geolokalisering"
-          title="Geolokalisering"
-          onClick={() => {
-            //this.props.handleFullscreen(false);
-            //this.handleLocate();
-          }}
-        >
-          <LocationSearching />
-        </button>
+      <>
         <InfoboxSide
           markerType={this.state.markerType}
           coordinates_area={this.state.coordinates_area}
@@ -975,23 +926,74 @@ class Leaflet extends React.Component {
           handlePolygonSaveModal={this.props.handlePolygonSaveModal}
           getSavedPolygons={this.props.getSavedPolygons}
         />
-        <PolygonActions
-          markerType={this.state.markerType}
-          showForbidden={this.state.showForbidden}
-          showPolygonSaveModal={this.props.showPolygonSaveModal}
-          handlePolygonSaveModal={this.props.handlePolygonSaveModal}
-          polygonActionResult={this.props.polygonActionResult}
-          closePolygonActionResult={this.props.closePolygonActionResult}
-          savePolygon={this.props.savePolygon}
-          showSavedPolygons={this.props.showSavedPolygons}
-          savedPolygons={this.props.savedPolygons}
-          handleShowSavedPolygons={this.props.handleShowSavedPolygons}
-          openSavedPolygon={this.props.openSavedPolygon}
-          deleteSavedPolygon={this.props.deleteSavedPolygon}
-          updateSavedPolygon={this.props.updateSavedPolygon}
-          isMobile={this.props.isMobile}
-        />
-      </div>
+        <div className="leaflet-main-wrapper">
+          {(!this.props.isMobile ||
+            (this.props.isMobile && !this.props.showAppName)) && (
+            <div className={this.markerButtonClass()}>
+              <button
+                id="marker-button-map"
+                className={this.state.markerType === "klikk" ? "active" : ""}
+                title="Marker tool"
+                alt="Marker tool"
+                onClick={() => this.activateMarker()}
+                onMouseDown={e => e.preventDefault()}
+              >
+                <WhereToVote />
+              </button>
+              <button
+                id="polygon-button-map"
+                className={this.state.markerType === "polygon" ? "active" : ""}
+                title="Polygon tool"
+                alt="Polygon tool"
+                onClick={() => this.activatePolygon()}
+                onMouseDown={e => e.preventDefault()}
+              >
+                <CustomIcon
+                  id="polygon-button-icon"
+                  icon="hexagon-slice-4"
+                  size={24}
+                  color={"#FFFFFF"}
+                />
+              </button>
+            </div>
+          )}
+
+          <div
+            style={{ zIndex: -100, cursor: "default" }}
+            ref={ref => {
+              this.mapEl = ref;
+            }}
+          />
+
+          <button
+            className="map_button currentlyhidden"
+            alt="Geolokalisering"
+            title="Geolokalisering"
+            onClick={() => {
+              //this.props.handleFullscreen(false);
+              //this.handleLocate();
+            }}
+          >
+            <LocationSearching />
+          </button>
+          <PolygonActions
+            markerType={this.state.markerType}
+            showForbidden={this.state.showForbidden}
+            showPolygonSaveModal={this.props.showPolygonSaveModal}
+            handlePolygonSaveModal={this.props.handlePolygonSaveModal}
+            polygonActionResult={this.props.polygonActionResult}
+            closePolygonActionResult={this.props.closePolygonActionResult}
+            savePolygon={this.props.savePolygon}
+            showSavedPolygons={this.props.showSavedPolygons}
+            savedPolygons={this.props.savedPolygons}
+            handleShowSavedPolygons={this.props.handleShowSavedPolygons}
+            openSavedPolygon={this.props.openSavedPolygon}
+            deleteSavedPolygon={this.props.deleteSavedPolygon}
+            updateSavedPolygon={this.props.updateSavedPolygon}
+            isMobile={this.props.isMobile}
+          />
+        </div>
+      </>
     );
   }
 

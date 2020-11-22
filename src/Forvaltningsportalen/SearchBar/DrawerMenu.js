@@ -317,7 +317,7 @@ const DrawerMenu = ({
             handleCloseDrawer();
             const url =
               "mailto:postmottak@artsdatabanken.no?subject=Tilbakemelding%20%C3%98kologiske%20grunnkart";
-            openInNewTabWithoutOpener(url);
+            window.location.href = url;
           }}
           tabIndex={0}
         >
