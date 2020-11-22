@@ -8,6 +8,8 @@ import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
 import PolygonActions from "./PolygonActions";
+import ArtsdatabankenLogo from "./ArtsdatabankenLogo";
+import KartVelger from "./KartVelger";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -900,11 +902,25 @@ class Leaflet extends React.Component {
           </div>
         )}
 
+        <KartVelger
+          handleSetBakgrunnskart={this.props.handleSetBakgrunnskart}
+          aktivtFormat={this.props.aktivtFormat}
+          showSideBar={this.props.showSideBar}
+          showInfobox={this.props.showInfobox}
+          isMobile={this.props.isMobile}
+        />
+
         <div
           style={{ zIndex: -100, cursor: "default" }}
           ref={ref => {
             this.mapEl = ref;
           }}
+        />
+
+        <ArtsdatabankenLogo
+          showSideBar={this.props.showSideBar}
+          showInfobox={this.props.showInfobox}
+          isMobile={this.props.isMobile}
         />
 
         <button

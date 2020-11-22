@@ -24,27 +24,33 @@ const tilgjengelige_data = {
 };
 const imgs = [gebco, topo4, topo4graatone];
 
-const KartVelger = props => {
+const KartVelger = ({
+  handleSetBakgrunnskart,
+  aktivtFormat,
+  showSideBar,
+  showInfobox,
+  isMobile
+}) => {
   const [open, setOpen] = useState(false);
-  var current = tilgjengelige.indexOf(props.aktivtFormat);
+  var current = tilgjengelige.indexOf(aktivtFormat);
 
   const mapButtonClass = () => {
     let name = "change_map_buttons";
-    if (props.showSideBar || (props.isMobile && props.showInfobox)) {
+    if (showSideBar || (isMobile && showInfobox)) {
       name = name + " side-bar-open";
     }
-    if (props.showInfobox) name = name + " infobox-open";
-    if (!props.isMobile) name = name + " margin-animation";
+    if (showInfobox) name = name + " infobox-open";
+    if (!isMobile) name = name + " margin-animation";
     return name;
   };
 
   const mapRefClass = () => {
     let name = "map_ref";
-    if (props.showSideBar || (props.isMobile && props.showInfobox)) {
+    if (showSideBar || (isMobile && showInfobox)) {
       name = name + " side-bar-open";
     }
-    if (props.showInfobox) name = name + " infobox-open";
-    if (!props.isMobile) name = name + " margin-animation";
+    if (showInfobox) name = name + " infobox-open";
+    if (!isMobile) name = name + " margin-animation";
     return name;
   };
 
@@ -60,10 +66,7 @@ const KartVelger = props => {
         <button
           className="change_map_icon"
           onMouseEnter={() => {
-            props.onUpdateLayerProp(
-              "kart.aktivtFormat",
-              tilgjengelige[current]
-            );
+            handleSetBakgrunnskart("kart.aktivtFormat", tilgjengelige[current]);
           }}
           onClick={() => {
             setOpen(!open);
@@ -87,7 +90,7 @@ const KartVelger = props => {
                 }}
                 className="change_map_button"
                 onClick={() => {
-                  props.onUpdateLayerProp("kart.aktivtFormat", element);
+                  handleSetBakgrunnskart("kart.aktivtFormat", element);
                 }}
               >
                 <span>{element}</span>
@@ -98,14 +101,14 @@ const KartVelger = props => {
       </div>
       <div className={mapRefClass()}>
         <div className="map-active-format-text">
-          {`${tilgjengelige_data[props.aktivtFormat].navn} |`}
+          {`${tilgjengelige_data[aktivtFormat].navn} |`}
         </div>
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href={tilgjengelige_data[props.aktivtFormat].url}
+          href={tilgjengelige_data[aktivtFormat].url}
         >
-          {tilgjengelige_data[props.aktivtFormat].dataeier}
+          {tilgjengelige_data[aktivtFormat].dataeier}
         </a>
       </div>
     </>
