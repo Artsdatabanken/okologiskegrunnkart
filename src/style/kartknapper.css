@@ -127,7 +127,7 @@
   }
 }
 
-/* Av/på markør-knappen */
+/* --------- AV/PÅ MARKØR KNAPPEN -------- */
 .map_button {
   top: auto;
   position: absolute;
@@ -214,17 +214,54 @@
   bottom: 0;
   right: calc(100% / 2 - 100px);
   padding-bottom: 5px;
+  -webkit-transition: right 0.5s;
+  -moz-transition: right 0.5s;
+  -ms-transition: right 0.5s;
+  -o-transition: right 0.5s;
+  transition: right 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .artsdatabanken-logo-image {
   opacity: 0.7;
+  height: 30px;
 }
-.artsdatabanken-logo-primary-text {
-  padding-left: 8px;
-  font-weight: bold;
-  letter-spacing: 1.75px;
-  opacity: 0.7;
+.artsdatabanken-logo-wrapper.side-bar-open {
+  right: calc((100% + 408px) / 2 - 100px);
 }
-.artsdatabanken-logo-secondary-text {
-  letter-spacing: 1.75px;
-  opacity: 0.7;
+.artsdatabanken-logo-wrapper.infobox-open {
+  right: calc((100% - 350px) / 2 - 100px);
+}
+.artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
+  right: calc((100% + 408px - 350px) / 2 - 100px);
+}
+@media only screen and (max-width: 1445px) {
+  .artsdatabanken-logo-wrapper {
+    width: 160px;
+    right: calc(100% / 2 - 80px);
+  }
+  .artsdatabanken-logo-image {
+    height: 25px;
+  }
+  .artsdatabanken-logo-wrapper.side-bar-open {
+    right: calc((100% + 408px) / 2 - 80px);
+  }
+  .artsdatabanken-logo-wrapper.infobox-open {
+    right: calc((100% - 350px) / 2 - 80px);
+  }
+  .artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
+    right: calc((100% + 408px - 350px) / 2 - 80px);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .artsdatabanken-logo-wrapper {
+    width: auto;
+    top: 50px;
+    bottom: auto;
+    right: 10px;
+    padding-top: 6px;
+  }
+  .artsdatabanken-logo-image {
+    opacity: 0.8;
+    height: 32px;
+  }
 }

@@ -182,6 +182,7 @@ class Leaflet extends React.Component {
     // Update zoom buttons position
     if (
       this.props.showSideBar !== prevProps.showSideBar ||
+      this.props.showInfobox !== prevProps.showInfobox ||
       this.props.isMobile !== prevProps.isMobile
     ) {
       this.positionZoomButtons();
