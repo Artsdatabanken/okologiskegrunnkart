@@ -16,6 +16,7 @@
   z-index: 100;
   border-radius: 3px;
   border: 1px solid #9f9f9f;
+  align-items: center;
 }
 .change_map_buttons.infobox-open {
   margin-left: 352px;
@@ -50,7 +51,6 @@
   box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
-
 .change_map_icon,
 .change_map_button {
   border-radius: 3px;
@@ -62,9 +62,12 @@
   padding: 0px;
   z-index: 1;
 }
-.change_map_icon:focus,
-.change_map_button:focus {
-  border: 2px solid blue;
+.change_map_icon:focus-visible,
+.change_map_button:focus-visible {
+  padding: 3px;
+  border: 2px solid #333;
+  width: 36px;
+  height: 36px;
 }
 
 .change_map_button {
@@ -94,6 +97,11 @@
 }
 .map_ref.infobox-open {
   margin-left: 352px;
+}
+.map_ref a:focus-visible {
+  border: 1px solid blue;
+  padding: 0 5px;
+  text-decoration: underline;
 }
 .map-active-format-text {
   margin-right: 3px;
@@ -202,6 +210,15 @@
 #polygon-button-map:focus {
   padding: 6px;
   border: 2px solid white;
+  /* outline: none; */
+  /* outline: 2px solid blue; */
+}
+#marker-button-map:focus-visible,
+#polygon-button-map:focus-visible {
+  padding: 6px;
+  border: 4px solid white;
+  width: 44px;
+  height: 44px;
 }
 
 /* ----------- ARTSDATABANKEN LOGO ----------- */
@@ -212,7 +229,7 @@
   align-items: flex-end;
   position: absolute;
   bottom: 0;
-  right: calc(100% / 2 - 100px);
+  right: calc(100% / 2 - 110px);
   padding-bottom: 5px;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
@@ -226,30 +243,30 @@
   height: 30px;
 }
 .artsdatabanken-logo-wrapper.side-bar-open {
-  right: calc((100% + 408px) / 2 - 100px);
+  right: calc((100% + 408px) / 2 - 110px);
 }
 .artsdatabanken-logo-wrapper.infobox-open {
-  right: calc((100% - 350px) / 2 - 100px);
+  right: calc((100% - 350px) / 2 - 110px);
 }
 .artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
-  right: calc((100% + 408px - 350px) / 2 - 100px);
+  right: calc((100% + 408px - 350px) / 2 - 110px);
 }
 @media only screen and (max-width: 1445px) {
   .artsdatabanken-logo-wrapper {
     width: 160px;
-    right: calc(100% / 2 - 80px);
+    right: calc(100% / 2 - 90px);
   }
   .artsdatabanken-logo-image {
     height: 25px;
   }
   .artsdatabanken-logo-wrapper.side-bar-open {
-    right: calc((100% + 408px) / 2 - 80px);
+    right: calc((100% + 408px) / 2 - 90px);
   }
   .artsdatabanken-logo-wrapper.infobox-open {
-    right: calc((100% - 350px) / 2 - 80px);
+    right: calc((100% - 350px) / 2 - 90px);
   }
   .artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
-    right: calc((100% + 408px - 350px) / 2 - 80px);
+    right: calc((100% + 408px - 350px) / 2 - 90px);
   }
 }
 @media only screen and (max-width: 768px) {

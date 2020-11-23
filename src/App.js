@@ -966,7 +966,7 @@ class App extends React.Component {
   handleStedsNavn = (lng, lat, zoom) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat, zoom).then(sted => {
-      if (!sted) return null;
+      if (!sted || !Array.isArray(sted)) return null;
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
@@ -980,6 +980,7 @@ class App extends React.Component {
     // Returnerer matrikkel search
     backend.hentMatrikkel(lng, lat).then(data => {
       // Get fylke geometry
+      if (!data || !Array.isArray(data)) return;
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
         this.handleFylkeData(fylkeData[0]);
@@ -1199,7 +1200,7 @@ class App extends React.Component {
   handleStedsNavnPolygon = (lng, lat) => {
     // returnerer stedsnavn som vist øverst i feltet
     backend.hentStedsnavn(lng, lat, 20).then(sted => {
-      if (!sted) return null;
+      if (!sted || !Array.isArray(sted)) return null;
       sted = sted.sort((a, b) =>
         a.distancemeters > b.distancemeters ? 1 : -1
       );
@@ -1221,6 +1222,7 @@ class App extends React.Component {
 
     backend.hentMatrikkel(lng, lat).then(data => {
       // Get fylke geometry
+      if (!data || !Array.isArray(data)) return;
       const fylkeData = data.filter(item => item.datasettkode === "FYL");
       if (fylkeData.length > 0) {
         if (this.state.grensePolygon === "fylke") {
