@@ -961,13 +961,6 @@ class Leaflet extends React.Component {
             </div>
           )}
 
-          {/* <div
-            style={{ zIndex: -100, cursor: "default" }}
-            ref={ref => {
-              this.mapEl = ref;
-            }}
-          /> */}
-
           <KartVelger
             handleSetBakgrunnskart={this.props.handleSetBakgrunnskart}
             aktivtFormat={this.props.aktivtFormat}

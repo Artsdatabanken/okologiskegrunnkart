@@ -32,6 +32,14 @@ const ArtsdatabankenLogo = ({ showSideBar, showInfobox, isMobile }) => {
       ) {
         logo.classList.remove("infobox-open");
       }
+    } else {
+      // Only remove the classes if relevant
+      if (logo && logo.className.indexOf("side-bar-open") >= 0) {
+        logo.classList.remove("side-bar-open");
+      }
+      if (logo && logo.className.indexOf("infobox-open") >= 0) {
+        logo.classList.remove("infobox-open");
+      }
     }
   }, [showSideBar, showInfobox, isMobile]);
 
