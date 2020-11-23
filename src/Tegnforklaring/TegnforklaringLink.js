@@ -103,20 +103,18 @@ const TegnforklaringLink = ({
       </ListItemText>
       {!isMobile && (
         <BottomTooltip placement="bottom" title="Åpne på venstre side">
-          <IconButton
-            className={classes.customIconButtom}
-            onClick={e => {
-              handleLegendPosition();
-              e.stopPropagation();
-            }}
-            disabled={disabled}
-          >
-            <BorderLeft />
-            {/* <BorderLeft
-              id="legend-icon-left-side"
-              color={disabled ? "secondary" : "primary"}
-            /> */}
-          </IconButton>
+          <span className="geometry-tool-button">
+            <IconButton
+              className={classes.customIconButtom}
+              onClick={e => {
+                handleLegendPosition();
+                e.stopPropagation();
+              }}
+              disabled={disabled}
+            >
+              <BorderLeft />
+            </IconButton>
+          </span>
         </BottomTooltip>
       )}
     </ListItem>
