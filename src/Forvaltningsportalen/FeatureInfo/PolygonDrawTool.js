@@ -19,12 +19,14 @@ import {
   RadioGroup,
   FormControlLabel,
   ListItem,
-  ListItemText
+  ListItemText,
+  Snackbar
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
 import { getPolygonDepth } from "../../Funksjoner/polygonTools";
+import { checkPolylineIsValid } from "../../Funksjoner/polylineTools";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {
@@ -69,6 +71,7 @@ const PolygonDrawTool = ({
 
   const [polygonVisible, setPolygonVisible] = useState(true);
   const [polygonEditable, setPolygonEditable] = useState(true);
+  const [showError, setShowError] = useState(false);
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
@@ -96,6 +99,27 @@ const PolygonDrawTool = ({
     } else if (grensePolygon === "eiendom") {
       hideAndShowPolygon(!showEiendomPolygon);
     }
+  };
+
+  const finishPolygon = polyline => {
+    const isValid = checkPolylineIsValid(
+      polyline[0][0],
+      polyline[0][1],
+      polyline
+    );
+    if (!isValid) {
+      setShowError(true);
+    } else {
+      addPolygon(polyline);
+      addPolyline([]);
+    }
+  };
+
+  const closeError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setShowError(false);
   };
 
   useEffect(() => {
@@ -282,8 +306,9 @@ const PolygonDrawTool = ({
                     className={classes.customIconButtom}
                     onClick={() => {
                       if (polyline.length > 1) {
-                        addPolygon(polyline);
-                        addPolyline([]);
+                        // addPolygon(polyline);
+                        // addPolyline([]);
+                        finishPolygon(polyline);
                       }
                     }}
                   >
@@ -321,6 +346,11 @@ const PolygonDrawTool = ({
           </BottomTooltip>
         </div>
       </div>
+      <Snackbar open={showError} autoHideDuration={2500} onClose={closeError}>
+        <div className="polygon-action-error">
+          Polygon kanter kan ikke krysse
+        </div>
+      </Snackbar>
     </>
   );
 };

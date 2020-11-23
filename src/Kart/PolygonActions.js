@@ -34,8 +34,6 @@ const useStyles = isMobile =>
   }));
 
 const PolygonActions = ({
-  markerType,
-  showForbidden,
   showPolygonSaveModal,
   handlePolygonSaveModal,
   polygonActionResult,
@@ -47,6 +45,8 @@ const PolygonActions = ({
   openSavedPolygon,
   deleteSavedPolygon,
   updateSavedPolygon,
+  polylineError,
+  handlePolylineError,
   isMobile
 }) => {
   const classes = useStyles(isMobile)();
@@ -165,15 +165,6 @@ const PolygonActions = ({
 
   return (
     <>
-      {markerType === "polygon" && (
-        <div
-          className={`polygon-warning-wrapper${
-            showForbidden ? "" : " hidden-warning"
-          }`}
-        >
-          Polygon kanter kan ikke krysse
-        </div>
-      )}
       <input
         style={{ display: "none" }}
         type="file"
@@ -385,6 +376,15 @@ const PolygonActions = ({
       >
         <div className="polygon-action-success">
           {polygonActionResult ? polygonActionResult[1] : ""}
+        </div>
+      </Snackbar>
+      <Snackbar
+        open={polylineError}
+        autoHideDuration={2500}
+        onClose={handlePolylineError}
+      >
+        <div className="polygon-action-error">
+          Polygon kanter kan ikke krysse
         </div>
       </Snackbar>
       {/* --------------- DELETE MODAL --------------- */}

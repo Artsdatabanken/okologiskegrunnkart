@@ -10,6 +10,7 @@ import CustomIcon from "../Common/CustomIcon";
 import PolygonActions from "./PolygonActions";
 import ArtsdatabankenLogo from "./ArtsdatabankenLogo";
 import KartVelger from "./KartVelger";
+import { checkPolylineIsValid } from "../Funksjoner/polylineTools";
 
 var inactiveIcon = L.divIcon({ className: "inactive_point" });
 var activeIcon = L.divIcon({ className: "active_point" });
@@ -28,9 +29,9 @@ class Leaflet extends React.Component {
     markerType: "klikk",
     coordinates_area: null,
     previousCoordinates: null,
-    showForbidden: false,
     closeWarning: null,
-    wmslayers: {}
+    wmslayers: {},
+    polylineError: false
   };
 
   componentDidMount() {
@@ -521,44 +522,6 @@ class Leaflet extends React.Component {
     this.updateUrlWithCoordinates(e.latlng.lng, e.latlng.lat);
   }
 
-  checkIntersectingLines(lat1, lng1, lat2, lng2, lat3, lng3, lat4, lng4) {
-    const det = (lat2 - lat1) * (lng4 - lng3) - (lat4 - lat3) * (lng2 - lng1);
-    if (det === 0) {
-      return false;
-    } else {
-      const lambda =
-        ((lng4 - lng3) * (lat4 - lat1) + (lat3 - lat4) * (lng4 - lng1)) / det;
-      const gamma =
-        ((lng1 - lng2) * (lat4 - lat1) + (lat2 - lat1) * (lng4 - lng1)) / det;
-      return 0 < lambda && lambda < 1 && 0 < gamma && gamma < 1;
-    }
-  }
-
-  checkPolylineIsValid(newLat, newLng) {
-    const polyline = this.props.polyline;
-    if (!polyline || polyline.length < 2) return true;
-    const lat1 = polyline[polyline.length - 1][0];
-    const lng1 = polyline[polyline.length - 1][1];
-    for (let i = 1; i < polyline.length; i++) {
-      const lat3 = polyline[i - 1][0];
-      const lng3 = polyline[i - 1][1];
-      const lat4 = polyline[i][0];
-      const lng4 = polyline[i][1];
-      const intersecting = this.checkIntersectingLines(
-        lat1,
-        lng1,
-        newLat,
-        newLng,
-        lat3,
-        lng3,
-        lat4,
-        lng4
-      );
-      if (intersecting) return false;
-    }
-    return true;
-  }
-
   polygonToolClick(e) {
     if (this.props.editable === true) {
       if (!this.props.polygon) {
@@ -568,24 +531,13 @@ class Leaflet extends React.Component {
         const polygon_list = this.props.polyline;
         const latlng = e.latlng;
         // Check if new line intersects existing lines (polyline valid)
-        const isValid = this.checkPolylineIsValid(latlng.lat, latlng.lng);
+        const isValid = checkPolylineIsValid(
+          latlng.lat,
+          latlng.lng,
+          this.props.polyline
+        );
         if (!isValid) {
-          if (this.state.closeWarning) {
-            clearTimeout(this.state.closeWarning);
-            this.setState({ closeWarning: null });
-          }
-          const x = e.containerPoint ? e.containerPoint.x - 55 : null;
-          const y = e.containerPoint
-            ? Math.max(e.containerPoint.y - 50, 0)
-            : "50px";
-          const box = document.querySelector(".polygon-warning-wrapper");
-          box.style.setProperty("--x", x + "px");
-          box.style.setProperty("--y", y + "px");
-          const closeWarning = setTimeout(
-            () => this.setState({ showForbidden: false, closeWarning: null }),
-            1500
-          );
-          this.setState({ showForbidden: true, closeWarning });
+          this.setState({ polylineError: true });
         } else {
           polygon_list.push([latlng.lat, latlng.lng]);
           this.props.addPolyline(polygon_list);
@@ -593,6 +545,13 @@ class Leaflet extends React.Component {
       }
     }
   }
+
+  handlePolylineError = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    this.setState({ polylineError: false });
+  };
 
   handleGetNewPolygon(e) {
     this.props.handleInfobox(true);
@@ -999,8 +958,6 @@ class Leaflet extends React.Component {
             <LocationSearching />
           </button>
           <PolygonActions
-            markerType={this.state.markerType}
-            showForbidden={this.state.showForbidden}
             showPolygonSaveModal={this.props.showPolygonSaveModal}
             handlePolygonSaveModal={this.props.handlePolygonSaveModal}
             polygonActionResult={this.props.polygonActionResult}
@@ -1012,6 +969,8 @@ class Leaflet extends React.Component {
             openSavedPolygon={this.props.openSavedPolygon}
             deleteSavedPolygon={this.props.deleteSavedPolygon}
             updateSavedPolygon={this.props.updateSavedPolygon}
+            polylineError={this.state.polylineError}
+            handlePolylineError={this.handlePolylineError}
             isMobile={this.props.isMobile}
           />
         </div>
