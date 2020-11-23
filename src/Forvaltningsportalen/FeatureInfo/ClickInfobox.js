@@ -136,13 +136,7 @@ const ClickInfobox = ({
         />
       )}
       <div className={infoboxDetailsVisible ? "infobox-content-hidden" : ""}>
-        <ListItem
-          id="infobox-main-content-button"
-          button
-          onClick={e => {
-            setShowMarkerOptions(!showMarkerOptions);
-          }}
-        >
+        <ListItem id="infobox-main-content-button">
           <div className="infobox-content">
             <div className="infobox-text-wrapper">
               <CustomTooltip placement="right" title="Fylke / Fylkesnr.">

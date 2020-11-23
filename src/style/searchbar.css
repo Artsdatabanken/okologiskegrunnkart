@@ -38,7 +38,7 @@
   border: 1px solid black;
   margin-bottom: 5px;
 }
-.searchbar button {
+.search-button {
   width: 50px;
   float: right;
   border: 0px;
@@ -47,16 +47,27 @@
   border-bottom-left-radius: 0px;
   font-size: 12pt;
 }
+.search-button:hover {
+  background: #ccc;
+}
+.search-button:focus-visible {
+  background: #999;
+}
 .searchbar .x {
+  float: right;
   position: absolute;
   right: 50px;
   width: 30px;
   background: none;
   border: none;
   border-radius: 0px;
+  font-size: 12pt;
 }
 .searchbar .x:hover {
-  background: grey;
+  background: #ccc;
+}
+.searchbar .x:focus-visible {
+  background: #999;
 }
 .searchbar input {
   border: 0px;
@@ -66,6 +77,9 @@
   padding-right: 15px;
   box-sizing: border-box;
   max-width: calc(100% - 52px);
+}
+.searchbar input:focus-visible::placeholder {
+  text-decoration: underline;
 }
 @media only screen and (max-width: 768px) {
   .searchbar input {
@@ -77,11 +91,6 @@
     padding-top: 4px;
     padding-bottom: 5px;
     background-color: rgb(239, 239, 239);
-  }
-  .searchbar button {
-    margin: 0;
-    padding-top: 4px;
-    padding-bottom: 5px;
   }
 }
 
@@ -342,6 +351,12 @@
   justify-content: center;
   align-items: center;
   color: #555;
+}
+.help_button:hover {
+  background: #ccc;
+}
+.help_button:focus-visible {
+  background: #999;
 }
 @media only screen and (max-width: 768px) {
   .help_button {

@@ -73,7 +73,7 @@ class Leaflet extends React.Component {
     this.icon = L.icon({
       iconUrl: "/marker/marker-icon-2x-orange.png",
       iconSize: [22, 36],
-      iconAnchor: [11, 36]
+      iconAnchor: [13, 38]
     });
   }
 
@@ -745,7 +745,13 @@ class Leaflet extends React.Component {
         }
       )
         .addTo(this.map)
-        .on("click", () => this.clickMarkerInfobox());
+        .on("click", () => this.clickMarkerInfobox())
+        .on("keydown", e => {
+          console.log(e);
+          if (e.originalEvent && e.originalEvent.keyCode === 13) {
+            this.clickMarkerInfobox();
+          }
+        });
     }
   };
 
