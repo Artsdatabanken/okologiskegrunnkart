@@ -1,4 +1,4 @@
-/* Zoom-knappene */
+/* ---------- ZOOM_KNAPPENE -------------- */
 .leaflet-top {
   top: auto;
   bottom: 20px;
@@ -6,7 +6,7 @@
   left: auto;
 }
 
-/* Kartvelgeren */
+/* -------------- KARTVELGEREN ------------- */
 .change_map_buttons {
   padding: 5px;
   display: flex;
@@ -127,7 +127,7 @@
   }
 }
 
-/* Av/på markør-knappen */
+/* --------- AV/PÅ MARKØR KNAPPEN -------- */
 .map_button {
   top: auto;
   position: absolute;
@@ -166,7 +166,7 @@
   display: none;
 }
 
-/* Marker buttons */
+/* ---------- MARKER BUTTONS ------------ */
 #marker-button-map,
 #polygon-button-map {
   display: flex;
@@ -187,9 +187,6 @@
 #polygon-button-map {
   padding: 7px;
 }
-/* #polygon-button-map {
-  padding: 6px 7px 7px 7px;
-} */
 #marker-button-map.active,
 #polygon-button-map.active {
   padding: 6px;
@@ -207,7 +204,63 @@
   border: 2px solid white;
 }
 
-/* #polygon-button-map {
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-} */
+/* ----------- ARTSDATABANKEN LOGO ----------- */
+.artsdatabanken-logo-wrapper {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 0;
+  right: calc(100% / 2 - 100px);
+  padding-bottom: 5px;
+  -webkit-transition: right 0.5s;
+  -moz-transition: right 0.5s;
+  -ms-transition: right 0.5s;
+  -o-transition: right 0.5s;
+  transition: right 0.5s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.artsdatabanken-logo-image {
+  opacity: 0.7;
+  height: 30px;
+}
+.artsdatabanken-logo-wrapper.side-bar-open {
+  right: calc((100% + 408px) / 2 - 100px);
+}
+.artsdatabanken-logo-wrapper.infobox-open {
+  right: calc((100% - 350px) / 2 - 100px);
+}
+.artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
+  right: calc((100% + 408px - 350px) / 2 - 100px);
+}
+@media only screen and (max-width: 1445px) {
+  .artsdatabanken-logo-wrapper {
+    width: 160px;
+    right: calc(100% / 2 - 80px);
+  }
+  .artsdatabanken-logo-image {
+    height: 25px;
+  }
+  .artsdatabanken-logo-wrapper.side-bar-open {
+    right: calc((100% + 408px) / 2 - 80px);
+  }
+  .artsdatabanken-logo-wrapper.infobox-open {
+    right: calc((100% - 350px) / 2 - 80px);
+  }
+  .artsdatabanken-logo-wrapper.side-bar-open.infobox-open {
+    right: calc((100% + 408px - 350px) / 2 - 80px);
+  }
+}
+@media only screen and (max-width: 768px) {
+  .artsdatabanken-logo-wrapper {
+    width: auto;
+    top: 50px;
+    bottom: auto;
+    right: 10px;
+    padding-top: 6px;
+  }
+  .artsdatabanken-logo-image {
+    height: 32px;
+  }
+}
