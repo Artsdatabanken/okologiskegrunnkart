@@ -1,12 +1,12 @@
 import React from "react";
-import FilterIcon from "./FilterIcon";
-import { IconButton } from "@material-ui/core";
+import { FilterIcon } from "../../Common/SvgIcons";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import DoneIcon from "@material-ui/icons/Done";
 import BottomTooltip from "../../Common/BottomTooltip";
+import CustomIconButton from "../../Common/CustomIconButton";
 
 export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,21 +21,23 @@ export default function Filtrering({ taglist, tagFilter, onFilterTag }) {
 
   return (
     <>
-      <BottomTooltip
-        id="tooltip-sort-filter-button"
-        placement="bottom"
-        title="Filtrer"
-      >
-        <IconButton
-          aria-controls="filter-menu"
-          aria-haspopup="true"
-          variant="contained"
-          color="primary"
-          onClick={handleClick}
+      <div className="layers-icon-button-wrapper-last">
+        <BottomTooltip
+          id="tooltip-sort-filter-button"
+          placement="bottom"
+          title="Filtrer"
         >
-          <FilterIcon />
-        </IconButton>
-      </BottomTooltip>
+          <CustomIconButton
+            aria-controls="filter-menu"
+            aria-haspopup="true"
+            variant="contained"
+            color="primary"
+            onClick={handleClick}
+          >
+            <FilterIcon />
+          </CustomIconButton>
+        </BottomTooltip>
+      </div>
       <Menu
         id="filter-menu"
         anchorEl={anchorEl}

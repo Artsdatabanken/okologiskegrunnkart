@@ -55,6 +55,7 @@
   background-color: #eee;
   max-height: 100vh;
   overflow-y: auto;
+  height: calc(100% - 61px);
 }
 .all-layer-results-side {
   max-height: 400px;
@@ -284,7 +285,7 @@
   padding: 0 5px 5px 5px;
 }
 #select-polygon-collapse {
-  min-height: 183px !important;
+  flex-shrink: 0;
 }
 .infobox-radio-buttons-title {
   font-size: 16px;
@@ -869,10 +870,9 @@ h4.container_header {
   align-content: flex-start;
   justify-items: center;
   border-top: 1px solid #aaa;
-  min-height: 50px;
 }
 .polygon-layers-wrapper.expanded {
-  min-height: 349px;
+  height: 349px;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
@@ -894,13 +894,14 @@ h4.container_header {
 #polygon-layer-disabled.MuiListItem-gutters {
   padding-left: 14px;
 }
+#polygon-layers-collapse {
+  flex-shrink: 0;
+}
 .polygon-layers-content {
   background: rgba(145, 163, 176, 0.2);
-  min-height: 299px;
 }
 .polygon-checkbox-content {
   padding: 10px 10px 8px 14px;
-  min-height: 254px;
 }
 .polygon-button-wrapper {
   padding-bottom: 15px;

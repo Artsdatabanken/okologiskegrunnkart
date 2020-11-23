@@ -621,6 +621,8 @@ class App extends React.Component {
                         handleSortKey={this.handleSortKey}
                         handleTagFilter={this.handleTagFilter}
                         handleMatchAllFilters={this.handleMatchAllFilters}
+                        showFavoriteLayers={this.state.showFavoriteLayers}
+                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                       />
                     </div>
                   </>

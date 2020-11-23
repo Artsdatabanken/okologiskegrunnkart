@@ -65,7 +65,12 @@ const AppName = ({
               elementsWithLinks.push(
                 <>
                   {elements[i]}
-                  <a href={links[i]} target="_blank" rel="noopener noreferrer">
+                  <a
+                    key={i}
+                    href={links[i]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {linknames[i]}
                   </a>
                 </>

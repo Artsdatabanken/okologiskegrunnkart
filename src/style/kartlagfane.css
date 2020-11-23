@@ -254,7 +254,6 @@
     height: 35px;
   }
 }
-
 #show-layers-icon {
   display: flex;
   align-items: center;
@@ -272,7 +271,13 @@
   padding-bottom: 5px;
 }
 
-/* ---------- Sortering, filtrering og søk -delen ---------- */
+/* ---------- SORTERING, FILTRERING OG SØK DELEN ---------- */
+.layers-icon-button-wrapper {
+  margin-right: 10px;
+}
+.layers-icon-button-wrapper-last {
+  margin-right: 5px;
+}
 .header-layers-menu {
   background-color: white;
   position: -webkit-sticky;
@@ -333,8 +338,15 @@
 #filter-all-button:hover {
   background-color: #eee;
 }
+
+/* ------------- Filter --------------- */
+#filter-menu .MuiPopover-paper {
+  /* border: 3px solid rgb(145, 167, 178); */
+  /* border: 2px solid #697f8a; */
+  border: 1px solid #ddd;
+}
 #filter-layers-menu-item {
-  width: 385px;
+  width: 380px;
   max-width: calc(100vw - 30px);
 }
 @media only screen and (max-width: 768px) {
@@ -353,15 +365,30 @@
   min-width: 35px;
   max-width: 35px;
 }
+#layers-filter-chips.MuiChip-colorPrimary {
+  background-color: #697f8a;
+}
+/* ------------- Sort --------------- */
+#sort-menu .MuiPopover-paper {
+  border: 1px solid #ddd;
+}
 #sort-layers-menu-item.MuiListItem-gutters {
   padding-left: 25px;
   padding-right: 25px;
 }
-#layers-filter-chips.MuiChip-colorPrimary {
-  background-color: #697f8a;
+/* ------------- Favourites ------------ */
+#favourites-menu .MuiPopover-paper {
+  border: 1px solid #ddd;
+}
+#favourites-layers-menu-item.MuiListItem-gutters {
+  padding-left: 15px;
+  padding-right: 25px;
+}
+#favourites-item-icon.MuiListItemIcon-root {
+  min-width: 45px;
 }
 
-/* ---------- Leyend link ---------- */
+/* ---------- LEGEND LINK ---------- */
 .legend-link-background {
   background-color: #eee;
   position: -webkit-sticky;
@@ -416,14 +443,8 @@
   font-size: 17px;
   font-weight: 500;
 }
-#legend-icon-left-side.MuiSvgIcon-colorPrimary {
-  color: #555;
-}
-#legend-icon-left-side.MuiSvgIcon-colorSecondary {
-  color: #999;
-}
 
-/* ----------- Legend menu ------------- */
+/* ----------- LEGEND MENU ------------- */
 .legend-wrapper-right {
   background-color: #fff;
   height: 100%;
@@ -602,6 +623,7 @@
 }
 #tile-error-icon.MuiListItemIcon-root {
   justify-content: flex-end;
+  min-width: 30px;
 }
 
 /* --------- Layer and sublayer details component ---------- */
