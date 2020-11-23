@@ -1370,7 +1370,11 @@ class App extends React.Component {
 
     // Loop though object and send request
     const layer = valgteLag[layerkey];
-    if (!layer) return;
+    if (!layer && layersResult[layerkey]) {
+      delete layersResult[layerkey];
+      this.setState({ layersResult });
+      return;
+    }
     const wmsinfoformat = layer.wmsinfoformat;
     const dataeier = layer.dataeier;
     const tema = layer.tema;
