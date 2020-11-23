@@ -1,13 +1,16 @@
 import React from "react";
-import { Sort as SortIcon } from "@material-ui/icons";
-import { Paper } from "@material-ui/core";
+import { Paper, ListItemIcon } from "@material-ui/core";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import BottomTooltip from "../../Common/BottomTooltip";
+import { AllLayersIcon, FavouriteLayesIcon } from "../../Common/SvgIcons";
 import CustomIconButton from "../../Common/CustomIconButton";
 
-export default function Sortering({ sort, onChangeSort }) {
+export default function FavouritesMenu({
+  showFavoriteLayers,
+  toggleShowFavoriteLayers
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -18,39 +21,28 @@ export default function Sortering({ sort, onChangeSort }) {
     setAnchorEl(null);
   };
 
-  const handleSelect = sortkey => {
-    onChangeSort(sortkey);
-    handleClose();
-  };
-
-  const sorteringsmåter = {
-    alfabetisk: "Alfabetisk",
-    dataeier: "Dataeier",
-    tema: "Tema"
-  };
-
   return (
     <>
       <div className="layers-icon-button-wrapper">
         <BottomTooltip
           id="tooltip-sort-filter-button"
           placement="bottom"
-          title="Sortere"
+          title="Favoritter"
         >
           <CustomIconButton
-            aria-controls="sort-menu"
+            aria-controls="favourites-menu"
             aria-haspopup="true"
             variant="contained"
             color="primary"
             onClick={handleClick}
           >
-            <SortIcon />
+            {showFavoriteLayers ? <FavouriteLayesIcon /> : <AllLayersIcon />}
           </CustomIconButton>
         </BottomTooltip>
       </div>
       <Paper elevation={3}>
         <Menu
-          id="sort-menu"
+          id="favourites-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
@@ -66,16 +58,35 @@ export default function Sortering({ sort, onChangeSort }) {
           }}
           getContentAnchorEl={null}
         >
-          {Object.keys(sorteringsmåter).map(måte => (
-            <MenuItem
-              id="sort-layers-menu-item"
-              key={måte}
-              onClick={() => handleSelect(måte)}
-              selected={måte === sort}
-            >
-              <ListItemText primary={sorteringsmåter[måte]} />
-            </MenuItem>
-          ))}
+          <MenuItem
+            id="favourites-layers-menu-item"
+            onClick={() => {
+              toggleShowFavoriteLayers(true);
+              handleClose();
+            }}
+            selected={showFavoriteLayers}
+            tabIndex={0}
+          >
+            <ListItemIcon id="favourites-item-icon">
+              <FavouriteLayesIcon />
+            </ListItemIcon>
+            <ListItemText primary="Vis favoritt kartlag" />
+          </MenuItem>
+
+          <MenuItem
+            id="favourites-layers-menu-item"
+            onClick={() => {
+              toggleShowFavoriteLayers(false);
+              handleClose();
+            }}
+            selected={!showFavoriteLayers}
+            tabIndex={0}
+          >
+            <ListItemIcon id="favourites-item-icon">
+              <AllLayersIcon />
+            </ListItemIcon>
+            <ListItemText primary="Vis fullstendig kartlag" />
+          </MenuItem>
         </Menu>
       </Paper>
     </>

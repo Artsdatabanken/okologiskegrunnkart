@@ -3,6 +3,7 @@ import ForvaltningsGruppering from "./ForvaltningsGruppering";
 import { Chip, Typography, List, Button } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
+import FavouritesMenu from "./FavouritesMenu";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
 
 const ForvaltningsKartlag = ({
@@ -17,7 +18,9 @@ const ForvaltningsKartlag = ({
   handleSortKey,
   handleTagFilter,
   handleMatchAllFilters,
-  isMobile
+  isMobile,
+  showFavoriteLayers,
+  toggleShowFavoriteLayers
 }) => {
   // Denne funksjonen tar inn alle lagene som sendes inn, og henter ut per eier
   const [sortKey, setSortKey] = useState("tema");
@@ -153,12 +156,18 @@ const ForvaltningsKartlag = ({
           }
         >
           <div>
-            <Typography variant="h6">Kartlag</Typography>
+            <Typography variant="h6">
+              {showFavoriteLayers ? "Favoritt kartlag" : "Kartlag"}
+            </Typography>
             <Typography variant="body2">
               {sortKeyToDescription[sortKey]}
             </Typography>
           </div>
           <div className="sort-filter-icons-wrapper">
+            <FavouritesMenu
+              showFavoriteLayers={showFavoriteLayers}
+              toggleShowFavoriteLayers={toggleShowFavoriteLayers}
+            />
             <Sortering sort={sortKey} onChangeSort={handleChangeSort} />
             <Filtrering
               taglist={taglist}

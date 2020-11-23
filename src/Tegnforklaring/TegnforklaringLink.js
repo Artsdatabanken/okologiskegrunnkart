@@ -8,14 +8,35 @@ import {
 } from "@material-ui/core";
 import { BorderLeft } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
-import { withStyles } from "@material-ui/core/styles";
 import BottomTooltip from "../Common/BottomTooltip";
+import { makeStyles } from "@material-ui/core/styles";
 
-const StyledBadge = withStyles(() => ({
+const useStyles = makeStyles(() => ({
+  customIconButtom: {
+    "&.MuiIconButton-root": {
+      color: "#666",
+      border: "1px solid #666",
+      backgroundColor: "rgba(145, 163, 176, 0)",
+      padding: "9px",
+      margin: "4px 4px 4px 0"
+    },
+    "&:hover": {
+      backgroundColor: "rgba(145, 163, 176, 1)"
+    },
+    "&.Mui-disabled": {
+      color: "#999",
+      border: "1px solid #999"
+    }
+  },
   badge: {
-    top: 5
+    "& .MuiBadge-anchorOriginTopRightRectangle": {
+      top: 5
+    },
+    "& .MuiBadge-colorPrimary": {
+      backgroundColor: "#22aa58 !important"
+    }
   }
-}))(Badge);
+}));
 
 const TegnforklaringLink = ({
   layers,
@@ -23,6 +44,8 @@ const TegnforklaringLink = ({
   handleLegendPosition,
   isMobile
 }) => {
+  const classes = useStyles();
+
   const [numberActive, setNumberActive] = useState(0);
   const [disabled, setDisabled] = useState(true);
 
@@ -60,8 +83,9 @@ const TegnforklaringLink = ({
       disabled={disabled}
     >
       <ListItemIcon>
-        <StyledBadge
-          className={"badge-enabled"}
+        <Badge
+          className={classes.badge}
+          // className={"badge-enabled"}
           badgeContent={numberActive || 0}
           color="primary"
         >
@@ -72,7 +96,7 @@ const TegnforklaringLink = ({
             padding={2}
             color={disabled ? "#999" : "#555"}
           />
-        </StyledBadge>
+        </Badge>
       </ListItemIcon>
       <ListItemText>
         <span className="legend-text">Tegnforklaring</span>
@@ -80,15 +104,18 @@ const TegnforklaringLink = ({
       {!isMobile && (
         <BottomTooltip placement="bottom" title="Åpne på venstre side">
           <IconButton
+            className={classes.customIconButtom}
             onClick={e => {
               handleLegendPosition();
               e.stopPropagation();
             }}
+            disabled={disabled}
           >
-            <BorderLeft
+            <BorderLeft />
+            {/* <BorderLeft
               id="legend-icon-left-side"
               color={disabled ? "secondary" : "primary"}
-            />
+            /> */}
           </IconButton>
         </BottomTooltip>
       )}
