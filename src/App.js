@@ -126,8 +126,9 @@ class App extends React.Component {
     // Get environment based on URL
     let env = "test";
     const host = window.location.host;
+    const hostname = window.location.hostname;
     if (host === "forvaltningsportal.artsdatabanken.no") env = "prod";
-    if (host === "localhost:3000") env = "local";
+    if (hostname === "localhost") env = "local";
 
     // Get kartlag.json file from server as default, except for localhost
     let kartlag = await backend.hentLokalFil("/kartlag.json");
