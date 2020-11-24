@@ -116,14 +116,17 @@ function kartlagByEnvironment(kartlag, env) {
     let lag = kartlag[lagKey];
     for (const sublagKey in lag.underlag) {
       const sublag = lag.underlag[sublagKey];
-      if (env === "test" && !sublag.publisertest) {
+      if ((env === "test" || env === "local") && !sublag.publisertest) {
         delete lag.underlag[sublagKey];
       }
       if (env === "prod" && !sublag.publiserprod) {
         delete lag.underlag[sublagKey];
       }
     }
-    allLayers[lagKey] = lag;
+    const keys = Object.keys(lag.underlag);
+    if (keys && keys.length > 0) {
+      allLayers[lagKey] = lag;
+    }
   }
   return allLayers;
 }

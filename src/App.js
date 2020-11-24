@@ -123,10 +123,16 @@ class App extends React.Component {
       window.location.reload();
     }
 
-    // Get kartlag.json file from server as default
+    // Get environment based on URL
+    let env = "test";
+    const host = window.location.host;
+    if (host === "forvaltningsportal.artsdatabanken.no") env = "prod";
+    if (host === "localhost:3000") env = "local";
+
+    // Get kartlag.json file from server as default, except for localhost
     let kartlag = await backend.hentLokalFil("/kartlag.json");
-    // Get local kartlag.json file when not possible from test server
-    if (!kartlag) {
+    // When not possible, get local kartlag.json file from test server
+    if (!kartlag || env === "local") {
       kartlag = await backend.hentLokalFil(
         "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
       );
@@ -149,11 +155,6 @@ class App extends React.Component {
     const sublayersdb = await db.sublayers.toArray();
     const listFavoriteLayerIds = [];
     const listFavoriteSublayerIds = [];
-
-    // Get environment based on URL
-    let env = "test";
-    const host = window.location.host;
-    if (host === "forvaltningsportal.artsdatabanken.no") env = "prod";
 
     // Initial sorting and selection of sublayers based on environment
     kartlag = initialKartlagSort(kartlag);
