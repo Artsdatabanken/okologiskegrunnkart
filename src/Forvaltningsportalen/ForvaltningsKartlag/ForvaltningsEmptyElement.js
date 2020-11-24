@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  ListItemIcon,
-  ListItem,
-  ListItemText,
-  Button
-} from "@material-ui/core";
+import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 
 const ForvaltningsEmptyElement = ({ kartlag }) => {
@@ -25,17 +20,6 @@ const ForvaltningsEmptyElement = ({ kartlag }) => {
         primary="Ingen favoritt kartlag"
         secondary="Editer favoritter i hovedmenyen ved søkbar"
       />
-      {/* <ListItemText primary="Ingen favoritt kartlag" />
-      <Button
-        id="edit-favourites-button"
-        size="small"
-        color="primary"
-        onClick={() => {
-          console.log("Edit kartlag");
-        }}
-      >
-        Editere favoritter
-      </Button> */}
     </ListItem>
   );
 };
