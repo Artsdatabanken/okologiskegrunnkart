@@ -5,7 +5,7 @@ import flyfoto from "./flyfoto.jpg";
 import React, { useState } from "react";
 import { Map } from "@material-ui/icons";
 
-const tilgjengelige = ["gebco", "topo4", "topo4graatone", "flyfoto"];
+const tilgjengelige = ["gebco", "topo4", "topo4graatone", "flybilder"];
 const tilgjengelige_data = {
   gebco: {
     navn: "GEBCO",
@@ -22,9 +22,9 @@ const tilgjengelige_data = {
     dataeier: "Kartverket",
     url: "https://www.kartverket.no"
   },
-  flyfoto: {
+  flybilder: {
     navn: "Norge i bilder",
-    dataeier: "Flyfoto",
+    dataeier: "Kartverket",
     url: "https://www.kartverket.no"
   }
 };
