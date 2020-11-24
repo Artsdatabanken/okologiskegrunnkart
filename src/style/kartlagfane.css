@@ -365,8 +365,22 @@
   min-width: 35px;
   max-width: 35px;
 }
+/* ----------- Filter chips ------------ */
 #layers-filter-chips.MuiChip-colorPrimary {
   background-color: #697f8a;
+}
+#layers-filter-chips.Mui-focusVisible {
+  border: 2px solid #697f8a;
+  height: 36px;
+  border-radius: 18px;
+}
+#layers-filter-chips.Mui-focusVisible.MuiChip-colorPrimary {
+  background-color: rgba(105, 127, 138, 0.4);
+  font-weight: 550;
+  color: #333;
+}
+#layers-filter-chips.Mui-focusVisible .MuiChip-deleteIconColorPrimary {
+  color: rgba(105, 127, 138, 0.8);
 }
 /* ------------- Sort --------------- */
 #sort-menu .MuiPopover-paper {

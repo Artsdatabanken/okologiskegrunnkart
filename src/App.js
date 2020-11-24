@@ -1370,7 +1370,11 @@ class App extends React.Component {
 
     // Loop though object and send request
     const layer = valgteLag[layerkey];
-    if (!layer) return;
+    if (!layer && layersResult[layerkey]) {
+      delete layersResult[layerkey];
+      this.setState({ layersResult });
+      return;
+    }
     const wmsinfoformat = layer.wmsinfoformat;
     const dataeier = layer.dataeier;
     const tema = layer.tema;
@@ -2086,6 +2090,21 @@ class App extends React.Component {
     fileSelector.onchange = () => {
       const selectedFiles = fileSelector.files;
       if (fileSelector.files.length > 0) {
+        // If extension is not ".json" or ".geojson", do not upload
+        // and give a warning
+        if (
+          selectedFiles[0].type !== "application/json" &&
+          selectedFiles[0].name.toLowerCase().slice(-8) !== ".geojson"
+        ) {
+          this.setState({
+            polygonActionResult: [
+              "upload_error",
+              "Kunne ikke laste opp filen. Feil format."
+            ]
+          });
+          return;
+        }
+
         const reader = new FileReader();
 
         // This event will happen when the reader has read the file
