@@ -123,15 +123,13 @@ class App extends React.Component {
       window.location.reload();
     }
 
-    let env = "test";
-
     // Get kartlag.json file from server as default
-    let kartlag = await backend.hentLokalFil(
-      "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
-    );
-    // Get local kartlag.json file when not possible from server
+    let kartlag = await backend.hentLokalFil("/kartlag.json");
+    // Get local kartlag.json file when not possible from test server
     if (!kartlag) {
-      kartlag = await backend.hentLokalFil("/kartlag.json");
+      kartlag = await backend.hentLokalFil(
+        "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
+      );
     }
     // If none of the above work, load the preview file
     if (!kartlag) {
@@ -152,6 +150,12 @@ class App extends React.Component {
     const listFavoriteLayerIds = [];
     const listFavoriteSublayerIds = [];
 
+    // Get environment based on URL
+    let env = "test";
+    const host = window.location.host;
+    if (host === "forvaltningsportal.artsdatabanken.no") env = "prod";
+
+    // Initial sorting and selection of sublayers based on environment
     kartlag = initialKartlagSort(kartlag);
     kartlag = kartlagByEnvironment(kartlag, env);
 
@@ -285,7 +289,6 @@ class App extends React.Component {
       listFavoriteLayerIds,
       listFavoriteSublayerIds
     });
-    console.log("sortedKartlag", sortedKartlag);
 
     const reducedKartlag = this.reduceKartlag(sortedKartlag);
     this.setState({ favoriteKartlag: reducedKartlag });
