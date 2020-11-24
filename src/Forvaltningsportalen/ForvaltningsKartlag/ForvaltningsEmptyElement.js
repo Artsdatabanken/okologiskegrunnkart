@@ -10,7 +10,7 @@ const ForvaltningsEmptyElement = ({ kartlag }) => {
           <CustomIcon
             id="kartlag"
             icon="playlist-remove"
-            size={24}
+            size={30}
             padding={0}
             color="#666"
           />
