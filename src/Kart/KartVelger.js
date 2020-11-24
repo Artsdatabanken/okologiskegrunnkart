@@ -1,10 +1,11 @@
 import gebco from "./gebco.jpg";
 import topo4 from "./topo4.jpg";
 import topo4graatone from "./topo4graatone.jpg";
+import flyfoto from "./flyfoto.jpg";
 import React, { useState } from "react";
 import { Map } from "@material-ui/icons";
 
-const tilgjengelige = ["gebco", "topo4", "topo4graatone"];
+const tilgjengelige = ["gebco", "topo4", "topo4graatone", "flybilder"];
 const tilgjengelige_data = {
   gebco: {
     navn: "GEBCO",
@@ -20,9 +21,14 @@ const tilgjengelige_data = {
     navn: "Topografisk norgeskart 4 Gråtone",
     dataeier: "Kartverket",
     url: "https://www.kartverket.no"
+  },
+  flybilder: {
+    navn: "Norge i bilder",
+    dataeier: "Kartverket",
+    url: "https://www.kartverket.no"
   }
 };
-const imgs = [gebco, topo4, topo4graatone];
+const imgs = [gebco, topo4, topo4graatone, flyfoto];
 
 const KartVelger = ({
   handleSetBakgrunnskart,

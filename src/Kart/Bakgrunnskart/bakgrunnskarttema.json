@@ -128,6 +128,13 @@
         "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.cache_wmts?&gkt={gkt}&layer=egk&style=default&tilematrixset=EPSG%3A900913&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix=EPSG%3A900913%3A{z}&TileCol={x}&TileRow={y}"
+      },
+      "flybilder": {
+        "kode": "bakgrunnskart",
+        "tittel": "Flyfoto",
+        "zoom": [0, 21],
+        "tint": "#fff",
+        "url": "https://gatekeeper2.geonorge.no/BaatGatekeeper/gk/gk.nib_web_mercator_wmts_v2?&gkt={gkt}&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       }
     }
   }
