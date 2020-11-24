@@ -13,8 +13,9 @@ import { setValue } from "./Funksjoner/setValue";
 import {
   initialKartlagSort,
   sortKartlag,
-  sortUnderlag
-} from "./Funksjoner/sortObject";
+  sortUnderlag,
+  kartlagByEnvironment
+} from "./Funksjoner/kartlagTools";
 import "./style/kartknapper.css";
 import db from "./IndexedDB/IndexedDB";
 import {
@@ -122,6 +123,8 @@ class App extends React.Component {
       window.location.reload();
     }
 
+    let env = "test";
+
     // Get kartlag.json file from server as default
     let kartlag = await backend.hentLokalFil(
       "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
@@ -150,6 +153,7 @@ class App extends React.Component {
     const listFavoriteSublayerIds = [];
 
     kartlag = initialKartlagSort(kartlag);
+    kartlag = kartlagByEnvironment(kartlag, env);
 
     // Modify and store kartlag in state
     Object.entries(kartlag).forEach(async ([key, k]) => {
@@ -281,6 +285,7 @@ class App extends React.Component {
       listFavoriteLayerIds,
       listFavoriteSublayerIds
     });
+    console.log("sortedKartlag", sortedKartlag);
 
     const reducedKartlag = this.reduceKartlag(sortedKartlag);
     this.setState({ favoriteKartlag: reducedKartlag });
