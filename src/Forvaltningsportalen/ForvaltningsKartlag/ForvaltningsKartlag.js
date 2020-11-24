@@ -5,6 +5,7 @@ import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import FavouritesMenu from "./FavouritesMenu";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
+import ForvaltningsEmptyElement from "./ForvaltningsEmptyElement";
 
 const ForvaltningsKartlag = ({
   kartlag,
@@ -51,6 +52,7 @@ const ForvaltningsKartlag = ({
 
   useEffect(() => {
     let lag = kartlag;
+    console.log("kartlag", kartlag);
     let sorted = {};
     if (sortKey === "tema") {
       sorted = {
@@ -236,22 +238,27 @@ const ForvaltningsKartlag = ({
         </div>
       )}
 
-      <List id="layers-list-wrapper">
-        {Object.keys(sorted).map(element => {
-          return (
-            <ForvaltningsGruppering
-              tagFilter={tagFilter}
-              matchAllFilters={matchAllFilters}
-              kartlag={sorted[element]}
-              element={element}
-              key={element}
-              toggleSublayer={toggleSublayer}
-              toggleAllSublayers={toggleAllSublayers}
-              showSublayerDetails={showSublayerDetails}
-            />
-          );
-        })}
-      </List>
+      {Object.keys(kartlag).length > 0 && (
+        <List id="layers-list-wrapper">
+          {Object.keys(sorted).map(element => {
+            return (
+              <ForvaltningsGruppering
+                tagFilter={tagFilter}
+                matchAllFilters={matchAllFilters}
+                kartlag={sorted[element]}
+                element={element}
+                key={element}
+                toggleSublayer={toggleSublayer}
+                toggleAllSublayers={toggleAllSublayers}
+                showSublayerDetails={showSublayerDetails}
+              />
+            );
+          })}
+        </List>
+      )}
+      {Object.keys(kartlag).length === 0 && (
+        <ForvaltningsEmptyElement kartlag={kartlag} />
+      )}
     </>
   );
 };
