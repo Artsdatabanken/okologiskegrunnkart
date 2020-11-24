@@ -34,7 +34,8 @@ class KartlagAPIView(APIView):
         except Exception:
             return None
 
-
+    # CAREFUL. Many fields filled automatically from WMS GetCapabilities
+    # Existing fields can be changed/overwritten if they have changed in GetCapabilities
     def get(self, request: Request, *args, **kwargs):
         all_kartlag = Kartlag.objects.all()
         layers_success_request = []
@@ -271,6 +272,36 @@ class KartlagAPIView(APIView):
         return Response(status=status.HTTP_200_OK)
 
 kartlag_api_view = KartlagAPIView.as_view()
+
+
+class KartlagPubliserAPIView(APIView):
+    permission_classes = (IsSuperuser, )
+
+    # Fill publiser prod data using publiser test
+    def get(self, request: Request, *args, **kwargs):
+        all_kartlag = Kartlag.objects.all()
+        layers_success_request = []
+        sublayers_list = []
+
+        for kartlag in all_kartlag:
+            all_sublag = Sublag.objects.filter(hovedkartlag=kartlag)
+
+            # # Print data to show progress in console
+            # print('------------------------------------------')
+            # print('Kartlag: ', kartlag)
+
+            for sublag in all_sublag:
+                if (sublag.publiserprod != sublag.publisertest):
+                    sublag.publiserprod = sublag.publisertest
+                    sublag.save()
+
+                    # # Print data to show progress in console
+                    # print('------------------------------------------')
+                    # print('Sublag: ', sublag)
+
+        return Response(status=status.HTTP_200_OK)
+
+kartlag_publiser_api_view = KartlagPubliserAPIView.as_view()
 
 
 class KartlagUpdateAPIView(UpdateAPIView):

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 from django.contrib.auth.models import User
@@ -46,7 +47,6 @@ class Kartlag(models.Model):
     tema = models.ForeignKey(
         Tema, on_delete=models.SET_NULL, null=True, blank=True)
     tag = models.ManyToManyField(Tag, blank=True)
-    publiser = models.BooleanField(default=False)
     wmsurl = models.CharField(max_length=500, blank=True)
     wmsversion = models.CharField(max_length=500, blank=True)
     projeksjon = models.CharField(max_length=500, blank=True)
@@ -62,7 +62,8 @@ class Sublag(models.Model):
     tittel = models.CharField(max_length=200)
     wmslayer = models.CharField(max_length=100, blank=True)
     legendeurl = models.CharField(max_length=500, blank=True)
-    publiser = models.BooleanField(default=False)
+    publisertest = models.BooleanField(default=False)
+    publiserprod = models.BooleanField(default=False)
     hovedkartlag = models.ForeignKey(Kartlag,on_delete=models.CASCADE, related_name="sublag")
     queryable = models.BooleanField(default=False)
     minscaledenominator = models.PositiveIntegerField(null=True, blank=True)
@@ -82,8 +83,6 @@ class Sublag(models.Model):
 @receiver(post_save, sender=Sublag)
 @receiver(post_delete, sender=Kartlag)
 @receiver(post_delete, sender=Sublag)
-# Når vi setter opp den automatiske koblingen mellom WMS-admin-toolen og Django, legg til denne igjen
-#@receiver(post_save, sender=WmsHelper)
 def createJSON(sender, instance, **kwargs):
     scaleArray = [
         559082264, # zoom 0
@@ -112,7 +111,7 @@ def createJSON(sender, instance, **kwargs):
     dict = {}
     for kartlag in Kartlag.objects.all():
         # Check if layer contains at least one published sublayer
-        number_underlag = kartlag.sublag.filter(publiser=True).count()
+        number_underlag = kartlag.sublag.filter(Q(publisertest=True) | Q(publiserprod=True)).count()
         if number_underlag > 0:
             dict[kartlag.id] = {
                 'id': kartlag.id,
@@ -120,7 +119,7 @@ def createJSON(sender, instance, **kwargs):
                 'tittel': kartlag.tittel
             }
 
-            alle_underlag = kartlag.sublag.filter(publiser=True)
+            alle_underlag = kartlag.sublag.filter(Q(publisertest=True) | Q(publiserprod=True))
             underlag = {}
             for lag in alle_underlag:
                 lag_json = {}
@@ -142,6 +141,8 @@ def createJSON(sender, instance, **kwargs):
                 lag_json['klikktekst2'] = lag.klikktekst2
                 lag_json['faktaark'] = lag.faktaark
                 lag_json['position'] = lag.position
+                lag_json['publisertest'] = lag.publisertest
+                lag_json['publiserprod'] = lag.publiserprod
                 underlag[lag.id] = lag_json
 
                 ''' ------------ CALCULATE MAX AND MIN ZOOM LEVELS ------------- '''
