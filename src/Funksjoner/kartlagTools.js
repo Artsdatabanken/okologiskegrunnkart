@@ -110,4 +110,25 @@ function sortUnderlag(object) {
   return sortedObject;
 }
 
-export { initialKartlagSort, sortKartlag, sortUnderlag };
+function kartlagByEnvironment(kartlag, env) {
+  let allLayers = {};
+  for (const lagKey in kartlag) {
+    let lag = kartlag[lagKey];
+    for (const sublagKey in lag.underlag) {
+      const sublag = lag.underlag[sublagKey];
+      if ((env === "test" || env === "local") && !sublag.publisertest) {
+        delete lag.underlag[sublagKey];
+      }
+      if (env === "prod" && !sublag.publiserprod) {
+        delete lag.underlag[sublagKey];
+      }
+    }
+    const keys = Object.keys(lag.underlag);
+    if (keys && keys.length > 0) {
+      allLayers[lagKey] = lag;
+    }
+  }
+  return allLayers;
+}
+
+export { initialKartlagSort, sortKartlag, sortUnderlag, kartlagByEnvironment };
