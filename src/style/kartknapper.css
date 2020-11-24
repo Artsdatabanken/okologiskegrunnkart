@@ -48,11 +48,6 @@
 
 .change_map_icon,
 .change_map_button {
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-}
-.change_map_icon,
-.change_map_button {
   border-radius: 3px;
   border: 1px solid #9f9f9f;
   background: #f4f4f4;
@@ -61,6 +56,8 @@
   text-align: center;
   padding: 0px;
   z-index: 1;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
 }
 .change_map_icon:focus-visible,
 .change_map_button:focus-visible {
@@ -69,17 +66,20 @@
   width: 36px;
   height: 36px;
 }
-
 .change_map_button {
   margin-left: 5px;
 }
-
 .change_map_button span {
   display: inline-block;
   width: 100%;
   background: white;
   overflow: hidden;
   font-size: 8pt;
+  margin-top: 4px;
+}
+.change_map_button:focus-visible span {
+  width: 32px;
+  margin-left: -3px;
 }
 
 .map_ref {
