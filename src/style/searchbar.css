@@ -54,7 +54,6 @@
   background: #999;
 }
 .searchbar .x {
-  /* float: right; */
   position: absolute;
   right: 50px;
   top: 0;
@@ -62,13 +61,20 @@
   background: none;
   border: none;
   border-radius: 0px;
-  font-size: 12pt;
+  height: 100%;
+  padding: 0;
 }
 .searchbar .x:hover {
   background: #ccc;
 }
 .searchbar .x:focus-visible {
   background: #999;
+}
+.searchbar .x-button-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
 }
 .searchbar input {
   border: 0px;
