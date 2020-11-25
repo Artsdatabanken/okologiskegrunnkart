@@ -899,15 +899,3 @@
   left: auto;
   right: 2px;
 }
-
-/* ------------ NO FAVOURITES LIST ITEMS ------------ */
-#edit-favourites-button.MuiButton-root {
-  text-transform: none;
-}
-#edit-favourites-button.MuiButton-textPrimary {
-  color: #296d98;
-  font-weight: 500;
-}
-#edit-favourites-button:hover {
-  background-color: #ddd;
-}

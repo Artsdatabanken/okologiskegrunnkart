@@ -18,7 +18,7 @@ const ForvaltningsEmptyElement = ({ kartlag }) => {
       </ListItemIcon>
       <ListItemText
         primary="Ingen favoritt kartlag"
-        secondary="Editer favoritter i hovedmenyen ved søkbar"
+        secondary="Editer favoritter i hovedmenyen ved søkefeltet"
       />
     </ListItem>
   );

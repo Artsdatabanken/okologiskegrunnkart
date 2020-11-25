@@ -870,6 +870,7 @@ h4.container_header {
   align-content: flex-start;
   justify-items: center;
   border-top: 1px solid #aaa;
+  flex-shrink: 0;
 }
 .polygon-layers-wrapper.expanded {
   height: 349px;
