@@ -1,3 +1,6 @@
+// NOTE: layerkeys are the kartlag name, converted to
+// lower case and with all spaces, `-`and `:` symbols removed.
+// For example, `Arter - fredete` becomes `arterfredete`.
 const layerKeys = {
   arealressursar5: "arealressurs",
   bioklimatiskseksjon: "bioklimatiskseksjon",
@@ -37,7 +40,11 @@ const layerKeys = {
   vannkraftutbygd: "vannkraft",
   verneplanforvassdrag: "verneplan",
   vernskog: "vernskog",
-  villreinområder: "villreinområder"
+  villreinområder: "villreinområder",
+  ultramafiskebergarter: "berggrunn",
+  kalkinnholdberggrunn: "berggrunn",
+  korallrev: "marinedata",
+  sårbarehabitatmarint: "marinedata"
 };
 
 const infoboxKeys = {
@@ -56,8 +63,21 @@ const infoboxKeys = {
     scientificname: "Vitenskapelig navn"
   },
   berggrunn: {
-    hbergnavn: "Bergnavn",
-    gmlname: "Type"
+    hbergnavn: "Bergart",
+    gmlname: "Type",
+    hovedbergart_tekst: "Bergart",
+    tilleggsbergart1_tekst: "Tilleggsbergart",
+    tilleggsbergart2_tekst: "Tilleggsbergart 2",
+    tilleggsbergart3_tekst: "Tilleggsbergart 3",
+    dekkekompleks_tekst: "Dekkekompleks",
+    dekke_tekst: "Dekke",
+    gruppe_tekst: "Gruppe",
+    dannelsesminalder_tekst: "Dannelsesalder, minimum",
+    ultramafisk: "Ultramafisk",
+    kalkinnhold_hovedbergart: "Kalkinnhold hovedbergart",
+    kalkinnhold_tillegsbergart1: "Kalkinnhold tilleggsbergart",
+    kalkinnhold_tillegsbergart2: "Kalkinnhold tilleggsbergart 2",
+    kalkinnhold_tillegsbergart3: "Kalkinnhold tilleggsbergart 3"
   },
   bioklimatiskseksjon: {
     tittelnb: "Tittel",
@@ -90,7 +110,7 @@ const infoboxKeys = {
     objekttype: "Objekttype",
     flomsonenavn: "Flomsone navn",
     kartlagteflommer: "Kartlagte flommer",
-    gjentaksinterval: "Gjentaksinterval"
+    gjentaksinterval: "Gjentaksintervall"
   },
   grus: {
     navn: "Navn",
@@ -137,7 +157,7 @@ const infoboxKeys = {
     losmasse_text: "Løsmasse",
     muligmarinleire_text: "Mulig marin leire",
     jordart: "Jordart", // ???`
-    sedimentkornst: "Sedimentkornst", // ???
+    sedimentkornst: "Sediment kornstørrelse", // ???
     1: "Sedimentasjon", // ???
     gmlname: "Type"
   },
@@ -205,6 +225,12 @@ const infoboxKeys = {
     omraadenavn: "Navn område",
     funksjon: "Funksjon",
     funksjonsperiode: "Funksjonsperiode"
+  },
+  marinedata: {
+    mareano_dataVME_indica: "Habitattype",
+    vulnerable_areasOBJTYPE: "Habitattype",
+    mareano_dataVME_indi_1: "Engelsk",
+    vulnerable_areasOBS_STED: "Sted"
   }
 };
 
