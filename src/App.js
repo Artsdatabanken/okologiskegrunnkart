@@ -495,7 +495,7 @@ class App extends React.Component {
                         polygonResults={this.state.polygonResults}
                         handlePolygonResults={this.handlePolygonResults}
                         showMarker={this.state.showMarker}
-                        hideAndShowMarker={this.hideAndShowMarker}
+                        handleShowMarker={this.handleShowMarker}
                         zoomcoordinates={this.state.zoomcoordinates}
                         handleRemoveZoomCoordinates={
                           this.handleRemoveZoomCoordinates
@@ -852,7 +852,7 @@ class App extends React.Component {
     this.setState({ polygonResults: results });
   };
 
-  hideAndShowMarker = showMarker => {
+  handleShowMarker = showMarker => {
     this.setState({ showMarker: showMarker });
   };
 
