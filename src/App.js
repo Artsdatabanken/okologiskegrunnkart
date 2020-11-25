@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-// import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
@@ -576,13 +575,6 @@ class App extends React.Component {
                         handleSetBakgrunnskart={this.handleSetBakgrunnskart}
                         aktivtFormat={basiskart.kart.aktivtFormat}
                       />
-                      {/* <KartVelger
-                        onUpdateLayerProp={this.handleSetBakgrunnskart}
-                        aktivtFormat={basiskart.kart.aktivtFormat}
-                        showSideBar={this.state.showSideBar}
-                        showInfobox={this.state.showInfobox}
-                        isMobile={this.state.isMobile}
-                      /> */}
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
                         searchResultPage={this.state.searchResultPage}
