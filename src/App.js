@@ -39,7 +39,7 @@ class App extends React.Component {
     bakgrunnskart,
     completeKartlag: {},
     favoriteKartlag: {},
-    kartlag: {},
+    kartlag: { aa: {} },
     valgteLag: {},
     navigation_history: [],
     spraak: "nb",

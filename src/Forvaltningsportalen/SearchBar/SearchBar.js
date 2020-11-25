@@ -654,7 +654,7 @@ class SearchBar extends React.Component {
                   document.getElementById("searchfield").value = "";
                 }}
               >
-                x
+                <div className="x-button-div">X</div>
               </button>
             )}
             <button
