@@ -98,37 +98,39 @@ const AppName = ({
 
   return (
     <>
-      <Snackbar
-        id="app-name-snackbar"
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "center"
-        }}
-        open={showAppName}
-        onClose={() => closeAppName()}
-      >
-        <div
-          className={
-            !isMobile && showInfobox
-              ? "app-name-wrapper centered"
-              : "app-name-wrapper"
-          }
+      {!isMobile && (
+        <Snackbar
+          id="app-name-snackbar"
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center"
+          }}
+          open={showAppName}
+          onClose={() => closeAppName()}
         >
-          <div className="app-name-text">Økologiske grunnkart</div>
-          <Button
-            id="read-more-about"
-            variant="contained"
-            size="small"
-            onClick={() => {
-              closeAppName();
-              handleAboutModal(true);
-            }}
-            color="primary"
+          <div
+            className={
+              !isMobile && showInfobox
+                ? "app-name-wrapper centered"
+                : "app-name-wrapper"
+            }
           >
-            Mer info
-          </Button>
-        </div>
-      </Snackbar>
+            <div className="app-name-text">Økologiske grunnkart</div>
+            <Button
+              id="read-more-about"
+              variant="contained"
+              size="small"
+              onClick={() => {
+                closeAppName();
+                handleAboutModal(true);
+              }}
+              color="primary"
+            >
+              Mer info
+            </Button>
+          </div>
+        </Snackbar>
+      )}
 
       <Modal
         open={showAboutModal}
