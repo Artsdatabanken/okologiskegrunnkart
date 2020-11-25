@@ -52,7 +52,6 @@ const ForvaltningsKartlag = ({
 
   useEffect(() => {
     let lag = kartlag;
-    console.log("kartlag", kartlag);
     let sorted = {};
     if (sortKey === "tema") {
       sorted = {
