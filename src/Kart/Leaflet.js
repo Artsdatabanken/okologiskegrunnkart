@@ -176,8 +176,12 @@ class Leaflet extends React.Component {
     // Fly to new coordinates
     if (this.coordinatesChanged(prevProps)) {
       this.setState({
-        coordinates_area: { lat: this.props.lat, lng: this.props.lng }
+        coordinates_area: { lat: this.props.lat, lng: this.props.lng },
+        markerType: "klikk"
       });
+      if (this.state.markerType === "polygon") {
+        this.setState({ markerType: "klikk" });
+      }
       // this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
     }
     // Update zoom buttons position

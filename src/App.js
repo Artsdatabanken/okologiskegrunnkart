@@ -2151,7 +2151,8 @@ class App extends React.Component {
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({
               automaticZoomUpdate: false,
-              polygonResults: null
+              polygonResults: null,
+              showPolygon: true
             });
             if (from === "menu") {
               this.setState({
@@ -2236,6 +2237,7 @@ class App extends React.Component {
       this.setState({
         grensePolygon: "none",
         changeInfoboxState: "polygon",
+        showPolygon: true,
         showInfobox: true,
         polygonResults: null
       });
