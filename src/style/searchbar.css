@@ -54,9 +54,10 @@
   background: #999;
 }
 .searchbar .x {
-  float: right;
+  /* float: right; */
   position: absolute;
   right: 50px;
+  top: 0;
   width: 30px;
   background: none;
   border: none;
