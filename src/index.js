@@ -54,7 +54,7 @@ const theme = createMuiTheme({
 
 var string = `
 <div style="max-width:50%;margin:auto;">
-<h1>Forvaltningsportal Økologisk grunnkart</h1>
+<h1>Økologiske grunnkart</h1>
   <p>Du har forsøkt å åpne siden i nettlesereren Internet Explorer, en nettleser vi har valgt å ikke støtte.</p>
   <p> Hvis du ønsker å benytte deg av den nåværende løsningen kan du vurdere å oppgradere nettleseren din, eller benytte en annen nettleser. Kanskje har du allerede andre installert på maskinen din? Under følger en liste over nettlesere vi vet fungerer:</p>
 <ul>

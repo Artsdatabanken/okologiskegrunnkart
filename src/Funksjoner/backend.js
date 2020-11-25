@@ -58,13 +58,13 @@ class Backend {
 
   static async hentStedsnavn(lng, lat, zoom) {
     return this.getPromise(
-      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
+      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
     );
   }
 
   static async hentHoydedata(lng, lat) {
     return this.getPromise(
-      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/elevasjon?lat=${lat}&lng=${lng}`
+      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/elevasjon?lat=${lat}&lng=${lng}`
     );
   }
 
@@ -134,7 +134,7 @@ class Backend {
 
   static async hentMatrikkel(lng, lat) {
     return this.getPromise(
-      `https://forvaltningsportalapi.test.artsdatabanken.no/rpc/punkt?lat=${lat}&lng=${lng}`
+      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=${lat}&lng=${lng}`
     );
   }
 
@@ -233,7 +233,7 @@ class Backend {
     // to "well-known text representation of geometry"
     // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
     let url =
-      "https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk";
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/arealstatistikk";
 
     const codes = layerCodes.join(",");
     const body = { kartlag: codes, wkt };

@@ -126,7 +126,7 @@ class App extends React.Component {
     let env = "test";
     const host = window.location.host;
     const hostname = window.location.hostname;
-    if (host === "forvaltningsportal.artsdatabanken.no") env = "prod";
+    if (host === "okologiskegrunnkart.test.artsdatabanken.no") env = "prod";
     if (hostname === "localhost") env = "local";
 
     // Get kartlag.json file from server as default, except for localhost
@@ -134,7 +134,7 @@ class App extends React.Component {
     // When not possible, get local kartlag.json file from test server
     if (!kartlag || env === "local") {
       kartlag = await backend.hentLokalFil(
-        "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json"
+        "https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json"
       );
     }
     // If none of the above work, load the preview file
