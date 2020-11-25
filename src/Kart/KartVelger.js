@@ -1,7 +1,7 @@
-import gebco from "./gebco.jpg";
-import topo4 from "./topo4.jpg";
-import topo4graatone from "./topo4graatone.jpg";
-import flyfoto from "./flyfoto.jpg";
+import gebco from "./images/gebco.jpg";
+import topo4 from "./images/topo4.jpg";
+import topo4graatone from "./images/topo4graatone.jpg";
+import flyfoto from "./images/flyfoto.jpg";
 import React, { useState } from "react";
 import { Map } from "@material-ui/icons";
 

@@ -870,6 +870,7 @@ h4.container_header {
   align-content: flex-start;
   justify-items: center;
   border-top: 1px solid #aaa;
+  flex-shrink: 0;
 }
 .polygon-layers-wrapper.expanded {
   height: 349px;
@@ -878,6 +879,7 @@ h4.container_header {
 #polygon-layer-disabled {
   background: rgba(145, 163, 176, 0.3);
   border-bottom: 1px solid #aaa;
+  flex-shrink: 0;
 }
 #polygon-layer-disabled {
   color: #777;
@@ -922,6 +924,12 @@ h4.container_header {
 #polygon-element-list.MuiListItem-root {
   padding-top: 2px;
   padding-bottom: 2px;
+}
+@media only screen and (max-width: 768px) {
+  #polygon-element-list.MuiListItem-root {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
 }
 
 /* Polygon details */

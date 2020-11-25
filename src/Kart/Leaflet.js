@@ -178,7 +178,10 @@ class Leaflet extends React.Component {
       this.setState({
         coordinates_area: { lat: this.props.lat, lng: this.props.lng }
       });
-      // this.updateUrlWithCoordinates(this.props.lng, this.props.lat);
+      if (this.state.markerType === "polygon") {
+        this.setState({ markerType: "klikk" });
+        this.props.handleShowMarker(true);
+      }
     }
     // Update zoom buttons position
     if (
@@ -345,7 +348,7 @@ class Leaflet extends React.Component {
         this.drawKommuneGeom();
       }
     });
-    this.props.hideAndShowMarker(true);
+    this.props.handleShowMarker(true);
     this.props.handleInfobox(true);
     this.removeEndPoint();
     this.removeStartPoint();
@@ -353,7 +356,7 @@ class Leaflet extends React.Component {
 
   activatePolygon = () => {
     this.setState({ markerType: "polygon" });
-    this.props.hideAndShowMarker(false);
+    this.props.handleShowMarker(false);
     this.props.handleInfobox(true);
     this.removePropertyGeom();
     this.removeFylkeGeom();

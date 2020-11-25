@@ -3,7 +3,6 @@ import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
 import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-// import KartVelger from "./Forvaltningsportalen/KartVelger";
 import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
@@ -496,7 +495,7 @@ class App extends React.Component {
                         polygonResults={this.state.polygonResults}
                         handlePolygonResults={this.handlePolygonResults}
                         showMarker={this.state.showMarker}
-                        hideAndShowMarker={this.hideAndShowMarker}
+                        handleShowMarker={this.handleShowMarker}
                         zoomcoordinates={this.state.zoomcoordinates}
                         handleRemoveZoomCoordinates={
                           this.handleRemoveZoomCoordinates
@@ -576,13 +575,6 @@ class App extends React.Component {
                         handleSetBakgrunnskart={this.handleSetBakgrunnskart}
                         aktivtFormat={basiskart.kart.aktivtFormat}
                       />
-                      {/* <KartVelger
-                        onUpdateLayerProp={this.handleSetBakgrunnskart}
-                        aktivtFormat={basiskart.kart.aktivtFormat}
-                        showSideBar={this.state.showSideBar}
-                        showInfobox={this.state.showInfobox}
-                        isMobile={this.state.isMobile}
-                      /> */}
                       <SearchBar
                         onSelectSearchResult={this.handleSelectSearchResult}
                         searchResultPage={this.state.searchResultPage}
@@ -860,7 +852,7 @@ class App extends React.Component {
     this.setState({ polygonResults: results });
   };
 
-  hideAndShowMarker = showMarker => {
+  handleShowMarker = showMarker => {
     this.setState({ showMarker: showMarker });
   };
 
@@ -2159,7 +2151,8 @@ class App extends React.Component {
             this.updateZoomWithGeometry(allGeoms, "UploadedPolygon");
             this.setState({
               automaticZoomUpdate: false,
-              polygonResults: null
+              polygonResults: null,
+              showPolygon: true
             });
             if (from === "menu") {
               this.setState({
@@ -2244,6 +2237,7 @@ class App extends React.Component {
       this.setState({
         grensePolygon: "none",
         changeInfoboxState: "polygon",
+        showPolygon: true,
         showInfobox: true,
         polygonResults: null
       });
