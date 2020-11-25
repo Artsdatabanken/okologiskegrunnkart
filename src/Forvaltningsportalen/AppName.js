@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../style/appname.css";
 import { Snackbar, Button, Modal } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
@@ -95,6 +95,12 @@ const AppName = ({
     }
     return items;
   };
+
+  useEffect(() => {
+    if (isMobile) {
+      closeAppName();
+    }
+  }, [isMobile, closeAppName]);
 
   return (
     <>
