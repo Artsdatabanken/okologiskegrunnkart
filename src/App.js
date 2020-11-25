@@ -2,8 +2,8 @@ import React from "react";
 import { withRouter } from "react-router";
 import { SettingsContext } from "./SettingsContext";
 import backend from "./Funksjoner/backend";
-import KartlagFanen from "./Forvaltningsportalen/KartlagFanen";
-import SearchBar from "./Forvaltningsportalen/SearchBar/SearchBar";
+import KartlagFanen from "./Okologiskegrunnkart/KartlagFanen";
+import SearchBar from "./Okologiskegrunnkart/SearchBar/SearchBar";
 import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
@@ -31,7 +31,7 @@ import {
   sortPolygonCoord,
   transformUploadedPolygon
 } from "./Funksjoner/polygonTools";
-import AppName from "./Forvaltningsportalen/AppName";
+import AppName from "./Okologiskegrunnkart/AppName";
 import getProjection from "./Funksjoner/getProjection";
 
 class App extends React.Component {
