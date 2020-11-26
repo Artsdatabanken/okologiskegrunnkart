@@ -88,13 +88,13 @@ class Backend {
 
   static async getUserManualWiki() {
     return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/forvaltningsportal/Brukermanual.md`
+      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Brukermanual.md`
     );
   }
 
   static async getAboutPageWiki() {
     return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/forvaltningsportal/Om-"Økologiske-grunnkart".md`
+      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Om-"Økologiske-grunnkart".md`
     );
   }
 

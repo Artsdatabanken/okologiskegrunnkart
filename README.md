@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/Artsdatabanken/forvaltningsportal.svg?branch=master)](https://travis-ci.org/Artsdatabanken/forvaltningsportal)
-[![Coverage Status](https://coveralls.io/repos/github/Artsdatabanken/forvaltningsportal/badge.svg?branch=master)](https://coveralls.io/github/Artsdatabanken/forvaltningsportal?branch=master)
+[![Build Status](https://travis-ci.org/Artsdatabanken/okologiskegrunnkart.svg?branch=master)](https://travis-ci.org/Artsdatabanken/okologiskegrunnkart)
+[![Coverage Status](https://coveralls.io/repos/github/Artsdatabanken/okologiskegrunnkart/badge.svg?branch=master)](https://coveralls.io/github/Artsdatabanken/okologiskegrunnkart?branch=master)
 [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
@@ -13,7 +13,7 @@
 
 - [Webklient](https://okologiskegrunnkart.artsdatabanken.no)
 - [Webklient testversion](https://okologiskegrunnkart.test.artsdatabanken.no)
-- [Administrasjonsverktøy](https://forvaltningsportaladmin.artsdatabanken.no/admin/)
+- [Administrasjonsverktøy](https://okologiskegrunnkartadmin.artsdatabanken.no/admin/)
 - [Wms-hjelper for å legge inn klikk url til underlag](https://okologiskegrunnkartadmin.artsdatabanken.no/static/index.html)
 - [Kartlag.json file](https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json)
 - [Cached tiles](https://data.test.artsdatabanken.no/grunnkart/)
@@ -23,7 +23,7 @@
 
 Dette prosjektet har en wiki, se den her:
 
-- https://github.com/Artsdatabanken/forvaltningsportal/wiki
+- https://github.com/Artsdatabanken/okologiskegrunnkart/wiki
 
 ## Thanks
 
@@ -35,7 +35,7 @@ Dette prosjektet har en wiki, se den her:
 
 Les mer på vår wiki:
 
-- https://github.com/Artsdatabanken/forvaltningsportal/wiki/Django-og-Kartlagfila
+- https://github.com/Artsdatabanken/okologiskegrunnkart/wiki/%C3%85-sette-opp-django-kartlag.js-%5Butvikling%5D
 
 ## Start app in localhost
 
@@ -57,7 +57,7 @@ Localhost:
 
 Test environment:
 
-- Log in as superuser in the admin panel `https://forvaltningsportaladmin.artsdatabanken.no/admin/`
-- Run the following HTTP request: `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
+- Log in as superuser in the admin panel `https://okologiskegrunnkartadmin.artsdatabanken.no/admin/`
+- Run the following HTTP request: `https://okologiskegrunnkartadmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
 
 You will receive a timeout error `504 Gateway Time-out` after 30 seconds. This, however, will not affect the update script which will contionue running in the background.

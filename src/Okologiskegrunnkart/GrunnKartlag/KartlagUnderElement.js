@@ -4,7 +4,7 @@ import CustomSwitch from "../../Common/CustomSwitch";
 import CustomIcon from "../../Common/CustomIcon";
 import BottomTooltip from "../../Common/BottomTooltip";
 
-const ForvaltningsUnderElement = ({
+const KartlagUnderElement = ({
   underlag,
   kartlagKey,
   underlagKey,
@@ -99,4 +99,4 @@ const ForvaltningsUnderElement = ({
   );
 };
 
-export default ForvaltningsUnderElement;
+export default KartlagUnderElement;

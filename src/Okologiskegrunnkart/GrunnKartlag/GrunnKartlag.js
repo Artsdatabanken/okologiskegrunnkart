@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import ForvaltningsGruppering from "./ForvaltningsGruppering";
+import KartlagGruppering from "./KartlagGruppering";
 import { Chip, Typography, List, Button } from "@material-ui/core";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import FavouritesMenu from "./FavouritesMenu";
 import TegnforklaringLink from "../../Tegnforklaring/TegnforklaringLink";
-import ForvaltningsEmptyElement from "./ForvaltningsEmptyElement";
+import KartlagEmptyElement from "./KartlagEmptyElement";
 
-const ForvaltningsKartlag = ({
+const GrunnKartlag = ({
   kartlag,
   toggleSublayer,
   toggleAllSublayers,
@@ -241,7 +241,7 @@ const ForvaltningsKartlag = ({
         <List id="layers-list-wrapper">
           {Object.keys(sorted).map(element => {
             return (
-              <ForvaltningsGruppering
+              <KartlagGruppering
                 tagFilter={tagFilter}
                 matchAllFilters={matchAllFilters}
                 kartlag={sorted[element]}
@@ -256,10 +256,10 @@ const ForvaltningsKartlag = ({
         </List>
       )}
       {Object.keys(kartlag).length === 0 && (
-        <ForvaltningsEmptyElement kartlag={kartlag} />
+        <KartlagEmptyElement kartlag={kartlag} />
       )}
     </>
   );
 };
 
-export default ForvaltningsKartlag;
+export default GrunnKartlag;

@@ -144,7 +144,7 @@ class App extends React.Component {
       );
       kartlag = await backend.hentLokalFil("/kartlag_preview.json");
       console.error(
-        "Gå til https://github.com/Artsdatabanken/forvaltningsportal/wiki/Databaseoppsett for mer informasjon"
+        "Gå til https://github.com/Artsdatabanken/okologiskegrunnkart/wiki/Databaseoppsett for mer informasjon"
       );
     }
 
@@ -583,7 +583,7 @@ class App extends React.Component {
                         addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
                         handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        onUpdateLayerProp={this.handleKartlagLayerProp}
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
@@ -602,7 +602,7 @@ class App extends React.Component {
                         searchResultPage={this.state.searchResultPage}
                         removeValgtLag={this.removeValgtLag}
                         valgtLag={this.state.valgtLag}
-                        onUpdateLayerProp={this.handleForvaltningsLayerProp}
+                        onUpdateLayerProp={this.handleKartlagLayerProp}
                         changeVisibleSublayers={this.changeVisibleSublayers}
                         kartlag={this.state.kartlag}
                         showSideBar={this.state.showSideBar}
@@ -724,13 +724,13 @@ class App extends React.Component {
     if (favorites) {
       for (const item of this.state.visibleSublayersFavorites) {
         for (const prop of item.propKeys) {
-          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+          this.handleKartlagLayerProp(item.layerKey, prop.key, prop.value);
         }
       }
     } else {
       for (const item of this.state.visibleSublayersComplete) {
         for (const prop of item.propKeys) {
-          this.handleForvaltningsLayerProp(item.layerKey, prop.key, prop.value);
+          this.handleKartlagLayerProp(item.layerKey, prop.key, prop.value);
         }
       }
     }
@@ -741,13 +741,13 @@ class App extends React.Component {
     if (favorites) {
       for (const item of this.state.visibleSublayersComplete) {
         for (const prop of item.propKeys) {
-          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+          this.handleKartlagLayerProp(item.layerKey, prop.key, false);
         }
       }
     } else {
       for (const item of this.state.visibleSublayersFavorites) {
         for (const prop of item.propKeys) {
-          this.handleForvaltningsLayerProp(item.layerKey, prop.key, false);
+          this.handleKartlagLayerProp(item.layerKey, prop.key, false);
         }
       }
     }
@@ -1892,7 +1892,7 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
-  handleForvaltningsLayerProp = (layerkey, key, value, update = false) => {
+  handleKartlagLayerProp = (layerkey, key, value, update = false) => {
     if (update) {
       // Only update getFeatureInfo
       if (this.state.lat && this.state.lng && !this.state.showExtensiveInfo) {

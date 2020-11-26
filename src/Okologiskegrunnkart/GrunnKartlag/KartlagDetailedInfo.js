@@ -23,7 +23,7 @@ import {
 import CustomIcon from "../../Common/CustomIcon";
 import CustomSwitch from "../../Common/CustomSwitch";
 
-const ForvaltningsDetailedInfo = ({
+const KartlagDetailedInfo = ({
   allCategories,
   kartlag,
   underlag,
@@ -369,4 +369,4 @@ const ForvaltningsDetailedInfo = ({
   );
 };
 
-export default ForvaltningsDetailedInfo;
+export default KartlagDetailedInfo;
