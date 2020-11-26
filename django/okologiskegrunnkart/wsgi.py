@@ -1,5 +1,5 @@
 """
-WSGI config for forvaltningsportal project.
+WSGI config for okologiskegrunnkart project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'forvaltningsportal.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'okologiskegrunnkart.settings')
 
 application = get_wsgi_application()

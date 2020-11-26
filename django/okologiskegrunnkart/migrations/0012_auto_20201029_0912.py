@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('forvaltningsportal', '0011_sublag_faktaark'),
+        ('okologiskegrunnkart', '0011_sublag_faktaark'),
     ]
 
     operations = [
