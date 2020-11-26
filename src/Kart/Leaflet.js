@@ -4,7 +4,7 @@ import "./TileLayer.CachedOverview";
 import "leaflet/dist/leaflet.css";
 import React from "react";
 import { LocationSearching, WhereToVote } from "@material-ui/icons";
-import InfoboxSide from "../Forvaltningsportalen/FeatureInfo/InfoboxSide";
+import InfoboxSide from "../Okologiskegrunnkart/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";
 import PolygonActions from "./PolygonActions";

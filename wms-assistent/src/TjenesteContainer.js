@@ -14,7 +14,7 @@ import { Alert } from "@material-ui/lab";
 import MainTabs from "./MainTabs";
 
 const kartlagUrl =
-  "https://forvaltningsportal.test.artsdatabanken.no/kartlag.json";
+  "https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json";
 
 export default function TjenesteContainer() {
   const location = useLocation();

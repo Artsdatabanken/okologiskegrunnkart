@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('forvaltningsportal', '0013_sublag_position'),
+        ('okologiskegrunnkart', '0013_sublag_position'),
     ]
 
     operations = [

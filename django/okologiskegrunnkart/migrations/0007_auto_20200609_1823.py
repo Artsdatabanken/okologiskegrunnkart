@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('forvaltningsportal', '0006_auto_20200506_1504'),
+        ('okologiskegrunnkart', '0006_auto_20200506_1504'),
     ]
 
     operations = [
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('klikktekst2', models.CharField(blank=True, max_length=500)),
             ],
             options={
-                'db_table': 'forvaltningsportal_kartlag',
+                'db_table': 'okologiskegrunnkart_kartlag',
                 'managed': False,
             },
         ),

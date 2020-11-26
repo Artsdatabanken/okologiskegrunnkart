@@ -1,5 +1,5 @@
 {
-  "name": "forvaltningsportal-wmsgreie",
+  "name": "okologiskegrunnkart-wmsgreie",
   "version": "2.0.0",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "scp -r build/* grunnkart@hydra:~/forvaltningsportal/django/forvaltningsportal/static"
+    "deploy": "scp -r build/* grunnkart@hydra:~/okologiskegrunnkart/django/okologiskegrunnkart/static"
   },
   "browserslist": [
     ">0.2%",

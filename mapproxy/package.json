@@ -5,7 +5,7 @@
   "main": "makeconfig.js",
   "scripts": {
     "build": "npm run download && npm run makeconfig",
-    "download": "wget -N forvaltningsportal.test.artsdatabanken.no/kartlag.json",
+    "download": "wget -N okologiskegrunnkart.test.artsdatabanken.no/kartlag.json",
     "makeconfig": "node generate_mapproxy_config_from_kartlag.js",
     "deploy": "rsync -avhW --max-size=10m *.js* *.sh coverage grunnkart@hydra:~/mapproxy/"
   },
