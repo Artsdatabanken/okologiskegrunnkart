@@ -32,37 +32,37 @@
   {
     "model": "contenttypes.contenttype",
     "pk": 7,
-    "fields": { "app_label": "forvaltningsportal", "model": "dataeier" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "dataeier" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 8,
-    "fields": { "app_label": "forvaltningsportal", "model": "tag" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "tag" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 9,
-    "fields": { "app_label": "forvaltningsportal", "model": "tema" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "tema" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 10,
-    "fields": { "app_label": "forvaltningsportal", "model": "type" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "type" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 11,
-    "fields": { "app_label": "forvaltningsportal", "model": "kartlag" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "kartlag" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 12,
-    "fields": { "app_label": "forvaltningsportal", "model": "sublag" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "sublag" }
   },
   {
     "model": "contenttypes.contenttype",
     "pk": 13,
-    "fields": { "app_label": "forvaltningsportal", "model": "wmshelper" }
+    "fields": { "app_label": "okologiskegrunnkart", "model": "wmshelper" }
   },
   {
     "model": "sessions.session",
@@ -409,119 +409,119 @@
     }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 1,
     "fields": { "tittel": "Skog" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 2,
     "fields": { "tittel": "Arealressurs" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 3,
     "fields": { "tittel": "Naturtyper" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 4,
     "fields": { "tittel": "Landskap" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 5,
     "fields": { "tittel": "Ferskvann" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 6,
     "fields": { "tittel": "Klima" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 7,
     "fields": { "tittel": "Milj\u00f8variabel" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 8,
     "fields": { "tittel": "Ferskvann" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 9,
     "fields": { "tittel": "Geologi" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 10,
     "fields": { "tittel": "Arter" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 12,
     "fields": { "tittel": "Marint" }
   },
   {
-    "model": "forvaltningsportal.tema",
+    "model": "okologiskegrunnkart.tema",
     "pk": 13,
     "fields": { "tittel": "Administrative st\u00f8ttekart" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 1,
     "fields": { "tittel": "Feltkartlagte data" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 2,
     "fields": { "tittel": "Naturtype" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 3,
     "fields": { "tittel": "DOK-data" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 4,
     "fields": { "tittel": "Modellerte data" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 5,
     "fields": { "tittel": "Landskap" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 6,
     "fields": {
       "tittel": "Milj\u00f8variabler og \u00f8kologiske grunnlagsdata"
     }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 7,
     "fields": { "tittel": "Arter" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 8,
     "fields": { "tittel": "Administrative st\u00f8ttekart" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 9,
     "fields": { "tittel": "Marint" }
   },
   {
-    "model": "forvaltningsportal.tag",
+    "model": "okologiskegrunnkart.tag",
     "pk": 10,
     "fields": { "tittel": "Ferskvann" }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 1,
     "fields": {
       "tittel": "NIBIO",
@@ -530,7 +530,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 2,
     "fields": {
       "tittel": "Milj\u00f8direktoratet",
@@ -539,7 +539,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 3,
     "fields": {
       "tittel": "Artsdatabanken",
@@ -548,7 +548,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 4,
     "fields": {
       "tittel": "Norges vassdrags- og energidirektorat",
@@ -557,7 +557,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 5,
     "fields": {
       "tittel": "NGU",
@@ -566,7 +566,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 6,
     "fields": {
       "tittel": "Fiskeridirektoratet",
@@ -575,7 +575,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 7,
     "fields": {
       "tittel": "Kartverket",
@@ -584,7 +584,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 8,
     "fields": {
       "tittel": "Havforskningsinstituttet",
@@ -593,7 +593,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.dataeier",
+    "model": "okologiskegrunnkart.dataeier",
     "pk": 9,
     "fields": {
       "tittel": "Riksantikvaren",
@@ -602,62 +602,62 @@
     }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 1,
     "fields": { "tittel": "livsmilj\u00f8" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 2,
     "fields": { "tittel": "arealtype" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 3,
     "fields": { "tittel": "naturtype" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 4,
     "fields": { "tittel": "landskap" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 5,
     "fields": { "tittel": "bioklimatisk_sone" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 6,
     "fields": { "tittel": "bioklimatisk_seksjon" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 7,
     "fields": { "tittel": "kalk" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 8,
     "fields": { "tittel": "laksefjord" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 9,
     "fields": { "tittel": "l\u00f8smasse" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 10,
     "fields": { "tittel": "Arter" }
   },
   {
-    "model": "forvaltningsportal.type",
+    "model": "okologiskegrunnkart.type",
     "pk": 11,
     "fields": { "tittel": "Administrative st\u00f8ttekart" }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 1,
     "fields": {
       "tittel": "Livsmilj\u00f8er",
@@ -676,7 +676,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 2,
     "fields": {
       "tittel": "Arealressurs: AR5",
@@ -695,7 +695,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 3,
     "fields": {
       "tittel": "Naturtyper - NiN Mdir",
@@ -714,7 +714,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 4,
     "fields": {
       "tittel": "Landskap - NiN",
@@ -733,7 +733,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 18,
     "fields": {
       "tittel": "Landskapsgradienter - NiN",
@@ -752,7 +752,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 19,
     "fields": {
       "tittel": "Verneplan for Vassdrag",
@@ -771,7 +771,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 20,
     "fields": {
       "tittel": "Bioklimatisk sone og seksjon",
@@ -790,7 +790,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 21,
     "fields": {
       "tittel": "Bioklimatisk seksjon - slett",
@@ -809,7 +809,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 22,
     "fields": {
       "tittel": "Kalkinnhold",
@@ -828,7 +828,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 23,
     "fields": {
       "tittel": "Fiskerireguleringer og vern",
@@ -847,7 +847,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 24,
     "fields": {
       "tittel": "L\u00f8smasse",
@@ -866,7 +866,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 26,
     "fields": {
       "tittel": "Naturtyper - utvalgte",
@@ -885,7 +885,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 27,
     "fields": {
       "tittel": "Naturtyper - DN H\u00e5ndbok 13",
@@ -904,7 +904,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 28,
     "fields": {
       "tittel": "Naturvernomr\u00e5der",
@@ -923,7 +923,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 29,
     "fields": {
       "tittel": "Marin leire - mulig forekomst",
@@ -942,7 +942,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 30,
     "fields": {
       "tittel": "Arter av nasjonal forvaltningsinteresse",
@@ -961,7 +961,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 31,
     "fields": {
       "tittel": "Arter - R\u00f8dlista",
@@ -980,7 +980,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 32,
     "fields": {
       "tittel": "Gyteomr\u00e5der",
@@ -999,7 +999,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 33,
     "fields": {
       "tittel": "H\u00f8ydedata",
@@ -1018,7 +1018,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 34,
     "fields": {
       "tittel": "Elvenett Elvis",
@@ -1037,7 +1037,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 35,
     "fields": {
       "tittel": "Innsj\u00f8database",
@@ -1056,7 +1056,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 36,
     "fields": {
       "tittel": "Arter - Fremmede arter 2018",
@@ -1075,7 +1075,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 37,
     "fields": {
       "tittel": "Dybdedata terrengmodeller",
@@ -1094,7 +1094,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 38,
     "fields": {
       "tittel": "Berggrunn N50",
@@ -1113,7 +1113,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 39,
     "fields": {
       "tittel": "Nedb\u00f8rfelt",
@@ -1132,7 +1132,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 40,
     "fields": {
       "tittel": "Vannkraft - utbygd",
@@ -1151,7 +1151,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 41,
     "fields": {
       "tittel": "Vannkraft - ikke utbygd",
@@ -1170,7 +1170,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 42,
     "fields": {
       "tittel": "Naturvernomr\u00e5der - foresl\u00e5tte",
@@ -1189,7 +1189,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 43,
     "fields": {
       "tittel": "Kulturlandskap - utvalgte",
@@ -1208,7 +1208,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 44,
     "fields": {
       "tittel": "Ramsaromr\u00e5der",
@@ -1227,7 +1227,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 45,
     "fields": {
       "tittel": "N\u00f8kkelbiotoper",
@@ -1246,7 +1246,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 46,
     "fields": {
       "tittel": "Marine bunnsedimenter",
@@ -1265,7 +1265,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 47,
     "fields": {
       "tittel": "Marine landskap",
@@ -1284,7 +1284,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 48,
     "fields": {
       "tittel": "Naturtyper - DN H\u00e5ndbok 19",
@@ -1303,7 +1303,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 49,
     "fields": {
       "tittel": "Geologisk arv",
@@ -1322,7 +1322,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 50,
     "fields": {
       "tittel": "Korallrev",
@@ -1341,7 +1341,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 51,
     "fields": {
       "tittel": "S\u00e5rbare habitat - marint",
@@ -1360,7 +1360,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 52,
     "fields": {
       "tittel": "Breer i Norge",
@@ -1379,7 +1379,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 53,
     "fields": {
       "tittel": "Vannforekomster",
@@ -1398,7 +1398,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 54,
     "fields": {
       "tittel": "Villreinomr\u00e5der",
@@ -1417,7 +1417,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 55,
     "fields": {
       "tittel": "Kulturlandskap - verdifulle",
@@ -1436,7 +1436,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 56,
     "fields": {
       "tittel": "Marin grense",
@@ -1455,7 +1455,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 58,
     "fields": {
       "tittel": "Vernskog",
@@ -1474,7 +1474,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 59,
     "fields": {
       "tittel": "Skredhendelser",
@@ -1493,7 +1493,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 60,
     "fields": {
       "tittel": "Kulturminner - lokaliteter",
@@ -1512,7 +1512,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 61,
     "fields": {
       "tittel": "Marine landformer",
@@ -1531,7 +1531,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 62,
     "fields": {
       "tittel": "Korallrev - sannsynlige forekomster",
@@ -1550,7 +1550,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 63,
     "fields": {
       "tittel": "Grus og pukk",
@@ -1569,7 +1569,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 64,
     "fields": {
       "tittel": "Marine biotoper",
@@ -1588,7 +1588,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 65,
     "fields": {
       "tittel": "Flomsoner",
@@ -1607,7 +1607,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 66,
     "fields": {
       "tittel": "Forurenset grunn",
@@ -1626,7 +1626,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 67,
     "fields": {
       "tittel": "Arter - fredete",
@@ -1645,7 +1645,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 68,
     "fields": {
       "tittel": "Arter - Prioriterte",
@@ -1664,7 +1664,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 69,
     "fields": {
       "tittel": "Natur i verneomr\u00e5der (NiN)",
@@ -1683,7 +1683,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 70,
     "fields": {
       "tittel": "Arter - Truede arter - hot spots",
@@ -1702,7 +1702,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 71,
     "fields": {
       "tittel": "Berggrunn N250",
@@ -1721,7 +1721,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 72,
     "fields": {
       "tittel": "Kalkinnhold berggrunn",
@@ -1740,7 +1740,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.kartlag",
+    "model": "okologiskegrunnkart.kartlag",
     "pk": 73,
     "fields": {
       "tittel": "Ultramafiske bergarter",
@@ -1759,7 +1759,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 1,
     "fields": {
       "tittel": "Livsmilj\u00f8er",
@@ -1781,7 +1781,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 2,
     "fields": {
       "tittel": "Arealressurs: AR5 Arealtype",
@@ -1803,7 +1803,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 3,
     "fields": {
       "tittel": "Naturtyper Mdir",
@@ -1825,7 +1825,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 17,
     "fields": {
       "tittel": "Arealbruksintenistet",
@@ -1847,7 +1847,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 18,
     "fields": {
       "tittel": "Verneplan for Vassdrag",
@@ -1869,7 +1869,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 19,
     "fields": {
       "tittel": "Bioklimatisk sone",
@@ -1891,7 +1891,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 20,
     "fields": {
       "tittel": "Bioklimatisk seksjon",
@@ -1913,7 +1913,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 21,
     "fields": {
       "tittel": "Nasjonale laksefjorder",
@@ -1935,7 +1935,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 22,
     "fields": {
       "tittel": "L\u00f8smasse",
@@ -1957,7 +1957,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 24,
     "fields": {
       "tittel": "Naturtyper - utvalgte",
@@ -1979,7 +1979,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 25,
     "fields": {
       "tittel": "Naturtyper - DN H\u00e5ndbok 13",
@@ -2001,7 +2001,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 26,
     "fields": {
       "tittel": "Naturvernomr\u00e5der",
@@ -2023,7 +2023,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 27,
     "fields": {
       "tittel": "Marin leire - mulig forekomst",
@@ -2045,7 +2045,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 28,
     "fields": {
       "tittel": "Arter av stor forvaltningsinteresse - omr\u00e5der",
@@ -2067,7 +2067,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 29,
     "fields": {
       "tittel": "R\u00f8dlista arter - alle kategorier",
@@ -2089,7 +2089,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 30,
     "fields": {
       "tittel": "Dekningskart",
@@ -2111,7 +2111,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 31,
     "fields": {
       "tittel": "Arter av stor forvaltningsinteresse - punkt",
@@ -2133,7 +2133,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 32,
     "fields": {
       "tittel": "Arter av s\u00e6rlig stor forvaltningsinteresse - omr\u00e5der",
@@ -2155,7 +2155,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 33,
     "fields": {
       "tittel": "Arter av s\u00e6rlig stor forvaltningsinteresse - punkt",
@@ -2177,7 +2177,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 34,
     "fields": {
       "tittel": "Fremmede arter - omr\u00e5der",
@@ -2199,7 +2199,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 35,
     "fields": {
       "tittel": "Fremmede arter - punkt",
@@ -2221,7 +2221,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 36,
     "fields": {
       "tittel": "Treslag",
@@ -2243,7 +2243,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 37,
     "fields": {
       "tittel": "Jordbruksareal",
@@ -2265,7 +2265,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 38,
     "fields": {
       "tittel": "RE - Regionalt utd\u00f8dd",
@@ -2287,7 +2287,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 39,
     "fields": {
       "tittel": "CR - Kritisk truet",
@@ -2309,7 +2309,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 40,
     "fields": {
       "tittel": "EN - Sterkt truet",
@@ -2331,7 +2331,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 41,
     "fields": {
       "tittel": "VU - S\u00e5rbar",
@@ -2353,7 +2353,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 42,
     "fields": {
       "tittel": "NT - N\u00e6r truet",
@@ -2375,7 +2375,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 43,
     "fields": {
       "tittel": "DD - Datamangel",
@@ -2397,7 +2397,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 44,
     "fields": {
       "tittel": "Innlands\u00e5s- og fjellandskap",
@@ -2419,7 +2419,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 45,
     "fields": {
       "tittel": "Innlandsdallandskap",
@@ -2441,7 +2441,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 46,
     "fields": {
       "tittel": "Innlandsslettelandskap",
@@ -2463,7 +2463,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 47,
     "fields": {
       "tittel": "Fjordlandskap",
@@ -2485,7 +2485,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 48,
     "fields": {
       "tittel": "Kystslettelandskap",
@@ -2507,7 +2507,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 50,
     "fields": {
       "tittel": "Marine landskap",
@@ -2529,7 +2529,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 51,
     "fields": {
       "tittel": "Brepreg",
@@ -2551,7 +2551,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 52,
     "fields": {
       "tittel": "Vegetasjon",
@@ -2573,7 +2573,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 53,
     "fields": {
       "tittel": "V\u00e5tmarkspreg",
@@ -2595,7 +2595,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 54,
     "fields": {
       "tittel": "Innsj\u00f8preg",
@@ -2617,7 +2617,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 55,
     "fields": {
       "tittel": "Kystavstand",
@@ -2639,7 +2639,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 56,
     "fields": {
       "tittel": "Indre ytre kyst",
@@ -2661,7 +2661,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 57,
     "fields": {
       "tittel": "Dekningskart - oversikt",
@@ -2683,7 +2683,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 58,
     "fields": {
       "tittel": "Dekningskart - detalj",
@@ -2705,7 +2705,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 59,
     "fields": {
       "tittel": "Bekkekl\u00f8fter",
@@ -2727,7 +2727,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 60,
     "fields": {
       "tittel": "Bergvegger - Flate",
@@ -2749,7 +2749,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 61,
     "fields": {
       "tittel": "Bergvegger - Linje",
@@ -2771,7 +2771,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 62,
     "fields": {
       "tittel": "Brannflater",
@@ -2793,7 +2793,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 64,
     "fields": {
       "tittel": "Gamle tr\u00e6r",
@@ -2815,7 +2815,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 66,
     "fields": {
       "tittel": "Leirraviner",
@@ -2837,7 +2837,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 67,
     "fields": {
       "tittel": "Liggende d\u00f8d ved",
@@ -2859,7 +2859,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 68,
     "fields": {
       "tittel": "Rik bakkevegetasjon",
@@ -2881,7 +2881,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 72,
     "fields": {
       "tittel": "Gyteomr\u00e5der",
@@ -2903,7 +2903,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 73,
     "fields": {
       "tittel": "Fjordlinjer - kysttorskregulering",
@@ -2925,7 +2925,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 74,
     "fields": {
       "tittel": "Korallrev - forbudsomr\u00e5der",
@@ -2947,7 +2947,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 75,
     "fields": {
       "tittel": "Tare - H\u00f8stefelt (S\u00f8r-Tr\u00f8ndelag)",
@@ -2969,7 +2969,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 76,
     "fields": {
       "tittel": "Tare - H\u00f8stefelt (M\u00f8re og Romsdal)",
@@ -2991,7 +2991,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 77,
     "fields": {
       "tittel": "Tare - H\u00f8stefelt (Nord-Tr\u00f8ndelag)",
@@ -3013,7 +3013,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 78,
     "fields": {
       "tittel": "Tare - H\u00f8stefelt (Rog, Hord og S&F)",
@@ -3035,7 +3035,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 79,
     "fields": {
       "tittel": "Verneomr\u00e5de - bunnhabitat",
@@ -3057,7 +3057,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 80,
     "fields": {
       "tittel": "Hovedelv",
@@ -3079,7 +3079,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 81,
     "fields": {
       "tittel": "Elvenett",
@@ -3101,7 +3101,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 82,
     "fields": {
       "tittel": "Innsj\u00f8database",
@@ -3123,7 +3123,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 83,
     "fields": {
       "tittel": "Alle kategorier",
@@ -3145,7 +3145,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 84,
     "fields": {
       "tittel": "SE - Sv\u00e6rt h\u00f8y risiko",
@@ -3167,7 +3167,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 85,
     "fields": {
       "tittel": "HI - H\u00f8y risiko",
@@ -3189,7 +3189,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 86,
     "fields": {
       "tittel": "PH - Potensielt h\u00f8y risiko",
@@ -3211,7 +3211,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 87,
     "fields": {
       "tittel": "LO - Lav Risiko",
@@ -3233,7 +3233,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 88,
     "fields": {
       "tittel": "NK - Ingen kjent risiko",
@@ -3255,7 +3255,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 89,
     "fields": {
       "tittel": "havbunnraster med gr\u00e5 dybde og 50% skygge",
@@ -3277,7 +3277,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 92,
     "fields": {
       "tittel": "Dekninsgskart Berggrunnskart 1:50 000",
@@ -3299,7 +3299,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 93,
     "fields": {
       "tittel": "Bergartsflate 1:50 000",
@@ -3321,7 +3321,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 94,
     "fields": {
       "tittel": "Nedb\u00f8rfelt til hav",
@@ -3343,7 +3343,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 95,
     "fields": {
       "tittel": "Sidenedb\u00f8rfelt",
@@ -3365,7 +3365,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 96,
     "fields": {
       "tittel": "REGINE enhet",
@@ -3387,7 +3387,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 97,
     "fields": {
       "tittel": "Vassdragsomr\u00e5de",
@@ -3409,7 +3409,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 98,
     "fields": {
       "tittel": "Dam",
@@ -3431,7 +3431,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 99,
     "fields": {
       "tittel": "Dam_N250",
@@ -3453,7 +3453,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 100,
     "fields": {
       "tittel": "Magasin",
@@ -3475,7 +3475,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 101,
     "fields": {
       "tittel": "Vannvei",
@@ -3497,7 +3497,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 102,
     "fields": {
       "tittel": "Utl\u00f8pspunkt",
@@ -3519,7 +3519,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 103,
     "fields": {
       "tittel": "Inntakspunkt",
@@ -3541,7 +3541,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 104,
     "fields": {
       "tittel": "Vannkraftverk",
@@ -3563,7 +3563,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 105,
     "fields": {
       "tittel": "Ikke utbygd magasin",
@@ -3585,7 +3585,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 106,
     "fields": {
       "tittel": "Ikke utbygd dam",
@@ -3607,7 +3607,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 107,
     "fields": {
       "tittel": "Ikke utbygd inntakspunkt",
@@ -3629,7 +3629,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 108,
     "fields": {
       "tittel": "Ikke utbygd vannkraftverk",
@@ -3651,7 +3651,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 109,
     "fields": {
       "tittel": "Ikke utbygd vannvei",
@@ -3673,7 +3673,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 110,
     "fields": {
       "tittel": "Dybdekart",
@@ -3695,7 +3695,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 111,
     "fields": {
       "tittel": "Innsjo ved dybdemaling",
@@ -3717,7 +3717,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 112,
     "fields": {
       "tittel": "DybdeKurve",
@@ -3739,7 +3739,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 113,
     "fields": {
       "tittel": "Dybde punkt",
@@ -3761,7 +3761,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 114,
     "fields": {
       "tittel": "Foreslatt naturvernomr\u00e5de",
@@ -3783,7 +3783,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 115,
     "fields": {
       "tittel": "Naturtype NiN -  Sv\u00e6rt h\u00f8y lokalitetskvalitet",
@@ -3805,7 +3805,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 116,
     "fields": {
       "tittel": "Naturtype NiN - h\u00f8y kvalitet",
@@ -3827,7 +3827,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 117,
     "fields": {
       "tittel": "Naturtype NiN - moderat kvalitet",
@@ -3849,7 +3849,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 118,
     "fields": {
       "tittel": "Naturtype NiN -  lav kvalitet",
@@ -3871,7 +3871,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 119,
     "fields": {
       "tittel": "Naturtype NiN - ikke kvalitetsvurdert",
@@ -3893,7 +3893,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 120,
     "fields": {
       "tittel": "Kulturlandskap -  utvalgte",
@@ -3915,7 +3915,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 121,
     "fields": {
       "tittel": "Ramsaromrader",
@@ -3937,7 +3937,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 122,
     "fields": {
       "tittel": "N\u00f8kkelbiotop",
@@ -3959,7 +3959,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 123,
     "fields": {
       "tittel": "N\u00f8kkelbiotop med MiS",
@@ -3981,7 +3981,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 124,
     "fields": {
       "tittel": "N\u00f8kkelbiotop uten MiS",
@@ -4003,7 +4003,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 125,
     "fields": {
       "tittel": "Bunnsedimenter (kornst\u00f8rrelse) detaljert",
@@ -4025,7 +4025,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 126,
     "fields": {
       "tittel": "Bunnsedimenter (kornst\u00f8rrelse) regional",
@@ -4047,7 +4047,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 127,
     "fields": {
       "tittel": "Bunnsedimenter (dannelse) regional",
@@ -4069,7 +4069,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 128,
     "fields": {
       "tittel": "Sedimentasjonsmilj\u00f8 detaljert",
@@ -4091,7 +4091,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 129,
     "fields": {
       "tittel": "Sedimentasjonsmilj\u00f8 regionalt",
@@ -4113,7 +4113,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 130,
     "fields": {
       "tittel": "Marine Landskap",
@@ -4135,7 +4135,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 131,
     "fields": {
       "tittel": "Marine naturtyper - alle",
@@ -4157,7 +4157,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 132,
     "fields": {
       "tittel": "Marine naturtyper - skjellsand",
@@ -4179,7 +4179,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 133,
     "fields": {
       "tittel": "Marine naturtyper - \u00e5legras",
@@ -4201,7 +4201,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 134,
     "fields": {
       "tittel": "Marine naturtyper - bl\u00f8tbunn",
@@ -4223,7 +4223,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 135,
     "fields": {
       "tittel": "Marine naturtyper - litoral",
@@ -4245,7 +4245,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 136,
     "fields": {
       "tittel": "Marine naturtyper - poller og dyp",
@@ -4267,7 +4267,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 137,
     "fields": {
       "tittel": "Marine naturtyper - oksygen",
@@ -4289,7 +4289,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 138,
     "fields": {
       "tittel": "Marine naturtyper - tidevann",
@@ -4311,7 +4311,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 139,
     "fields": {
       "tittel": "Marine naturtyper - tare",
@@ -4333,7 +4333,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 140,
     "fields": {
       "tittel": "Geologisk arv",
@@ -4355,7 +4355,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 141,
     "fields": {
       "tittel": "Korallrev - Lophelia pertusa",
@@ -4377,7 +4377,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 142,
     "fields": {
       "tittel": "Bl\u00f8tbunnskorallskog",
@@ -4399,7 +4399,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 143,
     "fields": {
       "tittel": "Sj\u00f8fj\u00e6rbunn",
@@ -4421,7 +4421,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 144,
     "fields": {
       "tittel": "Blomk\u00e5lkorallskog",
@@ -4443,7 +4443,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 145,
     "fields": {
       "tittel": "Svampskog",
@@ -4465,7 +4465,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 146,
     "fields": {
       "tittel": "VME_Cold_water_sponge",
@@ -4487,7 +4487,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 147,
     "fields": {
       "tittel": "Umbellula-bestander",
@@ -4509,7 +4509,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 148,
     "fields": {
       "tittel": "Svampspikelbunn",
@@ -4531,7 +4531,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 149,
     "fields": {
       "tittel": "Hardbunnskorallskog",
@@ -4553,7 +4553,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 150,
     "fields": {
       "tittel": "\u00d8kologisk tilstand eller potensial - elv",
@@ -4575,7 +4575,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 151,
     "fields": {
       "tittel": "\u00d8kologisk tilstand eller potensial - innsj\u00f8",
@@ -4597,7 +4597,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 152,
     "fields": {
       "tittel": "\u00d8kologisk tilstand eller potensial - kystvann",
@@ -4619,7 +4619,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 153,
     "fields": {
       "tittel": "Villrein leveomr\u00e5de",
@@ -4641,7 +4641,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 154,
     "fields": {
       "tittel": "Villrein kalvingsomr\u00e5de",
@@ -4663,7 +4663,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 155,
     "fields": {
       "tittel": "Villrein Trekkomrade",
@@ -4685,7 +4685,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 156,
     "fields": {
       "tittel": "Villrein Trekkveg",
@@ -4707,7 +4707,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 157,
     "fields": {
       "tittel": "Villrein hel\u00e5rsbeite",
@@ -4729,7 +4729,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 158,
     "fields": {
       "tittel": "Villrein h\u00f8stbeite",
@@ -4751,7 +4751,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 159,
     "fields": {
       "tittel": "Villrein sommerbeite",
@@ -4773,7 +4773,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 160,
     "fields": {
       "tittel": "Villrein vinterbeite",
@@ -4795,7 +4795,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 161,
     "fields": {
       "tittel": "Villrein barmarksbeite",
@@ -4817,7 +4817,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 162,
     "fields": {
       "tittel": "Kulturlandskap - verdifulle",
@@ -4839,7 +4839,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 163,
     "fields": {
       "tittel": "Marin grense - alle kartlag",
@@ -4861,7 +4861,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 164,
     "fields": {
       "tittel": "Marin grense - linje",
@@ -4883,7 +4883,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 165,
     "fields": {
       "tittel": "Marin grense - areal under",
@@ -4905,7 +4905,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 166,
     "fields": {
       "tittel": "Marin grense - areal over",
@@ -4927,7 +4927,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 167,
     "fields": {
       "tittel": "Mulig marin leire",
@@ -4949,7 +4949,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 171,
     "fields": {
       "tittel": "Vernskog",
@@ -4971,7 +4971,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 172,
     "fields": {
       "tittel": "Skredtype",
@@ -4993,7 +4993,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 173,
     "fields": {
       "tittel": "Oversikt - skred",
@@ -5015,7 +5015,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 174,
     "fields": {
       "tittel": "Kulturminner - lokaliteter",
@@ -5037,7 +5037,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 175,
     "fields": {
       "tittel": "Glasiale former",
@@ -5059,7 +5059,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 176,
     "fields": {
       "tittel": "Skredformer",
@@ -5081,7 +5081,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 177,
     "fields": {
       "tittel": "Grunngass-relaterte former",
@@ -5103,7 +5103,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 178,
     "fields": {
       "tittel": "Andre former",
@@ -5125,7 +5125,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 179,
     "fields": {
       "tittel": "Omriss",
@@ -5147,7 +5147,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 180,
     "fields": {
       "tittel": "Dekningskart",
@@ -5169,7 +5169,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 181,
     "fields": {
       "tittel": "Tetthet (antall pr. km2)",
@@ -5191,7 +5191,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 182,
     "fields": {
       "tittel": "P\u00e5litelighet",
@@ -5213,7 +5213,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 183,
     "fields": {
       "tittel": "Grus/pukk: omr\u00e5de",
@@ -5235,7 +5235,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 184,
     "fields": {
       "tittel": "Grus/pukk: uttak",
@@ -5257,7 +5257,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 185,
     "fields": {
       "tittel": "Steintipp",
@@ -5279,7 +5279,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 187,
     "fields": {
       "tittel": "Biotoper - Midtnorsk sokkel",
@@ -5301,7 +5301,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 188,
     "fields": {
       "tittel": "Biotoper - NordlandVI",
@@ -5323,7 +5323,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 189,
     "fields": {
       "tittel": "Biotoper - TromsII/NordlandVII",
@@ -5345,7 +5345,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 190,
     "fields": {
       "tittel": "Biotoper - Barentshavet (MAREANO)",
@@ -5367,7 +5367,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 191,
     "fields": {
       "tittel": "Flomsone - 1000-\u00e5rsflom",
@@ -5389,7 +5389,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 192,
     "fields": {
       "tittel": "Flomsone - 500-\u00e5rsflom",
@@ -5411,7 +5411,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 193,
     "fields": {
       "tittel": "Flomsone - 200-\u00e5rsflom",
@@ -5433,7 +5433,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 194,
     "fields": {
       "tittel": "Flomsone - 100-\u00e5rsflom",
@@ -5455,7 +5455,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 195,
     "fields": {
       "tittel": "Flomsone - 50-\u00e5rsflom",
@@ -5477,7 +5477,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 196,
     "fields": {
       "tittel": "Flomsone - 20-\u00e5rsflom",
@@ -5499,7 +5499,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 197,
     "fields": {
       "tittel": "Flomsone - 10-\u00e5rsflom",
@@ -5521,7 +5521,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 198,
     "fields": {
       "tittel": "Dekningskart - Analyseomr\u00e5de",
@@ -5543,7 +5543,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 199,
     "fields": {
       "tittel": "Forurenset omr\u00e5de",
@@ -5565,7 +5565,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 200,
     "fields": {
       "tittel": "Forurenset omr\u00e5de (punkt)",
@@ -5587,7 +5587,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 201,
     "fields": {
       "tittel": "Forurenset omr\u00e5de - tilstand",
@@ -5609,7 +5609,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 202,
     "fields": {
       "tittel": "Forurenset omr\u00e5de - tilstand (punkt)",
@@ -5631,7 +5631,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 203,
     "fields": {
       "tittel": "Breflate",
@@ -5653,7 +5653,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 204,
     "fields": {
       "tittel": "Breflate 1895 - 1907",
@@ -5675,7 +5675,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 205,
     "fields": {
       "tittel": "Breflate 1947 - 1985",
@@ -5697,7 +5697,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 206,
     "fields": {
       "tittel": "Breflate 1988 - 1997",
@@ -5719,7 +5719,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 207,
     "fields": {
       "tittel": "Breflate 1999 - 2006",
@@ -5741,7 +5741,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 208,
     "fields": {
       "tittel": "Bresjo 1988 - 1997",
@@ -5763,7 +5763,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 209,
     "fields": {
       "tittel": "Bresjo 1999 - 2006",
@@ -5785,7 +5785,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 210,
     "fields": {
       "tittel": "Bresjo 2014",
@@ -5807,7 +5807,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 211,
     "fields": {
       "tittel": "Istykkelse",
@@ -5829,7 +5829,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 213,
     "fields": {
       "tittel": "Isras",
@@ -5851,7 +5851,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 214,
     "fields": {
       "tittel": "Hovednaturtype - skog",
@@ -5873,7 +5873,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 215,
     "fields": {
       "tittel": "Hovednaturtype - rasmark, berg og kantkratt",
@@ -5895,7 +5895,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 216,
     "fields": {
       "tittel": "Hovednaturtype - myr og kilde",
@@ -5917,7 +5917,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 217,
     "fields": {
       "tittel": "Hovednaturtype - Kyst og havstrand",
@@ -5939,7 +5939,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 218,
     "fields": {
       "tittel": "Hovednaturtype - kulturlandskap",
@@ -5961,7 +5961,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 219,
     "fields": {
       "tittel": "Hovednaturtype - fjell",
@@ -5983,7 +5983,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 220,
     "fields": {
       "tittel": "Hovednaturtype - ferskvann og v\u00e5tmark",
@@ -6005,7 +6005,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 221,
     "fields": {
       "tittel": "Hovednaturtype - andre viktige",
@@ -6027,7 +6027,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 222,
     "fields": {
       "tittel": "Fredete arter - omr\u00e5der",
@@ -6049,7 +6049,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 223,
     "fields": {
       "tittel": "Fredete arter - punkt",
@@ -6071,7 +6071,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 224,
     "fields": {
       "tittel": "Prioriterte arter - omr\u00e5der",
@@ -6093,7 +6093,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 225,
     "fields": {
       "tittel": "Prioriterte arter - punkt",
@@ -6115,7 +6115,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 226,
     "fields": {
       "tittel": "Prioriterte arter - \u00f8kologiske funksjonsomr\u00e5der",
@@ -6137,7 +6137,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 227,
     "fields": {
       "tittel": "WMS for livsmiljoer og nokkelbiotoper",
@@ -6159,7 +6159,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 228,
     "fields": {
       "tittel": "nokkelbiotop",
@@ -6181,7 +6181,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 229,
     "fields": {
       "tittel": "Nokkelbiotop_m_mis",
@@ -6203,7 +6203,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 230,
     "fields": {
       "tittel": "Nokkelbiotop_u_mis",
@@ -6225,7 +6225,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 232,
     "fields": {
       "tittel": "Staende d\u00f8d ved",
@@ -6247,7 +6247,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 233,
     "fields": {
       "tittel": "Hule lauvtrar",
@@ -6269,7 +6269,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 234,
     "fields": {
       "tittel": "Eldre lauvsuksesjon",
@@ -6291,7 +6291,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 235,
     "fields": {
       "tittel": "Tr\u00e6r med hengelav",
@@ -6313,7 +6313,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 236,
     "fields": {
       "tittel": "Rikbarkstr\u00e6r",
@@ -6335,7 +6335,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 237,
     "fields": {
       "tittel": "Registreringsaar",
@@ -6357,7 +6357,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 238,
     "fields": {
       "tittel": "Registrerte_eldre",
@@ -6379,7 +6379,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 239,
     "fields": {
       "tittel": "Registrerte i fjor",
@@ -6401,7 +6401,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 240,
     "fields": {
       "tittel": "Registrerte i \u00e5r",
@@ -6423,7 +6423,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 241,
     "fields": {
       "tittel": "Aldersklasser_i_skog",
@@ -6445,7 +6445,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 242,
     "fields": {
       "tittel": "WMS for AR5 fra NIBIO",
@@ -6467,7 +6467,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 243,
     "fields": {
       "tittel": "Bonitet",
@@ -6489,7 +6489,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 244,
     "fields": {
       "tittel": "Hovedgrupper",
@@ -6511,7 +6511,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 245,
     "fields": {
       "tittel": "Grunnforhold",
@@ -6533,7 +6533,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 246,
     "fields": {
       "tittel": "Skogbonitet",
@@ -6555,7 +6555,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 247,
     "fields": {
       "tittel": "AR5grenser",
@@ -6577,7 +6577,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 248,
     "fields": {
       "tittel": "areal",
@@ -6599,7 +6599,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 249,
     "fields": {
       "tittel": "Landskapsdata",
@@ -6621,7 +6621,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 250,
     "fields": {
       "tittel": "LA-I",
@@ -6643,7 +6643,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 251,
     "fields": {
       "tittel": "LA-K",
@@ -6665,7 +6665,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 252,
     "fields": {
       "tittel": "LA-K-A",
@@ -6687,7 +6687,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 253,
     "fields": {
       "tittel": "LA-KLG-AI_k",
@@ -6709,7 +6709,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 254,
     "fields": {
       "tittel": "LA-KLG-JP_k",
@@ -6731,7 +6731,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 255,
     "fields": {
       "tittel": "LA-KLG-KA_k",
@@ -6753,7 +6753,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 256,
     "fields": {
       "tittel": "LA-KLG-VP_k",
@@ -6775,7 +6775,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 257,
     "fields": {
       "tittel": "LA-KLG-BP_d",
@@ -6797,7 +6797,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 258,
     "fields": {
       "tittel": "LA-KLG-IP_d",
@@ -6819,7 +6819,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 259,
     "fields": {
       "tittel": "LA-KLG-IYK_d",
@@ -6841,7 +6841,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 260,
     "fields": {
       "tittel": "LA-KLG-JA_d",
@@ -6863,7 +6863,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 261,
     "fields": {
       "tittel": "LA-KLG-RE-IA_d",
@@ -6885,7 +6885,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 262,
     "fields": {
       "tittel": "LA-KLG-RE-KF-ID_d",
@@ -6907,7 +6907,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 263,
     "fields": {
       "tittel": "LA-KLG-RE-KS_d",
@@ -6929,7 +6929,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 264,
     "fields": {
       "tittel": "LA-KLG-VE_d",
@@ -6951,7 +6951,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 265,
     "fields": {
       "tittel": "LA-KLG-VP_d",
@@ -6973,7 +6973,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 266,
     "fields": {
       "tittel": "Landskapsdata",
@@ -6995,7 +6995,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 267,
     "fields": {
       "tittel": "LA-I",
@@ -7017,7 +7017,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 268,
     "fields": {
       "tittel": "LA-K",
@@ -7039,7 +7039,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 269,
     "fields": {
       "tittel": "LA-I-A",
@@ -7061,7 +7061,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 270,
     "fields": {
       "tittel": "LA-I-D",
@@ -7083,7 +7083,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 271,
     "fields": {
       "tittel": "LA-I-S",
@@ -7105,7 +7105,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 272,
     "fields": {
       "tittel": "LA-K-F",
@@ -7127,7 +7127,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 273,
     "fields": {
       "tittel": "LA-K-S",
@@ -7149,7 +7149,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 274,
     "fields": {
       "tittel": "LA-K-A",
@@ -7171,7 +7171,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 275,
     "fields": {
       "tittel": "LA-M",
@@ -7193,7 +7193,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 276,
     "fields": {
       "tittel": "LA-KLG-JP_k",
@@ -7215,7 +7215,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 277,
     "fields": {
       "tittel": "LA-KLG-VP_k",
@@ -7237,7 +7237,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 278,
     "fields": {
       "tittel": "LA-KLG-JA_d",
@@ -7259,7 +7259,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 279,
     "fields": {
       "tittel": "LA-KLG-RE-IA_d",
@@ -7281,7 +7281,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 280,
     "fields": {
       "tittel": "LA-KLG-RE-KF-ID_d",
@@ -7303,7 +7303,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 281,
     "fields": {
       "tittel": "LA-KLG-RE-KS_d",
@@ -7325,7 +7325,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 282,
     "fields": {
       "tittel": "Data fra Artskart",
@@ -7347,7 +7347,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 283,
     "fields": {
       "tittel": "Bioklimatiske seksjoner 2017",
@@ -7369,7 +7369,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 284,
     "fields": {
       "tittel": "Data fra Artskart",
@@ -7391,7 +7391,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 285,
     "fields": {
       "tittel": "Bioklimatiske seksjoner 2017",
@@ -7413,7 +7413,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 286,
     "fields": {
       "tittel": "Bioklimatiske soner 2017",
@@ -7435,7 +7435,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 287,
     "fields": {
       "tittel": "Mapserver WMS - kart",
@@ -7457,7 +7457,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 294,
     "fields": {
       "tittel": "Akvakultur - stedfesting",
@@ -7479,7 +7479,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 305,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2017",
@@ -7501,7 +7501,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 349,
     "fields": {
       "tittel": "Gytefelt torsk MB",
@@ -7523,7 +7523,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 350,
     "fields": {
       "tittel": "Gyteomr\u00e5der",
@@ -7545,7 +7545,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 351,
     "fields": {
       "tittel": "Oppvekst - beiteomr\u00e5de",
@@ -7567,7 +7567,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 357,
     "fields": {
       "tittel": "Fiskerireguleringer og vern",
@@ -7589,7 +7589,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 358,
     "fields": {
       "tittel": "Fjordlinjer - seinot",
@@ -7611,7 +7611,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 359,
     "fields": {
       "tittel": "Fjordlinjer - Kysttorskregulering (punkter)",
@@ -7633,7 +7633,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 361,
     "fields": {
       "tittel": "Henningsv\u00e6rboksen",
@@ -7655,7 +7655,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 362,
     "fields": {
       "tittel": "Forbudsomr\u00e5der",
@@ -7677,7 +7677,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 363,
     "fields": {
       "tittel": "Kongekrabbe regulering",
@@ -7699,7 +7699,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 364,
     "fields": {
       "tittel": "Hummer - Fredningsomr\u00e5der",
@@ -7721,7 +7721,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 366,
     "fields": {
       "tittel": "Kysttorsk - forbudsomr\u00e5de",
@@ -7743,7 +7743,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 369,
     "fields": {
       "tittel": "Bevaringssoner - Tvedestrand",
@@ -7765,7 +7765,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 395,
     "fields": {
       "tittel": "LosmasserWMS",
@@ -7787,7 +7787,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 396,
     "fields": {
       "tittel": "Losmasse oversiktskart",
@@ -7809,7 +7809,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 397,
     "fields": {
       "tittel": "Losmasse flate N1000",
@@ -7831,7 +7831,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 398,
     "fields": {
       "tittel": "L\u00f8smasse flate SOSI-koder",
@@ -7853,7 +7853,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 399,
     "fields": {
       "tittel": "L\u00f8smasse flate",
@@ -7875,7 +7875,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 400,
     "fields": {
       "tittel": "L\u00f8smasse grense",
@@ -7897,7 +7897,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 401,
     "fields": {
       "tittel": "Losmasse formlinje N1000",
@@ -7919,7 +7919,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 402,
     "fields": {
       "tittel": "Saltvannsavsetning_Norge",
@@ -7941,7 +7941,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 403,
     "fields": {
       "tittel": "Saltvannsavsetning N1000 web",
@@ -7963,7 +7963,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 404,
     "fields": {
       "tittel": "Saltvannsavsetning N1000",
@@ -7985,7 +7985,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 405,
     "fields": {
       "tittel": "Saltvannsavsetning",
@@ -8007,7 +8007,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 406,
     "fields": {
       "tittel": "Mektighet_Norge",
@@ -8029,7 +8029,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 407,
     "fields": {
       "tittel": "Mektighet N1000 web",
@@ -8051,7 +8051,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 408,
     "fields": {
       "tittel": "Mektighet N1000",
@@ -8073,7 +8073,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 409,
     "fields": {
       "tittel": "Mektighet",
@@ -8095,7 +8095,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 410,
     "fields": {
       "tittel": "Infiltrasjonsevne",
@@ -8117,7 +8117,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 411,
     "fields": {
       "tittel": "Grunnvannspotensiale",
@@ -8139,7 +8139,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 412,
     "fields": {
       "tittel": "Skredmateriale_Norge",
@@ -8161,7 +8161,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 413,
     "fields": {
       "tittel": "Skredmateriale N1000 web",
@@ -8183,7 +8183,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 414,
     "fields": {
       "tittel": "Skredmateriale N1000",
@@ -8205,7 +8205,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 415,
     "fields": {
       "tittel": "Skredmateriale",
@@ -8227,7 +8227,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 416,
     "fields": {
       "tittel": "naturtype_utvalgt_hb13_omr_pktsymbolisert",
@@ -8249,7 +8249,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 417,
     "fields": {
       "tittel": "foreslatt_naturvern_grense",
@@ -8271,7 +8271,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 418,
     "fields": {
       "tittel": "foreslatt_naturvern_omrade",
@@ -8293,7 +8293,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 419,
     "fields": {
       "tittel": "naturvern_grense",
@@ -8315,7 +8315,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 420,
     "fields": {
       "tittel": "naturvern_teiggrensepunkt",
@@ -8337,7 +8337,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 421,
     "fields": {
       "tittel": "naturvern_omrade",
@@ -8359,7 +8359,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 422,
     "fields": {
       "tittel": "MarinGrenseWMS2",
@@ -8381,7 +8381,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 423,
     "fields": {
       "tittel": "Marin grense",
@@ -8403,7 +8403,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 424,
     "fields": {
       "tittel": "Marin grense",
@@ -8425,7 +8425,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 425,
     "fields": {
       "tittel": "Marin grense - punktobservasjoner",
@@ -8447,7 +8447,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 426,
     "fields": {
       "tittel": "Marin_grense_linje",
@@ -8469,7 +8469,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 427,
     "fields": {
       "tittel": "Marin grense linje",
@@ -8491,7 +8491,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 428,
     "fields": {
       "tittel": "Marin grense linje",
@@ -8513,7 +8513,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 429,
     "fields": {
       "tittel": "Marin grense linje",
@@ -8535,7 +8535,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 430,
     "fields": {
       "tittel": "L\u00f8smasse grense",
@@ -8557,7 +8557,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 431,
     "fields": {
       "tittel": "DD - symbolisering av presisjon",
@@ -8579,7 +8579,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 432,
     "fields": {
       "tittel": "DD - Datamangel",
@@ -8601,7 +8601,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 433,
     "fields": {
       "tittel": "NT - symbolisering av presisjon",
@@ -8623,7 +8623,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 434,
     "fields": {
       "tittel": "NT - N\u00e6r truet",
@@ -8645,7 +8645,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 435,
     "fields": {
       "tittel": "VU - symbolisering av presisjon",
@@ -8667,7 +8667,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 436,
     "fields": {
       "tittel": "VU - S\u00e5rbar",
@@ -8689,7 +8689,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 437,
     "fields": {
       "tittel": "EN - symbolisering av presisjon",
@@ -8711,7 +8711,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 438,
     "fields": {
       "tittel": "EN - Sterkt truet",
@@ -8733,7 +8733,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 439,
     "fields": {
       "tittel": "CR - symbolisering av presisjon",
@@ -8755,7 +8755,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 440,
     "fields": {
       "tittel": "CR - Kritisk truet",
@@ -8777,7 +8777,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 441,
     "fields": {
       "tittel": "RE - symbolisering av presisjon",
@@ -8799,7 +8799,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 442,
     "fields": {
       "tittel": "RE - Regionalt utd\u00f8dd",
@@ -8821,7 +8821,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 443,
     "fields": {
       "tittel": "Mapserver WMS - kart",
@@ -8843,7 +8843,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 444,
     "fields": {
       "tittel": "Akvakultur - milj\u00f8tilstand",
@@ -8865,7 +8865,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 450,
     "fields": {
       "tittel": "Akvakultur - stedfesting",
@@ -8887,7 +8887,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 458,
     "fields": {
       "tittel": "Sykdomsdata Veterin\u00e6rinstituttet",
@@ -8909,7 +8909,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 461,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2017",
@@ -8931,7 +8931,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 466,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2016",
@@ -8953,7 +8953,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 471,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2015",
@@ -8975,7 +8975,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 476,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2014",
@@ -8997,7 +8997,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 481,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2013",
@@ -9019,7 +9019,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 486,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2012",
@@ -9041,7 +9041,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 491,
     "fields": {
       "tittel": "Fiskefart\u00f8y Norsk 2011",
@@ -9063,7 +9063,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 496,
     "fields": {
       "tittel": "Fiskefart\u00f8y Utenlandske",
@@ -9085,7 +9085,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 504,
     "fields": {
       "tittel": "Kystn\u00e6re fiskeridata",
@@ -9107,7 +9107,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 505,
     "fields": {
       "tittel": "Gytefelt torsk MB",
@@ -9129,7 +9129,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 506,
     "fields": {
       "tittel": "Oppvekst - beiteomr\u00e5de",
@@ -9151,7 +9151,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 511,
     "fields": {
       "tittel": "Skjellforekomst",
@@ -9173,7 +9173,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 512,
     "fields": {
       "tittel": "Fiskerireguleringer og vern",
@@ -9195,7 +9195,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 513,
     "fields": {
       "tittel": "Fjordlinjer - seinot",
@@ -9217,7 +9217,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 514,
     "fields": {
       "tittel": "Fjordlinjer - Kysttorskregulering (punkter)",
@@ -9239,7 +9239,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 515,
     "fields": {
       "tittel": "Fjordlinjer - Kysttorskregulering",
@@ -9261,7 +9261,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 517,
     "fields": {
       "tittel": "Henningsv\u00e6rboksen",
@@ -9283,7 +9283,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 518,
     "fields": {
       "tittel": "Forbudsomr\u00e5der",
@@ -9305,7 +9305,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 519,
     "fields": {
       "tittel": "Korallrev - forbudsomr\u00e5de",
@@ -9327,7 +9327,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 523,
     "fields": {
       "tittel": "Kysttorsk - forbudsomr\u00e5de",
@@ -9349,7 +9349,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 526,
     "fields": {
       "tittel": "Bevaringssoner - Tvedestrand",
@@ -9371,7 +9371,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 527,
     "fields": {
       "tittel": "Verneomr\u00e5de - bunnhabitat",
@@ -9393,7 +9393,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 558,
     "fields": {
       "tittel": "oversikt",
@@ -9415,7 +9415,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 559,
     "fields": {
       "tittel": "KommunefordeltInnsjo",
@@ -9437,7 +9437,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 560,
     "fields": {
       "tittel": "SE - symbolisering av presisjon",
@@ -9459,7 +9459,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 561,
     "fields": {
       "tittel": "SE - Sv\u00e6rt h\u00f8y risiko",
@@ -9481,7 +9481,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 562,
     "fields": {
       "tittel": "HI - symbolisering av presisjon",
@@ -9503,7 +9503,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 563,
     "fields": {
       "tittel": "HI - H\u00f8y risiko",
@@ -9525,7 +9525,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 564,
     "fields": {
       "tittel": "PH - symbolisering av presisjon",
@@ -9547,7 +9547,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 565,
     "fields": {
       "tittel": "PH - Potensiell h\u00f8y risiko",
@@ -9569,7 +9569,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 566,
     "fields": {
       "tittel": "LO - symbolisering av presisjon",
@@ -9591,7 +9591,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 567,
     "fields": {
       "tittel": "LO - Lav risiko",
@@ -9613,7 +9613,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 568,
     "fields": {
       "tittel": "NK - symbolisering av presisjon",
@@ -9635,7 +9635,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 569,
     "fields": {
       "tittel": "NK - Ingen kjent risiko",
@@ -9657,7 +9657,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 570,
     "fields": {
       "tittel": "sjo_skyggerelieff",
@@ -9679,7 +9679,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 571,
     "fields": {
       "tittel": "havbunnraster farget dybdedata med 50% skygge",
@@ -9701,7 +9701,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 572,
     "fields": {
       "tittel": "farget dybde 50m",
@@ -9723,7 +9723,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 573,
     "fields": {
       "tittel": "50% skygge 50m",
@@ -9745,7 +9745,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 574,
     "fields": {
       "tittel": "farget dybde 25m",
@@ -9767,7 +9767,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 575,
     "fields": {
       "tittel": "50% skygge 25m",
@@ -9789,7 +9789,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 576,
     "fields": {
       "tittel": "farget dybde 5m",
@@ -9811,7 +9811,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 577,
     "fields": {
       "tittel": "50% skygge 5m",
@@ -9833,7 +9833,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 578,
     "fields": {
       "tittel": "gr\u00e5 dybde 50m",
@@ -9855,7 +9855,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 579,
     "fields": {
       "tittel": "50% skygge 50m",
@@ -9877,7 +9877,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 580,
     "fields": {
       "tittel": "gr\u00e5 dybde 25m",
@@ -9899,7 +9899,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 581,
     "fields": {
       "tittel": "50% skygge 25m",
@@ -9921,7 +9921,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 582,
     "fields": {
       "tittel": "gr\u00e5 dybde 5m",
@@ -9943,7 +9943,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 583,
     "fields": {
       "tittel": "50% skygge 5m",
@@ -9965,7 +9965,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 584,
     "fields": {
       "tittel": "100% skygge",
@@ -9987,7 +9987,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 585,
     "fields": {
       "tittel": "100% skygge 50m",
@@ -10009,7 +10009,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 586,
     "fields": {
       "tittel": "100% skygge 25m",
@@ -10031,7 +10031,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 587,
     "fields": {
       "tittel": "100% skygge 5m",
@@ -10053,7 +10053,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 588,
     "fields": {
       "tittel": "Bergartsflate hovedbergart 1:50 000",
@@ -10075,7 +10075,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 591,
     "fields": {
       "tittel": "Hele_hierarkiet",
@@ -10097,7 +10097,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 592,
     "fields": {
       "tittel": "Ikke_utbygd_magasin",
@@ -10119,7 +10119,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 593,
     "fields": {
       "tittel": "Ikke_utbygd_vannvei",
@@ -10141,7 +10141,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 594,
     "fields": {
       "tittel": "Ikke_utbygd_dam",
@@ -10163,7 +10163,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 595,
     "fields": {
       "tittel": "Ikke_utbygd_inntakspunkt",
@@ -10185,7 +10185,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 596,
     "fields": {
       "tittel": "Ikke_utbygd_vannkraftverk",
@@ -10207,7 +10207,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 597,
     "fields": {
       "tittel": "Delfelt",
@@ -10229,7 +10229,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 598,
     "fields": {
       "tittel": "foreslatt_naturvern_grense",
@@ -10251,7 +10251,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 599,
     "fields": {
       "tittel": "naturvern_grense",
@@ -10273,7 +10273,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 600,
     "fields": {
       "tittel": "naturvern_teiggrensepunkt",
@@ -10295,7 +10295,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 601,
     "fields": {
       "tittel": "naturvern_klasser_omrade",
@@ -10317,7 +10317,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 602,
     "fields": {
       "tittel": "naturvern_omrade",
@@ -10339,7 +10339,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 603,
     "fields": {
       "tittel": "WMS for livsmiljoer og nokkelbiotoper",
@@ -10361,7 +10361,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 604,
     "fields": {
       "tittel": "Dekningskart_oversikt",
@@ -10383,7 +10383,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 605,
     "fields": {
       "tittel": "Dekningskart_detalj",
@@ -10405,7 +10405,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 606,
     "fields": {
       "tittel": "Livsmiljoer",
@@ -10427,7 +10427,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 607,
     "fields": {
       "tittel": "Rik_bakkeveg",
@@ -10449,7 +10449,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 608,
     "fields": {
       "tittel": "Liggende_dod_ved",
@@ -10471,7 +10471,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 609,
     "fields": {
       "tittel": "Staende d\u00f8d ved",
@@ -10493,7 +10493,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 610,
     "fields": {
       "tittel": "Hule lauvtrar",
@@ -10515,7 +10515,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 611,
     "fields": {
       "tittel": "Bekkeklofter",
@@ -10537,7 +10537,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 612,
     "fields": {
       "tittel": "Leirraviner",
@@ -10559,7 +10559,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 613,
     "fields": {
       "tittel": "Bergvegger_linje",
@@ -10581,7 +10581,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 614,
     "fields": {
       "tittel": "Bergvegger_flate",
@@ -10603,7 +10603,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 615,
     "fields": {
       "tittel": "Brannflater",
@@ -10625,7 +10625,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 616,
     "fields": {
       "tittel": "Gamle_trar",
@@ -10647,7 +10647,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 617,
     "fields": {
       "tittel": "Eldre lauvsuksesjon",
@@ -10669,7 +10669,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 618,
     "fields": {
       "tittel": "Tr\u00e6r med hengelav",
@@ -10691,7 +10691,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 619,
     "fields": {
       "tittel": "Rikbarkstr\u00e6r",
@@ -10713,7 +10713,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 620,
     "fields": {
       "tittel": "Registreringsaar",
@@ -10735,7 +10735,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 621,
     "fields": {
       "tittel": "Registrerte_eldre",
@@ -10757,7 +10757,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 622,
     "fields": {
       "tittel": "Registrerte i fjor",
@@ -10779,7 +10779,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 623,
     "fields": {
       "tittel": "Registrerte i \u00e5r",
@@ -10801,7 +10801,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 624,
     "fields": {
       "tittel": "Aldersklasser_i_skog",
@@ -10823,7 +10823,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 625,
     "fields": {
       "tittel": "MarinBunnsedimenterWMS",
@@ -10845,7 +10845,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 626,
     "fields": {
       "tittel": "Realativ bunnhardhet",
@@ -10867,7 +10867,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 627,
     "fields": {
       "tittel": "Relativ bunnhardhet, MS 100m",
@@ -10889,7 +10889,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 628,
     "fields": {
       "tittel": "Relativ bunnhardhet, MS 50m",
@@ -10911,7 +10911,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 629,
     "fields": {
       "tittel": "Sedimentmektighet",
@@ -10933,7 +10933,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 630,
     "fields": {
       "tittel": "L\u00f8smassemektighet Oslofjord",
@@ -10955,7 +10955,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 631,
     "fields": {
       "tittel": "Kvart\u00e6rmektighet",
@@ -10977,7 +10977,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 632,
     "fields": {
       "tittel": "Holocen mektighet",
@@ -10999,7 +10999,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 633,
     "fields": {
       "tittel": "Sedimentkornst\u00f8rrelse",
@@ -11021,7 +11021,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 634,
     "fields": {
       "tittel": "Bunnsedimenter (kornst\u00f8rrelse) oversikt",
@@ -11043,7 +11043,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 635,
     "fields": {
       "tittel": "Datadekning (kornst\u00f8rrelse, detaljert)",
@@ -11065,7 +11065,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 636,
     "fields": {
       "tittel": "Sedimentdannelse",
@@ -11087,7 +11087,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 637,
     "fields": {
       "tittel": "Bunnsedimenter (dannelse) oversikt",
@@ -11109,7 +11109,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 638,
     "fields": {
       "tittel": "Bunnsedimenter (dannelse) detaljert",
@@ -11131,7 +11131,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 639,
     "fields": {
       "tittel": "Bioklastiske sedimenter",
@@ -11153,7 +11153,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 640,
     "fields": {
       "tittel": "Datadekning (dannelse, detaljert)",
@@ -11175,7 +11175,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 641,
     "fields": {
       "tittel": "Sedimentasjonsmilj\u00f8",
@@ -11197,7 +11197,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 642,
     "fields": {
       "tittel": "Datadekning (sedimentasjonsmilj\u00f8, detaljert)",
@@ -11219,7 +11219,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 643,
     "fields": {
       "tittel": "Bunntype fra sj\u00f8m\u00e5ling",
@@ -11241,7 +11241,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 644,
     "fields": {
       "tittel": "Bunnstr\u00f8mmer",
@@ -11263,7 +11263,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 645,
     "fields": {
       "tittel": "Havomr\u00e5der",
@@ -11285,7 +11285,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 646,
     "fields": {
       "tittel": "Havomr\u00e5der",
@@ -11307,7 +11307,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 647,
     "fields": {
       "tittel": "Hav",
@@ -11329,7 +11329,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 648,
     "fields": {
       "tittel": "MarinLandskapWMS",
@@ -11351,7 +11351,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 649,
     "fields": {
       "tittel": "Geologiskarv",
@@ -11373,7 +11373,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 650,
     "fields": {
       "tittel": "Geologisk arv: punkt",
@@ -11395,7 +11395,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 651,
     "fields": {
       "tittel": "Geologisk arv: punkt oversikt",
@@ -11417,7 +11417,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 653,
     "fields": {
       "tittel": "Breregion",
@@ -11439,7 +11439,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 654,
     "fields": {
       "tittel": "Hovedbreflate",
@@ -11461,7 +11461,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 655,
     "fields": {
       "tittel": "Frontposisjonsmaalinger",
@@ -11483,7 +11483,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 656,
     "fields": {
       "tittel": "Massebalansemaalinger",
@@ -11505,7 +11505,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 657,
     "fields": {
       "tittel": "TidsserieBrefoto",
@@ -11527,7 +11527,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 658,
     "fields": {
       "tittel": "Brepunkt",
@@ -11549,7 +11549,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 659,
     "fields": {
       "tittel": "Senterlinjer",
@@ -11571,7 +11571,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 660,
     "fields": {
       "tittel": "Brehastighet",
@@ -11593,7 +11593,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 661,
     "fields": {
       "tittel": "Jokulhlaup",
@@ -11615,7 +11615,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 662,
     "fields": {
       "tittel": "Risiko_kjemisk_grunnvann",
@@ -11637,7 +11637,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 663,
     "fields": {
       "tittel": "Risiko_kvantitativt_grunnvann",
@@ -11659,7 +11659,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 664,
     "fields": {
       "tittel": "Kjemisk_tilstand_grunnvann",
@@ -11681,7 +11681,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 665,
     "fields": {
       "tittel": "Kvantitativ_tilstand_grunnvann",
@@ -11703,7 +11703,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 666,
     "fields": {
       "tittel": "Kjemisk_tilstand_kystvann",
@@ -11725,7 +11725,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 667,
     "fields": {
       "tittel": "Kjemisk_tilstand_innsjoe",
@@ -11747,7 +11747,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 668,
     "fields": {
       "tittel": "Kjemisk_tilstand_elv",
@@ -11769,7 +11769,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 669,
     "fields": {
       "tittel": "villrein_beiteomrade",
@@ -11791,7 +11791,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 670,
     "fields": {
       "tittel": "Ikke angitt",
@@ -11813,7 +11813,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 671,
     "fields": {
       "tittel": "Ikke angitt - tekst",
@@ -11835,7 +11835,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 672,
     "fields": {
       "tittel": "Stort sett frav\u00e6rende",
@@ -11857,7 +11857,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 673,
     "fields": {
       "tittel": "Lokale tynne forekomster",
@@ -11879,7 +11879,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 674,
     "fields": {
       "tittel": "Sammenhengende forekomster",
@@ -11901,7 +11901,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 675,
     "fields": {
       "tittel": "L\u00f8smassegrense",
@@ -11923,7 +11923,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 676,
     "fields": {
       "tittel": "Ikke dekning for MML",
@@ -11945,7 +11945,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 677,
     "fields": {
       "tittel": "Ikke dekning for MML - tekst",
@@ -11967,7 +11967,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 678,
     "fields": {
       "tittel": "Marin grense - punktobservasjoner",
@@ -11989,7 +11989,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 679,
     "fields": {
       "tittel": "Marin grense-linje, nettvisning",
@@ -12011,7 +12011,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 680,
     "fields": {
       "tittel": "Marin grense-linje",
@@ -12033,7 +12033,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 681,
     "fields": {
       "tittel": "Marin grense-linje, forenklet",
@@ -12055,7 +12055,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 689,
     "fields": {
       "tittel": "WMS for vernskog fra NIBIO",
@@ -12077,7 +12077,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 690,
     "fields": {
       "tittel": "VernskogOmriss",
@@ -12099,7 +12099,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 691,
     "fields": {
       "tittel": "Snoskred",
@@ -12121,7 +12121,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 692,
     "fields": {
       "tittel": "Konsekvens-bygning",
@@ -12143,7 +12143,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 693,
     "fields": {
       "tittel": "Konsekvens-skog/jordbruk",
@@ -12165,7 +12165,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 694,
     "fields": {
       "tittel": "Konsekvens-samferdsel",
@@ -12187,7 +12187,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 695,
     "fields": {
       "tittel": "AntallOmkomne",
@@ -12209,7 +12209,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 696,
     "fields": {
       "tittel": "Kulturmiljoikoner",
@@ -12231,7 +12231,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 697,
     "fields": {
       "tittel": "Kulturmiljoer_flate",
@@ -12253,7 +12253,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 698,
     "fields": {
       "tittel": "VerneverdigTetteTrehusmiljoer",
@@ -12275,7 +12275,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 699,
     "fields": {
       "tittel": "Brannsmitteomrader",
@@ -12297,7 +12297,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 700,
     "fields": {
       "tittel": "VerneverdigTetteTehusmiljoikoner",
@@ -12319,7 +12319,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 701,
     "fields": {
       "tittel": "Brannsmitteomradeikoner",
@@ -12341,7 +12341,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 702,
     "fields": {
       "tittel": "Sikringssoner",
@@ -12363,7 +12363,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 703,
     "fields": {
       "tittel": "Enkeltminner",
@@ -12385,7 +12385,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 704,
     "fields": {
       "tittel": "Lokalitetsikoner",
@@ -12407,7 +12407,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 705,
     "fields": {
       "tittel": "Enkeltminneikoner",
@@ -12429,7 +12429,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 706,
     "fields": {
       "tittel": "SefrakBygninger",
@@ -12451,7 +12451,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 707,
     "fields": {
       "tittel": "FredaBygninger",
@@ -12473,7 +12473,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 708,
     "fields": {
       "tittel": "MarinTerrengWMS2",
@@ -12495,7 +12495,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 709,
     "fields": {
       "tittel": "Skyggerelieff",
@@ -12517,7 +12517,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 710,
     "fields": {
       "tittel": "Skyggerelieff100m",
@@ -12539,7 +12539,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 711,
     "fields": {
       "tittel": "Skyggerelieff 50m",
@@ -12561,7 +12561,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 712,
     "fields": {
       "tittel": "Skyggerelieff 10m",
@@ -12583,7 +12583,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 713,
     "fields": {
       "tittel": "Undersj\u00f8isk vifte (Ov)",
@@ -12605,7 +12605,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 714,
     "fields": {
       "tittel": "Undersj\u00f8isk vifte",
@@ -12627,7 +12627,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 715,
     "fields": {
       "tittel": "Drumlinlignende form",
@@ -12649,7 +12649,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 716,
     "fields": {
       "tittel": "Drumlin flate",
@@ -12671,7 +12671,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 717,
     "fields": {
       "tittel": "Drumlin",
@@ -12693,7 +12693,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 718,
     "fields": {
       "tittel": "Esker",
@@ -12715,7 +12715,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 719,
     "fields": {
       "tittel": "Smeltevannsl\u00f8p",
@@ -12737,7 +12737,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 720,
     "fields": {
       "tittel": "Glasitektonisk grop",
@@ -12759,7 +12759,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 721,
     "fields": {
       "tittel": "Glasitektonisk grop (Det)",
@@ -12781,7 +12781,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 722,
     "fields": {
       "tittel": "Glasitektonisk haug",
@@ -12803,7 +12803,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 723,
     "fields": {
       "tittel": "Glasitektonisk haug (Det)",
@@ -12825,7 +12825,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 724,
     "fields": {
       "tittel": "Glasitektonisk skrent",
@@ -12847,7 +12847,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 725,
     "fields": {
       "tittel": "Glasitektonisk skrent (Det)",
@@ -12869,7 +12869,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 726,
     "fields": {
       "tittel": "Israndavsetninger",
@@ -12891,7 +12891,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 727,
     "fields": {
       "tittel": "Israndavsetninger (Det)",
@@ -12913,7 +12913,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 728,
     "fields": {
       "tittel": "Sprekkefyllrygg",
@@ -12935,7 +12935,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 729,
     "fields": {
       "tittel": "Randmorene flate",
@@ -12957,7 +12957,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 730,
     "fields": {
       "tittel": "Randmorene flate (Det)",
@@ -12979,7 +12979,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 731,
     "fields": {
       "tittel": "Randmorene",
@@ -13001,7 +13001,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 732,
     "fields": {
       "tittel": "Randmorene (Det)",
@@ -13023,7 +13023,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 733,
     "fields": {
       "tittel": "Tilbaketrekkingsmorene",
@@ -13045,7 +13045,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 734,
     "fields": {
       "tittel": "Tilbaketrekkingsmorene (Det)",
@@ -13067,7 +13067,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 735,
     "fields": {
       "tittel": "Morenerygg flate",
@@ -13089,7 +13089,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 736,
     "fields": {
       "tittel": "Morenerygg",
@@ -13111,7 +13111,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 737,
     "fields": {
       "tittel": "Morenerygg (Det)",
@@ -13133,7 +13133,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 738,
     "fields": {
       "tittel": "Parallelle rygger og furer",
@@ -13155,7 +13155,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 739,
     "fields": {
       "tittel": "Parallelle rygger og furer (Det)",
@@ -13177,7 +13177,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 740,
     "fields": {
       "tittel": "Isfjellpl\u00f8yespor",
@@ -13199,7 +13199,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 741,
     "fields": {
       "tittel": "Grop dannet av isfjell",
@@ -13221,7 +13221,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 742,
     "fields": {
       "tittel": "D\u00f8dislandskap (Det)",
@@ -13243,7 +13243,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 743,
     "fields": {
       "tittel": "Gjel",
@@ -13265,7 +13265,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 744,
     "fields": {
       "tittel": "Skredomr\u00e5de (Ov)",
@@ -13287,7 +13287,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 745,
     "fields": {
       "tittel": "Skredomr\u00e5de",
@@ -13309,7 +13309,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 746,
     "fields": {
       "tittel": "Skredomr\u00e5de (Det)",
@@ -13331,7 +13331,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 747,
     "fields": {
       "tittel": "Skredvifte",
@@ -13353,7 +13353,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 748,
     "fields": {
       "tittel": "Skredvifte (Det)",
@@ -13375,7 +13375,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 749,
     "fields": {
       "tittel": "Omr\u00e5de med skredmasser (Det)",
@@ -13397,7 +13397,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 750,
     "fields": {
       "tittel": "Omr\u00e5de med skredmasser fra l\u00f8smasseskred (Det)",
@@ -13419,7 +13419,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 751,
     "fields": {
       "tittel": "Skredkant",
@@ -13441,7 +13441,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 752,
     "fields": {
       "tittel": "Skredkant (Det)",
@@ -13463,7 +13463,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 753,
     "fields": {
       "tittel": "Skredkant av flakskred (Det)",
@@ -13485,7 +13485,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 754,
     "fields": {
       "tittel": "Skredfront",
@@ -13507,7 +13507,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 755,
     "fields": {
       "tittel": "Skredfront (Det)",
@@ -13529,7 +13529,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 756,
     "fields": {
       "tittel": "Nedslagsgrop (Det)",
@@ -13551,7 +13551,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 757,
     "fields": {
       "tittel": "Undersj\u00f8iske skred - detaljerte data i fjordene",
@@ -13573,7 +13573,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 758,
     "fields": {
       "tittel": "Pockmarks omr\u00e5de",
@@ -13595,7 +13595,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 759,
     "fields": {
       "tittel": "Pockmarks omr\u00e5de (Det)",
@@ -13617,7 +13617,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 760,
     "fields": {
       "tittel": "Pockmarks",
@@ -13639,7 +13639,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 761,
     "fields": {
       "tittel": "Diapirer p\u00e5 eller n\u00e6r sj\u00f8bunnen (Det)",
@@ -13661,7 +13661,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 762,
     "fields": {
       "tittel": "Mudringsomr\u00e5de (Det)",
@@ -13683,7 +13683,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 763,
     "fields": {
       "tittel": "Rygg, uspesifisert flate",
@@ -13705,7 +13705,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 764,
     "fields": {
       "tittel": "Rygg, uspesifisert",
@@ -13727,7 +13727,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 765,
     "fields": {
       "tittel": "Rygg, uspesifisert (Det)",
@@ -13749,7 +13749,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 766,
     "fields": {
       "tittel": "Sedimentb\u00f8lge omr\u00e5de",
@@ -13771,7 +13771,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 767,
     "fields": {
       "tittel": "Sedimentb\u00f8lge",
@@ -13793,7 +13793,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 768,
     "fields": {
       "tittel": "Sedimentb\u00f8lge omr\u00e5de (Det)",
@@ -13815,7 +13815,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 769,
     "fields": {
       "tittel": "Sedimentb\u00f8lge (Det)",
@@ -13837,7 +13837,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 770,
     "fields": {
       "tittel": "Str\u00f8mrenne",
@@ -13859,7 +13859,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 771,
     "fields": {
       "tittel": "Renne, uspesifisert",
@@ -13881,7 +13881,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 772,
     "fields": {
       "tittel": "Kanal",
@@ -13903,7 +13903,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 773,
     "fields": {
       "tittel": "Kanal (Det)",
@@ -13925,7 +13925,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 774,
     "fields": {
       "tittel": "Kanalside (Det)",
@@ -13947,7 +13947,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 775,
     "fields": {
       "tittel": "Terrassekant (Det)",
@@ -13969,7 +13969,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 776,
     "fields": {
       "tittel": "Fjellkl\u00f8ft (Det)",
@@ -13991,7 +13991,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 777,
     "fields": {
       "tittel": "Sprekk",
@@ -14013,7 +14013,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 778,
     "fields": {
       "tittel": "Ravine (Det)",
@@ -14035,7 +14035,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 779,
     "fields": {
       "tittel": "Dybdekoter",
@@ -14057,7 +14057,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 780,
     "fields": {
       "tittel": "Dybdekoter 100m",
@@ -14079,7 +14079,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 781,
     "fields": {
       "tittel": "Dybdekoter 10m",
@@ -14101,7 +14101,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 782,
     "fields": {
       "tittel": "MarinSannsynligeKorallrevWMS",
@@ -14123,7 +14123,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 783,
     "fields": {
       "tittel": "P\u00e5litelighet (oversikt)",
@@ -14145,7 +14145,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 784,
     "fields": {
       "tittel": "P\u00e5litelighet (detaljert)",
@@ -14167,7 +14167,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 785,
     "fields": {
       "tittel": "Omriss (oversikt)",
@@ -14189,7 +14189,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 786,
     "fields": {
       "tittel": "Omriss (detaljert)",
@@ -14211,7 +14211,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 787,
     "fields": {
       "tittel": "GrusPukkWMS3",
@@ -14233,7 +14233,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 788,
     "fields": {
       "tittel": "Grus/pukk omrade: verdivurdering",
@@ -14255,7 +14255,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 789,
     "fields": {
       "tittel": "Grus/pukk registrering: verdivurdering",
@@ -14277,7 +14277,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 790,
     "fields": {
       "tittel": "Grus/pukk: registrering",
@@ -14299,7 +14299,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 791,
     "fields": {
       "tittel": "Grus/pukk: statistikkpunkt nasjonal",
@@ -14321,7 +14321,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 792,
     "fields": {
       "tittel": "Grus/pukk: statistikkpunkt regional",
@@ -14343,7 +14343,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 793,
     "fields": {
       "tittel": "Grus/pukk: pr\u00f8vepunkt",
@@ -14365,7 +14365,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 794,
     "fields": {
       "tittel": "Grus/pukk: observasjon",
@@ -14387,7 +14387,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 795,
     "fields": {
       "tittel": "MarinNaturtyperWMS2",
@@ -14409,7 +14409,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 796,
     "fields": {
       "tittel": "Israndavsetninger",
@@ -14431,7 +14431,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 797,
     "fields": {
       "tittel": "Israndavsetninger i fjorder",
@@ -14453,7 +14453,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 798,
     "fields": {
       "tittel": "Israndavsetninger p\u00e5 kontinentalsokkelen",
@@ -14475,7 +14475,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 799,
     "fields": {
       "tittel": "Skjellsand",
@@ -14497,7 +14497,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 800,
     "fields": {
       "tittel": "Skjellsand modellert",
@@ -14519,7 +14519,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 801,
     "fields": {
       "tittel": "Skjellsand kartlagt",
@@ -14541,7 +14541,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 802,
     "fields": {
       "tittel": "Skjellsand observasjon",
@@ -14563,7 +14563,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 803,
     "fields": {
       "tittel": "Skjellsand datadekning",
@@ -14585,7 +14585,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 804,
     "fields": {
       "tittel": "Biotoper",
@@ -14607,7 +14607,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 805,
     "fields": {
       "tittel": "Utg\u00e5ende: Biotoper - Ek/TrIII/VFm",
@@ -14629,7 +14629,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 806,
     "fields": {
       "tittel": "Flomsone_200arsflom_klima",
@@ -14651,7 +14651,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 807,
     "fields": {
       "tittel": "Flomvannstandskurve_2100ar",
@@ -14673,7 +14673,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 808,
     "fields": {
       "tittel": "Flomvannstandskurve_1000ar",
@@ -14695,7 +14695,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 809,
     "fields": {
       "tittel": "Flomvannstandskurve_500ar",
@@ -14717,7 +14717,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 810,
     "fields": {
       "tittel": "Flomvannstandskurve_200ar",
@@ -14739,7 +14739,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 811,
     "fields": {
       "tittel": "Flomvannstandskurve_100ar",
@@ -14761,7 +14761,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 812,
     "fields": {
       "tittel": "Flomvannstandskurve_50ar",
@@ -14783,7 +14783,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 813,
     "fields": {
       "tittel": "Flomvannstandskurve_20ar",
@@ -14805,7 +14805,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 814,
     "fields": {
       "tittel": "Flomvannstandskurve_10ar",
@@ -14827,7 +14827,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 815,
     "fields": {
       "tittel": "Flomvannstand_ved_tverrprofil",
@@ -14849,7 +14849,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 816,
     "fields": {
       "tittel": "Fremmede arter - omr\u00e5der som punkt",
@@ -14871,7 +14871,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 817,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_omr_punktsymbolisert",
@@ -14893,7 +14893,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 818,
     "fields": {
       "tittel": "Fredete_arter_omr",
@@ -14915,7 +14915,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 819,
     "fields": {
       "tittel": "Fredete_arter_omr_punktsymbolisert",
@@ -14937,7 +14937,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 820,
     "fields": {
       "tittel": "Fredete_arter_pkt",
@@ -14959,7 +14959,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 821,
     "fields": {
       "tittel": "PA_Okologiske_funksjonsomr",
@@ -14981,7 +14981,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 822,
     "fields": {
       "tittel": "PA_Okologiske_funksjonsomr_punktsymbolisert",
@@ -15003,7 +15003,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 823,
     "fields": {
       "tittel": "Prioriterte_arter_PA_omr",
@@ -15025,7 +15025,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 824,
     "fields": {
       "tittel": "Prioriterte_arter_PA_omr_punktsymbolisert",
@@ -15047,7 +15047,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 825,
     "fields": {
       "tittel": "Prioriterte_arter_PA_pkt",
@@ -15069,7 +15069,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 826,
     "fields": {
       "tittel": "Spesielle \u00f8kologiske former - omr\u00e5der",
@@ -15091,7 +15091,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 827,
     "fields": {
       "tittel": "Spesielle \u00f8kologiske former omr punktsymbolisert",
@@ -15113,7 +15113,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 828,
     "fields": {
       "tittel": "Spesielle \u00f8kologiske former - punkt",
@@ -15135,7 +15135,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 829,
     "fields": {
       "tittel": "Andre spesielt hensynskrevende arter - omr\u00e5der",
@@ -15157,7 +15157,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 830,
     "fields": {
       "tittel": "Andre spesielt hensynskrevende arter - omr\u00e5der som punkt",
@@ -15179,7 +15179,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 831,
     "fields": {
       "tittel": "Andre spesielt hensynskrevende arter - punkt",
@@ -15201,7 +15201,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 832,
     "fields": {
       "tittel": "Trua arter - omr\u00e5der",
@@ -15223,7 +15223,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 833,
     "fields": {
       "tittel": "Trua arter - omr\u00e5der som punkt",
@@ -15245,7 +15245,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 834,
     "fields": {
       "tittel": "Trua arter - punkt",
@@ -15267,7 +15267,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 835,
     "fields": {
       "tittel": "Ansvarsarter - omr\u00e5der",
@@ -15289,7 +15289,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 836,
     "fields": {
       "tittel": "Ansvarsarter - omr\u00e5der som punkt",
@@ -15311,7 +15311,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 837,
     "fields": {
       "tittel": "Ansvarsarter - punkt",
@@ -15333,7 +15333,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 838,
     "fields": {
       "tittel": "Arter av s\u00e6rlig stor forvaltningsinteresse - omr\u00e5der som punkt",
@@ -15355,7 +15355,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 839,
     "fields": {
       "tittel": "Delfelt",
@@ -15377,7 +15377,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 840,
     "fields": {
       "tittel": "Magasin",
@@ -15399,7 +15399,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 841,
     "fields": {
       "tittel": "Dam",
@@ -15421,7 +15421,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 842,
     "fields": {
       "tittel": "Vannvei",
@@ -15443,7 +15443,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 843,
     "fields": {
       "tittel": "Utlopspunkt",
@@ -15465,7 +15465,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 844,
     "fields": {
       "tittel": "Inntakspunkt",
@@ -15487,7 +15487,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 845,
     "fields": {
       "tittel": "Dam_N250",
@@ -15509,7 +15509,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 846,
     "fields": {
       "tittel": "Vannkraftverk",
@@ -15531,7 +15531,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 847,
     "fields": {
       "tittel": "Alle_fremmede_arter_omr",
@@ -15553,7 +15553,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 848,
     "fields": {
       "tittel": "Alle_fremmede_arter_omr_punktsymbolisert",
@@ -15575,7 +15575,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 849,
     "fields": {
       "tittel": "Alle_fremmede_arter_pkt",
@@ -15597,7 +15597,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 850,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_omr",
@@ -15619,7 +15619,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 851,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_omr_punktsymbolisert",
@@ -15641,7 +15641,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 852,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_pkt",
@@ -15663,7 +15663,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 853,
     "fields": {
       "tittel": "Fredete_arter_omr_punktsymbolisert",
@@ -15685,7 +15685,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 854,
     "fields": {
       "tittel": "PA_Okologiske_funksjonsomr",
@@ -15707,7 +15707,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 855,
     "fields": {
       "tittel": "PA_Okologiske_funksjonsomr_punktsymbolisert",
@@ -15729,7 +15729,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 856,
     "fields": {
       "tittel": "Prioriterte_arter_PA_omr",
@@ -15751,7 +15751,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 857,
     "fields": {
       "tittel": "Prioriterte_arter_PA_omr_punktsymbolisert",
@@ -15773,7 +15773,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 858,
     "fields": {
       "tittel": "Prioriterte_arter_PA_pkt",
@@ -15795,7 +15795,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 859,
     "fields": {
       "tittel": "Spesielle_okologiske_former_omr",
@@ -15817,7 +15817,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 860,
     "fields": {
       "tittel": "Spesielle_okologiske_former_omr_punktsymbolisert",
@@ -15839,7 +15839,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 861,
     "fields": {
       "tittel": "Spesielle_okologiske_former_pkt",
@@ -15861,7 +15861,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 862,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_omr",
@@ -15883,7 +15883,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 863,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_omr_punktsymbolisert",
@@ -15905,7 +15905,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 864,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_pkt",
@@ -15927,7 +15927,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 865,
     "fields": {
       "tittel": "Trua_arter_omr",
@@ -15949,7 +15949,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 866,
     "fields": {
       "tittel": "Trua_arter_omr_punktsymbolisert",
@@ -15971,7 +15971,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 867,
     "fields": {
       "tittel": "Trua_arter_pkt",
@@ -15993,7 +15993,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 868,
     "fields": {
       "tittel": "Ansvarsarter_omr",
@@ -16015,7 +16015,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 869,
     "fields": {
       "tittel": "Ansvarsarter_omr_punktsymbolisert",
@@ -16037,7 +16037,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 870,
     "fields": {
       "tittel": "Ansvarsarter_pkt",
@@ -16059,7 +16059,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 871,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_omr",
@@ -16081,7 +16081,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 872,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_omr_punktsymbolisert",
@@ -16103,7 +16103,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 873,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_pkt",
@@ -16125,7 +16125,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 874,
     "fields": {
       "tittel": "Alle_fremmede_arter_omr",
@@ -16147,7 +16147,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 875,
     "fields": {
       "tittel": "Alle_fremmede_arter_omr_punktsymbolisert",
@@ -16169,7 +16169,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 876,
     "fields": {
       "tittel": "Alle_fremmede_arter_pkt",
@@ -16191,7 +16191,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 877,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_omr",
@@ -16213,7 +16213,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 878,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_omr_punktsymbolisert",
@@ -16235,7 +16235,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 879,
     "fields": {
       "tittel": "Alle_arter_av_stor_forv_int_NT_pkt",
@@ -16257,7 +16257,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 880,
     "fields": {
       "tittel": "Fredete_arter_omr",
@@ -16279,7 +16279,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 881,
     "fields": {
       "tittel": "Fredete_arter_omr_punktsymbolisert",
@@ -16301,7 +16301,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 882,
     "fields": {
       "tittel": "Fredete_arter_pkt",
@@ -16323,7 +16323,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 883,
     "fields": {
       "tittel": "PA_Okologiske_funksjonsomr_punktsymbolisert",
@@ -16345,7 +16345,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 884,
     "fields": {
       "tittel": "Prioriterte_arter_PA_omr_punktsymbolisert",
@@ -16367,7 +16367,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 885,
     "fields": {
       "tittel": "Spesielle_okologiske_former_omr",
@@ -16389,7 +16389,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 886,
     "fields": {
       "tittel": "Spesielle_okologiske_former_omr_punktsymbolisert",
@@ -16411,7 +16411,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 887,
     "fields": {
       "tittel": "Spesielle_okologiske_former_pkt",
@@ -16433,7 +16433,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 888,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_omr",
@@ -16455,7 +16455,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 889,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_omr_punktsymbolisert",
@@ -16477,7 +16477,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 890,
     "fields": {
       "tittel": "Andre_spes_hensynskr_arter_pkt",
@@ -16499,7 +16499,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 891,
     "fields": {
       "tittel": "Trua_arter_omr",
@@ -16521,7 +16521,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 892,
     "fields": {
       "tittel": "Trua_arter_omr_punktsymbolisert",
@@ -16543,7 +16543,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 893,
     "fields": {
       "tittel": "Trua_arter_pkt",
@@ -16565,7 +16565,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 894,
     "fields": {
       "tittel": "Ansvarsarter_omr",
@@ -16587,7 +16587,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 895,
     "fields": {
       "tittel": "Ansvarsarter_omr_punktsymbolisert",
@@ -16609,7 +16609,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 896,
     "fields": {
       "tittel": "Ansvarsarter_pkt",
@@ -16631,7 +16631,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 897,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_omr",
@@ -16653,7 +16653,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 898,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_omr_punktsymbolisert",
@@ -16675,7 +16675,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 899,
     "fields": {
       "tittel": "Alle_arter_av_sarlig_stor_forv_int_pkt",
@@ -16697,7 +16697,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 900,
     "fields": {
       "tittel": "Geologisk arv: punkt",
@@ -16719,7 +16719,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 901,
     "fields": {
       "tittel": "Terreng h\u00f8yde 10m (DTM)",
@@ -16741,7 +16741,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 902,
     "fields": {
       "tittel": "Dekningskart - Natur i verneomr\u00e5der",
@@ -16763,7 +16763,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 903,
     "fields": {
       "tittel": "Natur i verneomr\u00e5der - NiN",
@@ -16785,7 +16785,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 904,
     "fields": {
       "tittel": "Linjestrukturpunkt",
@@ -16807,7 +16807,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 905,
     "fields": {
       "tittel": "Planstrukturpunkt",
@@ -16829,7 +16829,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 906,
     "fields": {
       "tittel": "Overlapp alle arter",
@@ -16851,7 +16851,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 907,
     "fields": {
       "tittel": "Overlapp truede ansvarsarter",
@@ -16873,7 +16873,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 908,
     "fields": {
       "tittel": "Overlapp truede arter",
@@ -16895,7 +16895,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 909,
     "fields": {
       "tittel": "Insekter og edderkoppdyr - alle arter",
@@ -16917,7 +16917,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 910,
     "fields": {
       "tittel": "Insekter og edderkoppdyr - truede ansvarsarter",
@@ -16939,7 +16939,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 911,
     "fields": {
       "tittel": "Insekter og edderkoppdyr - truede arter",
@@ -16961,7 +16961,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 912,
     "fields": {
       "tittel": "Karplanter - alle arter",
@@ -16983,7 +16983,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 913,
     "fields": {
       "tittel": "Karplanter - alle arter",
@@ -17005,7 +17005,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 914,
     "fields": {
       "tittel": "Karplanter - truede ansvarsarter",
@@ -17027,7 +17027,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 915,
     "fields": {
       "tittel": "Lav - alle arter",
@@ -17049,7 +17049,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 916,
     "fields": {
       "tittel": "Lav - truede ansvarsarter",
@@ -17071,7 +17071,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 917,
     "fields": {
       "tittel": "Lav - truede arter",
@@ -17093,7 +17093,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 918,
     "fields": {
       "tittel": "Moser - alle arter",
@@ -17115,7 +17115,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 919,
     "fields": {
       "tittel": "Moser - truede ansvarsarter",
@@ -17137,7 +17137,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 920,
     "fields": {
       "tittel": "Moser - truede arter",
@@ -17159,7 +17159,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 921,
     "fields": {
       "tittel": "Sopp - alle arter",
@@ -17181,7 +17181,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 922,
     "fields": {
       "tittel": "Sopp - truede ansvarsarter",
@@ -17203,7 +17203,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 923,
     "fields": {
       "tittel": "Sopp - truede arter",
@@ -17225,7 +17225,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 924,
     "fields": {
       "tittel": "Linjestrukturpunkt",
@@ -17247,7 +17247,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 925,
     "fields": {
       "tittel": "Planstrukturpunkt",
@@ -17269,7 +17269,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 926,
     "fields": {
       "tittel": "Bergartsflate 1:250 000 - tektonisk hovedinndeling",
@@ -17291,7 +17291,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 927,
     "fields": {
       "tittel": "Bergartsflate 1:250 000 dannelsesalder",
@@ -17313,7 +17313,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 928,
     "fields": {
       "tittel": "Bergartslinje 1:250 000",
@@ -17335,7 +17335,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 929,
     "fields": {
       "tittel": "Berggrunn strukturlinje 1:250 000",
@@ -17357,7 +17357,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 930,
     "fields": {
       "tittel": "Bergartsgrense 1:250 000",
@@ -17379,7 +17379,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 931,
     "fields": {
       "tittel": "Bergartsflate 1:250 000",
@@ -17401,7 +17401,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 932,
     "fields": {
       "tittel": "Kalkinnhold i berggrunnen (prognose) 1:250.000",
@@ -17423,7 +17423,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 933,
     "fields": {
       "tittel": "Ultramafiske bergarter (utbredelse) 1:250.000",
@@ -17445,7 +17445,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 934,
     "fields": {
       "tittel": "Ultramafiske bergarter (utbredelse) 1:250.000 punkt-representasjon",
@@ -17467,7 +17467,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 935,
     "fields": {
       "tittel": "Hardbunnskorallskog",
@@ -17489,7 +17489,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 936,
     "fields": {
       "tittel": "Svampspikelbunn",
@@ -17511,7 +17511,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 937,
     "fields": {
       "tittel": "Sjofj\u00e6rbunn",
@@ -17533,7 +17533,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 938,
     "fields": {
       "tittel": "Glassvampbestander",
@@ -17555,7 +17555,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 939,
     "fields": {
       "tittel": "Umbellula-bestander",
@@ -17577,7 +17577,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 940,
     "fields": {
       "tittel": "Svampsamfunn",
@@ -17599,7 +17599,7 @@
     }
   },
   {
-    "model": "forvaltningsportal.sublag",
+    "model": "okologiskegrunnkart.sublag",
     "pk": 941,
     "fields": {
       "tittel": "Bl\u00f8tbunnskorallskog",
