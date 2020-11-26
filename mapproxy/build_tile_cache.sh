@@ -1,7 +1,7 @@
 #!/bin/bash -e
 cd /home/grunnkart/mapproxy/
 
-# Update mapproxy layer configuration from configuration at https://forvaltningsportaladmin.artsdatabanken.no/admin/
+# Update mapproxy layer configuration from configuration at https://okologiskegrunnkartadmin.artsdatabanken.no/admin/
 DEBUG=*
 npm run build >>makeconfig.log
 

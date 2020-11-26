@@ -22,7 +22,7 @@ class Backend {
   }
 
   static async updateLayer(id, data) {
-    let url = `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/kartlag/${id}/update/`;
+    let url = `https://okologiskegrunnkartadmin.artsdatabanken.no/api/v1/kartlag/${id}/update/`;
     if (
       window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1"
@@ -43,7 +43,7 @@ class Backend {
   }
 
   static async updateSublayer(id, data) {
-    let url = `https://forvaltningsportaladmin.artsdatabanken.no/api/v1/sublag/${id}/update/`;
+    let url = `https://okologiskegrunnkartadmin.artsdatabanken.no/api/v1/sublag/${id}/update/`;
     if (
       window.location.hostname === "localhost" ||
       window.location.hostname === "127.0.0.1"
