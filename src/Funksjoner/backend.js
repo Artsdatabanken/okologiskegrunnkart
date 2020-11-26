@@ -57,14 +57,24 @@ class Backend {
   }
 
   static async hentStedsnavn(lng, lat, zoom) {
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
     return this.getPromise(
-      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
+      `${apiSettings}/rpc/stedsnavn?lng=${lng}&lat=${lat}&zoom=${zoom}`
     );
   }
 
   static async hentHoydedata(lng, lat) {
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
     return this.getPromise(
-      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/elevasjon?lat=${lat}&lng=${lng}`
+      `${apiSettings}/rpc/elevasjon?lat=${lat}&lng=${lng}`
     );
   }
 
@@ -133,9 +143,12 @@ class Backend {
   }
 
   static async hentMatrikkel(lng, lat) {
-    return this.getPromise(
-      `https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=${lat}&lng=${lng}`
-    );
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
+    return this.getPromise(`${apiSettings}/rpc/punkt?lat=${lat}&lng=${lng}`);
   }
 
   static async getFeatureInfo(layer, sublayer, coords) {
@@ -232,8 +245,12 @@ class Backend {
     // NOTE: polygon need to be preprocessed according
     // to "well-known text representation of geometry"
     // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
-    let url =
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/arealstatistikk";
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
+    let url = `${apiSettings}/rpc/arealstatistikk`;
 
     const codes = layerCodes.join(",");
     const body = { kartlag: codes, wkt };
