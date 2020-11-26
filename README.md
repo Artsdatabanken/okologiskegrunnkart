@@ -5,19 +5,19 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md#pull-requests)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-# Økologisk grunnkart forvaltningsportal
+# Økologiske grunnkart
 
 ![image](./doc/screenshot.png)
 
 ## Nyttige lenker i prosjektet
 
-- [Webklient](https://forvaltningsportal.artsdatabanken.no)
-- [Webklient testversion](https://forvaltningsportal.test.artsdatabanken.no)
+- [Webklient](https://okologiskegrunnkart.artsdatabanken.no)
+- [Webklient testversion](https://okologiskegrunnkart.test.artsdatabanken.no)
 - [Administrasjonsverktøy](https://forvaltningsportaladmin.artsdatabanken.no/admin/)
-- [Wms-hjelper for å legge inn klikk url til underlag](https://forvaltningsportaladmin.artsdatabanken.no/static/index.html)
-- [Kartlag.json file](https://forvaltningsportal.test.artsdatabanken.no/kartlag.json)
+- [Wms-hjelper for å legge inn klikk url til underlag](https://okologiskegrunnkartadmin.artsdatabanken.no/static/index.html)
+- [Kartlag.json file](https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json)
 - [Cached tiles](https://data.test.artsdatabanken.no/grunnkart/)
-- [Responssjekk] (https://responssjekk.test.artsdatabanken.no/)
+- [Responssjekk](https://responssjekk.test.artsdatabanken.no/)
 
 ## Wiki
 
@@ -43,7 +43,7 @@ Follow these steps:
 
 - Run `npm install`
 - Run `npm start`
-- Get the example map data `kartlag.json` from `https://forvaltningsportal.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).
+- Get the example map data `kartlag.json` from `https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).
 
 ## Update automatically database layers and sublayers
 
