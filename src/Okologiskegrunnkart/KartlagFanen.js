@@ -1,12 +1,12 @@
-import ForvaltningsKartlag from "./ForvaltningsKartlag/ForvaltningsKartlag";
+import GrunnKartlag from "./GrunnKartlag/GrunnKartlag";
 import React, { useState, useEffect } from "react";
 import "../style/kartlagfane.css";
-import ForvaltningsElement from "./ForvaltningsKartlag/ForvaltningsElement";
+import KartlagElement from "./GrunnKartlag/KartlagElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
 import { KeyboardBackspace } from "@material-ui/icons";
 import CustomIcon from "../Common/CustomIcon";
 import { Button } from "@material-ui/core";
-import ForvaltningsDetailedInfo from "./ForvaltningsKartlag/ForvaltningsDetailedInfo";
+import KartlagDetailedInfo from "./GrunnKartlag/KartlagDetailedInfo";
 import useWindowDimensions from "../Funksjoner/useWindowDimensions";
 
 const KartlagFanen = ({
@@ -600,7 +600,7 @@ const KartlagFanen = ({
                 fullscreen ? " side-bar-fullscreen" : ""
               }`}
             >
-              <ForvaltningsElement
+              <KartlagElement
                 valgt={true}
                 kartlagKey={valgtLag.id}
                 kartlag={valgtLag}
@@ -626,7 +626,7 @@ const KartlagFanen = ({
                   fullscreen ? " side-bar-fullscreen" : ""
                 }`}
               >
-                <ForvaltningsKartlag
+                <GrunnKartlag
                   kartlag={kartlag}
                   toggleSublayer={toggleSublayer}
                   toggleAllSublayers={toggleAllSublayers}
@@ -647,7 +647,7 @@ const KartlagFanen = ({
             {sublayerDetailsVisible && (
               <div>
                 <div className="layer-details-div">
-                  <ForvaltningsDetailedInfo
+                  <KartlagDetailedInfo
                     allCategories={allCategoriesDetails}
                     kartlag={kartlag[kartlagKeyDetails]}
                     underlag={underlagDetails}

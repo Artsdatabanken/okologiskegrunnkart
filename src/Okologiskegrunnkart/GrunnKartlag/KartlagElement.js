@@ -6,13 +6,13 @@ import {
   ListItem,
   ListItemText
 } from "@material-ui/core";
-import ForvaltningsUnderElement from "./ForvaltningsUnderElement";
+import KartlagUnderElement from "./KartlagUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
 import Badge from "@material-ui/core/Badge";
 import { setValue } from "../../Funksjoner/setValue";
 import CustomSwitchAll from "../../Common/CustomSwitchAll";
 
-const ForvaltningsElement = ({
+const KartlagElement = ({
   kartlag,
   kartlagKey,
   valgt,
@@ -123,7 +123,7 @@ const ForvaltningsElement = ({
                 if (kartlag.allcategorieslayer.wmslayer !== lag.wmslayer) {
                   return (
                     <div className="underlag" key={sublag}>
-                      <ForvaltningsUnderElement
+                      <KartlagUnderElement
                         underlag={lag}
                         kartlagKey={kartlagKey}
                         underlagKey={sublag}
@@ -144,4 +144,4 @@ const ForvaltningsElement = ({
   );
 };
 
-export default ForvaltningsElement;
+export default KartlagElement;

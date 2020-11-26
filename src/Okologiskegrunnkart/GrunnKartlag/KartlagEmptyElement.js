@@ -2,7 +2,7 @@ import React from "react";
 import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 import CustomIcon from "../../Common/CustomIcon";
 
-const ForvaltningsEmptyElement = ({ kartlag }) => {
+const KartlagEmptyElement = ({ kartlag }) => {
   return (
     <ListItem id="layer-list-item">
       <ListItemIcon>
@@ -24,4 +24,4 @@ const ForvaltningsEmptyElement = ({ kartlag }) => {
   );
 };
 
-export default ForvaltningsEmptyElement;
+export default KartlagEmptyElement;

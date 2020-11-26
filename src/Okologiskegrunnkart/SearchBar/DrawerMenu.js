@@ -299,7 +299,7 @@ const DrawerMenu = ({
           className="drawer-menuitem"
           onClick={() => {
             handleCloseDrawer();
-            const url = "https://github.com/Artsdatabanken/forvaltningsportal";
+            const url = "https://github.com/Artsdatabanken/okologiskegrunnkart";
             openInNewTabWithoutOpener(url);
           }}
           tabIndex={0}

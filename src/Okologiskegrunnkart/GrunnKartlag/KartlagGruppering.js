@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ForvaltningsElement from "./ForvaltningsElement";
+import KartlagElement from "./KartlagElement";
 import { ListSubheader } from "@material-ui/core";
 
-const ForvaltningsGruppering = ({
+const KartlagGruppering = ({
   kartlag,
   tagFilter,
   matchAllFilters,
@@ -51,7 +51,7 @@ const ForvaltningsGruppering = ({
 
       {allLayers.map(element => {
         return (
-          <ForvaltningsElement
+          <KartlagElement
             key={element.id}
             kartlagKey={element.id}
             kartlag={element}
@@ -65,4 +65,4 @@ const ForvaltningsGruppering = ({
   );
 };
 
-export default ForvaltningsGruppering;
+export default KartlagGruppering;
