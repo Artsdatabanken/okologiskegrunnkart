@@ -122,4 +122,67 @@ function transformUploadedPolygon(geom, projection) {
   }
 }
 
-export { getPolygonDepth, sortPolygonCoord, transformUploadedPolygon };
+function calculatePerimeter(points) {
+  let dist = 0;
+  for (let i = 1; i < points.length; i++) {
+    const lat1 = points[i - 1][0];
+    const lng1 = points[i - 1][1];
+    const lat2 = points[i][0];
+    const lng2 = points[i][1];
+
+    // Calculate projections of real coordinates
+    const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+    const utm33Projection = "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+
+    const [x1, y1] = proj4(geographicProjection, utm33Projection, [lng1, lat1]);
+    const [x2, y2] = proj4(geographicProjection, utm33Projection, [lng2, lat2]);
+
+    dist += Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+  }
+  return dist;
+}
+
+function calculateArea(points) {
+  const pointsCount = points.length;
+  let area = 0;
+  if (pointsCount > 2) {
+    for (var i = 0; i < pointsCount; i++) {
+      const lat1 = points[i][0];
+      const lng1 = points[i][1];
+      const lat2 = points[(i + 1) % pointsCount][0];
+      const lng2 = points[(i + 1) % pointsCount][1];
+
+      // Calculate projections of real coordinates
+      const geographicProjection = "+proj=longlat +datum=WGS84 +no_defs";
+      const utm33Projection =
+        "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
+
+      const [x1, y1] = proj4(geographicProjection, utm33Projection, [
+        lng1,
+        lat1
+      ]);
+      const [x2, y2] = proj4(geographicProjection, utm33Projection, [
+        lng2,
+        lat2
+      ]);
+
+      // Calculate area
+      const addX = x1;
+      const addY = y2;
+      const subX = x2;
+      const subY = y1;
+      area += addX * addY * 0.5;
+      area -= subX * subY * 0.5;
+    }
+  }
+  area = Math.abs(area);
+  return area;
+}
+
+export {
+  getPolygonDepth,
+  sortPolygonCoord,
+  transformUploadedPolygon,
+  calculatePerimeter,
+  calculateArea
+};

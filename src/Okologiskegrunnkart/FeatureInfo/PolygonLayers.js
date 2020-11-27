@@ -9,7 +9,7 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
-import { getPolygonDepth } from "../../Funksjoner/polygonTools";
+import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
 
 const PolygonLayers = ({
@@ -21,7 +21,11 @@ const PolygonLayers = ({
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [slowLayers, setSlowLayers] = useState(false);
+  const [complexPolygon, setComplexPolygon] = useState(false);
+  const [largeArea, setLargeArea] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const [warningMessage, setWarningMessage] = useState("");
 
   const polygonJSON = JSON.stringify(polygon);
 
@@ -177,7 +181,6 @@ const PolygonLayers = ({
       return;
     }
     const depth = getPolygonDepth(polygon);
-    // Only one polygon
     if (depth === 2 && polygon.length > 2) setDisabled(false);
     else if (depth === 3 && polygon[0].length > 2) setDisabled(false);
     else if (depth === 4 && polygon[0][0].length > 2) setDisabled(false);
@@ -185,15 +188,109 @@ const PolygonLayers = ({
   }, [polygon, polygonJSON]);
 
   useEffect(() => {
-    if (!polygon) {
-      setShowWarning(false);
+    if (!searchLayers) {
+      setSlowLayers(false);
       return;
     }
-    const selectedLayers = searchLayers.filter(
+    // Check selected layers
+    const complexLayers = searchLayers.filter(
       item => item.selected && !["FYL", "KOM"].includes(item.code)
     );
-    console.log("selectedLayers", selectedLayers);
-  }, [polygon, polygonJSON, searchLayers]);
+    if (complexLayers.length > 0) setSlowLayers(true);
+    else setSlowLayers(false);
+  }, [searchLayers]);
+
+  useEffect(() => {
+    if (!polygon || !slowLayers) {
+      setComplexPolygon(false);
+      return;
+    }
+
+    // Check polygon complexity
+    const limit = 2000;
+    const depth = getPolygonDepth(polygon);
+    if (depth === 2 && polygon.length > 2) {
+      console.log("poly.length: ", polygon.length);
+      if (polygon.length > limit) {
+        setComplexPolygon(true);
+        return;
+      }
+    } else if (depth === 3 && polygon[0].length > 2) {
+      for (const poly of polygon) {
+        console.log("poly.length: ", poly.length);
+        if (poly.length > limit) {
+          setComplexPolygon(true);
+          return;
+        }
+      }
+    } else if (depth === 4 && polygon[0][0].length > 2) {
+      for (const multipoly of polygon) {
+        for (const poly of multipoly) {
+          console.log("poly.length: ", poly.length);
+          if (poly.length > limit) {
+            setComplexPolygon(true);
+            return;
+          }
+        }
+      }
+    }
+  }, [polygon, polygonJSON, slowLayers]);
+
+  useEffect(() => {
+    if (!polygon || !slowLayers || !complexPolygon) {
+      setLargeArea(false);
+      return;
+    }
+
+    // Calculate main area
+    let points;
+    let area = 0;
+    const depth = getPolygonDepth(polygon);
+    if (depth === 2) {
+      // Only one polygon
+      points = polygon;
+      area += calculateArea(points);
+    } else if (depth === 3) {
+      // Polygon with holes. Substract areas if there are holes
+      points = polygon[0];
+      area += calculateArea(points);
+      if (polygon.length > 1) {
+        for (let i = 1; i < polygon.length; i++) {
+          const hole = polygon[i];
+          if (hole.length < 3) continue;
+          area -= calculateArea(hole);
+        }
+      }
+    } else if (depth === 4) {
+      // Multipolygon. Substract areas if there are holes
+      for (const poly of polygon) {
+        points = poly[0];
+        area += calculateArea(points);
+        if (poly.length > 1) {
+          for (let i = 1; i < poly.length; i++) {
+            const hole = poly[i];
+            if (hole.length < 3) continue;
+            area -= calculateArea(hole);
+          }
+        }
+      }
+    }
+
+    area = area / 1000000;
+    if (area > 5000) setLargeArea(true);
+    else setLargeArea(false);
+
+    console.log("area", area);
+  }, [polygon, polygonJSON, slowLayers, complexPolygon]);
+
+  useEffect(() => {
+    if (slowLayers && complexPolygon && largeArea) {
+      setWarningMessage(
+        "Arealrapport kan ta flere minutter for store og komplekse polygoner"
+      );
+      setShowWarning(true);
+    } else setShowWarning(false);
+  }, [slowLayers, complexPolygon, largeArea]);
 
   return (
     <div
@@ -252,10 +349,7 @@ const PolygonLayers = ({
             </Button>
           </div>
           {!disabled && showWarning && (
-            <div className="polygon-report-warning">
-              Arealrapport kan ta flere minutter for store og komplekse
-              polygoner
-            </div>
+            <div className="polygon-report-warning">{warningMessage}</div>
           )}
         </div>
       </Collapse>
