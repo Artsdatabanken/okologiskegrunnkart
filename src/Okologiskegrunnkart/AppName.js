@@ -67,6 +67,7 @@ const AppName = ({
                   {elements[i]}
                   <a
                     key={i}
+                    className="help-text-link"
                     href={links[i]}
                     target="_blank"
                     rel="noopener noreferrer"

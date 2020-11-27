@@ -239,6 +239,9 @@ const PolygonLayers = ({
               Lag arealrapport
             </Button>
           </div>
+          <div className="polygon-report-warning">
+            Arealrapport kan ta flere minutter for store og konplekse polygoner
+          </div>
         </div>
       </Collapse>
     </div>
