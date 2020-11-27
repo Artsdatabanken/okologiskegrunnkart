@@ -21,6 +21,7 @@ const PolygonLayers = ({
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [showWarning, setShowWarning] = useState(false);
 
   const polygonJSON = JSON.stringify(polygon);
 
@@ -183,6 +184,17 @@ const PolygonLayers = ({
     else setDisabled(true);
   }, [polygon, polygonJSON]);
 
+  useEffect(() => {
+    if (!polygon) {
+      setShowWarning(false);
+      return;
+    }
+    const selectedLayers = searchLayers.filter(
+      item => item.selected && !["FYL", "KOM"].includes(item.code)
+    );
+    console.log("selectedLayers", selectedLayers);
+  }, [polygon, polygonJSON, searchLayers]);
+
   return (
     <div
       className={
@@ -239,9 +251,12 @@ const PolygonLayers = ({
               Lag arealrapport
             </Button>
           </div>
-          <div className="polygon-report-warning">
-            Arealrapport kan ta flere minutter for store og konplekse polygoner
-          </div>
+          {!disabled && showWarning && (
+            <div className="polygon-report-warning">
+              Arealrapport kan ta flere minutter for store og komplekse
+              polygoner
+            </div>
+          )}
         </div>
       </Collapse>
     </div>
