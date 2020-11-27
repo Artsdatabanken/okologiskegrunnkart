@@ -23,9 +23,10 @@ const PolygonLayers = ({
   const [disabled, setDisabled] = useState(true);
   const [slowLayers, setSlowLayers] = useState(false);
   const [complexPolygon, setComplexPolygon] = useState(false);
-  const [largeArea, setLargeArea] = useState(false);
+  const [polygonArea, setPolygonArea] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
-  const [warningMessage, setWarningMessage] = useState("");
+  const [matrikkelLayer, setMatrikkelLayer] = useState(false);
+  const [showMatrikkelWarning, setShowMatrikkelWarning] = useState(false);
 
   const polygonJSON = JSON.stringify(polygon);
 
@@ -190,6 +191,7 @@ const PolygonLayers = ({
   useEffect(() => {
     if (!searchLayers) {
       setSlowLayers(false);
+      setMatrikkelLayer(false);
       return;
     }
     // Check selected layers
@@ -198,6 +200,13 @@ const PolygonLayers = ({
     );
     if (complexLayers.length > 0) setSlowLayers(true);
     else setSlowLayers(false);
+
+    // Matrikkel layer
+    const matrikkelLayer = searchLayers.filter(
+      item => item.code === "MAT" && item.selected
+    );
+    if (matrikkelLayer.length > 0) setMatrikkelLayer(true);
+    else setMatrikkelLayer(false);
   }, [searchLayers]);
 
   useEffect(() => {
@@ -207,7 +216,7 @@ const PolygonLayers = ({
     }
 
     // Check polygon complexity
-    const limit = 2000;
+    const limit = 5000;
     const depth = getPolygonDepth(polygon);
     if (depth === 2 && polygon.length > 2) {
       console.log("poly.length: ", polygon.length);
@@ -237,8 +246,8 @@ const PolygonLayers = ({
   }, [polygon, polygonJSON, slowLayers]);
 
   useEffect(() => {
-    if (!polygon || !slowLayers || !complexPolygon) {
-      setLargeArea(false);
+    if (!polygon || ((!slowLayers || !complexPolygon) && !matrikkelLayer)) {
+      setPolygonArea(0);
       return;
     }
 
@@ -277,20 +286,21 @@ const PolygonLayers = ({
     }
 
     area = area / 1000000;
-    if (area > 5000) setLargeArea(true);
-    else setLargeArea(false);
+    setPolygonArea(area);
 
     console.log("area", area);
-  }, [polygon, polygonJSON, slowLayers, complexPolygon]);
+  }, [polygon, polygonJSON, slowLayers, matrikkelLayer, complexPolygon]);
 
   useEffect(() => {
-    if (slowLayers && complexPolygon && largeArea) {
-      setWarningMessage(
-        "Arealrapport kan ta flere minutter for store og komplekse polygoner"
-      );
+    if (slowLayers && complexPolygon && polygonArea > 5000)
       setShowWarning(true);
-    } else setShowWarning(false);
-  }, [slowLayers, complexPolygon, largeArea]);
+    else if (slowLayers && matrikkelLayer && polygonArea > 20000)
+      setShowWarning(true);
+    else setShowWarning(false);
+
+    if (matrikkelLayer && polygonArea > 2000) setShowMatrikkelWarning(true);
+    else setShowMatrikkelWarning(false);
+  }, [slowLayers, complexPolygon, polygonArea, matrikkelLayer]);
 
   return (
     <div
@@ -349,7 +359,15 @@ const PolygonLayers = ({
             </Button>
           </div>
           {!disabled && showWarning && (
-            <div className="polygon-report-warning">{warningMessage}</div>
+            <div className="polygon-report-warning critical">
+              Arealrapport kan ta flere minutter for store og komplekse
+              polygoner for de valgte rapporter
+            </div>
+          )}
+          {!disabled && showMatrikkelWarning && (
+            <div className="polygon-report-warning medium">
+              Matrikkel rapport kan gi veldig mange resultater for store arealer
+            </div>
           )}
         </div>
       </Collapse>
