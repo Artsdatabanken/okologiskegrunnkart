@@ -144,10 +144,12 @@ const PolygonLayers = ({
       }
       if (code === "ANF") {
         sorted = sorted.map(item => {
+          let name = item.navn;
+          name = name.charAt(0).toUpperCase() + name.slice(1);
           return {
             ...item,
-            navn: item.kode,
-            kode: ""
+            navn: name,
+            kode: item.kode
             // beskrivelse: getTextAreaReport("ANF", item.kode, "description")
           };
         });
