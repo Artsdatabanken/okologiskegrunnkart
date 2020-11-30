@@ -17,7 +17,7 @@ const KartlagEmptyElement = ({ kartlag }) => {
         </div>
       </ListItemIcon>
       <ListItemText
-        primary="Ingen favoritt kartlag"
+        primary="Ingen favorittkartlag"
         secondary="Editer favoritter i hovedmenyen ved søkefeltet"
       />
     </ListItem>

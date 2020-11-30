@@ -70,7 +70,7 @@ export default function FavouritesMenu({
             <ListItemIcon id="favourites-item-icon">
               <FavouriteLayesIcon />
             </ListItemIcon>
-            <ListItemText primary="Vis favoritt kartlag" />
+            <ListItemText primary="Vis favorittkartlag" />
           </MenuItem>
 
           <MenuItem
@@ -85,7 +85,7 @@ export default function FavouritesMenu({
             <ListItemIcon id="favourites-item-icon">
               <AllLayersIcon />
             </ListItemIcon>
-            <ListItemText primary="Vis fullstendig kartlag" />
+            <ListItemText primary="Vis alle kartlag" />
           </MenuItem>
         </Menu>
       </Paper>
