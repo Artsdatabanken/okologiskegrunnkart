@@ -487,6 +487,9 @@
   font-size: 16px;
   margin: 2px 0;
 }
+.help-text-link:hover {
+  text-decoration: underline;
+}
 
 /* ----------- Settings drawer ------------ */
 #settings-drawer .MuiPaper-root {

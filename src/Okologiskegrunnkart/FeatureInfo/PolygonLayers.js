@@ -9,8 +9,9 @@ import {
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
-import { getPolygonDepth } from "../../Funksjoner/polygonTools";
+import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
+import CustomIcon from "../../Common/CustomIcon";
 
 const PolygonLayers = ({
   availableLayers,
@@ -21,6 +22,12 @@ const PolygonLayers = ({
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
+  const [slowLayers, setSlowLayers] = useState(false);
+  const [complexPolygon, setComplexPolygon] = useState(false);
+  const [polygonArea, setPolygonArea] = useState(0);
+  const [showWarning, setShowWarning] = useState(false);
+  const [matrikkelLayer, setMatrikkelLayer] = useState(false);
+  const [showMatrikkelWarning, setShowMatrikkelWarning] = useState(false);
 
   const polygonJSON = JSON.stringify(polygon);
 
@@ -176,12 +183,125 @@ const PolygonLayers = ({
       return;
     }
     const depth = getPolygonDepth(polygon);
-    // Only one polygon
     if (depth === 2 && polygon.length > 2) setDisabled(false);
     else if (depth === 3 && polygon[0].length > 2) setDisabled(false);
     else if (depth === 4 && polygon[0][0].length > 2) setDisabled(false);
     else setDisabled(true);
   }, [polygon, polygonJSON]);
+
+  useEffect(() => {
+    if (!searchLayers) {
+      setSlowLayers(false);
+      setMatrikkelLayer(false);
+      return;
+    }
+    // Check selected layers
+    const complexLayers = searchLayers.filter(
+      item => item.selected && !["FYL", "KOM"].includes(item.code)
+    );
+    if (complexLayers.length > 0) setSlowLayers(true);
+    else setSlowLayers(false);
+
+    // Matrikkel layer
+    const matrikkelLayer = searchLayers.filter(
+      item => item.code === "MAT" && item.selected
+    );
+    if (matrikkelLayer.length > 0) setMatrikkelLayer(true);
+    else setMatrikkelLayer(false);
+  }, [searchLayers]);
+
+  useEffect(() => {
+    if (!polygon || !slowLayers) {
+      setComplexPolygon(false);
+      return;
+    }
+
+    // Check polygon complexity
+    const limit = 5000;
+    const depth = getPolygonDepth(polygon);
+    if (depth === 2 && polygon.length > 2) {
+      console.log("poly.length: ", polygon.length);
+      if (polygon.length > limit) {
+        setComplexPolygon(true);
+        return;
+      }
+    } else if (depth === 3 && polygon[0].length > 2) {
+      for (const poly of polygon) {
+        console.log("poly.length: ", poly.length);
+        if (poly.length > limit) {
+          setComplexPolygon(true);
+          return;
+        }
+      }
+    } else if (depth === 4 && polygon[0][0].length > 2) {
+      for (const multipoly of polygon) {
+        for (const poly of multipoly) {
+          console.log("poly.length: ", poly.length);
+          if (poly.length > limit) {
+            setComplexPolygon(true);
+            return;
+          }
+        }
+      }
+    }
+  }, [polygon, polygonJSON, slowLayers]);
+
+  useEffect(() => {
+    if (!polygon || ((!slowLayers || !complexPolygon) && !matrikkelLayer)) {
+      setPolygonArea(0);
+      return;
+    }
+
+    // Calculate main area
+    let points;
+    let area = 0;
+    const depth = getPolygonDepth(polygon);
+    if (depth === 2) {
+      // Only one polygon
+      points = polygon;
+      area += calculateArea(points);
+    } else if (depth === 3) {
+      // Polygon with holes. Substract areas if there are holes
+      points = polygon[0];
+      area += calculateArea(points);
+      if (polygon.length > 1) {
+        for (let i = 1; i < polygon.length; i++) {
+          const hole = polygon[i];
+          if (hole.length < 3) continue;
+          area -= calculateArea(hole);
+        }
+      }
+    } else if (depth === 4) {
+      // Multipolygon. Substract areas if there are holes
+      for (const poly of polygon) {
+        points = poly[0];
+        area += calculateArea(points);
+        if (poly.length > 1) {
+          for (let i = 1; i < poly.length; i++) {
+            const hole = poly[i];
+            if (hole.length < 3) continue;
+            area -= calculateArea(hole);
+          }
+        }
+      }
+    }
+
+    area = area / 1000000;
+    setPolygonArea(area);
+
+    console.log("area", area);
+  }, [polygon, polygonJSON, slowLayers, matrikkelLayer, complexPolygon]);
+
+  useEffect(() => {
+    if (slowLayers && complexPolygon && polygonArea > 5000)
+      setShowWarning(true);
+    else if (slowLayers && matrikkelLayer && polygonArea > 20000)
+      setShowWarning(true);
+    else setShowWarning(false);
+
+    if (matrikkelLayer && polygonArea > 2000) setShowMatrikkelWarning(true);
+    else setShowMatrikkelWarning(false);
+  }, [slowLayers, complexPolygon, polygonArea, matrikkelLayer]);
 
   return (
     <div
@@ -239,6 +359,38 @@ const PolygonLayers = ({
               Lag arealrapport
             </Button>
           </div>
+          {!disabled && showWarning && (
+            <div className="polygon-report-warning">
+              <div className="polygon-report-warning-content">
+                <CustomIcon
+                  id="polygon-report-warning-icon"
+                  icon="clock-alert"
+                  size={24}
+                  color="#697f8a"
+                />
+                <span className="polygon-report-warning-text">
+                  Arealrapport kan ta flere minutter for store, komplekse
+                  polygoner og de valgte rapporter
+                </span>
+              </div>
+            </div>
+          )}
+          {!disabled && showMatrikkelWarning && (
+            <div className="polygon-report-warning">
+              <div className="polygon-report-warning-content">
+                <CustomIcon
+                  id="polygon-report-warning-icon"
+                  icon="clock-alert"
+                  size={24}
+                  color="#697f8a"
+                />
+                <span className="polygon-report-warning-text">
+                  Matrikkel rapport kan gi veldig mange resultater for store
+                  arealer
+                </span>
+              </div>
+            </div>
+          )}
         </div>
       </Collapse>
     </div>
