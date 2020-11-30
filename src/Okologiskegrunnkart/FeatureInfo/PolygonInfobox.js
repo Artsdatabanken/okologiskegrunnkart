@@ -77,6 +77,13 @@ const availableLayers = [
     owner: "Miljødirektoratet"
   },
   {
+    name: "Naturvernområder",
+    selected: false,
+    code: "VRN",
+    icon: "Administrative støttekart",
+    owner: "Miljødirektoratet"
+  },
+  {
     name: "Innsjødatabase",
     selected: false,
     code: "ISJ",
@@ -106,7 +113,7 @@ const availableLayers = [
   // }
 ];
 
-const resultsOrder = ["FYL", "KOM", "MAT", "ANF", "N13", "ISJ", "MAG"];
+const resultsOrder = availableLayers.map(item => item.code);
 
 const PolygonInfobox = ({
   polygon,

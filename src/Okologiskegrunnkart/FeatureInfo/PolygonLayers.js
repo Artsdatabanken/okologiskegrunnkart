@@ -145,7 +145,7 @@ const PolygonLayers = ({
       if (code === "ANF") {
         sorted = sorted.map(item => {
           let name = item.navn;
-          name = name.charAt(0).toUpperCase() + name.slice(1);
+          name = name ? name.charAt(0).toUpperCase() + name.slice(1) : "N/A";
           return {
             ...item,
             navn: name,
