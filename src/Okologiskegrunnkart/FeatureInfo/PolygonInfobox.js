@@ -77,6 +77,13 @@ const availableLayers = [
     owner: "Miljødirektoratet"
   },
   {
+    name: "Naturtype - NiN Mdir",
+    selected: false,
+    code: "NIN",
+    icon: "Naturtyper",
+    owner: "Miljødirektoratet"
+  },
+  {
     name: "Naturvernområder",
     selected: false,
     code: "VRN",
