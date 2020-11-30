@@ -203,7 +203,7 @@ const DrawerMenu = ({
           <ListItemIcon id="drawer-item-icon">
             <FavouriteLayesIcon />
           </ListItemIcon>
-          <ListItemText primary="Vis favoritt kartlag" />
+          <ListItemText primary="Vis favorittkartlag" />
           <ListItemIcon id="filter-layers-menu-icon">
             {showFavoriteLayers ? <Done fontSize="small" /> : <div />}
           </ListItemIcon>
@@ -222,7 +222,7 @@ const DrawerMenu = ({
           <ListItemIcon id="drawer-item-icon">
             <AllLayersIcon />
           </ListItemIcon>
-          <ListItemText primary="Vis fullstendig kartlag" />
+          <ListItemText primary="Vis alle kartlag" />
           <ListItemIcon id="filter-layers-menu-icon">
             {!showFavoriteLayers ? <Done fontSize="small" /> : <div />}
           </ListItemIcon>
@@ -240,7 +240,7 @@ const DrawerMenu = ({
           <ListItemIcon id="drawer-item-icon">
             <EditLayesIcon />
           </ListItemIcon>
-          <ListItemText primary="Editere favoritt kartlag" />
+          <ListItemText primary="Endre favorittkartlag" />
         </MenuItem>
 
         <Divider variant="fullWidth" />
@@ -257,7 +257,7 @@ const DrawerMenu = ({
           <ListItemIcon id="drawer-item-icon">
             <Forward style={{ transform: "rotate(-90deg)" }} />
           </ListItemIcon>
-          <ListItemText primary="Laste opp polygon" />
+          <ListItemText primary="Last opp polygon" />
         </MenuItem>
 
         <MenuItem

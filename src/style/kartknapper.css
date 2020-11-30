@@ -230,7 +230,7 @@
   position: absolute;
   bottom: 0;
   right: calc(100% / 2 - 110px);
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
   -ms-transition: right 0.5s;
@@ -255,6 +255,7 @@
   .artsdatabanken-logo-wrapper {
     width: 160px;
     right: calc(100% / 2 - 90px);
+    padding-bottom: 0;
   }
   .artsdatabanken-logo-image {
     height: 25px;

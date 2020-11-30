@@ -47,6 +47,7 @@ const layerKeys = {
   sårbarehabitatmarint: "marinedata"
 };
 
+// NOTE: Properties always in lower case
 const infoboxKeys = {
   arealressurs: {
     enkel_beskrivelse: "Enkel beskrivelse",
@@ -132,7 +133,7 @@ const infoboxKeys = {
   },
   kulturminner: {
     navn: "Navn",
-    kulturminneLokalitetArt: "Kulturminne Lokalitet",
+    kulturminnelokalitetart: "Kulturminne Lokalitet",
     informasjon: "Informasjon"
   },
   landskapnin: {
@@ -227,10 +228,10 @@ const infoboxKeys = {
     funksjonsperiode: "Funksjonsperiode"
   },
   marinedata: {
-    mareano_dataVME_indica: "Habitattype",
-    vulnerable_areasOBJTYPE: "Habitattype",
-    mareano_dataVME_indi_1: "Engelsk",
-    vulnerable_areasOBS_STED: "Sted"
+    mareano_datavme_indica: "Habitattype",
+    vulnerable_areasobjtype: "Habitattype",
+    mareano_datavme_indi_1: "Engelsk",
+    vulnerable_areasobs_sted: "Sted"
   }
 };
 

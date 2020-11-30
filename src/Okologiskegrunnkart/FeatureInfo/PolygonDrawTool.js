@@ -229,7 +229,7 @@ const PolygonDrawTool = ({
           {/* !polygon && polyline.length === 0 && grensePolygon === "none" && */}
           {grensePolygon === "none" && (
             <>
-              <BottomTooltip placement="bottom" title="Laste opp polygon">
+              <BottomTooltip placement="bottom" title="Last opp polygon">
                 <span className="geometry-tool-button first-tool">
                   <IconButton
                     className={classes.customIconButtom}

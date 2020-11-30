@@ -55,6 +55,7 @@ function filterLookup(o) {
   if (o.toLowerCase() === "null") return null;
   result = o.charAt(0).toUpperCase() + o.slice(1);
   result = result.replace(/&#xA;/g, "");
+  result = result.replace(/&quot;/g, '"');
   return result;
 }
 

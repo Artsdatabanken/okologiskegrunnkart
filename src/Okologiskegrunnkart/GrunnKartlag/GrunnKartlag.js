@@ -158,7 +158,7 @@ const GrunnKartlag = ({
         >
           <div>
             <Typography variant="h6">
-              {showFavoriteLayers ? "Favoritt kartlag" : "Kartlag"}
+              {showFavoriteLayers ? "Favorittkartlag" : "Kartlag"}
             </Typography>
             <Typography variant="body2">
               {sortKeyToDescription[sortKey]}
