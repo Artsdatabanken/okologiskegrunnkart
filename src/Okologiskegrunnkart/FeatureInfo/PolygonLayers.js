@@ -11,6 +11,7 @@ import "../../style/infobox.css";
 import backend from "../../Funksjoner/backend";
 import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
+import CustomIcon from "../../Common/CustomIcon";
 
 const PolygonLayers = ({
   availableLayers,
@@ -359,14 +360,35 @@ const PolygonLayers = ({
             </Button>
           </div>
           {!disabled && showWarning && (
-            <div className="polygon-report-warning critical">
-              Arealrapport kan ta flere minutter for store og komplekse
-              polygoner for de valgte rapporter
+            <div className="polygon-report-warning">
+              <div className="polygon-report-warning-content">
+                <CustomIcon
+                  id="polygon-report-warning-icon"
+                  icon="clock-alert"
+                  size={24}
+                  color="#697f8a"
+                />
+                <span className="polygon-report-warning-text">
+                  Arealrapport kan ta flere minutter for store, komplekse
+                  polygoner og de valgte rapporter
+                </span>
+              </div>
             </div>
           )}
           {!disabled && showMatrikkelWarning && (
-            <div className="polygon-report-warning medium">
-              Matrikkel rapport kan gi veldig mange resultater for store arealer
+            <div className="polygon-report-warning">
+              <div className="polygon-report-warning-content">
+                <CustomIcon
+                  id="polygon-report-warning-icon"
+                  icon="clock-alert"
+                  size={24}
+                  color="#697f8a"
+                />
+                <span className="polygon-report-warning-text">
+                  Matrikkel rapport kan gi veldig mange resultater for store
+                  arealer
+                </span>
+              </div>
             </div>
           )}
         </div>

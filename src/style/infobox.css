@@ -872,9 +872,6 @@ h4.container_header {
   border-top: 1px solid #aaa;
   flex-shrink: 0;
 }
-.polygon-layers-wrapper.expanded {
-  height: 349px;
-}
 #polygon-layer-expander,
 #polygon-layer-disabled {
   background: rgba(145, 163, 176, 0.3);
@@ -923,10 +920,25 @@ h4.container_header {
 .polygon-layers-disabled {
   color: #999;
 }
+
+/* --------- POLYGON WARNINGS --------- */
 .polygon-report-warning {
-  color: #971500;
+  color: #697f8a;
   font-size: 15px;
   padding: 10px 10px 0 10px;
+}
+.polygon-report-warning-content {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: rgba(105, 127, 138, 0.15);
+  border-radius: 10px;
+  border: 1px solid #697f8a;
+}
+.polygon-report-warning-text {
+  text-align: left;
+  padding-left: 15px;
+  font-weight: 550;
 }
 
 /* ------- POLYGON RESULT LIST --------- */
