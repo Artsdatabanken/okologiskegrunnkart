@@ -44,10 +44,13 @@ const layerKeys = {
   ultramafiskebergarter: "berggrunn",
   kalkinnholdberggrunn: "berggrunn",
   korallrev: "marinedata",
+  korallrevsannsynligeforekomster: "marinedata",
   sårbarehabitatmarint: "marinedata"
 };
 
-// NOTE: Properties always in lower case
+// NOTE: Properties (text to be translated) always in lower case.
+// For example, "kulturminneLokalitetArt" (actual field name in
+// response) is defined as "kulturminnelokalitetart" here
 const infoboxKeys = {
   arealressurs: {
     enkel_beskrivelse: "Enkel beskrivelse",
@@ -231,7 +234,8 @@ const infoboxKeys = {
     mareano_datavme_indica: "Habitattype",
     vulnerable_areasobjtype: "Habitattype",
     mareano_datavme_indi_1: "Engelsk",
-    vulnerable_areasobs_sted: "Sted"
+    vulnerable_areasobs_sted: "Sted",
+    antall_per_km2: "Antall per km²"
   }
 };
 
