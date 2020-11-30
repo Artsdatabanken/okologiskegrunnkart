@@ -809,7 +809,7 @@ class App extends React.Component {
   };
 
   handleNavigateToKartlag = (valgtLag, trefftype) => {
-    this.props.history.push("/kartlag/" + valgtLag.id.trim());
+    // this.props.history.push("/kartlag/" + valgtLag.id.trim());
     if (trefftype === "Underlag") {
       const id = valgtLag.id;
       const parentId = valgtLag.parentId;
