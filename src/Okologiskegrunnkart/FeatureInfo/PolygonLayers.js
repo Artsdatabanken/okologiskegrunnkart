@@ -220,14 +220,12 @@ const PolygonLayers = ({
     const limit = 5000;
     const depth = getPolygonDepth(polygon);
     if (depth === 2 && polygon.length > 2) {
-      console.log("poly.length: ", polygon.length);
       if (polygon.length > limit) {
         setComplexPolygon(true);
         return;
       }
     } else if (depth === 3 && polygon[0].length > 2) {
       for (const poly of polygon) {
-        console.log("poly.length: ", poly.length);
         if (poly.length > limit) {
           setComplexPolygon(true);
           return;
@@ -236,7 +234,6 @@ const PolygonLayers = ({
     } else if (depth === 4 && polygon[0][0].length > 2) {
       for (const multipoly of polygon) {
         for (const poly of multipoly) {
-          console.log("poly.length: ", poly.length);
           if (poly.length > limit) {
             setComplexPolygon(true);
             return;
@@ -288,8 +285,6 @@ const PolygonLayers = ({
 
     area = area / 1000000;
     setPolygonArea(area);
-
-    console.log("area", area);
   }, [polygon, polygonJSON, slowLayers, matrikkelLayer, complexPolygon]);
 
   useEffect(() => {
