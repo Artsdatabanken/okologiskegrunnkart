@@ -54,18 +54,26 @@ class Leaflet extends React.Component {
     L.CRS.EPSG900913.code = "EPSG:900913";
 
     // On map click, set marker
+    let timer = null;
     map.on("click", e => {
       map.clicked = map.clicked + 1;
-      setTimeout(() => {
-        if (map.clicked === 1) {
+      if (map.clicked === 1) {
+        timer = setTimeout(() => {
           this.handleClick(e);
           map.clicked = 0;
-        }
-      }, 300);
+        }, 300);
+      }
+      // timer = setTimeout(() => {
+      //   if (map.clicked === 1) {
+      //     this.handleClick(e);
+      //     map.clicked = 0;
+      //   }
+      // }, 300);
     });
 
     // On map double click, zoom in
     map.on("dblclick", () => {
+      clearTimeout(timer);
       map.clicked = 0;
       map.zoomIn();
     });
