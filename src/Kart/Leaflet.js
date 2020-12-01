@@ -56,7 +56,6 @@ class Leaflet extends React.Component {
     // On map click, set marker
     map.on("click", e => {
       map.clicked = map.clicked + 1;
-      console.log("map", map);
       setTimeout(() => {
         if (map.clicked === 1) {
           this.handleClick(e);
