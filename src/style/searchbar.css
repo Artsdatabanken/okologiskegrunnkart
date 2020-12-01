@@ -397,15 +397,15 @@
   background-color: white;
   width: 50vw;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  height: 95vh;
   max-height: 95vh;
-  overflow-y: auto;
 }
 @media only screen and (max-width: 768px) {
   .help-modal-wrapper {
     width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    max-height: 100vh;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -481,20 +481,28 @@
 
 /* Help modal content */
 .help-modal-content {
+  max-height: calc(95vh - 68px);
   display: flex;
   flex-flow: column;
   align-items: flex-start;
   padding: 15px 25px;
+  overflow-y: auto;
 }
 @media only screen and (max-width: 768px) {
   .help-modal-content {
     padding: 15px 20px 150px 20px;
+    max-height: calc(100% - 65px);
   }
 }
 .help-text-line-header {
   font-size: 18px;
   font-weight: bold;
   margin: 30px 0 5px 0;
+}
+.help-text-line-header:first-child {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0 5px 0;
 }
 .help-text-empty {
   margin: 20px 0;
@@ -538,62 +546,7 @@
 #drawer-item-image {
   margin-right: 21px;
 }
-/* #drawer-menuitem-favourite-kartlag.MuiListItem-gutters,
-#drawer-menuitem-all-kartlag.MuiListItem-gutters {
-  padding-left: 62px;
-} */
 .drawer-menuitem.MuiMenuItem-root {
   padding-top: 8px;
   padding-bottom: 8px;
 }
-
-/* -------- Close drawer button --------- */
-/* .close-drawer-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 0;
-  width: 0;
-  margin: 23px 29px 23px 22px;
-  padding: 0;
-  background-color: rgba(145, 163, 176, 0);
-  border: none;
-  border-radius: 10px;
-  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-.close-drawer-button-wrapper:hover {
-  background-color: rgba(145, 163, 176, 0);
-}
-.close-drawer-button-wrapper:focus {
-  background-color: rgba(145, 163, 176, 1);
-  outline: none;
-  height: 46px;
-  width: 44px;
-  margin: 0 7px 0 0;
-}
-.close-drawer-button {
-  padding: 0;
-  display: flex;
-  color: white;
-  border: 2px solid white;
-  border-radius: 5px;
-  height: 28px;
-  width: 28px;
-  z-index: 0;
-}
-.close-drawer-button:hover {
-  background-color: rgba(145, 163, 176, 1);
-}
-#drawer-minimize {
-  z-index: 0;
-}
-@media only screen and (max-width: 768px) {
-  .close-drawer-button-wrapper {
-    z-index: 205;
-    margin: 23px 29px 23px 22px;
-  }
-  .close-drawer-button-wrapper:focus {
-    margin: 0 7px 0 0;
-  }
-} */

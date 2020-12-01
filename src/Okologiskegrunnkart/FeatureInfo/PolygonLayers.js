@@ -345,7 +345,7 @@ const PolygonLayers = ({
                     {layer.name}
                   </div>
                   <Checkbox
-                    id="select-layers-checkbox"
+                    id={`select-layers-checkbox-${layer.code.toLowerCase()}`}
                     checked={layer.selected}
                     onChange={e => handleChange(e, layer.name)}
                     color="default"
