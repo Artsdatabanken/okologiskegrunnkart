@@ -115,7 +115,9 @@ class App extends React.Component {
     savedPolygons: []
   };
 
-  // ------------- SET UP KARTLAG -------------- //
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------------- SET UP KARTLAG ----------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   async lastNedKartlag() {
     // Run hard refresh the first time page is loaded
     if (!window.location.hash) {
@@ -302,7 +304,9 @@ class App extends React.Component {
     }
   }
 
-  // ------------ LIFECYCLE HOOKS ---------------- //
+  // ------------------------------------------------------------------------------------- //
+  // -------------------------------- LIFECYCLE HOOKS ------------------------------------ //
+  // ------------------------------------------------------------------------------------- //
   async componentDidMount() {
     await this.lastNedKartlag();
     removeUnusedLayersIndexedDB(
@@ -343,7 +347,9 @@ class App extends React.Component {
     }
   }
 
-  // ----------- ACTION RUN WITH UPDATE LIFECYCLE HOOK -------------- //
+  // ------------------------------------------------------------------------------------- //
+  // ----------------------- ACTIONS RUN WITH UPDATE LIFECYCLE HOOK ---------------------- //
+  // ------------------------------------------------------------------------------------- //
   isFylke = prevState => {
     if (
       this.state.fylkeGeom !== prevState.fylkeGeom &&
@@ -449,39 +455,6 @@ class App extends React.Component {
     }
   };
 
-  // ------- SIMPLE STATE CHANGE ACTIONS -------- //
-  setSublayerDetailsVisible = visible => {
-    this.setState({ sublayerDetailsVisible: visible });
-  };
-
-  setInfoboxDetailsVisible = visible => {
-    this.setState({ infoboxDetailsVisible: visible });
-  };
-
-  setLayerInfoboxDetails = layer => {
-    this.setState({ layerInfoboxDetails: layer });
-  };
-
-  setLegendVisible = visible => {
-    this.setState({ legendVisible: visible });
-    if (!visible) {
-      this.setState({ legendPosition: "right" });
-    }
-  };
-
-  handleLegendPosition = () => {
-    if (this.state.legendPosition === "right") {
-      this.setState({
-        showInfobox: true,
-        legendVisible: true,
-        legendPosition: "left"
-      });
-    }
-    if (this.state.legendPosition === "left") {
-      this.setState({ legendPosition: "right" });
-    }
-  };
-
   handleExtensiveInfo = showExtensiveInfo => {
     // funksjonen som bestemmer om man søker eller ikke ved klikk
     this.setState({ showExtensiveInfo: showExtensiveInfo });
@@ -491,7 +464,9 @@ class App extends React.Component {
     this.setState({ spraak: spraak });
   };
 
-  // ----------- FAVOURITE LAYERS --------------- //
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------------- FAVOURITE LAYERS --------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });
   };
@@ -622,6 +597,41 @@ class App extends React.Component {
     return reducedLayers;
   };
 
+  // Relevant for switching between all layers and favourite layers
+  changeVisibleSublayers = sublayersArray => {
+    let array;
+    if (this.state.showFavoriteLayers) {
+      array = [...this.state.visibleSublayersFavorites];
+    } else {
+      array = [...this.state.visibleSublayersComplete];
+    }
+
+    for (const sub of sublayersArray) {
+      if (sub.add) {
+        array.push({
+          layerKey: sub.layerKey,
+          sublayerKey: sub.sublayerKey,
+          propKeys: sub.propKeys
+        });
+      } else {
+        array = array.filter(
+          item =>
+            item.layerKey !== sub.layerKey ||
+            item.sublayerKey !== sub.sublayerKey
+        );
+      }
+    }
+
+    if (this.state.showFavoriteLayers) {
+      this.setState({ visibleSublayersFavorites: array });
+    } else {
+      this.setState({ visibleSublayersComplete: array });
+    }
+  };
+
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------- SEARCH RESULT SELECTION -------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleNavigateToKartlag = (valgtLag, trefftype) => {
     // this.props.history.push("/kartlag/" + valgtLag.id.trim());
     if (trefftype === "Underlag") {
@@ -638,47 +648,13 @@ class App extends React.Component {
     }
   };
 
-  // ------------ POLYGON ACTIONS ----------- //
-  addPolyline = polyline => {
-    this.setState({ polyline: polyline });
-  };
-
-  addPolygon = polygon => {
-    this.setState({ polygon: polygon });
-  };
-
-  hideAndShowPolygon = show => {
-    if (this.state.grensePolygon === "none") {
-      this.setState({ showPolygon: show });
-    } else if (this.state.grensePolygon === "fylke") {
-      this.setState({ showFylkePolygon: show });
-    } else if (this.state.grensePolygon === "kommune") {
-      this.setState({ showKommunePolygon: show });
-    } else if (this.state.grensePolygon === "eiendom") {
-      this.setState({ showEiendomPolygon: show });
-    }
-  };
-
-  handleEditable = editable => {
-    this.setState({ editable: editable });
-  };
-
-  handlePolygonResults = results => {
-    this.setState({ polygonResults: results });
-  };
-
-  handleShowMarker = showMarker => {
-    this.setState({ showMarker: showMarker });
-  };
-
-  removeValgtLag = () => {
-    this.setState({ valgtLag: null });
-  };
-
   handleSelectSearchResult = searchResultPage => {
     this.setState({ searchResultPage: searchResultPage });
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // -------------------- AUTOMATIC UPDATE OF MAP POSITION AND ZOOM ---------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleRemoveZoomCoordinates = () => {
     this.setState({ zoomcoordinates: null });
   };
@@ -761,6 +737,9 @@ class App extends React.Component {
     }
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // ------------------- DATA UPDATES AFTER COORDINATES SELECTION IN MAP ----------------- //
+  // ------------------------------------------------------------------------------------- //
   handleMapMarkerSearch = async (lng, lat, zoom) => {
     if (this.state.lat === lat && this.state.lng === lng) return;
     this.handleLatLng(lng, lat);
@@ -916,6 +895,18 @@ class App extends React.Component {
     }
   };
 
+  handleHoydedata = (lng, lat) => {
+    // returnerer punkt søk
+    backend.hentHoydedata(lng, lat).then(hoydedata => {
+      if (hoydedata) {
+        this.setState({ elevation: hoydedata.elevation || null });
+      }
+    });
+  };
+
+  // ------------------------------------------------------------------------------------- //
+  // ------------- BORDER POLYGON UPDATES AFTER COORDINATES SELECTION IN MAP ------------- //
+  // ------------------------------------------------------------------------------------- //
   handleFylkeData = fylkeData => {
     const geom = fylkeData.geom;
     if (geom && geom.coordinates && geom.coordinates.length > 0) {
@@ -1088,15 +1079,9 @@ class App extends React.Component {
     }
   };
 
-  handleHoydedata = (lng, lat) => {
-    // returnerer punkt søk
-    backend.hentHoydedata(lng, lat).then(hoydedata => {
-      if (hoydedata) {
-        this.setState({ elevation: hoydedata.elevation || null });
-      }
-    });
-  };
-
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------- INFOBOX LAYER RESULTS UPDATE: MARKER ------------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleOneLayerSearch = (lng, lat, zoom, layerkey, sublayerkey, value) => {
     let kartlag = { ...this.state.kartlag };
     let kartlagLayer = kartlag[layerkey];
@@ -1707,6 +1692,9 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // ------------- LAYER UPDATE FROM KARTLAG PANEL, SEARCH BAR, OR FAVOURITES ------------ //
+  // ------------------------------------------------------------------------------------- //
   handleKartlagLayerProp = (layerkey, key, value, update = false) => {
     if (update) {
       // Only update getFeatureInfo
@@ -1759,35 +1747,38 @@ class App extends React.Component {
     });
   };
 
-  // Relevant for switching between all layers and favourite layers
-  changeVisibleSublayers = sublayersArray => {
-    let array;
-    if (this.state.showFavoriteLayers) {
-      array = [...this.state.visibleSublayersFavorites];
-    } else {
-      array = [...this.state.visibleSublayersComplete];
-    }
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------- SIMPLE STATE CHANGE ACTIONS ---------------------------- //
+  // ------------------------------------------------------------------------------------- //
+  setSublayerDetailsVisible = visible => {
+    this.setState({ sublayerDetailsVisible: visible });
+  };
 
-    for (const sub of sublayersArray) {
-      if (sub.add) {
-        array.push({
-          layerKey: sub.layerKey,
-          sublayerKey: sub.sublayerKey,
-          propKeys: sub.propKeys
-        });
-      } else {
-        array = array.filter(
-          item =>
-            item.layerKey !== sub.layerKey ||
-            item.sublayerKey !== sub.sublayerKey
-        );
-      }
-    }
+  setInfoboxDetailsVisible = visible => {
+    this.setState({ infoboxDetailsVisible: visible });
+  };
 
-    if (this.state.showFavoriteLayers) {
-      this.setState({ visibleSublayersFavorites: array });
-    } else {
-      this.setState({ visibleSublayersComplete: array });
+  setLayerInfoboxDetails = layer => {
+    this.setState({ layerInfoboxDetails: layer });
+  };
+
+  setLegendVisible = visible => {
+    this.setState({ legendVisible: visible });
+    if (!visible) {
+      this.setState({ legendPosition: "right" });
+    }
+  };
+
+  handleLegendPosition = () => {
+    if (this.state.legendPosition === "right") {
+      this.setState({
+        showInfobox: true,
+        legendVisible: true,
+        legendPosition: "left"
+      });
+    }
+    if (this.state.legendPosition === "left") {
+      this.setState({ legendPosition: "right" });
     }
   };
 
@@ -1898,6 +1889,45 @@ class App extends React.Component {
 
   handleUpdateChangeInUrl = value => {
     this.setState({ updateChangeInUrl: value });
+  };
+
+  // ------------------------------------------------------------------------------------- //
+  // --------------------------------- POLYGON ACTIONS ----------------------------------- //
+  // ------------------------------------------------------------------------------------- //
+  addPolyline = polyline => {
+    this.setState({ polyline: polyline });
+  };
+
+  addPolygon = polygon => {
+    this.setState({ polygon: polygon });
+  };
+
+  hideAndShowPolygon = show => {
+    if (this.state.grensePolygon === "none") {
+      this.setState({ showPolygon: show });
+    } else if (this.state.grensePolygon === "fylke") {
+      this.setState({ showFylkePolygon: show });
+    } else if (this.state.grensePolygon === "kommune") {
+      this.setState({ showKommunePolygon: show });
+    } else if (this.state.grensePolygon === "eiendom") {
+      this.setState({ showEiendomPolygon: show });
+    }
+  };
+
+  handleEditable = editable => {
+    this.setState({ editable: editable });
+  };
+
+  handlePolygonResults = results => {
+    this.setState({ polygonResults: results });
+  };
+
+  handleShowMarker = showMarker => {
+    this.setState({ showMarker: showMarker });
+  };
+
+  removeValgtLag = () => {
+    this.setState({ valgtLag: null });
   };
 
   uploadPolygonFile = (from = null) => {
