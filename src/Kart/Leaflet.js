@@ -63,12 +63,6 @@ class Leaflet extends React.Component {
           map.clicked = 0;
         }, 300);
       }
-      // timer = setTimeout(() => {
-      //   if (map.clicked === 1) {
-      //     this.handleClick(e);
-      //     map.clicked = 0;
-      //   }
-      // }, 300);
     });
 
     // On map double click, zoom in
