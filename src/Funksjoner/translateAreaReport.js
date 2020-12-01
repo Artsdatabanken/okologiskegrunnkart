@@ -1023,6 +1023,14 @@ const reports = {
     OK: { code: "Innsjø oppdemt til kraftproduksjon" },
     RA: { code: "Reguleringsmagasin til andre formål" },
     RK: { code: "Reguleringsmagasin til kraftproduksjon" }
+  },
+  NIN: {
+    "1": { code: "Svært høy kvalitet" },
+    "2": { code: "Høy kvalitet" },
+    "3": { code: "Moderat kvalitet" },
+    "4": { code: "Lav kvalitet" },
+    "5": { code: "Svært lav kvalitet" },
+    "9": { code: "Kvalitet ikke kartlagt" }
   }
 };
 

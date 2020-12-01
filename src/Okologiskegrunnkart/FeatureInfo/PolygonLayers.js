@@ -142,6 +142,18 @@ const PolygonLayers = ({
           };
         });
       }
+      if (code === "NIN") {
+        sorted = sorted.map(item => {
+          let name = item.navn;
+          name = name ? name.charAt(0).toUpperCase() + name.slice(1) : "N/A";
+          return {
+            ...item,
+            navn: name,
+            kode: null,
+            beskrivelse: getTextAreaReport("NIN", item.kode, "code")
+          };
+        });
+      }
       if (code === "ANF") {
         sorted = sorted.map(item => {
           let name = item.navn;
