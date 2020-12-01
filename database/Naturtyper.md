@@ -87,14 +87,14 @@ LANGUAGE PLPGSQL;
 
 ```sql
 DROP FUNCTION import_nin.naturtype_5k_json(naturtype_id varchar);
-CREATE OR REPLACE FUNCTION import_nin.naturtype_5k_json(områdekid varchar)
-RETURNS json AS $$
+CREATE OR REPLACE FUNCTION .naturtype_5k_json(områdekid varchar)
+RETURNS json AS $$import_nin
 BEGIN
 	RETURN (SELECT to_json(sub)
 	FROM  (
       SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
 	   FROM   import_nin.områder5k c
-	   LEFT   JOIN import_nin.kartleggingsenheter5k ct ON ct.område5kid = c.område5kid
+	   LEFT   JOIN import_nin.kartl	eggingsenheter5k ct ON ct.område5kid = c.område5kid
 	   WHERE  c.område5kid = områdekid
 	   GROUP  BY c.område5kid
 	   ) sub);
@@ -176,6 +176,7 @@ BEGIN
 	   ) sub);
 END; $$
 LANGUAGE PLPGSQL;
+
 ```
 
 ```sql

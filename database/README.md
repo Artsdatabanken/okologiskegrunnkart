@@ -106,7 +106,9 @@ psql -h 172.17.0.18 -U postgres
 cd temp
 wget https://github.com/Artsdatabanken/kommune-kart/raw/master/kommune_4326.geojson
 
-docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -lco SCHEMA=import -nln kommune -overwrite
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -lco SCHEMA=import -nln kommune -nlt MULTIPOLYGON -lco OVERWRITE=yes -overwrite
+
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.27 user=postgres password=veldighemmelig" $PWD/kommune_4326.geojson -lco SCHEMA=import -nln kommune -lco OVERWRITE=yes -overwrite
 ```
 
 ### PostGIS backup
@@ -136,7 +138,56 @@ docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "Postgr
 
 ```bash
 wget https://github.com/Artsdatabanken/naturvern-kart/raw/master/polygon.4326.geojson
-docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.2 user=postgres password=veldighemmelig" $PWD/polygon.4326.geojson -lco SCHEMA=import -nln naturvernområde -overwrite
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.24 user=postgres password=veldighemmelig" $PWD/polygon.4326.geojson -lco SCHEMA=import -nln naturvernområde -overwrite
+
+```
+
+## Natursystem
+
+```bash
+docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f GeoJSON $PWD/nat.json \
+  "PG:host=172.17.0.23 user=$PGUSER password=$PGPASSWORD" \
+  -sql "select geom, data from kart a where datasettkode='NAT'"
+
+cat nat.json | sed -r "s/data\": \{ \"type/koder/g" >nat2.json
+cat nat2.json | sed -r "s/\], \"variabel\": \[/,/g" >nat3.json
+cat nat3.json | sed -r "s/\, null \] \} \}/]}/g" >nat4.json
+cat nat4.json | sed -r "s/\" \] \} \}/\"]}/g" >natok.json
+cat natok.json | sed -r "s/\{ \"type/\n\{ \"type/g" >natok2.json
+cat natok.json | sed -r "s/\,$//g" >natok2.json
+
+
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.kode_ulkm) t) TO '/home/grunnkart/bak/kode_ulkm.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.variabler5k) t) TO '/home/grunnkart/bak/variabler5k.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.variabler20k) t) TO '/home/grunnkart/bak/variabler20k.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.variablernaturtyper) t) TO '/home/grunnkart/bak/variablernaturtyper.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.områdernt) t) TO '/home/grunnkart/bak/områdernt.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.kobling_nt_bv) t) TO '/home/grunnkart/bak/kobling_nt_bv.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.kode_kartleggingsenheter) t) TO '/home/grunnkart/bak/kode_kartleggingsenheter.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.kode_variabler) t) TO '/home/grunnkart/bak/kode_variabler.geojsonl';
+\COPY (SELECT ROW_TO_JSON(t) FROM (SELECT * FROM import_nin.områder20k) t) TO '/home/grunnkart/bak/områder20k.geojsonl';
+
+
+ import_nin         | brukere                  | table | postgres
+ import_nin         | program                  | table | postgres
+ import_nin         | prosjekt_kartleggere     | table | postgres
+ import_nin         | prosjekt_kontrollører    | table | postgres
+ import_nin         | prosjekter               | table | postgres
+ import_nin         | kartleggingsenheter20k   | table | postgres
+ import_nin         | kartleggingsenheter5k    | table | postgres
+ import_nin         | kartleggingsenheternt    | table | postgres
+ import_nin         | kobling_nt_bv            | table | postgres
+ import_nin         | kode_kartleggingsenheter | table | postgres
+ import_nin         | kode_naturtyper          | table | postgres
+ import_nin         | kode_ulkm                | table | postgres
+ import_nin         | kode_variabler           | table | postgres
+ import_nin         | områder20k               | table | postgres
+ import_nin         | områder5k                | table | postgres
+ import_nin         | områdernt                | table | postgres
+ import_nin         | variabler20k             | table | postgres
+ import_nin         | variabler5k              | table | postgres
+ import_nin         | variablernaturtyper      | table | postgres
+
 
 ```
 
@@ -146,8 +197,7 @@ docker run --rm -v /home:/home osgeo/gdal:alpine-small-latest ogr2ogr -f "Postgr
 
 CREATE FUNCTION punkt(lng decimal, lat decimal)
 RETURNS kart AS $$
-SELECT * FROM kart
-WHERE ST_Contains(geom, ST_SetSRID(ST_Point(13.9203608,65.154592),4326))
+SELECT * FROM kart WHERE ST_Contains(geom, ST_SetSRID(ST_Point(8.06163937252387,63.4512403811651),4326))
 $$ LANGUAGE SQL IMMUTABLE;
 
 -- FUNCTION: public.punkt(numeric, numeric)
@@ -185,6 +235,51 @@ SELECT *
 FROM kart
 WHERE datasettkode='KOM'
 AND id LIKE NUMMER
+$$ LANGUAGE SQL IMMUTABLE;
+
+CREATE OR REPLACE FUNCTION public.arealstatistikk(kartlag text, wkt text)
+ RETURNS json
+AS $$
+SELECT json_object_agg(ds.datasettkode,
+   coalesce((
+     SELECT json_agg(json_build_object('kode', id, 'navn', navn,
+      'km2', km2)::jsonb)
+ FROM (
+     SELECT j.id,  j.navn, SUM(ST_Area(ST_Transform(ST_Intersection(geom, ST_GeomFromEWKT(wkt)),25833))/1000000) as km2
+     FROM kart as j
+     WHERE j.datasettkode=ds.datasettkode
+     AND ST_Intersects(geom, ST_GeomFromEWKT(wkt))
+     AND ST_Area(ST_Transform(ST_Intersection(geom, ST_GeomFromEWKT(wkt)),25833))>100 -- 10 m²
+     GROUP BY j.id, j.navn
+    ) x ))) as json
+FROM datasett ds
+WHERE datasettkode = ANY(regexp_split_to_array(kartlag,','));
+$$ LANGUAGE SQL IMMUTABLE;
+
+
+
+curl --header "Content-Type: application/json" \
+  --request POST \
+  --data '{"kartlag":"FYL", "wkt": "POLYGON ((10 60,10 65,20 60,10 60))"}' \
+  https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk_wkt
+
+https://forvaltningsportalapi.test.artsdatabanken.no/rpc/arealstatistikk2?kartlag=KOM,FYL&koordinater=62%2010,62%2011,63%2010.51,62%2010
+
+https://forvaltningsportalapi.test.artsdatabanken.no/rpc/linjestatistikk?kartlag=KOM,FYL&koordinater=62%2010,62%2011,63.1%2010.51,62%2010
+
+-- Lengde langs linje
+CREATE OR REPLACE FUNCTION public.linjestatistikk(kartlag varchar, koordinater varchar)
+RETURNS JSON AS $$
+SELECT json_object_agg(ds.datasettkode,
+   coalesce((
+     SELECT json_agg(
+      json_build_object('kode', j.id, 'navn', j.navn,
+      'km', ST_Length(ST_Transform(ST_Intersection(geom, ST_FlipCoordinates(ST_GeomFromText(CONCAT('LINESTRING(',koordinater,')'),4326))),25833))/1000000)::jsonb)
+     FROM kart as j WHERE j.datasettkode=ds.datasettkode
+     AND ST_Intersects(geom, ST_FlipCoordinates(ST_GeomFromText(CONCAT('LINESTRING(',koordinater,')'),4326)))
+    ))) as json
+FROM datasett ds
+WHERE datasettkode = ANY(regexp_split_to_array(kartlag,','))
 $$ LANGUAGE SQL IMMUTABLE;
 
 ```

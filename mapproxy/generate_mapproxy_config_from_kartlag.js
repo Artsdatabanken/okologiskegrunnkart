@@ -129,7 +129,7 @@ function makeSeed(kartlag) {
   write("      - datasource: coverage/SV.txt");
   write('        srs: "EPSG:3857"');
   write("  alt:");
-  write("    bbox: [4.41, 57.92, 34.22, 81.06]");
+  write("    bbox: [-23.3304, 44.7047, 49.999980, 84]");
   write('    srs: "EPSG:4326"');
 }
 

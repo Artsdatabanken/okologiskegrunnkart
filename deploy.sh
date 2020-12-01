@@ -8,6 +8,7 @@ PUBLIC_URL=$2
 echo Pull request: $TRAVIS_PULL_REQUEST
 FILENAME=forvaltningsportal_$TRAVIS_PULL_REQUEST.tar.gz
 echo "Making archive..."
+# Isn't this used anymore?
 tar --directory=build -zcf $FILENAME .
 echo "Deploying..."
 if [ "${BRANCH}" == "master" ]
@@ -15,6 +16,7 @@ if [ "${BRANCH}" == "master" ]
   sshpass -p $scp_pass scp -v -o StrictHostKeyChecking=no $FILENAME $scp_user@$scp_dest/forvaltningsportal.tar.gz
   curl -X POST -H 'Content-type: application/json' --data '{"text":"deploy forvaltning"}' $slackaddy
 fi
+
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]
  then
   echo "Deploy ${FILENAME}"

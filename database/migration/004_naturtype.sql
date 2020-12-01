@@ -28,3 +28,9 @@ ST_Transform(shape, 4326) AS geom
 FROM import_nin.områder5k
 GROUP BY område5kid, shape;
 
+
+docker run --rm -v /home:/home bjreppen/gdal-mbtiles:latest ogr2ogr -f "PostgreSQL" PG:"dbname=postgres host=172.17.0.27 user=postgres password=veldighemmelig" $PWD/build/nin.geojsonl  -lco SCHEMA=import -nln nin -lco OVERWRITE=YES
+
+
+INSERT INTO public.kart (datasettkode, id, data, geom) SELECT 'NAT', id, props::JSONB, wkb_geometry AS geom FROM import.nin;
+
