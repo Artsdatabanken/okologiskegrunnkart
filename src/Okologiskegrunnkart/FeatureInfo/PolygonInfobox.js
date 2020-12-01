@@ -144,7 +144,9 @@ const PolygonInfobox = ({
   grensePolygonData,
   uploadPolygonFile,
   handlePolygonSaveModal,
-  getSavedPolygons
+  getSavedPolygons,
+  polygonDetailsVisible,
+  setPolygonDetailsVisible
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -153,7 +155,6 @@ const PolygonInfobox = ({
   const [areaUnit, setAreaUnit] = useState("m");
   const [totalArea, setTotalArea] = useState(null);
   const [loadingFeatures, setLoadingFeatures] = useState(false);
-  const [showResults, setShowResults] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
   const [detailResult, setDetailResult] = useState(null);
   const [extraInfo, setExtraInfo] = useState(null);
@@ -292,13 +293,13 @@ const PolygonInfobox = ({
   };
 
   const showDetailedPolygonResults = (layer, result) => {
-    setShowResults(true);
+    setPolygonDetailsVisible(true);
     setDetailLayer(layer);
     setDetailResult(result);
   };
 
   const hideDetailedResults = () => {
-    setShowResults(false);
+    setPolygonDetailsVisible(false);
     setDetailLayer(null);
     setDetailResult(null);
   };
@@ -306,8 +307,8 @@ const PolygonInfobox = ({
   const grensePolygonGeomJSON = JSON.stringify(grensePolygonGeom);
 
   useEffect(() => {
-    setShowResults(false);
-  }, [grensePolygonGeom, grensePolygonGeomJSON]);
+    setPolygonDetailsVisible(false);
+  }, [grensePolygonGeom, grensePolygonGeomJSON, setPolygonDetailsVisible]);
 
   useEffect(() => {
     if (
@@ -351,7 +352,7 @@ const PolygonInfobox = ({
 
   return (
     <div className="infobox-side">
-      {showResults ? (
+      {polygonDetailsVisible ? (
         <PolygonDetailed
           resultLayer={detailLayer}
           detailResult={detailResult}

@@ -29,6 +29,8 @@ const InfoBox = ({
   isMobile,
   infoboxDetailsVisible,
   setInfoboxDetailsVisible,
+  polygonDetailsVisible,
+  setPolygonDetailsVisible,
   setLayerInfoboxDetails,
   polygon,
   polyline,
@@ -306,6 +308,8 @@ const InfoBox = ({
               uploadPolygonFile={uploadPolygonFile}
               handlePolygonSaveModal={handlePolygonSaveModal}
               getSavedPolygons={getSavedPolygons}
+              polygonDetailsVisible={polygonDetailsVisible}
+              setPolygonDetailsVisible={setPolygonDetailsVisible}
             />
           )}
         </>
