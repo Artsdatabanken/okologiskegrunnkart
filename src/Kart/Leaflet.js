@@ -510,6 +510,21 @@ class Leaflet extends React.Component {
   };
 
   clickMarkerInfobox = () => {
+    if (this.state.markerType === "polygon") return;
+    const width = window.innerWidth;
+    if (width > 768) {
+      this.props.handleInfobox(!this.props.showInfobox);
+    } else {
+      if (this.props.showInfobox) {
+        this.props.handleFullscreenInfobox(true);
+      } else {
+        this.props.handleInfobox(!this.props.showInfobox);
+      }
+    }
+  };
+
+  clickPolygonInfobox = () => {
+    if (this.state.markerType === "klikk") return;
     const width = window.innerWidth;
     if (width > 768) {
       this.props.handleInfobox(!this.props.showInfobox);
@@ -784,7 +799,7 @@ class Leaflet extends React.Component {
           lineJoin: "round"
         })
           .addTo(this.map)
-          .on("click", () => this.clickMarkerInfobox());
+          .on("click", () => this.clickPolygonInfobox());
       }
     }
   };
