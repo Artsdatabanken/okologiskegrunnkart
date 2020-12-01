@@ -56,6 +56,7 @@
   max-height: 100vh;
   overflow-y: auto;
   height: calc(100% - 61px);
+  padding-bottom: 40px;
 }
 .all-layer-results-side {
   max-height: 400px;
@@ -306,11 +307,6 @@
 /* List with selected layers */
 .detailed-info-container-side {
   background-color: #eee;
-}
-@media only screen and (max-width: 768px) {
-  .detailed-info-container-side {
-    padding-bottom: 150px;
-  }
 }
 .layer-results-scrollable-side {
   display: inline-block;
@@ -830,11 +826,6 @@ h4.container_header {
 }
 .detailed-info-container-polygon {
   background-color: #eee;
-}
-@media only screen and (max-width: 768px) {
-  .detailed-info-container-polygon {
-    padding-bottom: 150px;
-  }
 }
 .geometry-tool-button {
   margin-left: 8px;

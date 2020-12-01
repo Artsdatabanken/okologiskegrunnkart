@@ -47,12 +47,27 @@ class Leaflet extends React.Component {
 
     let map = L.map(this.mapEl, options);
     this.map = map;
+    map.clicked = 0;
 
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
+
+    // On map click, set marker
     map.on("click", e => {
-      this.handleClick(e);
+      map.clicked = map.clicked + 1;
+      setTimeout(() => {
+        if (map.clicked === 1) {
+          this.handleClick(e);
+          map.clicked = 0;
+        }
+      }, 300);
+    });
+
+    // On map double click, zoom in
+    map.on("dblclick", () => {
+      map.clicked = 0;
+      map.zoomIn();
     });
 
     map.on("zoomend", e => {
@@ -138,7 +153,7 @@ class Leaflet extends React.Component {
   }
 
   updateUrlWithCoordinates(lng, lat) {
-    // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
+    // Builds new URL with the coordinates
     this.props.handleUpdateChangeInUrl(false);
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";
@@ -684,17 +699,21 @@ class Leaflet extends React.Component {
   }
 
   goToSelectedZoomCoordinates = () => {
-    // Zooming av kart?
-    let new_bounds = [
-      [
-        this.props.zoomcoordinates.maxcoord[1],
-        this.props.zoomcoordinates.maxcoord[0]
-      ],
-      [
-        this.props.zoomcoordinates.mincoord[1],
-        this.props.zoomcoordinates.mincoord[0]
-      ]
-    ];
+    // Zooming av kart
+    let new_bounds;
+    let max1 = this.props.zoomcoordinates.maxcoord[1];
+    let max0 = this.props.zoomcoordinates.maxcoord[0];
+    let min1 = this.props.zoomcoordinates.mincoord[1];
+    let min0 = this.props.zoomcoordinates.mincoord[0];
+    // Formobile, the ceter needs to be moved up since
+    // the infobox takes the lower part of the screen
+    if (this.props.isMobile) {
+      const newMax1 = max1 - (max1 - min1) / 2;
+      const newMin1 = min1 - (max1 - min1) / 2;
+      new_bounds = [[newMax1, max0], [newMin1, min0]];
+    } else {
+      new_bounds = [[max1, max0], [min1, min0]];
+    }
     this.map.flyToBounds(new_bounds);
     this.props.handleRemoveZoomCoordinates();
   };
