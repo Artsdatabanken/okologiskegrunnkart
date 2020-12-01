@@ -115,6 +115,9 @@ class App extends React.Component {
     savedPolygons: []
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------------- SET UP KARTLAG ----------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   async lastNedKartlag() {
     // Run hard refresh the first time page is loaded
     if (!window.location.hash) {
@@ -301,6 +304,9 @@ class App extends React.Component {
     }
   }
 
+  // ------------------------------------------------------------------------------------- //
+  // -------------------------------- LIFECYCLE HOOKS ------------------------------------ //
+  // ------------------------------------------------------------------------------------- //
   async componentDidMount() {
     await this.lastNedKartlag();
     removeUnusedLayersIndexedDB(
@@ -341,6 +347,9 @@ class App extends React.Component {
     }
   }
 
+  // ------------------------------------------------------------------------------------- //
+  // ----------------------- ACTIONS RUN WITH UPDATE LIFECYCLE HOOK ---------------------- //
+  // ------------------------------------------------------------------------------------- //
   isFylke = prevState => {
     if (
       this.state.fylkeGeom !== prevState.fylkeGeom &&
@@ -446,229 +455,18 @@ class App extends React.Component {
     }
   };
 
-  render() {
-    const { history } = this.props;
-    const basiskart = this.state.bakgrunnskart;
-    return (
-      <SettingsContext.Consumer>
-        {context => {
-          return (
-            <AuthenticationContext.Consumer>
-              {token => {
-                return (
-                  <>
-                    {this.state.editLayersMode && (
-                      <KartlagSettings
-                        kartlag={this.state.completeKartlag}
-                        someLayersFavorite={this.state.someLayersFavorite}
-                        handleSomeLayersFavorite={this.handleSomeLayersFavorite}
-                        toggleEditLayers={this.toggleEditLayers}
-                        updateFavoriteLayers={this.updateFavoriteLayers}
-                        handleShowFavoriteLayers={this.handleShowFavoriteLayers}
-                        isMobile={this.state.isMobile}
-                      />
-                    )}
-                    <div
-                      className={
-                        this.state.editLayersMode ? "hidden-app-content" : ""
-                      }
-                    >
-                      <AppName
-                        showAppName={this.state.showAppName}
-                        closeAppName={this.closeAppName}
-                        showAboutModal={this.state.showAboutModal}
-                        handleAboutModal={this.handleAboutModal}
-                        aboutPage={this.state.aboutPage}
-                        showInfobox={this.state.showInfobox}
-                        isMobile={this.state.isMobile}
-                      />
-                      <Kart
-                        kartlag={this.state.kartlag}
-                        polygon={this.state.polygon}
-                        polyline={this.state.polyline}
-                        showPolygon={this.state.showPolygon}
-                        hideAndShowPolygon={this.hideAndShowPolygon}
-                        handleEditable={this.handleEditable}
-                        addPolygon={this.addPolygon}
-                        addPolyline={this.addPolyline}
-                        editable={this.state.editable}
-                        polygonResults={this.state.polygonResults}
-                        handlePolygonResults={this.handlePolygonResults}
-                        showMarker={this.state.showMarker}
-                        handleShowMarker={this.handleShowMarker}
-                        zoomcoordinates={this.state.zoomcoordinates}
-                        handleRemoveZoomCoordinates={
-                          this.handleRemoveZoomCoordinates
-                        }
-                        showExtensiveInfo={this.state.showExtensiveInfo}
-                        handleExtensiveInfo={this.handleExtensiveInfo}
-                        handleAlleLag={this.hentInfoAlleLag}
-                        handleValgteLag={this.hentInfoAlleValgteLag}
-                        zoom={this.state.zoom}
-                        handleZoomChange={this.handleZoomChange}
-                        aktiveLag={this.state.kartlag}
-                        bakgrunnskart={this.state.bakgrunnskart}
-                        history={history}
-                        sted={this.state.sted}
-                        adresse={this.state.adresse}
-                        matrikkel={this.state.matrikkel}
-                        handlePropertyGeom={this.handlePropertyGeom}
-                        elevation={this.state.elevation}
-                        layersResult={this.state.layersResult}
-                        allLayersResult={this.state.allLayersResult}
-                        valgteLag={this.state.valgteLag}
-                        token={token}
-                        loadingFeatures={this.state.loadingFeatures}
-                        showSideBar={this.state.showSideBar}
-                        showInfobox={this.state.showInfobox}
-                        handleInfobox={this.handleInfobox}
-                        showFullscreenInfobox={this.state.showFullscreenInfobox}
-                        handleFullscreenInfobox={this.handleFullscreenInfobox}
-                        isMobile={this.state.isMobile}
-                        infoboxDetailsVisible={this.state.infoboxDetailsVisible}
-                        setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
-                        setLayerInfoboxDetails={this.setLayerInfoboxDetails}
-                        onTileStatus={this.onTileStatus}
-                        sortKey={this.state.sortKey}
-                        tagFilter={this.state.tagFilter}
-                        matchAllFilters={this.state.matchAllFilters}
-                        lat={this.state.lat}
-                        lng={this.state.lng}
-                        resultat={this.state.resultat}
-                        fylkeGeom={this.state.fylkeGeom}
-                        showFylkeGeom={this.state.showFylkeGeom}
-                        handleFylkeGeom={this.handleFylkeGeom}
-                        kommuneGeom={this.state.kommuneGeom}
-                        showKommuneGeom={this.state.showKommuneGeom}
-                        eiendomGeom={this.state.eiendomGeom}
-                        showEiendomGeom={this.state.showEiendomGeom}
-                        handleKommuneGeom={this.handleKommuneGeom}
-                        grensePolygonGeom={this.state.grensePolygonGeom}
-                        grensePolygon={this.state.grensePolygon}
-                        handleGrensePolygon={this.handleGrensePolygon}
-                        fetchGrensePolygon={this.fetchGrensePolygon}
-                        removeGrensePolygon={this.removeGrensePolygon}
-                        showFylkePolygon={this.state.showFylkePolygon}
-                        showKommunePolygon={this.state.showKommunePolygon}
-                        showEiendomPolygon={this.state.showEiendomPolygon}
-                        grensePolygonData={this.state.grensePolygonData}
-                        showAppName={this.state.showAppName}
-                        legendVisible={this.state.legendVisible}
-                        setLegendVisible={this.setLegendVisible}
-                        legendPosition={this.state.legendPosition}
-                        handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
-                        uploadPolygonFile={this.uploadPolygonFile}
-                        showPolygonSaveModal={this.state.showPolygonSaveModal}
-                        handlePolygonSaveModal={this.handlePolygonSaveModal}
-                        savePolygon={this.savePolygon}
-                        polygonActionResult={this.state.polygonActionResult}
-                        closePolygonActionResult={this.closePolygonActionResult}
-                        changeInfoboxState={this.state.changeInfoboxState}
-                        handleChangeInfoboxState={this.handleChangeInfoboxState}
-                        showSavedPolygons={this.state.showSavedPolygons}
-                        savedPolygons={this.state.savedPolygons}
-                        getSavedPolygons={this.getSavedPolygons}
-                        handleShowSavedPolygons={this.handleShowSavedPolygons}
-                        openSavedPolygon={this.openSavedPolygon}
-                        deleteSavedPolygon={this.deleteSavedPolygon}
-                        updateSavedPolygon={this.updateSavedPolygon}
-                        handleSetBakgrunnskart={this.handleSetBakgrunnskart}
-                        aktivtFormat={basiskart.kart.aktivtFormat}
-                      />
-                      <SearchBar
-                        onSelectSearchResult={this.handleSelectSearchResult}
-                        searchResultPage={this.state.searchResultPage}
-                        handleGeoSelection={this.handleGeoSelection}
-                        kartlag={this.state.kartlag}
-                        addValgtLag={this.handleNavigateToKartlag}
-                        removeValgtLag={this.removeValgtLag}
-                        handleSetZoomCoordinates={this.handleSetZoomCoordinates}
-                        onUpdateLayerProp={this.handleKartlagLayerProp}
-                        toggleEditLayers={this.toggleEditLayers}
-                        showFavoriteLayers={this.state.showFavoriteLayers}
-                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
-                        isMobile={this.state.isMobile}
-                        windowHeight={this.state.windowHeight}
-                        showSideBar={this.state.showSideBar}
-                        handleSideBar={this.handleSideBar}
-                        handleInfobox={this.handleInfobox}
-                        handleFullscreenInfobox={this.handleFullscreenInfobox}
-                        loadingFeatures={this.state.loadingFeatures}
-                        handleAboutModal={this.handleAboutModal}
-                        uploadPolygonFile={this.uploadPolygonFile}
-                        getSavedPolygons={this.getSavedPolygons}
-                      />
-                      <KartlagFanen
-                        searchResultPage={this.state.searchResultPage}
-                        removeValgtLag={this.removeValgtLag}
-                        valgtLag={this.state.valgtLag}
-                        onUpdateLayerProp={this.handleKartlagLayerProp}
-                        changeVisibleSublayers={this.changeVisibleSublayers}
-                        kartlag={this.state.kartlag}
-                        showSideBar={this.state.showSideBar}
-                        handleSideBar={this.handleSideBar}
-                        sublayerDetailsVisible={
-                          this.state.sublayerDetailsVisible
-                        }
-                        setSublayerDetailsVisible={
-                          this.setSublayerDetailsVisible
-                        }
-                        legendVisible={this.state.legendVisible}
-                        setLegendVisible={this.setLegendVisible}
-                        legendPosition={this.state.legendPosition}
-                        handleLegendPosition={this.handleLegendPosition}
-                        updateIsMobile={this.updateIsMobile}
-                        updateWindowHeight={this.updateWindowHeight}
-                        handleSelectSearchResult={this.handleSelectSearchResult}
-                        handleSortKey={this.handleSortKey}
-                        handleTagFilter={this.handleTagFilter}
-                        handleMatchAllFilters={this.handleMatchAllFilters}
-                        showFavoriteLayers={this.state.showFavoriteLayers}
-                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
-                      />
-                    </div>
-                  </>
-                );
-              }}
-            </AuthenticationContext.Consumer>
-          );
-        }}
-      </SettingsContext.Consumer>
-    );
-  }
-
-  setSublayerDetailsVisible = visible => {
-    this.setState({ sublayerDetailsVisible: visible });
+  handleExtensiveInfo = showExtensiveInfo => {
+    // funksjonen som bestemmer om man søker eller ikke ved klikk
+    this.setState({ showExtensiveInfo: showExtensiveInfo });
   };
 
-  setInfoboxDetailsVisible = visible => {
-    this.setState({ infoboxDetailsVisible: visible });
+  handleSpraak = spraak => {
+    this.setState({ spraak: spraak });
   };
 
-  setLayerInfoboxDetails = layer => {
-    this.setState({ layerInfoboxDetails: layer });
-  };
-
-  setLegendVisible = visible => {
-    this.setState({ legendVisible: visible });
-    if (!visible) {
-      this.setState({ legendPosition: "right" });
-    }
-  };
-
-  handleLegendPosition = () => {
-    if (this.state.legendPosition === "right") {
-      this.setState({
-        showInfobox: true,
-        legendVisible: true,
-        legendPosition: "left"
-      });
-    }
-    if (this.state.legendPosition === "left") {
-      this.setState({ legendPosition: "right" });
-    }
-  };
-
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------------- FAVOURITE LAYERS --------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   toggleEditLayers = () => {
     this.setState({ editLayersMode: !this.state.editLayersMode });
   };
@@ -799,17 +597,43 @@ class App extends React.Component {
     return reducedLayers;
   };
 
-  handleExtensiveInfo = showExtensiveInfo => {
-    // funksjonen som bestemmer om man søker eller ikke ved klikk
-    this.setState({ showExtensiveInfo: showExtensiveInfo });
+  // Relevant for switching between all layers and favourite layers
+  changeVisibleSublayers = sublayersArray => {
+    let array;
+    if (this.state.showFavoriteLayers) {
+      array = [...this.state.visibleSublayersFavorites];
+    } else {
+      array = [...this.state.visibleSublayersComplete];
+    }
+
+    for (const sub of sublayersArray) {
+      if (sub.add) {
+        array.push({
+          layerKey: sub.layerKey,
+          sublayerKey: sub.sublayerKey,
+          propKeys: sub.propKeys
+        });
+      } else {
+        array = array.filter(
+          item =>
+            item.layerKey !== sub.layerKey ||
+            item.sublayerKey !== sub.sublayerKey
+        );
+      }
+    }
+
+    if (this.state.showFavoriteLayers) {
+      this.setState({ visibleSublayersFavorites: array });
+    } else {
+      this.setState({ visibleSublayersComplete: array });
+    }
   };
 
-  handleSpraak = spraak => {
-    this.setState({ spraak: spraak });
-  };
-
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------- SEARCH RESULT SELECTION -------------------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleNavigateToKartlag = (valgtLag, trefftype) => {
-    this.props.history.push("/kartlag/" + valgtLag.id.trim());
+    // this.props.history.push("/kartlag/" + valgtLag.id.trim());
     if (trefftype === "Underlag") {
       const id = valgtLag.id;
       const parentId = valgtLag.parentId;
@@ -824,46 +648,13 @@ class App extends React.Component {
     }
   };
 
-  addPolyline = polyline => {
-    this.setState({ polyline: polyline });
-  };
-
-  addPolygon = polygon => {
-    this.setState({ polygon: polygon });
-  };
-
-  hideAndShowPolygon = show => {
-    if (this.state.grensePolygon === "none") {
-      this.setState({ showPolygon: show });
-    } else if (this.state.grensePolygon === "fylke") {
-      this.setState({ showFylkePolygon: show });
-    } else if (this.state.grensePolygon === "kommune") {
-      this.setState({ showKommunePolygon: show });
-    } else if (this.state.grensePolygon === "eiendom") {
-      this.setState({ showEiendomPolygon: show });
-    }
-  };
-
-  handleEditable = editable => {
-    this.setState({ editable: editable });
-  };
-
-  handlePolygonResults = results => {
-    this.setState({ polygonResults: results });
-  };
-
-  handleShowMarker = showMarker => {
-    this.setState({ showMarker: showMarker });
-  };
-
-  removeValgtLag = () => {
-    this.setState({ valgtLag: null });
-  };
-
   handleSelectSearchResult = searchResultPage => {
     this.setState({ searchResultPage: searchResultPage });
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // -------------------- AUTOMATIC UPDATE OF MAP POSITION AND ZOOM ---------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleRemoveZoomCoordinates = () => {
     this.setState({ zoomcoordinates: null });
   };
@@ -946,6 +737,9 @@ class App extends React.Component {
     }
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // ------------------- DATA UPDATES AFTER COORDINATES SELECTION IN MAP ----------------- //
+  // ------------------------------------------------------------------------------------- //
   handleMapMarkerSearch = async (lng, lat, zoom) => {
     if (this.state.lat === lat && this.state.lng === lng) return;
     this.handleLatLng(lng, lat);
@@ -1101,6 +895,18 @@ class App extends React.Component {
     }
   };
 
+  handleHoydedata = (lng, lat) => {
+    // returnerer punkt søk
+    backend.hentHoydedata(lng, lat).then(hoydedata => {
+      if (hoydedata) {
+        this.setState({ elevation: hoydedata.elevation || null });
+      }
+    });
+  };
+
+  // ------------------------------------------------------------------------------------- //
+  // ------------- BORDER POLYGON UPDATES AFTER COORDINATES SELECTION IN MAP ------------- //
+  // ------------------------------------------------------------------------------------- //
   handleFylkeData = fylkeData => {
     const geom = fylkeData.geom;
     if (geom && geom.coordinates && geom.coordinates.length > 0) {
@@ -1273,15 +1079,9 @@ class App extends React.Component {
     }
   };
 
-  handleHoydedata = (lng, lat) => {
-    // returnerer punkt søk
-    backend.hentHoydedata(lng, lat).then(hoydedata => {
-      if (hoydedata) {
-        this.setState({ elevation: hoydedata.elevation || null });
-      }
-    });
-  };
-
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------- INFOBOX LAYER RESULTS UPDATE: MARKER ------------------------- //
+  // ------------------------------------------------------------------------------------- //
   handleOneLayerSearch = (lng, lat, zoom, layerkey, sublayerkey, value) => {
     let kartlag = { ...this.state.kartlag };
     let kartlagLayer = kartlag[layerkey];
@@ -1892,6 +1692,9 @@ class App extends React.Component {
     this.handleAllLayersSearch(lng, lat, zoom);
   };
 
+  // ------------------------------------------------------------------------------------- //
+  // ------------- LAYER UPDATE FROM KARTLAG PANEL, SEARCH BAR, OR FAVOURITES ------------ //
+  // ------------------------------------------------------------------------------------- //
   handleKartlagLayerProp = (layerkey, key, value, update = false) => {
     if (update) {
       // Only update getFeatureInfo
@@ -1944,35 +1747,38 @@ class App extends React.Component {
     });
   };
 
-  // Relevant for switching between all layers and favourite layers
-  changeVisibleSublayers = sublayersArray => {
-    let array;
-    if (this.state.showFavoriteLayers) {
-      array = [...this.state.visibleSublayersFavorites];
-    } else {
-      array = [...this.state.visibleSublayersComplete];
-    }
+  // ------------------------------------------------------------------------------------- //
+  // ---------------------------- SIMPLE STATE CHANGE ACTIONS ---------------------------- //
+  // ------------------------------------------------------------------------------------- //
+  setSublayerDetailsVisible = visible => {
+    this.setState({ sublayerDetailsVisible: visible });
+  };
 
-    for (const sub of sublayersArray) {
-      if (sub.add) {
-        array.push({
-          layerKey: sub.layerKey,
-          sublayerKey: sub.sublayerKey,
-          propKeys: sub.propKeys
-        });
-      } else {
-        array = array.filter(
-          item =>
-            item.layerKey !== sub.layerKey ||
-            item.sublayerKey !== sub.sublayerKey
-        );
-      }
-    }
+  setInfoboxDetailsVisible = visible => {
+    this.setState({ infoboxDetailsVisible: visible });
+  };
 
-    if (this.state.showFavoriteLayers) {
-      this.setState({ visibleSublayersFavorites: array });
-    } else {
-      this.setState({ visibleSublayersComplete: array });
+  setLayerInfoboxDetails = layer => {
+    this.setState({ layerInfoboxDetails: layer });
+  };
+
+  setLegendVisible = visible => {
+    this.setState({ legendVisible: visible });
+    if (!visible) {
+      this.setState({ legendPosition: "right" });
+    }
+  };
+
+  handleLegendPosition = () => {
+    if (this.state.legendPosition === "right") {
+      this.setState({
+        showInfobox: true,
+        legendVisible: true,
+        legendPosition: "left"
+      });
+    }
+    if (this.state.legendPosition === "left") {
+      this.setState({ legendPosition: "right" });
     }
   };
 
@@ -2083,6 +1889,45 @@ class App extends React.Component {
 
   handleUpdateChangeInUrl = value => {
     this.setState({ updateChangeInUrl: value });
+  };
+
+  // ------------------------------------------------------------------------------------- //
+  // --------------------------------- POLYGON ACTIONS ----------------------------------- //
+  // ------------------------------------------------------------------------------------- //
+  addPolyline = polyline => {
+    this.setState({ polyline: polyline });
+  };
+
+  addPolygon = polygon => {
+    this.setState({ polygon: polygon });
+  };
+
+  hideAndShowPolygon = show => {
+    if (this.state.grensePolygon === "none") {
+      this.setState({ showPolygon: show });
+    } else if (this.state.grensePolygon === "fylke") {
+      this.setState({ showFylkePolygon: show });
+    } else if (this.state.grensePolygon === "kommune") {
+      this.setState({ showKommunePolygon: show });
+    } else if (this.state.grensePolygon === "eiendom") {
+      this.setState({ showEiendomPolygon: show });
+    }
+  };
+
+  handleEditable = editable => {
+    this.setState({ editable: editable });
+  };
+
+  handlePolygonResults = results => {
+    this.setState({ polygonResults: results });
+  };
+
+  handleShowMarker = showMarker => {
+    this.setState({ showMarker: showMarker });
+  };
+
+  removeValgtLag = () => {
+    this.setState({ valgtLag: null });
   };
 
   uploadPolygonFile = (from = null) => {
@@ -2321,6 +2166,197 @@ class App extends React.Component {
       this.setState({ savedPolygons: polygons });
     });
   };
+
+  render() {
+    const { history } = this.props;
+    const basiskart = this.state.bakgrunnskart;
+    return (
+      <SettingsContext.Consumer>
+        {context => {
+          return (
+            <AuthenticationContext.Consumer>
+              {token => {
+                return (
+                  <>
+                    {this.state.editLayersMode && (
+                      <KartlagSettings
+                        kartlag={this.state.completeKartlag}
+                        someLayersFavorite={this.state.someLayersFavorite}
+                        handleSomeLayersFavorite={this.handleSomeLayersFavorite}
+                        toggleEditLayers={this.toggleEditLayers}
+                        updateFavoriteLayers={this.updateFavoriteLayers}
+                        handleShowFavoriteLayers={this.handleShowFavoriteLayers}
+                        isMobile={this.state.isMobile}
+                      />
+                    )}
+                    <div
+                      className={
+                        this.state.editLayersMode ? "hidden-app-content" : ""
+                      }
+                    >
+                      <AppName
+                        showAppName={this.state.showAppName}
+                        closeAppName={this.closeAppName}
+                        showAboutModal={this.state.showAboutModal}
+                        handleAboutModal={this.handleAboutModal}
+                        aboutPage={this.state.aboutPage}
+                        showInfobox={this.state.showInfobox}
+                        isMobile={this.state.isMobile}
+                      />
+                      <Kart
+                        kartlag={this.state.kartlag}
+                        polygon={this.state.polygon}
+                        polyline={this.state.polyline}
+                        showPolygon={this.state.showPolygon}
+                        hideAndShowPolygon={this.hideAndShowPolygon}
+                        handleEditable={this.handleEditable}
+                        addPolygon={this.addPolygon}
+                        addPolyline={this.addPolyline}
+                        editable={this.state.editable}
+                        polygonResults={this.state.polygonResults}
+                        handlePolygonResults={this.handlePolygonResults}
+                        showMarker={this.state.showMarker}
+                        handleShowMarker={this.handleShowMarker}
+                        zoomcoordinates={this.state.zoomcoordinates}
+                        handleRemoveZoomCoordinates={
+                          this.handleRemoveZoomCoordinates
+                        }
+                        showExtensiveInfo={this.state.showExtensiveInfo}
+                        handleExtensiveInfo={this.handleExtensiveInfo}
+                        handleAlleLag={this.hentInfoAlleLag}
+                        handleValgteLag={this.hentInfoAlleValgteLag}
+                        zoom={this.state.zoom}
+                        handleZoomChange={this.handleZoomChange}
+                        aktiveLag={this.state.kartlag}
+                        bakgrunnskart={this.state.bakgrunnskart}
+                        history={history}
+                        sted={this.state.sted}
+                        adresse={this.state.adresse}
+                        matrikkel={this.state.matrikkel}
+                        handlePropertyGeom={this.handlePropertyGeom}
+                        elevation={this.state.elevation}
+                        layersResult={this.state.layersResult}
+                        allLayersResult={this.state.allLayersResult}
+                        valgteLag={this.state.valgteLag}
+                        token={token}
+                        loadingFeatures={this.state.loadingFeatures}
+                        showSideBar={this.state.showSideBar}
+                        showInfobox={this.state.showInfobox}
+                        handleInfobox={this.handleInfobox}
+                        showFullscreenInfobox={this.state.showFullscreenInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
+                        isMobile={this.state.isMobile}
+                        infoboxDetailsVisible={this.state.infoboxDetailsVisible}
+                        setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
+                        setLayerInfoboxDetails={this.setLayerInfoboxDetails}
+                        onTileStatus={this.onTileStatus}
+                        sortKey={this.state.sortKey}
+                        tagFilter={this.state.tagFilter}
+                        matchAllFilters={this.state.matchAllFilters}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
+                        resultat={this.state.resultat}
+                        fylkeGeom={this.state.fylkeGeom}
+                        showFylkeGeom={this.state.showFylkeGeom}
+                        handleFylkeGeom={this.handleFylkeGeom}
+                        kommuneGeom={this.state.kommuneGeom}
+                        showKommuneGeom={this.state.showKommuneGeom}
+                        eiendomGeom={this.state.eiendomGeom}
+                        showEiendomGeom={this.state.showEiendomGeom}
+                        handleKommuneGeom={this.handleKommuneGeom}
+                        grensePolygonGeom={this.state.grensePolygonGeom}
+                        grensePolygon={this.state.grensePolygon}
+                        handleGrensePolygon={this.handleGrensePolygon}
+                        fetchGrensePolygon={this.fetchGrensePolygon}
+                        removeGrensePolygon={this.removeGrensePolygon}
+                        showFylkePolygon={this.state.showFylkePolygon}
+                        showKommunePolygon={this.state.showKommunePolygon}
+                        showEiendomPolygon={this.state.showEiendomPolygon}
+                        grensePolygonData={this.state.grensePolygonData}
+                        showAppName={this.state.showAppName}
+                        legendVisible={this.state.legendVisible}
+                        setLegendVisible={this.setLegendVisible}
+                        legendPosition={this.state.legendPosition}
+                        handleUpdateChangeInUrl={this.handleUpdateChangeInUrl}
+                        uploadPolygonFile={this.uploadPolygonFile}
+                        showPolygonSaveModal={this.state.showPolygonSaveModal}
+                        handlePolygonSaveModal={this.handlePolygonSaveModal}
+                        savePolygon={this.savePolygon}
+                        polygonActionResult={this.state.polygonActionResult}
+                        closePolygonActionResult={this.closePolygonActionResult}
+                        changeInfoboxState={this.state.changeInfoboxState}
+                        handleChangeInfoboxState={this.handleChangeInfoboxState}
+                        showSavedPolygons={this.state.showSavedPolygons}
+                        savedPolygons={this.state.savedPolygons}
+                        getSavedPolygons={this.getSavedPolygons}
+                        handleShowSavedPolygons={this.handleShowSavedPolygons}
+                        openSavedPolygon={this.openSavedPolygon}
+                        deleteSavedPolygon={this.deleteSavedPolygon}
+                        updateSavedPolygon={this.updateSavedPolygon}
+                        handleSetBakgrunnskart={this.handleSetBakgrunnskart}
+                        aktivtFormat={basiskart.kart.aktivtFormat}
+                      />
+                      <SearchBar
+                        onSelectSearchResult={this.handleSelectSearchResult}
+                        searchResultPage={this.state.searchResultPage}
+                        handleGeoSelection={this.handleGeoSelection}
+                        kartlag={this.state.kartlag}
+                        addValgtLag={this.handleNavigateToKartlag}
+                        removeValgtLag={this.removeValgtLag}
+                        handleSetZoomCoordinates={this.handleSetZoomCoordinates}
+                        onUpdateLayerProp={this.handleKartlagLayerProp}
+                        toggleEditLayers={this.toggleEditLayers}
+                        showFavoriteLayers={this.state.showFavoriteLayers}
+                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
+                        isMobile={this.state.isMobile}
+                        windowHeight={this.state.windowHeight}
+                        showSideBar={this.state.showSideBar}
+                        handleSideBar={this.handleSideBar}
+                        handleInfobox={this.handleInfobox}
+                        handleFullscreenInfobox={this.handleFullscreenInfobox}
+                        loadingFeatures={this.state.loadingFeatures}
+                        handleAboutModal={this.handleAboutModal}
+                        uploadPolygonFile={this.uploadPolygonFile}
+                        getSavedPolygons={this.getSavedPolygons}
+                      />
+                      <KartlagFanen
+                        searchResultPage={this.state.searchResultPage}
+                        removeValgtLag={this.removeValgtLag}
+                        valgtLag={this.state.valgtLag}
+                        onUpdateLayerProp={this.handleKartlagLayerProp}
+                        changeVisibleSublayers={this.changeVisibleSublayers}
+                        kartlag={this.state.kartlag}
+                        showSideBar={this.state.showSideBar}
+                        handleSideBar={this.handleSideBar}
+                        sublayerDetailsVisible={
+                          this.state.sublayerDetailsVisible
+                        }
+                        setSublayerDetailsVisible={
+                          this.setSublayerDetailsVisible
+                        }
+                        legendVisible={this.state.legendVisible}
+                        setLegendVisible={this.setLegendVisible}
+                        legendPosition={this.state.legendPosition}
+                        handleLegendPosition={this.handleLegendPosition}
+                        updateIsMobile={this.updateIsMobile}
+                        updateWindowHeight={this.updateWindowHeight}
+                        handleSelectSearchResult={this.handleSelectSearchResult}
+                        handleSortKey={this.handleSortKey}
+                        handleTagFilter={this.handleTagFilter}
+                        handleMatchAllFilters={this.handleMatchAllFilters}
+                        showFavoriteLayers={this.state.showFavoriteLayers}
+                        toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
+                      />
+                    </div>
+                  </>
+                );
+              }}
+            </AuthenticationContext.Consumer>
+          );
+        }}
+      </SettingsContext.Consumer>
+    );
+  }
 
   static contextType = SettingsContext;
 }
