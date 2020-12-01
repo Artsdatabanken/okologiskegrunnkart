@@ -94,7 +94,7 @@ BEGIN
 	FROM  (
       SELECT json_agg(REPLACE(kartleggingsenhetkode,'NA_','')) AS "type"
 	   FROM   import_nin.områder5k c
-	   LEFT   JOIN import_nin.kartl	eggingsenheter5k ct ON ct.område5kid = c.område5kid
+	   LEFT   JOIN import_nin.kartleggingsenheter5k ct ON ct.område5kid = c.område5kid
 	   WHERE  c.område5kid = områdekid
 	   GROUP  BY c.område5kid
 	   ) sub);
