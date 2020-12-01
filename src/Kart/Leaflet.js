@@ -337,6 +337,8 @@ class Leaflet extends React.Component {
   }
 
   activateMarker = () => {
+    this.props.setInfoboxDetailsVisible(false);
+    this.props.setPolygonDetailsVisible(false);
     this.setState({ markerType: "klikk" }, () => {
       if (this.props.showEiendomGeom) {
         this.drawPropertyGeom();
@@ -355,6 +357,8 @@ class Leaflet extends React.Component {
   };
 
   activatePolygon = () => {
+    this.props.setInfoboxDetailsVisible(false);
+    this.props.setPolygonDetailsVisible(false);
     this.setState({ markerType: "polygon" });
     this.props.handleShowMarker(false);
     this.props.handleInfobox(true);
@@ -871,6 +875,8 @@ class Leaflet extends React.Component {
           handlePolygonResults={this.props.handlePolygonResults}
           infoboxDetailsVisible={this.props.infoboxDetailsVisible}
           setInfoboxDetailsVisible={this.props.setInfoboxDetailsVisible}
+          polygonDetailsVisible={this.props.polygonDetailsVisible}
+          setPolygonDetailsVisible={this.props.setPolygonDetailsVisible}
           setLayerInfoboxDetails={this.props.setLayerInfoboxDetails}
           sortKey={this.props.sortKey}
           tagFilter={this.props.tagFilter}

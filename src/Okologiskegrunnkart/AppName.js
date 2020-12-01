@@ -63,7 +63,7 @@ const AppName = ({
           for (let i = 0; i < elements.length; i++) {
             if (links[i]) {
               elementsWithLinks.push(
-                <>
+                <span key={i}>
                   {elements[i]}
                   <a
                     key={i}
@@ -74,14 +74,14 @@ const AppName = ({
                   >
                     {linknames[i]}
                   </a>
-                </>
+                </span>
               );
             } else {
               elementsWithLinks.push(<>{elements[i]}</>);
             }
           }
           items.push(
-            <p key={index} className="help-text-line">
+            <p key={index + "-" + linknames[0]} className="help-text-line">
               {elementsWithLinks}
             </p>
           );

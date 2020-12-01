@@ -75,6 +75,7 @@ class App extends React.Component {
     expandedLayersComplete: [],
     sublayerDetailsVisible: false,
     infoboxDetailsVisible: false,
+    polygonDetailsVisible: false,
     layerInfoboxDetails: null,
     legendVisible: false,
     legendPosition: "right",
@@ -1758,6 +1759,10 @@ class App extends React.Component {
     this.setState({ infoboxDetailsVisible: visible });
   };
 
+  setPolygonDetailsVisible = visible => {
+    this.setState({ polygonDetailsVisible: visible });
+  };
+
   setLayerInfoboxDetails = layer => {
     this.setState({ layerInfoboxDetails: layer });
   };
@@ -2248,6 +2253,8 @@ class App extends React.Component {
                         isMobile={this.state.isMobile}
                         infoboxDetailsVisible={this.state.infoboxDetailsVisible}
                         setInfoboxDetailsVisible={this.setInfoboxDetailsVisible}
+                        polygonDetailsVisible={this.state.polygonDetailsVisible}
+                        setPolygonDetailsVisible={this.setPolygonDetailsVisible}
                         setLayerInfoboxDetails={this.setLayerInfoboxDetails}
                         onTileStatus={this.onTileStatus}
                         sortKey={this.state.sortKey}

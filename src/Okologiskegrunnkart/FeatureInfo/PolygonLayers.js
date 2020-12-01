@@ -142,12 +142,26 @@ const PolygonLayers = ({
           };
         });
       }
-      if (code === "ANF") {
+      if (code === "NIN") {
         sorted = sorted.map(item => {
+          let name = item.navn;
+          name = name ? name.charAt(0).toUpperCase() + name.slice(1) : "N/A";
           return {
             ...item,
-            navn: item.kode,
-            kode: ""
+            navn: name,
+            kode: null,
+            beskrivelse: getTextAreaReport("NIN", item.kode, "code")
+          };
+        });
+      }
+      if (code === "ANF") {
+        sorted = sorted.map(item => {
+          let name = item.navn;
+          name = name ? name.charAt(0).toUpperCase() + name.slice(1) : "N/A";
+          return {
+            ...item,
+            navn: name,
+            kode: item.kode
             // beskrivelse: getTextAreaReport("ANF", item.kode, "description")
           };
         });
@@ -331,7 +345,7 @@ const PolygonLayers = ({
                     {layer.name}
                   </div>
                   <Checkbox
-                    id="select-layers-checkbox"
+                    id={`select-layers-checkbox-${layer.code.toLowerCase()}`}
                     checked={layer.selected}
                     onChange={e => handleChange(e, layer.name)}
                     color="default"
