@@ -54,18 +54,20 @@ class Leaflet extends React.Component {
     L.CRS.EPSG900913.code = "EPSG:900913";
 
     // On map click, set marker
+    let timer = null;
     map.on("click", e => {
       map.clicked = map.clicked + 1;
-      setTimeout(() => {
-        if (map.clicked === 1) {
+      if (map.clicked === 1) {
+        timer = setTimeout(() => {
           this.handleClick(e);
           map.clicked = 0;
-        }
-      }, 300);
+        }, 300);
+      }
     });
 
     // On map double click, zoom in
     map.on("dblclick", () => {
+      clearTimeout(timer);
       map.clicked = 0;
       map.zoomIn();
     });
@@ -508,6 +510,21 @@ class Leaflet extends React.Component {
   };
 
   clickMarkerInfobox = () => {
+    if (this.state.markerType === "polygon") return;
+    const width = window.innerWidth;
+    if (width > 768) {
+      this.props.handleInfobox(!this.props.showInfobox);
+    } else {
+      if (this.props.showInfobox) {
+        this.props.handleFullscreenInfobox(true);
+      } else {
+        this.props.handleInfobox(!this.props.showInfobox);
+      }
+    }
+  };
+
+  clickPolygonInfobox = () => {
+    if (this.state.markerType === "klikk") return;
     const width = window.innerWidth;
     if (width > 768) {
       this.props.handleInfobox(!this.props.showInfobox);
@@ -782,7 +799,7 @@ class Leaflet extends React.Component {
           lineJoin: "round"
         })
           .addTo(this.map)
-          .on("click", () => this.clickMarkerInfobox());
+          .on("click", () => this.clickPolygonInfobox());
       }
     }
   };

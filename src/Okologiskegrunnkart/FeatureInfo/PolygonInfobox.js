@@ -55,13 +55,13 @@ const availableLayers = [
     icon: "Arter",
     owner: "Miljødirektoratet"
   },
-  // {
-  //   name: "Breer i Norge",
-  //   selected: false,
-  //   code: "BRE",
-  //   icon: "Geologi",
-  //   owner: "Norges vassdrags- og energidirektorat"
-  // },
+  {
+    name: "Breer i Norge",
+    selected: false,
+    code: "BRE",
+    icon: "Geologi",
+    owner: "Norges vassdrags- og energidirektorat"
+  },
   // {
   //   name: "Elvenett Elvis",
   //   selected: false,
@@ -70,14 +70,21 @@ const availableLayers = [
   //   owner: "Norges vassdrags- og energidirektorat"
   // },
   {
-    name: "Naturtype - DN Håndbook 13",
+    name: "Naturtyper - DN Håndbook 13",
     selected: false,
     code: "N13",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
   },
   {
-    name: "Naturtype - NiN Mdir",
+    name: "Naturtyper - DN Håndbook 19",
+    selected: false,
+    code: "NMA",
+    icon: "Naturtyper",
+    owner: "Miljødirektoratet"
+  },
+  {
+    name: "Naturtyper - NiN Mdir",
     selected: false,
     code: "NIN",
     icon: "Naturtyper",
@@ -103,7 +110,7 @@ const availableLayers = [
     code: "MAG",
     icon: "Ferskvann",
     owner: "Miljødirektoratet"
-  }
+  },
   // {
   //   name: "Flomsoner",
   //   selected: false,
@@ -111,13 +118,13 @@ const availableLayers = [
   //   icon: "Ferskvann",
   //   owner: "Norges vassdrags- og energidirektorat"
   // }
-  // {
-  //   name: "Verneplan for Vassdrag",
-  //   selected: false,
-  //   code: "VVS",
-  //   icon: "Ferskvann",
-  //   owner: "Norges vassdrags- og energidirektorat"
-  // }
+  {
+    name: "Verneplan for Vassdrag",
+    selected: false,
+    code: "VVS",
+    icon: "Ferskvann",
+    owner: "Norges vassdrags- og energidirektorat"
+  }
 ];
 
 const resultsOrder = availableLayers.map(item => item.code);
