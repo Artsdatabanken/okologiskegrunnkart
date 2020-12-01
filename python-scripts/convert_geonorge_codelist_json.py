@@ -30,18 +30,33 @@ with open(csvFilePath, encoding='utf-8-sig') as csvf:
         # print(rows)
             
         # Modify elements
-        key = rows['Initial value']
-        rows['code'] = rows['Code']
-        name = rows['Code']
-        rows['initial_value'] = rows['Initial value']
-        rows['description'] = rows['Description']
-        rows['name_english'] = rows['Name english']
-        rows['description_english'] = rows['Description english']
-        del rows['Code']
-        del rows['Initial value']
-        del rows['Description']
-        del rows['Name english']
-        del rows['Description english']
+        # Norwegian
+        key = rows['Initialverdi']
+        rows['code'] = rows['Kode']
+        name = rows['Kode']
+        rows['initial_value'] = rows['Initialverdi']
+        rows['description'] = rows['Beskrivelse']
+        rows['name_english'] = rows['Navn engelsk']
+        rows['description_english'] = rows['Beskrivelse engelsk']
+        del rows['Kode']
+        del rows['Initialverdi']
+        del rows['Beskrivelse']
+        del rows['Navn engelsk']
+        del rows['Beskrivelse engelsk']
+        
+        # # English
+        # key = rows['Initial value']
+        # rows['code'] = rows['Code']
+        # name = rows['Code']
+        # rows['initial_value'] = rows['Initial value']
+        # rows['description'] = rows['Description']
+        # rows['name_english'] = rows['Name english']
+        # rows['description_english'] = rows['Description english']
+        # del rows['Code']
+        # del rows['Initial value']
+        # del rows['Description']
+        # del rows['Name english']
+        # del rows['Description english']
 
         # Improve name's readibility
         new_list = []
