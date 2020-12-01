@@ -1018,6 +1018,125 @@ const reports = {
       name: "Åpen kalkmark i oslofeltet"
     }
   },
+  NMA: {
+    I15: {
+      code: "andreViktigeMarineNaturtyper",
+      initial_value: "I15",
+      description:
+        'C - Områder som vurderes som viktige på lokalt nivå marine naturtyper Marine områder av betydning for kommunen Tidligere stavemåte; "Andre viktige forekomster", en forekomst overført til BN',
+      name_english: "",
+      description_english: "",
+      name: "Andre viktige marine naturtyper"
+    },
+    I08: {
+      code: "bløtbunnsområderIStrandsonen",
+      initial_value: "I08",
+      description:
+        " A - Større strandflater (> 500 000 m2) som er næringsområde for bestander av overvintrende og trekkende vadefugler. B - Større strandflater (> 200 000 m2) som er næringsområde for stedegne fugler (vadefugler, andefugler) og fisk (kutlinger, flyndrer). ",
+      name_english: "",
+      description_english: "",
+      name: "Bløtbunnsområder i strandsonen"
+    },
+    I03: {
+      code: "fjorderMedNaturligLavtOksygeninnholdIBunnvannet",
+      initial_value: "I03",
+      description:
+        "A - Fjordområder med permanent naturlig lavt oksygeninnhold i bunnvann (<2 ml/l) B - Fjorder der bunnvannet tidvis har naturlig lavt oksygeninnhold",
+      name_english: "",
+      description_english: "",
+      name: "Fjorder med naturlig lavt oksygeninnhold i bunnvannet"
+    },
+    I06: {
+      code: "litoralbasseng",
+      initial_value: "I06",
+      description:
+        'A – Store, urørte litoralbasseng (>10 m2). Feil stavemåte; "Littoralbasseng" brukt tidligere',
+      name_english: "",
+      description_english: "",
+      name: "Litoralbasseng"
+    },
+    I10: {
+      code: "løstliggendeKalkalger",
+      initial_value: "I10",
+      description:
+        'A – Store forekomster av løstliggende kalkalger (mergelbunner). Alle forekomster av ”ekte” mergelarter (sjeldne). B– enkeltfunn/mindre forekomster av løstliggende kalkalger Tidligere stavemåte; "Kalkalgeforekomster"',
+      name_english: "",
+      description_english: "",
+      name: "Løstliggende kalkalger"
+    },
+    I05: {
+      code: "poller",
+      initial_value: "I05",
+      description:
+        "A - Poller som er lite påvirket eller upåvirket av menneskelig aktivitet, som er større enn ~200 000 m2 og/eller har spesielle arter. B – Andre poller som er lite påvirket eller upåvirket av menneskelig aktivitet. Alle G08-utforminger flyttet hit (10.01.2020)",
+      name_english: "",
+      description_english: "",
+      name: "Poller"
+    },
+    I12: {
+      code: "skjellsandforekomster",
+      initial_value: "I12",
+      description:
+        'A - Større sammenhengende forekomster (> 100 000 m2) av ren skjellsand på grunt vann ned til ca. 10 m dyp, ofte med spredt bevoksning av tare B - Større forekomster av ren skjellsand (> 100 000 m2). I Skagerrak regnes alle forekomster større enn ca. 20 000 m2 som viktige. Tidligere stavemåte; "Skjellsand"',
+      name_english: "",
+      description_english: "",
+      name: "Skjellsandforekomster"
+    },
+    I04: {
+      code: "spesieltDypeFjordområder",
+      initial_value: "I04",
+      description:
+        "A - Fjordområder med dyp > 700 m B - Fjordområder med dyp i intervallet 500-700 m",
+      name_english: "",
+      description_english: "",
+      name: "Spesielt dype fjordområder"
+    },
+    I02: {
+      code: "sterkeTidevannsstrømmer",
+      initial_value: "I02",
+      description:
+        "A - De sterkeste strømmene, dvs strømhastighet over 10 knop eller lengden på området er >500m. B - Alle strømmer over ca. 5 knop Alle G01 utforminger overført hit (10.01.2020)",
+      name_english: "",
+      description_english: "",
+      name: "Sterke tidevannsstrømmer"
+    },
+    I14: {
+      code: "størreKamskjellforekomster",
+      initial_value: "I14",
+      description:
+        "A - Store områder i arealskala 100 km2, dominert av sandbunnhabitater forekomster hvor bestander med stort kamskjell forekommer i høye tettheter og med bred alderssammensetning. Store arealer (10-50 km2), med sand-, stein- og grusbunn hvor bestander med haneskjell forekommer i høye tettheter og med bred alderssammensetning. Fjordlokaliteter hvor relikte haneskjell i store tettheter forekommer. B - Områder i arealskala 10-50 km2, dominert av sandbunn hvor bestander med stort kamskjell forekommer i høye tettheter og med bred alderssammensetning. Områder i arealskala 1 km2, med sand-, stein og grusbunn hvor bestander med haneskjell forekommer i høye tettheter og med bred alderssammensetning.",
+      name_english: "",
+      description_english: "",
+      name: "Større kamskjellforekomster"
+    },
+    I01: {
+      code: "størreTareskogforekomster",
+      initial_value: "I01",
+      description:
+        "A – Lokaliteter med store, intakte tareskogområder (>500 000 m2). I Skagerrak regnes alle større tareskogsområder som svært viktige selv om utbredelsen er mindre enn 100 000 m2. B – Mindre områder med tareskog (~100 000 m2). Tareskog i nedbeita områder.",
+      name_english: "",
+      description_english: "",
+      name: "Større tareskogforekomster"
+    },
+    I13: {
+      code: "østersforekomster",
+      initial_value: "I13",
+      description:
+        "A - Poller og terskelfjorder med god forekomst (0,5 - 4 ind/m2) av østers med stor aldersspredning og tydelig gjentatt rekruttering. Forekomst av gamle (>12 cm skallbredde) levende individer. Gjelder økoregionene Skagerrak og Nordsjøen (til 62°N) B - Økoregionene Skagerrak og Nordsjøen: Større områder (>1000 m2) med god forekomst (0,5 - 4 ind/m2) av østers med flere årsklasser. Østersbanker (>10 ind/m2) i områder større enn 1000 m2. Poller eller fjorder som gir hyppig gytesuksess under nåværende klimatiske forhold.  Økoregion Norskehavet (62-70°N): Poller, bukter og fjorder med forekomst av levende østers av flere årsklasser.",
+      name_english: "",
+      description_english: "",
+      name: "Østersforekomster"
+    },
+    I11: {
+      code: "ålegrasengerOgAndreUndervannsenger",
+      initial_value: "I11",
+      description:
+        'A – Større upåvirkede komplekser av undervannsenger (> 100.000 m2) og alle forekomster av akutt truete utforminger som Dvergålegras, Havfrugras og Kortskuddplante-under-vannseng/forstrand-utforminger. B - Ålegrasenger nær kjente gyteplasser samt mindre undervannsenger ( < 100.000 m2). Alle G02 utforminger er overført hit (10.01.2020) Tidligere stavemåte; "Ålegrassamfunn"',
+      name_english: "",
+      description_english: "",
+      name: "Ålegrasenger og andre undervannsenger"
+    }
+  },
   MAG: {
     OA: { code: "Innsjø oppdemt til andre formål" },
     OK: { code: "Innsjø oppdemt til kraftproduksjon" },
