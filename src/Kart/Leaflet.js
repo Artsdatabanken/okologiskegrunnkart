@@ -70,6 +70,10 @@ class Leaflet extends React.Component {
       clearTimeout(timer);
       map.clicked = 0;
       map.zoomIn();
+      // Make sure timeout is deleted
+      setTimeout(() => {
+        clearTimeout(timer);
+      }, 50);
     });
 
     map.on("zoomend", e => {
