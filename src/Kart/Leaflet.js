@@ -684,17 +684,21 @@ class Leaflet extends React.Component {
   }
 
   goToSelectedZoomCoordinates = () => {
-    // Zooming av kart?
-    let new_bounds = [
-      [
-        this.props.zoomcoordinates.maxcoord[1],
-        this.props.zoomcoordinates.maxcoord[0]
-      ],
-      [
-        this.props.zoomcoordinates.mincoord[1],
-        this.props.zoomcoordinates.mincoord[0]
-      ]
-    ];
+    // Zooming av kart
+    let new_bounds;
+    let max1 = this.props.zoomcoordinates.maxcoord[1];
+    let max0 = this.props.zoomcoordinates.maxcoord[0];
+    let min1 = this.props.zoomcoordinates.mincoord[1];
+    let min0 = this.props.zoomcoordinates.mincoord[0];
+    // Formobile, the ceter needs to be moved up since
+    // the infobox takes the lower part of the screen
+    if (this.props.isMobile) {
+      const newMax1 = max1 - (max1 - min1) / 2;
+      const newMin1 = min1 - (max1 - min1) / 2;
+      new_bounds = [[newMax1, max0], [newMin1, min0]];
+    } else {
+      new_bounds = [[max1, max0], [min1, min0]];
+    }
     this.map.flyToBounds(new_bounds);
     this.props.handleRemoveZoomCoordinates();
   };
