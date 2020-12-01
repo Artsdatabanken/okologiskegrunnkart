@@ -606,18 +606,52 @@ class SearchBar extends React.Component {
     }
   };
 
+  getSearchbarContainerClass = () => {
+    if (this.props.isMobile && this.props.searchResultPage) {
+      return "searchbar_container_results";
+    } else if (
+      !this.props.isMobile &&
+      !this.props.searchResultPage &&
+      !this.props.showSideBar
+    ) {
+      return "searchbar_container floating";
+    } else {
+      return "searchbar_container";
+    }
+  };
+
+  getSearchbarClass = () => {
+    if (
+      !this.props.isMobile &&
+      !this.props.searchResultPage &&
+      !this.props.showSideBar
+    ) {
+      return "searchbar floating";
+    } else {
+      return "searchbar";
+    }
+  };
+
+  getHelpButtonClass = () => {
+    if (
+      !this.props.isMobile &&
+      !this.props.searchResultPage &&
+      !this.props.showSideBar
+    ) {
+      return "help_button floating";
+    } else {
+      return "help_button";
+    }
+  };
+
   render() {
     return (
       <>
         <div
-          className={
-            this.props.isMobile && this.props.searchResultPage
-              ? "searchbar_container_results"
-              : "searchbar_container"
-          }
+          className={this.getSearchbarContainerClass()}
           ref={this.setWrapperRef}
         >
-          <div className="searchbar">
+          <div className={this.getSearchbarClass()}>
             <input
               className="searchbarfield"
               id="searchfield"
@@ -710,7 +744,7 @@ class SearchBar extends React.Component {
           )}
 
           <button
-            className="help_button"
+            className={this.getHelpButtonClass()}
             tabIndex="0"
             onClick={() => {
               if (!this.props.loadingFeatures) {
