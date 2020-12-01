@@ -47,12 +47,28 @@ class Leaflet extends React.Component {
 
     let map = L.map(this.mapEl, options);
     this.map = map;
+    map.clicked = 0;
 
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
+
+    // On map click, set marker
     map.on("click", e => {
-      this.handleClick(e);
+      map.clicked = map.clicked + 1;
+      console.log("map", map);
+      setTimeout(() => {
+        if (map.clicked === 1) {
+          this.handleClick(e);
+          map.clicked = 0;
+        }
+      }, 300);
+    });
+
+    // On map double click, zoom in
+    map.on("dblclick", () => {
+      map.clicked = 0;
+      map.zoomIn();
     });
 
     map.on("zoomend", e => {
