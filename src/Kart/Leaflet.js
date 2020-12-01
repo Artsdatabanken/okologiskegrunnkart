@@ -138,7 +138,7 @@ class Leaflet extends React.Component {
   }
 
   updateUrlWithCoordinates(lng, lat) {
-    // Bygger ny url, ikke egentlig i bruk på dette tidspunkt, men vil bli etter hvert
+    // Builds new URL with the coordinates
     this.props.handleUpdateChangeInUrl(false);
     let urlparams = (this.props.path || "").split("?");
     let newurlstring = "";

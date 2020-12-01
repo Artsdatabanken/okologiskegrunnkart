@@ -704,6 +704,18 @@ class App extends React.Component {
     if (maxcoord) this.setState({ maxcoord });
     if (mincoord) this.setState({ mincoord });
 
+    // Update URL wih the coordinates
+    this.handleUpdateChangeInUrl(false);
+    let urlparams = (this.props.path || "").split("?");
+    let newurlstring = "";
+    for (let i in urlparams) {
+      if (!urlparams[i].includes("lng") && urlparams[i] !== "") {
+        newurlstring += "?" + urlparams[i];
+      }
+    }
+    this.props.history.push("?lng=" + lng + "&lat=" + lat + newurlstring);
+    this.handleUpdateChangeInUrl(true);
+
     // Update coordinates and infobox
     if (lng && lat) {
       this.handleInfobox(true);
