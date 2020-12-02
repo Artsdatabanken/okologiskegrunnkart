@@ -123,6 +123,19 @@ const PolygonLayers = ({
           };
         });
       }
+      if (code === "BRE") {
+        sorted = sorted.map(item => {
+          let name =
+            item.navn === "" || item.navn === " " || item.navn === "null"
+              ? null
+              : item.navn;
+          return {
+            ...item,
+            navn: name,
+            kode: item.kode
+          };
+        });
+      }
       if (code === "N13") {
         sorted = sorted.map(item => {
           // NOTE: A08 has been moved to A11, but data still returns A08
