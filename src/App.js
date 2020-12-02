@@ -1195,6 +1195,9 @@ class App extends React.Component {
       this.setState({ layersResult });
       return;
     }
+    if (!layer) {
+      return;
+    }
     const wmsinfoformat = layer.wmsinfoformat;
     const dataeier = layer.dataeier;
     const tema = layer.tema;
