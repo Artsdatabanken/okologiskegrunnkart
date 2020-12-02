@@ -462,7 +462,7 @@ const PolygonInfobox = ({
           {polygon && (loadingFeatures || polygonResults) && (
             <div className="detailed-info-container-polygon">
               <div className="layer-results-side">
-                <ListItem id="layer-results-header">
+                <ListItem id="polygon-results-header">
                   <ListItemIcon>
                     <CustomIcon
                       icon="layers"

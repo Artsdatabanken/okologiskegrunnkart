@@ -14,10 +14,10 @@ const PolygonElement = ({
 
   const resultJSON = JSON.stringify(result);
 
-  const iconSize = icon => {
-    if (icon && ["terrain", "flag"].includes(icon))
-      return { size: 28, padding: 1 };
-    return { size: 30, padding: 0 };
+  const isLargeIcon = tema => {
+    return ["Arealressurs", "Arter", "Klima", "Skog", "Landskap"].includes(
+      tema
+    );
   };
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const PolygonElement = ({
     <div className="generic_element">
       <ListItem
         id="polygon-element-list"
-        button={numberResults > 0 ? true : false}
+        button={numberResults > 0}
         divider
         onClick={e => {
           e.preventDefault();
@@ -63,8 +63,8 @@ const PolygonElement = ({
             <CustomIcon
               id="infobox-list-icon"
               icon={polygonLayer.icon}
-              size={iconSize(polygonLayer.icon).size || 30}
-              padding={iconSize(polygonLayer.icon).padding || 0}
+              size={isLargeIcon(polygonLayer.icon) ? 30 : 26}
+              padding={isLargeIcon(polygonLayer.icon) ? 0 : 2}
               color={"#777"}
             />
           </Badge>
@@ -79,6 +79,17 @@ const PolygonElement = ({
           </div>
           <div className="generic-element-data-owner">{polygonLayer.owner}</div>
         </div>
+        <ListItemIcon id="open-details-icon">
+          {numberResults > 0 && (
+            <CustomIcon
+              id="open-details"
+              icon="chevron-right"
+              size={20}
+              padding={0}
+              color="#666"
+            />
+          )}
+        </ListItemIcon>
       </ListItem>
     </div>
   );

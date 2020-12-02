@@ -1198,6 +1198,17 @@ class App extends React.Component {
     if (!layer) {
       return;
     }
+    if (layer && layer.queryable === false) {
+      layersResult[layerkey] = {
+        queryable: false,
+        dataeier: layer.dataeier,
+        tema: layer.tema,
+        tags: layer.tags,
+        id: layer.id
+      };
+      this.setState({ layersResult });
+      return;
+    }
     const wmsinfoformat = layer.wmsinfoformat;
     const dataeier = layer.dataeier;
     const tema = layer.tema;
@@ -1348,7 +1359,18 @@ class App extends React.Component {
       const tema = looplist[key].tema;
       const tags = looplist[key].tags;
       const id = looplist[key].id;
-      if (
+      if (looplist[key].queryable === false) {
+        // None of the sublayers are queryable
+        const layer = looplist[key];
+        layersResult[key] = {
+          queryable: false,
+          dataeier: layer.dataeier,
+          tema: layer.tema,
+          tags: layer.tags,
+          id: layer.id,
+          loading: false
+        };
+      } else if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
@@ -1400,12 +1422,13 @@ class App extends React.Component {
     Object.keys(layersResult).forEach(key => {
       const layer = looplist[key];
       const wmsinfoformat = layersResult[key].wmsinfoformat;
-
+      if (layersResult[key].queryable === false) return;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
         // Use GetFeatureInfo with list of sublayers per layer
+        // with list of sublayers
         if (!layersResult[key].loading) {
           finishedFeaturesSearch += 1;
           this.setState({ layersResult });
@@ -1526,7 +1549,18 @@ class App extends React.Component {
       const tema = looplist[key].tema;
       const tags = looplist[key].tags;
       const id = looplist[key].id;
-      if (
+      if (looplist[key].queryable === false) {
+        // None of the sublayers are queryable
+        const layer = looplist[key];
+        allLayersResult[key] = {
+          queryable: false,
+          dataeier: layer.dataeier,
+          tema: layer.tema,
+          tags: layer.tags,
+          id: layer.id,
+          loading: false
+        };
+      } else if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
@@ -1596,10 +1630,13 @@ class App extends React.Component {
       const layer = looplist[key];
       const wmsinfoformat = allLayersResult[key].wmsinfoformat;
 
+      if (allLayersResult[key].queryable === false) return;
       if (
         wmsinfoformat === "application/vnd.ogc.gml" ||
         wmsinfoformat === "application/vnd.esri.wms_raw_xml"
       ) {
+        // Use GetFeatureInfo with list of sublayers per layer
+        // with list of sublayers
         if (!allLayersResult[key].loading) {
           finishedFeaturesSearch += 1;
           this.setState({ allLayersResult });
@@ -1641,6 +1678,7 @@ class App extends React.Component {
             }
           });
       } else {
+        // Use GetFeatureInfo per sublayer
         if (!allLayersResult[key].underlag) return;
         Object.keys(allLayersResult[key].underlag).forEach(subkey => {
           if (!allLayersResult[key].underlag[subkey].loading) {

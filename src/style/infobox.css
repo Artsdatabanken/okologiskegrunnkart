@@ -827,6 +827,20 @@ h4.container_header {
 .detailed-info-container-polygon {
   background-color: #eee;
 }
+#polygon-results-header {
+  border-top: 3px solid grey;
+  border-bottom: 1px solid grey;
+}
+#polygon-results-header.MuiListItem-root {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+#polygon-results-header.MuiListItem-gutters {
+  padding-left: 12px;
+}
+#polygon-results-header .MuiListItemIcon-root {
+  min-width: 56px;
+}
 .geometry-tool-button {
   margin-left: 8px;
 }
@@ -936,6 +950,7 @@ h4.container_header {
 #polygon-element-list.MuiListItem-root {
   padding-top: 2px;
   padding-bottom: 2px;
+  padding-right: 2px;
 }
 @media only screen and (max-width: 768px) {
   #polygon-element-list.MuiListItem-root {
