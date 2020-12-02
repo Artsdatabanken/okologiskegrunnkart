@@ -287,19 +287,21 @@ const GeneriskElement = ({
       {primaryTextHeader.elementer && (
         <ListItem
           id="generic-element-list"
-          button
+          button={numberResults > 0}
           divider
           onClick={e => {
             e.preventDefault();
             e.stopPropagation();
-            showDetailedResults(
-              layer,
-              listResults,
-              primaryText,
-              secondaryText,
-              numberResults,
-              faktaark_url
-            );
+            if (numberResults > 0) {
+              showDetailedResults(
+                layer,
+                listResults,
+                primaryText,
+                secondaryText,
+                numberResults,
+                faktaark_url
+              );
+            }
           }}
         >
           <ListItemIcon className="infobox-list-icon-wrapper">
@@ -343,13 +345,15 @@ const GeneriskElement = ({
             <div className="generic-element-data-owner">{layer.dataeier}</div>
           </div>
           <ListItemIcon id="open-details-icon">
-            <CustomIcon
-              id="open-details"
-              icon="chevron-right"
-              size={20}
-              padding={0}
-              color="#666"
-            />
+            {numberResults > 0 && (
+              <CustomIcon
+                id="open-details"
+                icon="chevron-right"
+                size={20}
+                padding={0}
+                color="#666"
+              />
+            )}
           </ListItemIcon>
         </ListItem>
       )}
