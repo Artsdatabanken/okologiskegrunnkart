@@ -42,7 +42,7 @@ const availableLayers = [
     owner: "Kartverket"
   },
   {
-    name: "Matrikkel",
+    name: "Eiendommer",
     selected: false,
     code: "MAT",
     icon: "home",

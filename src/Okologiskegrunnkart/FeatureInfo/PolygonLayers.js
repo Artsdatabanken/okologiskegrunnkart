@@ -422,7 +422,7 @@ const PolygonLayers = ({
                   color="#697f8a"
                 />
                 <span className="polygon-report-warning-text">
-                  Matrikkel rapport kan gi veldig mange resultater for store
+                  Eiendommer rapport kan gi veldig mange resultater for store
                   arealer
                 </span>
               </div>
