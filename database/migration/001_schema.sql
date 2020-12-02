@@ -13,3 +13,5 @@ CREATE TABLE public.kart (
 CREATE INDEX geometries_geom_idx
   ON public.kart
   USING GIST (geom);
+
+CREATE INDEX kart_datasett ON kart (datasettkode);

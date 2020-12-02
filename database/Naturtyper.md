@@ -87,8 +87,8 @@ LANGUAGE PLPGSQL;
 
 ```sql
 DROP FUNCTION import_nin.naturtype_5k_json(naturtype_id varchar);
-CREATE OR REPLACE FUNCTION import_nin.naturtype_5k_json(områdekid varchar)
-RETURNS json AS $$
+CREATE OR REPLACE FUNCTION .naturtype_5k_json(områdekid varchar)
+RETURNS json AS $$import_nin
 BEGIN
 	RETURN (SELECT to_json(sub)
 	FROM  (
@@ -176,6 +176,7 @@ BEGIN
 	   ) sub);
 END; $$
 LANGUAGE PLPGSQL;
+
 ```
 
 ```sql
