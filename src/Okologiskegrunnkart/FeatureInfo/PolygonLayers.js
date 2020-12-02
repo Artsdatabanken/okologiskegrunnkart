@@ -123,6 +123,19 @@ const PolygonLayers = ({
           };
         });
       }
+      if (code === "BRE") {
+        sorted = sorted.map(item => {
+          let name =
+            item.navn === "" || item.navn === " " || item.navn === "null"
+              ? null
+              : item.navn;
+          return {
+            ...item,
+            navn: name,
+            kode: item.kode
+          };
+        });
+      }
       if (code === "N13") {
         sorted = sorted.map(item => {
           // NOTE: A08 has been moved to A11, but data still returns A08
@@ -409,7 +422,7 @@ const PolygonLayers = ({
                   color="#697f8a"
                 />
                 <span className="polygon-report-warning-text">
-                  Matrikkel rapport kan gi veldig mange resultater for store
+                  Eiendommer rapport kan gi veldig mange resultater for store
                   arealer
                 </span>
               </div>
