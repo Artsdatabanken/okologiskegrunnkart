@@ -97,7 +97,7 @@ const GeneriskElement = ({
       }
     }
 
-    if (resultat.error) {
+    if (resultat.error || resultat.queryable === false) {
       setPrimaryTextHeader({ harData: false, elementer: [] });
       setPrimaryText({ harData: false, elementer: [] });
       setSecondaryText({ harData: false, elementer: [] });
@@ -335,6 +335,8 @@ const GeneriskElement = ({
                 ? primaryTextHeader.elementer
                 : resultat.error
                 ? "Kunne ikke hente data"
+                : resultat.queryable === false
+                ? "Ikke mulig å identifisere"
                 : "Ingen treff"}
             </div>
             <div className="generic-element-secondary-text">{layer.tittel}</div>
