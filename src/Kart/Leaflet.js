@@ -73,9 +73,11 @@ class Leaflet extends React.Component {
       // Make sure timeout is deleted (especially mobile)
       setTimeout(() => {
         clearTimeout(timer);
+        map.clicked = 0;
       }, 100);
       setTimeout(() => {
         clearTimeout(timer);
+        map.clicked = 0;
       }, 200);
     });
 
