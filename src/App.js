@@ -318,7 +318,9 @@ class App extends React.Component {
     const urlParams = new URLSearchParams(window.location.search);
     let lat = urlParams.get("lat");
     let lng = urlParams.get("lng");
-    this.props.history.push("?lng=" + lng + "&lat=" + lat);
+    if (lat && lng) {
+      this.props.history.push("?lng=" + lng + "&lat=" + lat);
+    }
     this.handleUpdateChangeInUrl(true);
     this.updateLocationFromUrl(urlParams);
   }
