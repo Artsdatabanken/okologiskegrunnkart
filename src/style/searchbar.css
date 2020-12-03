@@ -45,6 +45,7 @@
   height: 31px;
   border: 1px solid black;
   margin-bottom: 5px;
+  width: calc(100% - 58px);
 }
 .searchbar.floating {
   margin-top: 7px;
