@@ -166,14 +166,17 @@ class Leaflet extends React.Component {
   updateUrlWithCoordinates(lng, lat) {
     // Builds new URL with the coordinates
     this.props.handleUpdateChangeInUrl(false);
-    let urlparams = (this.props.path || "").split("?");
-    let newurlstring = "";
-    for (let i in urlparams) {
-      if (!urlparams[i].includes("lng") && urlparams[i] !== "") {
-        newurlstring += "?" + urlparams[i];
-      }
+    const urlParams = new URLSearchParams(window.location.search);
+    let latUrsString = urlParams.get("lat");
+    let layersUrlString = urlParams.get("layers");
+    if (!layersUrlString) {
+      layersUrlString = "";
+    } else if (!latUrsString) {
+      layersUrlString = "&layers=" + layersUrlString;
+    } else {
+      layersUrlString = "layers=" + layersUrlString;
     }
-    this.props.history.push("?lng=" + lng + "&lat=" + lat + newurlstring);
+    this.props.history.push("?lng=" + lng + "&lat=" + lat + layersUrlString);
     this.props.handleUpdateChangeInUrl(true);
   }
 

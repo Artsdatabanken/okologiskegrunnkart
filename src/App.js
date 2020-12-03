@@ -616,11 +616,30 @@ class App extends React.Component {
 
     for (const sub of sublayersArray) {
       if (sub.add) {
-        array.push({
-          layerKey: sub.layerKey,
-          sublayerKey: sub.sublayerKey,
-          propKeys: sub.propKeys
+        // Find index of layer in array
+        const index = array.findIndex(item => {
+          return (
+            item.layerKey === sub.layerKey &&
+            item.sublayerKey === sub.sublayerKey
+          );
         });
+        if (index > -1) {
+          // If layer exists in array, modify layer
+          array[index] = {
+            layerKey: sub.layerKey,
+            sublayerKey: sub.sublayerKey,
+            propKeys: sub.propKeys,
+            key: sub.key
+          };
+        } else {
+          // If layer does not exist in array, push new layer
+          array.push({
+            layerKey: sub.layerKey,
+            sublayerKey: sub.sublayerKey,
+            propKeys: sub.propKeys,
+            key: sub.key
+          });
+        }
       } else {
         array = array.filter(
           item =>
@@ -629,12 +648,33 @@ class App extends React.Component {
         );
       }
     }
-
     if (this.state.showFavoriteLayers) {
       this.setState({ visibleSublayersFavorites: array });
     } else {
       this.setState({ visibleSublayersComplete: array });
     }
+
+    // Get a list of ids of visible layers and remove duplicates with Set
+    const layerKeys = array.map(item => item.key);
+    const uniqueKeys = [...new Set(layerKeys)];
+
+    // Builds new URL with the visible layers
+    this.handleUpdateChangeInUrl(false);
+    const urlParams = new URLSearchParams(window.location.search);
+    let lat = urlParams.get("lat");
+    let lng = urlParams.get("lat");
+    let latUrlString = "";
+    if (lat) {
+      latUrlString = "?lng=" + lng + "&lat=" + lat;
+    }
+    let layersUrlString = "";
+    if (lat && uniqueKeys.length > 0) {
+      layersUrlString = "&layers=" + uniqueKeys;
+    } else if (!lat && uniqueKeys.length > 0) {
+      layersUrlString = "layers=" + uniqueKeys;
+    }
+    this.props.history.push(latUrlString + layersUrlString);
+    this.handleUpdateChangeInUrl(true);
   };
 
   // ------------------------------------------------------------------------------------- //
@@ -713,14 +753,17 @@ class App extends React.Component {
 
     // Update URL wih the coordinates
     this.handleUpdateChangeInUrl(false);
-    let urlparams = "".split("?");
-    let newurlstring = "";
-    for (let i in urlparams) {
-      if (!urlparams[i].includes("lng") && urlparams[i] !== "") {
-        newurlstring += "?" + urlparams[i];
-      }
+    const urlParams = new URLSearchParams(window.location.search);
+    let latUrsString = urlParams.get("lat");
+    let layersUrlString = urlParams.get("layers");
+    if (!layersUrlString) {
+      layersUrlString = "";
+    } else if (!latUrsString) {
+      layersUrlString = "&layers=" + layersUrlString;
+    } else {
+      layersUrlString = "layers=" + layersUrlString;
     }
-    this.props.history.push("?lng=" + lng + "&lat=" + lat + newurlstring);
+    this.props.history.push("?lng=" + lng + "&lat=" + lat + layersUrlString);
     this.handleUpdateChangeInUrl(true);
 
     // Update coordinates and infobox
