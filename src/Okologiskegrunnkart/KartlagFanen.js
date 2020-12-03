@@ -127,6 +127,7 @@ const KartlagFanen = ({
       layerKey: kartlagKey,
       sublayerKey: "allcategorieslayer",
       propKeys,
+      key: layer.allcategorieslayer.key,
       add: newStatus
     });
 
@@ -136,6 +137,7 @@ const KartlagFanen = ({
     Object.keys(layer.underlag).forEach(underlagKey => {
       let kode = "underlag." + underlagKey + ".";
       const sublayer = layer.underlag[underlagKey];
+      const key = sublayer.key;
 
       // All categories visible property always updated the same way
       onUpdateLayerProp(kartlagKey, kode + "visible", newStatus);
@@ -158,6 +160,7 @@ const KartlagFanen = ({
               layerKey: kartlagKey,
               sublayerKey: underlagKey,
               propKeys,
+              key,
               add: newStatus
             });
           } else {
@@ -171,6 +174,7 @@ const KartlagFanen = ({
               layerKey: kartlagKey,
               sublayerKey: underlagKey,
               propKeys,
+              key,
               add: true
             });
           }
@@ -185,6 +189,7 @@ const KartlagFanen = ({
             layerKey: kartlagKey,
             sublayerKey: underlagKey,
             propKeys,
+            key,
             add: newStatus
           });
         }
@@ -199,6 +204,7 @@ const KartlagFanen = ({
           layerKey: kartlagKey,
           sublayerKey: underlagKey,
           propKeys,
+          key,
           add: newStatus
         });
       }
@@ -213,11 +219,21 @@ const KartlagFanen = ({
     const visibleSublayersArray = [];
     let aggregatedkey = null;
 
+    const propKeys = [{ key: "allcategorieslayer.erSynlig", value: true }];
+    visibleSublayersArray.push({
+      layerKey: kartlagKey,
+      sublayerKey: "allcategorieslayer",
+      propKeys,
+      key: layer.allcategorieslayer.key,
+      add: true
+    });
+
     onUpdateLayerProp(kartlagKey, "erSynlig", true);
 
     Object.keys(layer.underlag).forEach(sublagkey => {
       let kode = "underlag." + sublagkey + ".";
       const sublayer = layer.underlag[sublagkey];
+      const key = sublayer.key;
       if (allcategorieslayer.wmslayer === sublayer.wmslayer) {
         // Only aggregated sublayers activated
         onUpdateLayerProp(kartlagKey, kode + "erSynlig", true);
@@ -230,6 +246,7 @@ const KartlagFanen = ({
           layerKey: kartlagKey,
           sublayerKey: sublagkey,
           propKeys,
+          key,
           add: true
         });
         aggregatedkey = sublagkey;
@@ -246,6 +263,7 @@ const KartlagFanen = ({
           layerKey: kartlagKey,
           sublayerKey: sublagkey,
           propKeys,
+          key,
           add: true
         });
       }
@@ -260,9 +278,18 @@ const KartlagFanen = ({
     const visibleSublayersArray = [];
     let aggregatedkey = null;
 
+    visibleSublayersArray.push({
+      layerKey: kartlagKey,
+      sublayerKey: "allcategorieslayer",
+      propKeys: null,
+      key: layer.allcategorieslayer.key,
+      add: false
+    });
+
     Object.keys(layer.underlag).forEach(sublagkey => {
       let kode = "underlag." + sublagkey + ".";
       const sublayer = layer.underlag[sublagkey];
+      const key = sublayer.key;
       if (
         allcategorieslayer.wmslayer === sublayer.wmslayer ||
         sublagkey === underlagKey
@@ -272,8 +299,9 @@ const KartlagFanen = ({
         onUpdateLayerProp(kartlagKey, kode + "visible", false);
         visibleSublayersArray.push({
           layerKey: kartlagKey,
-          sublayerKey: underlagKey,
+          sublayerKey: sublagkey,
           propKeys: null,
+          key,
           add: false
         });
         if (allcategorieslayer.wmslayer === sublayer.wmslayer) {
@@ -289,8 +317,9 @@ const KartlagFanen = ({
         ];
         visibleSublayersArray.push({
           layerKey: kartlagKey,
-          sublayerKey: underlagKey,
+          sublayerKey: sublagkey,
           propKeys,
+          key,
           add: true
         });
       }
@@ -311,6 +340,8 @@ const KartlagFanen = ({
     const visibleSublayersArray = [];
     let numberInvisible = 0;
     let totalInvisible = 0;
+
+    // Check if all sublayers are visible or not
     Object.keys(layer.underlag).forEach(key => {
       const sub = layer.underlag[key];
       if (
@@ -336,12 +367,15 @@ const KartlagFanen = ({
         layerKey: kartlagKey,
         sublayerKey: "allcategorieslayer",
         propKeys,
+        key: layer.allcategorieslayer.key,
         add: newVisible
       });
     }
 
+    // Modify sublayer properties
     const allcategories = allcategorieslayer.wmslayer;
     const sublayer = layer.underlag[underlagKey];
+    const key = sublayer.key;
     if (
       newVisible &&
       numberInvisible === 1 &&
@@ -367,6 +401,7 @@ const KartlagFanen = ({
         layerKey: kartlagKey,
         sublayerKey: underlagKey,
         propKeys,
+        key,
         add: newVisible
       });
       onUpdateLayerProp(kartlagKey, null, newVisible, true);
