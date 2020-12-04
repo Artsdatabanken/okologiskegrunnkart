@@ -127,7 +127,7 @@ const KartlagFanen = ({
       layerKey: kartlagKey,
       sublayerKey: "allcategorieslayer",
       propKeys,
-      key: layer.allcategorieslayer.key,
+      key: layer.allcategorieslayer.key || null,
       add: newStatus
     });
 
@@ -224,7 +224,7 @@ const KartlagFanen = ({
       layerKey: kartlagKey,
       sublayerKey: "allcategorieslayer",
       propKeys,
-      key: layer.allcategorieslayer.key,
+      key: layer.allcategorieslayer.key || null,
       add: true
     });
 
@@ -282,7 +282,7 @@ const KartlagFanen = ({
       layerKey: kartlagKey,
       sublayerKey: "allcategorieslayer",
       propKeys: null,
-      key: layer.allcategorieslayer.key,
+      key: layer.allcategorieslayer.key || null,
       add: false
     });
 
@@ -367,7 +367,7 @@ const KartlagFanen = ({
         layerKey: kartlagKey,
         sublayerKey: "allcategorieslayer",
         propKeys,
-        key: layer.allcategorieslayer.key,
+        key: layer.allcategorieslayer.key || null,
         add: newVisible
       });
     }

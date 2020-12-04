@@ -315,12 +315,29 @@ class App extends React.Component {
       this.state.listFavoriteSublayerIds
     );
     // Update url and infobox if coordinates exist
+    // const urlParams = new URLSearchParams(window.location.search);
+    // let lat = urlParams.get("lat");
+    // let lng = urlParams.get("lng");
+    // if (lat && lng) {
+    //   this.props.history.push("?lng=" + lng + "&lat=" + lat);
+    // }
+
     const urlParams = new URLSearchParams(window.location.search);
     let lat = urlParams.get("lat");
-    let lng = urlParams.get("lng");
+    let lng = urlParams.get("lat");
+    let layers = urlParams.get("layers");
+    let latUrlString = "";
     if (lat && lng) {
-      this.props.history.push("?lng=" + lng + "&lat=" + lat);
+      latUrlString = "?lng=" + lng + "&lat=" + lat;
     }
+    let layersUrlString = "";
+    if (lat && lng && layers) {
+      layersUrlString = "&layers=" + layers;
+    } else if ((!lat || !lng) && layers) {
+      layersUrlString = "layers=" + layers;
+    }
+    this.props.history.push(latUrlString + layersUrlString);
+
     this.handleUpdateChangeInUrl(true);
     this.updateLocationFromUrl(urlParams);
   }
@@ -455,11 +472,16 @@ class App extends React.Component {
   updateLocationFromUrl = urlParams => {
     let lat = urlParams.get("lat");
     let lng = urlParams.get("lng");
-    if (!lat && !lng) return;
-    lat = parseFloat(lat);
-    lng = parseFloat(lng);
-    if (lat && lng && lat !== this.state.lat && lng !== this.state.lng) {
-      this.handleCoordinatesUrl(lat, lng);
+    if (lat && lng) {
+      lat = parseFloat(lat);
+      lng = parseFloat(lng);
+      if (lat !== this.state.lat && lng !== this.state.lng) {
+        this.handleCoordinatesUrl(lat, lng);
+      }
+    }
+    let layers = urlParams.get("layers");
+    if (layers) {
+      layers = JSON.parse("[" + layers + "]");
     }
   };
 
@@ -654,9 +676,10 @@ class App extends React.Component {
       this.setState({ visibleSublayersComplete: array });
     }
 
-    // Get a list of ids of visible layers and remove duplicates with Set
+    // Get a list of Ids of visible layers and remove duplicates with Set
     const layerKeys = array.map(item => item.key);
-    const uniqueKeys = [...new Set(layerKeys)];
+    const cleanKeys = layerKeys.filter(item => item !== null);
+    const uniqueKeys = [...new Set(cleanKeys)];
 
     // Builds new URL with the visible layers
     this.handleUpdateChangeInUrl(false);
@@ -664,14 +687,14 @@ class App extends React.Component {
     let lat = urlParams.get("lat");
     let lng = urlParams.get("lat");
     let latUrlString = "";
-    if (lat) {
+    if (lat && lng) {
       latUrlString = "?lng=" + lng + "&lat=" + lat;
     }
     let layersUrlString = "";
-    if (lat && uniqueKeys.length > 0) {
+    if (lat && lng && uniqueKeys.length > 0) {
       layersUrlString = "&layers=" + uniqueKeys;
-    } else if (!lat && uniqueKeys.length > 0) {
-      layersUrlString = "layers=" + uniqueKeys;
+    } else if ((!lat || !lng) && uniqueKeys.length > 0) {
+      layersUrlString = "?layers=" + uniqueKeys;
     }
     this.props.history.push(latUrlString + layersUrlString);
     this.handleUpdateChangeInUrl(true);
