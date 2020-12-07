@@ -167,16 +167,21 @@ class Leaflet extends React.Component {
     // Builds new URL with the coordinates
     this.props.handleUpdateChangeInUrl(false);
     const urlParams = new URLSearchParams(window.location.search);
-    let latUrsString = urlParams.get("lat");
     let layersUrlString = urlParams.get("layers");
     if (!layersUrlString) {
       layersUrlString = "";
-    } else if (!latUrsString) {
-      layersUrlString = "&layers=" + layersUrlString;
     } else {
-      layersUrlString = "layers=" + layersUrlString;
+      layersUrlString = "&layers=" + layersUrlString;
     }
-    this.props.history.push("?lng=" + lng + "&lat=" + lat + layersUrlString);
+    let favoritesUrlString = urlParams.get("favorites");
+    if (!favoritesUrlString) {
+      favoritesUrlString = "";
+    } else {
+      favoritesUrlString = "&favorites=" + favoritesUrlString;
+    }
+    this.props.history.push(
+      "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
+    );
     this.props.handleUpdateChangeInUrl(true);
   }
 
@@ -752,12 +757,12 @@ class Leaflet extends React.Component {
     if (this.props.showMarker && this.state.coordinates_area) {
       this.removeMarker();
       this.setState({ previousCoordinates: this.state.coordinates_area });
-      this.marker = L.marker(
-        [this.state.coordinates_area.lat, this.state.coordinates_area.lng],
-        {
-          icon: this.icon
-        }
-      )
+      const lat = this.state.coordinates_area.lat;
+      const lng = this.state.coordinates_area.lng;
+      if (!lat || !lng) return;
+      this.marker = L.marker([lat, lng], {
+        icon: this.icon
+      })
         .addTo(this.map)
         .on("click", () => this.clickMarkerInfobox())
         .on("keydown", e => {
