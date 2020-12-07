@@ -40,6 +40,7 @@ class App extends React.Component {
     completeKartlag: {},
     favoriteKartlag: {},
     kartlag: { aa: {} },
+    allSublayers: {},
     valgteLag: {},
     navigation_history: [],
     spraak: "nb",
@@ -133,6 +134,13 @@ class App extends React.Component {
     if (host === "okologiskegrunnkart.artsdatabanken.no") env = "prod";
     if (hostname === "localhost") env = "local";
 
+    // Get layers from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let urlLayers = urlParams.get("layers");
+    if (urlLayers) {
+      urlLayers = JSON.parse("[" + urlLayers + "]");
+    }
+
     // Get kartlag.json file from server as default, except for localhost
     let kartlag = await backend.hentLokalFil("/kartlag.json");
     // When not possible, get local kartlag.json file from test server
@@ -165,6 +173,11 @@ class App extends React.Component {
     kartlag = kartlagByEnvironment(kartlag, env);
 
     // Modify and store kartlag in state
+    let allSublayers = {};
+    let someLayersFavorite = false;
+    let showFavoriteLayers = false;
+    let urlLayersInFavorites = null;
+    if (urlLayers !== null) urlLayersInFavorites = true;
     Object.entries(kartlag).forEach(async ([key, k]) => {
       k.id = key;
       k.kart = { format: { wms: { url: k.wmsurl, layer: k.wmslayer } } };
@@ -190,8 +203,8 @@ class App extends React.Component {
         k.favorite = existingLayer[0].favorite;
       }
 
-      if (!this.state.someLayersFavorite && k.favorite) {
-        this.setState({ someLayersFavorite: true });
+      if (!someLayersFavorite && k.favorite) {
+        someLayersFavorite = true;
       }
 
       // Add a pseudo-sublayer for all categories
@@ -269,11 +282,26 @@ class App extends React.Component {
           ul.favorite = existingSublayer[0].favorite;
         }
 
-        if (!this.state.someLayersFavorite && ul.favorite) {
-          this.setState({ someLayersFavorite: true });
+        // Create list of sublayers for update with URL
+        const subVisible = {
+          layerKey: k.id,
+          sublayerKey: ul.id,
+          favorite: ul.favorite,
+          aggregated: ul.wmslayer === k.aggregatedwmslayer
+        };
+        allSublayers = { ...allSublayers, [ul.key]: subVisible };
+
+        // Check if layers is in URL layers and in favorites
+        if (urlLayersInFavorites && urlLayers && urlLayers.includes(ul.key)) {
+          if (!ul.favorite) urlLayersInFavorites = false;
         }
-        if (!this.state.showFavoriteLayers && ul.favorite) {
-          this.setState({ showFavoriteLayers: true });
+
+        // Set favourites state
+        if (!someLayersFavorite && ul.favorite) {
+          someLayersFavorite = true;
+        }
+        if (!showFavoriteLayers && ul.favorite) {
+          showFavoriteLayers = true;
         }
 
         return acc;
@@ -284,6 +312,16 @@ class App extends React.Component {
         k.allcategorieslayer.faktaark = { [aggKey]: aggFaktaark };
       }
     });
+
+    // Set list of all sublayers
+    this.setState({ allSublayers });
+
+    // Set favorites in state
+    if (urlLayersInFavorites === false) {
+      this.setState({ someLayersFavorite, showFavoriteLayers: false });
+    } else {
+      this.setState({ someLayersFavorite, showFavoriteLayers });
+    }
 
     // Sort kartlag object aplhabetically based on title.
     // Sublayers are ordered alphabetically or based on position.
@@ -314,17 +352,10 @@ class App extends React.Component {
       this.state.listFavoriteLayerIds,
       this.state.listFavoriteSublayerIds
     );
-    // Update url and infobox if coordinates exist
-    // const urlParams = new URLSearchParams(window.location.search);
-    // let lat = urlParams.get("lat");
-    // let lng = urlParams.get("lng");
-    // if (lat && lng) {
-    //   this.props.history.push("?lng=" + lng + "&lat=" + lat);
-    // }
 
     const urlParams = new URLSearchParams(window.location.search);
     let lat = urlParams.get("lat");
-    let lng = urlParams.get("lat");
+    let lng = urlParams.get("lng");
     let layers = urlParams.get("layers");
     let latUrlString = "";
     if (lat && lng) {
@@ -340,6 +371,7 @@ class App extends React.Component {
 
     this.handleUpdateChangeInUrl(true);
     this.updateLocationFromUrl(urlParams);
+    this.updateLayersFromUrl(urlParams);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -367,8 +399,11 @@ class App extends React.Component {
       this.state.updateChangeInUrl &&
       this.props.location !== prevProps.location
     ) {
+      console.log("Coming here");
+      console.log("updateChangeInUrl: ", this.state.updateChangeInUrl);
       const urlParams = new URLSearchParams(this.props.location.search);
       this.updateLocationFromUrl(urlParams);
+      this.updateLayersFromUrl(urlParams);
     }
   }
 
@@ -479,9 +514,106 @@ class App extends React.Component {
         this.handleCoordinatesUrl(lat, lng);
       }
     }
+  };
+
+  updateLayersFromUrl = urlParams => {
+    console.log("allSublayers", this.state.allSublayers);
     let layers = urlParams.get("layers");
+    console.log("layers: ", layers);
     if (layers) {
+      const allSublayers = this.state.allSublayers;
+      let array = [];
       layers = JSON.parse("[" + layers + "]");
+      // Find all layers
+      const listLayers = [];
+      for (const sublayerId of layers) {
+        const sublayer = allSublayers[sublayerId];
+        if (!sublayer) continue;
+        const id = sublayer.layerKey;
+        if (listLayers.indexOf(id) === -1) {
+          listLayers.push(id);
+        }
+      }
+      console.log("listLayers", listLayers);
+      // Find aggregated sublayers and check if
+      // all sublayers in a layer are visible
+      const layerHierarchy = {};
+      for (const layerId of listLayers) {
+        const layer = this.state.kartlag[layerId];
+        if (!layer) continue;
+        const sublayers = layer.underlag;
+        const sublayerHierarchy = [];
+        for (const sublayerId in sublayers) {
+          const sublayer = sublayers[sublayerId];
+          sublayerHierarchy.push(sublayer.key);
+          // if (!sublayer.aggregatedwmslayer) {
+          //   sublayerHierarchy.push(sublayer.key);
+          // }
+        }
+        if (sublayerHierarchy.length > 0) {
+          layerHierarchy[layerId] = sublayerHierarchy;
+        }
+      }
+      console.log("layerHierarchy", layerHierarchy);
+
+      // Create array with visble sublayers
+      const allCategoriesAdded = [];
+      for (const sublayerId of layers) {
+        const sublayer = allSublayers[sublayerId];
+        if (!sublayer) continue;
+        // Get the layer and all sublayers
+        const layerKey = sublayer.layerKey;
+        const listSublayers = layerHierarchy[layerKey];
+        if (
+          !allCategoriesAdded.includes(layerKey) &&
+          listSublayers.every(item => layers.includes(item))
+        ) {
+          console.log("All layers included");
+          const propKeys = [
+            { key: "allcategorieslayer.erSynlig", value: true }
+          ];
+          const item = {
+            layerKey: layerKey,
+            sublayerKey: "allcategorieslayer",
+            propKeys,
+            key: null
+          };
+          array.push(item);
+          allCategoriesAdded.push(layerKey);
+        }
+        const code = "underlag." + sublayer.sublayerKey + ".";
+        const propKeys = [
+          { key: code + "visible", value: true },
+          { key: code + "erSynlig", value: true }
+        ];
+        const item = {
+          layerKey: sublayer.layerKey,
+          sublayerKey: sublayer.sublayerKey,
+          propKeys,
+          key: sublayerId
+        };
+        array.push(item);
+      }
+      console.log(array);
+      if (this.state.showFavoriteLayers) {
+        if (
+          JSON.stringify(this.state.visibleSublayersFavorites) ===
+          JSON.stringify(array)
+        )
+          return;
+        this.setState({ visibleSublayersFavorites: array }, () => {
+          this.toggleShowFavoriteLayers(true);
+        });
+      } else {
+        if (
+          JSON.stringify(this.state.visibleSublayersComplete) ===
+          JSON.stringify(array)
+        )
+          return;
+        this.setState({ visibleSublayersComplete: array }, () => {
+          this.toggleShowFavoriteLayers(false);
+        });
+      }
     }
   };
 
@@ -677,12 +809,13 @@ class App extends React.Component {
     }
 
     // Get a list of Ids of visible layers and remove duplicates with Set
+    this.handleUpdateChangeInUrl(false);
     const layerKeys = array.map(item => item.key);
+    console.log("array", array);
     const cleanKeys = layerKeys.filter(item => item !== null);
     const uniqueKeys = [...new Set(cleanKeys)];
 
     // Builds new URL with the visible layers
-    this.handleUpdateChangeInUrl(false);
     const urlParams = new URLSearchParams(window.location.search);
     let lat = urlParams.get("lat");
     let lng = urlParams.get("lat");
@@ -697,7 +830,10 @@ class App extends React.Component {
       layersUrlString = "?layers=" + uniqueKeys;
     }
     this.props.history.push(latUrlString + layersUrlString);
-    this.handleUpdateChangeInUrl(true);
+
+    setTimeout(() => {
+      this.handleUpdateChangeInUrl(true);
+    }, 100);
   };
 
   // ------------------------------------------------------------------------------------- //
