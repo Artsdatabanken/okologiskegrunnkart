@@ -757,12 +757,12 @@ class Leaflet extends React.Component {
     if (this.props.showMarker && this.state.coordinates_area) {
       this.removeMarker();
       this.setState({ previousCoordinates: this.state.coordinates_area });
-      this.marker = L.marker(
-        [this.state.coordinates_area.lat, this.state.coordinates_area.lng],
-        {
-          icon: this.icon
-        }
-      )
+      const lat = this.state.coordinates_area.lat;
+      const lng = this.state.coordinates_area.lng;
+      if (!lat || !lng) return;
+      this.marker = L.marker([lat, lng], {
+        icon: this.icon
+      })
         .addTo(this.map)
         .on("click", () => this.clickMarkerInfobox())
         .on("keydown", e => {

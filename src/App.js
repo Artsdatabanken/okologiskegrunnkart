@@ -380,7 +380,7 @@ class App extends React.Component {
     if ((lat && lng) || layers) {
       favoritesUrlString = "&favorites=" + this.state.showFavoriteLayers;
     } else {
-      favoritesUrlString = "favorites=" + this.state.showFavoriteLayers;
+      favoritesUrlString = "?favorites=" + this.state.showFavoriteLayers;
     }
     this.props.history.push(
       latUrlString + layersUrlString + favoritesUrlString
@@ -580,6 +580,8 @@ class App extends React.Component {
       if (lat !== this.state.lat && lng !== this.state.lng) {
         this.handleCoordinatesUrl(lat, lng);
       }
+    } else {
+      this.setState({ lat: null, lng: null });
     }
   };
 
@@ -881,7 +883,7 @@ class App extends React.Component {
     if ((lat && lng) || uniqueKeys.length > 0) {
       favoritesUrlString = "&favorites=" + favorites;
     } else {
-      favoritesUrlString = "favorites=" + favorites;
+      favoritesUrlString = "?favorites=" + favorites;
     }
     this.props.history.push(
       latUrlString + layersUrlString + favoritesUrlString
@@ -1078,11 +1080,11 @@ class App extends React.Component {
     if (!favoritesUrlString && ((lat && lng) || uniqueKeys.length > 0)) {
       favoritesUrlString = "&favorites=" + this.state.showFavoriteLayers;
     } else if (!favoritesUrlString) {
-      favoritesUrlString = "favorites=" + this.state.showFavoriteLayers;
+      favoritesUrlString = "?favorites=" + this.state.showFavoriteLayers;
     } else if ((lat && lng) || uniqueKeys.length > 0) {
       favoritesUrlString = "&favorites=" + favoritesUrlString;
     } else {
-      favoritesUrlString = "favorites=" + favoritesUrlString;
+      favoritesUrlString = "?favorites=" + favoritesUrlString;
     }
     this.props.history.push(
       latUrlString + layersUrlString + favoritesUrlString
@@ -1184,11 +1186,11 @@ class App extends React.Component {
     if (!favoritesUrlString && ((lat && lng) || layers)) {
       favoritesUrlString = "&favorites=" + this.state.showFavoriteLayers;
     } else if (!favoritesUrlString) {
-      favoritesUrlString = "favorites=" + this.state.showFavoriteLayers;
+      favoritesUrlString = "?favorites=" + this.state.showFavoriteLayers;
     } else if ((lat && lng) || layers) {
       favoritesUrlString = "&favorites=" + favoritesUrlString;
     } else {
-      favoritesUrlString = "favorites=" + favoritesUrlString;
+      favoritesUrlString = "?favorites=" + favoritesUrlString;
     }
     this.props.history.push(
       "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
