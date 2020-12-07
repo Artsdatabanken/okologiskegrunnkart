@@ -417,8 +417,10 @@ class App extends React.Component {
       this.props.location !== prevProps.location
     ) {
       const urlParams = new URLSearchParams(this.props.location.search);
-      this.updateLocationFromUrl(urlParams);
-      this.updateLayersFromUrl(urlParams);
+      this.updateFavoritesFromUrl(urlParams).then(() => {
+        this.updateLocationFromUrl(urlParams);
+        this.updateLayersFromUrl(urlParams);
+      });
     }
   }
 
@@ -519,6 +521,56 @@ class App extends React.Component {
     }
   };
 
+  updateFavoritesFromUrl = async urlParams => {
+    let favorites = urlParams.get("favorites");
+    if (favorites) {
+      favorites = JSON.parse(favorites);
+    }
+
+    if (favorites !== null && favorites !== this.state.showFavoriteLayers) {
+      this.setState({
+        showFavoriteLayers: favorites,
+        sublayerDetailsVisible: false,
+        legendVisible: false
+      });
+
+      // Update visible layers if favorites has changed in URL
+      // Has to be done here because update layers from URL
+      // won't see any changes
+      if (favorites) {
+        this.hideVisibleLayers(favorites).then(() => {
+          this.setState({ kartlag: this.state.favoriteKartlag }, () => {
+            this.showVisibleLayers(favorites).then(() => {
+              if (this.state.showInfobox && this.state.showExtensiveInfo) {
+                this.setState({ allLayersResult: {} });
+                this.handleAllLayersSearch(
+                  this.state.lng,
+                  this.state.lat,
+                  this.state.zoom
+                );
+              }
+            });
+          });
+        });
+      } else {
+        this.hideVisibleLayers(favorites).then(() => {
+          this.setState({ kartlag: this.state.completeKartlag }, () => {
+            this.showVisibleLayers(favorites).then(() => {
+              if (this.state.showInfobox && this.state.showExtensiveInfo) {
+                this.setState({ allLayersResult: {} });
+                this.handleAllLayersSearch(
+                  this.state.lng,
+                  this.state.lat,
+                  this.state.zoom
+                );
+              }
+            });
+          });
+        });
+      }
+    }
+  };
+
   updateLocationFromUrl = urlParams => {
     let lat = urlParams.get("lat");
     let lng = urlParams.get("lng");
@@ -561,7 +613,6 @@ class App extends React.Component {
         layerHierarchy,
         layerAggregated
       );
-      console.log("array from URL", array);
 
       if (this.state.showFavoriteLayers) {
         if (
@@ -687,12 +738,6 @@ class App extends React.Component {
   };
 
   toggleShowLayersUrl = async array => {
-    // this.setState({
-    //   showFavoriteLayers: favorites,
-    //   sublayerDetailsVisible: false,
-    //   legendVisible: false
-    // });
-    console.log("Coming here");
     const favorites = this.state.showFavoriteLayers;
     if (favorites) {
       this.hideVisibleLayersUrl(array).then(() => {
@@ -759,9 +804,6 @@ class App extends React.Component {
       layersList = this.state.visibleSublayersComplete;
     }
 
-    console.log("array", array);
-    console.log("layersList", layersList);
-
     for (const item of layersList) {
       const filtered = array.filter(
         elem =>
@@ -825,7 +867,6 @@ class App extends React.Component {
     } else {
       layersObject = this.state.visibleSublayersComplete;
     }
-    console.log("layersObject", layersObject);
     const layerKeys = layersObject.map(item => item.key);
     const cleanKeys = layerKeys.filter(item => item !== null);
     const uniqueKeys = [...new Set(cleanKeys)];
@@ -1016,7 +1057,6 @@ class App extends React.Component {
     // Get a list of Ids of visible layers and remove duplicates with Set
     this.handleUpdateChangeInUrl(false);
     const layerKeys = array.map(item => item.key);
-    console.log("array when changing layers", array);
     const cleanKeys = layerKeys.filter(item => item !== null);
     const uniqueKeys = [...new Set(cleanKeys)];
 
