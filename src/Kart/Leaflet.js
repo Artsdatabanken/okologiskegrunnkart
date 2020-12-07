@@ -173,7 +173,15 @@ class Leaflet extends React.Component {
     } else {
       layersUrlString = "&layers=" + layersUrlString;
     }
-    this.props.history.push("?lng=" + lng + "&lat=" + lat + layersUrlString);
+    let favoritesUrlString = urlParams.get("favorites");
+    if (!favoritesUrlString) {
+      favoritesUrlString = "";
+    } else {
+      favoritesUrlString = "&favorites=" + favoritesUrlString;
+    }
+    this.props.history.push(
+      "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
+    );
     this.props.handleUpdateChangeInUrl(true);
   }
 
