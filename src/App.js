@@ -522,7 +522,6 @@ class App extends React.Component {
 
       // Find all layers
       const listLayers = this.getKartlagLayersUrl(layers, allSublayers);
-      console.log("listLayers", listLayers);
 
       // Find all sublayers in a layer and
       // layers with aggregated sublayers
@@ -545,18 +544,16 @@ class App extends React.Component {
           JSON.stringify(array)
         )
           return;
-        this.setState({ visibleSublayersFavorites: array }, () => {
-          this.toggleShowFavoriteLayers(true);
-        });
+        console.log("Toggle in favorites");
+        this.toggleShowLayersUrl(array);
       } else {
         if (
           JSON.stringify(this.state.visibleSublayersComplete) ===
           JSON.stringify(array)
         )
           return;
-        this.setState({ visibleSublayersComplete: array }, () => {
-          this.toggleShowFavoriteLayers(false);
-        });
+        console.log("Toggle in all layers");
+        this.toggleShowLayersUrl(array);
       }
     }
   };
@@ -658,6 +655,90 @@ class App extends React.Component {
       array.push(item);
     }
     return array;
+  };
+
+  toggleShowLayersUrl = async array => {
+    // this.setState({
+    //   showFavoriteLayers: favorites,
+    //   sublayerDetailsVisible: false,
+    //   legendVisible: false
+    // });
+    const favorites = this.state.showFavoriteLayers;
+    if (favorites) {
+      this.hideVisibleLayersUrl(array).then(() => {
+        this.showVisibleLayersUrl(array).then(() => {
+          this.setState({ visibleSublayersFavorites: array });
+          if (this.state.showInfobox && this.state.showExtensiveInfo) {
+            this.setState({ allLayersResult: {} });
+            this.handleAllLayersSearch(
+              this.state.lng,
+              this.state.lat,
+              this.state.zoom
+            );
+          }
+        });
+      });
+    } else {
+      this.hideVisibleLayersUrl(array).then(() => {
+        this.showVisibleLayersUrl(array).then(() => {
+          this.setState({ visibleSublayersComplete: array });
+          if (this.state.showInfobox && this.state.showExtensiveInfo) {
+            this.setState({ allLayersResult: {} });
+            this.handleAllLayersSearch(
+              this.state.lng,
+              this.state.lat,
+              this.state.zoom
+            );
+          }
+        });
+      });
+    }
+  };
+
+  showVisibleLayersUrl = async array => {
+    let layersList;
+    if (this.state.showFavoriteLayers) {
+      layersList = this.state.visibleSublayersFavorites;
+    } else {
+      layersList = this.state.visibleSublayersComplete;
+    }
+
+    for (const item of array) {
+      const filtered = layersList.filter(
+        elem =>
+          elem.layerKey === item.layerKey &&
+          elem.sublayerKey === item.sublayerKey
+      );
+      if (filtered.length === 0) {
+        for (const prop of item.propKeys) {
+          this.handleKartlagLayerProp(item.layerKey, prop.key, prop.value);
+        }
+      }
+    }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
+  };
+
+  hideVisibleLayersUrl = async array => {
+    let layersList;
+    if (this.state.showFavoriteLayers) {
+      layersList = this.state.visibleSublayersFavorites;
+    } else {
+      layersList = this.state.visibleSublayersComplete;
+    }
+
+    for (const item of layersList) {
+      const filtered = array.filter(
+        elem =>
+          elem.layerKey === item.layerKey &&
+          elem.sublayerKey === item.sublayerKey
+      );
+      if (filtered.length === 0) {
+        for (const prop of item.propKeys) {
+          this.handleKartlagLayerProp(item.layerKey, prop.key, false);
+        }
+      }
+    }
+    this.hentInfoAlleValgteLag(this.state.lng, this.state.lat, this.state.zoom);
   };
 
   handleExtensiveInfo = showExtensiveInfo => {
