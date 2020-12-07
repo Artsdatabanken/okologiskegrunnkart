@@ -518,96 +518,25 @@ class App extends React.Component {
     let layers = urlParams.get("layers");
     if (layers) {
       const allSublayers = this.state.allSublayers;
-      let array = [];
       layers = JSON.parse("[" + layers + "]");
+
       // Find all layers
-      const listLayers = [];
-      for (const sublayerId of layers) {
-        const sublayer = allSublayers[sublayerId];
-        if (!sublayer) continue;
-        const id = sublayer.layerKey;
-        if (listLayers.indexOf(id) === -1) {
-          listLayers.push(id);
-        }
-      }
+      const listLayers = this.getKartlagLayersUrl(layers, allSublayers);
+      console.log("listLayers", listLayers);
 
       // Find all sublayers in a layer and
       // layers with aggregated sublayers
-      const layerHierarchy = {};
-      const layerAggregated = [];
-      for (const layerId of listLayers) {
-        const layer = this.state.kartlag[layerId];
-        if (!layer) continue;
-        const sublayers = layer.underlag;
-        const sublayerHierarchy = [];
-        for (const sublayerId in sublayers) {
-          const sublayer = sublayers[sublayerId];
-          sublayerHierarchy.push(sublayer.key);
-        }
-        if (sublayerHierarchy.length > 0) {
-          layerHierarchy[layerId] = sublayerHierarchy;
-        }
-        if (
-          layerAggregated.indexOf(layer.id) === -1 &&
-          layer.aggregatedwmslayer
-        ) {
-          layerAggregated.push(layer.id);
-        }
-      }
+      const { layerHierarchy, layerAggregated } = this.getAllSublayersUrl(
+        listLayers
+      );
 
       // Create array with visble sublayers
-      const allCategoriesAdded = [];
-      for (const sublayerId of layers) {
-        const sublayer = allSublayers[sublayerId];
-        if (!sublayer) continue;
-        // Add allcategoriesLayer visible when all sublayers in layer are visible
-        const layerKey = sublayer.layerKey;
-        const listSublayers = layerHierarchy[layerKey];
-        if (
-          !allCategoriesAdded.includes(layerKey) &&
-          listSublayers.every(item => layers.includes(item))
-        ) {
-          const propKeys = [
-            { key: "allcategorieslayer.erSynlig", value: true }
-          ];
-          const item = {
-            layerKey: layerKey,
-            sublayerKey: "allcategorieslayer",
-            propKeys,
-            key: null
-          };
-          array.push(item);
-          allCategoriesAdded.push(layerKey);
-        }
-        // Make sublayers visible when relevant
-        const code = "underlag." + sublayer.sublayerKey + ".";
-
-        let propKeys;
-        if (
-          layerAggregated.includes(sublayer.layerKey) &&
-          !sublayer.aggregated
-        ) {
-          // Layer has an aggregated layer, but not this one.
-          // Make slider visible in UI, but don't activate the tiles.
-          propKeys = [
-            { key: code + "visible", value: true },
-            { key: code + "erSynlig", value: false }
-          ];
-        } else {
-          // Make slider visible in UI and activate the tiles.
-          propKeys = [
-            { key: code + "visible", value: true },
-            { key: code + "erSynlig", value: true }
-          ];
-        }
-        const item = {
-          layerKey: sublayer.layerKey,
-          sublayerKey: sublayer.sublayerKey,
-          propKeys,
-          key: sublayerId
-        };
-        array.push(item);
-      }
+      const array = this.getVisibleSublayersUrl(
+        layers,
+        allSublayers,
+        layerHierarchy,
+        layerAggregated
+      );
       console.log("array from URL", array);
 
       if (this.state.showFavoriteLayers) {
@@ -630,6 +559,105 @@ class App extends React.Component {
         });
       }
     }
+  };
+
+  getKartlagLayersUrl = (layers, allSublayers) => {
+    // Find all layers
+    const listLayers = [];
+    for (const sublayerId of layers) {
+      const sublayer = allSublayers[sublayerId];
+      if (!sublayer) continue;
+      const id = sublayer.layerKey;
+      if (listLayers.indexOf(id) === -1) {
+        listLayers.push(id);
+      }
+    }
+    return listLayers;
+  };
+
+  getAllSublayersUrl = listLayers => {
+    // Find all sublayers in a layer and
+    // layers with aggregated sublayers
+    let layerHierarchy = {};
+    const layerAggregated = [];
+    for (const layerId of listLayers) {
+      const layer = this.state.kartlag[layerId];
+      if (!layer) continue;
+      const sublayers = layer.underlag;
+      const sublayerHierarchy = [];
+      for (const sublayerId in sublayers) {
+        const sublayer = sublayers[sublayerId];
+        sublayerHierarchy.push(sublayer.key);
+      }
+      if (sublayerHierarchy.length > 0) {
+        layerHierarchy[layerId] = sublayerHierarchy;
+      }
+      if (
+        layerAggregated.indexOf(layer.id) === -1 &&
+        layer.aggregatedwmslayer
+      ) {
+        layerAggregated.push(layer.id);
+      }
+    }
+    return { layerHierarchy, layerAggregated };
+  };
+
+  getVisibleSublayersUrl = (
+    layers,
+    allSublayers,
+    layerHierarchy,
+    layerAggregated
+  ) => {
+    // Create array with visble sublayers
+    const array = [];
+    const allCategoriesAdded = [];
+    for (const sublayerId of layers) {
+      const sublayer = allSublayers[sublayerId];
+      if (!sublayer) continue;
+      // Add allcategoriesLayer visible when all sublayers in layer are visible
+      const layerKey = sublayer.layerKey;
+      const listSublayers = layerHierarchy[layerKey];
+      if (
+        !allCategoriesAdded.includes(layerKey) &&
+        listSublayers.every(item => layers.includes(item))
+      ) {
+        const propKeys = [{ key: "allcategorieslayer.erSynlig", value: true }];
+        const item = {
+          layerKey: layerKey,
+          sublayerKey: "allcategorieslayer",
+          propKeys,
+          key: null
+        };
+        array.push(item);
+        allCategoriesAdded.push(layerKey);
+      }
+      // Make sublayers visible when relevant
+      const code = "underlag." + sublayer.sublayerKey + ".";
+
+      let propKeys;
+      if (layerAggregated.includes(sublayer.layerKey) && !sublayer.aggregated) {
+        // Layer has an aggregated layer, but not this one.
+        // Make slider visible in UI, but don't activate the tiles.
+        propKeys = [
+          { key: code + "visible", value: true },
+          { key: code + "erSynlig", value: false }
+        ];
+      } else {
+        // Make slider visible in UI and activate the tiles.
+        propKeys = [
+          { key: code + "visible", value: true },
+          { key: code + "erSynlig", value: true }
+        ];
+      }
+      const item = {
+        layerKey: sublayer.layerKey,
+        sublayerKey: sublayer.sublayerKey,
+        propKeys,
+        key: sublayerId
+      };
+      array.push(item);
+    }
+    return array;
   };
 
   handleExtensiveInfo = showExtensiveInfo => {
