@@ -399,8 +399,6 @@ class App extends React.Component {
       this.state.updateChangeInUrl &&
       this.props.location !== prevProps.location
     ) {
-      console.log("Coming here");
-      console.log("updateChangeInUrl: ", this.state.updateChangeInUrl);
       const urlParams = new URLSearchParams(this.props.location.search);
       this.updateLocationFromUrl(urlParams);
       this.updateLayersFromUrl(urlParams);
@@ -517,9 +515,7 @@ class App extends React.Component {
   };
 
   updateLayersFromUrl = urlParams => {
-    console.log("allSublayers", this.state.allSublayers);
     let layers = urlParams.get("layers");
-    console.log("layers: ", layers);
     if (layers) {
       const allSublayers = this.state.allSublayers;
       let array = [];
@@ -534,10 +530,11 @@ class App extends React.Component {
           listLayers.push(id);
         }
       }
-      console.log("listLayers", listLayers);
-      // Find aggregated sublayers and check if
-      // all sublayers in a layer are visible
+
+      // Find all sublayers in a layer and
+      // layers with aggregated sublayers
       const layerHierarchy = {};
+      const layerAggregated = [];
       for (const layerId of listLayers) {
         const layer = this.state.kartlag[layerId];
         if (!layer) continue;
@@ -546,29 +543,30 @@ class App extends React.Component {
         for (const sublayerId in sublayers) {
           const sublayer = sublayers[sublayerId];
           sublayerHierarchy.push(sublayer.key);
-          // if (!sublayer.aggregatedwmslayer) {
-          //   sublayerHierarchy.push(sublayer.key);
-          // }
         }
         if (sublayerHierarchy.length > 0) {
           layerHierarchy[layerId] = sublayerHierarchy;
         }
+        if (
+          layerAggregated.indexOf(layer.id) === -1 &&
+          layer.aggregatedwmslayer
+        ) {
+          layerAggregated.push(layer.id);
+        }
       }
-      console.log("layerHierarchy", layerHierarchy);
 
       // Create array with visble sublayers
       const allCategoriesAdded = [];
       for (const sublayerId of layers) {
         const sublayer = allSublayers[sublayerId];
         if (!sublayer) continue;
-        // Get the layer and all sublayers
+        // Add allcategoriesLayer visible when all sublayers in layer are visible
         const layerKey = sublayer.layerKey;
         const listSublayers = layerHierarchy[layerKey];
         if (
           !allCategoriesAdded.includes(layerKey) &&
           listSublayers.every(item => layers.includes(item))
         ) {
-          console.log("All layers included");
           const propKeys = [
             { key: "allcategorieslayer.erSynlig", value: true }
           ];
@@ -581,11 +579,27 @@ class App extends React.Component {
           array.push(item);
           allCategoriesAdded.push(layerKey);
         }
+        // Make sublayers visible when relevant
         const code = "underlag." + sublayer.sublayerKey + ".";
-        const propKeys = [
-          { key: code + "visible", value: true },
-          { key: code + "erSynlig", value: true }
-        ];
+
+        let propKeys;
+        if (
+          layerAggregated.includes(sublayer.layerKey) &&
+          !sublayer.aggregated
+        ) {
+          // Layer has an aggregated layer, but not this one.
+          // Make slider visible in UI, but don't activate the tiles.
+          propKeys = [
+            { key: code + "visible", value: true },
+            { key: code + "erSynlig", value: false }
+          ];
+        } else {
+          // Make slider visible in UI and activate the tiles.
+          propKeys = [
+            { key: code + "visible", value: true },
+            { key: code + "erSynlig", value: true }
+          ];
+        }
         const item = {
           layerKey: sublayer.layerKey,
           sublayerKey: sublayer.sublayerKey,
@@ -594,7 +608,8 @@ class App extends React.Component {
         };
         array.push(item);
       }
-      console.log(array);
+      console.log("array from URL", array);
+
       if (this.state.showFavoriteLayers) {
         if (
           JSON.stringify(this.state.visibleSublayersFavorites) ===
@@ -811,7 +826,7 @@ class App extends React.Component {
     // Get a list of Ids of visible layers and remove duplicates with Set
     this.handleUpdateChangeInUrl(false);
     const layerKeys = array.map(item => item.key);
-    console.log("array", array);
+    console.log("array when changing layers", array);
     const cleanKeys = layerKeys.filter(item => item !== null);
     const uniqueKeys = [...new Set(cleanKeys)];
 
