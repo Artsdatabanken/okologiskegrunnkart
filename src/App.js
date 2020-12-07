@@ -526,6 +526,7 @@ class App extends React.Component {
       // Find all sublayers in a layer and
       // layers with aggregated sublayers
       const { layerHierarchy, layerAggregated } = this.getAllSublayersUrl(
+        layers,
         listLayers
       );
 
@@ -572,7 +573,7 @@ class App extends React.Component {
     return listLayers;
   };
 
-  getAllSublayersUrl = listLayers => {
+  getAllSublayersUrl = (layers, listLayers) => {
     // Find all sublayers in a layer and
     // layers with aggregated sublayers
     let layerHierarchy = {};
@@ -593,7 +594,10 @@ class App extends React.Component {
         layerAggregated.indexOf(layer.id) === -1 &&
         layer.aggregatedwmslayer
       ) {
-        layerAggregated.push(layer.id);
+        const aggregated = layer.underlag[layer.allcategorieslayer.id];
+        if (aggregated && layers.includes(aggregated.key)) {
+          layerAggregated.push(layer.id);
+        }
       }
     }
     return { layerHierarchy, layerAggregated };
@@ -633,7 +637,7 @@ class App extends React.Component {
 
       let propKeys;
       if (layerAggregated.includes(sublayer.layerKey) && !sublayer.aggregated) {
-        // Layer has an aggregated layer, but not this one.
+        // Layer has an aggregated layer which is visible, but not this one.
         // Make slider visible in UI, but don't activate the tiles.
         propKeys = [
           { key: code + "visible", value: true },
@@ -709,7 +713,10 @@ class App extends React.Component {
           elem.layerKey === item.layerKey &&
           elem.sublayerKey === item.sublayerKey
       );
-      if (filtered.length === 0) {
+      if (
+        filtered.length === 0 ||
+        JSON.stringify(filtered[0]) !== JSON.stringify(item)
+      ) {
         for (const prop of item.propKeys) {
           this.handleKartlagLayerProp(item.layerKey, prop.key, prop.value);
         }
