@@ -18,6 +18,7 @@ class SearchBar extends React.Component {
     treffliste_gnr: null,
     treffliste_bnr: null,
     treffliste_adresse: null,
+    treffliste_koord: null,
     searchTerm: null,
     countermax: 50,
     anchorEl: null,
@@ -29,6 +30,7 @@ class SearchBar extends React.Component {
     number_bnr: 0,
     number_addresses: 0,
     number_layers: 0,
+    number_coord: 0,
     openDrawer: false
   };
 
@@ -43,6 +45,7 @@ class SearchBar extends React.Component {
       treffliste_gnr: null,
       treffliste_bnr: null,
       treffliste_adresse: null,
+      treffliste_koord: null,
       number_places: 0,
       number_knrgnrbnr: 0,
       number_kommune: 0,
@@ -50,7 +53,8 @@ class SearchBar extends React.Component {
       number_gnr: 0,
       number_bnr: 0,
       number_addresses: 0,
-      number_layers: 0
+      number_layers: 0,
+      number_coord: 0
     });
   };
 
@@ -188,6 +192,7 @@ class SearchBar extends React.Component {
 
     if (resultType === "all") {
       this.fetchSearchLayers(searchTerm);
+      this.fetchSearchCoordinates(searchTerm);
       this.fetchSearchProperties(searchTerm);
       this.fetchSearchPlaces(searchTerm, page);
       this.fetchSearchAddresses(searchTerm, page);
@@ -204,6 +209,8 @@ class SearchBar extends React.Component {
       this.fetchSearchPlaces(searchTerm, page, numberPerPage);
     } else if (resultType === "addresses") {
       this.fetchSearchAddresses(searchTerm, page, numberPerPage);
+    } else if (resultType === "coordinates") {
+      this.fetchSearchCoordinates(searchTerm);
     }
   };
 
@@ -555,6 +562,80 @@ class SearchBar extends React.Component {
     });
   };
 
+  fetchSearchCoordinates = searchTerm => {
+    searchTerm = searchTerm.replace(/:/g, " ").replace(/;/g, " ");
+    searchTerm = searchTerm.replace(/\//g, " ");
+    // Replace komma with point to get numbers
+    searchTerm = searchTerm.replace(/,/g, ".");
+    searchTerm = searchTerm.trim();
+    // Check that we have 2 items
+    let terms = searchTerm.split(" ");
+    if (terms.length !== 2) {
+      this.setState({ treffliste_koord: [], number_coord: 0 });
+      return;
+    }
+    // Check if the 2 items are numbers
+    const coord1 = parseFloat(terms[0]);
+    const coord2 = parseFloat(terms[1]);
+    if (!coord1 || !coord2) {
+      this.setState({ treffliste_koord: [], number_coord: 0 });
+      return;
+    }
+    // Check that the 2 numbers are between -90/90
+    if (coord1 < -90 || coord1 > 90 || coord2 < -90 || coord2 > 90) {
+      this.setState({ treffliste_koord: [], number_coord: 0 });
+      return;
+    }
+    // Return combinations of lat/lng
+    const numberDecimalsCoord1 = this.countDecimals(coord1);
+    const numberDecimalsCoord2 = this.countDecimals(coord2);
+    const maxDec = Math.max(numberDecimalsCoord1, numberDecimalsCoord2);
+    const textCoord1 = maxDec < 2 ? coord1.toFixed(2) : coord1.toFixed(maxDec);
+    const textCoord2 = maxDec < 2 ? coord2.toFixed(2) : coord2.toFixed(maxDec);
+    const koord = [];
+    // BBOX [lat, lng]
+    const bbox = [[50.958427, -23.90625], [83.829945, 36.035156]];
+    const minLat = bbox[0][0];
+    const maxLat = bbox[1][0];
+    const minLng = bbox[0][1];
+    const maxLng = bbox[1][1];
+    if (
+      coord1 >= minLat &&
+      coord1 <= maxLat &&
+      coord2 >= minLng &&
+      coord2 <= maxLng
+    ) {
+      const point = {
+        id: 1,
+        name: `${textCoord1}° N / ${textCoord2}° Ø`,
+        representasjonspunkt: { lat: coord1, lon: coord2 },
+        projection: "EPSG:4326"
+      };
+      koord.push(point);
+    }
+    if (
+      coord2 >= minLat &&
+      coord2 <= maxLat &&
+      coord1 >= minLng &&
+      coord1 <= maxLng
+    ) {
+      const point = {
+        id: 2,
+        name: `${textCoord2}° N / ${textCoord1}° Ø`,
+        representasjonspunkt: { lat: coord2, lon: coord1 },
+        projection: "EPSG:4326"
+      };
+      koord.push(point);
+    }
+    // const koord = [point1, point2];
+    this.setState({ treffliste_koord: koord, number_coord: koord.length });
+  };
+
+  countDecimals = value => {
+    if (Math.floor(value) === value) return 0;
+    return value.toString().split(".")[1].length || 0;
+  };
+
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
   }
@@ -723,6 +804,7 @@ class SearchBar extends React.Component {
               treffliste_bnr={this.state.treffliste_bnr}
               treffliste_adresse={this.state.treffliste_adresse}
               treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
+              treffliste_koord={this.state.treffliste_koord}
               number_places={this.state.number_places}
               number_knrgnrbnr={this.state.number_knrgnrbnr}
               number_kommune={this.state.number_kommune}
@@ -731,6 +813,7 @@ class SearchBar extends React.Component {
               number_bnr={this.state.number_bnr}
               number_addresses={this.state.number_addresses}
               number_layers={this.state.number_layers}
+              number_coord={this.state.number_coord}
               removeValgtLag={this.props.removeValgtLag}
               addValgtLag={this.props.addValgtLag}
               handleGeoSelection={this.props.handleGeoSelection}

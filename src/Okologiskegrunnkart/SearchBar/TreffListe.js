@@ -17,6 +17,7 @@ const TreffListe = ({
   treffliste_bnr,
   treffliste_adresse,
   treffliste_knrgnrbnr,
+  treffliste_koord,
   number_places,
   number_knrgnrbnr,
   number_kommune,
@@ -25,6 +26,7 @@ const TreffListe = ({
   number_bnr,
   number_addresses,
   number_layers,
+  number_coord,
   removeValgtLag,
   addValgtLag,
   handleGeoSelection,
@@ -257,6 +259,7 @@ const TreffListe = ({
         pages += gnr ? Math.ceil(gnr / pageLength) : 0;
         pages += bnr ? Math.ceil(bnr / pageLength) : 0;
         break;
+      case "coordinates":
       default:
         pages = 1;
     }
@@ -305,6 +308,9 @@ const TreffListe = ({
       list_items = addToList(list_items, treffliste_lag, "Kartlag", null);
       list_items = addToList(list_items, treffliste_underlag, "Underlag", null);
     }
+    if (resultType === "all" || resultType === "coordinates") {
+      list_items = addToList(list_items, treffliste_koord, "Punkt", null);
+    }
     if (resultType === "all" || resultType === "places") {
       list_items = addToList(list_items, treffliste_sted, "Stedsnavn", null);
       if (treffliste_kommune && treffliste_kommune.stedsnavn) {
@@ -335,6 +341,7 @@ const TreffListe = ({
     searchResultPage,
     treffliste_lag,
     treffliste_underlag,
+    treffliste_koord,
     treffliste_sted,
     treffliste_knrgnrbnr,
     treffliste_kommune,
@@ -405,7 +412,7 @@ const TreffListe = ({
           <div className="valgtLag">
             <button
               className="listheadingbutton all-results"
-              onClick={e => {
+              onClick={() => {
                 onSelectSearchResult(false);
                 handleRemoveTreffliste();
                 handleSearchBar(null);
@@ -421,6 +428,7 @@ const TreffListe = ({
             <div className="search-page-options">
               <div className="search-page-options-content">
                 <Button
+                  // Layers
                   id={
                     resultType === "layers"
                       ? "filter-search-button-selected"
@@ -439,7 +447,30 @@ const TreffListe = ({
                     </span>
                   </div>
                 </Button>
+
                 <Button
+                  // Coordinates
+                  id={
+                    resultType === "coordinates"
+                      ? "filter-search-button-selected"
+                      : "filter-search-button"
+                  }
+                  color="primary"
+                  onClick={() => {
+                    setResultType("coordinates");
+                    setPageNumber(1);
+                  }}
+                >
+                  <div className="search-tab-content">
+                    <span className="search-tab-title">Punkt</span>
+                    <span className="search-tab-number">
+                      {number_coord ? `(${number_coord})` : "(0)"}
+                    </span>
+                  </div>
+                </Button>
+
+                <Button
+                  // Places
                   id={
                     resultType === "places"
                       ? "filter-search-button-selected"
@@ -458,7 +489,9 @@ const TreffListe = ({
                     </span>
                   </div>
                 </Button>
+
                 <Button
+                  // Address
                   id={
                     resultType === "addresses"
                       ? "filter-search-button-selected"
@@ -471,13 +504,15 @@ const TreffListe = ({
                   }}
                 >
                   <div className="search-tab-content">
-                    <span className="search-tab-title">Adresser</span>
+                    <span className="search-tab-title">Adresse</span>
                     <span className="search-tab-number">
                       {number_addresses ? `(${number_addresses})` : "(0)"}
                     </span>
                   </div>
                 </Button>
+
                 <Button
+                  // Properties
                   id={
                     resultType === "properties"
                       ? "filter-search-button-selected"
@@ -490,7 +525,7 @@ const TreffListe = ({
                   }}
                 >
                   <div className="search-tab-content">
-                    <span className="search-tab-title">Eiendommer</span>
+                    <span className="search-tab-title">Eiendom</span>
                     <span className="search-tab-number">
                       {properties ? `(${properties})` : "(0)"}
                     </span>
@@ -533,6 +568,9 @@ const TreffListe = ({
                 itemname = item.stedsnavn || "finner ikke stedsnavn";
                 itemtype = item.navnetype || "";
                 itemnr = item.ssrId || "";
+              } else if (item.trefftype === "Punkt") {
+                itemname = item.name;
+                itemnr = item.projection;
               }
 
               return (
@@ -561,6 +599,8 @@ const TreffListe = ({
                         ) : (
                           <>{`, ${itemtype} i ${item.kommunenavn}`} </>
                         )
+                      ) : trefftype === "Punkt" ? (
+                        <>{"koordinater"}</>
                       ) : (
                         <>
                           {""} {item.postnummer} {item.poststed}
@@ -571,7 +611,8 @@ const TreffListe = ({
                       {trefftype === "Kommune" ||
                       trefftype === "Stedsnavn" ||
                       trefftype === "Kartlag" ||
-                      trefftype === "Underlag" ? (
+                      trefftype === "Underlag" ||
+                      trefftype === "Punkt" ? (
                         <>{itemnr}</>
                       ) : (
                         <>
