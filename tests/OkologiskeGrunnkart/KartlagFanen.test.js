@@ -1,8 +1,8 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import KartlagFanen from "../../src/Okologiskegrunnkart/KartlagFanen";
-import kartlagMock from "../kartlagMock.json";
-import favorittkartlagMock from "../favorittkartlagMock.json";
+import kartlagMock from "../tools/kartlagMock.json";
+import favorittkartlagMock from "../tools/favorittkartlagMock.json";
 
 afterEach(cleanup);
 
