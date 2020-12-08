@@ -347,6 +347,8 @@ class App extends React.Component {
     } else {
       this.setState({ kartlag: sortedKartlag });
     }
+
+    console.log(sortedKartlag);
   }
 
   // ------------------------------------------------------------------------------------- //
