@@ -34,7 +34,7 @@
 }
 .searchbar {
   position: relative;
-  margin-top: 10px;
+  margin-top: 9.5px;
   margin-left: 10px;
   margin-right: auto;
   width: 350px;
@@ -48,8 +48,9 @@
   width: calc(100% - 58px);
 }
 .searchbar.floating {
-  margin-top: 7px;
+  margin-top: 6.5px;
   margin-left: 7px;
+  width: 350px;
 }
 .search-button {
   width: 50px;
@@ -363,7 +364,7 @@
 .help_button {
   position: absolute;
   right: 10px;
-  top: 10px;
+  top: 9.5px;
   width: 31px;
   height: 31px;
   padding: 0;
@@ -374,7 +375,7 @@
 }
 .help_button.floating {
   right: 7px;
-  top: 7px;
+  top: 6.5px;
 }
 .help_button:hover {
   background: #ccc;
