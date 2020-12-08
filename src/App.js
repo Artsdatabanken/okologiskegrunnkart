@@ -1207,6 +1207,10 @@ class App extends React.Component {
       });
       // Wait some miliseconds so the tiles are fetched before the GetFeatureInfo
       setTimeout(() => {
+        if (trefftype === "Punkt" && maxcoord && mincoord) {
+          this.handleSetZoomCoordinates(mincoord, maxcoord);
+          this.setState({ automaticZoomUpdate: false });
+        }
         if (!this.state.showExtensiveInfo) {
           this.hentInfoAlleValgteLag(lng, lat, this.state.zoom);
         } else {
@@ -2844,7 +2848,6 @@ class App extends React.Component {
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
-                        handleSetZoomCoordinates={this.handleSetZoomCoordinates}
                         onUpdateLayerProp={this.handleKartlagLayerProp}
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
