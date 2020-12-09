@@ -114,6 +114,7 @@ const AppName = ({
           }}
           open={showAppName}
           onClose={() => closeAppName()}
+          aria-label="Appname"
         >
           <div
             className={

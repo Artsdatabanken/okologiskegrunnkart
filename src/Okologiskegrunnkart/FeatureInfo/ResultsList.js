@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -216,4 +215,4 @@ const ResultsList = ({
   );
 };
 
-export default withRouter(ResultsList);
+export default ResultsList;

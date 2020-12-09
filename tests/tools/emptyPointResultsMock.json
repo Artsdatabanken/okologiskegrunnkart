@@ -1,0 +1,18 @@
+{
+  " 2": {
+    "dataeier": "NIBIO",
+    "id": " 2",
+    "loading": false,
+    "tags": ["Feltkartlagte data", "Naturtype", "DOK-data"],
+    "tema": "Arealressurs",
+    "wmsinfoformat": "application/vnd.ogc.gml"
+  },
+  " 31": {
+    "dataeier": "Artsdatabanken",
+    "id": " 31",
+    "loading": false,
+    "tags": ["Arter"],
+    "tema": "Arter",
+    "wmsinfoformat": "application/vnd.ogc.gml"
+  }
+}
