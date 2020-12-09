@@ -29,10 +29,8 @@ it("should open modal when clicking button", async () => {
   const { queryByText, getByText } = renderAppName({
     aboutPage: "This is a test"
   });
-
   let submitButton = queryByText("Mer info");
   expect(submitButton).not.toBeNull();
-
   fireEvent.click(screen.getByText("Mer info"));
 
   setTimeout(() => {

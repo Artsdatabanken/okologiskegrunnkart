@@ -1,5 +1,5 @@
 {
-  "2": {
+  " 2": {
     "dataeier": "NIBIO",
     "faktaark": "https://wms.nibio.no/cgi-bin/ar5?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Hovedgrupper&query_layers=Hovedgrupper&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/arealressurskart-fkb-ar5---forvaltning---wms/1dcb696c-90cc-4b36-9bce-0269bfd993d0",
@@ -94,7 +94,7 @@
       "wmslayer": null
     }
   },
-  "31": {
+  " 31": {
     "aggregatedwmslayer": "Artskart",
     "dataeier": "Artsdatabanken",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/artskart-roedlistearter-wms/6023d55e-f0c2-4e70-b207-441bb8ddbfd1",
