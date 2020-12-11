@@ -71,6 +71,7 @@ const KartVelger = ({
       >
         <button
           className="change_map_icon"
+          title="Endre bakgrunnskart"
           onMouseEnter={() => {
             handleSetBakgrunnskart("kart.aktivtFormat", tilgjengelige[current]);
           }}
