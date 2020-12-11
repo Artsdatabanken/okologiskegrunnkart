@@ -247,6 +247,10 @@ class SearchBar extends React.Component {
       );
       counter += tags_search.counter;
     }
+    // Remove duplicates
+    treffliste_lag = [...new Set(treffliste_lag)];
+    treffliste_underlag = [...new Set(treffliste_underlag)];
+    // Set results in state
     const number_layers = treffliste_lag.length + treffliste_underlag.length;
     this.setState({
       treffliste_lag,
