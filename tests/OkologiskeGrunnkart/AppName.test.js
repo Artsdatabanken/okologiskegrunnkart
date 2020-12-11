@@ -1,5 +1,5 @@
 import React from "react";
-import { cleanup, render, fireEvent, screen } from "@testing-library/react";
+import { cleanup, render } from "@testing-library/react";
 import AppName from "../../src/Okologiskegrunnkart/AppName";
 
 afterEach(cleanup);
@@ -20,23 +20,37 @@ function renderAppName(args) {
 }
 
 it("should render app name and button at start for desktop", () => {
-  const { getByText } = renderAppName();
+  const { queryByText, getByText } = renderAppName();
   getByText("Økologiske grunnkart");
   getByText("Mer info");
+
+  let submitButton = queryByText('Om "Økologiske Grunnkart"');
+  expect(submitButton).toBeNull();
 });
 
-it("should open modal when clicking button", async () => {
+it("should render about modal", async () => {
   const { queryByText, getByText } = renderAppName({
+    showAppName: false,
+    showAboutModal: true,
     aboutPage: "This is a test"
   });
   let submitButton = queryByText("Mer info");
-  expect(submitButton).not.toBeNull();
-  fireEvent.click(screen.getByText("Mer info"));
+  expect(submitButton).toBeNull();
+  submitButton = queryByText("Økologiske Grunnkart");
+  expect(submitButton).toBeNull();
 
-  setTimeout(() => {
-    getByText('Om "Okologiske Grunnkart"');
-    getByText("This is a test");
-    submitButton = screen.queryByText("Mer info");
-    expect(submitButton).toBeNull();
-  }, 1000);
+  getByText('Om "Økologiske Grunnkart"');
+  getByText("This is a test");
+});
+
+it("should render app name and about modal", async () => {
+  const { getByText } = renderAppName({
+    showAppName: true,
+    showAboutModal: true,
+    aboutPage: "This is a test"
+  });
+  getByText("Økologiske grunnkart");
+  getByText("Mer info");
+  getByText('Om "Økologiske Grunnkart"');
+  getByText("This is a test");
 });

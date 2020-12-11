@@ -1,0 +1,389 @@
+{
+  "ANF": [
+    { "km2": 2.13865983522298, "kode": "Crex crex", "navn": "Åkerrikse" },
+    {
+      "km2": 1.6541615001633418,
+      "kode": "Chroicocephalus ridibundus",
+      "navn": "Hettemåke"
+    },
+    {
+      "km2": 1.2054600001280604,
+      "kode": "Numenius arquata",
+      "navn": "Storspove"
+    },
+    { "km2": 1.2022215001272436, "kode": "Turdus pilaris", "navn": "Gråtrost" },
+    {
+      "km2": 0.7549445000756374,
+      "kode": "Dendrocopos minor",
+      "navn": "Dvergspett"
+    },
+    { "km2": 0.7119535000765953, "kode": "Anas clypeata", "navn": "Skjeand" },
+    {
+      "km2": 0.4333630000466233,
+      "kode": "Gallinula chloropus",
+      "navn": "Sivhøne"
+    },
+    {
+      "km2": 0.27082050002634,
+      "kode": "Dendrocopos leucotos",
+      "navn": "Hvitryggspett"
+    },
+    {
+      "km2": 0.26666350002876527,
+      "kode": "Fringilla montifringilla",
+      "navn": "Bjørkefink"
+    },
+    { "km2": 0.17546100001856488, "kode": "Fraxinus excelsior", "navn": "Ask" },
+    { "km2": 0.1677573350174617, "kode": "Vanellus vanellus", "navn": "Vipe" },
+    {
+      "km2": 0.15477250001665124,
+      "kode": "Anthus pratensis",
+      "navn": "Heipiplerke"
+    },
+    { "km2": 0.10823000001148167, "kode": "Ulmus glabra", "navn": "Alm" },
+    {
+      "km2": 0.06562000000715049,
+      "kode": "Acanthis flammea",
+      "navn": "Gråsisik"
+    },
+    { "km2": 0.04759100000511849, "kode": "Lutra lutra", "navn": "Oter" },
+    {
+      "km2": 0.03095450000333025,
+      "kode": "Sterna hirundo",
+      "navn": "Makrellterne"
+    }
+  ],
+  "BRE": [
+    { "km2": 0.041482870786272365, "kode": "SnøIsbre", "navn": "Dukfonna" }
+  ],
+  "FYL": [{ "km2": 305.71051231264886, "kode": "50", "navn": "Trøndelag" }],
+  "ISJ": [
+    { "km2": 1.260547158356915, "kode": "236345", "navn": "Ramstadsjøen" },
+    { "km2": 0.47932394625795516, "kode": "216370", "navn": "Langvatnet" },
+    { "km2": 0.3256574623887611, "kode": "217887", "navn": "Råsjøen" },
+    { "km2": 0.20981959757740426, "kode": "236589", "navn": "Haukdalsvatnet" },
+    { "km2": 0.19119508097265, "kode": "211179", "navn": null },
+    { "km2": 0.18750258942345852, "kode": "211378", "navn": "Kvernvatnet" },
+    { "km2": 0.17133857757198914, "kode": "210674", "navn": "Grøtvatnet" },
+    { "km2": 0.15105295306859332, "kode": "236136", "navn": "Litlvatnet" },
+    { "km2": 0.09390913011093481, "kode": "263941", "navn": null },
+    { "km2": 0.08869363026135488, "kode": "210944", "navn": "Gyllvatnet" }
+  ],
+  "KOM": [
+    { "km2": 191.0423489884836, "kode": "5027", "navn": "Midtre Gauldal" },
+    { "km2": 114.66741836316675, "kode": "5028", "navn": "Melhus" }
+  ],
+  "MAG": [
+    {
+      "km2": 0.09391579158655847,
+      "kode": "RK",
+      "navn": "SOKNA",
+      "beskrivelse": "Reguleringsmagasin til kraftproduksjon"
+    }
+  ],
+  "MAT": [
+    { "km2": 57.60688859943626, "kode": "", "navn": "5027 / 2 / 1" },
+    {
+      "km2": 43.664637624849654,
+      "kode": "",
+      "navn": "5027 / 76 / 1 - 2, 77 / 1 - 4, 25"
+    },
+    {
+      "km2": 34.01609904792032,
+      "kode": "",
+      "navn": "5027 / 72 / 1 - 2, 4 - 5, 14, 74 / 2 - 3"
+    },
+    { "km2": 32.03122542721068, "kode": "", "navn": "5027 / 3 / 1" },
+    { "km2": 31.926269719031, "kode": "", "navn": "5027 / 39 / 1" },
+    { "km2": 27.756679860210593, "kode": "", "navn": "5027 / 1 / 4" },
+    {
+      "km2": 21.985419306113805,
+      "kode": "",
+      "navn": "5027 / 39 / 7, 9, 40 / 3, 41 / 2 - 4, 49 / 2, 65 / 1 - 3, 6, 66 / 1 - 4, 6 - 7"
+    },
+    { "km2": 16.501406250416235, "kode": "", "navn": "5028 / 265 / 6" },
+    { "km2": 12.661111973396542, "kode": "", "navn": "5027 / 1 / 1" },
+    { "km2": 11.822678870019123, "kode": "", "navn": "5028 / 225 / 6" },
+    { "km2": 10.75034042500062, "kode": "", "navn": "5027 / 4 / 1" },
+    { "km2": 10.385753604940463, "kode": "", "navn": "5027 / 50 / 1" },
+    { "km2": 10.145675826255333, "kode": "", "navn": "5027 / 47 / 1" },
+    { "km2": 10.111395778150177, "kode": "", "navn": "5027 / 44 / 1" },
+    {
+      "km2": 10.028190762504712,
+      "kode": "",
+      "navn": "5027 / 72 / 2, 73 / 1, 74 / 1, 75 / 1, 76 / 1, 77 / 1 - 4, 10, 25"
+    }
+  ],
+  "N13": [
+    {
+      "km2": 1.1279549644858335,
+      "kode": "F18",
+      "navn": "Gammel granskog",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.8751789543180324,
+      "kode": "C01",
+      "navn": "Kalkrike områder i fjellet",
+      "beskrivelse": "Samlenaturtype for all kalkrik vegetasjon i fjellet. Kalkrik bergrunn gir et næringsrikt jordsmonn og stedvis frodig vegetasjon med et høyt antall urter, lav og moser. Rikmyrer og rikkilder over skoggrensa kan kartlegges separat dersom en ønsker det (se også myrkapitlet). Gamle beite- og slåtte­marker er også gjerne knyttet til næringsrike områder på kalkrik grunn.",
+      "expandable": true
+    },
+    {
+      "km2": 0.8645903783851173,
+      "kode": "A05",
+      "navn": "Rikmyr",
+      "beskrivelse": "Jordvannsmyrer hovedsakelig på baserik berggrunn. …rter for ekstremrikmyr er brunskjene og sotstarr.",
+      "expandable": true
+    },
+    {
+      "km2": 0.8293057371801896,
+      "kode": "B01",
+      "navn": "Sørvendt berg og rasmark",
+      "beskrivelse": "Sørvendte berg og bergvegger, og rasmarker nedenfo…naturtypen føres opp under hovednaturtypen skog. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.6372191881064279,
+      "kode": "F09",
+      "navn": "Skogsbekkekløft",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.5166156450868269,
+      "kode": "F19",
+      "navn": "Gammel furuskog",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.39042479947823566,
+      "kode": "F05",
+      "navn": "Gråor-heggeskog",
+      "beskrivelse": "Utforminig F0502 Liskog/raviner er lagt til utform…e er ofte gjengroingsstadier fra åpen kulturmark.",
+      "expandable": true
+    },
+    {
+      "km2": 0.38630629535840244,
+      "kode": "E04",
+      "navn": "Åpen flommark",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.32899171791516424,
+      "kode": "F08",
+      "navn": "Gammel barskog",
+      "beskrivelse": "Mange arter er avhengig av de stabile forhold og d…vil også omfatte velutviklede fattige sumpskoger.",
+      "expandable": true
+    },
+    {
+      "km2": 0.18999249292104908,
+      "kode": "E06",
+      "navn": "Viktig bekkedrag",
+      "beskrivelse": "Små vassdrag i kulturlandskapet, kalkrike bekker o…tier og bekker med landskapsøkologisk betydning. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.17515929547873943,
+      "kode": "F11",
+      "navn": "Kystgranskog",
+      "beskrivelse": "Boreal regnskog med gran som dominerende treslag. …kogen ofte iblandet bjørk, selje, rogn og gråor. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.17105533338414597,
+      "kode": "E03",
+      "navn": "Kroksjøer flomdam og meandrerende elveparti",
+      "beskrivelse": "Flomdammer er små, grunne (< 5 m) vannforekomster …ant, og sedimenterer i innerkant av meanderbuen. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.15764240547012892,
+      "kode": "A10",
+      "navn": "Låglandsmyr i innlandet",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.12518901873536412,
+      "kode": "F01",
+      "navn": "Rik edellauvskog",
+      "beskrivelse": "Skog av varmekjære lauvtrær som ask, alm, eik, has…ite, med betydning for artsinnhold og utforming. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.08811135289865832,
+      "kode": "F06",
+      "navn": "Rik sumpskog kildeskog og strandskog",
+      "beskrivelse": "Næringsrike typer av lauvskog og kratt som vokser …tlegges som gammel barskog eller gammel lauvskog.",
+      "expandable": true
+    },
+    {
+      "km2": 0.07946410539503353,
+      "kode": "D06",
+      "navn": "Beiteskog",
+      "beskrivelse": "Skog som beites og som har et tydelig beitepreg.",
+      "expandable": true
+    },
+    {
+      "km2": 0.05593471579698769,
+      "kode": "E05",
+      "navn": "Fossesprøytsone",
+      "beskrivelse": "Naturtypen utgjøres av de åpne kantsonene omkring …g bekkekanter som sjelden eller aldri tørker ut. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.046026195505946096,
+      "kode": "A07",
+      "navn": "Intakt lavlandsmyr i innlandet",
+      "beskrivelse": "Utformingen A0701 er flyttet til naturtypen A10 Hø…ilde og kildebekk (se egne fakta­ ark) kan inngå.",
+      "expandable": true
+    },
+    {
+      "km2": 0.03812355100456046,
+      "kode": "F04",
+      "navn": "Rik boreal lauvskog",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.03445518115863744,
+      "kode": "D01",
+      "navn": "Slåttemark",
+      "beskrivelse": "Slåttemarker i langvarig hevd som har vært lite/ik…e  • beitemarka påvirkes i større grad av tråkk. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.03241510160374149,
+      "kode": "F17",
+      "navn": "Rik barskog",
+      "beskrivelse": "",
+      "expandable": true
+    },
+    {
+      "km2": 0.02236503117706745,
+      "kode": "D02",
+      "navn": "Slåttemyr",
+      "beskrivelse": "Myrer med slåttebetinget eller beitepåvirket veget…. Det var først og fremst kyr som beitet på myr. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.012685603717680329,
+      "kode": "D04",
+      "navn": "Naturbeitemark",
+      "beskrivelse": "Ikke tresatt beitemark med lang hevd som har vært …p og insekter er typiske for disse beitemarkene. ",
+      "expandable": true
+    },
+    {
+      "km2": 0.00809578106584315,
+      "kode": "E09",
+      "navn": "Dam",
+      "beskrivelse": "Små og grunne vannansamlinger, hovedsakelig i kult…r-arter kan også registreres som artsforekomster.",
+      "expandable": true
+    }
+  ],
+  "NIN": [
+    {
+      "km2": 1.968312178603979,
+      "kode": null,
+      "navn": "Åpen myrflate i boreonemoral til nordboreal sone",
+      "beskrivelse": ""
+    },
+    {
+      "km2": 1.5196561999662284,
+      "kode": null,
+      "navn": "Åpen myrflate i boreonemoral til nordboreal sone",
+      "beskrivelse": "Svært høy kvalitet"
+    },
+    {
+      "km2": 0.4261816355261284,
+      "kode": null,
+      "navn": "Åpen myrflate i boreonemoral til nordboreal sone",
+      "beskrivelse": "Høy kvalitet"
+    },
+    {
+      "km2": 0.1140862742783687,
+      "kode": null,
+      "navn": "Kalkrik åpen jordvannsmyr i boreonemoral til nordboreal sone",
+      "beskrivelse": "Svært høy kvalitet"
+    },
+    {
+      "km2": 0.0820374968812265,
+      "kode": null,
+      "navn": "Rik åpen sørlig jordvannsmyr ",
+      "beskrivelse": ""
+    },
+    {
+      "km2": 0.07792077422316679,
+      "kode": null,
+      "navn": "Åpen myrflate i lavalpin sone",
+      "beskrivelse": "Svært høy kvalitet"
+    },
+    {
+      "km2": 0.0495770172645988,
+      "kode": null,
+      "navn": "E12.2 Høgereligende og nordlig nedbørsmyr",
+      "beskrivelse": "Høy kvalitet"
+    },
+    {
+      "km2": 0.0461708390285403,
+      "kode": null,
+      "navn": "E15.1 Slåttemyr",
+      "beskrivelse": ""
+    }
+  ],
+  "NMA": [
+    {
+      "km2": 0.26895630808655857,
+      "kode": "I01",
+      "navn": "Arasvikfjorden",
+      "beskrivelse": "Større tareskogforekomster. A – Lokaliteter med st…eskog (~100 000 m2). Tareskog i nedbeita områder.",
+      "expandable": true
+    },
+    {
+      "km2": 0.2638369647142341,
+      "kode": "I01",
+      "navn": "Aursundet",
+      "beskrivelse": "Større tareskogforekomster. A – Lokaliteter med st…eskog (~100 000 m2). Tareskog i nedbeita områder.",
+      "expandable": true
+    },
+    {
+      "km2": 0.15384767998384608,
+      "kode": "I01",
+      "navn": "Vinjefjorden",
+      "beskrivelse": "Større tareskogforekomster. A – Lokaliteter med st…eskog (~100 000 m2). Tareskog i nedbeita områder.",
+      "expandable": true
+    }
+  ],
+  "VRN": [
+    {
+      "km2": 8.040421641392937,
+      "kode": "Naturreservat",
+      "navn": "Svarttjønnåsen"
+    },
+    {
+      "km2": 3.6691828540351543,
+      "kode": "Naturreservat",
+      "navn": "Kvasshyllan"
+    },
+    {
+      "km2": 0.3715795063004044,
+      "kode": "Naturreservat",
+      "navn": "Hoppardalsmyra"
+    },
+    {
+      "km2": 0.2716064145317566,
+      "kode": "Plantefredningsomraade",
+      "navn": "Granøyen"
+    },
+    {
+      "km2": 0.08157625071150722,
+      "kode": "Naturreservat",
+      "navn": "Ytter Skjervollslykkja"
+    },
+    { "km2": 0.049906462806702696, "kode": "Naturreservat", "navn": "Hovin" }
+  ],
+  "VVS": [{ "km2": 305.71051231264886, "kode": "122/1", "navn": "Gaula" }]
+}
