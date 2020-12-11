@@ -4,6 +4,7 @@ import InfoboxSide from "../../../src/Okologiskegrunnkart/FeatureInfo/InfoboxSid
 import kartlagMock from "../../tools/kartlagMock.json";
 import emptyPointResultsMock from "../../tools/emptyPointResultsMock.json";
 import pointResultsMock from "../../tools/pointResultsMock.json";
+import polygonResultsMock from "../../tools/polygonResultsMock.json";
 import {
   emptyPointCoordinates,
   emptyPointPlace
@@ -21,11 +22,18 @@ afterEach(cleanup);
 const kartlag = kartlagMock;
 const emptyPointResults = emptyPointResultsMock;
 const pointResults = pointResultsMock;
+const polygonResults = polygonResultsMock;
 const geometry = [
   [64.88626540914477, 11.535644531250002],
   [64.71787992684128, 12.875976562500002],
   [63.927717045495136, 12.216796875000002],
   [64.13936944203154, 11.381835937500002]
+];
+const geometry2 = [
+  [63.12457211930414, 9.700927734375002],
+  [63.074865690586634, 10.360107421875002],
+  [62.65396335371416, 10.074462890625002],
+  [62.784887782399174, 9.492187500000002]
 ];
 
 function renderInfoboxSide(args) {
@@ -148,10 +156,10 @@ it("should render data with empty point results", () => {
   let result = getAllByText("Ingen treff");
   expect(result.length).toBe(2);
   // Badges
-  let badge = screen.queryByText("1");
-  expect(badge).toBeNull();
-  badge = screen.queryByText("3");
-  expect(badge).toBeNull();
+  let badges = screen.queryByText("1");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("3");
+  expect(badges).toBeNull();
 });
 
 it("should render data with point results", () => {
@@ -252,10 +260,10 @@ it("should render no results with selected layers but receives results for all l
   results = screen.queryByText("Produktiv skog");
   expect(results).toBeNull();
   // Badges
-  results = screen.queryByText("1");
-  expect(results).toBeNull();
-  results = screen.queryByText("3");
-  expect(results).toBeNull();
+  let badges = screen.queryByText("1");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("3");
+  expect(badges).toBeNull();
 });
 
 // ---------------------------------------------------------------- //
@@ -266,6 +274,7 @@ it("should render no polygon data when no polygon is defined", () => {
     markerType: "polygon"
   });
   // Only headers
+  getByText("Mitt Polygon");
   getByText("Velg polygon");
   getByText("Ingen (selvtegnet)");
   getByText("Fylke");
@@ -285,6 +294,7 @@ it("should render polyline data when polyline is defined", () => {
     polyline: geometry
   });
   // Only headers
+  getByText("Mitt Polygon");
   getByText("Velg polygon");
   getByText("Ingen (selvtegnet)");
   getByText("Fylke");
@@ -304,6 +314,7 @@ it("should render polygon data when polygon is defined", () => {
     polygon: geometry
   });
   // Only headers
+  getByText("Mitt Polygon");
   getByText("Velg polygon");
   getByText("Ingen (selvtegnet)");
   getByText("Fylke");
@@ -315,4 +326,128 @@ it("should render polygon data when polygon is defined", () => {
   getByText("Areal");
   getByText("4894.9 km²");
   getByText("Arealrapport");
+});
+
+it("should render results with polygon and polygon results defined", () => {
+  const { getByText, getAllByText } = renderInfoboxSide({
+    markerType: "polygon",
+    polygon: geometry2,
+    polygonResults: polygonResults
+  });
+  // Headers
+  getByText("Mitt Polygon");
+  getByText("Velg polygon");
+  getByText("Ingen (selvtegnet)");
+  getByText("Fylke");
+  getByText("Kommune");
+  getByText("Eiendom");
+  getByText("Geometri");
+  getByText("Omkrets / perimeter");
+  getByText("155.4 km");
+  getByText("Areal");
+  getByText("1464.2 km²");
+  getByText("Arealrapport");
+  // Polygon results
+  getByText("Fylker");
+  getByText("Kommuner");
+  getByText("Eiendommer");
+  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Breer i Norge");
+  getByText("Naturtyper - DN Håndbook 13");
+  getByText("Naturtyper - DN Håndbook 19");
+  getByText("Naturtyper - NiN Mdir");
+  getByText("Naturvernområder");
+  getByText("Innsjødatabase");
+  getByText("Vannkraft - Magasin");
+  getByText("Verneplan for Vassdrag");
+  let owners = getAllByText("Kartverket");
+  expect(owners.length).toBe(3);
+  owners = getAllByText("Miljødirektoratet");
+  expect(owners.length).toBe(6);
+  owners = getAllByText("Norges vassdrags- og energidirektorat");
+  expect(owners.length).toBe(3);
+  // Badges
+  getByText("16");
+  getByText("10");
+  getByText("15");
+  getByText("24");
+  getByText("8");
+  getByText("6");
+  getByText("3");
+  getByText("2");
+  let badges = getAllByText("1");
+  expect(badges.length).toBe(4);
+});
+
+it("should render no results with polygon and empty polygon results", () => {
+  const results = {
+    ANF: null,
+    BRE: null,
+    FYL: null,
+    ISJ: null,
+    KOM: null,
+    MAG: null,
+    MAT: null,
+    N13: null,
+    NIN: null,
+    NMA: null,
+    VRN: null,
+    VVS: null
+  };
+  const { getByText, getAllByText } = renderInfoboxSide({
+    markerType: "polygon",
+    polygon: geometry2,
+    polygonResults: results
+  });
+  // Headers
+  getByText("Mitt Polygon");
+  getByText("Velg polygon");
+  getByText("Ingen (selvtegnet)");
+  getByText("Fylke");
+  getByText("Kommune");
+  getByText("Eiendom");
+  getByText("Geometri");
+  getByText("Omkrets / perimeter");
+  getByText("155.4 km");
+  getByText("Areal");
+  getByText("1464.2 km²");
+  getByText("Arealrapport");
+  // Polygon results
+  getByText("Fylker");
+  getByText("Kommuner");
+  getByText("Eiendommer");
+  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Breer i Norge");
+  getByText("Naturtyper - DN Håndbook 13");
+  getByText("Naturtyper - DN Håndbook 19");
+  getByText("Naturtyper - NiN Mdir");
+  getByText("Naturvernområder");
+  getByText("Innsjødatabase");
+  getByText("Vannkraft - Magasin");
+  getByText("Verneplan for Vassdrag");
+  let owners = getAllByText("Kartverket");
+  expect(owners.length).toBe(3);
+  owners = getAllByText("Miljødirektoratet");
+  expect(owners.length).toBe(6);
+  owners = getAllByText("Norges vassdrags- og energidirektorat");
+  expect(owners.length).toBe(3);
+  // Badges
+  let badges = screen.queryByText("16");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("16");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("15");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("24");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("8");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("6");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("3");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("2");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("1");
+  expect(badges).toBeNull();
 });

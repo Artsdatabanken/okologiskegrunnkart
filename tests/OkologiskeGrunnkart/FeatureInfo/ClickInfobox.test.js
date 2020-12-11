@@ -121,10 +121,10 @@ it("should render data with empty point results and all layers", () => {
   let result = getAllByText("Ingen treff");
   expect(result.length).toBe(2);
   // Badges
-  let badge = screen.queryByText("1");
-  expect(badge).toBeNull();
-  badge = screen.queryByText("3");
-  expect(badge).toBeNull();
+  let badges = screen.queryByText("1");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("3");
+  expect(badges).toBeNull();
 });
 
 it("should render data with point results and all layers", () => {
@@ -215,8 +215,8 @@ it("should render no results with all layers but receives results for selected l
   results = screen.queryByText("Produktiv skog");
   expect(results).toBeNull();
   // Badges
-  results = screen.queryByText("1");
-  expect(results).toBeNull();
-  results = screen.queryByText("3");
-  expect(results).toBeNull();
+  let badges = screen.queryByText("1");
+  expect(badges).toBeNull();
+  badges = screen.queryByText("3");
+  expect(badges).toBeNull();
 });
