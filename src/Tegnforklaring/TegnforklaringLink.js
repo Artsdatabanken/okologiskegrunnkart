@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
       top: 5
     },
     "& .MuiBadge-colorPrimary": {
-      backgroundColor: "#22aa58 !important"
+      backgroundColor: "#22aa58"
     }
   }
 }));

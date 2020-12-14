@@ -418,7 +418,8 @@ it("should render results with polygon and polygon results defined", () => {
   owners = getAllByText("Norges vassdrags- og energidirektorat");
   expect(owners.length).toBe(3);
   // Badges
-  getByText("16");
+  let badge = getByText("16");
+  expect(badge).toHaveClass("MuiBadge-colorPrimary");
   getByText("10");
   getByText("15");
   getByText("24");
@@ -428,6 +429,8 @@ it("should render results with polygon and polygon results defined", () => {
   getByText("2");
   let badges = getAllByText("1");
   expect(badges.length).toBe(4);
+  expect(badges[0]).toHaveClass("MuiBadge-colorPrimary");
+  expect(badges[1]).toHaveClass("MuiBadge-colorPrimary");
 });
 
 it("should render no results with polygon and empty polygon results", () => {

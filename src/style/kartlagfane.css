@@ -635,7 +635,7 @@
   border-bottom: 1px solid #cccddd;
 }
 .badge-enabled > .MuiBadge-colorPrimary {
-  background-color: #22aa58 !important;
+  background-color: #22aa58;
 }
 #bookmark.layer-icon-wrapper {
   margin-bottom: 2px;
