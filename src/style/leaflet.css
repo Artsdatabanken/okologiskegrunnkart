@@ -111,7 +111,7 @@
 }
 .leaflet-control-attribution {
   margin-right: 0px;
-  padding: 1px 15px;
+  padding: 1px 13px;
   -webkit-transition: margin 0.5s;
   -moz-transition: margin 0.5s;
   -ms-transition: margin 0.5s;
@@ -121,7 +121,7 @@
 }
 .leaflet-control-attribution.side-bar-open {
   margin-right: 408px;
-  padding: 1px 15px;
+  padding: 1px 13px;
   -webkit-transition: margin 0.5s;
   -moz-transition: margin 0.5s;
   -ms-transition: margin 0.5s;
@@ -135,8 +135,8 @@
   text-decoration: underline;
 }
 .leaflet-bottom .leaflet-control-scale {
-  right: 55px;
-  bottom: -17px;
+  right: 50px;
+  bottom: -17.5px;
   margin-bottom: 0;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
@@ -146,8 +146,8 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .leaflet-control-scale.side-bar-open {
-  right: calc(408px + 55px);
-  bottom: -17px;
+  right: calc(408px + 50px);
+  bottom: -17.5px;
   margin-bottom: 0;
   -webkit-transition: right 0.5s;
   -moz-transition: right 0.5s;
