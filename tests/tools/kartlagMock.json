@@ -979,7 +979,7 @@
     "tittel": "Arter - Rødlista",
     "favorite": true,
     "underlag": {
-      "29": {
+      "ArterRdlista_Rdlistaarterallekategorier": {
         "faktaark": "",
         "id": 29,
         "klikktekst": "",
@@ -1002,7 +1002,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "38": {
+      "ArterRdlista_RERegionaltutddd": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{RE_punkt_layer.RE_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 38,
         "klikktekst": "{RE_punkt_layer.RE_punkt_feature.NorskNavn} {RE_punkt_layer.RE_punkt_feature.Species}",
@@ -1025,7 +1025,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "39": {
+      "ArterRdlista_CRKritisktruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{CR_punkt_layer.CR_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 39,
         "klikktekst": "{CR_punkt_layer.CR_punkt_feature.NorskNavn} {CR_punkt_layer.CR_punkt_feature.ScientificName}",
@@ -1048,7 +1048,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "40": {
+      "ArterRdlista_ENSterkttruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{EN_punkt_layer.EN_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 40,
         "klikktekst": "{EN_punkt_layer.EN_punkt_feature.NorskNavn} {EN_punkt_layer.EN_punkt_feature.Species}",
@@ -1071,7 +1071,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "41": {
+      "ArterRdlista_VUSrbar": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{VU_punkt_layer.VU_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 41,
         "klikktekst": "{VU_punkt_layer.VU_punkt_feature.NorskNavn} {VU_punkt_layer.VU_punkt_feature.Species}",
@@ -1094,7 +1094,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "42": {
+      "ArterRdlista_NTNrtruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{NT_punkt_layer.NT_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 42,
         "klikktekst": "{NT_punkt_layer.NT_punkt_feature.NorskNavn} {NT_punkt_layer.NT_punkt_feature.Species}",
@@ -1117,7 +1117,7 @@
         "erSynlig": false,
         "favorite": true
       },
-      "43": {
+      "ArterRdlista_DDDatamangel": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{DD_punkt_layer.DD_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
         "id": 43,
         "klikktekst": "{DD_punkt_layer.DD_punkt_feature.NorskNavn} {DD_punkt_layer.DD_punkt_feature.ScientificName}",
