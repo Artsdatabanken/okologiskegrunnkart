@@ -255,7 +255,7 @@
   .artsdatabanken-logo-wrapper {
     width: 160px;
     right: calc(100% / 2 - 90px);
-    padding-bottom: 0;
+    padding-bottom: 6px;
   }
   .artsdatabanken-logo-image {
     height: 25px;
