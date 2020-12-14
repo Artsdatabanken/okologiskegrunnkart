@@ -1,5 +1,6 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import InfoboxSide from "../../../src/Okologiskegrunnkart/FeatureInfo/InfoboxSide";
 import kartlagMock from "../../tools/kartlagMock.json";
 import emptyPointResultsMock from "../../tools/emptyPointResultsMock.json";
@@ -205,8 +206,10 @@ it("should render data with point results", () => {
   getByText("Gubbeskjegg. Alectoria sarmentosa");
   getByText("Produktiv skog");
   // Badges
-  getByText("1");
-  getByText("3");
+  let badge = getByText("1");
+  expect(badge).toHaveClass("MuiBadge-colorPrimary");
+  badge = getByText("3");
+  expect(badge).toHaveClass("MuiBadge-colorPrimary");
 });
 
 it("should render no results with selected layers but receives results for all layers only and showExtensiveInfo is false", () => {
@@ -264,6 +267,54 @@ it("should render no results with selected layers but receives results for all l
   expect(badges).toBeNull();
   badges = screen.queryByText("3");
   expect(badges).toBeNull();
+});
+
+it("should render errors when error is returned from layer results", () => {
+  let valgteLag = {};
+  let errorResults = {};
+  for (const layerId in emptyPointResults) {
+    const layer = kartlag[layerId];
+    valgteLag[layerId] = layer;
+    errorResults[layerId] = { ...emptyPointResults[layerId], error: "Error" };
+  }
+
+  const { getByText, getAllByText } = renderInfoboxSide({
+    coordinates_area: emptyPointCoordinates(),
+    valgteLag: valgteLag,
+    sted: emptyPointPlace(),
+    adresse: null,
+    matrikkel: null,
+    elevation: null,
+    layersResult: errorResults
+  });
+  // Point results
+  getByText("Steinan");
+  getByText("Sjø");
+  getByText("Nordland");
+  getByText("18");
+  getByText("Vega");
+  getByText("1815");
+  getByText("65.5278° N 10.2859° Ø");
+  getByText("Marker grenser");
+  getByText("Fylke");
+  getByText("Kommune");
+  getByText("Eiendom");
+  getByText("Valgte kartlag");
+  getByText("Alle kartlag");
+  // Layer results
+  getByText("Arter");
+  getByText("Arealressurs");
+  getByText("Arter - Rødlista");
+  getByText("Artsdatabanken");
+  getByText("Arealressurs: AR5");
+  getByText("NIBIO");
+  let result = getAllByText("Kunne ikke hente data");
+  expect(result.length).toBe(2);
+  // Badges
+  let badges = getAllByText("!");
+  expect(badges.length).toBe(2);
+  expect(badges[0]).toHaveClass("MuiBadge-colorError");
+  expect(badges[1]).toHaveClass("MuiBadge-colorError");
 });
 
 // ---------------------------------------------------------------- //
@@ -367,7 +418,8 @@ it("should render results with polygon and polygon results defined", () => {
   owners = getAllByText("Norges vassdrags- og energidirektorat");
   expect(owners.length).toBe(3);
   // Badges
-  getByText("16");
+  let badge = getByText("16");
+  expect(badge).toHaveClass("MuiBadge-colorPrimary");
   getByText("10");
   getByText("15");
   getByText("24");
@@ -377,6 +429,8 @@ it("should render results with polygon and polygon results defined", () => {
   getByText("2");
   let badges = getAllByText("1");
   expect(badges.length).toBe(4);
+  expect(badges[0]).toHaveClass("MuiBadge-colorPrimary");
+  expect(badges[1]).toHaveClass("MuiBadge-colorPrimary");
 });
 
 it("should render no results with polygon and empty polygon results", () => {
@@ -450,4 +504,63 @@ it("should render no results with polygon and empty polygon results", () => {
   expect(badges).toBeNull();
   badges = screen.queryByText("1");
   expect(badges).toBeNull();
+});
+
+it("should render error when error is returned from polygon results", () => {
+  const results = {
+    ANF: { error: true },
+    BRE: { error: true },
+    FYL: { error: true },
+    ISJ: { error: true },
+    KOM: { error: true },
+    MAG: { error: true },
+    MAT: { error: true },
+    N13: { error: true },
+    NIN: { error: true },
+    NMA: { error: true },
+    VRN: { error: true },
+    VVS: { error: true }
+  };
+  const { getByText, getAllByText } = renderInfoboxSide({
+    markerType: "polygon",
+    polygon: geometry2,
+    polygonResults: results
+  });
+  // Headers
+  getByText("Mitt Polygon");
+  getByText("Velg polygon");
+  getByText("Ingen (selvtegnet)");
+  getByText("Fylke");
+  getByText("Kommune");
+  getByText("Eiendom");
+  getByText("Geometri");
+  getByText("Omkrets / perimeter");
+  getByText("155.4 km");
+  getByText("Areal");
+  getByText("1464.2 km²");
+  getByText("Arealrapport");
+  // Polygon results
+  getByText("Fylker");
+  getByText("Kommuner");
+  getByText("Eiendommer");
+  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Breer i Norge");
+  getByText("Naturtyper - DN Håndbook 13");
+  getByText("Naturtyper - DN Håndbook 19");
+  getByText("Naturtyper - NiN Mdir");
+  getByText("Naturvernområder");
+  getByText("Innsjødatabase");
+  getByText("Vannkraft - Magasin");
+  getByText("Verneplan for Vassdrag");
+  let owners = getAllByText("Kartverket");
+  expect(owners.length).toBe(3);
+  owners = getAllByText("Miljødirektoratet");
+  expect(owners.length).toBe(6);
+  owners = getAllByText("Norges vassdrags- og energidirektorat");
+  expect(owners.length).toBe(3);
+  // Badges
+  let badges = getAllByText("!");
+  expect(badges.length).toBe(12);
+  expect(badges[0]).toHaveClass("MuiBadge-colorError");
+  expect(badges[1]).toHaveClass("MuiBadge-colorError");
 });
