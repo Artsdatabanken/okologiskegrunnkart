@@ -132,6 +132,7 @@
 .leaflet-control-attribution a:focus-visible {
   border: 1px solid blue;
   padding: 0 5px;
+  margin: 0 -5px;
   text-decoration: underline;
 }
 .leaflet-bottom .leaflet-control-scale {
