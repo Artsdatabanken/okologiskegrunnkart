@@ -96,6 +96,7 @@ class Leaflet extends React.Component {
     map.setView([65.4, 15.8], 3.1 * 1.8);
 
     L.control.zoom({ position: "topright" }).addTo(map);
+    L.control.scale({ position: "bottomright", imperial: false }).addTo(map);
     L.DomUtil.addClass(map._container, "crosshair-cursor-enabled");
     this.icon = L.icon({
       iconUrl: "/marker/marker-icon-2x-orange.png",
@@ -192,6 +193,7 @@ class Leaflet extends React.Component {
       this.openLinksInNewTab();
       this.positionZoomButtons();
       this.positionleafletLink();
+      this.positionScaleBar();
       return true;
     }
     // Update map coordinates and zoom
@@ -225,6 +227,7 @@ class Leaflet extends React.Component {
     ) {
       this.positionZoomButtons();
       this.positionleafletLink();
+      this.positionScaleBar();
     }
     // Draw marker
     if (
@@ -461,6 +464,41 @@ class Leaflet extends React.Component {
   positionleafletLink = () => {
     // If side panel is open, the link needs to be repositioned
     const leafletLink = document.querySelector(".leaflet-control-attribution");
+    if (this.props.isMobile) {
+      if (
+        leafletLink &&
+        (this.props.showSideBar || this.props.showInfobox) &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        !this.props.showInfobox &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
+    } else {
+      if (
+        leafletLink &&
+        this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") === -1
+      ) {
+        leafletLink.classList.add("side-bar-open");
+      } else if (
+        leafletLink &&
+        !this.props.showSideBar &&
+        leafletLink.className.indexOf("side-bar-open") >= 0
+      ) {
+        leafletLink.classList.remove("side-bar-open");
+      }
+    }
+  };
+
+  positionScaleBar = () => {
+    // If side panel is open, the buttons need to be repositioned
+    const leafletLink = document.querySelector(".leaflet-control-scale");
     if (this.props.isMobile) {
       if (
         leafletLink &&
