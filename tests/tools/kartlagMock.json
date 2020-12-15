@@ -4,7 +4,7 @@
     "dataeier": "NIBIO",
     "faktaark": "https://wms.nibio.no/cgi-bin/skogbruksplan?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Livsmiljoer&query_layers=Livsmiljoer&x=128&y=128&height=256&width=256&request=GetFeatureInfo&service=WMS&bbox={bbox}&info_format=text/html",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/skogbruksplan-miljoeregistreringer-i-skog---mis-figurer---wms/9ae66d3b-8ea0-4e0c-8e25-01511a98e683",
-    "id": 1,
+    "id": " 1",
     "kildeurl": "https://www.nibio.no/",
     "logourl": "https://pbs.twimg.com/profile_images/1049942105773215744/dhPec0Pf_400x400.jpg",
     "produktark": "https://register.geonorge.no/data/documents/Milj%C3%B8registreringer%20i%20skog_Produktark_S-L_Miljoregistreringer%20i%20skog.pdf",
@@ -86,7 +86,7 @@
       },
       "59": {
         "faktaark": "",
-        "id": 59,
+        "id": " 59",
         "klikktekst": "{Bekkeklofter_all_layer.Bekkeklofter_all_feature.vegtype_beskr}",
         "klikktekst2": "{Bekkeklofter_all_layer.Bekkeklofter_all_feature.topografi}",
         "klikkurl": "",
@@ -452,7 +452,7 @@
     "dataeier": "NIBIO",
     "faktaark": "https://wms.nibio.no/cgi-bin/ar5?version=1.1.0&srs=EPSG:4326&feature_count=1&info_format=text/html&layers=Hovedgrupper&query_layers=Hovedgrupper&x=128&y=128&height=255&width=255&request=GetFeatureInfo&service=WMS&bbox={bbox}",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/arealressurskart-fkb-ar5---forvaltning---wms/1dcb696c-90cc-4b36-9bce-0269bfd993d0",
-    "id": 2,
+    "id": " 2",
     "kildeurl": "https://www.nibio.no/",
     "logourl": "https://pbs.twimg.com/profile_images/1049942105773215744/dhPec0Pf_400x400.jpg",
     "produktark": "https://register.geonorge.no/data/documents/FKB-AR5_Produktark_S-L_FKB-AR5.pdf",
@@ -550,7 +550,7 @@
     "dataeier": "Miljødirektoratet",
     "faktaark": "{Faktaark}",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/naturtyper-miljoedirektoratets-instruks/eb48dd19-03da-41e1-afd9-7ebc3079265c",
-    "id": 3,
+    "id": " 3",
     "kildeurl": "https://www.miljodirektoratet.no/",
     "logourl": "https://kommunikasjon.ntb.no/data/images/00805/434850e6-c8ad-4c63-8562-75e2700f3dc5.png",
     "produktark": "https://register.geonorge.no/data/documents/Produktark_naturtyper-nin_v1_produktark-naturtypernin-2019-03-29_.pdf",
@@ -561,9 +561,10 @@
     "type": "naturtype",
     "favorite": false,
     "underlag": {
-      "3": {
+      "NaturtyperNiNMdir_NaturtyperMdir": {
         "faktaark": "",
-        "id": 3,
+        "id": "NaturtyperNiNMdir_NaturtyperMdir",
+        "key": 3,
         "klikktekst": "{naturtyper_nin_alle.Naturtype}",
         "klikktekst2": "{naturtyper_nin_alle.Lokalitetskvalitet}",
         "klikkurl": "",
@@ -584,9 +585,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "30": {
+      "NaturtyperNiNMdir_Dekningskart": {
         "faktaark": "",
-        "id": 30,
+        "id": "NaturtyperNiNMdir_Dekningskart",
+        "key": 30,
         "klikktekst": "{dekningskart_naturtyper_nin.Dekningskartverdi}",
         "klikktekst2": "{dekningskart_naturtyper_nin.Program}",
         "klikkurl": "",
@@ -607,9 +609,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "115": {
+      "NaturtyperNiNMdir_NaturtypeNiNSvrthylokalitetskvalitet": {
         "faktaark": "{naturtype_nin_svart_hoy_kvalitet.Faktaark}",
-        "id": 115,
+        "id": "NaturtyperNiNMdir_NaturtypeNiNSvrthylokalitetskvalitet",
+        "key": 115,
         "klikktekst": "{naturtype_nin_svart_hoy_kvalitet.Naturtype}",
         "klikktekst2": "{naturtype_nin_svart_hoy_kvalitet.Tilstandbeskrivelse}",
         "klikkurl": "",
@@ -630,9 +633,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "116": {
+      "NaturtyperNiNMdir_NaturtypeNiNhykvalitet": {
         "faktaark": "{naturtype_nin_hoy_kvalitet.Faktaark}",
-        "id": 116,
+        "id": "NaturtyperNiNMdir_NaturtypeNiNhykvalitet",
+        "key": 116,
         "klikktekst": "{naturtype_nin_hoy_kvalitet.Naturtype}",
         "klikktekst2": "{naturtype_nin_hoy_kvalitet.Tilstandbeskrivelse}",
         "klikkurl": "",
@@ -653,9 +657,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "117": {
+      "NaturtyperNiNMdir_NaturtypeNiNmoderatkvalitet": {
         "faktaark": "",
-        "id": 117,
+        "id": "NaturtyperNiNMdir_NaturtypeNiNmoderatkvalitet",
+        "key": 117,
         "klikktekst": "{naturtype_nin_moderat_kvalitet.Naturtype}",
         "klikktekst2": "{naturtype_nin_moderat_kvalitet.Tilstandbeskrivelse}",
         "klikkurl": "",
@@ -676,9 +681,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "118": {
+      "NaturtyperNiNMdir_NaturtypeNiNlavkvalitet": {
         "faktaark": "{naturtype_nin_hoy_kvalitet.Faktaark}",
-        "id": 118,
+        "id": "NaturtyperNiNMdir_NaturtypeNiNlavkvalitet",
+        "key": 118,
         "klikktekst": "{naturtype_nin_lav_kvalitet.Naturtype}",
         "klikktekst2": "{naturtype_nin_lav_kvalitet.Tilstandbeskrivelse}",
         "klikkurl": "",
@@ -699,9 +705,10 @@
         "erSynlig": false,
         "favorite": false
       },
-      "119": {
+      "NaturtyperNiNMdir_NaturtypeNiNikkekvalitetsvurdert": {
         "faktaark": "{naturtype_nin_ikke_kvalitetsvurdert.Faktaark}",
-        "id": 119,
+        "id": "NaturtyperNiNMdir_NaturtypeNiNikkekvalitetsvurdert",
+        "key": 119,
         "klikktekst": "{naturtype_nin_ikke_kvalitetsvurdert.Naturtype}",
         "klikktekst2": "{naturtype_nin_ikke_kvalitetsvurdert.Tilstandbeskrivelse}",
         "klikkurl": "",
@@ -737,7 +744,7 @@
     "dataeier": "Miljødirektoratet",
     "faktaark": "https://kart.miljodirektoratet.no/arcgis/services/naturtyper_hb13/MapServer/WMSServer?Service=wms&version=1.1.1&request=getFeatureInfo&transparent=true&SRS=EPSG:32633&FORMAT=image/png&INFO_FORMAT=text/html&BBOX=291477,7042217,301115,7047583&WIDTH=1324&HEIGHT=737&LAYERS=naturtyper_hb13_alle&STYLES=&QUERY_LAYERS=naturtyper_hb13_alle&bbox={bbox}",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/naturtyper-dn-haandbok-13/d776ff93-104d-4aa5-a8d9-276df01eb51c",
-    "id": 27,
+    "id": " 27",
     "kildeurl": "https://www.miljodirektoratet.no/",
     "logourl": "https://kommunikasjon.ntb.no/data/images/00805/434850e6-c8ad-4c63-8562-75e2700f3dc5.png",
     "produktark": "https://register.geonorge.no/data/documents/Viktige%20naturtyper_Produktark_MDIR_ViktigeNaturtyper_2014.pdf",
@@ -970,7 +977,7 @@
     "aggregatedwmslayer": "Artskart",
     "dataeier": "Artsdatabanken",
     "geonorgeurl": "https://kartkatalog.geonorge.no/metadata/artskart-roedlistearter-wms/6023d55e-f0c2-4e70-b207-441bb8ddbfd1",
-    "id": 31,
+    "id": " 31",
     "kildeurl": "https://www.artsdatabanken.no/",
     "logourl": "https://www.artsdatabanken.no/Files/7809",
     "projeksjon": "EPSG:3857",
