@@ -74,15 +74,6 @@ const Tegnforklaring = ({ layers, setLegendVisible, legendPosition }) => {
             ));
           if (items.length <= 0) return null;
           return (
-            // <div
-            //   key={layer.tittel}
-            //   style={{ marginBottom: 16, cursor: "pointer" }}
-            //   onClick={() => {
-            //     const loc = history.location;
-            //     loc.pathname = "/kartlag/" + layer.tittel;
-            //     history.push(loc);
-            //   }}
-            // >
             <div className="legend-content-layer" key={layer.tittel}>
               <ListSubheader disableSticky disableGutters>
                 {layer.tittel}
