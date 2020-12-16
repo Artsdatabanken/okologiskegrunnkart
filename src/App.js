@@ -66,7 +66,7 @@ class App extends React.Component {
     lng: null,
     loadingFeatures: false,
     editLayersMode: false,
-    someLayersFavorite: false,
+    someLayersFavorite: "none",
     listFavoriteLayerIds: [],
     listFavoriteSublayerIds: [],
     showFavoriteLayers: false,
@@ -180,7 +180,8 @@ class App extends React.Component {
 
     // Modify and store kartlag in state
     let allSublayers = {};
-    let someLayersFavorite = false;
+    let someLayersFavorite = "none";
+    let allLayersFavorite = true;
     let showFavoriteLayers = false;
     let urlLayersInFavorites = null;
     if (urlLayers !== null) urlLayersInFavorites = true;
@@ -209,8 +210,11 @@ class App extends React.Component {
         k.favorite = existingLayer[0].favorite;
       }
 
-      if (!someLayersFavorite && k.favorite) {
-        someLayersFavorite = true;
+      if (someLayersFavorite === "none" && k.favorite) {
+        someLayersFavorite = "some";
+      }
+      if (allLayersFavorite && !k.favorite) {
+        allLayersFavorite = false;
       }
 
       // Add a pseudo-sublayer for all categories
@@ -303,8 +307,11 @@ class App extends React.Component {
         }
 
         // Set favourites state
-        if (!someLayersFavorite && ul.favorite) {
-          someLayersFavorite = true;
+        if (someLayersFavorite === "none" && ul.favorite) {
+          someLayersFavorite = "some";
+        }
+        if (allLayersFavorite && !ul.favorite) {
+          allLayersFavorite = false;
         }
         if (!showFavoriteLayers && ul.favorite) {
           showFavoriteLayers = true;
@@ -323,6 +330,7 @@ class App extends React.Component {
     this.setState({ allSublayers });
 
     // Set favorites in state
+    if (allLayersFavorite) someLayersFavorite = "all";
     if (urlFavorites === false || urlLayersInFavorites === false) {
       this.setState({ someLayersFavorite, showFavoriteLayers: false });
     } else {

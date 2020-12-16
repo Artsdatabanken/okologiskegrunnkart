@@ -36,8 +36,8 @@ it("should render about modal", async () => {
   });
   let submitButton = queryByText("Mer info");
   expect(submitButton).toBeNull();
-  submitButton = queryByText("Økologiske Grunnkart");
-  expect(submitButton).toBeNull();
+  let text = queryByText("Økologiske Grunnkart");
+  expect(text).toBeNull();
 
   getByText('Om "Økologiske Grunnkart"');
   getByText("This is a test");
@@ -53,4 +53,13 @@ it("should render app name and about modal", async () => {
   getByText("Mer info");
   getByText('Om "Økologiske Grunnkart"');
   getByText("This is a test");
+});
+
+it("should not render app name for mobile", () => {
+  const { queryByText } = renderAppName({ isMobile: true });
+
+  let submitButton = queryByText("Mer info");
+  expect(submitButton).toBeNull();
+  let text = queryByText("Økologiske Grunnkart");
+  expect(text).toBeNull();
 });

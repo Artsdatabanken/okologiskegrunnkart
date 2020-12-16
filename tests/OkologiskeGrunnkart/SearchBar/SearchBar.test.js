@@ -13,14 +13,12 @@ jest.mock("../../../src/Funksjoner/backend.js"); // jest mocks everything in tha
 
 afterEach(cleanup);
 
-const kartlag = kartlagMock;
-
 function renderSearchBar(args) {
   let defaultprops = {
     onSelectSearchResult: () => {},
     searchResultPage: false,
     handleGeoSelection: () => {},
-    kartlag: kartlag,
+    kartlag: kartlagMock,
     addValgtLag: () => {},
     removeValgtLag: () => {},
     onUpdateLayerProp: () => {},

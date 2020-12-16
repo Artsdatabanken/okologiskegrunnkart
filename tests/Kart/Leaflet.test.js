@@ -7,10 +7,8 @@ import bakgrunnskart from "../../src/Kart/Bakgrunnskart/bakgrunnskarttema";
 
 afterEach(cleanup);
 
-const kartlag = kartlagMock;
-
 let defaultprops = {
-  kartlag: kartlag,
+  kartlag: kartlagMock,
   polygon: null,
   polyline: null,
   showPolygon: false,
@@ -31,7 +29,7 @@ let defaultprops = {
   handleValgteLag: () => {},
   zoom: 5.58,
   handleZoomChange: () => {},
-  aktiveLag: kartlag,
+  aktiveLag: kartlagMock,
   bakgrunnskart: bakgrunnskart,
   history: null,
   sted: null,

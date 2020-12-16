@@ -35,8 +35,9 @@ const KartlagSettings = ({
   const classes = useStyles();
 
   const handleAllLayersChange = () => {
-    const newStatus = !layersActive;
-    setLayersActive(newStatus);
+    let newStatus =
+      layersActive === "some" || layersActive === "all" ? false : true;
+    setLayersActive(newStatus ? "all" : "none");
     Object.keys(layers).forEach(layerId => {
       const layer = layers[layerId];
       layer.favorite = newStatus;
@@ -56,10 +57,12 @@ const KartlagSettings = ({
       updatedLayer.underlag[layerId].favorite = newStatus;
     });
     setLayers(updatedLayers);
-    if (!layersActive && newStatus) {
-      setLayersActive(true);
+    if (newStatus && checkAllLayersActive(updatedLayers)) {
+      setLayersActive("all");
     } else if (!newStatus && !checkAnySublayerActive(updatedLayers)) {
-      setLayersActive(false);
+      setLayersActive("none");
+    } else {
+      setLayersActive("some");
     }
   };
 
@@ -79,11 +82,28 @@ const KartlagSettings = ({
     updatedLayer.favorite = oneSublayerFavorite;
     setLayers(updatedLayers);
 
-    if (!layersActive && oneSublayerFavorite) {
-      setLayersActive(true);
+    if (updatedSublayer.favorite && checkAllLayersActive(updatedLayers)) {
+      setLayersActive("all");
     } else if (!oneSublayerFavorite && !checkAnySublayerActive(updatedLayers)) {
-      setLayersActive(false);
+      setLayersActive("none");
+    } else {
+      setLayersActive("some");
     }
+  };
+
+  const checkAllLayersActive = updatedLayers => {
+    if (!updatedLayers) {
+      return false;
+    }
+    let allSublayerFavorite = true;
+    Object.keys(updatedLayers).forEach(layerId => {
+      const layer = updatedLayers[layerId];
+      if (!layer.favorite) {
+        allSublayerFavorite = false;
+        return false;
+      }
+    });
+    return allSublayerFavorite;
   };
 
   const checkAnySublayerActive = updatedLayers => {
@@ -154,17 +174,18 @@ const KartlagSettings = ({
               <div className="settings-layers-list-item-wrapper">
                 <Checkbox
                   id="settings-layers-checkbox"
-                  checked={layersActive}
+                  checked={layersActive !== "none"}
                   onChange={() => handleAllLayersChange()}
                   onClick={e => e.stopPropagation()}
                   onKeyDown={e => {
                     e.stopPropagation();
                     if (e.keyCode === 13) {
-                      //Enterpressed
+                      //Enter pressed
                       handleAllLayersChange();
                     }
                   }}
-                  color="primary"
+                  color={layersActive === "some" ? "secondary" : "primary"}
+                  indeterminate={layersActive === "some"}
                 />
                 <Typography id="settings-layers-item-label" variant="h6">
                   Kartlag
@@ -202,6 +223,9 @@ const KartlagSettings = ({
                                 ? "primary"
                                 : "secondary"
                             }
+                            indeterminate={onlySomeSublayersFavorite(
+                              lag.underlag
+                            )}
                           />
                           <Typography
                             id="settings-layers-item-label"

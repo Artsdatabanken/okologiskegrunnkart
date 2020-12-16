@@ -90,6 +90,7 @@ const KartVelger = ({
             {tilgjengelige.map((element, index) => (
               <button
                 key={element}
+                title={tilgjengelige_data[element].navn}
                 style={{
                   backgroundImage: "url('" + imgs[index] + "')",
                   backgroundSize: "cover",
