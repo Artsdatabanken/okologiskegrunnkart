@@ -15,9 +15,12 @@ function numberMatches() {
 }
 
 function treffliste_lag() {
-  const layer1 = JSON.parse(JSON.stringify(kartlagMock[" 2"]));
-  const layer2 = JSON.parse(JSON.stringify(kartlagMock[" 3"]));
-  const layer3 = JSON.parse(JSON.stringify(kartlagMock[" 31"]));
+  // Arealressurs
+  const layer1 = { ...kartlagMock[" 2"], trefftype: "Kartlag" };
+  // Naturtyper - NiN Mdir
+  const layer2 = { ...kartlagMock[" 3"], trefftype: "Kartlag" };
+  // Arter - Rødlista
+  const layer3 = { ...kartlagMock[" 31"], trefftype: "Kartlag" };
   const result = [];
   result.push(layer1);
   result.push(layer2);
@@ -26,26 +29,30 @@ function treffliste_lag() {
 }
 
 function treffliste_underlag() {
-  const sublayer1 = JSON.parse(
-    JSON.stringify(
-      kartlagMock[" 2"].underlag["ArealressursAR5_ArealressursAR5Arealtype"]
-    )
-  );
-  const sublayer2 = JSON.parse(
-    JSON.stringify(kartlagMock[" 2"].underlag["ArealressursAR5_Treslag"])
-  );
-  const sublayer3 = JSON.parse(
-    JSON.stringify(kartlagMock[" 31"].underlag["ArterRdlista_RERegionaltutddd"])
-  );
-  const sublayer4 = JSON.parse(
-    JSON.stringify(kartlagMock[" 31"].underlag["ArterRdlista_CRKritisktruet"])
-  );
-  const sublayer5 = JSON.parse(
-    JSON.stringify(kartlagMock[" 31"].underlag["ArterRdlista_ENSterkttruet"])
-  );
-  const sublayer6 = JSON.parse(
-    JSON.stringify(kartlagMock[" 31"].underlag["ArterRdlista_VUSrbar"])
-  );
+  const sublayer1 = {
+    ...kartlagMock[" 2"].underlag["ArealressursAR5_ArealressursAR5Arealtype"],
+    trefftype: "Underlag"
+  };
+  const sublayer2 = {
+    ...kartlagMock[" 2"].underlag["ArealressursAR5_Treslag"],
+    trefftype: "Underlag"
+  };
+  const sublayer3 = {
+    ...kartlagMock[" 31"].underlag["ArterRdlista_RERegionaltutddd"],
+    trefftype: "Underlag"
+  };
+  const sublayer4 = {
+    ...kartlagMock[" 31"].underlag["ArterRdlista_CRKritisktruet"],
+    trefftype: "Underlag"
+  };
+  const sublayer5 = {
+    ...kartlagMock[" 31"].underlag["ArterRdlista_ENSterkttruet"],
+    trefftype: "Underlag"
+  };
+  const sublayer6 = {
+    ...kartlagMock[" 31"].underlag["ArterRdlista_VUSrbar"],
+    trefftype: "Underlag"
+  };
   const result = [];
   result.push(sublayer1);
   result.push(sublayer2);
@@ -306,7 +313,7 @@ function treffliste_kommune() {
 
 function treffliste_knr() {
   return {
-    addresser: [
+    adresser: [
       {
         adressekode: 1315,
         adressenavn: "Vinterlebakken",
@@ -403,7 +410,7 @@ function treffliste_knr() {
 
 function treffliste_gnr() {
   return {
-    addresser: [
+    adresser: [
       {
         adressekode: 51130,
         adressenavn: "Brunla allé",
@@ -500,7 +507,7 @@ function treffliste_gnr() {
 
 function treffliste_bnr() {
   return {
-    addresser: [
+    adresser: [
       {
         adressekode: 79100,
         adressenavn: "Stallmannsvingen",
