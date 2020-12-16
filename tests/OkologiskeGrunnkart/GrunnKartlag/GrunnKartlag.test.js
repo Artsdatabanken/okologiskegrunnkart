@@ -12,11 +12,9 @@ import kartlagMock from "../../tools/kartlagMock.json";
 
 afterEach(cleanup);
 
-const kartlag = kartlagMock;
-
 function renderGrunnKartlag(args) {
   let defaultprops = {
-    kartlag: kartlag,
+    kartlag: kartlagMock,
     toggleSublayer: () => {},
     toggleAllSublayers: () => {},
     showSublayerDetails: false,

@@ -12,12 +12,10 @@ import kartlagMock from "../tools/kartlagMock.json";
 
 afterEach(cleanup);
 
-const kartlag = kartlagMock;
-
 function renderKartlagSettings(args) {
   let defaultprops = {
-    kartlag: kartlag,
-    someLayersFavorite: true,
+    kartlag: kartlagMock,
+    someLayersFavorite: "some",
     handleSomeLayersFavorite: () => {},
     toggleEditLayers: () => {},
     updateFavoriteLayers: () => {},
@@ -55,10 +53,11 @@ it("should render tree with layers checked as defined in kartlag", async () => {
   getByText("Naturtyper - DN Håndbok 13");
   getByText("Arter - Rødlista");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(6);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Naturtyper - NiN Mdir
@@ -118,7 +117,7 @@ it("should render tree with layers checked as defined in kartlag", async () => {
   expect(layer).toBeNull();
 });
 
-it("should uncheck sublayers", async () => {
+it("should uncheck all sublayers in layer", async () => {
   // Checked boxes are based on favorite status in kartlagMock
   const {
     getByText,
@@ -152,12 +151,14 @@ it("should uncheck sublayers", async () => {
   getByText("Jordbruksareal");
   getByText("Treslag");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
+  expect(boxes[2]).toHaveAttribute("data-indeterminate", "false"); // Arealsressurs
   expect(boxes[3]).toBeChecked(); // Arealressurs: AR5 Arealtype
   expect(boxes[4]).toBeChecked(); // Jordbruksareal
   expect(boxes[5]).toBeChecked(); // Treslag
@@ -174,8 +175,10 @@ it("should uncheck sublayers", async () => {
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).not.toBeChecked(); // Arealressurs
+  expect(boxes[2]).toHaveAttribute("data-indeterminate", "false"); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Arealressurs: AR5 Arealtype
   expect(boxes[4]).not.toBeChecked(); // Jordbruksareal
   expect(boxes[5]).not.toBeChecked(); // Treslag
@@ -184,7 +187,76 @@ it("should uncheck sublayers", async () => {
   expect(boxes[8]).toBeChecked(); // Arter - Rødlista
 });
 
-it("should check sublayers", async () => {
+it("should uncheck some sublayers in layer", async () => {
+  // Checked boxes are based on favorite status in kartlagMock
+  const {
+    getByText,
+    findByText,
+    getByRole,
+    getAllByRole
+  } = renderKartlagSettings();
+  getByText("Kartlag");
+
+  // Kartlag checkbox checked
+  let box = getByRole("checkbox");
+  expect(box).toBeChecked();
+
+  // Open tree
+  fireEvent.click(getByText("Kartlag"));
+  await waitFor(() => findByText("Arealressurs: AR5"));
+
+  // Open layer
+  fireEvent.click(getByText("Arealressurs: AR5"));
+  await waitFor(() => findByText("Arealressurs: AR5 Arealtype"));
+
+  // Layers visible
+  getByText("Livsmiljøer");
+  getByText("Arealressurs: AR5");
+  getByText("Naturtyper - NiN Mdir");
+  getByText("Naturtyper - DN Håndbok 13");
+  getByText("Arter - Rødlista");
+
+  // Sublayers visible
+  getByText("Arealressurs: AR5 Arealtype");
+  getByText("Jordbruksareal");
+  getByText("Treslag");
+
+  // Some checkboxes checked (kartlag indeterminated)
+  let boxes = getAllByRole("checkbox");
+  expect(boxes.length).toBe(9);
+  expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
+  expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
+  expect(boxes[2]).toBeChecked(); // Arealressurs
+  expect(boxes[2]).toHaveAttribute("data-indeterminate", "false"); // Arealressurs
+  expect(boxes[3]).toBeChecked(); // Arealressurs: AR5 Arealtype
+  expect(boxes[4]).toBeChecked(); // Jordbruksareal
+  expect(boxes[5]).toBeChecked(); // Treslag
+  expect(boxes[6]).not.toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[7]).not.toBeChecked(); // Naturtyper - DN Håndbok 13
+  expect(boxes[8]).toBeChecked(); // Arter - Rødlista
+
+  // Uncheck sublayers
+  fireEvent.click(boxes[3]); // Arealressurs: AR5 Arealtype
+  fireEvent.click(boxes[4]); // Jordbruksareal
+
+  // Checkboxes updated (Arealressurs indeterminated)
+  boxes = getAllByRole("checkbox");
+  expect(boxes.length).toBe(9);
+  expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
+  expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
+  expect(boxes[2]).toBeChecked(); // Arealressurs
+  expect(boxes[2]).toHaveAttribute("data-indeterminate", "true"); // Arealressurs
+  expect(boxes[3]).not.toBeChecked(); // Arealressurs: AR5 Arealtype
+  expect(boxes[4]).not.toBeChecked(); // Jordbruksareal
+  expect(boxes[5]).toBeChecked(); // Treslag
+  expect(boxes[6]).not.toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[7]).not.toBeChecked(); // Naturtyper - DN Håndbok 13
+  expect(boxes[8]).toBeChecked(); // Arter - Rødlista
+});
+
+it("should check all sublayers in layer", async () => {
   // Checked boxes are based on favorite status in kartlagMock
   const {
     getByText,
@@ -222,13 +294,15 @@ it("should check sublayers", async () => {
   getByText("Naturtype NiN - lav kvalitet");
   getByText("Naturtype NiN - ikke kvalitetsvurdert");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[3]).toHaveAttribute("data-indeterminate", "false"); // Naturtyper - NiN Mdir
   expect(boxes[4]).not.toBeChecked(); // Naturtyper Mdir
   expect(boxes[5]).not.toBeChecked(); // Dekningskart
   expect(boxes[6]).not.toBeChecked(); // Naturtype NiN - Svært høy lokalitetskvalitet
@@ -252,9 +326,11 @@ it("should check sublayers", async () => {
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[3]).toHaveAttribute("data-indeterminate", "false"); // Naturtyper - NiN Mdir
   expect(boxes[4]).toBeChecked(); // Naturtyper Mdir
   expect(boxes[5]).toBeChecked(); // Dekningskart
   expect(boxes[6]).toBeChecked(); // Naturtype NiN - Svært høy lokalitetskvalitet
@@ -262,6 +338,91 @@ it("should check sublayers", async () => {
   expect(boxes[8]).toBeChecked(); // Naturtype NiN - moderat kvalitet
   expect(boxes[9]).toBeChecked(); // Naturtype NiN - lav kvalitet
   expect(boxes[10]).toBeChecked(); // Naturtype NiN - ikke kvalitetsvurdert
+  expect(boxes[11]).not.toBeChecked(); // Naturtyper - DN Håndbok 13
+  expect(boxes[12]).toBeChecked(); // Arter - Rødlista
+});
+
+it("should check some sublayers in layer", async () => {
+  // Checked boxes are based on favorite status in kartlagMock
+  const {
+    getByText,
+    findByText,
+    getByRole,
+    getAllByRole
+  } = renderKartlagSettings();
+  getByText("Kartlag");
+
+  // Kartlag checkbox checked
+  let box = getByRole("checkbox");
+  expect(box).toBeChecked();
+
+  // Open tree
+  fireEvent.click(getByText("Kartlag"));
+  await waitFor(() => findByText("Arealressurs: AR5"));
+
+  // Open layer
+  fireEvent.click(getByText("Naturtyper - NiN Mdir"));
+  await waitFor(() => findByText("Naturtyper Mdir"));
+
+  // Layers visible
+  getByText("Livsmiljøer");
+  getByText("Arealressurs: AR5");
+  getByText("Naturtyper - NiN Mdir");
+  getByText("Naturtyper - DN Håndbok 13");
+  getByText("Arter - Rødlista");
+
+  // Sublayers visible
+  getByText("Naturtyper Mdir");
+  getByText("Dekningskart");
+  getByText("Naturtype NiN - Svært høy lokalitetskvalitet");
+  getByText("Naturtype NiN - høy kvalitet");
+  getByText("Naturtype NiN - moderat kvalitet");
+  getByText("Naturtype NiN - lav kvalitet");
+  getByText("Naturtype NiN - ikke kvalitetsvurdert");
+
+  // Some checkboxes checked (kartlag indeterminated)
+  let boxes = getAllByRole("checkbox");
+  expect(boxes.length).toBe(13);
+  expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
+  expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
+  expect(boxes[2]).toBeChecked(); // Arealressurs
+  expect(boxes[3]).not.toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[3]).toHaveAttribute("data-indeterminate", "false"); // Naturtyper - NiN Mdir
+  expect(boxes[4]).not.toBeChecked(); // Naturtyper Mdir
+  expect(boxes[5]).not.toBeChecked(); // Dekningskart
+  expect(boxes[6]).not.toBeChecked(); // Naturtype NiN - Svært høy lokalitetskvalitet
+  expect(boxes[7]).not.toBeChecked(); // Naturtype NiN - høy kvalitet
+  expect(boxes[8]).not.toBeChecked(); // Naturtype NiN - moderat kvalitet
+  expect(boxes[9]).not.toBeChecked(); // Naturtype NiN - lav kvalitet
+  expect(boxes[10]).not.toBeChecked(); // Naturtype NiN - ikke kvalitetsvurdert
+  expect(boxes[11]).not.toBeChecked(); // Naturtyper - DN Håndbok 13
+  expect(boxes[12]).toBeChecked(); // Arter - Rødlista
+
+  // Check sublayers
+  fireEvent.click(boxes[4]); // Naturtyper Mdir
+  fireEvent.click(boxes[5]); // Dekningskart
+  fireEvent.click(boxes[6]); // Naturtype NiN - Svært høy lokalitetskvalitet
+  fireEvent.click(boxes[7]); // Naturtype NiN - høy kvalitet
+  fireEvent.click(boxes[8]); // Naturtype NiN - moderat kvalitet
+  fireEvent.click(boxes[9]); // Naturtype NiN - lav kvalitet
+
+  // Checkboxes updated (Naturtyper - NiN Mdir indeterminated)
+  boxes = getAllByRole("checkbox");
+  expect(boxes.length).toBe(13);
+  expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
+  expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
+  expect(boxes[2]).toBeChecked(); // Arealressurs
+  expect(boxes[3]).toBeChecked(); // Naturtyper - NiN Mdir
+  expect(boxes[3]).toHaveAttribute("data-indeterminate", "true"); // Naturtyper - NiN Mdir
+  expect(boxes[4]).toBeChecked(); // Naturtyper Mdir
+  expect(boxes[5]).toBeChecked(); // Dekningskart
+  expect(boxes[6]).toBeChecked(); // Naturtype NiN - Svært høy lokalitetskvalitet
+  expect(boxes[7]).toBeChecked(); // Naturtype NiN - høy kvalitet
+  expect(boxes[8]).toBeChecked(); // Naturtype NiN - moderat kvalitet
+  expect(boxes[9]).toBeChecked(); // Naturtype NiN - lav kvalitet
+  expect(boxes[10]).not.toBeChecked(); // Naturtype NiN - ikke kvalitetsvurdert
   expect(boxes[11]).not.toBeChecked(); // Naturtyper - DN Håndbok 13
   expect(boxes[12]).toBeChecked(); // Arter - Rødlista
 });
@@ -300,10 +461,11 @@ it("should uncheck layer", async () => {
   getByText("Jordbruksareal");
   getByText("Treslag");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).toBeChecked(); // Arealressurs: AR5 Arealtype
@@ -316,10 +478,11 @@ it("should uncheck layer", async () => {
   // Uncheck layer
   fireEvent.click(boxes[2]); // Arealressurs
 
-  // Checkboxes updated
+  // Checkboxes updated (kartlag indeterminated)
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).not.toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Arealressurs: AR5 Arealtype
@@ -368,10 +531,11 @@ it("should check layer", async () => {
   getByText("Naturtype NiN - lav kvalitet");
   getByText("Naturtype NiN - ikke kvalitetsvurdert");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Naturtyper - NiN Mdir
@@ -388,10 +552,11 @@ it("should check layer", async () => {
   // Check layer
   fireEvent.click(boxes[3]); // Arealressurs
 
-  // Checkboxes updated
+  // Checkboxes updated (kartlag indeterminated)
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).toBeChecked(); // Naturtyper - NiN Mdir
@@ -440,10 +605,11 @@ it("should uncheck kartlag", async () => {
   getByText("Jordbruksareal");
   getByText("Treslag");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).toBeChecked(); // Arealressurs: AR5 Arealtype
@@ -456,10 +622,11 @@ it("should uncheck kartlag", async () => {
   // Uncheck kartlag
   fireEvent.click(boxes[0]); // Arealressurs
 
-  // Checkboxes updated
+  // Checkboxes updated (kartlag determinated)
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(9);
   expect(boxes[0]).not.toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "false"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).not.toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Arealressurs: AR5 Arealtype
@@ -508,10 +675,11 @@ it("should check kartlag", async () => {
   getByText("Naturtype NiN - lav kvalitet");
   getByText("Naturtype NiN - ikke kvalitetsvurdert");
 
-  // Some checkboxes checked
+  // Some checkboxes checked (kartlag indeterminated)
   let boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "true"); // Kartlag
   expect(boxes[1]).not.toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).not.toBeChecked(); // Naturtyper - NiN Mdir
@@ -529,10 +697,11 @@ it("should check kartlag", async () => {
   fireEvent.click(boxes[0]); // Arealressurs
   fireEvent.click(boxes[0]); // Arealressurs
 
-  // Checkboxes updated
+  // Checkboxes updated (kartlag determinated)
   boxes = getAllByRole("checkbox");
   expect(boxes.length).toBe(13);
   expect(boxes[0]).toBeChecked(); // Kartlag
+  expect(boxes[0]).toHaveAttribute("data-indeterminate", "false"); // Kartlag
   expect(boxes[1]).toBeChecked(); // Livsmiljøer
   expect(boxes[2]).toBeChecked(); // Arealressurs
   expect(boxes[3]).toBeChecked(); // Naturtyper - NiN Mdir
