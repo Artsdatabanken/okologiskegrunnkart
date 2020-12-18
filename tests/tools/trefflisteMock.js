@@ -2,14 +2,14 @@ import kartlagMock from "./kartlagMock.json";
 
 function numberMatches() {
   return {
-    number_places: 263043,
-    number_knrgnrbnr: 0,
+    number_places: 16043,
+    number_knrgnrbnr: 1,
     number_kommune: 1,
-    number_knr: 10000,
+    number_knr: 3000,
     number_gnr: 1222,
     number_bnr: 17,
     number_addresses: 10000,
-    number_layers: 12,
+    number_layers: 9,
     number_coord: 1
   };
 }
