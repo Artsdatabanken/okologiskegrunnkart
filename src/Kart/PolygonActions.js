@@ -172,8 +172,9 @@ const PolygonActions = ({
         name="file"
         accept=".geojson, .json"
       />
-      {/* ------------- SAVE POLYGON MODAL ----------- */}
+
       <Modal
+        //  ------------- SAVE POLYGON MODAL ----------- //
         open={showPolygonSaveModal}
         onClose={() => handlePolygonSaveModal(false)}
         className="polygon-modal-body"
@@ -228,8 +229,9 @@ const PolygonActions = ({
           </div>
         </div>
       </Modal>
-      {/* --------- OPEN, EDIT, DELETE SAVED POLYGONS MODAL ----------- */}
+
       <Modal
+        // --------- OPEN, EDIT, DELETE SAVED POLYGONS MODAL ----------- //
         open={showSavedPolygons}
         onClose={() => handleShowSavedPolygons(false)}
         className="saved-polygon-modal-body"
@@ -318,6 +320,7 @@ const PolygonActions = ({
                     <div className="edit-buttons-wrapper">
                       {!polygon.edit ? (
                         <IconButton
+                          id="edit-polygon-button"
                           className={classes.customIconButtom}
                           onClick={() =>
                             enableEditPolygon(polygon.id, !polygon.edit)
@@ -327,6 +330,7 @@ const PolygonActions = ({
                         </IconButton>
                       ) : (
                         <IconButton
+                          id="save-edited-polygon-button"
                           className={classes.customIconButtom}
                           onClick={() => {
                             saveEditedPolygon(editPolygon);
@@ -336,6 +340,7 @@ const PolygonActions = ({
                         </IconButton>
                       )}
                       <IconButton
+                        id="delete-polygon-button"
                         className={classes.customIconButtom}
                         onClick={() => {
                           setPolygonToDelete(polygon);
@@ -359,36 +364,9 @@ const PolygonActions = ({
           </div>
         </div>
       </Modal>
-      {/* --------------- SNACKBARS ----------------- */}
-      <Snackbar
-        open={polygonActionResult && polygonActionResult[0].includes("error")}
-        autoHideDuration={2500}
-        onClose={closePolygonActionResult}
-      >
-        <div className="polygon-action-error">
-          {polygonActionResult ? polygonActionResult[1] : ""}
-        </div>
-      </Snackbar>
-      <Snackbar
-        open={polygonActionResult && polygonActionResult[0].includes("success")}
-        autoHideDuration={2500}
-        onClose={closePolygonActionResult}
-      >
-        <div className="polygon-action-success">
-          {polygonActionResult ? polygonActionResult[1] : ""}
-        </div>
-      </Snackbar>
-      <Snackbar
-        open={polylineError}
-        autoHideDuration={2500}
-        onClose={handlePolylineError}
-      >
-        <div className="polygon-action-error">
-          Polygon kanter kan ikke krysse
-        </div>
-      </Snackbar>
-      {/* --------------- DELETE MODAL --------------- */}
+
       <Modal
+        // --------------- DELETE MODAL --------------- //
         open={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         className="polygon-delete-modal-body"
@@ -441,6 +419,35 @@ const PolygonActions = ({
           </div>
         </div>
       </Modal>
+
+      {/* --------------- SNACKBARS ----------------- */}
+      <Snackbar
+        open={polygonActionResult && polygonActionResult[0].includes("error")}
+        autoHideDuration={2500}
+        onClose={closePolygonActionResult}
+      >
+        <div className="polygon-action-error">
+          {polygonActionResult ? polygonActionResult[1] : ""}
+        </div>
+      </Snackbar>
+      <Snackbar
+        open={polygonActionResult && polygonActionResult[0].includes("success")}
+        autoHideDuration={2500}
+        onClose={closePolygonActionResult}
+      >
+        <div className="polygon-action-success">
+          {polygonActionResult ? polygonActionResult[1] : ""}
+        </div>
+      </Snackbar>
+      <Snackbar
+        open={polylineError}
+        autoHideDuration={2500}
+        onClose={handlePolylineError}
+      >
+        <div className="polygon-action-error">
+          Polygon kanter kan ikke krysse
+        </div>
+      </Snackbar>
     </>
   );
 };
