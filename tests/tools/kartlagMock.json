@@ -36,7 +36,8 @@
         "wmslayer": "Livsmiljoer",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "57": {
         "faktaark": "",
@@ -59,7 +60,8 @@
         "wmslayer": "Dekningskart_oversikt",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "58": {
         "faktaark": "",
@@ -82,7 +84,8 @@
         "wmslayer": "Dekningskart_detalj",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "59": {
         "faktaark": "",
@@ -105,7 +108,8 @@
         "wmslayer": "Bekkeklofter_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "60": {
         "faktaark": "",
@@ -128,7 +132,8 @@
         "wmslayer": "Bergvegger_flate_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "61": {
         "faktaark": "",
@@ -151,7 +156,8 @@
         "wmslayer": "Bergvegger_linje_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "62": {
         "faktaark": "",
@@ -174,7 +180,8 @@
         "wmslayer": "Brannflater_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "64": {
         "faktaark": "",
@@ -197,7 +204,8 @@
         "wmslayer": "Gamle_trar_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "66": {
         "faktaark": "",
@@ -220,7 +228,8 @@
         "wmslayer": "Leirraviner_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "67": {
         "faktaark": "",
@@ -243,7 +252,8 @@
         "wmslayer": "Liggende_dod_ved_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "68": {
         "faktaark": "",
@@ -266,7 +276,8 @@
         "wmslayer": "Rik_bakkeveg_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "232": {
         "faktaark": "",
@@ -289,7 +300,8 @@
         "wmslayer": "Staende_dod_ved_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "233": {
         "faktaark": "",
@@ -312,7 +324,8 @@
         "wmslayer": "Hule_lauvtrar_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "234": {
         "faktaark": "",
@@ -335,7 +348,8 @@
         "wmslayer": "Eldre_lauvsuksesjon_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "235": {
         "faktaark": "",
@@ -358,7 +372,8 @@
         "wmslayer": "Trar_m_hengelav_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       },
       "236": {
         "faktaark": "",
@@ -381,7 +396,8 @@
         "wmslayer": "Rikbarkstrar_all",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Skog"
       }
     },
     "wmsinfoformat": "application/vnd.ogc.gml",
@@ -485,7 +501,8 @@
         "wmslayer": "Arealtype",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arealressurs"
       },
       "ArealressursAR5_Jordbruksareal": {
         "key": 37,
@@ -509,7 +526,8 @@
         "wmslayer": "Jordbruksareal",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arealressurs"
       },
       "ArealressursAR5_Treslag": {
         "key": 36,
@@ -533,7 +551,8 @@
         "wmslayer": "Treslag",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arealressurs"
       }
     },
     "wmsinfoformat": "application/vnd.ogc.gml",
@@ -583,7 +602,8 @@
         "wmslayer": "naturtyper_nin_alle",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_Dekningskart": {
         "faktaark": "",
@@ -607,7 +627,8 @@
         "wmslayer": "dekningskart_naturtyper_nin",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_NaturtypeNiNSvrthylokalitetskvalitet": {
         "faktaark": "{naturtype_nin_svart_hoy_kvalitet.Faktaark}",
@@ -631,7 +652,8 @@
         "wmslayer": "naturtype_nin_svart_hoy_kvalitet",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_NaturtypeNiNhykvalitet": {
         "faktaark": "{naturtype_nin_hoy_kvalitet.Faktaark}",
@@ -655,7 +677,8 @@
         "wmslayer": "naturtype_nin_hoy_kvalitet",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_NaturtypeNiNmoderatkvalitet": {
         "faktaark": "",
@@ -679,7 +702,8 @@
         "wmslayer": "naturtype_nin_moderat_kvalitet",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_NaturtypeNiNlavkvalitet": {
         "faktaark": "{naturtype_nin_hoy_kvalitet.Faktaark}",
@@ -703,7 +727,8 @@
         "wmslayer": "naturtype_nin_lav_kvalitet",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       },
       "NaturtyperNiNMdir_NaturtypeNiNikkekvalitetsvurdert": {
         "faktaark": "{naturtype_nin_ikke_kvalitetsvurdert.Faktaark}",
@@ -727,7 +752,8 @@
         "wmslayer": "naturtype_nin_ikke_kvalitetsvurdert",
         "visible": false,
         "erSynlig": false,
-        "favorite": false
+        "favorite": false,
+        "tema": "Naturtyper"
       }
     },
     "wmsinfoformat": "application/vnd.esri.wms_raw_xml",
@@ -1007,7 +1033,8 @@
         "wmslayer": "Artskart",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_RERegionaltutddd": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{RE_punkt_layer.RE_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1030,7 +1057,8 @@
         "wmslayer": "RE",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_CRKritisktruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{CR_punkt_layer.CR_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1053,7 +1081,8 @@
         "wmslayer": "CR",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_ENSterkttruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{EN_punkt_layer.EN_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1076,7 +1105,8 @@
         "wmslayer": "EN",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_VUSrbar": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{VU_punkt_layer.VU_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1099,7 +1129,8 @@
         "wmslayer": "VU",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_NTNrtruet": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{NT_punkt_layer.NT_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1122,7 +1153,8 @@
         "wmslayer": "NT",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       },
       "ArterRdlista_DDDatamangel": {
         "faktaark": "https://artskart.artsdatabanken.no/app/#list/427864,7623020/3/background/NiB/filter/%7B%22IncludeSubTaxonIds%22%3Atrue%2C%22CatalogNumbers%22%3A%5B%22{DD_punkt_layer.DD_punkt_feature.ProxyId}%22%5D%2C%22Style%22%3A1%7D",
@@ -1145,7 +1177,8 @@
         "wmslayer": "DD",
         "visible": false,
         "erSynlig": false,
-        "favorite": true
+        "favorite": true,
+        "tema": "Arter"
       }
     },
     "wmsinfoformat": "application/vnd.ogc.gml",
