@@ -1,15 +1,11 @@
 import React from "react";
 import { cleanup, render, screen } from "@testing-library/react";
 import PolygonDrawTool from "../../../src/Okologiskegrunnkart/FeatureInfo/PolygonDrawTool";
+import { geometry1 } from "../../tools/polygonDataMock";
 
 afterEach(cleanup);
 
-const geometry = [
-  [64.88626540914477, 11.535644531250002],
-  [64.71787992684128, 12.875976562500002],
-  [63.927717045495136, 12.216796875000002],
-  [64.13936944203154, 11.381835937500002]
-];
+const geometry = geometry1();
 
 function renderPolygonDrawTool(args) {
   let defaultprops = {

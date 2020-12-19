@@ -6,6 +6,7 @@ import kartlagMock from "../../tools/kartlagMock.json";
 import emptyPointResultsMock from "../../tools/emptyPointResultsMock.json";
 import pointResultsMock from "../../tools/pointResultsMock.json";
 import polygonResultsMock from "../../tools/polygonResultsMock.json";
+import { geometry1, geometry2 } from "../../tools/polygonDataMock";
 import {
   emptyPointCoordinates,
   emptyPointPlace
@@ -24,18 +25,8 @@ const kartlag = kartlagMock;
 const emptyPointResults = emptyPointResultsMock;
 const pointResults = pointResultsMock;
 const polygonResults = polygonResultsMock;
-const geometry = [
-  [64.88626540914477, 11.535644531250002],
-  [64.71787992684128, 12.875976562500002],
-  [63.927717045495136, 12.216796875000002],
-  [64.13936944203154, 11.381835937500002]
-];
-const geometry2 = [
-  [63.12457211930414, 9.700927734375002],
-  [63.074865690586634, 10.360107421875002],
-  [62.65396335371416, 10.074462890625002],
-  [62.784887782399174, 9.492187500000002]
-];
+const geom1 = geometry1();
+const geom2 = geometry2();
 
 function renderInfoboxSide(args) {
   let defaultprops = {
@@ -342,7 +333,7 @@ it("should render no polygon data when no polygon is defined", () => {
 it("should render polyline data when polyline is defined", () => {
   const { getByText } = renderInfoboxSide({
     markerType: "polygon",
-    polyline: geometry
+    polyline: geom1
   });
   // Only headers
   getByText("Mitt Polygon");
@@ -362,7 +353,7 @@ it("should render polyline data when polyline is defined", () => {
 it("should render polygon data when polygon is defined", () => {
   const { getByText } = renderInfoboxSide({
     markerType: "polygon",
-    polygon: geometry
+    polygon: geom1
   });
   // Only headers
   getByText("Mitt Polygon");
@@ -382,7 +373,7 @@ it("should render polygon data when polygon is defined", () => {
 it("should render results with polygon and polygon results defined", () => {
   const { getByText, getAllByText } = renderInfoboxSide({
     markerType: "polygon",
-    polygon: geometry2,
+    polygon: geom2,
     polygonResults: polygonResults
   });
   // Headers
@@ -450,7 +441,7 @@ it("should render no results with polygon and empty polygon results", () => {
   };
   const { getByText, getAllByText } = renderInfoboxSide({
     markerType: "polygon",
-    polygon: geometry2,
+    polygon: geom2,
     polygonResults: results
   });
   // Headers
@@ -523,7 +514,7 @@ it("should render error when error is returned from polygon results", () => {
   };
   const { getByText, getAllByText } = renderInfoboxSide({
     markerType: "polygon",
-    polygon: geometry2,
+    polygon: geom2,
     polygonResults: results
   });
   // Headers
