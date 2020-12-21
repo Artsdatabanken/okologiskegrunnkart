@@ -476,7 +476,10 @@ const PolygonInfobox = ({
                 <div className="layer-results-scrollable-side">
                   {loadingFeatures && (
                     <div className={classes.root}>
-                      <LinearProgress color="primary" />
+                      <LinearProgress
+                        id="polygon-area-report-progress"
+                        color="primary"
+                      />
                     </div>
                   )}
                   <List id="layers-results-list">
