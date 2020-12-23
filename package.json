@@ -1,9 +1,4 @@
 {
-  "babel": {
-    "presets": [
-      "react-app"
-    ]
-  },
   "browserslist": [
     ">0.2%",
     "not dead",
@@ -36,7 +31,7 @@
     "dexie": "^3.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
+    "@babel/core": "^7.12.10",
     "coveralls": "^3.0.7",
     "eslint": "7.15.0",
     "eslint-config-prettier": "^6.5.0",
@@ -47,7 +42,8 @@
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0",
     "@testing-library/react": "^11.2.2",
-    "@testing-library/jest-dom": "^5.11.6"
+    "@testing-library/jest-dom": "^5.11.6",
+    "cypress": "^6.1.0"
   },
   "eslintConfig": {
     "extends": [
@@ -78,7 +74,10 @@
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/tools/fileMock.js",
       "\\.(css|less)$": "<rootDir>/tests/tools/styleMock.js"
-    }
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/cypress"
+    ]
   },
   "license": "MIT",
   "name": "nin-kart-frontend",
@@ -92,7 +91,9 @@
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "e2e": "cypress run",
+    "e2e:open": "cypress open"
   },
   "version": "0.2.0"
 }

@@ -181,25 +181,25 @@ const PolygonDrawTool = ({
               onChange={handleRadioChange}
             >
               <FormControlLabel
-                id="infobox-radio-label"
+                id="infobox-radio-label-none"
                 value="none"
                 control={<CustomRadio />}
                 label="Ingen (selvtegnet)"
               />
               <FormControlLabel
-                id="infobox-radio-label"
+                id="infobox-radio-label-fylke"
                 value="fylke"
                 control={<CustomRadio />}
                 label="Fylke"
               />
               <FormControlLabel
-                id="infobox-radio-label"
+                id="infobox-radio-label-kommune"
                 value="kommune"
                 control={<CustomRadio />}
                 label="Kommune"
               />
               <FormControlLabel
-                id="infobox-radio-label"
+                id="infobox-radio-label-eiendom"
                 value="eiendom"
                 control={<CustomRadio />}
                 label="Eiendom"
