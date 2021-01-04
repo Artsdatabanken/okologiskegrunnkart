@@ -43,7 +43,7 @@
     "pretty-quick": "^2.0.0",
     "@testing-library/react": "^11.2.2",
     "@testing-library/jest-dom": "^5.11.6",
-    "cypress": "^6.1.0"
+    "cypress": "^6.2.0"
   },
   "eslintConfig": {
     "extends": [
