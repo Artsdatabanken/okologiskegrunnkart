@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("Draw Polygon Tests", () => {
-  it("Draw Polygon Manually", () => {
+  it("Draw polygon manually", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -40,7 +40,7 @@ describe("Draw Polygon Tests", () => {
     cy.contains("186.74 km²");
   });
 
-  it("Run Area Report", () => {
+  it("Run area report", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
     cy.get("#polygon-layer-expander").click();

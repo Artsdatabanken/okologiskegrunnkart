@@ -6,7 +6,7 @@ describe("Save and Open Polygon Tests", () => {
     indexedDB.deleteDatabase("GrunnkartDB");
   });
 
-  it("Chech ther are no polygons saved", () => {
+  it("Check there are no polygons saved", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -27,7 +27,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".saved-polygon-modal-wrapper").should("not.exist");
   });
 
-  it("Draw First Polygon Manually", () => {
+  it("Draw first polygon manually", () => {
     // Zoom in map
     cy.get('a[title="Zoom in"]').click();
     cy.wait(300);
@@ -55,7 +55,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("124.54 km²");
   });
 
-  it("Save First Polygon", () => {
+  it("Save first polygon", () => {
     // Open save menu
     cy.get('span[title="Lagre polygon"] > button').click();
     cy.get(".polygon-modal-wrapper").should("be.visible");
@@ -76,7 +76,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".polygon-action-success").should("not.exist");
   });
 
-  it("Upload Second Polygon", () => {
+  it("Upload second polygon", () => {
     // Upload polygon
     cy.get('span[title="Last opp polygon"] > button').click();
     cy.fixture("test_02.geojson").then(fileContent => {
@@ -96,7 +96,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("12.474 km²");
   });
 
-  it("Do Not Allow Repeated Names When Saving", () => {
+  it("Do not allow repeated names when saving", () => {
     // Open save menu
     cy.get("button#save-polygon-button").click();
     cy.get(".polygon-modal-wrapper").should("be.visible");
@@ -122,7 +122,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".polygon-modal-wrapper").should("not.exist");
   });
 
-  it("Save Second Polygon", () => {
+  it("Save second polygon", () => {
     // Open save menu
     cy.get("button#save-polygon-button").click();
     cy.get(".polygon-modal-wrapper").should("be.visible");
@@ -152,7 +152,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("Arealrapport (polygon ikke definert)");
   });
 
-  it("Open Saved Polygon", () => {
+  it("Open saved polygon", () => {
     // Open saved polygons menu
     cy.get("button#open-polygon-button").click();
     cy.get(".saved-polygon-modal-wrapper").should("be.visible");
@@ -172,7 +172,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("24.54 km²");
   });
 
-  it("Do Not Allow Repeated Names When Editting", () => {
+  it("Do not allow repeated names when editting", () => {
     // Open saved polygons menu
     cy.get("button#open-polygon-button").click();
     cy.get(".saved-polygon-modal-wrapper").should("be.visible");
@@ -205,7 +205,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".saved-polygon-modal-wrapper").should("not.exist");
   });
 
-  it("Edit Saved Polygon Name", () => {
+  it("Edit saved polygon name", () => {
     // Open saved polygons menu
     cy.get("button#open-polygon-button").click();
     cy.get(".saved-polygon-modal-wrapper").should("be.visible");
@@ -227,7 +227,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".saved-polygon-modal-wrapper").should("not.exist");
   });
 
-  it("Delete Saved Polygon", () => {
+  it("Delete saved polygon", () => {
     // Open saved polygons menu
     cy.get("button#open-polygon-button").click();
     cy.get(".saved-polygon-modal-wrapper").should("be.visible");
@@ -255,7 +255,7 @@ describe("Save and Open Polygon Tests", () => {
     cy.get(".saved-polygon-modal-wrapper").should("not.exist");
   });
 
-  it("Check Saved Polygon Has Been Deleted", () => {
+  it("Check saved polygon has been deleted", () => {
     // Open saved polygons menu
     cy.get("button#open-polygon-button").click();
     cy.get(".saved-polygon-modal-wrapper").should("be.visible");

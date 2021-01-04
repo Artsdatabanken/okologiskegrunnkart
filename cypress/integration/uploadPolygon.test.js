@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("Upload Polygon Tests", () => {
-  it("Upload Polygon", () => {
+  it("Upload polygon", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -36,7 +36,7 @@ describe("Upload Polygon Tests", () => {
     cy.get('span[title="Rediger"] > button').should("be.disabled");
   });
 
-  it("Run Area Report", () => {
+  it("Run area report", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
     cy.get("#polygon-layer-expander").click();
