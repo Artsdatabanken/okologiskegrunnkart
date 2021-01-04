@@ -30,7 +30,7 @@ describe("Save and Open Polygon Tests", () => {
   it("Draw First Polygon Manually", () => {
     // Zoom in map
     cy.get('a[title="Zoom in"]').click();
-    cy.wait(150);
+    cy.wait(300);
 
     // Polygon should not be visible
     cy.get("path.leaflet-interactive").should("not.exist");
