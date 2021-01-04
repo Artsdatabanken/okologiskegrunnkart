@@ -237,11 +237,11 @@ describe("Draw Polygon Tests", () => {
     // Try new point
     cy.get(".leaflet-container").click(660, 640);
 
-    // Warning should be visible
+    // Error message should be visible
     cy.get(".polygon-action-error").should("be.visible");
     cy.contains("Polygon kanter kan ikke krysse");
 
-    // Warning should disappear after 2.5 seconds
+    // Error message should disappear after 2.5 seconds
     cy.wait(2500);
     cy.get(".polygon-action-error").should("not.exist");
   });
@@ -256,12 +256,21 @@ describe("Draw Polygon Tests", () => {
     cy.contains("109.3 km");
     cy.get('span[title="Ferdig"] > button').click();
 
-    // Warning should be visible
+    // Error message should be visible
     cy.get(".polygon-action-error").should("be.visible");
     cy.contains("Polygon kanter kan ikke krysse");
 
-    // Warning should disappear after 2.5 seconds
+    // Error message should disappear after 2.5 seconds
     cy.wait(2500);
     cy.get(".polygon-action-error").should("not.exist");
+  });
+
+  it("Delete polygon from map", () => {
+    // Delete polygon
+    cy.get('span[title="Fjern"] > button').click();
+
+    // Polygon should not be visible
+    cy.get("path.leaflet-interactive").should("not.exist");
+    cy.contains("Arealrapport (polygon ikke definert)");
   });
 });

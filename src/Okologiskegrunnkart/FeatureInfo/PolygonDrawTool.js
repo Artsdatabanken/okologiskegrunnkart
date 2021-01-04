@@ -232,6 +232,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Last opp polygon">
                 <span className="geometry-tool-button first-tool">
                   <IconButton
+                    id="upload-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => uploadPolygonFile()}
                   >
@@ -242,6 +243,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Åpne lagret polygon">
                 <span className="geometry-tool-button">
                   <IconButton
+                    id="open-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => getSavedPolygons()}
                   >
@@ -257,6 +259,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Lagre polygon">
                 <span className="geometry-tool-button">
                   <IconButton
+                    id="save-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => handlePolygonSaveModal(true)}
                   >
@@ -267,6 +270,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Rediger">
                 <span className="geometry-tool-button">
                   <IconButton
+                    id="edit-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => {
                       addPolygon(null);
@@ -288,6 +292,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Angre sist">
                 <span className="geometry-tool-button">
                   <IconButton
+                    id="undo-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => {
                       if (polyline.length > 0) {
@@ -303,6 +308,7 @@ const PolygonDrawTool = ({
               <BottomTooltip placement="bottom" title="Ferdig">
                 <span className="geometry-tool-button">
                   <IconButton
+                    id="done-polygon-button"
                     className={classes.customIconButtom}
                     onClick={() => {
                       if (polyline.length > 1) {
@@ -322,6 +328,7 @@ const PolygonDrawTool = ({
           <BottomTooltip placement="bottom" title="Vis/Gjem">
             <span className="geometry-tool-button">
               <IconButton
+                id="hide-polygon-button"
                 className={classes.customIconButtom}
                 onClick={() => hideShowPolygon()}
               >
@@ -337,6 +344,7 @@ const PolygonDrawTool = ({
           <BottomTooltip placement="bottom" title="Fjern">
             <span className="geometry-tool-button">
               <IconButton
+                id="delete-polygon-button"
                 className={classes.customIconButtom}
                 onClick={() => deletePolygon()}
               >

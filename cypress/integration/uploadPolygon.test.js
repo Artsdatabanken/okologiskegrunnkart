@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("Upload Polygon Tests", () => {
-  it("Upload First Polygon", () => {
+  it("Upload Polygon", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -140,7 +140,7 @@ describe("Upload Polygon Tests", () => {
     cy.get(".generic_element:nth-child(12)").contains("1");
   });
 
-  it("Delete polygon. Area report results should disappear", () => {
+  it("Delete polygon from map. Area report results should disappear", () => {
     // No area report results visible
     cy.get("#layers-results-list")
       .find(".generic_element")
@@ -168,11 +168,11 @@ describe("Upload Polygon Tests", () => {
       });
     });
 
-    // Warning should be visible
+    // Error message should be visible
     cy.get(".polygon-action-error").should("be.visible");
     cy.contains("Kunne ikke laste opp filen");
 
-    // Warning should disappear after 2.5 seconds
+    // Error message should disappear after 2.5 seconds
     cy.wait(2500);
     cy.get(".polygon-action-error").should("not.exist");
   });
