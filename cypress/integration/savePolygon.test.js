@@ -96,6 +96,32 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("12.474 km²");
   });
 
+  it("Do Not Allow Repeated Names When Saving", () => {
+    // Open save menu
+    cy.get("button#save-polygon-button").click();
+    cy.get(".polygon-modal-wrapper").should("be.visible");
+    cy.contains("Lagre polygon");
+    cy.contains("Navn");
+
+    // Add name and save
+    cy.get("#polygon-name-input").type("Test polygon 1");
+    cy.get("button#confirm-save-polygon").click();
+    cy.get(".polygon-modal-wrapper").should("be.visible");
+
+    // Error message should be visible
+    cy.contains("Navn allerede brukt");
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Kunne ikke lagre polygonen");
+
+    // Error message should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
+
+    // Close menu
+    cy.get(".polygon-modal-button").click();
+    cy.get(".polygon-modal-wrapper").should("not.exist");
+  });
+
   it("Save Second Polygon", () => {
     // Open save menu
     cy.get("button#save-polygon-button").click();
@@ -144,6 +170,39 @@ describe("Save and Open Polygon Tests", () => {
     cy.contains("46.75 km");
     cy.contains("Areal");
     cy.contains("24.54 km²");
+  });
+
+  it("Do Not Allow Repeated Names When Editting", () => {
+    // Open saved polygons menu
+    cy.get("button#open-polygon-button").click();
+    cy.get(".saved-polygon-modal-wrapper").should("be.visible");
+    cy.contains("Åpne lagret polygon");
+    cy.contains("Test polygon 1");
+    cy.contains("Test polygon 2");
+
+    // Select Test Polygon 2 and update name
+    cy.wait(1000);
+    cy.get(
+      ".saved-polygons-listitem-wrapper:first #edit-polygon-button"
+    ).click();
+    cy.get("#polygon-edit-name-input").clear("");
+    cy.get("#polygon-edit-name-input").type("Test polygon 1");
+    cy.get(
+      ".saved-polygons-listitem-wrapper:first #save-edited-polygon-button"
+    ).click();
+
+    // Error message should be visible
+    cy.contains("Navn allerede brukt");
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Kunne ikke endre polygonen");
+
+    // Error message should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
+
+    // Close menu
+    cy.get(".polygon-modal-button").click();
+    cy.get(".saved-polygon-modal-wrapper").should("not.exist");
   });
 
   it("Edit Saved Polygon Name", () => {
