@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe("Draw Polygon Tests", () => {
-  it("Draw Polygon Manually", () => {
+describe("Upload Polygon Tests", () => {
+  it("Upload Polygon", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -11,16 +11,13 @@ describe("Draw Polygon Tests", () => {
     cy.get("#infobox-radio-label-none >>> input").should("be.checked");
     cy.get("#polygon-options-listitem").click();
 
-    // Zoom in map
-    cy.get('a[title="Zoom in"]').click();
-    cy.wait(150);
-
     // Polygon should not be visible
     cy.get("path.leaflet-interactive").should("not.exist");
     cy.contains("Arealrapport (polygon ikke definert)");
 
     // Draw polygon manually
     cy.get(".leaflet-container").click(650, 650);
+    // cy.wait(500);
     cy.get(".leaflet-marker-icon.inactive_point").should("be.visible");
     cy.get(".leaflet-container").click(670, 655);
     cy.contains("10.83 km");
