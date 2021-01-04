@@ -189,5 +189,79 @@ describe("Draw Polygon Tests", () => {
       "Myrer med slåttebetinget eller beitepåvirket"
     );
     cy.get(".polygon-details-content-wrapper-description").contains("Les mer");
+
+    // Go back
+    cy.get("#infobox-details-title-wrapper").click();
+    cy.get("#infobox-details-title-wrapper").should("not.exist");
+  });
+
+  it("Edit polygon. Area report results should disappear", () => {
+    // No area report results visible
+    cy.get("#layers-results-list")
+      .find(".generic_element")
+      .should("have.length", 12);
+
+    // Edit polygon
+    cy.get('span[title="Rediger"] > button').click();
+
+    // Check polyline size is correct
+    cy.contains("Omkrets / perimeter");
+    cy.contains("44.35 km");
+    cy.contains("Areal");
+    cy.contains("---");
+
+    // Polygon should not be visible, but polyline yes
+    cy.get("path.leaflet-interactive").should("not.be.null");
+    cy.contains("Arealrapport (polygon ikke definert)");
+
+    // No area report results visible
+    cy.get("#layers-results-list").should("not.exist");
+  });
+
+  it("Undo last point of the polyline", () => {
+    // Undo last point
+    cy.get('span[title="Angre sist"] > button').click();
+
+    // Check polyline size is correct
+    cy.contains("Omkrets / perimeter");
+    cy.contains("32.59 km");
+    cy.contains("Areal");
+    cy.contains("---");
+
+    // Polygon should not be visible, but polyline yes
+    cy.get("path.leaflet-interactive").should("not.be.null");
+    cy.contains("Arealrapport (polygon ikke definert)");
+  });
+
+  it("New polyline point crossing existing lines should not be allowed", () => {
+    // Try new point
+    cy.get(".leaflet-container").click(660, 640);
+
+    // Warning should be visible
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Polygon kanter kan ikke krysse");
+
+    // Warning should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
+  });
+
+  it("Polygon with crossing lines should not be allowed", () => {
+    // Add new points
+    cy.get(".leaflet-container").click(640, 630);
+    cy.contains("56.21 km");
+    cy.get(".leaflet-container").click(690, 635);
+    cy.contains("82.52 km");
+    cy.get(".leaflet-container").click(680, 685);
+    cy.contains("109.3 km");
+    cy.get('span[title="Ferdig"] > button').click();
+
+    // Warning should be visible
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Polygon kanter kan ikke krysse");
+
+    // Warning should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
   });
 });

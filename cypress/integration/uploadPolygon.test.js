@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe("Upload Polygon Tests", () => {
-  it("Upload Polygon", () => {
+  it("Upload First Polygon", () => {
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected
@@ -15,26 +15,25 @@ describe("Upload Polygon Tests", () => {
     cy.get("path.leaflet-interactive").should("not.exist");
     cy.contains("Arealrapport (polygon ikke definert)");
 
-    // Draw polygon manually
-    cy.get(".leaflet-container").click(650, 650);
-    // cy.wait(500);
-    cy.get(".leaflet-marker-icon.inactive_point").should("be.visible");
-    cy.get(".leaflet-container").click(670, 655);
-    cy.contains("10.83 km");
-    cy.get(".leaflet-container").click(665, 670);
-    cy.contains("19.15 km");
-    cy.get(".leaflet-container").click(640, 675);
-    cy.contains("32.59 km");
-    cy.get(".leaflet-container").click(630, 655);
-    cy.contains("44.35 km");
-    cy.get('span[title="Ferdig"] > button').click();
+    // Upload polygon
+    cy.get('span[title="Last opp polygon"] > button').click();
+    cy.fixture("test_01.geojson").then(fileContent => {
+      cy.get('input[type="file"]').attachFile({
+        fileContent: fileContent.toString(),
+        fileName: "test_01.geojson",
+        mimeType: "application/json"
+      });
+    });
 
     // Check polygon and its size are shown
     cy.get("path.leaflet-interactive").should("not.be.null");
     cy.contains("Omkrets / perimeter");
-    cy.contains("55.19 km");
+    cy.contains("21.8 km");
     cy.contains("Areal");
-    cy.contains("186.74 km²");
+    cy.contains("15.852 km²");
+
+    // Check edit polygon button is disabled
+    cy.get('span[title="Rediger"] > button').should("be.disabled");
   });
 
   it("Run Area Report", () => {
@@ -116,7 +115,7 @@ describe("Upload Polygon Tests", () => {
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("99+");
     // Arter nasjonal forvaltningsinteresse
-    cy.get(".generic_element:nth-child(4)").contains("1");
+    cy.get(".generic_element:nth-child(4)").contains("21");
     // Breer
     cy.get(".generic_element:nth-child(5) >>>>> .MuiBadge-badge").should(
       "not.exist"
@@ -124,67 +123,57 @@ describe("Upload Polygon Tests", () => {
     // Naturtyper - DN Håndbook 13
     cy.get(".generic_element:nth-child(6)").contains("19");
     // Naturtyper - DN Håndbook 19
-    cy.get(".generic_element:nth-child(7) >>>>> .MuiBadge-badge").should(
+    cy.get(".generic_element:nth-child(7)").contains("11");
+    // Naturtyper - NiN Mdir
+    cy.get(".generic_element:nth-child(8) >>>>> .MuiBadge-badge").should(
       "not.exist"
     );
-    // Naturtyper - NiN Mdir
-    cy.get(".generic_element:nth-child(8)").contains("7");
     // Naturvernområder
-    cy.get(".generic_element:nth-child(9)").contains("5");
+    cy.get(".generic_element:nth-child(9)").contains("18");
     // Innsjødatabase
-    cy.get(".generic_element:nth-child(10)").contains("74");
+    cy.get(".generic_element:nth-child(10)").contains("1");
     // Vannkraft - Magasin
     cy.get(".generic_element:nth-child(11) >>>>> .MuiBadge-badge").should(
       "not.exist"
     );
     // Verneplan for Vassdrag
-    cy.get(".generic_element:nth-child(12)").contains("2");
+    cy.get(".generic_element:nth-child(12)").contains("1");
+  });
 
-    // See kommune details
-    cy.get(".generic_element:nth-child(2)").click();
-    cy.contains("Detaljerte resultater");
-    cy.contains("Grong");
-    cy.contains("5045");
-    cy.contains("111.5 km²");
-    cy.contains("(59.7%)");
-    cy.contains("Høylandet");
-    cy.contains("5046");
-    cy.contains("75.3 km²");
-    cy.contains("(40.3%)");
+  it("Delete polygon. Area report results should disappear", () => {
+    // No area report results visible
+    cy.get("#layers-results-list")
+      .find(".generic_element")
+      .should("have.length", 12);
 
-    // Go back
-    cy.get("#infobox-details-title-wrapper").click();
-    cy.get("#infobox-details-title-wrapper").should("not.exist");
+    // Delete polygon
+    cy.get('span[title="Fjern"] > button').click();
 
-    // See Naturtyper - DN Håndbook 13 details
-    cy.get(".generic_element:nth-child(6)").click();
-    cy.contains("Detaljerte resultater");
-    cy.get(".polygon-details-content-wrapper").contains("Regnskog");
-    cy.get(".polygon-details-content-wrapper").contains("F20");
-    cy.get(".polygon-details-content-wrapper").contains("2.85 km²");
-    cy.get(".polygon-details-content-wrapper").contains("(1.5%)");
+    // Polygon should not be visible
+    cy.get("path.leaflet-interactive").should("not.exist");
+    cy.contains("Arealrapport (polygon ikke definert)");
 
-    cy.get(".polygon-details-content-wrapper-description").contains(
-      "Slåttemyr"
-    );
-    cy.get(".polygon-details-content-wrapper-description").contains("D02");
-    cy.get(".polygon-details-content-wrapper-description").contains("0.30 km²");
-    cy.get(".polygon-details-content-wrapper-description").contains("(0.16%)");
-    cy.get(".polygon-details-content-wrapper-description").contains(
-      "Myrer med slåttebetinget eller beitepåvirket"
-    );
-    cy.get(".polygon-details-content-wrapper-description").contains("Les mer");
-    cy.get(".polygon-details-description-link").click({ multiple: true });
-    cy.get(".polygon-details-content-wrapper-description").contains(
-      "Myrer med slåttebetinget eller beitepåvirket vegetasjon­ og preg."
-    );
-    cy.get(".polygon-details-content-wrapper-description").contains(
-      "Les mindre"
-    );
-    cy.get(".polygon-details-description-link-open").click({ multiple: true });
-    cy.get(".polygon-details-content-wrapper-description").contains(
-      "Myrer med slåttebetinget eller beitepåvirket"
-    );
-    cy.get(".polygon-details-content-wrapper-description").contains("Les mer");
+    // No area report results visible
+    cy.get("#layers-results-list").should("not.exist");
+  });
+
+  it("Give warning when wrong file is uploaded", () => {
+    // Upload wrong polygon file
+    cy.get('span[title="Last opp polygon"] > button').click();
+    cy.fixture("not_geojson.geojson").then(fileContent => {
+      cy.get('input[type="file"]').attachFile({
+        fileContent: fileContent.toString(),
+        fileName: "not_geojson.geojson",
+        mimeType: "application/json"
+      });
+    });
+
+    // Warning should be visible
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Kunne ikke laste opp filen");
+
+    // Warning should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
   });
 });
