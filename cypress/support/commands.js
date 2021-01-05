@@ -29,7 +29,10 @@ import "cypress-file-upload";
 
 // Start APP in desktop
 Cypress.Commands.add("startDesktop", () => {
-  cy.visit("http://localhost:3000/");
+  // cy.visit("http://localhost:3000/");
+  // cy.visit("https://okologiskegrunnkart.test.artsdatabanken.no");
+  // cy.visit("https://okologiskegrunnkart.artsdatabanken.no");
+  cy.visit(Cypress.env("baseurl"));
   cy.contains("Økologiske grunnkart");
   cy.contains("Mer info");
   cy.contains("Søk");

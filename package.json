@@ -94,10 +94,20 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "e2e": "cypress run",
-    "e2e:open": "cypress open",
-    "e2eGroup1": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js",
-    "e2eGroup2": "cypress run --spec cypress/integration/savePolygon.test.js",
-    "e2eGroup3": "cypress run --spec cypress/integration/uploadPolygon.test.js"
+    "e2e:test": "cypress run --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "e2e:prod": "cypress run --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
+    "open": "cypress open",
+    "open:test": "cypress open --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "open:prod": "cypress open --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
+    "group1": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js",
+    "group2": "cypress run --spec cypress/integration/savePolygon.test.js",
+    "group3": "cypress run --spec cypress/integration/uploadPolygon.test.js",
+    "group1:test": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "group2:test": "cypress run --spec cypress/integration/savePolygon.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "group3:test": "cypress run --spec cypress/integration/uploadPolygon.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "group1:prod": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
+    "group2:prod": "cypress run --spec cypress/integration/savePolygon.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
+    "group3:prod": "cypress run --spec cypress/integration/uploadPolygon.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no"
   },
   "version": "0.2.0"
 }
