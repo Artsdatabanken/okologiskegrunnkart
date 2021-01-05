@@ -43,7 +43,8 @@
     "pretty-quick": "^2.0.0",
     "@testing-library/react": "^11.2.2",
     "@testing-library/jest-dom": "^5.11.6",
-    "cypress": "^6.1.0"
+    "cypress": "^6.2.0",
+    "cypress-file-upload": "^4.1.1"
   },
   "eslintConfig": {
     "extends": [
@@ -93,7 +94,10 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "e2e": "cypress run",
-    "e2e:open": "cypress open"
+    "e2e:open": "cypress open",
+    "e2eGroup1": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js",
+    "e2eGroup2": "cypress run --spec cypress/integration/savePolygon.test.js",
+    "e2eGroup3": "cypress run --spec cypress/integration/uploadPolygon.test.js"
   },
   "version": "0.2.0"
 }

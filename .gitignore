@@ -22,5 +22,6 @@ yarn-debug.log*
 yarn-error.log*
 .vscode/
 temp
+cypress/videos
 
 lastejobb/Geonorge.NedlastingKlient/

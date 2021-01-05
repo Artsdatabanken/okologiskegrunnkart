@@ -1,10 +1,10 @@
 /// <reference types="cypress" />
 
 describe("Draw Polygon Tests", () => {
-  it("Draw Polygon Manually", () => {
+  it("Draw polygon manually", () => {
     cy.startDesktop();
 
-    // Open polygon tool and verify slef-drawn polygon is selected
+    // Open polygon tool and verify self-drawn polygon is selected
     cy.get('button[title="Polygon tool"]').click();
     cy.contains("Mitt Polygon");
     cy.contains("Definer polygon fra grenser");
@@ -13,7 +13,7 @@ describe("Draw Polygon Tests", () => {
 
     // Zoom in map
     cy.get('a[title="Zoom in"]').click();
-    cy.wait(150);
+    cy.wait(300);
 
     // Polygon should not be visible
     cy.get("path.leaflet-interactive").should("not.exist");
@@ -21,7 +21,6 @@ describe("Draw Polygon Tests", () => {
 
     // Draw polygon manually
     cy.get(".leaflet-container").click(650, 650);
-    // cy.wait(500);
     cy.get(".leaflet-marker-icon.inactive_point").should("be.visible");
     cy.get(".leaflet-container").click(670, 655);
     cy.contains("10.83 km");
@@ -41,7 +40,7 @@ describe("Draw Polygon Tests", () => {
     cy.contains("186.74 km²");
   });
 
-  it("Run Area Report", () => {
+  it("Run area report", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
     cy.get("#polygon-layer-expander").click();
@@ -190,5 +189,88 @@ describe("Draw Polygon Tests", () => {
       "Myrer med slåttebetinget eller beitepåvirket"
     );
     cy.get(".polygon-details-content-wrapper-description").contains("Les mer");
+
+    // Go back
+    cy.get("#infobox-details-title-wrapper").click();
+    cy.get("#infobox-details-title-wrapper").should("not.exist");
+  });
+
+  it("Edit polygon. Area report results should disappear", () => {
+    // No area report results visible
+    cy.get("#layers-results-list")
+      .find(".generic_element")
+      .should("have.length", 12);
+
+    // Edit polygon
+    cy.get('span[title="Rediger"] > button').click();
+
+    // Check polyline size is correct
+    cy.contains("Omkrets / perimeter");
+    cy.contains("44.35 km");
+    cy.contains("Areal");
+    cy.contains("---");
+
+    // Polygon should not be visible, but polyline yes
+    cy.get("path.leaflet-interactive").should("not.be.null");
+    cy.contains("Arealrapport (polygon ikke definert)");
+
+    // No area report results visible
+    cy.get("#layers-results-list").should("not.exist");
+  });
+
+  it("Undo last point of the polyline", () => {
+    // Undo last point
+    cy.get('span[title="Angre sist"] > button').click();
+
+    // Check polyline size is correct
+    cy.contains("Omkrets / perimeter");
+    cy.contains("32.59 km");
+    cy.contains("Areal");
+    cy.contains("---");
+
+    // Polygon should not be visible, but polyline yes
+    cy.get("path.leaflet-interactive").should("not.be.null");
+    cy.contains("Arealrapport (polygon ikke definert)");
+  });
+
+  it("New polyline point crossing existing lines should not be allowed", () => {
+    // Try new point
+    cy.get(".leaflet-container").click(660, 640);
+
+    // Error message should be visible
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Polygon kanter kan ikke krysse");
+
+    // Error message should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
+  });
+
+  it("Polygon with crossing lines should not be allowed", () => {
+    // Add new points
+    cy.get(".leaflet-container").click(640, 630);
+    cy.contains("56.21 km");
+    cy.get(".leaflet-container").click(690, 635);
+    cy.contains("82.52 km");
+    cy.get(".leaflet-container").click(680, 685);
+    cy.contains("109.3 km");
+    cy.get('span[title="Ferdig"] > button').click();
+
+    // Error message should be visible
+    cy.get(".polygon-action-error").should("be.visible");
+    cy.contains("Polygon kanter kan ikke krysse");
+
+    // Error message should disappear after 2.5 seconds
+    cy.wait(2500);
+    cy.get(".polygon-action-error").should("not.exist");
+  });
+
+  it("Delete polygon from map", () => {
+    // Delete polygon
+    cy.get('span[title="Fjern"] > button').click();
+
+    // Polygon should not be visible
+    cy.get("path.leaflet-interactive").should("not.exist");
+    cy.contains("Arealrapport (polygon ikke definert)");
   });
 });

@@ -24,6 +24,9 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+// General import
+import "cypress-file-upload";
+
 // Start APP in desktop
 Cypress.Commands.add("startDesktop", () => {
   cy.visit("http://localhost:3000/");
