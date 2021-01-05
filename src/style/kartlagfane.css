@@ -466,6 +466,9 @@
   font-size: 17px;
   font-weight: 500;
 }
+.open-legend-left-button {
+  margin-left: 8px;
+}
 
 /* ----------- LEGEND MENU ------------- */
 .legend-wrapper-right {
