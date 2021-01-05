@@ -103,7 +103,7 @@ const TegnforklaringLink = ({
       </ListItemText>
       {!isMobile && (
         <BottomTooltip placement="bottom" title="Åpne på venstre side">
-          <span className="geometry-tool-button">
+          <span className="open-legend-left-button">
             <IconButton
               className={classes.customIconButtom}
               onClick={e => {
