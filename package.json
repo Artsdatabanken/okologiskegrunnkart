@@ -100,14 +100,14 @@
     "open:test": "cypress open --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
     "open:prod": "cypress open --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
     "group1": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js",
-    "group2": "cypress run --spec cypress/integration/savePolygon.test.js",
-    "group3": "cypress run --spec cypress/integration/uploadPolygon.test.js,clickSelectedLayers.test.js",
+    "group2": "cypress run --spec cypress/integration/savePolygon.test.js,cypress/integration/clickAllLayers.test.js",
+    "group3": "cypress run --spec cypress/integration/uploadPolygon.test.js,cypress/integration/clickSelectedLayers.test.js",
     "group1:test": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
-    "group2:test": "cypress run --spec cypress/integration/savePolygon.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
-    "group3:test": "cypress run --spec cypress/integration/uploadPolygon.test.js,clickSelectedLayers.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "group2:test": "cypress run --spec cypress/integration/savePolygon.test.js,cypress/integration/clickAllLayers.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
+    "group3:test": "cypress run --spec cypress/integration/uploadPolygon.test.js,cypress/integration/clickSelectedLayers.test.js --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
     "group1:prod": "cypress run --spec cypress/integration/drawPolygon.test.js,cypress/integration/showTiles.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
-    "group2:prod": "cypress run --spec cypress/integration/savePolygon.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
-    "group3:prod": "cypress run --spec cypress/integration/uploadPolygon.test.js,clickSelectedLayers.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no"
+    "group2:prod": "cypress run --spec cypress/integration/savePolygon.test.js,cypress/integration/clickAllLayers.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no",
+    "group3:prod": "cypress run --spec cypress/integration/uploadPolygon.test.js,cypress/integration/clickSelectedLayers.test.js --env baseurl=https://okologiskegrunnkart.artsdatabanken.no"
   },
   "version": "0.2.0"
 }

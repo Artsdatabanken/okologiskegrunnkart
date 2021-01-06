@@ -43,9 +43,19 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(".infobox-container-side.infobox-open").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("not.exist");
 
+    // Intercept requests
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=7"
+    ).as("getPlaceData");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5046&gardsnummer=85&bruksnummer=1&treffPerSide=100"
+    ).as("getAddressData");
+
     // Click on map
     cy.get(".leaflet-container").click(650, 650);
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
+    cy.wait("@getPlaceData", { timeout: 10000 });
+    cy.wait("@getAddressData", { timeout: 10000 });
 
     // Check infobox contains correct data
     cy.get("img.leaflet-marker-icon").should("not.be.null");
@@ -55,7 +65,9 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("50");
     cy.get(".infobox-container-side.infobox-open").contains("Høylandet");
     cy.get(".infobox-container-side.infobox-open").contains("5046");
-    cy.get(".infobox-container-side").contains("Skarlandssetran 1");
+    cy.get(".infobox-container-side.infobox-open").contains(
+      "Skarlandssetran 1"
+    );
     cy.get(".infobox-container-side.infobox-open").contains("85 / 1");
     cy.get(".infobox-container-side").contains("64.6333° N 12.3926° Ø");
     cy.get(".infobox-container-side.infobox-open").contains("329 moh");
@@ -79,12 +91,18 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get("#layers-list-wrapper").contains("Fredete arter - områder");
     cy.get("#layers-list-wrapper").contains("Fredete arter - punkt");
 
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfo");
+
     // Activate sublayer Fredete arter - områder
     cy.get(switchPath1).should("not.be.checked");
     cy.get(badgePath1).should("have.class", "MuiBadge-invisible");
     cy.get(switchPath1).click();
     cy.get(switchPath1).should("be.checked");
     cy.get(badgePath1).should("contain", "1");
+    cy.wait("@getFeatureInfo", { timeout: 10000 });
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -109,6 +127,11 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get("#layers-list-wrapper").contains("Fredete arter - områder");
     cy.get("#layers-list-wrapper").contains("Fredete arter - punkt");
 
+    // Intercept request
+    cy.intercept(
+      "https://wms.nibio.no/cgi-bin/ar5?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Arealtype&query_layers=Arealtype&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfo1");
+
     // Activate sublayer Arealressurs: AR5 Arealtype
     cy.get(allPath2).should("not.be.checked");
     cy.get(switchPath2).should("not.be.checked");
@@ -118,6 +141,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(allPath2).should("not.be.checked");
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "1");
+    cy.wait("@getFeatureInfo1", { timeout: 10000 });
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -129,11 +153,17 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get("#layers-results-list").contains("NIBIO");
     cy.get(resultBadgePath2).should("contain", "1");
 
+    // Intercept request
+    cy.intercept(
+      "https://wms.nibio.no/cgi-bin/ar5?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Arealtype%2CJordbruksareal%2CTreslag&query_layers=Arealtype%2CJordbruksareal%2CTreslag&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfo2");
+
     // Activate all sublayers in Arealressurs
     cy.get(allPath2).click();
     cy.get(allPath2).should("be.checked");
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "3");
+    cy.wait("@getFeatureInfo2", { timeout: 10000 });
 
     // Layer results visible
     cy.get(resultBadgePath2).should("contain", "3");
@@ -164,33 +194,30 @@ describe("Click on Map with Selected Layers Tests", () => {
   });
 
   it("Click on map second time should update results", () => {
-    // Click on another position updates details
+    // Intercept requests
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.14853105194119%2C11.833261718750002%2C64.1685310519412%2C11.853261718750002"
+    ).as("getFeatureInfoArt");
+    cy.intercept(
+      "https://wms.nibio.no/cgi-bin/ar5?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Arealtype%2CJordbruksareal%2CTreslag&query_layers=Arealtype%2CJordbruksareal%2CTreslag&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.14853105194119%2C11.833261718750002%2C64.1685310519412%2C11.853261718750002"
+    ).as("getFeatureInfoArea");
+
+    // Click on another position and wait for requests
     cy.get(".leaflet-container").click(600, 750);
     cy.get(".infobox-container-side .infobox-details-title-text").should(
       "contain",
       "Detaljerte resultater"
     );
+    cy.wait("@getFeatureInfoArt", { timeout: 10000 });
+    cy.wait("@getFeatureInfoArea", { timeout: 10000 });
+
+    // Details are updated
     cy.get(".infobox-container-side").contains("Faktaark");
-    cy.get(".infobox-container-side", { timeout: 8000 }).should(
-      "contain",
-      "Arealressurs: AR5 Arealtype"
-    );
-    cy.get(".infobox-container-side", { timeout: 8000 }).should(
-      "contain",
-      "Jordbruksareal"
-    );
-    cy.get(".infobox-container-side", { timeout: 8000 }).should(
-      "contain",
-      "Treslag"
-    );
-    cy.get(".infobox-container-side", { timeout: 8000 }).should(
-      "contain",
-      "Artreslag beskrivelse:"
-    );
-    cy.get(".infobox-container-side", { timeout: 8000 }).should(
-      "contain",
-      "Ikke relevant"
-    );
+    cy.get(".infobox-container-side").contains("Arealressurs: AR5 Arealtype");
+    cy.get(".infobox-container-side").contains("Jordbruksareal");
+    cy.get(".infobox-container-side").contains("Treslag");
+    cy.get(".infobox-container-side").contains("Artreslag beskrivelse:");
+    cy.get(".infobox-container-side").contains("Ikke relevant");
 
     // Go back outside details
     cy.get(".infobox-details-title-text").click();
