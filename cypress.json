@@ -3,5 +3,6 @@
   "viewportWidth": 1920,
   "env": {
     "baseurl": "http://localhost:3000"
-  }
+  },
+  "responseTimeout": 10000
 }

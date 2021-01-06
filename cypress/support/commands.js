@@ -36,5 +36,5 @@ Cypress.Commands.add("startDesktop", () => {
   cy.contains("Økologiske grunnkart");
   cy.contains("Mer info");
   cy.contains("Søk");
-  cy.url({ timeout: 10000 }).should("include", "favorites");
+  cy.url({ timeout: 25000 }).should("include", "favorites");
 });
