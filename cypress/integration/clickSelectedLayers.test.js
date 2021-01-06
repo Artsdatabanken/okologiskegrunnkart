@@ -54,8 +54,8 @@ describe("Click on Map with Selected Layers Tests", () => {
     // Click on map
     cy.get(".leaflet-container").click(650, 650);
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
-    cy.wait("@getPlaceData", { timeout: 10000 });
-    cy.wait("@getAddressData", { timeout: 10000 });
+    cy.wait("@getPlaceData");
+    cy.wait("@getAddressData");
 
     // Check infobox contains correct data
     cy.get("img.leaflet-marker-icon").should("not.be.null");
@@ -102,7 +102,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(switchPath1).click();
     cy.get(switchPath1).should("be.checked");
     cy.get(badgePath1).should("contain", "1");
-    cy.wait("@getFeatureInfo", { timeout: 10000 });
+    cy.wait("@getFeatureInfo");
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -141,7 +141,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(allPath2).should("not.be.checked");
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "1");
-    cy.wait("@getFeatureInfo1", { timeout: 10000 });
+    cy.wait("@getFeatureInfo1");
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -163,7 +163,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(allPath2).should("be.checked");
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "3");
-    cy.wait("@getFeatureInfo2", { timeout: 10000 });
+    cy.wait("@getFeatureInfo2");
 
     // Layer results visible
     cy.get(resultBadgePath2).should("contain", "3");
@@ -208,8 +208,8 @@ describe("Click on Map with Selected Layers Tests", () => {
       "contain",
       "Detaljerte resultater"
     );
-    cy.wait("@getFeatureInfoArt", { timeout: 10000 });
-    cy.wait("@getFeatureInfoArea", { timeout: 10000 });
+    cy.wait("@getFeatureInfoArt");
+    cy.wait("@getFeatureInfoArea");
 
     // Details are updated
     cy.get(".infobox-container-side").contains("Faktaark");
