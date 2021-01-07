@@ -173,7 +173,7 @@ const KartlagSettings = ({
             label={
               <div className="settings-layers-list-item-wrapper">
                 <Checkbox
-                  id="settings-layers-checkbox"
+                  id="settings-kartlag-checkbox"
                   checked={layersActive !== "none"}
                   onChange={() => handleAllLayersChange()}
                   onClick={e => e.stopPropagation()}
@@ -249,7 +249,7 @@ const KartlagSettings = ({
                                 label={
                                   <div className="settings-sublayers-list-item-wrapper">
                                     <Checkbox
-                                      id="settings-layers-checkbox"
+                                      id="settings-sublayers-checkbox"
                                       checked={sublag.favorite}
                                       onChange={() =>
                                         handleSublayerChange(lagId, sublagId)
