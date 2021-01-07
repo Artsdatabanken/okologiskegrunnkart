@@ -403,7 +403,8 @@
 #favourites-menu .MuiPopover-paper {
   border: 1px solid #ddd;
 }
-#favourites-layers-menu-item.MuiListItem-gutters {
+#all-layers-menu-item.MuiListItem-gutters
+  #favourites-layers-menu-item.MuiListItem-gutters {
   padding-left: 15px;
   padding-right: 25px;
 }
