@@ -527,7 +527,7 @@ describe("Edit Favorites Tests", () => {
     cy.get(".settings-layers-wrapper").contains("Jordbruksareal");
     cy.get(".settings-layers-wrapper").contains("Treslag");
 
-    // Deselect Arealressurs and selected Arter - fredete
+    // Select all layers
     cy.get(checkboxKartlag).click();
     cy.get(checkboxKartlag).should("be.checked");
     cy.get(checkboxKartlag).should("have.attr", "data-indeterminate", "false");
@@ -566,9 +566,9 @@ describe("Edit Favorites Tests", () => {
     cy.get(".kartlag_fanen").contains("Livsmiljøer");
     cy.get(".kartlag_fanen").contains("Flomsoner");
     cy.get(layerKartlag1).click();
-    cy.get(".settings-layers-wrapper").contains("Arealressurs: AR5 Arealtype");
-    cy.get(".settings-layers-wrapper").contains("Jordbruksareal");
-    cy.get(".settings-layers-wrapper").contains("Treslag");
+    cy.get(".kartlag_fanen").contains("Arealressurs: AR5 Arealtype");
+    cy.get(".kartlag_fanen").contains("Jordbruksareal");
+    cy.get(".kartlag_fanen").contains("Treslag");
 
     // Verify all is saved correctly
     cy.get(".help_button").click();
