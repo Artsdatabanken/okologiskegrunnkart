@@ -60,6 +60,10 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
   it("Show tiles for all layers", () => {
     cy.startDesktop();
 
+    // Zoom in map
+    cy.get('a[title="Zoom in"]').click();
+    cy.wait(300);
+
     // Check all kartlag is used and arter-fredete layer exists
     cy.contains("Kartlag");
     cy.contains("Gruppert på tema");
@@ -72,11 +76,30 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
       .find(".leaflet-layer ")
       .should("have.length", 2);
 
+    // Intercept requests
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=7"
+    ).as("getPlaceData");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5046&gardsnummer=85&bruksnummer=1&treffPerSide=100"
+    ).as("getAddressData");
+
+    // Click on map
+    cy.get(".leaflet-container").click(650, 650);
+    cy.get(".infobox-container-side.infobox-open").should("be.visible");
+    cy.wait("@getPlaceData");
+    cy.wait("@getAddressData");
+
     // Expand
     cy.get(layerPath1).click();
     cy.contains("Fredete arter - områder");
     cy.contains("Fredete arter - punkt");
     cy.get(collapsePath1).should("be.visible");
+
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
 
     // Activate sublayer Fredete arter - områder
     cy.get(allPath1).should("not.be.checked");
@@ -88,11 +111,21 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("not.be.checked");
     cy.get(badgePath1).should("contain", "1");
+    cy.wait("@getFeatureInfoFredete");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 3);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
   });
 
   it("Select some favorite layers and save", () => {
@@ -128,6 +161,15 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(".kartlag_fanen").contains("Arter - Fremmede arter 2018");
     cy.get(".kartlag_fanen").contains("Arter - Prioriterte");
     cy.get(".kartlag_fanen").contains("Arter - Rødlista");
+
+    // Check no results are shown in infobox
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 0);
+    cy.get("#layers-results-list").should("not.contain", "Arter");
+    cy.get("#layers-results-list").should("not.contain", "Ingen treff");
+    cy.get("#layers-results-list").should("not.contain", "Arter - fredete");
+    cy.get("#layers-results-list").should("not.contain", "Miljødirektoratet");
   });
 
   it("Show tiles for favorite layers", () => {
@@ -135,6 +177,11 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 2);
+
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr%2CFredete_arter_pkt&query_layers=Fredete_arter_omr%2CFredete_arter_pkt&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
 
     // Activate sublayer Fredete arter - punkt
     cy.get(allPath1).click();
@@ -157,6 +204,11 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.contains("NT - Nær truet");
     cy.contains("DD - Datamangel");
 
+    // Intercept request
+    cy.intercept(
+      "https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Artskart&query_layers=Artskart&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoRødlista");
+
     // Activate layer Arter - Rødlista
     cy.get(allPath2).click();
     cy.get(allPath2).should("be.checked");
@@ -168,13 +220,33 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "6");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+    cy.wait("@getFeatureInfoRødlista");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 5);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
+    cy.get("#layers-results-list").contains("Arter - Rødlista");
+    cy.get("#layers-results-list").contains("Artsdatabanken");
   });
 
   it("Switch to all layers from kartlag", () => {
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
+
     // Change to all layers
     cy.get("#switch-favourites-button").click();
     cy.get("#all-layers-menu-item").should("be.visible");
@@ -197,13 +269,33 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 3);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
   });
 
   it("Switch to favorite layers from kartlag", () => {
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr%2CFredete_arter_pkt&query_layers=Fredete_arter_omr%2CFredete_arter_pkt&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
+    cy.intercept(
+      "https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Artskart&query_layers=Artskart&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoRødlista");
+
     // Change to favorite layers
     cy.get("#switch-favourites-button").click();
     cy.get("#favourites-layers-menu-item").should("be.visible");
@@ -226,13 +318,33 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "6");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+    cy.wait("@getFeatureInfoRødlista");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 5);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
+    cy.get("#layers-results-list").contains("Arter - Rødlista");
+    cy.get("#layers-results-list").contains("Artsdatabanken");
   });
 
   it("Switch to all layers from drawer menu", () => {
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
+
     // Change to all layers
     cy.get(".help_button").click();
     cy.get("#settings-drawer").contains("Vis alle kartlag");
@@ -255,13 +367,33 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 3);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
   });
 
   it("Switch to favorite layers from drawer menu", () => {
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr%2CFredete_arter_pkt&query_layers=Fredete_arter_omr%2CFredete_arter_pkt&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
+    cy.intercept(
+      "https://kart.artsdatabanken.no/WMS/artskart.aspx?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Artskart&query_layers=Artskart&info_format=application%2Fvnd.ogc.gml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoRødlista");
+
     // Change to favorite layers
     cy.get(".help_button").click();
     cy.get("#settings-drawer").contains("Vis favorittkartlag");
@@ -284,10 +416,25 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "6");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+    cy.wait("@getFeatureInfoRødlista");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 5);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
+    cy.get("#layers-results-list").contains("Arter - Rødlista");
+    cy.get("#layers-results-list").contains("Artsdatabanken");
   });
 
   it("Editting favorites switches off favorite layers toggles, but not all layers toggles", () => {
@@ -341,6 +488,22 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
       .find(".leaflet-layer ")
       .should("have.length", 2);
 
+    // Check no results are shown in infobox
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 0);
+    cy.get("#layers-results-list").should("not.contain", "Arter");
+    cy.get("#layers-results-list").should("not.contain", "Ingen treff");
+    cy.get("#layers-results-list").should("not.contain", "Arter - fredete");
+    cy.get("#layers-results-list").should("not.contain", "Miljødirektoratet");
+    cy.get("#layers-results-list").should("not.contain", "Arter - Rødlista");
+    cy.get("#layers-results-list").should("not.contain", "Artsdatabanken");
+
+    // Intercept request
+    cy.intercept(
+      "https://kart.miljodirektoratet.no/arcgis/services/artnasjonal/MapServer/WmsServer?request=GetFeatureInfo&service=WMS&version=1.3.0&x=128&y=128&width=255&height=255&layers=Fredete_arter_omr&query_layers=Fredete_arter_omr&info_format=application%2Fvnd.esri.wms_raw_xml&crs=EPSG%3A4326&srs=EPSG%3A4326&bbox=64.62329214257159%2C12.382578125%2C64.6432921425716%2C12.402578125"
+    ).as("getFeatureInfoFredete");
+
     // Change to all layers
     cy.get("#switch-favourites-button").click();
     cy.get("#all-layers-menu-item").should("be.visible");
@@ -363,9 +526,21 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
 
+    // Wait for request responses
+    cy.wait("@getFeatureInfoFredete");
+
     // Check new layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 3);
+
+    // Layer results visible
+    cy.get("#layers-results-list")
+      .find(".layers-results-subheaders")
+      .should("have.length", 1);
+    cy.get("#layers-results-list").contains("Arter");
+    cy.get("#layers-results-list").contains("Ingen treff");
+    cy.get("#layers-results-list").contains("Arter - fredete");
+    cy.get("#layers-results-list").contains("Miljødirektoratet");
   });
 });
