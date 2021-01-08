@@ -52,10 +52,14 @@ describe("Click on Map with Selected Layers Tests", () => {
     ).as("getAddressData");
 
     // Click on map
+    cy.url().should("not.include", "lng=12.39257");
+    cy.url().should("not.include", "lat=64.63329");
     cy.get(".leaflet-container").click(650, 650);
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
     cy.wait("@getPlaceData");
     cy.wait("@getAddressData");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
 
     // Check infobox contains correct data
     cy.get("img.leaflet-marker-icon").should("not.be.null");
@@ -210,6 +214,8 @@ describe("Click on Map with Selected Layers Tests", () => {
     );
     cy.wait("@getFeatureInfoArt");
     cy.wait("@getFeatureInfoArea");
+    cy.url().should("include", "lng=11.84326");
+    cy.url().should("include", "lat=64.15853");
 
     // Details are updated
     cy.get(".infobox-container-side").contains("Faktaark");
