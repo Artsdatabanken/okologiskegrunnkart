@@ -60,6 +60,8 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.wait("@getAddressData");
     cy.url().should("include", "lng=12.39257");
     cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "favorites=false");
+    cy.url().should("not.include", "layers=");
 
     // Check infobox contains correct data
     cy.get("img.leaflet-marker-icon").should("not.be.null");
@@ -107,6 +109,9 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(switchPath1).should("be.checked");
     cy.get(badgePath1).should("contain", "1");
     cy.wait("@getFeatureInfo");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -146,6 +151,9 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "1");
     cy.wait("@getFeatureInfo1");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222,2&favorites=false");
 
     // Layer results visible
     cy.get("#layers-results-list")
@@ -168,6 +176,9 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(switchPath2).should("be.checked");
     cy.get(badgePath2).should("contain", "3");
     cy.wait("@getFeatureInfo2");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222,2,37,36&favorites=false");
 
     // Layer results visible
     cy.get(resultBadgePath2).should("contain", "3");
@@ -216,6 +227,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.wait("@getFeatureInfoArea");
     cy.url().should("include", "lng=11.84326");
     cy.url().should("include", "lat=64.15853");
+    cy.url().should("include", "layers=222,2,37,36&favorites=false");
 
     // Details are updated
     cy.get(".infobox-container-side").contains("Faktaark");
@@ -255,6 +267,9 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(allPath2).should("not.be.checked");
     cy.get(switchPath2).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
+    cy.url().should("include", "lng=11.84326");
+    cy.url().should("include", "lat=64.15853");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Layer results not visible
     cy.get("#layers-results-list")
@@ -278,6 +293,10 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(switchPath1).click();
     cy.get(switchPath1).should("not.be.checked");
     cy.get(badgePath1).should("have.class", "MuiBadge-invisible");
+    cy.url().should("include", "lng=11.84326");
+    cy.url().should("include", "lat=64.15853");
+    cy.url().should("include", "favorites=false");
+    cy.url().should("not.include", "layers=");
 
     // Layer results not visible
     cy.get("#layers-results-list")
