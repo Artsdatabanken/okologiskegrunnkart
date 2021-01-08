@@ -856,6 +856,9 @@ class App extends React.Component {
     // Update URL
     var queryParams = new URLSearchParams(window.location.search);
     queryParams.set("favorites", showFavoriteLayers);
+    if (showFavoriteLayers) {
+      queryParams.delete("layers");
+    }
     this.props.history.push("?" + queryParams.toString());
     setTimeout(() => {
       this.handleUpdateChangeInUrl(true);
