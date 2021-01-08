@@ -30,6 +30,7 @@ export default function FavouritesMenu({
           title="Favoritter"
         >
           <CustomIconButton
+            id="switch-favourites-button"
             aria-controls="favourites-menu"
             aria-haspopup="true"
             variant="contained"
@@ -74,7 +75,7 @@ export default function FavouritesMenu({
           </MenuItem>
 
           <MenuItem
-            id="favourites-layers-menu-item"
+            id="all-layers-menu-item"
             onClick={() => {
               toggleShowFavoriteLayers(false);
               handleClose();
