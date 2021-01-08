@@ -2868,7 +2868,6 @@ class App extends React.Component {
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
-                        onUpdateLayerProp={this.handleKartlagLayerProp}
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}

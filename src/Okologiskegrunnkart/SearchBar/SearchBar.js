@@ -1,64 +1,82 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import DrawerMenu from "./DrawerMenu";
+import useDebounce from "./UseDebounce";
 
-class SearchBar extends React.Component {
-  state = {
-    treffliste_lag: null,
-    treffliste_sted: null,
-    fylker: null,
-    kommuner: null,
-    isSearching: false,
-    treffliste_knrgnrbnr: null,
-    treffliste_kommune: null,
-    treffliste_knr: null,
-    treffliste_gnr: null,
-    treffliste_bnr: null,
-    treffliste_adresse: null,
-    treffliste_koord: null,
-    searchTerm: null,
-    countermax: 50,
-    anchorEl: null,
-    number_places: 0,
-    number_knrgnrbnr: 0,
-    number_kommune: 0,
-    number_knr: 0,
-    number_gnr: 0,
-    number_bnr: 0,
-    number_addresses: 0,
-    number_layers: 0,
-    number_coord: 0,
-    openDrawer: false
+const SearchBar = ({
+  onSelectSearchResult,
+  searchResultPage,
+  handleGeoSelection,
+  kartlag,
+  addValgtLag,
+  removeValgtLag,
+  toggleEditLayers,
+  showFavoriteLayers,
+  toggleShowFavoriteLayers,
+  isMobile,
+  windowHeight,
+  showSideBar,
+  handleSideBar,
+  handleInfobox,
+  handleFullscreenInfobox,
+  loadingFeatures,
+  handleAboutModal,
+  uploadPolygonFile,
+  getSavedPolygons
+}) => {
+  const [treffliste_lag, set_treffliste_lag] = useState(null);
+  const [treffliste_underlag, set_treffliste_underlag] = useState(null);
+  const [treffliste_sted, set_treffliste_sted] = useState(null);
+  const [isSearching, set_isSearching] = useState(false);
+  const [treffliste_knrgnrbnr, set_treffliste_knrgnrbnr] = useState(null);
+  const [treffliste_kommune, set_treffliste_kommune] = useState(null);
+  const [treffliste_knr, set_treffliste_knr] = useState(null);
+  const [treffliste_gnr, set_treffliste_gnr] = useState(null);
+  const [treffliste_bnr, set_treffliste_bnr] = useState(null);
+  const [treffliste_adresse, set_treffliste_adresse] = useState(null);
+  const [treffliste_koord, set_treffliste_koord] = useState(null);
+  const [searchTerm, set_searchTerm] = useState(null);
+  const [countermax, set_countermax] = useState(50);
+  const [anchorEl, set_anchorEl] = useState(null);
+  const [number_places, set_number_places] = useState(0);
+  const [number_knrgnrbnr, set_number_knrgnrbnr] = useState(0);
+  const [number_kommune, set_number_kommune] = useState(0);
+  const [number_knr, set_number_knr] = useState(0);
+  const [number_gnr, set_number_gnr] = useState(0);
+  const [number_bnr, set_number_bnr] = useState(0);
+  const [number_addresses, set_number_addresses] = useState(0);
+  const [number_layers, set_number_layers] = useState(0);
+  const [number_coord, set_number_coord] = useState(0);
+  const [openDrawer, set_openDrawer] = useState(false);
+
+  const debouncedSearchTerm = useDebounce(searchTerm, 500);
+
+  const handleRemoveTreffliste = () => {
+    set_treffliste_sted(null);
+    set_treffliste_lag(null);
+    set_isSearching(false);
+    set_treffliste_knrgnrbnr(null);
+    set_treffliste_kommune(null);
+    set_treffliste_knr(null);
+    set_treffliste_gnr(null);
+    set_treffliste_bnr(null);
+    set_treffliste_adresse(null);
+    set_treffliste_koord(null);
+    set_number_places(0);
+    set_number_knrgnrbnr(0);
+    set_number_kommune(0);
+    set_number_knr(0);
+    set_number_gnr(0);
+    set_number_bnr(0);
+    set_number_addresses(0);
+    set_number_layers(0);
+    set_number_coord(0);
   };
 
-  handleRemoveTreffliste = () => {
-    this.setState({
-      treffliste_sted: null,
-      treffliste_lag: null,
-      isSearching: false,
-      treffliste_knrgnrbnr: null,
-      treffliste_kommune: null,
-      treffliste_knr: null,
-      treffliste_gnr: null,
-      treffliste_bnr: null,
-      treffliste_adresse: null,
-      treffliste_koord: null,
-      number_places: 0,
-      number_knrgnrbnr: 0,
-      number_kommune: 0,
-      number_knr: 0,
-      number_gnr: 0,
-      number_bnr: 0,
-      number_addresses: 0,
-      number_layers: 0,
-      number_coord: 0
-    });
-  };
-
-  searchInLayer = (criteria, searchTerm, layer) => {
+  const searchInLayer = (criteria, term, layer) => {
     if (layer[criteria]) {
       let lagstring = layer[criteria];
       if (criteria === "tags") {
@@ -66,12 +84,12 @@ class SearchBar extends React.Component {
       }
       lagstring = lagstring.toLowerCase();
       // Try with complete string
-      if (lagstring.indexOf(searchTerm) !== -1) {
+      if (lagstring.indexOf(term) !== -1) {
         return true;
       }
       // Break string only for title
       if (criteria === "tittel") {
-        const termList = searchTerm.split(" ");
+        const termList = term.split(" ");
         let match = true;
         for (const element of termList) {
           if (lagstring.indexOf(element) === -1) {
@@ -85,20 +103,19 @@ class SearchBar extends React.Component {
     return false;
   };
 
-  searchForKey = (criteria, counter, searchTerm) => {
-    const treffliste_lag = [];
-    const treffliste_underlag = [];
-    const countermax = this.state.countermax;
-    const layers = this.props.kartlag;
+  const searchForKey = (criteria, counter, term) => {
+    const trefflisteLag = [];
+    const trefflisteUnderlag = [];
+    const layers = kartlag;
     // Search in layers
     for (let i in layers) {
       if (counter >= countermax) {
         break;
       } else {
         const layer = layers[i];
-        const found = this.searchInLayer(criteria, searchTerm, layer);
+        const found = searchInLayer(criteria, term, layer);
         if (found) {
-          treffliste_lag.push(layer);
+          trefflisteLag.push(layer);
           counter += 1;
         }
         // Search in sublayers
@@ -110,11 +127,7 @@ class SearchBar extends React.Component {
           } else if (layer.aggregatedwmslayer === sublayers[j].wmslayer) {
             break;
           } else {
-            const found = this.searchInLayer(
-              criteria,
-              searchTerm,
-              sublayers[j]
-            );
+            const found = searchInLayer(criteria, term, sublayers[j]);
             if (found) {
               const sublayer = {
                 ...sublayers[j],
@@ -122,24 +135,29 @@ class SearchBar extends React.Component {
                 parentId: i,
                 tema: layer.tema
               };
-              treffliste_underlag.push(sublayer);
+              trefflisteUnderlag.push(sublayer);
               counter += 1;
             }
           }
         }
       }
     }
-    return { treffliste_lag, treffliste_underlag, counter };
+    return { trefflisteLag, trefflisteUnderlag, counter };
   };
 
-  handleSearchButton = () => {
+  // const handleSearchButton = () => {
+  //   const term = document.getElementById("searchfield").value;
+  //   setState({ searchTerm: null }, () => {
+  //     handleSearchBar(term, true);
+  //   });
+  // };
+
+  const handleSearchButton = () => {
     const term = document.getElementById("searchfield").value;
-    this.setState({ searchTerm: null }, () => {
-      this.handleSearchBar(term, true);
-    });
+    handleSearchBar(term, true);
   };
 
-  handleSearchBar = (
+  const handleSearchBar = (
     term,
     resultpage,
     page = 0,
@@ -148,159 +166,142 @@ class SearchBar extends React.Component {
     pageDistribution = "",
     forceSearch = false
   ) => {
-    let searchTerm = term ? term.trim() : null;
-    if (!searchTerm) {
-      this.setState({
-        isSearching: false,
-        searchTerm: null
-      });
+    let currentTerm = term ? term.trim() : null;
+    if (!currentTerm) {
+      set_searchTerm(null);
+      set_isSearching(false);
       return null;
     }
 
     // Remove weird symbols from search
-    searchTerm = searchTerm.replace(/-/g, " ").replace(/&/g, " ");
-    searchTerm = searchTerm.replace(/\?/g, " ").replace(/!/g, " ");
-    searchTerm = searchTerm.replace(/"/g, " ").replace(/'/g, " ");
-    searchTerm = searchTerm.replace(/\+/g, " ").replace(/\*/g, " ");
-    searchTerm = searchTerm.replace(/\(/g, " ").replace(/\)/g, " ");
-    searchTerm = searchTerm.replace(/\{/g, " ").replace(/\}/g, " ");
-    searchTerm = searchTerm.replace(/\[/g, " ").replace(/\]/g, " ");
-    searchTerm = searchTerm.replace(/  +/g, " ").trim();
+    currentTerm = currentTerm.replace(/-/g, " ").replace(/&/g, " ");
+    currentTerm = currentTerm.replace(/\?/g, " ").replace(/!/g, " ");
+    currentTerm = currentTerm.replace(/"/g, " ").replace(/'/g, " ");
+    currentTerm = currentTerm.replace(/\+/g, " ").replace(/\*/g, " ");
+    currentTerm = currentTerm.replace(/\(/g, " ").replace(/\)/g, " ");
+    currentTerm = currentTerm.replace(/\{/g, " ").replace(/\}/g, " ");
+    currentTerm = currentTerm.replace(/\[/g, " ").replace(/\]/g, " ");
+    currentTerm = currentTerm.replace(/  +/g, " ").trim();
 
     // If no change in search term, return same results
     let search = true;
-    if (this.state.searchTerm === searchTerm) search = false;
+    if (currentTerm === searchTerm) search = false;
 
     if (resultpage) {
-      this.props.onSelectSearchResult(true);
-      this.setState({
-        isSearching: false,
-        searchTerm: searchTerm,
-        countermax: 15
-      });
+      onSelectSearchResult(true);
+      set_searchTerm(currentTerm);
+      set_isSearching(false);
+      set_countermax(15);
     } else {
-      this.setState({
-        isSearching: true,
-        searchTerm: searchTerm,
-        countermax: 50
-      });
+      set_searchTerm(currentTerm);
+      set_isSearching(true);
+      set_countermax(50);
     }
-    // DCo not search in no relevant change has happened
+    // Do not search in no relevant change has happened
     // i.e., either new search term or page change (force search)
     if (!search && !forceSearch) return;
-    searchTerm = searchTerm.toLowerCase();
+    currentTerm = currentTerm.toLowerCase();
 
     if (resultType === "all") {
-      this.fetchSearchLayers(searchTerm);
-      this.fetchSearchCoordinates(searchTerm);
-      this.fetchSearchProperties(searchTerm);
-      this.fetchSearchPlaces(searchTerm, page);
-      this.fetchSearchAddresses(searchTerm, page);
+      fetchSearchLayers(currentTerm);
+      fetchSearchCoordinates(currentTerm);
+      fetchSearchProperties(currentTerm);
+      fetchSearchPlaces(currentTerm, page);
+      fetchSearchAddresses(currentTerm, page);
     } else if (resultType === "layers") {
-      this.fetchSearchLayers(searchTerm);
+      fetchSearchLayers(currentTerm);
     } else if (resultType === "properties") {
-      this.fetchSearchProperties(
-        searchTerm,
-        page,
-        numberPerPage,
-        pageDistribution
-      );
+      fetchSearchProperties(currentTerm, page, numberPerPage, pageDistribution);
     } else if (resultType === "places") {
-      this.fetchSearchPlaces(searchTerm, page, numberPerPage);
+      fetchSearchPlaces(currentTerm, page, numberPerPage);
     } else if (resultType === "addresses") {
-      this.fetchSearchAddresses(searchTerm, page, numberPerPage);
+      fetchSearchAddresses(currentTerm, page, numberPerPage);
     } else if (resultType === "coordinates") {
-      this.fetchSearchCoordinates(searchTerm);
+      fetchSearchCoordinates(currentTerm);
     }
   };
 
-  fetchSearchLayers = searchTerm => {
+  const fetchSearchLayers = term => {
     let counter = 0;
-    let treffliste_lag = [];
-    let treffliste_underlag = [];
+    let trefflisteLag = [];
+    let trefflisteUnderlag = [];
 
-    if (searchTerm && searchTerm.length > 0) {
+    if (term && term.length > 0) {
       // Search in title
-      let title_search = this.searchForKey("tittel", counter, searchTerm);
-      treffliste_lag = title_search.treffliste_lag;
-      treffliste_underlag = title_search.treffliste_underlag;
+      let title_search = searchForKey("tittel", counter, term);
+      trefflisteLag = title_search.trefflisteLag;
+      trefflisteUnderlag = title_search.trefflisteUnderlag;
       counter = title_search.counter;
       // Search in data owner
-      let owner_search = this.searchForKey("dataeier", counter, searchTerm);
-      treffliste_lag = treffliste_lag.concat(owner_search.treffliste_lag);
-      treffliste_underlag = treffliste_underlag.concat(
-        owner_search.treffliste_underlag
+      let owner_search = searchForKey("dataeier", counter, term);
+      trefflisteLag = trefflisteLag.concat(owner_search.trefflisteLag);
+      trefflisteUnderlag = trefflisteUnderlag.concat(
+        owner_search.trefflisteUnderlag
       );
       counter += owner_search.counter;
       // Search in tema
-      let theme_search = this.searchForKey("tema", counter, searchTerm);
-      treffliste_lag = treffliste_lag.concat(theme_search.treffliste_lag);
-      treffliste_underlag = treffliste_underlag.concat(
-        theme_search.treffliste_underlag
+      let theme_search = searchForKey("tema", counter, term);
+      trefflisteLag = trefflisteLag.concat(theme_search.trefflisteLag);
+      trefflisteUnderlag = trefflisteUnderlag.concat(
+        theme_search.trefflisteUnderlag
       );
       counter += theme_search.counter;
       // Search in tags
-      let tags_search = this.searchForKey("tags", counter, searchTerm);
-      treffliste_lag = treffliste_lag.concat(tags_search.treffliste_lag);
-      treffliste_underlag = treffliste_underlag.concat(
-        tags_search.treffliste_underlag
+      let tags_search = searchForKey("tags", counter, term);
+      trefflisteLag = trefflisteLag.concat(tags_search.trefflisteLag);
+      trefflisteUnderlag = trefflisteUnderlag.concat(
+        tags_search.trefflisteUnderlag
       );
       counter += tags_search.counter;
     }
     // Remove duplicates
-    treffliste_lag = [...new Set(treffliste_lag)];
-    treffliste_underlag = [...new Set(treffliste_underlag)];
+    trefflisteLag = [...new Set(trefflisteLag)];
+    trefflisteUnderlag = [...new Set(trefflisteUnderlag)];
     // Set results in state
-    const number_layers = treffliste_lag.length + treffliste_underlag.length;
-    this.setState({
-      treffliste_lag,
-      treffliste_underlag,
-      number_layers
-    });
+    const numberLayers = trefflisteLag.length + trefflisteUnderlag.length;
+    set_treffliste_lag(trefflisteLag);
+    set_treffliste_underlag(trefflisteUnderlag);
+    set_number_layers(numberLayers);
   };
 
-  fetchSearchProperties = (
-    searchTerm,
+  const fetchSearchProperties = (
+    term,
     page = 0,
     numberPerPage = 20,
     pageDistribution = ""
   ) => {
     /* Kommunenummer, gårdsnummer og bruksnummer */
     if (page === 0) {
-      this.setState({
-        number_knrgnrbnr: 0,
-        number_knr: 0,
-        number_gnr: 0,
-        number_bnr: 0
-      });
+      set_number_knrgnrbnr(0);
+      set_number_knr(0);
+      set_number_gnr(0);
+      set_number_bnr(0);
     }
     let knr = null;
     let gnr = null;
     let bnr = null;
 
-    if (!isNaN(searchTerm)) {
+    if (!isNaN(term)) {
       // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
       if (page === 0) {
         // Only if there is no page, search for kommune
-        backend.hentKommune(searchTerm).then(resultat => {
+        backend.hentKommune(term).then(resultat => {
           // henter kommune fra ssr
           if (resultat && resultat["stedsnavn"]) {
-            resultat["stedsnavn"]["knr"] = searchTerm;
+            resultat["stedsnavn"]["knr"] = term;
           }
           const treffliste_kommune =
             resultat && resultat.stedsnavn ? resultat.stedsnavn : [];
-          const number_kommune = Array.isArray(treffliste_kommune)
+          const numberKommune = Array.isArray(treffliste_kommune)
             ? treffliste_kommune.length
             : 1;
-          this.setState({
-            treffliste_knrgnrbnr: null,
-            treffliste_kommune: resultat,
-            number_knrgnrbnr: 0,
-            number_kommune
-          });
+          set_treffliste_kommune(resultat);
+          set_treffliste_knrgnrbnr(null);
+          set_number_kommune(numberKommune);
+          set_number_knrgnrbnr(0);
         });
       } else {
-        this.setState({ treffliste_kommune: null });
+        set_treffliste_kommune(null);
       }
 
       // If there is page, as specified by "pageDistribution" with format
@@ -328,75 +329,69 @@ class SearchBar extends React.Component {
 
       if (page_knr !== null) {
         backend
-          .hentKnrGnrBnr(searchTerm, null, null, page_knr, numberPerPage_knr)
+          .hentKnrGnrBnr(term, null, null, page_knr, numberPerPage_knr)
           .then(resultat => {
-            this.setState({
-              treffliste_knrgnrbnr: null,
-              treffliste_knr: resultat,
-              number_knrgnrbnr: 0
-            });
+            set_treffliste_knr(resultat);
+            set_treffliste_knrgnrbnr(null);
+            set_number_knrgnrbnr(0);
             if (page === 0) {
-              const number_knr =
+              const numberKnr =
                 resultat &&
                 resultat.metadata &&
                 resultat.metadata.totaltAntallTreff
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
-              this.setState({ number_knr });
+              set_number_knr(numberKnr);
             }
           });
       } else {
-        this.setState({ treffliste_knr: null });
+        set_treffliste_knr(null);
       }
 
       if (page_gnr !== null) {
         backend
-          .hentKnrGnrBnr(null, searchTerm, null, page_gnr, numberPerPage_gnr)
+          .hentKnrGnrBnr(null, term, null, page_gnr, numberPerPage_gnr)
           .then(resultat => {
-            this.setState({
-              treffliste_knrgnrbnr: null,
-              treffliste_gnr: resultat,
-              number_knrgnrbnr: 0
-            });
+            set_treffliste_gnr(resultat);
+            set_treffliste_knrgnrbnr(null);
+            set_number_knrgnrbnr(0);
             if (page === 0) {
-              const number_gnr =
+              const numberGnr =
                 resultat &&
                 resultat.metadata &&
                 resultat.metadata.totaltAntallTreff
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
-              this.setState({ number_gnr });
+              set_number_gnr(numberGnr);
             }
           });
       } else {
-        this.setState({ treffliste_gnr: null });
+        set_treffliste_gnr(null);
       }
 
       if (page_bnr !== null) {
         backend
-          .hentKnrGnrBnr(null, null, searchTerm, page_bnr, numberPerPage_bnr)
+          .hentKnrGnrBnr(null, null, term, page_bnr, numberPerPage_bnr)
           .then(resultat => {
-            this.setState({
-              treffliste_knrgnrbnr: null,
-              treffliste_bnr: resultat,
-              number_knrgnrbnr: 0
-            });
+            set_treffliste_bnr(resultat);
+            set_treffliste_knrgnrbnr(null);
+            set_number_knrgnrbnr(0);
             if (page === 0) {
-              const number_bnr =
+              const numberBnr =
                 resultat &&
                 resultat.metadata &&
                 resultat.metadata.totaltAntallTreff
                   ? resultat.metadata.totaltAntallTreff
                   : 0;
-              this.setState({ number_bnr });
+              set_number_bnr(numberBnr);
             }
           });
       } else {
-        this.setState({ treffliste_bnr: null });
+        set_treffliste_bnr(null);
       }
     } else {
       // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
-      let numbercheck = searchTerm.replace(/ /g, "-");
+      let numbercheck = term.replace(/ /g, "-");
       numbercheck = numbercheck.replace(/\//g, "-");
       numbercheck = numbercheck.replace(/;/g, "-");
       numbercheck = numbercheck.replace(/,/g, "-");
@@ -415,40 +410,36 @@ class SearchBar extends React.Component {
         backend
           .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
           .then(resultat => {
-            const number_knrgnrbnr =
+            const numberKnrgnrbnr =
               resultat &&
               resultat.metadata &&
               resultat.metadata.totaltAntallTreff
                 ? resultat.metadata.totaltAntallTreff
                 : 0;
-            this.setState({
-              treffliste_knrgnrbnr: resultat,
-              treffliste_knr: null,
-              treffliste_gnr: null,
-              treffliste_bnr: null,
-              number_knrgnrbnr,
-              number_knr: 0,
-              number_gnr: 0,
-              number_bnr: 0
-            });
+            set_treffliste_knrgnrbnr(resultat);
+            set_treffliste_knr(null);
+            set_treffliste_gnr(null);
+            set_treffliste_bnr(null);
+            set_number_knrgnrbnr(numberKnrgnrbnr);
+            set_number_knr(0);
+            set_number_gnr(0);
+            set_number_bnr(0);
           });
       } else {
-        this.setState({
-          treffliste_knrgnrbnr: null,
-          treffliste_knr: null,
-          treffliste_gnr: null,
-          treffliste_bnr: null,
-          number_knrgnrbnr: 0,
-          number_knr: 0,
-          number_gnr: 0,
-          number_bnr: 0
-        });
+        set_treffliste_knrgnrbnr(null);
+        set_treffliste_knr(null);
+        set_treffliste_gnr(null);
+        set_treffliste_bnr(null);
+        set_number_knrgnrbnr(0);
+        set_number_knr(0);
+        set_number_gnr(0);
+        set_number_bnr(0);
       }
     }
   };
 
-  fetchSearchPlaces = (searchTerm, page = 0, numberPerPage = 20) => {
-    backend.hentSteder(searchTerm, page, numberPerPage).then(resultat => {
+  const fetchSearchPlaces = (term, page = 0, numberPerPage = 20) => {
+    backend.hentSteder(term, page, numberPerPage).then(resultat => {
       let max_items = 20;
       let entries = resultat ? resultat.stedsnavn : null;
       const resultatliste = {};
@@ -490,21 +481,21 @@ class SearchBar extends React.Component {
         const element = resultatliste[i];
         prioritertliste[element.ssrpri] = element;
       }
-      this.setState({ treffliste_sted: Object.values(prioritertliste) });
+      set_treffliste_sted(Object.values(prioritertliste));
       if (page === 0) {
-        const number_places =
+        const numberPlaces =
           resultat && resultat.totaltAntallTreff
             ? resultat.totaltAntallTreff
             : 0;
-        this.setState({ number_places });
+        set_number_places(numberPlaces);
       }
     });
   };
 
-  fetchSearchAddresses = (searchTerm, page = 0, numberPerPage = 20) => {
+  const fetchSearchAddresses = (term, page = 0, numberPerPage = 20) => {
     let address = [];
     // Use strict search approach
-    backend.hentAdresse(searchTerm, page, numberPerPage).then(resultat => {
+    backend.hentAdresse(term, page, numberPerPage).then(resultat => {
       let entries = resultat ? resultat.adresser : null;
       // If only one entry is returned from backend, this is
       // returned as an object, not as array of objects.
@@ -522,77 +513,78 @@ class SearchBar extends React.Component {
 
       // Use less strict search approach if no results
       if (address.length === 0) {
-        backend
-          .hentAdresse(searchTerm + "*", page, numberPerPage)
-          .then(resultat => {
-            entries = resultat ? resultat.adresser : null;
-            // If only one entry is returned from backend, this is
-            // returned as an object, not as array of objects.
-            // In that case, convert to array
-            if (!entries) {
-              entries = [];
-            } else if (
-              !Array.isArray(entries) &&
-              entries.constructor === Object
-            ) {
-              const object = { ...entries };
-              entries = [];
-              entries.push(object);
-            }
-            if (entries.length > 0) {
-              address = entries;
-            }
-            this.setState({ treffliste_adresse: address });
-            if (page === 0) {
-              const number_addresses =
-                resultat &&
-                resultat.metadata &&
-                resultat.metadata.totaltAntallTreff
-                  ? resultat.metadata.totaltAntallTreff
-                  : 0;
-              this.setState({ number_addresses });
-            }
-          });
+        backend.hentAdresse(term + "*", page, numberPerPage).then(resultat => {
+          entries = resultat ? resultat.adresser : null;
+          // If only one entry is returned from backend, this is
+          // returned as an object, not as array of objects.
+          // In that case, convert to array
+          if (!entries) {
+            entries = [];
+          } else if (
+            !Array.isArray(entries) &&
+            entries.constructor === Object
+          ) {
+            const object = { ...entries };
+            entries = [];
+            entries.push(object);
+          }
+          if (entries.length > 0) {
+            address = entries;
+          }
+          set_treffliste_adresse(address);
+          if (page === 0) {
+            const numberAddresses =
+              resultat &&
+              resultat.metadata &&
+              resultat.metadata.totaltAntallTreff
+                ? resultat.metadata.totaltAntallTreff
+                : 0;
+            set_number_addresses(numberAddresses);
+          }
+        });
       } else {
-        this.setState({ treffliste_adresse: address });
+        set_treffliste_adresse(address);
         if (page === 0) {
-          const number_addresses =
+          const numberAddresses =
             resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
               ? resultat.metadata.totaltAntallTreff
               : 0;
-          this.setState({ number_addresses });
+          set_number_addresses(numberAddresses);
         }
       }
     });
   };
 
-  fetchSearchCoordinates = searchTerm => {
-    searchTerm = searchTerm.replace(/:/g, " ").replace(/;/g, " ");
-    searchTerm = searchTerm.replace(/\//g, " ");
+  const fetchSearchCoordinates = term => {
+    term = term.replace(/:/g, " ").replace(/;/g, " ");
+    term = term.replace(/\//g, " ");
     // Replace komma with point to get numbers
-    searchTerm = searchTerm.replace(/,/g, ".");
-    searchTerm = searchTerm.trim();
+    term = term.replace(/,/g, ".");
+    term = term.trim();
     // Check that we have 2 items
-    let terms = searchTerm.split(" ");
+    let terms = term.split(" ");
     if (terms.length !== 2) {
-      this.setState({ treffliste_koord: [], number_coord: 0 });
+      set_treffliste_koord([]);
+      set_number_coord(0);
       return;
     }
     // Check if the 2 items are numbers
     const coord1 = parseFloat(terms[0]);
     const coord2 = parseFloat(terms[1]);
     if (!coord1 || !coord2) {
-      this.setState({ treffliste_koord: [], number_coord: 0 });
+      set_treffliste_koord([]);
+      set_number_coord(0);
       return;
     }
     // Check that the 2 numbers are between -90/90
     if (coord1 < -90 || coord1 > 90 || coord2 < -90 || coord2 > 90) {
-      this.setState({ treffliste_koord: [], number_coord: 0 });
+      set_treffliste_koord([]);
+      set_number_coord(0);
       return;
     }
     // Return combinations of lat/lng
-    const numberDecimalsCoord1 = this.countDecimals(coord1);
-    const numberDecimalsCoord2 = this.countDecimals(coord2);
+    const numberDecimalsCoord1 = countDecimals(coord1);
+    const numberDecimalsCoord2 = countDecimals(coord2);
     const maxDec = Math.max(numberDecimalsCoord1, numberDecimalsCoord2);
     const textCoord1 = maxDec < 2 ? coord1.toFixed(2) : coord1.toFixed(maxDec);
     const textCoord2 = maxDec < 2 ? coord2.toFixed(2) : coord2.toFixed(maxDec);
@@ -632,53 +624,36 @@ class SearchBar extends React.Component {
       koord.push(point);
     }
     // const koord = [point1, point2];
-    this.setState({ treffliste_koord: koord, number_coord: koord.length });
+    set_treffliste_koord(koord);
+    set_number_coord(koord.length);
   };
 
-  countDecimals = value => {
+  const countDecimals = value => {
     if (Math.floor(value) === value) return 0;
     return value.toString().split(".")[1].length || 0;
   };
 
-  componentDidMount() {
-    document.addEventListener("mousedown", this.handleClickOutside);
-  }
+  // const setWrapperRef = node => {
+  //   wrapperRef = node;
+  // };
 
-  componentWillUnmount() {
-    document.removeEventListener("mousedown", this.handleClickOutside);
-  }
-
-  handleClickOutside = event => {
-    if (
-      this.wrapperRef &&
-      !this.wrapperRef.contains(event.target) &&
-      !this.props.searchResultPage
-    ) {
-      this.handleRemoveTreffliste();
-    }
+  const handleOpenDrawer = () => {
+    set_openDrawer(true);
   };
 
-  setWrapperRef = node => {
-    this.wrapperRef = node;
+  const handleCloseDrawer = () => {
+    set_openDrawer(false);
   };
 
-  handleOpenDrawer = () => {
-    this.setState({ openDrawer: true });
-  };
-
-  handleCloseDrawer = () => {
-    this.setState({ openDrawer: false });
-  };
-
-  handleSearchKeyDown = e => {
-    if (e.keyCode === 27 && !this.props.searchResultPage) {
-      this.handleRemoveTreffliste();
-      this.handleSearchBar(null);
+  const handleSearchKeyDown = e => {
+    if (e.keyCode === 27 && !searchResultPage) {
+      handleRemoveTreffliste();
+      handleSearchBar(null);
       document.getElementById("searchfield").value = "";
       document.getElementById("searchfield").focus();
       return;
     }
-    if (e.keyCode === 27 && this.props.searchResultPage) {
+    if (e.keyCode === 27 && searchResultPage) {
       document.getElementById("search-button").focus();
       return;
     }
@@ -691,171 +666,191 @@ class SearchBar extends React.Component {
     }
   };
 
-  getSearchbarContainerClass = () => {
-    if (this.props.isMobile && this.props.searchResultPage) {
+  const getSearchbarContainerClass = () => {
+    if (isMobile && searchResultPage) {
       return "searchbar_container_results";
-    } else if (
-      !this.props.isMobile &&
-      !this.props.searchResultPage &&
-      !this.props.showSideBar
-    ) {
+    } else if (!isMobile && !searchResultPage && !showSideBar) {
       return "searchbar_container floating";
     } else {
       return "searchbar_container";
     }
   };
 
-  getSearchbarClass = () => {
-    if (
-      !this.props.isMobile &&
-      !this.props.searchResultPage &&
-      !this.props.showSideBar
-    ) {
+  const getSearchbarClass = () => {
+    if (!isMobile && !searchResultPage && !showSideBar) {
       return "searchbar floating";
     } else {
       return "searchbar";
     }
   };
 
-  getHelpButtonClass = () => {
-    if (
-      !this.props.isMobile &&
-      !this.props.searchResultPage &&
-      !this.props.showSideBar
-    ) {
+  const getHelpButtonClass = () => {
+    if (!isMobile && !searchResultPage && !showSideBar) {
       return "help_button floating";
     } else {
       return "help_button";
     }
   };
 
-  render() {
-    return (
-      <>
-        <div
-          className={this.getSearchbarContainerClass()}
-          ref={this.setWrapperRef}
-        >
-          <div className={this.getSearchbarClass()}>
-            <input
-              className="searchbarfield"
-              id="searchfield"
-              type="text"
-              autoComplete="off"
-              placeholder="Søk etter kartlag eller område..."
-              onFocus={e => this.handleSearchBar(e.target.value)}
-              onChange={e => {
-                this.handleSearchBar(e.target.value);
-              }}
-              onKeyDown={e => {
-                this.handleSearchKeyDown(e);
-              }}
-              onKeyPress={e => {
-                if (e.key === "Enter") {
-                  this.handleSearchButton();
-                  if (
-                    !this.props.isMobile &&
-                    !this.props.showSideBar &&
-                    document.getElementById("searchfield").value.length > 0
-                  ) {
-                    this.props.handleSideBar(true);
-                  }
-                }
-              }}
-            />
+  // const handleClickOutside = event => {
+  //   if (
+  //     wrapperRef &&
+  //     !wrapperRef.contains(event.target) &&
+  //     !searchResultPage
+  //   ) {
+  //     handleRemoveTreffliste();
+  //   }
+  // };
 
-            {this.state.isSearching && (
-              <button
-                className="x"
-                onClick={() => {
-                  this.handleRemoveTreffliste();
-                  this.handleSearchBar(null);
-                  document.getElementById("searchfield").value = "";
-                }}
-              >
-                <div className="x-button-div">X</div>
-              </button>
-            )}
-            <button
-              id="search-button"
-              className="search-button"
-              onClick={() => {
-                this.handleSearchButton();
+  // ---------- USE EFFECT --------- //
+  function useClickOutside(ref) {
+    useEffect(() => {
+      function handleClickOutside(event) {
+        if (ref.current && !ref.current.contains(event.target)) {
+          handleRemoveTreffliste();
+        }
+      }
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, [ref]);
+  }
+
+  const wrapperRef = useRef(null);
+  useClickOutside(wrapperRef);
+
+  // // ---------- USE EFFECT --------- //
+  // componentDidMount() {
+  //   document.addEventListener("mousedown", handleClickOutside);
+  // }
+
+  // componentWillUnmount() {
+  //   document.removeEventListener("mousedown", handleClickOutside);
+  // }
+
+  return (
+    <>
+      <div className={getSearchbarContainerClass()} ref={wrapperRef}>
+        <div className={getSearchbarClass()}>
+          <input
+            className="searchbarfield"
+            id="searchfield"
+            type="text"
+            autoComplete="off"
+            placeholder="Søk etter kartlag eller område..."
+            onFocus={e => handleSearchBar(e.target.value)}
+            onChange={e => {
+              handleSearchBar(e.target.value);
+            }}
+            onKeyDown={e => {
+              handleSearchKeyDown(e);
+            }}
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+                handleSearchButton();
                 if (
-                  !this.props.isMobile &&
-                  !this.props.showSideBar &&
+                  !isMobile &&
+                  !showSideBar &&
                   document.getElementById("searchfield").value.length > 0
                 ) {
-                  this.props.handleSideBar(true);
+                  handleSideBar(true);
                 }
+              }
+            }}
+          />
+
+          {isSearching && (
+            <button
+              className="x"
+              onClick={() => {
+                handleRemoveTreffliste();
+                handleSearchBar(null);
+                document.getElementById("searchfield").value = "";
               }}
             >
-              Søk
+              <div className="x-button-div">X</div>
             </button>
-          </div>
-          {(this.state.isSearching || this.props.searchResultPage) && (
-            <TreffListe
-              onSelectSearchResult={this.props.onSelectSearchResult}
-              searchResultPage={this.props.searchResultPage}
-              searchTerm={this.state.searchTerm}
-              handleSearchBar={this.handleSearchBar}
-              treffliste_lag={this.state.treffliste_lag}
-              treffliste_underlag={this.state.treffliste_underlag}
-              treffliste_sted={this.state.treffliste_sted}
-              treffliste_kommune={this.state.treffliste_kommune}
-              treffliste_knr={this.state.treffliste_knr}
-              treffliste_gnr={this.state.treffliste_gnr}
-              treffliste_bnr={this.state.treffliste_bnr}
-              treffliste_adresse={this.state.treffliste_adresse}
-              treffliste_knrgnrbnr={this.state.treffliste_knrgnrbnr}
-              treffliste_koord={this.state.treffliste_koord}
-              number_places={this.state.number_places}
-              number_knrgnrbnr={this.state.number_knrgnrbnr}
-              number_kommune={this.state.number_kommune}
-              number_knr={this.state.number_knr}
-              number_gnr={this.state.number_gnr}
-              number_bnr={this.state.number_bnr}
-              number_addresses={this.state.number_addresses}
-              number_layers={this.state.number_layers}
-              number_coord={this.state.number_coord}
-              removeValgtLag={this.props.removeValgtLag}
-              addValgtLag={this.props.addValgtLag}
-              handleGeoSelection={this.props.handleGeoSelection}
-              handleRemoveTreffliste={this.handleRemoveTreffliste}
-              isMobile={this.props.isMobile}
-              windowHeight={this.props.windowHeight}
-              handleSideBar={this.props.handleSideBar}
-              handleInfobox={this.props.handleInfobox}
-              handleFullscreenInfobox={this.props.handleFullscreenInfobox}
-            />
           )}
-
           <button
-            className={this.getHelpButtonClass()}
-            tabIndex="0"
+            id="search-button"
+            className="search-button"
             onClick={() => {
-              if (!this.props.loadingFeatures) {
-                this.handleOpenDrawer();
+              handleSearchButton();
+              if (
+                !isMobile &&
+                !showSideBar &&
+                document.getElementById("searchfield").value.length > 0
+              ) {
+                handleSideBar(true);
               }
             }}
           >
-            <MenuIcon />
+            Søk
           </button>
-          <DrawerMenu
-            anchorEl={this.state.anchorEl}
-            openDrawer={this.state.openDrawer}
-            handleCloseDrawer={this.handleCloseDrawer}
-            handleAboutModal={this.props.handleAboutModal}
-            showFavoriteLayers={this.props.showFavoriteLayers}
-            toggleShowFavoriteLayers={this.props.toggleShowFavoriteLayers}
-            toggleEditLayers={this.props.toggleEditLayers}
-            uploadPolygonFile={this.props.uploadPolygonFile}
-            getSavedPolygons={this.props.getSavedPolygons}
-          />
         </div>
-      </>
-    );
-  }
-}
+        {(isSearching || searchResultPage) && (
+          <TreffListe
+            onSelectSearchResult={onSelectSearchResult}
+            searchResultPage={searchResultPage}
+            searchTerm={searchTerm}
+            handleSearchBar={handleSearchBar}
+            treffliste_lag={treffliste_lag}
+            treffliste_underlag={treffliste_underlag}
+            treffliste_sted={treffliste_sted}
+            treffliste_kommune={treffliste_kommune}
+            treffliste_knr={treffliste_knr}
+            treffliste_gnr={treffliste_gnr}
+            treffliste_bnr={treffliste_bnr}
+            treffliste_adresse={treffliste_adresse}
+            treffliste_knrgnrbnr={treffliste_knrgnrbnr}
+            treffliste_koord={treffliste_koord}
+            number_places={number_places}
+            number_knrgnrbnr={number_knrgnrbnr}
+            number_kommune={number_kommune}
+            number_knr={number_knr}
+            number_gnr={number_gnr}
+            number_bnr={number_bnr}
+            number_addresses={number_addresses}
+            number_layers={number_layers}
+            number_coord={number_coord}
+            removeValgtLag={removeValgtLag}
+            addValgtLag={addValgtLag}
+            handleGeoSelection={handleGeoSelection}
+            handleRemoveTreffliste={handleRemoveTreffliste}
+            isMobile={isMobile}
+            windowHeight={windowHeight}
+            handleSideBar={handleSideBar}
+            handleInfobox={handleInfobox}
+            handleFullscreenInfobox={handleFullscreenInfobox}
+          />
+        )}
+
+        <button
+          className={getHelpButtonClass()}
+          tabIndex="0"
+          onClick={() => {
+            if (!loadingFeatures) {
+              handleOpenDrawer();
+            }
+          }}
+        >
+          <MenuIcon />
+        </button>
+        <DrawerMenu
+          anchorEl={anchorEl}
+          openDrawer={openDrawer}
+          handleCloseDrawer={handleCloseDrawer}
+          handleAboutModal={handleAboutModal}
+          showFavoriteLayers={showFavoriteLayers}
+          toggleShowFavoriteLayers={toggleShowFavoriteLayers}
+          toggleEditLayers={toggleEditLayers}
+          uploadPolygonFile={uploadPolygonFile}
+          getSavedPolygons={getSavedPolygons}
+        />
+      </div>
+    </>
+  );
+};
 
 export default SearchBar;
