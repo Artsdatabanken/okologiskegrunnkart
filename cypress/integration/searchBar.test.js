@@ -64,6 +64,36 @@ describe("Search Bar Tests", () => {
     cy.get(".searchbar .x").click();
   });
 
+  it("Deleting search term removes results", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=art*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName1");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=art*&treffPerSide=20&side=0"
+    ).as("getAddress1");
+
+    // Write search
+    cy.get(".searchbar input").type("art");
+    cy.wait("@getName1");
+    cy.wait("@getAddress1");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Arter - fredete");
+    cy.get(".treffliste").contains("Arter - Rødlista");
+    cy.get(".treffliste .searchbar_item:first").contains("Kartlag");
+    cy.get(".treffliste .searchbar_item:first").contains("Arter");
+
+    // Delete search
+    cy.get(".searchbar input").clear();
+
+    // No results should be shown
+    cy.get(".treffliste").should("not.exist");
+  });
+
   it("Search for layers and select", () => {
     // Intercept requests
     cy.intercept(
@@ -85,10 +115,11 @@ describe("Search Bar Tests", () => {
     cy.get(".treffliste").contains("Arter - fredete");
     cy.get(".treffliste").contains("Fredete arter - områder");
     cy.get(".treffliste").contains("Fredete arter - punkt");
+    cy.get(".searchbar input").should("have.attr", "value", "fredete");
     cy.get(".treffliste .searchbar_item:first").click();
 
     // Should go to layer details
-    cy.get(".searchbar input").should("not.contain", "fredete");
+    cy.get(".searchbar input").should("not.have.attr", "value", "fredete");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("be.visible");
     cy.get(".valgtLag").contains("Valgt lag");
@@ -129,10 +160,11 @@ describe("Search Bar Tests", () => {
       .should("have.length", 3);
     cy.get(".treffliste").contains("Fredete arter - områder");
     cy.get(".treffliste").contains("Fredete arter - punkt");
+    cy.get(".searchbar input").should("have.attr", "value", "fredete");
     cy.get(".treffliste .searchbar_item:last").click();
 
     // Should go to layer details
-    cy.get(".searchbar input").should("not.contain", "fredete");
+    cy.get(".searchbar input").should("not.have.attr", "value", "fredete");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("be.visible");
     cy.get(".valgtLag").contains("Valgt lag");
@@ -199,11 +231,16 @@ describe("Search Bar Tests", () => {
       .find(".searchbar_item")
       .should("have.length", 1);
     cy.wait(500);
+    cy.get(".searchbar input").should("have.attr", "value", "tautra kloster");
     cy.get(".treffliste .searchbar_item:first").click();
     cy.wait(1000);
 
     // Should close search results, show marker and update URL
-    cy.get(".searchbar input").should("not.contain", "tautra kloster");
+    cy.get(".searchbar input").should(
+      "not.have.attr",
+      "value",
+      "tautra kloster"
+    );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("be.visible");
@@ -253,11 +290,20 @@ describe("Search Bar Tests", () => {
       "Adresse 7014 TRONDHEIM"
     );
     cy.wait(500);
+    cy.get(".searchbar input").should(
+      "have.attr",
+      "value",
+      "øvre møllenberg gate 7"
+    );
     cy.get(".treffliste .searchbar_item:first").click();
     cy.wait(1000);
 
     // Should close search results, show marker and update URL
-    cy.get(".searchbar input").should("not.contain", "øvre møllenberg gate 7");
+    cy.get(".searchbar input").should(
+      "not.have.attr",
+      "value",
+      "øvre møllenberg gate 7"
+    );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("be.visible");
@@ -309,11 +355,12 @@ describe("Search Bar Tests", () => {
     cy.get(".treffliste .searchbar_item:last").contains("Rørosgårdveien 280");
     cy.get(".treffliste").contains("KNR-GNR-BNR 7375 RØROS");
     cy.wait(500);
+    cy.get(".searchbar input").should("have.attr", "value", "5025-33-25");
     cy.get(".treffliste .searchbar_item:last").click();
     cy.wait(1000);
 
     // Should close search results, show marker and update URL
-    cy.get(".searchbar input").should("not.contain", "5025-33-25");
+    cy.get(".searchbar input").should("not.have.attr", "value", "5025-33-25");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("be.visible");
@@ -364,11 +411,16 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste .searchbar_item:first").contains("Punktkoordinater");
     cy.wait(500);
+    cy.get(".searchbar input").should("have.attr", "value", "60.258-12.2561");
     cy.get(".treffliste .searchbar_item:first").click();
     cy.wait(1000);
 
     // Should close search results, show marker and update URL
-    cy.get(".searchbar input").should("not.contain", "60.258 12.2561");
+    cy.get(".searchbar input").should(
+      "not.have.attr",
+      "value",
+      "60.258-12.2561"
+    );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("be.visible");
@@ -403,7 +455,7 @@ describe("Search Bar Tests", () => {
     cy.wait("@getName");
     cy.wait("@getAddress");
 
-    // Check search results and select first
+    // Check search results
     cy.get(".treffliste")
       .find(".searchbar_item")
       .should("have.length", 3);
@@ -412,8 +464,7 @@ describe("Search Bar Tests", () => {
     cy.get(".treffliste").contains("Fredete arter - punkt");
     cy.get("#search-button").click();
 
-    // Should go to layer details
-    cy.get(".searchbar input").should("not.contain", "fredete");
+    // Should go to layer search details
     cy.get(".valgtLag").should("be.visible");
     cy.get(".valgtLag").contains("Søkeresultater");
     cy.get(".valgtLag").contains("Kartlag");
@@ -423,8 +474,10 @@ describe("Search Bar Tests", () => {
       .find(".searchbar_item")
       .should("have.length", 3);
 
-    // Select result
+    // Select first result
+    cy.get(".searchbar input").should("have.attr", "value", "fredete");
     cy.get(".treffliste.searchresultpage .searchbar_item:first").click();
+    cy.get(".searchbar input").should("not.have.attr", "value", "fredete");
     cy.get(".valgtLag").contains("Arter - fredete");
     cy.get(".valgtLag").contains("Fredete arter - områder");
     cy.get(".valgtLag").contains("Fredete arter - punkt");
@@ -471,7 +524,17 @@ describe("Search Bar Tests", () => {
     cy.get(".valgtLag").contains("(1)");
 
     // Select eiendom
+    cy.get(".search-page-options-content button:last").should(
+      "not.have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
     cy.get(".search-page-options-content button:last").click();
+    cy.get(".search-page-options-content button:last").should(
+      "have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
 
     cy.get(".treffliste.searchresultpage").should("be.visible");
     cy.get(".treffliste.searchresultpage")
@@ -483,7 +546,7 @@ describe("Search Bar Tests", () => {
     cy.url().should("not.include", "lat=62.60752");
 
     // Check search results and select first
-    cy.get(".treffliste")
+    cy.get(".treffliste.searchresultpage")
       .find(".searchbar_item")
       .should("have.length", 1);
     cy.get(".treffliste.searchresultpage .searchbar_item:first").contains(
@@ -491,11 +554,12 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste.searchresultpage").contains("KNR-GNR-BNR 7375 RØROS");
     cy.wait(500);
+    cy.get(".searchbar input").should("have.attr", "value", "5025-33-25");
     cy.get(".treffliste.searchresultpage .searchbar_item:first").click();
     cy.wait(1000);
 
     // Should close search results, show marker and update URL
-    cy.get(".searchbar input").should("not.contain", "5025-33-25");
+    cy.get(".searchbar input").should("not.have.attr", "value", "5025-33-25");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
     cy.get("img.leaflet-marker-icon").should("be.visible");
@@ -513,5 +577,347 @@ describe("Search Bar Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("5025");
     cy.get(".infobox-container-side").contains("62.6075° N 11.3377° Ø");
     cy.get(".infobox-container-side.infobox-open").contains("633 moh");
+
+    // Wait for map zoom
+    cy.wait(2500);
+  });
+
+  it("Layers pagination in detailed search", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=art*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=art*&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("art");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Arter - fredete");
+    cy.get(".treffliste").contains("Arter - Rødlista");
+    cy.get(".treffliste .searchbar_item:first").contains("Kartlag");
+    cy.get(".treffliste .searchbar_item:first").contains("Arter");
+    cy.get("#search-button").click();
+
+    // Should go to layer search details
+    cy.get(".searchbar input").should("have.attr", "value", "art");
+    cy.get(".valgtLag").should("be.visible");
+    cy.get(".valgtLag").contains("Søkeresultater");
+    cy.get(".valgtLag").contains("Stedsnavn");
+    cy.get(".valgtLag").contains("(93)");
+    cy.get(".treffliste.searchresultpage").should("be.visible");
+
+    // Check results
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+    cy.get(".treffliste.searchresultpage").contains("Arter - fredete");
+    cy.get(".treffliste.searchresultpage").contains("Arter - Rødlista");
+    cy.get(".treffliste.searchresultpage").contains("Ultramafiske bergarter");
+
+    // Check pagination
+    cy.get(".MuiPagination-ul")
+      .find("li")
+      .should("have.length", "9");
+
+    // Click on page 2
+    cy.get(".MuiPagination-ul li:nth-child(3)").click();
+    cy.get(".treffliste.searchresultpage").contains("Naturvernområder");
+    cy.get(".treffliste.searchresultpage").contains("Ramsarområder");
+    cy.get(".treffliste.searchresultpage").contains("Villreinområder");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+
+    // Click on last page (page 7)
+    cy.get(".MuiPagination-ul li:nth-child(8)").click();
+    cy.get(".treffliste.searchresultpage").contains("Dekningskart");
+    cy.get(".treffliste.searchresultpage").contains(
+      "Marin grense - alle kartlag"
+    );
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("length.gt", 0);
+
+    // Go back to main menu
+    cy.get(".valgtLag .listheadingbutton").click();
+    cy.get(".valgtLag").should("not.exist");
+  });
+
+  it("Places pagination in detailed search", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=trondheim*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=trondheim&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("trondheim");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Trondheim");
+    cy.get(".treffliste").contains("Trondheim kommune");
+    cy.get(".treffliste .searchbar_item:first").contains("Trondheim");
+    cy.get(".treffliste .searchbar_item:first").contains(
+      "Stedsnavn, By i Trondheim"
+    );
+    cy.get("#search-button").click();
+
+    // Should go to search details
+    cy.get(".searchbar input").should("have.attr", "value", "trondheim");
+    cy.get(".valgtLag").should("be.visible");
+    cy.get(".valgtLag").contains("Søkeresultater");
+    cy.get(".valgtLag").contains("Kartlag");
+    cy.get(".valgtLag").contains("(84)");
+
+    // Select places
+    cy.get(".search-page-options-content button:nth-child(3)").should(
+      "not.have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+    cy.get(".search-page-options-content button:nth-child(3)").click();
+    cy.get(".search-page-options-content button:nth-child(3)").should(
+      "have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+
+    // Check results
+    cy.get(".treffliste.searchresultpage").should("be.visible");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+    cy.get(".treffliste.searchresultpage").contains("Trondheim");
+    cy.get(".treffliste.searchresultpage").contains("Trondheim kommune");
+    cy.get(".treffliste.searchresultpage").contains(
+      "Trondheim lufthavn, Værnes"
+    );
+
+    // Check pagination
+    cy.get(".MuiPagination-ul")
+      .find("li")
+      .should("have.length", "8");
+
+    // Click on page 2
+    cy.get(".MuiPagination-ul li:nth-child(3)").click();
+    cy.get(".treffliste.searchresultpage").contains("Trondheim tinghus");
+    cy.get(".treffliste.searchresultpage").contains("Trondheim sentralstasjon");
+    cy.get(".treffliste.searchresultpage").contains("Trondheimsfjorden");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 12);
+
+    // Click on last page (page 7)
+    cy.get(".MuiPagination-ul li:nth-child(7)").click();
+    cy.get(".treffliste.searchresultpage").contains("Trondheimsvegen");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("length.gt", 0);
+
+    // Go back to main menu
+    cy.get(".valgtLag .listheadingbutton").click();
+    cy.get(".valgtLag").should("not.exist");
+  });
+
+  it("Addresses pagination in detailed search", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=%C3%B8vre%20m%C3%B8llenberg*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=%C3%B8vre%20m%C3%B8llenberg&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("øvre møllenberg");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Øvre Møllenberg gate 74");
+    cy.get(".treffliste").contains("Øvre Møllenberg gate 78D");
+    cy.get(".treffliste").contains("Adresse 7043 TRONDHEIM");
+    cy.get("#search-button").click();
+
+    // Should go to search details
+    cy.get(".searchbar input").should("have.attr", "value", "øvre møllenberg");
+    cy.get(".valgtLag").should("be.visible");
+    cy.get(".valgtLag").contains("Søkeresultater");
+    cy.get(".valgtLag").contains("Adresse");
+    cy.get(".valgtLag").contains("(97)");
+
+    // Select addresses
+    cy.get(".search-page-options-content button:nth-child(4)").should(
+      "not.have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+    cy.get(".search-page-options-content button:nth-child(4)").click();
+    cy.get(".search-page-options-content button:nth-child(4)").should(
+      "have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+
+    // Check results
+    cy.get(".treffliste.searchresultpage").should("be.visible");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+    cy.get(".treffliste.searchresultpage").contains("Øvre Møllenberg gate 74");
+    cy.get(".treffliste.searchresultpage").contains("Øvre Møllenberg gate 78D");
+
+    // Check pagination
+    cy.get(".MuiPagination-ul")
+      .find("li")
+      .should("have.length", "8");
+
+    // Click on page 2
+    cy.get(".MuiPagination-ul li:nth-child(3)").click();
+    cy.get(".treffliste.searchresultpage").contains("Øvre Møllenberg gate 41B");
+    cy.get(".treffliste.searchresultpage").contains("Øvre Møllenberg gate 28");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+
+    // Click on last page (page 7)
+    cy.get(".MuiPagination-ul li:nth-child(7)").click();
+    cy.get(".treffliste.searchresultpage").contains("Øvre Møllenberg gate 65A");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("length.gt", 0);
+
+    // Go back to main menu
+    cy.get(".valgtLag .listheadingbutton").click();
+    cy.get(".valgtLag").should("not.exist");
+  });
+
+  it("Properties pagination in detailed search", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5025&gardsnummer=33&treffPerSide=20&side=0"
+    ).as("getProperty");
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=5025%2033*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=5025%2033&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("5025-33");
+    cy.wait("@getProperty");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Mælan 33");
+    cy.get(".treffliste").contains("Stormoveien 33");
+    cy.get(".treffliste").contains("Adresse 7374 RØROS");
+    cy.get("#search-button").click();
+
+    // Should go to search details
+    cy.get(".searchbar input").should("have.attr", "value", "5025-33");
+    cy.get(".valgtLag").should("be.visible");
+    cy.get(".valgtLag").contains("Søkeresultater");
+    cy.get(".valgtLag").contains("Eiendom");
+    cy.get(".valgtLag").contains("(29)");
+
+    // Select properties
+    cy.get(".search-page-options-content button:last").should(
+      "not.have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+    cy.get(".search-page-options-content button:last").click();
+    cy.get(".search-page-options-content button:last").should(
+      "have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+
+    // Check results
+    cy.get(".treffliste.searchresultpage").should("be.visible");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 280");
+    cy.get(".treffliste.searchresultpage").contains("KNR-GNR-BNR 7375 RØROS");
+    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 282");
+
+    // Check pagination
+    cy.get(".MuiPagination-ul")
+      .find("li")
+      .should("have.length", "5");
+
+    // Click on page 2
+    cy.get(".MuiPagination-ul li:nth-child(3)").click();
+    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 308");
+    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 354");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("have.length", 14);
+
+    // Click on last page (page 7)
+    cy.get(".MuiPagination-ul li:nth-child(4)").click();
+    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 288");
+    cy.get(".treffliste.searchresultpage")
+      .find(".searchbar_item")
+      .should("length.gt", 0);
+
+    // Go back to main menu
+    cy.get(".valgtLag .listheadingbutton").click();
+    cy.get(".valgtLag").should("not.exist");
+  });
+
+  it("Click outside closes search results", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=art*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName1");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=art*&treffPerSide=20&side=0"
+    ).as("getAddress1");
+
+    // Write search
+    cy.get(".searchbar input").type("art");
+    cy.wait("@getName1");
+    cy.wait("@getAddress1");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Arter - fredete");
+    cy.get(".treffliste").contains("Arter - Rødlista");
+    cy.get(".treffliste .searchbar_item:first").contains("Kartlag");
+    cy.get(".treffliste .searchbar_item:first").contains("Arter");
+
+    // Delete search
+    cy.get(".leaflet-container").click(650, 650);
+
+    // No results should be shown
+    cy.get(".treffliste").should("not.exist");
   });
 });
