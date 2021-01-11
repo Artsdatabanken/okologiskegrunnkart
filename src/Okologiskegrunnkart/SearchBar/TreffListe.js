@@ -70,25 +70,21 @@ const TreffListe = ({
   const getNewPage = page => {
     const term = document.getElementById("searchfield").value;
     if (resultType === "places" || resultType === "addresses") {
-      handleSearchBar(term, true, page, pageLength, resultType, "", true);
+      if (page === 0) {
+        handleSearchBar(term, 0, 20, resultType, "");
+      } else {
+        handleSearchBar(term, page, pageLength, resultType, "");
+      }
     }
     if (resultType === "properties") {
       const knrgnrbnr = parseInt(number_knrgnrbnr);
       if (page === 0) {
-        handleSearchBar(term, true, 0, 20, resultType, "", true);
+        handleSearchBar(term, 0, 20, resultType, "");
       } else if (knrgnrbnr > 0) {
-        handleSearchBar(term, true, page, pageLength, resultType, "", true);
+        handleSearchBar(term, page, pageLength, resultType, "");
       } else {
         const pageDistribution = getPropertyPageDistribution(page);
-        handleSearchBar(
-          term,
-          true,
-          page,
-          pageLength,
-          resultType,
-          pageDistribution,
-          true
-        );
+        handleSearchBar(term, page, pageLength, resultType, pageDistribution);
       }
     }
     if (resultType === "layers") {
@@ -250,7 +246,7 @@ const TreffListe = ({
         break;
       case "addresses":
         listLength = parseInt(number_addresses);
-        pages = listLength ? Math.ceil(listLength / pageLength) : 0;
+        pages = listLength ? Math.floor(listLength / pageLength) : 0;
         break;
       case "properties":
         listLength = parseInt(number_knrgnrbnr);

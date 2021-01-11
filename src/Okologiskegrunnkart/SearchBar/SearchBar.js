@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
@@ -40,7 +40,7 @@ const SearchBar = ({
   const [treffliste_koord, set_treffliste_koord] = useState(null);
   const [searchTerm, set_searchTerm] = useState(null);
   const [countermax, set_countermax] = useState(50);
-  const [anchorEl, set_anchorEl] = useState(null);
+  const [anchorEl] = useState(null);
   const [number_places, set_number_places] = useState(0);
   const [number_knrgnrbnr, set_number_knrgnrbnr] = useState(0);
   const [number_kommune, set_number_kommune] = useState(0);
@@ -50,6 +50,7 @@ const SearchBar = ({
   const [number_addresses, set_number_addresses] = useState(0);
   const [number_layers, set_number_layers] = useState(0);
   const [number_coord, set_number_coord] = useState(0);
+  const [total_number, set_total_number] = useState(0);
   const [openDrawer, set_openDrawer] = useState(false);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -57,6 +58,7 @@ const SearchBar = ({
   const handleRemoveTreffliste = () => {
     set_treffliste_sted(null);
     set_treffliste_lag(null);
+    set_treffliste_underlag(null);
     set_isSearching(false);
     set_treffliste_knrgnrbnr(null);
     set_treffliste_kommune(null);
@@ -103,434 +105,386 @@ const SearchBar = ({
     return false;
   };
 
-  const searchForKey = (criteria, counter, term) => {
-    const trefflisteLag = [];
-    const trefflisteUnderlag = [];
-    const layers = kartlag;
-    // Search in layers
-    for (let i in layers) {
-      if (counter >= countermax) {
-        break;
-      } else {
-        const layer = layers[i];
-        const found = searchInLayer(criteria, term, layer);
-        if (found) {
-          trefflisteLag.push(layer);
-          counter += 1;
-        }
-        // Search in sublayers
-        const sublayers = layer.underlag;
-        if (!sublayers) continue;
-        for (let j in sublayers) {
-          if (counter >= countermax) {
-            break;
-          } else if (layer.aggregatedwmslayer === sublayers[j].wmslayer) {
-            break;
-          } else {
-            const found = searchInLayer(criteria, term, sublayers[j]);
-            if (found) {
-              const sublayer = {
-                ...sublayers[j],
-                id: j,
-                parentId: i,
-                tema: layer.tema
-              };
-              trefflisteUnderlag.push(sublayer);
-              counter += 1;
+  const searchForKey = useCallback(
+    (criteria, counter, term) => {
+      const trefflisteLag = [];
+      const trefflisteUnderlag = [];
+      const layers = kartlag;
+      // Search in layers
+      for (let i in layers) {
+        if (counter >= countermax) {
+          break;
+        } else {
+          const layer = layers[i];
+          const found = searchInLayer(criteria, term, layer);
+          if (found) {
+            trefflisteLag.push(layer);
+            counter += 1;
+          }
+          // Search in sublayers
+          const sublayers = layer.underlag;
+          if (!sublayers) continue;
+          for (let j in sublayers) {
+            if (counter >= countermax) {
+              break;
+            } else if (layer.aggregatedwmslayer === sublayers[j].wmslayer) {
+              break;
+            } else {
+              const found = searchInLayer(criteria, term, sublayers[j]);
+              if (found) {
+                const sublayer = {
+                  ...sublayers[j],
+                  id: j,
+                  parentId: i,
+                  tema: layer.tema
+                };
+                trefflisteUnderlag.push(sublayer);
+                counter += 1;
+              }
             }
           }
         }
       }
-    }
-    return { trefflisteLag, trefflisteUnderlag, counter };
-  };
-
-  // const handleSearchButton = () => {
-  //   const term = document.getElementById("searchfield").value;
-  //   setState({ searchTerm: null }, () => {
-  //     handleSearchBar(term, true);
-  //   });
-  // };
+      return { trefflisteLag, trefflisteUnderlag, counter };
+    },
+    [countermax, kartlag]
+  );
 
   const handleSearchButton = () => {
-    const term = document.getElementById("searchfield").value;
-    handleSearchBar(term, true);
+    onSelectSearchResult(true);
+    set_isSearching(false);
+    set_countermax(15);
   };
 
-  const handleSearchBar = (
-    term,
-    resultpage,
-    page = 0,
-    numberPerPage = 20,
-    resultType = "all",
-    pageDistribution = "",
-    forceSearch = false
-  ) => {
-    let currentTerm = term ? term.trim() : null;
-    if (!currentTerm) {
-      set_searchTerm(null);
-      set_isSearching(false);
-      return null;
-    }
+  const fetchSearchLayers = useCallback(
+    term => {
+      let counter = 0;
+      let trefflisteLag = [];
+      let trefflisteUnderlag = [];
 
-    // Remove weird symbols from search
-    currentTerm = currentTerm.replace(/-/g, " ").replace(/&/g, " ");
-    currentTerm = currentTerm.replace(/\?/g, " ").replace(/!/g, " ");
-    currentTerm = currentTerm.replace(/"/g, " ").replace(/'/g, " ");
-    currentTerm = currentTerm.replace(/\+/g, " ").replace(/\*/g, " ");
-    currentTerm = currentTerm.replace(/\(/g, " ").replace(/\)/g, " ");
-    currentTerm = currentTerm.replace(/\{/g, " ").replace(/\}/g, " ");
-    currentTerm = currentTerm.replace(/\[/g, " ").replace(/\]/g, " ");
-    currentTerm = currentTerm.replace(/  +/g, " ").trim();
+      if (term && term.length > 0) {
+        // Search in title
+        let title_search = searchForKey("tittel", counter, term);
+        trefflisteLag = title_search.trefflisteLag;
+        trefflisteUnderlag = title_search.trefflisteUnderlag;
+        counter = title_search.counter;
+        // Search in data owner
+        let owner_search = searchForKey("dataeier", counter, term);
+        trefflisteLag = trefflisteLag.concat(owner_search.trefflisteLag);
+        trefflisteUnderlag = trefflisteUnderlag.concat(
+          owner_search.trefflisteUnderlag
+        );
+        counter += owner_search.counter;
+        // Search in tema
+        let theme_search = searchForKey("tema", counter, term);
+        trefflisteLag = trefflisteLag.concat(theme_search.trefflisteLag);
+        trefflisteUnderlag = trefflisteUnderlag.concat(
+          theme_search.trefflisteUnderlag
+        );
+        counter += theme_search.counter;
+        // Search in tags
+        let tags_search = searchForKey("tags", counter, term);
+        trefflisteLag = trefflisteLag.concat(tags_search.trefflisteLag);
+        trefflisteUnderlag = trefflisteUnderlag.concat(
+          tags_search.trefflisteUnderlag
+        );
+        counter += tags_search.counter;
+      }
+      // Remove duplicates
+      trefflisteLag = [...new Set(trefflisteLag)];
+      trefflisteUnderlag = [...new Set(trefflisteUnderlag)];
+      // Set results in state
+      const numberLayers = trefflisteLag.length + trefflisteUnderlag.length;
+      set_treffliste_lag(trefflisteLag);
+      set_treffliste_underlag(trefflisteUnderlag);
+      set_number_layers(numberLayers);
+    },
+    [searchForKey]
+  );
 
-    // If no change in search term, return same results
-    let search = true;
-    if (currentTerm === searchTerm) search = false;
-
-    if (resultpage) {
-      onSelectSearchResult(true);
-      set_searchTerm(currentTerm);
-      set_isSearching(false);
-      set_countermax(15);
-    } else {
-      set_searchTerm(currentTerm);
-      set_isSearching(true);
-      set_countermax(50);
-    }
-    // Do not search in no relevant change has happened
-    // i.e., either new search term or page change (force search)
-    if (!search && !forceSearch) return;
-    currentTerm = currentTerm.toLowerCase();
-
-    if (resultType === "all") {
-      fetchSearchLayers(currentTerm);
-      fetchSearchCoordinates(currentTerm);
-      fetchSearchProperties(currentTerm);
-      fetchSearchPlaces(currentTerm, page);
-      fetchSearchAddresses(currentTerm, page);
-    } else if (resultType === "layers") {
-      fetchSearchLayers(currentTerm);
-    } else if (resultType === "properties") {
-      fetchSearchProperties(currentTerm, page, numberPerPage, pageDistribution);
-    } else if (resultType === "places") {
-      fetchSearchPlaces(currentTerm, page, numberPerPage);
-    } else if (resultType === "addresses") {
-      fetchSearchAddresses(currentTerm, page, numberPerPage);
-    } else if (resultType === "coordinates") {
-      fetchSearchCoordinates(currentTerm);
-    }
-  };
-
-  const fetchSearchLayers = term => {
-    let counter = 0;
-    let trefflisteLag = [];
-    let trefflisteUnderlag = [];
-
-    if (term && term.length > 0) {
-      // Search in title
-      let title_search = searchForKey("tittel", counter, term);
-      trefflisteLag = title_search.trefflisteLag;
-      trefflisteUnderlag = title_search.trefflisteUnderlag;
-      counter = title_search.counter;
-      // Search in data owner
-      let owner_search = searchForKey("dataeier", counter, term);
-      trefflisteLag = trefflisteLag.concat(owner_search.trefflisteLag);
-      trefflisteUnderlag = trefflisteUnderlag.concat(
-        owner_search.trefflisteUnderlag
-      );
-      counter += owner_search.counter;
-      // Search in tema
-      let theme_search = searchForKey("tema", counter, term);
-      trefflisteLag = trefflisteLag.concat(theme_search.trefflisteLag);
-      trefflisteUnderlag = trefflisteUnderlag.concat(
-        theme_search.trefflisteUnderlag
-      );
-      counter += theme_search.counter;
-      // Search in tags
-      let tags_search = searchForKey("tags", counter, term);
-      trefflisteLag = trefflisteLag.concat(tags_search.trefflisteLag);
-      trefflisteUnderlag = trefflisteUnderlag.concat(
-        tags_search.trefflisteUnderlag
-      );
-      counter += tags_search.counter;
-    }
-    // Remove duplicates
-    trefflisteLag = [...new Set(trefflisteLag)];
-    trefflisteUnderlag = [...new Set(trefflisteUnderlag)];
-    // Set results in state
-    const numberLayers = trefflisteLag.length + trefflisteUnderlag.length;
-    set_treffliste_lag(trefflisteLag);
-    set_treffliste_underlag(trefflisteUnderlag);
-    set_number_layers(numberLayers);
-  };
-
-  const fetchSearchProperties = (
-    term,
-    page = 0,
-    numberPerPage = 20,
-    pageDistribution = ""
-  ) => {
-    /* Kommunenummer, gårdsnummer og bruksnummer */
-    if (page === 0) {
-      set_number_knrgnrbnr(0);
-      set_number_knr(0);
-      set_number_gnr(0);
-      set_number_bnr(0);
-    }
-    let knr = null;
-    let gnr = null;
-    let bnr = null;
-
-    if (!isNaN(term)) {
-      // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
+  const fetchSearchProperties = useCallback(
+    (term, page = 0, numberPerPage = 20, pageDistribution = "") => {
+      /* Kommunenummer, gårdsnummer og bruksnummer */
       if (page === 0) {
-        // Only if there is no page, search for kommune
-        backend.hentKommune(term).then(resultat => {
-          // henter kommune fra ssr
-          if (resultat && resultat["stedsnavn"]) {
-            resultat["stedsnavn"]["knr"] = term;
-          }
-          const treffliste_kommune =
-            resultat && resultat.stedsnavn ? resultat.stedsnavn : [];
-          const numberKommune = Array.isArray(treffliste_kommune)
-            ? treffliste_kommune.length
-            : 1;
-          set_treffliste_kommune(resultat);
-          set_treffliste_knrgnrbnr(null);
-          set_number_kommune(numberKommune);
-          set_number_knrgnrbnr(0);
-        });
-      } else {
-        set_treffliste_kommune(null);
-      }
-
-      // If there is page, as specified by "pageDistribution" with format
-      // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
-      // which specifies page and number of items per page for each.
-      // If not required, the page and number are null
-      let page_knr = page;
-      let numberPerPage_knr = numberPerPage;
-      let page_gnr = page;
-      let numberPerPage_gnr = numberPerPage;
-      let page_bnr = page;
-      let numberPerPage_bnr = numberPerPage;
-      if (
-        page !== 0 &&
-        pageDistribution &&
-        JSON.stringify(pageDistribution) !== "{}"
-      ) {
-        page_knr = pageDistribution.knr.page;
-        numberPerPage_knr = pageDistribution.knr.number;
-        page_gnr = pageDistribution.gnr.page;
-        numberPerPage_gnr = pageDistribution.gnr.number;
-        page_bnr = pageDistribution.bnr.page;
-        numberPerPage_bnr = pageDistribution.bnr.number;
-      }
-
-      if (page_knr !== null) {
-        backend
-          .hentKnrGnrBnr(term, null, null, page_knr, numberPerPage_knr)
-          .then(resultat => {
-            set_treffliste_knr(resultat);
-            set_treffliste_knrgnrbnr(null);
-            set_number_knrgnrbnr(0);
-            if (page === 0) {
-              const numberKnr =
-                resultat &&
-                resultat.metadata &&
-                resultat.metadata.totaltAntallTreff
-                  ? resultat.metadata.totaltAntallTreff
-                  : 0;
-              set_number_knr(numberKnr);
-            }
-          });
-      } else {
-        set_treffliste_knr(null);
-      }
-
-      if (page_gnr !== null) {
-        backend
-          .hentKnrGnrBnr(null, term, null, page_gnr, numberPerPage_gnr)
-          .then(resultat => {
-            set_treffliste_gnr(resultat);
-            set_treffliste_knrgnrbnr(null);
-            set_number_knrgnrbnr(0);
-            if (page === 0) {
-              const numberGnr =
-                resultat &&
-                resultat.metadata &&
-                resultat.metadata.totaltAntallTreff
-                  ? resultat.metadata.totaltAntallTreff
-                  : 0;
-              set_number_gnr(numberGnr);
-            }
-          });
-      } else {
-        set_treffliste_gnr(null);
-      }
-
-      if (page_bnr !== null) {
-        backend
-          .hentKnrGnrBnr(null, null, term, page_bnr, numberPerPage_bnr)
-          .then(resultat => {
-            set_treffliste_bnr(resultat);
-            set_treffliste_knrgnrbnr(null);
-            set_number_knrgnrbnr(0);
-            if (page === 0) {
-              const numberBnr =
-                resultat &&
-                resultat.metadata &&
-                resultat.metadata.totaltAntallTreff
-                  ? resultat.metadata.totaltAntallTreff
-                  : 0;
-              set_number_bnr(numberBnr);
-            }
-          });
-      } else {
-        set_treffliste_bnr(null);
-      }
-    } else {
-      // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
-      let numbercheck = term.replace(/ /g, "-");
-      numbercheck = numbercheck.replace(/\//g, "-");
-      numbercheck = numbercheck.replace(/;/g, "-");
-      numbercheck = numbercheck.replace(/,/g, "-");
-      let checknr = numbercheck.replace(/-/g, "");
-      if (!isNaN(checknr)) {
-        let list = numbercheck.split("-");
-        if (list[0]) {
-          knr = list[0];
-        }
-        if (list[1]) {
-          gnr = list[1];
-        }
-        if (list[2]) {
-          bnr = list[2];
-        }
-        backend
-          .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
-          .then(resultat => {
-            const numberKnrgnrbnr =
-              resultat &&
-              resultat.metadata &&
-              resultat.metadata.totaltAntallTreff
-                ? resultat.metadata.totaltAntallTreff
-                : 0;
-            set_treffliste_knrgnrbnr(resultat);
-            set_treffliste_knr(null);
-            set_treffliste_gnr(null);
-            set_treffliste_bnr(null);
-            set_number_knrgnrbnr(numberKnrgnrbnr);
-            set_number_knr(0);
-            set_number_gnr(0);
-            set_number_bnr(0);
-          });
-      } else {
-        set_treffliste_knrgnrbnr(null);
-        set_treffliste_knr(null);
-        set_treffliste_gnr(null);
-        set_treffliste_bnr(null);
         set_number_knrgnrbnr(0);
         set_number_knr(0);
         set_number_gnr(0);
         set_number_bnr(0);
       }
-    }
-  };
+      let knr = null;
+      let gnr = null;
+      let bnr = null;
 
-  const fetchSearchPlaces = (term, page = 0, numberPerPage = 20) => {
-    backend.hentSteder(term, page, numberPerPage).then(resultat => {
-      let max_items = 20;
-      let entries = resultat ? resultat.stedsnavn : null;
-      const resultatliste = {};
-      // If only one entry is returned from backend, this is
-      // returned as an object, not as array of objects.
-      // In that case, convert to array
-      if (!entries) {
-        entries = [];
-      } else if (!Array.isArray(entries) && entries.constructor === Object) {
-        const object = { ...entries };
-        entries = [];
-        entries.push(object);
+      if (!isNaN(term)) {
+        // Hvis det sendes inn utelukkende ett nummer, slå opp i alle hver for seg
+        if (page === 0) {
+          // Only if there is no page, search for kommune
+          backend.hentKommune(term).then(resultat => {
+            // henter kommune fra ssr
+            if (resultat && resultat["stedsnavn"]) {
+              resultat["stedsnavn"]["knr"] = term;
+            }
+            const treffliste_kommune =
+              resultat && resultat.stedsnavn ? resultat.stedsnavn : [];
+            const numberKommune = Array.isArray(treffliste_kommune)
+              ? treffliste_kommune.length
+              : 1;
+            set_treffliste_kommune(resultat);
+            set_treffliste_knrgnrbnr(null);
+            set_number_kommune(numberKommune);
+            set_number_knrgnrbnr(0);
+          });
+        } else {
+          set_treffliste_kommune(null);
+        }
+
+        // If there is page, as specified by "pageDistribution" with format
+        // "{ knr: { page: 2, number: 10}, gnr: {...}, bnr: {...} }"
+        // which specifies page and number of items per page for each.
+        // If not required, the page and number are null
+        let page_knr = page;
+        let numberPerPage_knr = numberPerPage;
+        let page_gnr = page;
+        let numberPerPage_gnr = numberPerPage;
+        let page_bnr = page;
+        let numberPerPage_bnr = numberPerPage;
+        if (
+          page !== 0 &&
+          pageDistribution &&
+          JSON.stringify(pageDistribution) !== "{}"
+        ) {
+          page_knr = pageDistribution.knr.page;
+          numberPerPage_knr = pageDistribution.knr.number;
+          page_gnr = pageDistribution.gnr.page;
+          numberPerPage_gnr = pageDistribution.gnr.number;
+          page_bnr = pageDistribution.bnr.page;
+          numberPerPage_bnr = pageDistribution.bnr.number;
+        }
+
+        if (page_knr !== null) {
+          backend
+            .hentKnrGnrBnr(term, null, null, page_knr, numberPerPage_knr)
+            .then(resultat => {
+              set_treffliste_knr(resultat);
+              set_treffliste_knrgnrbnr(null);
+              set_number_knrgnrbnr(0);
+              if (page === 0) {
+                const numberKnr =
+                  resultat &&
+                  resultat.metadata &&
+                  resultat.metadata.totaltAntallTreff
+                    ? resultat.metadata.totaltAntallTreff
+                    : 0;
+                set_number_knr(numberKnr);
+              }
+            });
+        } else {
+          set_treffliste_knr(null);
+        }
+
+        if (page_gnr !== null) {
+          backend
+            .hentKnrGnrBnr(null, term, null, page_gnr, numberPerPage_gnr)
+            .then(resultat => {
+              set_treffliste_gnr(resultat);
+              set_treffliste_knrgnrbnr(null);
+              set_number_knrgnrbnr(0);
+              if (page === 0) {
+                const numberGnr =
+                  resultat &&
+                  resultat.metadata &&
+                  resultat.metadata.totaltAntallTreff
+                    ? resultat.metadata.totaltAntallTreff
+                    : 0;
+                set_number_gnr(numberGnr);
+              }
+            });
+        } else {
+          set_treffliste_gnr(null);
+        }
+
+        if (page_bnr !== null) {
+          backend
+            .hentKnrGnrBnr(null, null, term, page_bnr, numberPerPage_bnr)
+            .then(resultat => {
+              set_treffliste_bnr(resultat);
+              set_treffliste_knrgnrbnr(null);
+              set_number_knrgnrbnr(0);
+              if (page === 0) {
+                const numberBnr =
+                  resultat &&
+                  resultat.metadata &&
+                  resultat.metadata.totaltAntallTreff
+                    ? resultat.metadata.totaltAntallTreff
+                    : 0;
+                set_number_bnr(numberBnr);
+              }
+            });
+        } else {
+          set_treffliste_bnr(null);
+        }
+      } else {
+        // Hvis det som sendes inn er rene nummer separert med mellomrom, slash eller bindestrek
+        let numbercheck = term.replace(/ /g, "-");
+        numbercheck = numbercheck.replace(/\//g, "-");
+        numbercheck = numbercheck.replace(/;/g, "-");
+        numbercheck = numbercheck.replace(/,/g, "-");
+        let checknr = numbercheck.replace(/-/g, "");
+        if (!isNaN(checknr)) {
+          let list = numbercheck.split("-");
+          if (list[0]) {
+            knr = list[0];
+          }
+          if (list[1]) {
+            gnr = list[1];
+          }
+          if (list[2]) {
+            bnr = list[2];
+          }
+          backend
+            .hentKnrGnrBnr(knr, gnr, bnr, page, numberPerPage)
+            .then(resultat => {
+              const numberKnrgnrbnr =
+                resultat &&
+                resultat.metadata &&
+                resultat.metadata.totaltAntallTreff
+                  ? resultat.metadata.totaltAntallTreff
+                  : 0;
+              set_treffliste_knrgnrbnr(resultat);
+              set_treffliste_knr(null);
+              set_treffliste_gnr(null);
+              set_treffliste_bnr(null);
+              set_number_knrgnrbnr(numberKnrgnrbnr);
+              set_number_knr(0);
+              set_number_gnr(0);
+              set_number_bnr(0);
+            });
+        } else {
+          set_treffliste_knrgnrbnr(null);
+          set_treffliste_knr(null);
+          set_treffliste_gnr(null);
+          set_treffliste_bnr(null);
+          set_number_knrgnrbnr(0);
+          set_number_knr(0);
+          set_number_gnr(0);
+          set_number_bnr(0);
+        }
       }
-      for (const i in entries) {
-        const id = entries[i].ssrId;
-        if (resultatliste[id]) {
-          const gammel = resultatliste[id];
-          const ny = entries[i];
-          const variasjon = {};
-          for (const j in gammel) {
-            if (gammel[j] !== ny[j]) {
-              if (j !== "variasjon") {
-                variasjon[j] = [gammel[j], ny[j]];
+    },
+    []
+  );
+
+  const fetchSearchPlaces = useCallback(
+    (term, page = 0, numberPerPage = 20) => {
+      backend.hentSteder(term, page, numberPerPage).then(resultat => {
+        let max_items = 20;
+        let entries = resultat ? resultat.stedsnavn : null;
+        const resultatliste = {};
+        // If only one entry is returned from backend, this is
+        // returned as an object, not as array of objects.
+        // In that case, convert to array
+        if (!entries) {
+          entries = [];
+        } else if (!Array.isArray(entries) && entries.constructor === Object) {
+          const object = { ...entries };
+          entries = [];
+          entries.push(object);
+        }
+        for (const i in entries) {
+          const id = entries[i].ssrId;
+          if (resultatliste[id]) {
+            const gammel = resultatliste[id];
+            const ny = entries[i];
+            const variasjon = {};
+            for (const j in gammel) {
+              if (gammel[j] !== ny[j]) {
+                if (j !== "variasjon") {
+                  variasjon[j] = [gammel[j], ny[j]];
+                }
+              }
+            }
+            resultatliste[id].variasjon = variasjon;
+          } else {
+            if (Object.keys(resultatliste).length < max_items) {
+              resultatliste[id] = entries[i];
+              if (resultatliste[id]) {
+                resultatliste[id].ssrpri = i || 100;
               }
             }
           }
-          resultatliste[id].variasjon = variasjon;
-        } else {
-          if (Object.keys(resultatliste).length < max_items) {
-            resultatliste[id] = entries[i];
-            if (resultatliste[id]) {
-              resultatliste[id].ssrpri = i || 100;
-            }
-          }
         }
-      }
-      const prioritertliste = {};
-      for (let i in resultatliste) {
-        const element = resultatliste[i];
-        prioritertliste[element.ssrpri] = element;
-      }
-      set_treffliste_sted(Object.values(prioritertliste));
-      if (page === 0) {
-        const numberPlaces =
-          resultat && resultat.totaltAntallTreff
-            ? resultat.totaltAntallTreff
-            : 0;
-        set_number_places(numberPlaces);
-      }
-    });
-  };
+        const prioritertliste = {};
+        for (let i in resultatliste) {
+          const element = resultatliste[i];
+          prioritertliste[element.ssrpri] = element;
+        }
+        set_treffliste_sted(Object.values(prioritertliste));
+        if (page === 0) {
+          const numberPlaces =
+            resultat && resultat.totaltAntallTreff
+              ? resultat.totaltAntallTreff
+              : 0;
+          set_number_places(numberPlaces);
+        }
+      });
+    },
+    []
+  );
 
-  const fetchSearchAddresses = (term, page = 0, numberPerPage = 20) => {
-    let address = [];
-    // Use strict search approach
-    backend.hentAdresse(term, page, numberPerPage).then(resultat => {
-      let entries = resultat ? resultat.adresser : null;
-      // If only one entry is returned from backend, this is
-      // returned as an object, not as array of objects.
-      // In that case, convert to array
-      if (!entries) {
-        entries = [];
-      } else if (!Array.isArray(entries) && entries.constructor === Object) {
-        const object = { ...entries };
-        entries = [];
-        entries.push(object);
-      }
-      if (entries.length > 0) {
-        address = entries;
-      }
+  const fetchSearchAddresses = useCallback(
+    (term, page = 0, numberPerPage = 20) => {
+      let address = [];
+      // Use strict search approach
+      backend.hentAdresse(term, page, numberPerPage).then(resultat => {
+        let entries = resultat ? resultat.adresser : null;
+        // If only one entry is returned from backend, this is
+        // returned as an object, not as array of objects.
+        // In that case, convert to array
+        if (!entries) {
+          entries = [];
+        } else if (!Array.isArray(entries) && entries.constructor === Object) {
+          const object = { ...entries };
+          entries = [];
+          entries.push(object);
+        }
+        if (entries.length > 0) {
+          address = entries;
+        }
 
-      // Use less strict search approach if no results
-      if (address.length === 0) {
-        backend.hentAdresse(term + "*", page, numberPerPage).then(resultat => {
-          entries = resultat ? resultat.adresser : null;
-          // If only one entry is returned from backend, this is
-          // returned as an object, not as array of objects.
-          // In that case, convert to array
-          if (!entries) {
-            entries = [];
-          } else if (
-            !Array.isArray(entries) &&
-            entries.constructor === Object
-          ) {
-            const object = { ...entries };
-            entries = [];
-            entries.push(object);
-          }
-          if (entries.length > 0) {
-            address = entries;
-          }
+        // Use less strict search approach if no results
+        if (address.length === 0) {
+          backend
+            .hentAdresse(term + "*", page, numberPerPage)
+            .then(resultat => {
+              entries = resultat ? resultat.adresser : null;
+              // If only one entry is returned from backend, this is
+              // returned as an object, not as array of objects.
+              // In that case, convert to array
+              if (!entries) {
+                entries = [];
+              } else if (
+                !Array.isArray(entries) &&
+                entries.constructor === Object
+              ) {
+                const object = { ...entries };
+                entries = [];
+                entries.push(object);
+              }
+              if (entries.length > 0) {
+                address = entries;
+              }
+              set_treffliste_adresse(address);
+              if (page === 0) {
+                const numberAddresses =
+                  resultat &&
+                  resultat.metadata &&
+                  resultat.metadata.totaltAntallTreff
+                    ? resultat.metadata.totaltAntallTreff
+                    : 0;
+                set_number_addresses(numberAddresses);
+              }
+            });
+        } else {
           set_treffliste_adresse(address);
           if (page === 0) {
             const numberAddresses =
@@ -541,21 +495,13 @@ const SearchBar = ({
                 : 0;
             set_number_addresses(numberAddresses);
           }
-        });
-      } else {
-        set_treffliste_adresse(address);
-        if (page === 0) {
-          const numberAddresses =
-            resultat && resultat.metadata && resultat.metadata.totaltAntallTreff
-              ? resultat.metadata.totaltAntallTreff
-              : 0;
-          set_number_addresses(numberAddresses);
         }
-      }
-    });
-  };
+      });
+    },
+    []
+  );
 
-  const fetchSearchCoordinates = term => {
+  const fetchSearchCoordinates = useCallback(term => {
     term = term.replace(/:/g, " ").replace(/;/g, " ");
     term = term.replace(/\//g, " ");
     // Replace komma with point to get numbers
@@ -626,16 +572,80 @@ const SearchBar = ({
     // const koord = [point1, point2];
     set_treffliste_koord(koord);
     set_number_coord(koord.length);
-  };
+  }, []);
+
+  const handleSearchBar = useCallback(
+    (
+      term,
+      page = 0,
+      numberPerPage = 20,
+      resultType = "all",
+      pageDistribution = "",
+      forceSearch = false
+    ) => {
+      let currentTerm = term ? term.trim() : null;
+      if (!currentTerm) {
+        set_searchTerm(null);
+        set_isSearching(false);
+        return null;
+      }
+
+      // Remove weird symbols from search
+      currentTerm = currentTerm.replace(/-/g, " ").replace(/&/g, " ");
+      currentTerm = currentTerm.replace(/\?/g, " ").replace(/!/g, " ");
+      currentTerm = currentTerm.replace(/"/g, " ").replace(/'/g, " ");
+      currentTerm = currentTerm.replace(/\+/g, " ").replace(/\*/g, " ");
+      currentTerm = currentTerm.replace(/\(/g, " ").replace(/\)/g, " ");
+      currentTerm = currentTerm.replace(/\{/g, " ").replace(/\}/g, " ");
+      currentTerm = currentTerm.replace(/\[/g, " ").replace(/\]/g, " ");
+      currentTerm = currentTerm.replace(/  +/g, " ").trim();
+      currentTerm = currentTerm.toLowerCase();
+
+      if (searchResultPage) {
+        set_isSearching(false);
+        set_countermax(15);
+      } else {
+        set_isSearching(true);
+        set_countermax(50);
+      }
+
+      if (resultType === "all") {
+        fetchSearchLayers(currentTerm);
+        fetchSearchCoordinates(currentTerm);
+        fetchSearchProperties(currentTerm);
+        fetchSearchPlaces(currentTerm, page);
+        fetchSearchAddresses(currentTerm, page);
+      } else if (resultType === "layers") {
+        fetchSearchLayers(currentTerm);
+      } else if (resultType === "properties") {
+        fetchSearchProperties(
+          currentTerm,
+          page,
+          numberPerPage,
+          pageDistribution
+        );
+      } else if (resultType === "places") {
+        fetchSearchPlaces(currentTerm, page, numberPerPage);
+      } else if (resultType === "addresses") {
+        fetchSearchAddresses(currentTerm, page, numberPerPage);
+      } else if (resultType === "coordinates") {
+        fetchSearchCoordinates(currentTerm);
+      }
+    },
+    [
+      searchResultPage,
+      fetchSearchLayers,
+      fetchSearchCoordinates,
+      fetchSearchProperties,
+      fetchSearchPlaces,
+      fetchSearchAddresses
+    ]
+  );
 
   const countDecimals = value => {
     if (Math.floor(value) === value) return 0;
     return value.toString().split(".")[1].length || 0;
   };
-
-  // const setWrapperRef = node => {
-  //   wrapperRef = node;
-  // };
 
   const handleOpenDrawer = () => {
     set_openDrawer(true);
@@ -692,16 +702,6 @@ const SearchBar = ({
     }
   };
 
-  // const handleClickOutside = event => {
-  //   if (
-  //     wrapperRef &&
-  //     !wrapperRef.contains(event.target) &&
-  //     !searchResultPage
-  //   ) {
-  //     handleRemoveTreffliste();
-  //   }
-  // };
-
   // ---------- USE EFFECT --------- //
   function useClickOutside(ref) {
     useEffect(() => {
@@ -717,17 +717,41 @@ const SearchBar = ({
     }, [ref]);
   }
 
+  // UseEffect function will only execute if 'debouncedSearchTerm' changes.
+  // Due to 'useDebounce' hook it will only change if the original
+  // value (searchTerm) hasn't changed for more than 500ms.
+  useEffect(() => {
+    handleSearchBar(debouncedSearchTerm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedSearchTerm]);
+
   const wrapperRef = useRef(null);
   useClickOutside(wrapperRef);
 
-  // // ---------- USE EFFECT --------- //
-  // componentDidMount() {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  // }
-
-  // componentWillUnmount() {
-  //   document.removeEventListener("mousedown", handleClickOutside);
-  // }
+  // Count total number of results
+  useEffect(() => {
+    const total =
+      number_places +
+      number_knrgnrbnr +
+      number_kommune +
+      number_knr +
+      number_gnr +
+      number_bnr +
+      number_addresses +
+      number_layers +
+      number_coord;
+    set_total_number(total);
+  }, [
+    number_places,
+    number_knrgnrbnr,
+    number_kommune,
+    number_knr,
+    number_gnr,
+    number_bnr,
+    number_addresses,
+    number_layers,
+    number_coord
+  ]);
 
   return (
     <>
@@ -741,7 +765,7 @@ const SearchBar = ({
             placeholder="Søk etter kartlag eller område..."
             onFocus={e => handleSearchBar(e.target.value)}
             onChange={e => {
-              handleSearchBar(e.target.value);
+              set_searchTerm(e.target.value ? e.target.value.trim() : null);
             }}
             onKeyDown={e => {
               handleSearchKeyDown(e);
@@ -789,7 +813,7 @@ const SearchBar = ({
             Søk
           </button>
         </div>
-        {(isSearching || searchResultPage) && (
+        {(isSearching || searchResultPage) && total_number > 0 && (
           <TreffListe
             onSelectSearchResult={onSelectSearchResult}
             searchResultPage={searchResultPage}

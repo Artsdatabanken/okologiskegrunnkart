@@ -488,7 +488,7 @@ it("should render address results on search results page", () => {
   getByText("3");
   getByText("4");
   getByText("5");
-  getByText("715");
+  getByText("714");
 });
 
 it("should render kommune results on search results page", () => {
