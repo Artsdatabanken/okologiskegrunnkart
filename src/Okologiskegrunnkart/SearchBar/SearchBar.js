@@ -39,7 +39,7 @@ const SearchBar = ({
   const [treffliste_adresse, set_treffliste_adresse] = useState(null);
   const [treffliste_koord, set_treffliste_koord] = useState(null);
   const [searchTerm, set_searchTerm] = useState(null);
-  const [countermax, set_countermax] = useState(50);
+  const [countermax, set_countermax] = useState(12);
   const [anchorEl] = useState(null);
   const [number_places, set_number_places] = useState(0);
   const [number_knrgnrbnr, set_number_knrgnrbnr] = useState(0);
@@ -77,6 +77,7 @@ const SearchBar = ({
     set_number_layers(0);
     set_number_coord(0);
     set_searchTerm(null);
+    set_countermax(12);
   };
 
   const searchInLayer = (criteria, term, layer) => {
@@ -154,7 +155,7 @@ const SearchBar = ({
   const handleSearchButton = () => {
     onSelectSearchResult(true);
     set_isSearching(false);
-    set_countermax(15);
+    set_countermax(1000);
   };
 
   const fetchSearchLayers = useCallback(
@@ -581,8 +582,7 @@ const SearchBar = ({
       page = 0,
       numberPerPage = 20,
       resultType = "all",
-      pageDistribution = "",
-      forceSearch = false
+      pageDistribution = ""
     ) => {
       let currentTerm = term ? term.trim() : null;
       if (!currentTerm) {
@@ -604,10 +604,10 @@ const SearchBar = ({
 
       if (searchResultPage) {
         set_isSearching(false);
-        set_countermax(15);
+        // set_countermax(15);
       } else {
         set_isSearching(true);
-        set_countermax(50);
+        // set_countermax(50);
       }
 
       if (resultType === "all") {
@@ -726,6 +726,24 @@ const SearchBar = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
 
+  // Update layers if countermax changes
+  useEffect(() => {
+    // Remove weird symbols from search
+    let currentTerm = debouncedSearchTerm;
+    if (!currentTerm) return;
+    currentTerm = currentTerm.replace(/-/g, " ").replace(/&/g, " ");
+    currentTerm = currentTerm.replace(/\?/g, " ").replace(/!/g, " ");
+    currentTerm = currentTerm.replace(/"/g, " ").replace(/'/g, " ");
+    currentTerm = currentTerm.replace(/\+/g, " ").replace(/\*/g, " ");
+    currentTerm = currentTerm.replace(/\(/g, " ").replace(/\)/g, " ");
+    currentTerm = currentTerm.replace(/\{/g, " ").replace(/\}/g, " ");
+    currentTerm = currentTerm.replace(/\[/g, " ").replace(/\]/g, " ");
+    currentTerm = currentTerm.replace(/  +/g, " ").trim();
+    currentTerm = currentTerm.toLowerCase();
+    fetchSearchLayers(currentTerm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [countermax]);
+
   const wrapperRef = useRef(null);
   useClickOutside(wrapperRef);
 
@@ -764,9 +782,10 @@ const SearchBar = ({
             type="text"
             autoComplete="off"
             placeholder="Søk etter kartlag eller område..."
+            value={searchTerm || ""}
             onFocus={e => handleSearchBar(e.target.value)}
             onChange={e => {
-              set_searchTerm(e.target.value ? e.target.value.trim() : null);
+              set_searchTerm(e.target.value);
             }}
             onKeyDown={e => {
               handleSearchKeyDown(e);
@@ -814,7 +833,7 @@ const SearchBar = ({
             Søk
           </button>
         </div>
-        {(isSearching || searchResultPage) && total_number > 0 && (
+        {((isSearching && total_number > 0) || searchResultPage) && (
           <TreffListe
             onSelectSearchResult={onSelectSearchResult}
             searchResultPage={searchResultPage}
