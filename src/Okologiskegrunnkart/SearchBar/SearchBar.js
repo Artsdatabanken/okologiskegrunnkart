@@ -76,6 +76,7 @@ const SearchBar = ({
     set_number_addresses(0);
     set_number_layers(0);
     set_number_coord(0);
+    set_searchTerm(null);
   };
 
   const searchInLayer = (criteria, term, layer) => {
