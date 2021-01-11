@@ -12,8 +12,18 @@ describe("Search Bar Tests", () => {
   it("Search for layers and sublayers", () => {
     cy.startDesktop();
 
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=art*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName1");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=art*&treffPerSide=20&side=0"
+    ).as("getAddress1");
+
     // Write search
     cy.get(".searchbar input").type("art");
+    cy.wait("@getName1");
+    cy.wait("@getAddress1");
 
     // Check search results
     cy.get(".treffliste")
@@ -27,8 +37,18 @@ describe("Search Bar Tests", () => {
     // Delete search
     cy.get(".searchbar .x").click();
 
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=fredete%20arter*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName2");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=fredete%20arter*&treffPerSide=20&side=0"
+    ).as("getAddress2");
+
     // Write search
     cy.get(".searchbar input").type("fredete arter");
+    cy.wait("@getName2");
+    cy.wait("@getAddress2");
 
     // Check search results
     cy.get(".treffliste")
@@ -45,8 +65,18 @@ describe("Search Bar Tests", () => {
   });
 
   it("Search for layers and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=fredete*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName1");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=fredete*&treffPerSide=20&side=0"
+    ).as("getAddress1");
+
     // Write search
     cy.get(".searchbar input").type("fredete");
+    cy.wait("@getName1");
+    cy.wait("@getAddress1");
 
     // Check search results and select first
     cy.get(".treffliste")
@@ -79,8 +109,19 @@ describe("Search Bar Tests", () => {
     cy.get(".valgtLag .listheadingbutton").click();
     cy.get(".valgtLag").should("not.exist");
 
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=fredete*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName2");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=fredete*&treffPerSide=20&side=0"
+    ).as("getAddress2");
+
     // Write search
+    cy.get(".searchbar input").click();
     cy.get(".searchbar input").type("fredete");
+    cy.wait("@getName2");
+    cy.wait("@getAddress2");
 
     // Check search results and select last
     cy.get(".treffliste")
@@ -114,16 +155,25 @@ describe("Search Bar Tests", () => {
   });
 
   it("Search for place and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=tautra*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName1");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=tautra*&treffPerSide=20&side=0"
+    ).as("getAddress1");
+
     // Write search
     cy.get(".searchbar input").type("tautra");
+    cy.wait("@getName1");
+    cy.wait("@getAddress1");
 
     // Check search results and select first
     cy.get(".treffliste")
       .find(".searchbar_item")
       .its("length")
       .should("be.gt", 2);
-    cy.get(".treffliste").contains("Stedsnavn, Gard i Frosta");
-    cy.get(".treffliste").contains("Tautra kloster");
+    cy.get(".treffliste").contains("Tautra");
 
     // Infobox and marker should not be visible, and URL not have correct coordinates
     cy.get(".infobox-container-side.infobox-open").should("not.exist");
@@ -131,8 +181,20 @@ describe("Search Bar Tests", () => {
     cy.url().should("not.include", "lng=10.62210");
     cy.url().should("not.include", "lat=63.58419");
 
+    // Intercept requests
+    cy.intercept(
+      "ttps://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=tautra%20kloster*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName2");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=tautra%20kloster*&treffPerSide=20&side=0"
+    ).as("getAddress2");
+
     // Refine search and select only result
     cy.get(".searchbar input").type(" kloster");
+    cy.wait("@getName2");
+    cy.wait("@getAddress2");
+
+    // Check results and select
     cy.get(".treffliste")
       .find(".searchbar_item")
       .should("have.length", 1);
@@ -159,12 +221,22 @@ describe("Search Bar Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("17 moh");
 
     // Wait for map zoom
-    cy.wait(4500);
+    cy.wait(4000);
   });
 
   it("Search for address and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=%C3%B8vre%20m%C3%B8llenberg%20gate%207*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=%C3%B8vre%20m%C3%B8llenberg%20gate%207&treffPerSide=20&side=0"
+    ).as("getAddress");
+
     // Write search
     cy.get(".searchbar input").type("øvre møllenberg gate 7");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
 
     // URL should not have correct coordinates
     cy.url().should("not.include", "lng=10.40908");
@@ -205,14 +277,26 @@ describe("Search Bar Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("32 moh");
 
     // Wait for map zoom
-    cy.wait(5500);
+    cy.wait(4000);
   });
 
   it("Search for property and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5025&gardsnummer=33&bruksnummer=25&treffPerSide=20&side=0"
+    ).as("getProperty");
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=5025%2033%2025*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=5025%2033%2025&treffPerSide=20&side=0"
+    ).as("getAddress");
+
     // Write search
-    cy.get(".searchbar input").type("5025-33-2");
-    cy.wait(500);
-    cy.get(".searchbar input").type("5");
+    cy.get(".searchbar input").type("5025-33-25");
+    cy.wait("@getProperty");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
 
     // URL should not have correct coordinates
     cy.url().should("not.include", "lng=11.33768");
@@ -221,7 +305,7 @@ describe("Search Bar Tests", () => {
     // Check search results and select first
     cy.get(".treffliste")
       .find(".searchbar_item")
-      .should("have.length", 3);
+      .should("have.length", 2);
     cy.get(".treffliste .searchbar_item:last").contains("Rørosgårdveien 280");
     cy.get(".treffliste").contains("KNR-GNR-BNR 7375 RØROS");
     cy.wait(500);
@@ -249,14 +333,22 @@ describe("Search Bar Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("633 moh");
 
     // Wait for map zoom
-    cy.wait(5500);
+    cy.wait(4000);
   });
 
   it("Search for coordinates and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=60.258%2012.2561*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=60.258%2012.2561*&treffPerSide=20&side=0"
+    ).as("getAddress");
+
     // Write search
-    cy.get(".searchbar input").type("60.258-12.256");
-    cy.wait(500);
-    cy.get(".searchbar input").type("1");
+    cy.get(".searchbar input").type("60.258-12.2561");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
 
     // URL should not have correct coordinates
     cy.url().should("not.include", "lng=12.2561");
@@ -294,12 +386,22 @@ describe("Search Bar Tests", () => {
     cy.get(".infobox-container-side.infobox-open").contains("381 moh");
 
     // Wait for map zoom
-    cy.wait(5500);
+    cy.wait(1000);
   });
 
   it("Search for layers in detailed search and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=fredete*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=fredete*&treffPerSide=20&side=0"
+    ).as("getAddress");
+
     // Write search
     cy.get(".searchbar input").type("fredete");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
 
     // Check search results and select first
     cy.get(".treffliste")
@@ -342,11 +444,23 @@ describe("Search Bar Tests", () => {
   });
 
   it("Search for property in detailed search and select", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5025&gardsnummer=33&bruksnummer=25&treffPerSide=20&side=0"
+    ).as("getProperty");
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=5025%2033%2025*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=5025%2033%2025&treffPerSide=20&side=0"
+    ).as("getAddress");
+
     // Write search
-    cy.get(".searchbar input").type("5025-33-2");
-    cy.wait(500);
-    cy.get(".searchbar input").type("5");
+    cy.get(".searchbar input").type("5025-33-25");
     cy.get("#search-button").click();
+    cy.wait("@getProperty");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
 
     // Should go to layer details
     cy.get(".searchbar input").should("not.contain", "5025-33-25");
