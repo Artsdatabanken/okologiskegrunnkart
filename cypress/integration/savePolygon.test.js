@@ -7,6 +7,7 @@ describe("Save and Open Polygon Tests", () => {
   });
 
   it("Check there are no polygons saved", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected

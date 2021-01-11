@@ -33,6 +33,7 @@ describe("Click on Map with Selected Layers Tests", () => {
   });
 
   it("Click on map first time", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Zoom in map

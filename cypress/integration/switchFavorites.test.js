@@ -58,6 +58,7 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
   });
 
   it("Show tiles for all layers", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Zoom in map

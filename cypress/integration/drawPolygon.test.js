@@ -2,6 +2,7 @@
 
 describe("Draw Polygon Tests", () => {
   it("Draw polygon manually", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected

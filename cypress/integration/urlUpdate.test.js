@@ -10,6 +10,7 @@ describe("URL Update Tests", () => {
   });
 
   it("Define favourites in URL", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Write search

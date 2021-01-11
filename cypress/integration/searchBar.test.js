@@ -10,6 +10,7 @@ describe("Search Bar Tests", () => {
   });
 
   it("Search for layers and sublayers", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Intercept requests

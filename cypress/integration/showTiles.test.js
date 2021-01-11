@@ -41,6 +41,7 @@ describe("Show Tiles Tests", () => {
   });
 
   it("Show tiles for simple layers", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Check all kartlag is used and arter-fredete layer exists
