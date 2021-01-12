@@ -42,6 +42,7 @@ describe("Edit Favorites Tests", () => {
   });
 
   it("Select some favorite layers and save", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Check all layers are visible

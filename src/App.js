@@ -382,7 +382,7 @@ class App extends React.Component {
     } else if ((!lat || !lng) && layers) {
       layersUrlString = "layers=" + layers;
     }
-    // Whern mounted, favorites is updated based on the real value
+    // When mounted, favorites is updated based on the real value
     // from state, since this is calulated when loading kartlag
     let favoritesUrlString;
     if ((lat && lng) || layers) {
@@ -850,7 +850,19 @@ class App extends React.Component {
   };
 
   handleShowFavoriteLayers = async showFavoriteLayers => {
+    this.handleUpdateChangeInUrl(false);
     this.setState({ showFavoriteLayers });
+
+    // Update URL
+    var queryParams = new URLSearchParams(window.location.search);
+    queryParams.set("favorites", showFavoriteLayers);
+    if (showFavoriteLayers) {
+      queryParams.delete("layers");
+    }
+    this.props.history.push("?" + queryParams.toString());
+    setTimeout(() => {
+      this.handleUpdateChangeInUrl(true);
+    }, 50);
   };
 
   toggleShowFavoriteLayers = async favorites => {
@@ -2856,7 +2868,6 @@ class App extends React.Component {
                         kartlag={this.state.kartlag}
                         addValgtLag={this.handleNavigateToKartlag}
                         removeValgtLag={this.removeValgtLag}
-                        onUpdateLayerProp={this.handleKartlagLayerProp}
                         toggleEditLayers={this.toggleEditLayers}
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}

@@ -4,5 +4,5 @@
   "env": {
     "baseurl": "http://localhost:3000"
   },
-  "responseTimeout": 10000
+  "requestTimeout": 10000
 }

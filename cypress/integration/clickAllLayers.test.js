@@ -31,6 +31,7 @@ describe("Click on Map with Selected Layers Tests", () => {
   });
 
   it("Click on map first time", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Zoom in map
@@ -50,10 +51,16 @@ describe("Click on Map with Selected Layers Tests", () => {
     ).as("getAddressData");
 
     // Click on map
+    cy.url().should("not.include", "lng=11.95312");
+    cy.url().should("not.include", "lat=64.31134");
     cy.get(".leaflet-container").click(610, 718);
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
     cy.wait("@getPlaceData");
     cy.wait("@getAddressData");
+    cy.url().should("include", "lng=11.95312");
+    cy.url().should("include", "lat=64.31134");
+    cy.url().should("include", "favorites=false");
+    cy.url().should("not.include", "layers=");
 
     // Check infobox contains correct data
     cy.get("img.leaflet-marker-icon").should("not.be.null");
@@ -105,6 +112,7 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.get(".settings-layers-wrapper", { timeout: 10000 }).should("not.exist");
 
     // Check favorites are being used
+    cy.url().should("include", "favorites=true");
     cy.get(".kartlag_fanen").contains("Favorittkartlag");
     cy.get("#layers-list-wrapper")
       .find(".sorted-layers-subheaders")
@@ -138,6 +146,10 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.wait("@getFeatureInfoArt");
     cy.wait("@getFeatureInfoArea");
     cy.wait("@getFeatureInfoNatur");
+    cy.url().should("include", "lng=11.95312");
+    cy.url().should("include", "lat=64.31134");
+    cy.url().should("include", "favorites=true");
+    cy.url().should("not.include", "layers=");
 
     // Check results
     cy.get("#layers-results-list")
@@ -222,6 +234,10 @@ describe("Click on Map with Selected Layers Tests", () => {
     cy.wait("@getFeatureInfoArt");
     cy.wait("@getFeatureInfoArea");
     cy.wait("@getFeatureInfoNatur");
+    cy.url().should("include", "lng=11.62353");
+    cy.url().should("include", "lat=64.15853");
+    cy.url().should("include", "favorites=true");
+    cy.url().should("not.include", "layers=");
 
     // Check results
     cy.get("#layers-results-list")

@@ -4,7 +4,8 @@ import {
   render,
   fireEvent,
   waitFor,
-  screen
+  screen,
+  act
 } from "@testing-library/react";
 import SearchBar from "../../../src/Okologiskegrunnkart/SearchBar/SearchBar";
 import kartlagMock from "../../tools/kartlagMock.json";
@@ -50,33 +51,39 @@ it("should render empty searchbar at start", () => {
   expect(buttons.length).toBe(2);
 });
 
-it("should render X-button when something is written in the search field", () => {
-  backend.hentKommune.mockResolvedValue(null);
-  backend.hentKnrGnrBnr.mockResolvedValue(null);
-  backend.hentSteder.mockResolvedValue(null);
-  backend.hentAdresse.mockResolvedValue(null);
+it("should render X-button when something is written in the search field", async () => {
+  await backend.hentKommune.mockResolvedValue(null);
+  await backend.hentKnrGnrBnr.mockResolvedValue(null);
+  await backend.hentSteder.mockResolvedValue(null);
+  await backend.hentAdresse.mockResolvedValue(null);
 
-  const { getByText, getByPlaceholderText, getAllByRole } = renderSearchBar();
+  const { getByPlaceholderText, getAllByRole, findByText } = renderSearchBar();
 
   const input = getByPlaceholderText("Søk etter kartlag eller område...");
   fireEvent.change(input, { target: { value: "123" } });
+  await waitFor(() => findByText("X"));
 
   // Buttons: search, menu & X-button
   let buttons = getAllByRole("button");
   expect(buttons.length).toBe(3);
-  getByText("X");
 });
 
-it("should render 3 layer results when 'arter' is written in the search field", () => {
+it("should render 3 layer results when 'arter' is written in the search field", async () => {
   backend.hentKommune.mockResolvedValue(null);
   backend.hentKnrGnrBnr.mockResolvedValue(null);
   backend.hentSteder.mockResolvedValue(null);
   backend.hentAdresse.mockResolvedValue(null);
 
-  const { getByText, getByPlaceholderText, getAllByRole } = renderSearchBar();
+  const {
+    findByText,
+    getByText,
+    getByPlaceholderText,
+    getAllByRole
+  } = renderSearchBar();
 
   const input = getByPlaceholderText("Søk etter kartlag eller område...");
   fireEvent.change(input, { target: { value: "arter" } });
+  await waitFor(() => findByText("X"));
 
   // Buttons: search, menu, X-button & 1 result
   let buttons = getAllByRole("button");
@@ -85,21 +92,26 @@ it("should render 3 layer results when 'arter' is written in the search field", 
   getByText("Kartlag");
 });
 
-it("should remove search results and X-button after clicking X-button", () => {
+it("should remove search results and X-button after clicking X-button", async () => {
   backend.hentKommune.mockResolvedValue(null);
   backend.hentKnrGnrBnr.mockResolvedValue(null);
   backend.hentSteder.mockResolvedValue(null);
   backend.hentAdresse.mockResolvedValue(null);
 
-  const { getByText, getByPlaceholderText, getAllByRole } = renderSearchBar();
+  const {
+    findByText,
+    getByText,
+    getByPlaceholderText,
+    getAllByRole
+  } = renderSearchBar();
 
   const input = getByPlaceholderText("Søk etter kartlag eller område...");
   fireEvent.change(input, { target: { value: "arter" } });
+  await waitFor(() => findByText("X"));
 
   // Buttons: search, menu & X-button
   let buttons = getAllByRole("button");
   expect(buttons.length).toBe(4);
-  getByText("X");
   getByText("Arter - Rødlista");
 
   // Click X-button

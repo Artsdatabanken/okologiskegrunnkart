@@ -58,6 +58,7 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
   });
 
   it("Show tiles for all layers", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Zoom in map
@@ -85,10 +86,18 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     ).as("getAddressData");
 
     // Click on map
+    cy.url().should("not.include", "lng=12.39257");
+    cy.url().should("not.include", "lat=64.63329");
+    cy.url().should("include", "favorites=false");
+    cy.url().should("not.include", "layers=");
     cy.get(".leaflet-container").click(650, 650);
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
     cy.wait("@getPlaceData");
     cy.wait("@getAddressData");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "favorites=false");
+    cy.url().should("not.include", "layers=");
 
     // Expand
     cy.get(layerPath1).click();
@@ -112,6 +121,9 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath1B).should("not.be.checked");
     cy.get(badgePath1).should("contain", "1");
     cy.wait("@getFeatureInfoFredete");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
@@ -150,6 +162,10 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     // Save and get back to map
     cy.get("#settings-layers-save-button").click();
     cy.get(".settings-layers-wrapper", { timeout: 10000 }).should("not.exist");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "favorites=true");
+    cy.url().should("not.include", "layers=");
 
     // Check favorites are being used
     cy.get(".kartlag_fanen").contains("Favorittkartlag");
@@ -189,6 +205,9 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("be.checked");
     cy.get(badgePath1).should("contain", "2");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222,223&favorites=true");
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -223,6 +242,12 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
     cy.wait("@getFeatureInfoRødlista");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should(
+      "include",
+      "layers=222,223,29,38,39,40,41,42,43&favorites=true"
+    );
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -271,6 +296,9 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
 
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -321,6 +349,12 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
     cy.wait("@getFeatureInfoRødlista");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should(
+      "include",
+      "layers=222,223,29,38,39,40,41,42,43&favorites=true"
+    );
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -369,6 +403,9 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
 
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -419,6 +456,12 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
     cy.wait("@getFeatureInfoRødlista");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should(
+      "include",
+      "layers=222,223,29,38,39,40,41,42,43&favorites=true"
+    );
 
     // Check new layers are visible
     cy.get(".leaflet-container")
@@ -483,6 +526,11 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
 
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "favorites=true");
+    cy.url().should("not.include", "layers=");
+
     // Check only map layers layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
@@ -528,6 +576,9 @@ describe("Swicth Between All Layers and Favorite Layers Tests", () => {
 
     // Wait for request responses
     cy.wait("@getFeatureInfoFredete");
+    cy.url().should("include", "lng=12.39257");
+    cy.url().should("include", "lat=64.63329");
+    cy.url().should("include", "layers=222&favorites=false");
 
     // Check new layers are visible
     cy.get(".leaflet-container")

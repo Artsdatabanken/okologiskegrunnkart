@@ -2,6 +2,7 @@
 
 describe("Upload Polygon Tests", () => {
   it("Upload polygon", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Open polygon tool and verify self-drawn polygon is selected

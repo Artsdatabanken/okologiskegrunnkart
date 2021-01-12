@@ -41,6 +41,7 @@ describe("Show Tiles Tests", () => {
   });
 
   it("Show tiles for simple layers", () => {
+    cy.wait(1000);
     cy.startDesktop();
 
     // Check all kartlag is used and arter-fredete layer exists
@@ -49,6 +50,7 @@ describe("Show Tiles Tests", () => {
     cy.contains("Arter - fredete");
     cy.contains("Miljødirektoratet");
     cy.get(collapsePath1).should("not.exist");
+    cy.url().should("not.include", "layers=");
 
     // Check only map layers are visible
     cy.get(".leaflet-container")
@@ -71,6 +73,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("not.be.checked");
     cy.get(badgePath1).should("contain", "1");
+    cy.url().should("include", "layers=222");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
@@ -83,6 +86,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("be.checked");
     cy.get(badgePath1).should("contain", "2");
+    cy.url().should("include", "layers=222,223");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
@@ -95,6 +99,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath1A).should("not.be.checked");
     cy.get(switchPath1B).should("not.be.checked");
     cy.get(badgePath1).should("have.class", "MuiBadge-invisible");
+    cy.url().should("not.include", "layers=");
 
     // Check layers are not visible
     cy.get(".leaflet-container")
@@ -121,6 +126,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("not.be.checked");
     cy.get(badgePath1).should("contain", "1");
+    cy.url().should("include", "layers=222");
 
     // Check legend is active now
     cy.get("#legend-link-list-item").should(
@@ -173,6 +179,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath1A).should("be.checked");
     cy.get(switchPath1B).should("be.checked");
     cy.get(badgePath1).should("contain", "2");
+    cy.url().should("include", "layers=222,223");
 
     // Open legend
     cy.get("#legend-link-list-item").click();
@@ -209,8 +216,9 @@ describe("Show Tiles Tests", () => {
     cy.contains("Gruppert på tema");
     cy.contains("Arter - Rødlista");
     cy.contains("Artsdatabanken");
+    cy.url().should("include", "layers=222,223");
 
-    // Check only map layers are visible
+    // Check layers are visible
     cy.get(".leaflet-container")
       .find(".leaflet-layer ")
       .should("have.length", 4);
@@ -242,6 +250,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("contain", "1");
+    cy.url().should("include", "layers=222,223,38");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
@@ -258,6 +267,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2E).should("not.be.checked");
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "2");
+    cy.url().should("include", "layers=222,223,38,43");
 
     // Check new layer is visible
     cy.get(".leaflet-container")
@@ -274,6 +284,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2E).should("be.checked");
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "6");
+    cy.url().should("include", "layers=222,223,38,43,29,39,40,41");
 
     // Check aggregated only layer is visible
     cy.get(".leaflet-container")
@@ -290,6 +301,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2E).should("not.be.checked");
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
+    cy.url().should("include", "layers=222,223");
 
     // Check layers are not visible
     cy.get(".leaflet-container")
@@ -306,6 +318,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2E).should("be.checked");
     cy.get(switchPath2F).should("be.checked");
     cy.get(badgePath2).should("contain", "6");
+    cy.url().should("include", "layers=222,223,29,38,39,40,41,42,43");
 
     // Check aggregated only layer is visible
     cy.get(".leaflet-container")
@@ -322,6 +335,7 @@ describe("Show Tiles Tests", () => {
     cy.get(switchPath2E).should("be.checked");
     cy.get(switchPath2F).should("not.be.checked");
     cy.get(badgePath2).should("contain", "5");
+    cy.url().should("include", "layers=222,223,38,39,40,41,42");
 
     // Check all other sublayers layer are visible
     cy.get(".leaflet-container")
