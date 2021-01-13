@@ -4,8 +4,7 @@ import {
   render,
   fireEvent,
   waitFor,
-  screen,
-  act
+  screen
 } from "@testing-library/react";
 import SearchBar from "../../../src/Okologiskegrunnkart/SearchBar/SearchBar";
 import kartlagMock from "../../tools/kartlagMock.json";

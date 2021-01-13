@@ -533,7 +533,6 @@ describe("Search Bar Tests", () => {
       "id",
       "filter-search-button-selected"
     );
-
     cy.get(".treffliste.searchresultpage").should("be.visible");
     cy.get(".treffliste.searchresultpage")
       .find(".searchbar_item")
@@ -999,5 +998,251 @@ describe("Search Bar Tests", () => {
     // No changes in search results
     cy.get(".treffliste.searchresultpage").should("be.visible");
     cy.get(".searchbar input").should("have.attr", "value", "art");
+
+    // Go back to main menu
+    cy.get(".valgtLag .listheadingbutton").click();
+    cy.get(".valgtLag").should("not.exist");
+  });
+
+  it("Should navigate in popup window with arrows and select with enter", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=%C3%B8vre%20m%C3%B8llenberg%20gate*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=%C3%B8vre%20m%C3%B8llenberg%20gate&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("øvre møllenberg gate");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
+      "Øvre Møllenberg gate 74"
+    );
+    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
+      "Adresse 7043 TRONDHEIM"
+    );
+    cy.get(".searchbar input").should(
+      "have.attr",
+      "value",
+      "øvre møllenberg gate"
+    );
+
+    // Navigate down with arrows
+    cy.get(".searchbar input").type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(1) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(1) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(4) .searchlist-item-wrapper"
+    ).should("have.focus");
+
+    // Navigate up with arrows
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(4) .searchlist-item-wrapper"
+    ).type("{uparrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).type("{uparrow}", { force: true });
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).should("have.focus");
+
+    // Intercept requests
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=10.42046562146669&lat=63.43465904942166&zoom=19"
+    ).as("getPlaceData");
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=63.43465904942166&lng=10.42046562146669"
+    ).as("getAddressData");
+
+    // Select second result with Enter
+    cy.get(
+      ".treffliste .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).type("{enter}", { force: true });
+    cy.wait("@getPlaceData");
+    cy.wait("@getAddressData");
+
+    // Should close search results, show marker and update URL
+    cy.get(".searchbar input").should(
+      "not.have.attr",
+      "value",
+      "øvre møllenberg gate"
+    );
+    cy.get(".treffliste").should("not.exist");
+    cy.get(".valgtLag").should("not.exist");
+    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.url().should("include", "lng=10.42046");
+    cy.url().should("include", "lat=63.43465");
+
+    // Should open infobox with selected place
+    cy.get(".infobox-container-side.infobox-open").should("be.visible");
+    cy.get(".infobox-container-side.infobox-open").contains("Trondheim");
+    cy.get(".infobox-container-side").contains("Trøndelag - Trööndelage");
+    cy.get(".infobox-container-side.infobox-open").contains("50");
+    cy.get(".infobox-container-side.infobox-open").contains("Trondheim");
+    cy.get(".infobox-container-side.infobox-open").contains("5001");
+    cy.get(".infobox-container-side.infobox-open").contains(
+      "Øvre Møllenberg gate 74"
+    );
+    cy.get(".infobox-container-side.infobox-open").contains("410 / 340");
+    cy.get(".infobox-container-side").contains("63.4347° N 10.4205° Ø");
+    cy.get(".infobox-container-side.infobox-open").contains("15 moh");
+
+    // Wait for map zoom
+    cy.wait(4000);
+  });
+
+  it("Should navigate in search details with arrows and select with enter", () => {
+    // Intercept requests
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5025&gardsnummer=33&treffPerSide=20&side=0"
+    ).as("getProperty");
+    cy.intercept(
+      "https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=5025%2033*&eksakteForst=true&antPerSide=20&epsgKode=4326&side=0"
+    ).as("getName");
+    cy.intercept(
+      "https://ws.geonorge.no/adresser/v1/sok?sok=5025%2033&treffPerSide=20&side=0"
+    ).as("getAddress");
+
+    // Write search
+    cy.get(".searchbar input").type("5025-33");
+    cy.wait("@getProperty");
+    cy.wait("@getName");
+    cy.wait("@getAddress");
+
+    // Check search results
+    cy.get(".treffliste")
+      .find(".searchbar_item")
+      .should("have.length", 18);
+    cy.get(".treffliste").contains("Mælan 33");
+    cy.get(".treffliste").contains("Stormoveien 33");
+    cy.get(".treffliste").contains("Adresse 7374 RØROS");
+    cy.get("#search-button").click();
+
+    // Should go to search details
+    cy.get(".searchbar input").should("have.attr", "value", "5025-33");
+    cy.get(".valgtLag").should("be.visible");
+    cy.get(".valgtLag").contains("Søkeresultater");
+    cy.get(".valgtLag").contains("Eiendom");
+    cy.get(".valgtLag").contains("(29)");
+
+    // Select eiendom
+    cy.get(".search-page-options-content button:last").should(
+      "not.have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+    cy.get(".search-page-options-content button:last").click();
+    cy.get(".search-page-options-content button:last").should(
+      "have.attr",
+      "id",
+      "filter-search-button-selected"
+    );
+    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
+      "Steffavollveien 75"
+    );
+    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
+      "KNR-GNR-BNR 7375 RØROS"
+    );
+
+    // Navigate down with arrows
+    cy.get(".searchbar input").type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(1) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(1) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).type("{downarrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(4) .searchlist-item-wrapper"
+    ).should("have.focus");
+
+    // Navigate up with arrows
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(4) .searchlist-item-wrapper"
+    ).type("{uparrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).should("have.focus");
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(3) .searchlist-item-wrapper"
+    ).type("{uparrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).should("have.focus");
+
+    // Intercept requests
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=11.348117253743762&lat=62.62264641186255&zoom=20"
+    ).as("getPlaceData");
+    cy.intercept(
+      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=62.62264641186255&lng=11.348117253743762"
+    ).as("getAddressData");
+
+    // Select second result with Enter
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).type("{enter}", { force: true });
+    cy.wait("@getPlaceData");
+    cy.wait("@getAddressData");
+
+    // Should close search results, show marker and update URL
+    cy.get(".searchbar input").should("not.have.attr", "value", "5025-33");
+    cy.get(".treffliste").should("not.exist");
+    cy.get(".valgtLag").should("not.exist");
+    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.url().should("include", "lng=11.34811");
+    cy.url().should("include", "lat=62.62264");
+
+    // Should open infobox with selected place
+    cy.get(".infobox-container-side.infobox-open").should("be.visible");
+    cy.get(".infobox-container-side.infobox-open").contains("Midtvollen");
+    cy.get(".infobox-container-side").contains("Trøndelag - Trööndelage");
+    cy.get(".infobox-container-side.infobox-open").contains("50");
+    cy.get(".infobox-container-side.infobox-open").contains("Røros");
+    cy.get(".infobox-container-side.infobox-open").contains("5025");
+    cy.get(".infobox-container-side.infobox-open").contains(
+      "Steffavollveien 75"
+    );
+    cy.get(".infobox-container-side.infobox-open").contains("33 / 3");
+    cy.get(".infobox-container-side").contains("62.6226° N 11.3481° Ø");
+    cy.get(".infobox-container-side.infobox-open").contains("664 moh");
   });
 });
