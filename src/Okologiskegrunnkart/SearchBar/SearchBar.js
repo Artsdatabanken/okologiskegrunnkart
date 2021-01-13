@@ -78,6 +78,7 @@ const SearchBar = ({
     set_number_coord(0);
     set_searchTerm(null);
     set_countermax(12);
+    set_searchTerm(null);
   };
 
   const searchInLayer = (criteria, term, layer) => {
@@ -704,10 +705,10 @@ const SearchBar = ({
   };
 
   // ---------- USE EFFECT --------- //
-  function useClickOutside(ref) {
+  function useClickOutside(ref, resultPage) {
     useEffect(() => {
       function handleClickOutside(event) {
-        if (ref.current && !ref.current.contains(event.target)) {
+        if (!resultPage && ref.current && !ref.current.contains(event.target)) {
           handleRemoveTreffliste();
         }
       }
@@ -715,7 +716,7 @@ const SearchBar = ({
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
-    }, [ref]);
+    }, [ref, resultPage]);
   }
 
   // UseEffect function will only execute if 'debouncedSearchTerm' changes.
@@ -745,7 +746,7 @@ const SearchBar = ({
   }, [countermax]);
 
   const wrapperRef = useRef(null);
-  useClickOutside(wrapperRef);
+  useClickOutside(wrapperRef, searchResultPage);
 
   // Count total number of results
   useEffect(() => {

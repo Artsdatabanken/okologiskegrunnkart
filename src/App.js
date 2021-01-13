@@ -380,7 +380,7 @@ class App extends React.Component {
     if (lat && lng && layers) {
       layersUrlString = "&layers=" + layers;
     } else if ((!lat || !lng) && layers) {
-      layersUrlString = "layers=" + layers;
+      layersUrlString = "?layers=" + layers;
     }
     // When mounted, favorites is updated based on the real value
     // from state, since this is calulated when loading kartlag
@@ -896,7 +896,7 @@ class App extends React.Component {
     if (lat && lng && uniqueKeys.length > 0) {
       layersUrlString = "&layers=" + uniqueKeys;
     } else if ((!lat || !lng) && uniqueKeys.length > 0) {
-      layersUrlString = "layers=" + uniqueKeys;
+      layersUrlString = "?layers=" + uniqueKeys;
     }
     // Get favorites
     let favoritesUrlString = urlParams.get("favorites");
