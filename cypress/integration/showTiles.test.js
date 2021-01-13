@@ -13,6 +13,10 @@ const switchPath1B =
   ".sorted-layers-subheaders:nth-child(1) .MuiCollapse-container:nth-child(3) .collapsed_container .underlag:last input";
 const badgePath1 =
   ".sorted-layers-subheaders:nth-child(1) #layer-list-item:nth-child(2) .MuiBadge-badge";
+const layerAllPath1 =
+  ".sorted-layers-subheaders:nth-child(1) .MuiCollapse-container:nth-child(3) .collapsed_container .underlag-all";
+const sublayerPath1A =
+  ".sorted-layers-subheaders:nth-child(1) .MuiCollapse-container:nth-child(3) .collapsed_container .underlag:first";
 
 // Arter - rødlista
 const layerPath2 =
@@ -371,5 +375,154 @@ describe("Show Tiles Tests", () => {
     // Close legend
     cy.get("#legend-title-wrapper").click();
     cy.get(".legend-wrapper-right").should("not.exist");
+  });
+
+  it("Show tiles for a sublayer in details and change opacity of all sublayers", () => {
+    // Deactivate all layers
+    cy.get(allPath1).click();
+    cy.get(allPath1).should("not.be.checked");
+    cy.get(switchPath1A).should("not.be.checked");
+    cy.get(switchPath1B).should("not.be.checked");
+    cy.get(badgePath1).should("have.class", "MuiBadge-invisible");
+    cy.get(allPath2).click();
+    cy.get(allPath2).should("be.checked");
+    cy.get(allPath2).click();
+    cy.get(allPath2).should("not.be.checked");
+    cy.get(switchPath2A).should("not.be.checked");
+    cy.get(switchPath2B).should("not.be.checked");
+    cy.get(switchPath2C).should("not.be.checked");
+    cy.get(switchPath2D).should("not.be.checked");
+    cy.get(switchPath2E).should("not.be.checked");
+    cy.get(switchPath2F).should("not.be.checked");
+    cy.get(badgePath2).should("have.class", "MuiBadge-invisible");
+    cy.url().should("include", "?favorites=false");
+
+    // Check only map layers are visible
+    cy.get(".leaflet-container")
+      .find(".leaflet-layer ")
+      .should("have.length", 2);
+
+    // Go to Fredete arter - områder details
+    cy.get(".details-content-wrapper").should("not.exist");
+    cy.get(sublayerPath1A).click();
+    cy.get(".layer-details-div").should("be.visible");
+    cy.get(".layer-details-div").contains("Detaljert info om lag");
+    cy.get(".details-content-wrapper").should("be.visible");
+    cy.get(".details-content-wrapper").contains("Arter - fredete");
+    cy.get(".details-content-wrapper .MuiBadge-badge").should(
+      "have.class",
+      "MuiBadge-invisible"
+    );
+    cy.get(".details-content-wrapper").contains("Fredete arter - områder");
+
+    // Activate sublayer
+    cy.get(".details-content-wrapper .MuiSlider-thumb").should(
+      "have.class",
+      "Mui-disabled"
+    );
+    cy.get(".details-content-wrapper #sublayer-details-list input").should(
+      "not.be.checked"
+    );
+    cy.get(".details-content-wrapper #sublayer-details-list input").click();
+    cy.get(".details-content-wrapper #sublayer-details-list input").should(
+      "be.checked"
+    );
+    cy.get(".details-content-wrapper .MuiSlider-thumb").should(
+      "not.have.class",
+      "Mui-disabled"
+    );
+    cy.url().should("include", "?layers=222&favorites=false");
+
+    // Check new layer visible
+    cy.get(".leaflet-container")
+      .find(".leaflet-layer ")
+      .should("have.length", 3);
+
+    // Change opacity with slider
+    cy.get(".leaflet-container .leaflet-layer:nth-child(3)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.8;"
+    );
+    cy.get(".details-content-wrapper .opacity-slider-wrapper .MuiSlider-thumb")
+      .trigger("mousedown")
+      .trigger("mousemove", { clientX: 1698, clientY: 500 })
+      .trigger("mouseup");
+    cy.get(".leaflet-container .leaflet-layer:nth-child(3)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.4;"
+    );
+
+    // Go back to kartlag
+    cy.get("#details-title-wrapper").click();
+    cy.get(".layer-details-div").should("not.exist");
+    cy.get(badgePath1).should("contain", "1");
+  });
+
+  it("Show tiles for a layer in details and change opacity", () => {
+    // Go to all sublayers detail of Arter - fredete
+    cy.get(".details-content-wrapper").should("not.exist");
+    cy.get(layerAllPath1).click();
+    cy.get(".layer-details-div").should("be.visible");
+    cy.get(".layer-details-div").contains("Detaljert info om lag");
+    cy.get(".details-content-wrapper").should("be.visible");
+    cy.get(".details-content-wrapper").contains("Arter - fredete");
+    cy.get(".details-content-wrapper .MuiBadge-badge").should("contain", "1");
+    cy.get(".details-content-wrapper").contains("Alle kategorier");
+
+    // Activate layer
+    cy.get(".details-content-wrapper .MuiSlider-thumb").should(
+      "have.class",
+      "Mui-disabled"
+    );
+    cy.get(".details-content-wrapper #sublayer-details-list input").should(
+      "not.be.checked"
+    );
+    cy.get(".details-content-wrapper #sublayer-details-list input").click();
+    cy.get(".details-content-wrapper #sublayer-details-list input").should(
+      "be.checked"
+    );
+    cy.get(".details-content-wrapper .MuiSlider-thumb").should(
+      "not.have.class",
+      "Mui-disabled"
+    );
+    cy.url().should("include", "?layers=222,223&favorites=false");
+
+    // Check new layer visible
+    cy.get(".leaflet-container")
+      .find(".leaflet-layer ")
+      .should("have.length", 4);
+
+    // Change opacity with slider
+    cy.get(".leaflet-container .leaflet-layer:nth-child(3)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.4;"
+    );
+    cy.get(".leaflet-container .leaflet-layer:nth-child(4)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.8;"
+    );
+    cy.get(".details-content-wrapper .opacity-slider-wrapper .MuiSlider-thumb")
+      .trigger("mousedown")
+      .trigger("mousemove", { clientX: 1670, clientY: 500 })
+      .trigger("mouseup");
+    cy.get(".leaflet-container .leaflet-layer:nth-child(3)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.3;"
+    );
+    cy.get(".leaflet-container .leaflet-layer:nth-child(4)").should(
+      "have.attr",
+      "style",
+      "z-index: 1; opacity: 0.3;"
+    );
+
+    // Go back to kartlag
+    cy.get("#details-title-wrapper").click();
+    cy.get(".layer-details-div").should("not.exist");
+    cy.get(badgePath1).should("contain", "2");
   });
 });

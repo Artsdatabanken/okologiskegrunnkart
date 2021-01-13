@@ -137,6 +137,9 @@ describe("Search Bar Tests", () => {
     // Go back to main menu
     cy.get(".valgtLag .listheadingbutton").click();
     cy.get(".valgtLag").should("not.exist");
+    cy.get("#layers-list-wrapper").should("be.visible");
+    cy.get("#layers-list-wrapper").contains("Arealressurs: AR5");
+    cy.wait(500);
 
     // Intercept requests
     cy.intercept(
@@ -147,7 +150,6 @@ describe("Search Bar Tests", () => {
     ).as("getAddress2");
 
     // Write search
-    cy.get(".searchbar input").click();
     cy.get(".searchbar input").type("fredete");
     cy.wait("@getName2");
     cy.wait("@getAddress2");
