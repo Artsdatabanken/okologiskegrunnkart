@@ -18,20 +18,14 @@ const layerKartlag1 =
   "#layers-list-wrapper .sorted-layers-subheaders:nth-child(2) #layer-list-item:nth-child(2)";
 
 // Arter - fredete
-const layer2 =
-  "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(2)";
 const checkboxLayer2 =
   "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(2) #settings-layers-checkbox";
 
 // Arter - Rødlista
-const layer3 =
-  "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(5)";
 const checkboxLayer3 =
   "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(5) #settings-layers-checkbox";
 
 // Naturtyper - DN Håndbok 13
-const layer4 =
-  "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(35)";
 const checkboxLayer4 =
   "#settings-layers-top-item .MuiCollapse-container .MuiTreeItem-root:nth-child(35) #settings-layers-checkbox";
 
