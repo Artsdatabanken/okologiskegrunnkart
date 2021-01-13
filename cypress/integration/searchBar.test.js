@@ -1142,9 +1142,9 @@ describe("Search Bar Tests", () => {
     cy.get(".treffliste").contains("Mælan 33");
     cy.get(".treffliste").contains("Stormoveien 33");
     cy.get(".treffliste").contains("Adresse 7374 RØROS");
-    cy.get("#search-button").click();
 
-    // Should go to search details
+    // Go to search details with Enter
+    cy.get(".searchbar input").type("{enter}");
     cy.get(".searchbar input").should("have.attr", "value", "5025-33");
     cy.get(".valgtLag").should("be.visible");
     cy.get(".valgtLag").contains("Søkeresultater");
