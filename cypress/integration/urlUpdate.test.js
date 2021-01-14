@@ -249,7 +249,8 @@ describe("URL Update Tests", () => {
   it("Select active layers and coordinates for all layers through URL", () => {
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=6"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=6"
     ).as("getPlaceData");
     cy.intercept(
       "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5046&gardsnummer=85&bruksnummer=1&treffPerSide=100"
@@ -346,7 +347,8 @@ describe("URL Update Tests", () => {
   it("Select active layers and coordinates for favorites through URL", () => {
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=6"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=6"
     ).as("getPlaceData");
     cy.intercept(
       "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5046&gardsnummer=85&bruksnummer=1&treffPerSide=100"

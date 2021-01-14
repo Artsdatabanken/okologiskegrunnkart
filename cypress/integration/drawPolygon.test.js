@@ -48,9 +48,9 @@ describe("Draw Polygon Tests", () => {
     cy.contains("Verneplan for Vassdrag");
     cy.get(".polygon-layers-item >>> input").click({ multiple: true });
     cy.wait(100);
-    cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/arealstatistikk"
-    ).as("getAreaReport");
+    cy.intercept(Cypress.env("baseapi") + "/rpc/arealstatistikk").as(
+      "getAreaReport"
+    );
     cy.get("#polygon-run-button").click();
     cy.contains("Valgte arealrapporter");
 
