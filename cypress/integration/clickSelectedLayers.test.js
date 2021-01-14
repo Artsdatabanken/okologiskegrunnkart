@@ -46,7 +46,8 @@ describe("Click on Map with Selected Layers Tests", () => {
 
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=7"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=12.392578125&lat=64.63329214257159&zoom=7"
     ).as("getPlaceData");
     cy.intercept(
       "https://ws.geonorge.no/adresser/v1/sok?kommunenummer=5046&gardsnummer=85&bruksnummer=1&treffPerSide=100"

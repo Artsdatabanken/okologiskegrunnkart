@@ -2,7 +2,8 @@
   "viewportHeight": 970,
   "viewportWidth": 1920,
   "env": {
-    "baseurl": "http://localhost:3000"
+    "baseurl": "http://localhost:3000",
+    "baseapi": "https://okologiskegrunnkartapi.test.artsdatabanken.no"
   },
   "requestTimeout": 10000
 }

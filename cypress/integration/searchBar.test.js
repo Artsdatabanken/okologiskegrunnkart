@@ -209,7 +209,7 @@ describe("Search Bar Tests", () => {
 
     // Infobox and marker should not be visible, and URL not have correct coordinates
     cy.get(".infobox-container-side.infobox-open").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("not.exist");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("not.exist");
     cy.url().should("not.include", "lng=10.62210");
     cy.url().should("not.include", "lat=63.58419");
 
@@ -243,7 +243,7 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=10.62210");
     cy.url().should("include", "lat=63.58419");
 
@@ -306,7 +306,7 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=10.40908");
     cy.url().should("include", "lat=63.42941");
 
@@ -363,7 +363,7 @@ describe("Search Bar Tests", () => {
     cy.get(".searchbar input").should("not.have.attr", "value", "5025-33-25");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=11.33768");
     cy.url().should("include", "lat=62.60752");
 
@@ -423,7 +423,7 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=12.2561");
     cy.url().should("include", "lat=60.258");
 
@@ -561,7 +561,7 @@ describe("Search Bar Tests", () => {
     cy.get(".searchbar input").should("not.have.attr", "value", "5025-33-25");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=11.33768");
     cy.url().should("include", "lat=62.60752");
 
@@ -949,7 +949,8 @@ describe("Search Bar Tests", () => {
 
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=11.336903572082521&lat=62.60727528514941&zoom=19"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=11.336903572082521&lat=62.60727528514941&zoom=19"
     ).as("getPlace");
 
     // Delete search
@@ -1076,10 +1077,12 @@ describe("Search Bar Tests", () => {
 
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=10.42046562146669&lat=63.43465904942166&zoom=19"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=10.42046562146669&lat=63.43465904942166&zoom=19"
     ).as("getPlaceData");
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=63.43465904942166&lng=10.42046562146669"
+      Cypress.env("baseapi") +
+        "/rpc/punkt?lat=63.43465904942166&lng=10.42046562146669"
     ).as("getAddressData");
 
     // Select second result with Enter
@@ -1097,7 +1100,7 @@ describe("Search Bar Tests", () => {
     );
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
     cy.url().should("include", "lng=10.42046");
     cy.url().should("include", "lat=63.43465");
 
@@ -1165,10 +1168,10 @@ describe("Search Bar Tests", () => {
       "id",
       "filter-search-button-selected"
     );
-    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
-      "Steffavollveien 75"
+    cy.get(".treffliste .searchbar_item:nth-child(1)").contains(
+      "Rørosgårdveien 280"
     );
-    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
+    cy.get(".treffliste .searchbar_item:nth-child(1)").contains(
       "KNR-GNR-BNR 7375 RØROS"
     );
 
@@ -1209,18 +1212,26 @@ describe("Search Bar Tests", () => {
     cy.get(
       ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
     ).should("have.focus");
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+    ).type("{uparrow}", { force: true });
+    cy.get(
+      ".treffliste.searchresultpage .searchbar_item:nth-child(1) .searchlist-item-wrapper"
+    ).should("have.focus");
 
     // Intercept requests
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/stedsnavn?lng=11.348117253743762&lat=62.62264641186255&zoom=20"
+      Cypress.env("baseapi") +
+        "/rpc/stedsnavn?lng=11.337683436497148&lat=62.6075215964786&zoom=20"
     ).as("getPlaceData");
     cy.intercept(
-      "https://okologiskegrunnkartapi.test.artsdatabanken.no/rpc/punkt?lat=62.62264641186255&lng=11.348117253743762"
+      Cypress.env("baseapi") +
+        "/rpc/punkt?lat=62.6075215964786&lng=11.337683436497148"
     ).as("getAddressData");
 
-    // Select second result with Enter
+    // Select third result with Enter
     cy.get(
-      ".treffliste.searchresultpage .searchbar_item:nth-child(2) .searchlist-item-wrapper"
+      ".treffliste.searchresultpage .searchbar_item:nth-child(1) .searchlist-item-wrapper"
     ).type("{enter}", { force: true });
     cy.wait("@getPlaceData");
     cy.wait("@getAddressData");
@@ -1229,22 +1240,20 @@ describe("Search Bar Tests", () => {
     cy.get(".searchbar input").should("not.have.attr", "value", "5025-33");
     cy.get(".treffliste").should("not.exist");
     cy.get(".valgtLag").should("not.exist");
-    cy.get("img.leaflet-marker-icon").should("be.visible");
-    cy.url().should("include", "lng=11.34811");
-    cy.url().should("include", "lat=62.62264");
+    cy.get("img.leaflet-marker-icon", { timeout: 6000 }).should("be.visible");
+    cy.url().should("include", "lng=11.33768");
+    cy.url().should("include", "lat=62.60752");
 
     // Should open infobox with selected place
     cy.get(".infobox-container-side.infobox-open").should("be.visible");
-    cy.get(".infobox-container-side.infobox-open").contains("Midtvollen");
+    cy.get(".infobox-container-side.infobox-open").contains(
+      "Rørosgårdveien 280"
+    );
     cy.get(".infobox-container-side").contains("Trøndelag - Trööndelage");
     cy.get(".infobox-container-side.infobox-open").contains("50");
     cy.get(".infobox-container-side.infobox-open").contains("Røros");
     cy.get(".infobox-container-side.infobox-open").contains("5025");
-    cy.get(".infobox-container-side.infobox-open").contains(
-      "Steffavollveien 75"
-    );
-    cy.get(".infobox-container-side.infobox-open").contains("33 / 3");
-    cy.get(".infobox-container-side").contains("62.6226° N 11.3481° Ø");
-    cy.get(".infobox-container-side.infobox-open").contains("664 moh");
+    cy.get(".infobox-container-side").contains("62.6075° N 11.3377° Ø");
+    cy.get(".infobox-container-side.infobox-open").contains("633 moh");
   });
 });
