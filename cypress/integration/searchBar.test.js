@@ -1,9 +1,23 @@
 /// <reference types="cypress" />
 
+// OBS!!! The slighlest change in search APIs can make this test fail
+// (e.g. returning search results in different order).
+// Furthermore, after one test fails, the rest will fail too because
+// the search bar keeps the previous search term and zoom level may be wrong.
+// Therefore, the runner is stopped at the first failed test.
+
 describe("Search Bar Tests", () => {
   before(() => {
     // Delete indexed DB
     indexedDB.deleteDatabase("GrunnkartDB");
+  });
+
+  // Stop the runner at the first failed test
+  before(() => {
+    Cypress.on("fail", error => {
+      Cypress.runner.stop();
+      throw error;
+    });
   });
 
   it("Search for layers and sublayers", () => {
