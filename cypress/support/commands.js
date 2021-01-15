@@ -29,12 +29,82 @@ import "cypress-file-upload";
 
 // Start APP in desktop
 Cypress.Commands.add("startDesktop", () => {
-  // cy.visit("http://localhost:3000/");
-  // cy.visit("https://okologiskegrunnkart.test.artsdatabanken.no");
-  // cy.visit("https://okologiskegrunnkart.artsdatabanken.no");
   cy.visit(Cypress.env("baseurl"));
   cy.contains("Økologiske grunnkart");
   cy.contains("Mer info");
   cy.contains("Søk");
   cy.url({ timeout: 25000 }).should("include", "favorites");
 });
+
+// Drag leaflet map
+// Code from https://stackoverflow.com/questions/60987787/test-dragging-a-leaflet-map-in-cypress
+Cypress.Commands.add(
+  "dragMapFromCenter",
+  { prevSubject: "element" },
+  (element, { xMoveFactor, yMoveFactor }) => {
+    // Get the raw HTML element from jQuery wrapper
+    const canvas = element.get(0);
+    const rect = canvas.getBoundingClientRect();
+    const center = {
+      x: rect.left + rect.width / 2,
+      y: rect.top + rect.height / 2
+    };
+
+    // Start dragging from the center of the map
+    cy.log("mousedown", {
+      clientX: center.x,
+      clientY: center.y
+    });
+    canvas.dispatchEvent(
+      new MouseEvent("mousedown", {
+        clientX: center.x,
+        clientY: center.y
+      })
+    );
+
+    // Let Leaflet know the mouse has started to move. The diff between
+    // mousedown and mousemove event needs to be large enough so that Leaflet
+    // will really think the mouse is moving and not that it was a click where
+    // the mouse moved just a tiny amount.
+    cy.log("mousemove", {
+      clientX: center.x,
+      clientY: center.y + 5
+    });
+    canvas.dispatchEvent(
+      new MouseEvent("mousemove", {
+        clientX: center.x,
+        clientY: center.y + 5,
+        bubbles: true
+      })
+    );
+
+    // After Leaflet knows mouse is moving, we move the mouse as depicted by the options.
+    cy.log("mousemove", {
+      clientX: center.x + rect.width * xMoveFactor,
+      clientY: center.y + rect.height * yMoveFactor
+    });
+    canvas.dispatchEvent(
+      new MouseEvent("mousemove", {
+        clientX: center.x + rect.width * xMoveFactor,
+        clientY: center.y + rect.height * yMoveFactor,
+        bubbles: true
+      })
+    );
+
+    // Now when we "release" the mouse, Leaflet will fire a "dragend" event and
+    // the search should register that the drag has stopped and run callbacks.
+    cy.log("mouseup", {
+      clientX: center.x + rect.width * xMoveFactor,
+      clientY: center.y + rect.height * yMoveFactor
+    });
+    requestAnimationFrame(() => {
+      canvas.dispatchEvent(
+        new MouseEvent("mouseup", {
+          clientX: center.x + rect.width * xMoveFactor,
+          clientY: center.y + rect.height * yMoveFactor,
+          bubbles: true
+        })
+      );
+    });
+  }
+);
