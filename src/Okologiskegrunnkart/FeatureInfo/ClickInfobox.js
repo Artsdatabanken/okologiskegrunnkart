@@ -224,8 +224,9 @@ const ClickInfobox = ({
             <div className="infobox-switch-container">
               <SmallSwitch
                 tabIndex="0"
-                id="show-property-toggle"
+                id="show-fylke-toggle"
                 checked={showFylkeGeom}
+                value={showFylkeGeom ? "on" : "off"}
                 onChange={handleFylkeGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
@@ -238,8 +239,9 @@ const ClickInfobox = ({
             <div className="infobox-switch-container">
               <SmallSwitch
                 tabIndex="0"
-                id="show-property-toggle"
+                id="show-kommune-toggle"
                 checked={showKommuneGeom}
+                value={showKommuneGeom ? "on" : "off"}
                 onChange={handleKommuneGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
@@ -252,8 +254,9 @@ const ClickInfobox = ({
             <div className="infobox-switch-container">
               <SmallSwitch
                 tabIndex="0"
-                id="show-property-toggle"
+                id="show-eiendom-toggle"
                 checked={showEiendomGeom}
+                value={showEiendomGeom ? "on" : "off"}
                 onChange={handlePropertyGeom}
                 onKeyDown={e => {
                   if (e.keyCode === 13) {
