@@ -52,6 +52,7 @@ const SearchBar = ({
   const [number_coord, set_number_coord] = useState(0);
   const [total_number, set_total_number] = useState(0);
   const [openDrawer, set_openDrawer] = useState(false);
+  const [pageLength, setPageLength] = useState(0);
 
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
@@ -614,9 +615,9 @@ const SearchBar = ({
       if (resultType === "all") {
         fetchSearchLayers(currentTerm);
         fetchSearchCoordinates(currentTerm);
-        fetchSearchProperties(currentTerm);
-        fetchSearchPlaces(currentTerm, page);
-        fetchSearchAddresses(currentTerm, page);
+        fetchSearchProperties(currentTerm, page, numberPerPage);
+        fetchSearchPlaces(currentTerm, page, numberPerPage);
+        fetchSearchAddresses(currentTerm, page, numberPerPage);
       } else if (resultType === "layers") {
         fetchSearchLayers(currentTerm);
       } else if (resultType === "properties") {
@@ -723,9 +724,18 @@ const SearchBar = ({
   // Due to 'useDebounce' hook it will only change if the original
   // value (searchTerm) hasn't changed for more than 500ms.
   useEffect(() => {
-    handleSearchBar(debouncedSearchTerm);
+    if (searchTerm !== null || debouncedSearchTerm !== null) {
+      handleSearchBar(debouncedSearchTerm, 0, pageLength);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearchTerm]);
+
+  useEffect(() => {
+    if (searchTerm !== null && debouncedSearchTerm !== null) {
+      handleSearchBar(debouncedSearchTerm, 0, pageLength);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageLength]);
 
   // Update layers if countermax changes
   useEffect(() => {
@@ -744,6 +754,25 @@ const SearchBar = ({
     fetchSearchLayers(currentTerm);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [countermax]);
+
+  // Get page length based on window height
+  useEffect(() => {
+    const min_list_length = 1;
+    let max_list_length = isMobile ? 8 : 10;
+
+    if (!searchResultPage) {
+      max_list_length = 19;
+    } else {
+      let nRows = max_list_length;
+      if (isMobile) {
+        nRows = Math.floor((windowHeight - 142 - 40) / 55);
+      } else {
+        nRows = Math.floor((windowHeight - 136 - 40) / 55);
+      }
+      max_list_length = Math.max(nRows, min_list_length);
+    }
+    setPageLength(max_list_length);
+  }, [isMobile, searchResultPage, windowHeight]);
 
   const wrapperRef = useRef(null);
   useClickOutside(wrapperRef, searchResultPage);
@@ -784,7 +813,7 @@ const SearchBar = ({
             autoComplete="off"
             placeholder="Søk etter kartlag eller område..."
             value={searchTerm || ""}
-            onFocus={e => handleSearchBar(e.target.value)}
+            onFocus={e => handleSearchBar(e.target.value, 0, pageLength)}
             onChange={e => {
               set_searchTerm(e.target.value);
             }}
@@ -810,7 +839,7 @@ const SearchBar = ({
               className="x"
               onClick={() => {
                 handleRemoveTreffliste();
-                handleSearchBar(null);
+                // handleSearchBar(null);
                 document.getElementById("searchfield").value = "";
               }}
             >

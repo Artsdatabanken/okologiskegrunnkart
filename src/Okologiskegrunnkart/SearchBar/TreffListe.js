@@ -70,17 +70,11 @@ const TreffListe = ({
   const getNewPage = page => {
     const term = document.getElementById("searchfield").value;
     if (resultType === "places" || resultType === "addresses") {
-      if (page === 0) {
-        handleSearchBar(term, 0, 20, resultType, "");
-      } else {
-        handleSearchBar(term, page, pageLength, resultType, "");
-      }
+      handleSearchBar(term, page, pageLength, resultType, "");
     }
     if (resultType === "properties") {
       const knrgnrbnr = parseInt(number_knrgnrbnr);
-      if (page === 0) {
-        handleSearchBar(term, 0, 20, resultType, "");
-      } else if (knrgnrbnr > 0) {
+      if (knrgnrbnr > 0) {
         handleSearchBar(term, page, pageLength, resultType, "");
       } else {
         const pageDistribution = getPropertyPageDistribution(page);
