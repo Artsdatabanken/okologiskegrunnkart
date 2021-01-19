@@ -548,7 +548,7 @@
 }
 @media only screen and (max-width: 768px) {
   #layers-list-wrapper {
-    padding-bottom: 75px;
+    padding-bottom: 100px;
   }
 }
 #layers-list-wrapper.MuiList-padding {
