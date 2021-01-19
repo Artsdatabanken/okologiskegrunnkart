@@ -1146,12 +1146,8 @@ describe("Search Bar Tests", () => {
     cy.get(".treffliste")
       .find(".searchbar_item")
       .should("have.length", 18);
-    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
-      "Øvre Møllenberg gate"
-    );
-    cy.get(".treffliste .searchbar_item:nth-child(2)").contains(
-      "Adresse 7043 TRONDHEIM"
-    );
+    cy.get(".treffliste").contains("Øvre Møllenberg gate");
+    cy.get(".treffliste").contains("Adresse 7043 TRONDHEIM");
     cy.get(".searchbar input").should(
       "have.attr",
       "value",

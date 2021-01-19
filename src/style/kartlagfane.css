@@ -476,17 +476,18 @@
   background-color: #fff;
   height: 100%;
 }
-@media only screen and (max-width: 768px) {
-  .legend-wrapper {
-    padding-top: 35px;
-  }
-}
 .legend-wrapper-left {
   background-color: #fff;
   height: 100%;
   position: absolute;
   top: 0;
   width: 100%;
+}
+@media only screen and (max-width: 768px) {
+  .legend-wrapper-right,
+  .legend-wrapper-left {
+    padding-top: 35px;
+  }
 }
 #legend-title-wrapper {
   display: flex;
@@ -547,7 +548,7 @@
 }
 @media only screen and (max-width: 768px) {
   #layers-list-wrapper {
-    padding-bottom: 75px;
+    padding-bottom: 100px;
   }
 }
 #layers-list-wrapper.MuiList-padding {
