@@ -12,8 +12,10 @@ import backend from "../../Funksjoner/backend";
 import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
 import CustomIcon from "../../Common/CustomIcon";
+import CustomTooltip from "../../Common/CustomTooltip";
 
 const PolygonLayers = ({
+  grensePolygon,
   availableLayers,
   polygon,
   handlePolygonResults,
@@ -22,22 +24,24 @@ const PolygonLayers = ({
   const [searchLayers, setSearchLayers] = useState(availableLayers);
   const [menuOpen, setMenuOpen] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [slowLayers, setSlowLayers] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
   const [complexPolygon, setComplexPolygon] = useState(false);
   const [polygonArea, setPolygonArea] = useState(0);
   const [showWarning, setShowWarning] = useState(false);
-  const [matrikkelLayer, setMatrikkelLayer] = useState(false);
   const [showMatrikkelWarning, setShowMatrikkelWarning] = useState(false);
 
   const polygonJSON = JSON.stringify(polygon);
 
-  const calculateAreaReport = () => {
+  const calculateAreaReport = async () => {
     if (!polygon || polygon.length === 0) return;
     handlePolygonResults(null);
     const layerCodes = [];
     let errorResult = {};
     for (const layer of searchLayers) {
       if (!layer.selected || !layer.code) continue;
+      if (grensePolygon === "fylke" && ["MAT", "ISJ"].includes(layer.code)) {
+        continue;
+      }
       layerCodes.push(layer.code);
       errorResult[layer.code] = { error: true };
     }
@@ -83,7 +87,6 @@ const PolygonLayers = ({
           }
           // Remove last comma
           points = points.slice(0, -1);
-          // points = "(" + points + "),";
           points = points + "),";
         }
         // Remove last comma
@@ -219,6 +222,7 @@ const PolygonLayers = ({
     setSearchLayers(layers);
   };
 
+  // Disable area report
   useEffect(() => {
     if (!polygon) {
       setDisabled(true);
@@ -231,29 +235,9 @@ const PolygonLayers = ({
     else setDisabled(true);
   }, [polygon, polygonJSON]);
 
+  // Calculate if polygon is complex
   useEffect(() => {
-    if (!searchLayers) {
-      setSlowLayers(false);
-      setMatrikkelLayer(false);
-      return;
-    }
-    // Check selected layers
-    const complexLayers = searchLayers.filter(
-      item => item.selected && !["FYL", "KOM"].includes(item.code)
-    );
-    if (complexLayers.length > 0) setSlowLayers(true);
-    else setSlowLayers(false);
-
-    // Matrikkel layer
-    const matrikkelLayer = searchLayers.filter(
-      item => item.code === "MAT" && item.selected
-    );
-    if (matrikkelLayer.length > 0) setMatrikkelLayer(true);
-    else setMatrikkelLayer(false);
-  }, [searchLayers]);
-
-  useEffect(() => {
-    if (!polygon || !slowLayers) {
+    if (!polygon) {
       setComplexPolygon(false);
       return;
     }
@@ -283,10 +267,11 @@ const PolygonLayers = ({
         }
       }
     }
-  }, [polygon, polygonJSON, slowLayers]);
+  }, [polygon, polygonJSON]);
 
+  // Calculate polygon area
   useEffect(() => {
-    if (!polygon || ((!slowLayers || !complexPolygon) && !matrikkelLayer)) {
+    if (!polygon) {
       setPolygonArea(0);
       return;
     }
@@ -327,18 +312,95 @@ const PolygonLayers = ({
 
     area = area / 1000000;
     setPolygonArea(area);
-  }, [polygon, polygonJSON, slowLayers, matrikkelLayer, complexPolygon]);
+  }, [polygon, polygonJSON]);
 
+  // Update disabled layers and set icon for slow ones
   useEffect(() => {
-    if (slowLayers && complexPolygon && polygonArea > 5000)
-      setShowWarning(true);
-    else if (slowLayers && matrikkelLayer && polygonArea > 20000)
-      setShowWarning(true);
-    else setShowWarning(false);
+    if (!searchLayers) {
+      setDisabledButton(true);
+      setShowWarning(false);
+      setShowMatrikkelWarning(false);
+      return;
+    }
 
-    if (matrikkelLayer && polygonArea > 2000) setShowMatrikkelWarning(true);
-    else setShowMatrikkelWarning(false);
-  }, [slowLayers, complexPolygon, polygonArea, matrikkelLayer]);
+    // Get current layers, before changes
+    const originalLayers = JSON.stringify(searchLayers);
+
+    // Update layers
+    let slow = false;
+    let manyProperties = false;
+    let reportSelected = false;
+    let layers = [...searchLayers];
+    for (let layer of layers) {
+      // Disable layers
+      if (grensePolygon === "fylke" && ["MAT", "ISJ"].includes(layer.code)) {
+        layer.disabled = true;
+      } else {
+        layer.disabled = false;
+      }
+
+      // Mark many properties (eiendommer)
+      if (layer.code === "MAT" && layer.selected) {
+        if (grensePolygon === "kommune") manyProperties = true;
+        else if (grensePolygon === "none" && polygonArea > 2000)
+          manyProperties = true;
+      }
+
+      // Mark as slow
+      if (
+        grensePolygon === "fylke" &&
+        ["ANF", "N13", "NMA", "NIN"].includes(layer.code)
+      ) {
+        layer.slow = true;
+        if (!slow && layer.selected) slow = true;
+      } else if (
+        grensePolygon === "kommune" &&
+        ["MAT", "ISJ"].includes(layer.code)
+      ) {
+        layer.slow = true;
+        if (!slow && layer.selected) slow = true;
+      } else if (
+        grensePolygon === "none" &&
+        complexPolygon &&
+        polygonArea > 5000 &&
+        ["MAT", "ISJ"].includes(layer.code)
+      ) {
+        layer.slow = true;
+        if (!slow && layer.selected) slow = true;
+      } else if (
+        grensePolygon === "none" &&
+        polygonArea > 20000 &&
+        ["MAT", "ISJ"].includes(layer.code)
+      ) {
+        layer.slow = true;
+        if (!slow && layer.selected) slow = true;
+      } else {
+        layer.slow = false;
+      }
+
+      // Disable button if not reports are selected
+      if (!reportSelected) {
+        if (
+          grensePolygon === "fylke" &&
+          !["MAT", "ISJ"].includes(layer.code) &&
+          layer.selected
+        )
+          reportSelected = true;
+        else if (grensePolygon !== "fylke" && layer.selected)
+          reportSelected = true;
+      }
+    }
+
+    setDisabledButton(!reportSelected);
+    setShowWarning(slow);
+    setShowMatrikkelWarning(manyProperties);
+
+    // Set layers only if somethign has changed
+    const updatedLayers = JSON.stringify(layers);
+    if (originalLayers !== updatedLayers) {
+      setSearchLayers(layers);
+    }
+  }, [searchLayers, grensePolygon, complexPolygon, polygonArea]);
 
   return (
     <div
@@ -369,15 +431,37 @@ const PolygonLayers = ({
             {searchLayers.map((layer, index) => {
               return (
                 <div key={index} className="polygon-layers-item">
-                  <div className={disabled ? "polygon-layers-disabled" : ""}>
-                    {layer.name}
+                  <div
+                    className={
+                      disabled || layer.disabled
+                        ? "polygon-layers-name-disabled"
+                        : "polygon-layers-name"
+                    }
+                  >
+                    <div className="polygon-layers-name-text">{layer.name}</div>
+                    {layer.slow && (
+                      <CustomTooltip
+                        placement="right"
+                        title="Datalaget kan ta flere minutter å prosessere"
+                      >
+                        <span>
+                          <CustomIcon
+                            id="polygon-report-warning-icon"
+                            icon="clock-alert-outline"
+                            size={16}
+                            padding={2}
+                            color="#697f8a"
+                          />
+                        </span>
+                      </CustomTooltip>
+                    )}
                   </div>
                   <Checkbox
                     id={`select-layers-checkbox-${layer.code.toLowerCase()}`}
                     checked={layer.selected}
                     onChange={e => handleChange(e, layer.name)}
                     color="default"
-                    disabled={disabled}
+                    disabled={disabled || layer.disabled}
                   />
                 </div>
               );
@@ -391,12 +475,17 @@ const PolygonLayers = ({
               onClick={() => {
                 calculateAreaReport();
               }}
-              disabled={disabled}
+              disabled={disabled || disabledButton}
             >
               Lag arealrapport
             </Button>
           </div>
-          {!disabled && showWarning && (
+          <Collapse
+            id="polygon-layers-warning-collapse"
+            in={!disabled && showWarning}
+            timeout="auto"
+            unmountOnExit
+          >
             <div className="polygon-report-warning">
               <div className="polygon-report-warning-content">
                 <CustomIcon
@@ -411,23 +500,27 @@ const PolygonLayers = ({
                 </span>
               </div>
             </div>
-          )}
-          {!disabled && showMatrikkelWarning && (
+          </Collapse>
+          <Collapse
+            id="polygon-layers-warning-collapse"
+            in={!disabled && showMatrikkelWarning}
+            timeout="auto"
+            unmountOnExit
+          >
             <div className="polygon-report-warning">
               <div className="polygon-report-warning-content">
                 <CustomIcon
                   id="polygon-report-warning-icon"
-                  icon="clock-alert"
+                  icon="home-group"
                   size={24}
                   color="#697f8a"
                 />
                 <span className="polygon-report-warning-text">
-                  Eiendommer rapport kan gi veldig mange resultater for store
-                  arealer
+                  Eiendommer kan gi svært mange treff i store polygoner
                 </span>
               </div>
             </div>
-          )}
+          </Collapse>
         </div>
       </Collapse>
     </div>

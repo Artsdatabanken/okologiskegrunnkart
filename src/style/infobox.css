@@ -908,7 +908,7 @@ h4.container_header {
   background: rgba(145, 163, 176, 0.2);
 } */
 .polygon-checkbox-content {
-  padding: 10px 10px 8px 14px;
+  padding: 10px 6px 8px 14px;
 }
 /* .polygon-button-wrapper {
   padding-bottom: 15px;
@@ -921,8 +921,21 @@ h4.container_header {
 .polygon-layers-item .MuiIconButton-root {
   padding: 5px;
 }
-.polygon-layers-disabled {
+.polygon-layers-name,
+.polygon-layers-name-disabled {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.polygon-layers-name-disabled {
   color: #999;
+}
+.polygon-layers-name-text {
+  /* display: flex;
+  justify-content: flex-start;
+  align-items: center; */
+  /* flex-grow: 0; */
+  flex-shrink: 0;
 }
 
 /* --------- POLYGON WARNINGS --------- */

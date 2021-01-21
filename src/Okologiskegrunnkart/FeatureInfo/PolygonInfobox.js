@@ -30,6 +30,8 @@ const availableLayers = [
   {
     name: "Fylker",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "FYL",
     icon: "terrain",
     owner: "Kartverket"
@@ -37,6 +39,8 @@ const availableLayers = [
   {
     name: "Kommuner",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "KOM",
     icon: "flag",
     owner: "Kartverket"
@@ -44,13 +48,16 @@ const availableLayers = [
   {
     name: "Eiendommer",
     selected: false,
+    disabled: false,
     code: "MAT",
     icon: "home",
     owner: "Kartverket"
   },
   {
-    name: "Arter nasjonal forvaltningsinteresse",
+    name: "Arter Nasjonal Forvaltningsinteresse",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "ANF",
     icon: "Arter",
     owner: "Miljødirektoratet"
@@ -58,6 +65,8 @@ const availableLayers = [
   {
     name: "Breer i Norge",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "BRE",
     icon: "Geologi",
     owner: "Norges vassdrags- og energidirektorat"
@@ -65,6 +74,8 @@ const availableLayers = [
   // {
   //   name: "Elvenett Elvis",
   //   selected: false,
+  //   disabled: false,
+  //   slow: false,
   //   code: "ELV",
   //   icon: "Ferskvann",
   //   owner: "Norges vassdrags- og energidirektorat"
@@ -72,6 +83,8 @@ const availableLayers = [
   {
     name: "Naturtyper - DN Håndbook 13",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "N13",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -79,6 +92,8 @@ const availableLayers = [
   {
     name: "Naturtyper - DN Håndbook 19",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "NMA",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -86,6 +101,8 @@ const availableLayers = [
   {
     name: "Naturtyper - NiN Mdir",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "NIN",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -93,6 +110,8 @@ const availableLayers = [
   {
     name: "Naturvernområder",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "VRN",
     icon: "Administrative støttekart",
     owner: "Miljødirektoratet"
@@ -100,6 +119,8 @@ const availableLayers = [
   {
     name: "Innsjødatabase",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "ISJ",
     icon: "Ferskvann",
     owner: "Norges vassdrags- og energidirektorat"
@@ -107,6 +128,8 @@ const availableLayers = [
   {
     name: "Vannkraft - Magasin",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "MAG",
     icon: "Ferskvann",
     owner: "Miljødirektoratet"
@@ -114,6 +137,8 @@ const availableLayers = [
   // {
   //   name: "Flomsoner",
   //   selected: false,
+  //   disabled: false
+  //   slow: false,
   //   code: "FLO",
   //   icon: "Ferskvann",
   //   owner: "Norges vassdrags- og energidirektorat"
@@ -121,6 +146,8 @@ const availableLayers = [
   {
     name: "Verneplan for Vassdrag",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "VVS",
     icon: "Ferskvann",
     owner: "Norges vassdrags- og energidirektorat"
@@ -454,6 +481,7 @@ const PolygonInfobox = ({
           </div>
 
           <PolygonLayers
+            grensePolygon={grensePolygon}
             availableLayers={availableLayers}
             polygon={polygon}
             handlePolygonResults={handlePolygonResults}
