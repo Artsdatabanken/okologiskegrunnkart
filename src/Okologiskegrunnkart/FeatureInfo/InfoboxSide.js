@@ -71,6 +71,7 @@ const InfoBox = ({
   const [inTransition, setInTransition] = useState(null);
   const [showMarkerOptions, setShowMarkerOptions] = useState(true);
   const [showPolygonOptions, setShowPolygonOptions] = useState(true);
+  const [loadingAreaReport, setLoadingAreaReport] = useState(false);
 
   useEffect(() => {
     if (DY < 0 && Y !== 0) {
@@ -310,6 +311,8 @@ const InfoBox = ({
               getSavedPolygons={getSavedPolygons}
               polygonDetailsVisible={polygonDetailsVisible}
               setPolygonDetailsVisible={setPolygonDetailsVisible}
+              loadingAreaReport={loadingAreaReport}
+              setLoadingAreaReport={setLoadingAreaReport}
             />
           )}
         </>

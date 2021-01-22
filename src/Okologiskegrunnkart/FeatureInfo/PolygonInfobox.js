@@ -180,7 +180,9 @@ const PolygonInfobox = ({
   handlePolygonSaveModal,
   getSavedPolygons,
   polygonDetailsVisible,
-  setPolygonDetailsVisible
+  setPolygonDetailsVisible,
+  loadingAreaReport,
+  setLoadingAreaReport
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -188,10 +190,10 @@ const PolygonInfobox = ({
   const [area, setArea] = useState(null);
   const [areaUnit, setAreaUnit] = useState("m");
   const [totalArea, setTotalArea] = useState(null);
-  const [loadingFeatures, setLoadingFeatures] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
   const [detailResult, setDetailResult] = useState(null);
   const [extraInfo, setExtraInfo] = useState(null);
+  const [controller, setController] = useState(null);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -322,8 +324,8 @@ const PolygonInfobox = ({
     setAreaUnit(unit);
   }, [polygon, polygonJSON]);
 
-  const handleLoadingFeatures = loading => {
-    setLoadingFeatures(loading);
+  const handleLoadingAreaReport = loading => {
+    setLoadingAreaReport(loading);
   };
 
   const showDetailedPolygonResults = (layer, result) => {
@@ -336,6 +338,57 @@ const PolygonInfobox = ({
     setPolygonDetailsVisible(false);
     setDetailLayer(null);
     setDetailResult(null);
+  };
+
+  const makeAreaReport = async (layerCodes, wkt) => {
+    // NOTE1: in order to cancel this request, the fetch has to be placed
+    // in this file instead of in backend.js file.
+
+    // NOTE2: polygon need to be preprocessed according
+    // to "well-known text representation of geometry"
+    // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
+    let url = `${apiSettings}/rpc/arealstatistikk`;
+
+    const codes = layerCodes.join(",");
+    const body = { kartlag: codes, wkt };
+
+    const abortController = new AbortController();
+    setController(abortController);
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(body),
+        signal: abortController.signal
+      });
+      const json = await response.json();
+      setController(null);
+      return json;
+    } catch (e) {
+      console.error(url, e);
+      if (e.name === "AbortError") {
+        return "AbortError";
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const abortAreaReport = async () => {
+    if (controller !== null) {
+      handlePolygonResults(null);
+      handleLoadingAreaReport(false);
+      await controller.abort();
+      setController(null);
+    }
   };
 
   const grensePolygonGeomJSON = JSON.stringify(grensePolygonGeom);
@@ -415,6 +468,7 @@ const PolygonInfobox = ({
             uploadPolygonFile={uploadPolygonFile}
             handlePolygonSaveModal={handlePolygonSaveModal}
             getSavedPolygons={getSavedPolygons}
+            abortAreaReport={abortAreaReport}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">
@@ -485,9 +539,12 @@ const PolygonInfobox = ({
             availableLayers={availableLayers}
             polygon={polygon}
             handlePolygonResults={handlePolygonResults}
-            handleLoadingFeatures={handleLoadingFeatures}
+            handleLoadingAreaReport={handleLoadingAreaReport}
+            makeAreaReport={makeAreaReport}
+            controller={controller}
+            setController={setController}
           />
-          {polygon && (loadingFeatures || polygonResults) && (
+          {polygon && (loadingAreaReport || polygonResults) && (
             <div className="detailed-info-container-polygon">
               <div className="layer-results-side">
                 <ListItem id="polygon-results-header">
@@ -502,7 +559,7 @@ const PolygonInfobox = ({
                   <ListItemText primary="Valgte arealrapporter" />
                 </ListItem>
                 <div className="layer-results-scrollable-side">
-                  {loadingFeatures && (
+                  {loadingAreaReport && (
                     <div className={classes.root}>
                       <LinearProgress
                         id="polygon-area-report-progress"

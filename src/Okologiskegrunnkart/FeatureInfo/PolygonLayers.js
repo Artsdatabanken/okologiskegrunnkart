@@ -8,7 +8,6 @@ import {
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import "../../style/infobox.css";
-import backend from "../../Funksjoner/backend";
 import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
 import CustomIcon from "../../Common/CustomIcon";
@@ -19,10 +18,13 @@ const PolygonLayers = ({
   availableLayers,
   polygon,
   handlePolygonResults,
-  handleLoadingFeatures
+  handleLoadingAreaReport,
+  makeAreaReport,
+  controller,
+  setController
 }) => {
   const [searchLayers, setSearchLayers] = useState(availableLayers);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const [disabledButton, setDisabledButton] = useState(false);
   const [complexPolygon, setComplexPolygon] = useState(false);
@@ -33,6 +35,12 @@ const PolygonLayers = ({
   const polygonJSON = JSON.stringify(polygon);
 
   const calculateAreaReport = async () => {
+    if (controller !== null) {
+      handlePolygonResults(null);
+      await controller.abort();
+      setController(null);
+    }
+
     if (!polygon || polygon.length === 0) return;
     handlePolygonResults(null);
     const layerCodes = [];
@@ -97,11 +105,15 @@ const PolygonLayers = ({
         handlePolygonResults(errorResult);
         return;
       }
-      handleLoadingFeatures(true);
-      backend.makeAreaReport(layerCodes, wkt).then(result => {
-        if (!result) handlePolygonResults(errorResult);
-        else sortAndHandlePolygonResults(result);
-        handleLoadingFeatures(false);
+      handleLoadingAreaReport(true);
+      makeAreaReport(layerCodes, wkt).then(result => {
+        if (!result) {
+          handlePolygonResults(errorResult);
+          handleLoadingAreaReport(false);
+        } else if (result !== "AbortError") {
+          sortAndHandlePolygonResults(result);
+          handleLoadingAreaReport(false);
+        }
       });
     }
   };
