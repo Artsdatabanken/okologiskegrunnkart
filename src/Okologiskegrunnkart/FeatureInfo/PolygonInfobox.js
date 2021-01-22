@@ -445,35 +445,35 @@ const PolygonInfobox = ({
                 </div>
               </div>
             </div>
-            {extraInfo && grensePolygon === "fylke" && (
+            {grensePolygon === "fylke" && (
               <div className="infobox-text-wrapper-polygon">
                 <Terrain />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Fylke</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>
             )}
-            {extraInfo && grensePolygon === "kommune" && (
+            {grensePolygon === "kommune" && (
               <div className="infobox-text-wrapper-polygon">
                 <Flag />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Kommune</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>
             )}
-            {extraInfo && grensePolygon === "eiendom" && (
+            {grensePolygon === "eiendom" && (
               <div className="infobox-text-wrapper-polygon">
                 <Home />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Matrikkel</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>

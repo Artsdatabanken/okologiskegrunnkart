@@ -439,7 +439,7 @@ const PolygonLayers = ({
                     }
                   >
                     <div className="polygon-layers-name-text">{layer.name}</div>
-                    {layer.slow && (
+                    {!disabled && layer.slow && (
                       <CustomTooltip
                         placement="right"
                         title="Datalaget kan ta flere minutter å prosessere"
