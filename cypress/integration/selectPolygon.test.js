@@ -82,9 +82,9 @@ describe("Select Polygon from Fylke, Kommune and Eiendom Tests", () => {
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("Eiendommer");
     cy.get(".generic_element:nth-child(3)").contains("Kartverket");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains(
-      "Arter nasjonal forvaltningsinteresse"
+      "Arter Nasjonal Forvaltningsinteresse"
     );
     cy.get(".generic_element:nth-child(4)").contains("Miljødirektoratet");
     // Breer
@@ -130,7 +130,7 @@ describe("Select Polygon from Fylke, Kommune and Eiendom Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("1");
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("1");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4) >>>>> .MuiBadge-badge").should(
       "not.exist"
     );

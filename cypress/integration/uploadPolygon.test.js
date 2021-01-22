@@ -67,9 +67,9 @@ describe("Upload Polygon Tests", () => {
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("Eiendommer");
     cy.get(".generic_element:nth-child(3)").contains("Kartverket");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains(
-      "Arter nasjonal forvaltningsinteresse"
+      "Arter Nasjonal Forvaltningsinteresse"
     );
     cy.get(".generic_element:nth-child(4)").contains("Miljødirektoratet");
     // Breer
@@ -115,7 +115,7 @@ describe("Upload Polygon Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("2");
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("99+");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains("21");
     // Breer
     cy.get(".generic_element:nth-child(5) >>>>> .MuiBadge-badge").should(
