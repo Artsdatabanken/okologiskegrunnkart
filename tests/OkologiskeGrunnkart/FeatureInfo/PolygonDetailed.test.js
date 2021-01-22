@@ -18,7 +18,7 @@ const availableLayers = {
   KOM: { name: "Kommuner", icon: "flag", owner: "Kartverket" },
   MAT: { name: "Eiendommer", icon: "home", owner: "Kartverket" },
   ANF: {
-    name: "Arter nasjonal forvaltningsinteresse",
+    name: "Arter Nasjonal Forvaltningsinteresse",
     icon: "Arter",
     owner: "Miljødirektoratet"
   },
@@ -143,7 +143,7 @@ it("should render polygon details for arter av nasjonal forvaltningsinteresse", 
   });
   // Layer result details
   getByText("Detaljerte resultater");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Crex crex");
   getByText("Åkerrikse");
   getByText("2.14 km²");

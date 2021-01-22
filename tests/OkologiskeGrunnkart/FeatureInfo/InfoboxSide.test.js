@@ -393,7 +393,7 @@ it("should render results with polygon and polygon results defined", () => {
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");
@@ -461,7 +461,7 @@ it("should render no results with polygon and empty polygon results", () => {
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");
@@ -534,7 +534,7 @@ it("should render error when error is returned from polygon results", () => {
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");
