@@ -340,7 +340,7 @@ const PolygonInfobox = ({
     setDetailResult(null);
   };
 
-  const makeAreaReport = async (layerCodes, wkt) => {
+  const makeAreaReport = async (layerCodes, wkt, abortController) => {
     // NOTE1: in order to cancel this request, the fetch has to be placed
     // in this file instead of in backend.js file.
 
@@ -357,9 +357,6 @@ const PolygonInfobox = ({
     const codes = layerCodes.join(",");
     const body = { kartlag: codes, wkt };
 
-    const abortController = new AbortController();
-    setController(abortController);
-
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -370,7 +367,6 @@ const PolygonInfobox = ({
         signal: abortController.signal
       });
       const json = await response.json();
-      setController(null);
       return json;
     } catch (e) {
       console.error(url, e);
@@ -384,10 +380,10 @@ const PolygonInfobox = ({
 
   const abortAreaReport = async () => {
     if (controller !== null) {
-      handlePolygonResults(null);
-      handleLoadingAreaReport(false);
       await controller.abort();
       setController(null);
+      handlePolygonResults(null);
+      handleLoadingAreaReport(false);
     }
   };
 

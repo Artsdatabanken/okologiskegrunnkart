@@ -105,14 +105,83 @@ const PolygonLayers = ({
         handlePolygonResults(errorResult);
         return;
       }
-      handleLoadingAreaReport(true);
-      makeAreaReport(layerCodes, wkt).then(result => {
+      sendAreaReportRequests(layerCodes, wkt);
+    }
+  };
+
+  const sendAreaReportRequests = (layerCodes, wkt) => {
+    // Get slow, medium and fast layer codes
+    const layerCodesSlow = [];
+    let errorResultSlow = {};
+    const layerCodesMedium = [];
+    let errorResultMedium = {};
+    const layerCodesFast = [];
+    let errorResultFast = {};
+    for (const layerCode of layerCodes) {
+      if (["MAT", "ISJ"].includes(layerCode)) {
+        layerCodesSlow.push(layerCode);
+        errorResultSlow[layerCode] = { error: true };
+      } else if (
+        ["FYL", "KOM", "BRE", "VRN", "ISJ", "MAG", "VVS"].includes(layerCode)
+      ) {
+        layerCodesFast.push(layerCode);
+        errorResultFast[layerCode] = { error: true };
+      } else {
+        layerCodesMedium.push(layerCode);
+        errorResultMedium[layerCode] = { error: true };
+      }
+    }
+
+    const abortController = new AbortController();
+    setController(abortController);
+
+    const requestFast = layerCodesFast.length > 0 ? 1 : 0;
+    const requestMedium = layerCodesMedium.length > 0 ? 1 : 0;
+    const requestSlow = layerCodesSlow.length > 0 ? 1 : 0;
+    const numberRequests = requestFast + requestMedium + requestSlow;
+
+    handlePolygonResults(null);
+    handleLoadingAreaReport(true);
+    let requestCount = 0;
+    if (layerCodesFast.length > 0) {
+      makeAreaReport(layerCodesFast, wkt, abortController).then(result => {
         if (!result) {
-          handlePolygonResults(errorResult);
-          handleLoadingAreaReport(false);
+          handlePolygonResults(errorResultFast);
         } else if (result !== "AbortError") {
           sortAndHandlePolygonResults(result);
+        }
+        requestCount += 1;
+        if (requestCount === numberRequests) {
           handleLoadingAreaReport(false);
+          setController(null);
+        }
+      });
+    }
+    if (layerCodesMedium.length > 0) {
+      makeAreaReport(layerCodesMedium, wkt, abortController).then(result => {
+        if (!result) {
+          handlePolygonResults(errorResultMedium);
+        } else if (result !== "AbortError") {
+          sortAndHandlePolygonResults(result);
+        }
+        requestCount += 1;
+        if (requestCount === numberRequests) {
+          handleLoadingAreaReport(false);
+          setController(null);
+        }
+      });
+    }
+    if (layerCodesSlow.length > 0) {
+      makeAreaReport(layerCodesSlow, wkt, abortController).then(result => {
+        if (!result) {
+          handlePolygonResults(errorResultSlow);
+        } else if (result !== "AbortError") {
+          sortAndHandlePolygonResults(result);
+        }
+        requestCount += 1;
+        if (requestCount === numberRequests) {
+          handleLoadingAreaReport(false);
+          setController(null);
         }
       });
     }

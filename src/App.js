@@ -2482,7 +2482,16 @@ class App extends React.Component {
   };
 
   handlePolygonResults = results => {
-    this.setState({ polygonResults: results });
+    if (results === null) {
+      this.setState({ polygonResults: null });
+      return;
+    }
+    let updatedResults = { ...this.state.polygonResults };
+    for (const resultId in results) {
+      const result = results[resultId];
+      updatedResults[resultId] = result;
+    }
+    this.setState({ polygonResults: updatedResults });
   };
 
   handleShowMarker = showMarker => {
