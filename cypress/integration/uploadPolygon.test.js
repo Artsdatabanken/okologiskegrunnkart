@@ -40,7 +40,6 @@ describe("Upload Polygon Tests", () => {
   it("Run area report", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
-    cy.get("#polygon-layer-expander").click();
     cy.contains("Verneplan for Vassdrag");
     cy.get(".polygon-layers-item >>> input").click({ multiple: true });
     cy.wait(100);
@@ -65,7 +64,9 @@ describe("Upload Polygon Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("Kommuner");
     cy.get(".generic_element:nth-child(2)").contains("Kartverket");
     // Eiendommer
-    cy.get(".generic_element:nth-child(3)").contains("Eiendommer");
+    cy.get(".generic_element:nth-child(3)").contains("Eiendommer", {
+      timeout: 15000
+    });
     cy.get(".generic_element:nth-child(3)").contains("Kartverket");
     // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains(

@@ -57,13 +57,16 @@ describe("Select Polygon from Fylke, Kommune and Eiendom Tests", () => {
   it("Run area report for eiendom", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
-    cy.get("#polygon-layer-expander").click();
     cy.contains("Verneplan for Vassdrag");
     cy.get(".polygon-layers-item >>> input").click({ multiple: true });
     cy.wait(100);
+
+    // Intercept request
     cy.intercept(Cypress.env("baseapi") + "/rpc/arealstatistikk").as(
       "getAreaReport"
     );
+
+    // Run report
     cy.get("#polygon-run-button").click();
     cy.contains("Valgte arealrapporter");
 
@@ -80,7 +83,9 @@ describe("Select Polygon from Fylke, Kommune and Eiendom Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("Kommuner");
     cy.get(".generic_element:nth-child(2)").contains("Kartverket");
     // Eiendommer
-    cy.get(".generic_element:nth-child(3)").contains("Eiendommer");
+    cy.get(".generic_element:nth-child(3)").contains("Eiendommer", {
+      timeout: 15000
+    });
     cy.get(".generic_element:nth-child(3)").contains("Kartverket");
     // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains(
