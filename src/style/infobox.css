@@ -56,7 +56,7 @@
   max-height: 100vh;
   overflow-y: auto;
   height: calc(100% - 61px);
-  padding-bottom: 40px;
+  padding-bottom: 50px;
 }
 .all-layer-results-side {
   max-height: 400px;

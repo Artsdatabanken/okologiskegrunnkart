@@ -12,6 +12,7 @@ import { getPolygonDepth, calculateArea } from "../../Funksjoner/polygonTools";
 import { getTextAreaReport } from "../../Funksjoner/translateAreaReport";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomTooltip from "../../Common/CustomTooltip";
+import { animateScroll } from "react-scroll";
 
 const PolygonLayers = ({
   grensePolygon,
@@ -142,13 +143,27 @@ const PolygonLayers = ({
 
     handlePolygonResults(null);
     handleLoadingAreaReport(true);
+
+    setTimeout(() => {
+      animateScroll.scrollToBottom({
+        containerId: "infobox-side"
+      });
+    }, 100);
+
     let requestCount = 0;
+    const t0 = performance.now();
     if (layerCodesFast.length > 0) {
       makeAreaReport(layerCodesFast, wkt, abortController).then(result => {
         if (!result) {
           handlePolygonResults(errorResultFast);
         } else if (result !== "AbortError") {
           sortAndHandlePolygonResults(result);
+        }
+        const t1 = performance.now();
+        if (t1 - t0 < 1500) {
+          animateScroll.scrollToBottom({
+            containerId: "infobox-side"
+          });
         }
         requestCount += 1;
         if (requestCount === numberRequests) {

@@ -447,7 +447,7 @@ const PolygonInfobox = ({
   ]);
 
   return (
-    <div className="infobox-side">
+    <div id="infobox-side" className="infobox-side">
       {polygonDetailsVisible ? (
         <PolygonDetailed
           resultLayer={detailLayer}
