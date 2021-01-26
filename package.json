@@ -28,7 +28,8 @@
     "react-scripts": "^4.0.0",
     "react-use": "^12.10.0",
     "recompose": "^0.30.0",
-    "dexie": "^3.0.2"
+    "dexie": "^3.0.2",
+    "react-scroll": "^1.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -43,7 +44,7 @@
     "pretty-quick": "^2.0.0",
     "@testing-library/react": "^11.2.2",
     "@testing-library/jest-dom": "^5.11.6",
-    "cypress": "^6.2.1",
+    "cypress": "^6.3.0",
     "cypress-file-upload": "^4.1.1"
   },
   "eslintConfig": {
