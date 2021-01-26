@@ -194,6 +194,7 @@ const PolygonInfobox = ({
   const [detailResult, setDetailResult] = useState(null);
   const [extraInfo, setExtraInfo] = useState(null);
   const [controller, setController] = useState(null);
+  const [infoboxScroll, setInfoboxScroll] = useState(0);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -329,15 +330,27 @@ const PolygonInfobox = ({
   };
 
   const showDetailedPolygonResults = (layer, result) => {
+    // Remember scroll position of infobox
+    if (!polygonDetailsVisible) {
+      const wrapper = document.querySelector(".infobox-side");
+      setInfoboxScroll(wrapper.scrollTop);
+    }
+
     setPolygonDetailsVisible(true);
     setDetailLayer(layer);
     setDetailResult(result);
   };
 
   const hideDetailedResults = () => {
-    setPolygonDetailsVisible(false);
-    setDetailLayer(null);
     setDetailResult(null);
+
+    // Set scroll position to original value
+    let wrapper = document.querySelector(".infobox-side");
+    setTimeout(() => {
+      setPolygonDetailsVisible(false);
+      wrapper.scrollTop = infoboxScroll;
+      setDetailLayer(null);
+    }, 5);
   };
 
   const makeAreaReport = async (layerCodes, wkt, abortController) => {
