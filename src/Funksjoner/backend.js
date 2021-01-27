@@ -36,7 +36,20 @@ class Backend {
   }
 
   static async hentLokalFil(filnavn) {
-    return this.getPromise(filnavn);
+    try {
+      const response = await fetch(filnavn, {
+        method: "GET",
+        headers: {
+          Accept: "application/json"
+        },
+        cache: "no-cache"
+      });
+      const json = await response.json();
+      return json;
+    } catch (e) {
+      console.error(filnavn, e);
+      return null;
+    }
   }
 
   static async hentStedsnavn(lng, lat, zoom) {
