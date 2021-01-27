@@ -44,13 +44,16 @@ describe("Draw Polygon Tests", () => {
   it("Run area report", () => {
     // Select all area reports, run and intercept request
     cy.contains("Arealrapport");
-    cy.get("#polygon-layer-expander").click();
     cy.contains("Verneplan for Vassdrag");
     cy.get(".polygon-layers-item >>> input").click({ multiple: true });
     cy.wait(100);
+
+    // Intercept requests
     cy.intercept(Cypress.env("baseapi") + "/rpc/arealstatistikk").as(
       "getAreaReport"
     );
+
+    // Run report
     cy.get("#polygon-run-button").click();
     cy.contains("Valgte arealrapporter");
 
@@ -69,11 +72,13 @@ describe("Draw Polygon Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("Kommuner");
     cy.get(".generic_element:nth-child(2)").contains("Kartverket");
     // Eiendommer
-    cy.get(".generic_element:nth-child(3)").contains("Eiendommer");
+    cy.get(".generic_element:nth-child(3)").contains("Eiendommer", {
+      timeout: 15000
+    });
     cy.get(".generic_element:nth-child(3)").contains("Kartverket");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains(
-      "Arter nasjonal forvaltningsinteresse"
+      "Arter Nasjonal Forvaltningsinteresse"
     );
     cy.get(".generic_element:nth-child(4)").contains("Miljødirektoratet");
     // Breer
@@ -119,7 +124,7 @@ describe("Draw Polygon Tests", () => {
     cy.get(".generic_element:nth-child(2)").contains("2");
     // Eiendommer
     cy.get(".generic_element:nth-child(3)").contains("99+");
-    // Arter nasjonal forvaltningsinteresse
+    // Arter Nasjonal Forvaltningsinteresse
     cy.get(".generic_element:nth-child(4)").contains("1");
     // Breer
     cy.get(".generic_element:nth-child(5) >>>>> .MuiBadge-badge").should(

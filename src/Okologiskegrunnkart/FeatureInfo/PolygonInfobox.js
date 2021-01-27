@@ -30,6 +30,8 @@ const availableLayers = [
   {
     name: "Fylker",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "FYL",
     icon: "terrain",
     owner: "Kartverket"
@@ -37,6 +39,8 @@ const availableLayers = [
   {
     name: "Kommuner",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "KOM",
     icon: "flag",
     owner: "Kartverket"
@@ -44,13 +48,16 @@ const availableLayers = [
   {
     name: "Eiendommer",
     selected: false,
+    disabled: false,
     code: "MAT",
     icon: "home",
     owner: "Kartverket"
   },
   {
-    name: "Arter nasjonal forvaltningsinteresse",
+    name: "Arter Nasjonal Forvaltningsinteresse",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "ANF",
     icon: "Arter",
     owner: "Miljødirektoratet"
@@ -58,6 +65,8 @@ const availableLayers = [
   {
     name: "Breer i Norge",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "BRE",
     icon: "Geologi",
     owner: "Norges vassdrags- og energidirektorat"
@@ -65,6 +74,8 @@ const availableLayers = [
   // {
   //   name: "Elvenett Elvis",
   //   selected: false,
+  //   disabled: false,
+  //   slow: false,
   //   code: "ELV",
   //   icon: "Ferskvann",
   //   owner: "Norges vassdrags- og energidirektorat"
@@ -72,6 +83,8 @@ const availableLayers = [
   {
     name: "Naturtyper - DN Håndbook 13",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "N13",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -79,6 +92,8 @@ const availableLayers = [
   {
     name: "Naturtyper - DN Håndbook 19",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "NMA",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -86,6 +101,8 @@ const availableLayers = [
   {
     name: "Naturtyper - NiN Mdir",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "NIN",
     icon: "Naturtyper",
     owner: "Miljødirektoratet"
@@ -93,6 +110,8 @@ const availableLayers = [
   {
     name: "Naturvernområder",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "VRN",
     icon: "Administrative støttekart",
     owner: "Miljødirektoratet"
@@ -100,6 +119,8 @@ const availableLayers = [
   {
     name: "Innsjødatabase",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "ISJ",
     icon: "Ferskvann",
     owner: "Norges vassdrags- og energidirektorat"
@@ -107,6 +128,8 @@ const availableLayers = [
   {
     name: "Vannkraft - Magasin",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "MAG",
     icon: "Ferskvann",
     owner: "Miljødirektoratet"
@@ -114,6 +137,8 @@ const availableLayers = [
   // {
   //   name: "Flomsoner",
   //   selected: false,
+  //   disabled: false
+  //   slow: false,
   //   code: "FLO",
   //   icon: "Ferskvann",
   //   owner: "Norges vassdrags- og energidirektorat"
@@ -121,6 +146,8 @@ const availableLayers = [
   {
     name: "Verneplan for Vassdrag",
     selected: false,
+    disabled: false,
+    slow: false,
     code: "VVS",
     icon: "Ferskvann",
     owner: "Norges vassdrags- og energidirektorat"
@@ -153,7 +180,9 @@ const PolygonInfobox = ({
   handlePolygonSaveModal,
   getSavedPolygons,
   polygonDetailsVisible,
-  setPolygonDetailsVisible
+  setPolygonDetailsVisible,
+  loadingAreaReport,
+  setLoadingAreaReport
 }) => {
   const classes = useStyles();
   const [perimeter, setPerimeter] = useState(null);
@@ -161,10 +190,11 @@ const PolygonInfobox = ({
   const [area, setArea] = useState(null);
   const [areaUnit, setAreaUnit] = useState("m");
   const [totalArea, setTotalArea] = useState(null);
-  const [loadingFeatures, setLoadingFeatures] = useState(false);
   const [detailLayer, setDetailLayer] = useState(null);
   const [detailResult, setDetailResult] = useState(null);
   const [extraInfo, setExtraInfo] = useState(null);
+  const [controller, setController] = useState(null);
+  const [infoboxScroll, setInfoboxScroll] = useState(0);
 
   const polylineJSON = JSON.stringify(polyline);
   const polygonJSON = JSON.stringify(polygon);
@@ -295,20 +325,79 @@ const PolygonInfobox = ({
     setAreaUnit(unit);
   }, [polygon, polygonJSON]);
 
-  const handleLoadingFeatures = loading => {
-    setLoadingFeatures(loading);
+  const handleLoadingAreaReport = loading => {
+    setLoadingAreaReport(loading);
   };
 
   const showDetailedPolygonResults = (layer, result) => {
+    // Remember scroll position of infobox
+    if (!polygonDetailsVisible) {
+      const wrapper = document.querySelector(".infobox-side");
+      setInfoboxScroll(wrapper.scrollTop);
+    }
+
     setPolygonDetailsVisible(true);
     setDetailLayer(layer);
     setDetailResult(result);
   };
 
   const hideDetailedResults = () => {
-    setPolygonDetailsVisible(false);
-    setDetailLayer(null);
     setDetailResult(null);
+
+    // Set scroll position to original value
+    let wrapper = document.querySelector(".infobox-side");
+    setTimeout(() => {
+      setPolygonDetailsVisible(false);
+      wrapper.scrollTop = infoboxScroll;
+      setDetailLayer(null);
+    }, 5);
+  };
+
+  const makeAreaReport = async (layerCodes, wkt, abortController) => {
+    // NOTE1: in order to cancel this request, the fetch has to be placed
+    // in this file instead of in backend.js file.
+
+    // NOTE2: polygon need to be preprocessed according
+    // to "well-known text representation of geometry"
+    // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
+    const host = window.location.host;
+    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
+    }
+    let url = `${apiSettings}/rpc/arealstatistikk`;
+
+    const codes = layerCodes.join(",");
+    const body = { kartlag: codes, wkt };
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify(body),
+        signal: abortController.signal
+      });
+      const json = await response.json();
+      return json;
+    } catch (e) {
+      console.error(url, e);
+      if (e.name === "AbortError") {
+        return "AbortError";
+      } else {
+        return null;
+      }
+    }
+  };
+
+  const abortAreaReport = async () => {
+    if (controller !== null) {
+      await controller.abort();
+      setController(null);
+      handlePolygonResults(null);
+      handleLoadingAreaReport(false);
+    }
   };
 
   const grensePolygonGeomJSON = JSON.stringify(grensePolygonGeom);
@@ -358,7 +447,7 @@ const PolygonInfobox = ({
   ]);
 
   return (
-    <div className="infobox-side">
+    <div id="infobox-side" className="infobox-side">
       {polygonDetailsVisible ? (
         <PolygonDetailed
           resultLayer={detailLayer}
@@ -388,6 +477,7 @@ const PolygonInfobox = ({
             uploadPolygonFile={uploadPolygonFile}
             handlePolygonSaveModal={handlePolygonSaveModal}
             getSavedPolygons={getSavedPolygons}
+            abortAreaReport={abortAreaReport}
           />
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">
@@ -418,35 +508,35 @@ const PolygonInfobox = ({
                 </div>
               </div>
             </div>
-            {extraInfo && grensePolygon === "fylke" && (
+            {grensePolygon === "fylke" && (
               <div className="infobox-text-wrapper-polygon">
                 <Terrain />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Fylke</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>
             )}
-            {extraInfo && grensePolygon === "kommune" && (
+            {grensePolygon === "kommune" && (
               <div className="infobox-text-wrapper-polygon">
                 <Flag />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Kommune</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>
             )}
-            {extraInfo && grensePolygon === "eiendom" && (
+            {grensePolygon === "eiendom" && (
               <div className="infobox-text-wrapper-polygon">
                 <Home />
                 <div className="infobox-text-multiple">
                   <div className="infobox-text-primary">Matrikkel</div>
                   <div className="infobox-text-secondary">
-                    {extraInfo ? extraInfo : "-"}
+                    {extraInfo ? extraInfo : "---"}
                   </div>
                 </div>
               </div>
@@ -454,12 +544,16 @@ const PolygonInfobox = ({
           </div>
 
           <PolygonLayers
+            grensePolygon={grensePolygon}
             availableLayers={availableLayers}
             polygon={polygon}
             handlePolygonResults={handlePolygonResults}
-            handleLoadingFeatures={handleLoadingFeatures}
+            handleLoadingAreaReport={handleLoadingAreaReport}
+            makeAreaReport={makeAreaReport}
+            controller={controller}
+            setController={setController}
           />
-          {polygon && (loadingFeatures || polygonResults) && (
+          {polygon && (loadingAreaReport || polygonResults) && (
             <div className="detailed-info-container-polygon">
               <div className="layer-results-side">
                 <ListItem id="polygon-results-header">
@@ -474,7 +568,7 @@ const PolygonInfobox = ({
                   <ListItemText primary="Valgte arealrapporter" />
                 </ListItem>
                 <div className="layer-results-scrollable-side">
-                  {loadingFeatures && (
+                  {loadingAreaReport && (
                     <div className={classes.root}>
                       <LinearProgress
                         id="polygon-area-report-progress"

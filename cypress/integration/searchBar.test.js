@@ -997,7 +997,7 @@ describe("Search Bar Tests", () => {
       .should("have.length", 14);
     cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien");
     cy.get(".treffliste.searchresultpage").contains("KNR-GNR-BNR 7375 RØROS");
-    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien 282");
+    cy.get(".treffliste.searchresultpage").contains("5025-33");
 
     // Check pagination
     cy.get(".MuiPagination-ul")
@@ -1013,6 +1013,7 @@ describe("Search Bar Tests", () => {
     cy.get(".MuiPagination-ul li:nth-child(3)").click();
     cy.wait("@getPropertyPage1");
     cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien");
+    cy.get(".treffliste.searchresultpage").contains("5025-33");
     cy.get(".treffliste.searchresultpage")
       .find(".searchbar_item")
       .should("have.length", 14);
@@ -1025,7 +1026,7 @@ describe("Search Bar Tests", () => {
     // Click on last page (page 3)
     cy.get(".MuiPagination-ul li:nth-child(4)").click();
     cy.wait("@getPropertyPage2");
-    cy.get(".treffliste.searchresultpage").contains("Rørosgårdveien");
+    cy.get(".treffliste.searchresultpage").contains("5025-33");
     cy.get(".treffliste.searchresultpage")
       .find(".searchbar_item")
       .should("length.gt", 0);

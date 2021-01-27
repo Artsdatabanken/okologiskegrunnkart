@@ -1,5 +1,11 @@
 import React from "react";
-import { cleanup, render, screen } from "@testing-library/react";
+import {
+  cleanup,
+  render,
+  screen,
+  fireEvent,
+  waitForElementToBeRemoved
+} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import InfoboxSide from "../../../src/Okologiskegrunnkart/FeatureInfo/InfoboxSide";
 import kartlagMock from "../../tools/kartlagMock.json";
@@ -370,8 +376,8 @@ it("should render polygon data when polygon is defined", () => {
   getByText("Arealrapport");
 });
 
-it("should render results with polygon and polygon results defined", () => {
-  const { getByText, getAllByText } = renderInfoboxSide({
+it("should render results with polygon and polygon results defined", async () => {
+  const { getByText, getAllByText, queryByText } = renderInfoboxSide({
     markerType: "polygon",
     polygon: geom2,
     polygonResults: polygonResults
@@ -389,11 +395,15 @@ it("should render results with polygon and polygon results defined", () => {
   getByText("Areal");
   getByText("1464.2 km²");
   getByText("Arealrapport");
+  // Close expander
+  getByText("Lag arealrapport");
+  fireEvent.click(getByText("Arealrapport"));
+  await waitForElementToBeRemoved(() => queryByText("Lag arealrapport"));
   // Polygon results
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");
@@ -424,7 +434,7 @@ it("should render results with polygon and polygon results defined", () => {
   expect(badges[1]).toHaveClass("MuiBadge-colorPrimary");
 });
 
-it("should render no results with polygon and empty polygon results", () => {
+it("should render no results with polygon and empty polygon results", async () => {
   const results = {
     ANF: null,
     BRE: null,
@@ -439,7 +449,7 @@ it("should render no results with polygon and empty polygon results", () => {
     VRN: null,
     VVS: null
   };
-  const { getByText, getAllByText } = renderInfoboxSide({
+  const { getByText, getAllByText, queryByText } = renderInfoboxSide({
     markerType: "polygon",
     polygon: geom2,
     polygonResults: results
@@ -457,11 +467,15 @@ it("should render no results with polygon and empty polygon results", () => {
   getByText("Areal");
   getByText("1464.2 km²");
   getByText("Arealrapport");
+  // Close expander
+  getByText("Lag arealrapport");
+  fireEvent.click(getByText("Arealrapport"));
+  await waitForElementToBeRemoved(() => queryByText("Lag arealrapport"));
   // Polygon results
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");
@@ -497,7 +511,7 @@ it("should render no results with polygon and empty polygon results", () => {
   expect(badges).toBeNull();
 });
 
-it("should render error when error is returned from polygon results", () => {
+it("should render error when error is returned from polygon results", async () => {
   const results = {
     ANF: { error: true },
     BRE: { error: true },
@@ -512,7 +526,7 @@ it("should render error when error is returned from polygon results", () => {
     VRN: { error: true },
     VVS: { error: true }
   };
-  const { getByText, getAllByText } = renderInfoboxSide({
+  const { getByText, getAllByText, queryByText } = renderInfoboxSide({
     markerType: "polygon",
     polygon: geom2,
     polygonResults: results
@@ -530,11 +544,15 @@ it("should render error when error is returned from polygon results", () => {
   getByText("Areal");
   getByText("1464.2 km²");
   getByText("Arealrapport");
+  // Close expander
+  getByText("Lag arealrapport");
+  fireEvent.click(getByText("Arealrapport"));
+  await waitForElementToBeRemoved(() => queryByText("Lag arealrapport"));
   // Polygon results
   getByText("Fylker");
   getByText("Kommuner");
   getByText("Eiendommer");
-  getByText("Arter nasjonal forvaltningsinteresse");
+  getByText("Arter Nasjonal Forvaltningsinteresse");
   getByText("Breer i Norge");
   getByText("Naturtyper - DN Håndbook 13");
   getByText("Naturtyper - DN Håndbook 19");

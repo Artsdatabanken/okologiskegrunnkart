@@ -65,7 +65,8 @@ const PolygonDrawTool = ({
   showEiendomPolygon,
   uploadPolygonFile,
   handlePolygonSaveModal,
-  getSavedPolygons
+  getSavedPolygons,
+  abortAreaReport
 }) => {
   const classes = useStyles();
 
@@ -75,6 +76,7 @@ const PolygonDrawTool = ({
 
   const handleRadioChange = event => {
     handleGrensePolygon(event.target.value);
+    abortAreaReport();
   };
 
   const deletePolygon = () => {
@@ -277,6 +279,7 @@ const PolygonDrawTool = ({
                       addPolyline(polygon);
                       handleEditable(true);
                       handlePolygonResults(null);
+                      abortAreaReport();
                     }}
                     disabled={!polygonEditable}
                   >
@@ -312,8 +315,6 @@ const PolygonDrawTool = ({
                     className={classes.customIconButtom}
                     onClick={() => {
                       if (polyline.length > 1) {
-                        // addPolygon(polyline);
-                        // addPolyline([]);
                         finishPolygon(polyline);
                       }
                     }}
@@ -346,7 +347,10 @@ const PolygonDrawTool = ({
               <IconButton
                 id="delete-polygon-button"
                 className={classes.customIconButtom}
-                onClick={() => deletePolygon()}
+                onClick={() => {
+                  deletePolygon();
+                  abortAreaReport();
+                }}
               >
                 <Delete />
               </IconButton>

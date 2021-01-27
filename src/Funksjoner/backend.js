@@ -35,23 +35,6 @@ class Backend {
     }
   }
 
-  static async postPromise(url, body) {
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8"
-        },
-        body: JSON.stringify(body)
-      });
-      const json = await response.json();
-      return json;
-    } catch (e) {
-      console.error(url, e);
-      return null;
-    }
-  }
-
   static async hentLokalFil(filnavn) {
     return this.getPromise(filnavn);
   }
@@ -239,23 +222,6 @@ class Backend {
           reject(err);
         });
     });
-  }
-
-  static async makeAreaReport(layerCodes, wkt) {
-    // NOTE: polygon need to be preprocessed according
-    // to "well-known text representation of geometry"
-    // https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry
-    const host = window.location.host;
-    let apiSettings = "https://okologiskegrunnkartapi.test.artsdatabanken.no";
-    if (host === "okologiskegrunnkart.artsdatabanken.no") {
-      apiSettings = "https://okologiskegrunnkartapi.artsdatabanken.no";
-    }
-    let url = `${apiSettings}/rpc/arealstatistikk`;
-
-    const codes = layerCodes.join(",");
-    const body = { kartlag: codes, wkt };
-
-    return this.postPromise(url, body);
   }
 }
 
