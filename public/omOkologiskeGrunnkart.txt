@@ -1,0 +1,43 @@
+Denne kartportalen er utviklet på oppdrag fra Klima- og miljødepartementet som en del av satsningen på å øke kunnskapen om vår natur – økologisk grunnkart. Utviklingen av denne kartportalen er en viktig oppfølging av stortingsmeldingen Natur for livet. Portalen skal vise stedfestet informasjon om arter, naturtyper, landskap og miljøvariabler som er relevant for forekomsten av dette mangfoldet. 
+
+Miljødirektoratet har sammen med Direktoratsgruppa for økologisk grunnkart utarbeidet kriterier for hvilke kart som kan vises i portalen. Gruppa skal på bakgrunn av disse kriteriene peke ut kart til portalen. 
+
+Kart som vises i portalen, skal være tilgjengelig i Geonorge. I kartkatalogen til Geonorge ligger økologiske grunnkart som et eget temaområde. Her finner man metadata og nedlastbare versjoner av kartene i portalen til bruk i egne innsynsløsninger og verktøy. 
+
+I portalen får du oversikt over alle de tilgjengelige kartlagene som dekkes av temaet økologisk grunnkart. Her kan du navigere, sortere og vise ulike temalag. Du kan også finne stedfestet informasjon ved å klikke hvor som helst kartet, eller søke på fylker, kommuner eller eiendommer. Det er også mulig å søke ved hjelp av navn eller fritekst.  
+
+## Kriteriesett for utvelgelse av økologiske kart og administrative støttekart
+Kriteriesett- økologiske kartlag: 
+•	Kart må vise stedfestet informasjon om arter, naturtyper, landskap eller miljøvariabler. Kart med høyest nytteverdi for etatene prioriteres. 
+•	Kartlag må ha oppgitt kilde og tilstrekkelig metodisk dokumentasjon.                                                                                
+•	Kartlag må ha god nok sikkerhet og stedskvalitet for sine tiltenkte bruksformål.                                                                                            
+•	Kartlag må tilfredsstille krav i Geonorge.
+ 
+Kriteriesett- administrative støttekart
+•	Kartlag som ikke viser stedfestet informasjon om arter, naturtyper, landskap eller miljøvariabler, men som vil gi en merverdi til bruken av disse. 
+•	Kartlag må være nødvendige i virket til hovedbrukerne av portal for økologisk grunnkart. 
+•	Kartlag må tilfredsstille krav i Geonorge.  
+
+ 
+
+## Direktoratsgruppa for økologisk grunnkart
+[Direktoratsgruppa for økologisk grunnkart](https://www.miljodirektoratet.no/globalassets/tema/tverrgaende-malgrupper/naturkartlegging/okologisk-grunnkart/okologiskgrunnkart_direktoratsgruppe-mandat230517.pdf) er en rådgivende gruppe som ble etablert i 2017, og ledes av Miljødirektoratet. Flere sektorer er representert i gruppa (se liste over direktorat under). Artsdatabanken deltar i sekretariatet sammen med Miljødirektoratet. Gruppen sin hovedoppgave er å peke ut kart til portalen etter de fastsatte kriteriene og klargjøre hvem som har ansvar for å kvalitetssikre og forvalte kartene. Gruppa er en viktig rådgiver i arbeidet med det økologiske grunnkart og bidrar til bedre samordning og dialog på tvers av sektorer om kartlag i portalen og bruken av disse. 
+
+
+
+## Medlemmer i Direktoratsgruppa for økologisk grunnkart
+* [Miljødirektoratet](https://www.miljodirektoratet.no/)
+* [Fiskeridirektoratet](https://www.fiskeridir.no/)
+* [Forsvarsbygg](https://www.forsvarsbygg.no/)
+* [Jernbanedirektoratet](https://www.jernbanedirektoratet.no/)
+* [Kartverket](https://www.kartverket.no/)
+* [Kystverket](https://www.kystverket.no/)
+* [Landbruksdirektoratet](https://www.landbruksdirektoratet.no/no/)
+* [Norges Geologiske Undersøkelse](https://www.ngu.no/)
+* [Norges vassdrags- og energidirektorat](https://www.nve.no/)
+* [Statens Vegvesen](https://www.vegvesen.no/)
+* [Norsk Polarinstitutt](https://www.npolar.no/)
+* [Direktoratet for mineralforvaltning med Bergmesteren for Svalbard](https://dirmin.no/)
+
+## Geonorge
+Data i Økologiske grunnkart er  tilgjengelig i [Geonorges Kartkatalog](https://kartkatalog.geonorge.no/?nationalinitiative=%C3%98kologiskGrunnkart).

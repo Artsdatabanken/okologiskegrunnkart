@@ -25,7 +25,8 @@ class Backend {
         method: "GET",
         headers: {
           Accept: "application/json"
-        }
+        },
+        cache: "no-cache"
       });
       const json = await response.text();
       return json;
@@ -92,16 +93,12 @@ class Backend {
     );
   }
 
-  static async getUserManualWiki() {
-    return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Brukermanual.md`
-    );
+  static async getUserManual() {
+    return this.getPromiseText(`/brukermanual.txt`);
   }
 
-  static async getAboutPageWiki() {
-    return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Om-"Økologiske-grunnkart".md`
-    );
+  static async getAboutPage() {
+    return this.getPromiseText(`/omOkologiskeGrunnkart.txt`);
   }
 
   static async hentKnrGnrBnr(knr, gnr, bnr, side = 0, numberPerPage = 20) {
