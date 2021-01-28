@@ -25,8 +25,7 @@ class Backend {
         method: "GET",
         headers: {
           Accept: "application/json"
-        },
-        cache: "no-cache"
+        }
       });
       const json = await response.text();
       return json;
