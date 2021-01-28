@@ -9,19 +9,19 @@
 
 ![image](./doc/screenshot.png)
 
-## Nyttige lenker i prosjektet
+## Useful links in the project
 
-- [Webklient](https://okologiskegrunnkart.artsdatabanken.no)
-- [Webklient testversion](https://okologiskegrunnkart.test.artsdatabanken.no)
-- [Administrasjonsverktøy](https://okologiskegrunnkartadmin.artsdatabanken.no/admin/)
-- [Wms-hjelper for å legge inn klikk url til underlag](https://okologiskegrunnkartadmin.artsdatabanken.no/static/index.html)
+- [Web client](https://okologiskegrunnkart.artsdatabanken.no)
+- [Web client test version](https://okologiskegrunnkart.test.artsdatabanken.no)
+- [Administration tool (django)](https://okologiskegrunnkartadmin.artsdatabanken.no/admin/)
+- [Wms-helper to add features to sublayers](https://okologiskegrunnkartadmin.artsdatabanken.no/static/index.html)
 - [Kartlag.json file](https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json)
 - [Cached tiles](https://data.test.artsdatabanken.no/grunnkart/)
-- [Responssjekk](https://responssjekk.test.artsdatabanken.no/)
+- [Response check](https://responssjekk.test.artsdatabanken.no/)
 
 ## Wiki
 
-Dette prosjektet har en wiki, se den her:
+This project has a wiki, access it here:
 
 - https://github.com/Artsdatabanken/okologiskegrunnkart/wiki
 
@@ -31,9 +31,9 @@ Dette prosjektet har en wiki, se den her:
 </a>
 <br/>Thanks to BrowserStack for providing an open-source account for testing & development!
 
-## Oppsett django og kartlagfila
+## Setting up django and kartlag file
 
-Les mer på vår wiki:
+Read more in our wiki:
 
 - https://github.com/Artsdatabanken/okologiskegrunnkart/wiki/%C3%85-sette-opp-django-kartlag.js-%5Butvikling%5D
 
@@ -45,19 +45,31 @@ Follow these steps:
 - Run `npm start`
 - Get the example map data `kartlag.json` from `https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json`. Save this file in the `public` folder (there exists already a `kartlag_preview.json` file).
 
-## Update automatically database layers and sublayers
+## Run unit-tests locally
 
-Follow these steps.
+Unit tests in Økologiske Grunnkart use `jest` and `react testing library`.
 
-Localhost:
+Unit-tests are run with the following command: `npm run test`.
 
-- Make sure you have django running locally.
-- Log in as superuser in the admin panel `http://localhost:8000/admin/`
-- Run the following HTTP request: `http://localhost:8000/api/v1/kartlag/fill/data/`
+## Run integration-tests locally with Cypress
 
-Test environment:
+Integration-tests can be run locally against each of the environments Økologiske Grunnkart uses: `dev` (localhost), `test`, and `prod`.
+Furthermore, integration-tests can be run locally in three different ways: `interactive`, `in the background`, and `in parallel in the background`.
 
-- Log in as superuser in the admin panel `https://okologiskegrunnkartadmin.artsdatabanken.no/admin/`
-- Run the following HTTP request: `https://okologiskegrunnkartadmin.artsdatabanken.no/api/v1/kartlag/fill/data/`
+Run one of the following commands for interactive tests:
 
-You will receive a timeout error `504 Gateway Time-out` after 30 seconds. This, however, will not affect the update script which will contionue running in the background.
+- Interactive tests against dev: `npm run open`
+- Interactive tests against test: `npm run open:test`
+- Interactive tests against prod: `npm run open:prod`
+
+Run one of the following commands for tests in the background:
+
+- Backgrounbd tests against dev: `npm run e2e`
+- Backgrounbd tests against test: `npm run e2e:test`
+- Backgrounbd tests against prod: `npm run e2e:prod`
+
+Integration tests are divided in three groups which can be run separatedly. It requires opening three consoles and running one test group in each of them. This can be easily automated by doing this operation in a script or .bat file. Please note that, even though tests can be run in parallel on a single machine this way, it may require a significant amount of resources. More info at `https://docs.cypress.io/`.
+
+- Parallel tests against dev: `npm run group1`, `npm run group2`, `npm run group3`
+- Parallel tests against test: `npm run group1:test`, `npm run group2:test`, `npm run group3:test`
+- Parallel tests against prod: `npm run group1:prod`, `npm run group2:prod`, `npm run group3:prod`
