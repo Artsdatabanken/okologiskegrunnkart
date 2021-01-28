@@ -2445,7 +2445,7 @@ class App extends React.Component {
   };
 
   openAboutPage = () => {
-    backend.getAboutPageWiki().then(aboutPage => {
+    backend.getAboutPage().then(aboutPage => {
       this.setState({ aboutPage });
     });
   };

@@ -43,7 +43,7 @@ const DrawerMenu = ({
 
   const openHelp = () => {
     // returnerer brukermanualen fra wiki
-    backend.getUserManualWiki().then(manual => {
+    backend.getUserManual().then(manual => {
       setShowHelpModal(true);
       setManual(manual);
     });

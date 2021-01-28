@@ -73,6 +73,7 @@ describe("Select Polygon from Fylke, Kommune and Eiendom Tests", () => {
     // Check progress bar is visible and wait until request has finished
     cy.get("#polygon-layer-expander").click();
     cy.wait("@getAreaReport");
+    cy.wait(1500);
   });
 
   it("Check list with area report results for eiendom. If it fails, area report layers may have changed", () => {

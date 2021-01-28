@@ -1,0 +1,50 @@
+## Å bevege seg i kartet og bytte bakgrunnskart
+- Du kan panorere kartet ved å holde venstre museknapp nede samtidig som du beveger musepekeren
+- Du kan zoome ut og inn i kartet ved å bruke "+" og "-" knappene i nedre høyre hjørne av kartet. Du kan også zoome ut og inn ved å bruke scrollhjulet på musa
+- Du kan endre bakgrunnskart via knappen i nedre venstre hjørne av kartet. 
+  - Når du klikker på den får du opp de tilgjengelige alternativene
+  - Når du klikker på en av disse knappene, byttes kartet
+  - Klikk på den samme bakgrunnskartknappen igjen for å lukke boksen 
+
+## Å slå av og på et kartlag
+Hvis du er på en større skjerm vil du finne en liste over tilgjengelige kartlag i en fane på høyresiden, og på mobiltelefon eller små skjermer vil denne samme listen befinne seg nederst i vinduet. Fremfor hvert av navnene på disse kartlagene vises det en knapp. Om du klikker på denne knappen, blir knappen grønn (aktiv), og kartlaget vil vises.
+
+## Å velge kartlag 
+Mange av kartlagoppføringene inneholder flere varianter av uttegning/utfigurering. Ved å ekspandere kartlagselementet (liten hake helt til høyre) velger du selv hvilke som er synlige i kartet. Her kan du selv slå på/av de ulike variantene. Kartlag som inneholder mer enn en variant har en funksjon for å legge til alle varianter, denne er alltid plassert som øverste alternativ. 
+
+## Tegnforklaring/legend
+Hver gang du aktiverer et kartlag blir tegnforklaringen for det aktuelle laget tilgjengelig i "Tegnforklaring" øverst i kartlagsmenyen. Antall aktive kartlag vises i et grønt symbol på ikonet for tegnforklaring. Dersom du ønsker å se tegnfoklaringen og kartlagslisten samtidig, velger du ikonet helt til høyre på tegnforklaringsfeltet. Da vil tegnforklaringen vises i vestre marg.
+
+## Å filtrere listen over kartlag
+Alle kartlag er tilordnet tema og ulike "emneknagger" for å hjelpe brukeren å finne fram i de relevante kartlagene. Disse finner du i kartlagsmenyen "Filter". Tema og emneknagger finner du også på hvert enkelt element i kartlagslista. Du kan også selv velge hvordan lista over kartlag skal sorteres; tematisk, alfabetisk eller etter dataeier.
+
+## Favoritter
+Du kan selv tilpasse listen over hvilke kartlag du ønsker å se. Dette gjøres fra menyen du finner ved å klikke på knappen med tre horisontale linjer i øvre høyre hjørne, å velge "Editere favoritt kartlag". Du kan enkelt velge mellom "alle" og "favoritter" i eget ikon øverst i kartlagslisten. Favorittene lagres i nettlesere (indexed db).
+
+## Søk
+Det er et globalt søk i forvatningsportalen. Du kan søke på fylke/kommune/stedsnavn/kartlag/tema i søkevinduet. Det er også mulig å søke på kommune-, gårds- og bruksnummer (eks. 5001-413-21), og et geografisk punkt (lat, lng). Koordinatene i søket er i desimalgrader (eks. 71.1856, 25.6757).
+Etter å ha skrevet inn i søkevinduet vil du umiddelbart få forslag opp i en liste nedenfor søkevinduet. Du kan også trykke "søk" eller trykke "enter". Da vil du komme til et søkeresultat, og søketreffene er sortert etter kategoriene: "kartlag", "punkt", "stedsnavn", "adresser" og "eiendommer". Ved å klikke på ett av disse fem alternativene får du alle treff på ditt søk innen den aktuelle kategorien.
+
+## Klikk-i-kart
+Ved å klikke med musas venstreknapp på et punkt i kartet vil du åpnes et vindu i venstremargen med informasjon tilgjengelig i dette punktet. Stedsnavn, fylke/kommune, eiendomsformasjon og koordinater vilt alltid vises etter et klikk. Du vil også få treff i kartlagene du har aktivert/aktive. Ønsker du å se informasjon også fra kartlag du ikke har aktive velger du "Søk informasjon for alle lag i dette punktet". Under hvert element i lista som dukker opp ser du tilgjengelig informasjon fra de aktuelle kartlaga. Antall treff i de ulike kartlagene angis med en grønn boble i ikonet for kartlaget. Ved å klikke på elementet får du detaljert informasjon om hva som finnes i det aktuelle området, og kan dersom dataeier tilbyr et faktaark finner du en lenke her.
+
+## Marker grenser
+Etter å ha klikket i kartet vil du i venstremargens infoboks kunne ekspandere et element som heter marker grenser. Her kan du velge å markere eiendomsgrenser, kommune- og/eller fylkesgrenser. 
+
+## Polygon
+Du kan enten få informasjon fra et punkt eller ved hjelp av et polygon. Du velger variant øverst til venstre i kartvinduet. Her kan du selv:
+* definere et eget polygon (ved å tegne i kartet)
+* laste opp et eget polygon (.geojson i de fleste projeksjoner)
+* velge fra ei predefinert list over tilgjengelige geometrier (fylker, kommuner, eiendommer)
+
+Ved å velge f.eks. eiendom, og deretter klikke i kartet endres polygonet i tråd med hvor du klikker.
+
+Du kan også lagre polygoner du tegner/laster opp/velger, for senere å benytte de samme objektene til videre arbeid. Polygonene lagres i nettleseren (indexed db). Du kan selv navngi polygonene for enklere å finne tilbake til dem.
+  
+## Arealrapport
+
+Du kan også få generert en arealrapport i denne modusen. Etter å ha valgt hvilket polygon du ønsker, går du videre til "arealrapport". Her krysser du av for hvilke datasett du ønsker at skal inngå i din arealrapport. Listen over tilgjengelige datasett er dessverre ikke like omfattende som for punktinformasjon. Artsdatabanken vil legge til flere datasett i denne listen etter hvert som dataeiere tilbyr sine datasett som vektordata.
+
+## Lenke
+
+Lenka fra portalen inneholder de aktive og punktet du sist klikket på. Dette gjør at du kan kopiere lenka fra nettleseren din, og dele denne med andre.

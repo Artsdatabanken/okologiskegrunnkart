@@ -36,7 +36,20 @@ class Backend {
   }
 
   static async hentLokalFil(filnavn) {
-    return this.getPromise(filnavn);
+    try {
+      const response = await fetch(filnavn, {
+        method: "GET",
+        headers: {
+          Accept: "application/json"
+        },
+        cache: "no-cache"
+      });
+      const json = await response.json();
+      return json;
+    } catch (e) {
+      console.error(filnavn, e);
+      return null;
+    }
   }
 
   static async hentStedsnavn(lng, lat, zoom) {
@@ -79,16 +92,12 @@ class Backend {
     );
   }
 
-  static async getUserManualWiki() {
-    return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Brukermanual.md`
-    );
+  static async getUserManual() {
+    return this.getPromiseText(`/brukermanual.txt`);
   }
 
-  static async getAboutPageWiki() {
-    return this.getPromiseText(
-      `https://raw.githubusercontent.com/wiki/Artsdatabanken/okologiskegrunnkart/Om-"Økologiske-grunnkart".md`
-    );
+  static async getAboutPage() {
+    return this.getPromiseText(`/omOkologiskeGrunnkart.txt`);
   }
 
   static async hentKnrGnrBnr(knr, gnr, bnr, side = 0, numberPerPage = 20) {
