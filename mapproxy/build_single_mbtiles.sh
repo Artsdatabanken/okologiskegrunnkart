@@ -3,6 +3,10 @@
 
 DEST_PATH=/home/grunnkart/tilesdata/grunnkart
 SOURCE_PATH=$1webmercator
+if [! -d $SOURCE_PATH ] then
+  echo Using google
+  SOURCE_PATH=$1google
+fi
 SOURCE_MBTILES=$(ls -Art $SOURCE_PATH/*.mbtile | tail -n 1) # There may be multiple files in cache - use newest
 
 if [ -z ${SOURCE_MBTILES} ]; then 
