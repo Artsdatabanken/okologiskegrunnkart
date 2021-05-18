@@ -1,0 +1,391 @@
+﻿<Window x:Class="Geonorge.MassivNedlasting.Gui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Geonorge.MassivNedlasting;assembly=Geonorge.MassivNedlasting.Lib"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto" 
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" MinWidth="1250" WindowState="Maximized"    
+        Title="Geonorge - massiv nedlasting" Icon="Content/geonorge.ico"
+        Closing="ClosingWindow">
+
+    <ScrollViewer x:Name="MainScrollbar" HorizontalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,20,0,20">
+            <StackPanel.Resources>
+                <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+            </StackPanel.Resources>
+            <StackPanel>
+                <TextBlock Margin="0 0 60 10" FontSize="12" FontStyle="Italic" HorizontalAlignment="Right">
+                    <Hyperlink Foreground="Red" Click="Hyperlink_OnClick">
+                        <TextBlock Name="versionStatusMessage" />
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <DockPanel>
+                <Image HorizontalAlignment="Left" Margin="40 0 0 20" Source="Content/geonorge_logo_225px.gif"/>
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0 0 40 0">
+
+                    <ComboBox materialDesign:HintAssist.Hint="Config fil" IsEditable="True"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="CmbConfigFiles_OnSelectionChanged" Name="cmbConfigFiles" Margin="0 0 50 0" MinWidth="150"/>
+                    <Button Name="BtnSave" 
+                            Margin="0 0 10 0"  Click="BtnSave_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Lagre">
+                        <materialDesign:PackIcon
+                            Kind="ContentSave"
+                            Height="24"
+                            Width="24" />
+                    </Button>
+                    <Button Name="BtnDownload" 
+                            Margin="0 0 10 0"  Click="BtnDownload_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Start nedlasting">
+                        <materialDesign:PackIcon
+                            Kind="Download"
+                            Height="24"
+                            Width="24" />
+                    </Button>
+                    <Button Name="BtnSettings" 
+                            Margin="0 0 10 0"  Click="BtnSettings_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Innstillinger">
+                        <materialDesign:PackIcon
+                            Kind="Settings"
+                            Height="24"
+                            Width="24" />
+                    </Button>
+                    <Button Name="BtnHelp" 
+                            Margin="0 0 10 0"  Click="BtnHelp_OnClick"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            ToolTip="Hjelp">
+                        <materialDesign:PackIcon
+                            Kind="Help"
+                            Height="24"
+                            Width="24" />
+                    </Button>
+                    
+                </StackPanel>
+            </DockPanel>
+
+
+            <!-- Overskrifter -->
+            <Grid Background="#dfdcda">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" MinWidth="625">
+                    <TextBlock FontWeight="Bold" ToolTip="Datasett" FontSize="16" Margin="40 0 20 0" VerticalAlignment="Center" Text="Datasett"></TextBlock>
+                    <materialDesign:PackIcon Kind="Filter" Foreground="{Binding ElementName=SearchDataset, Path=BorderBrush}" VerticalAlignment="Center" />
+                    <TextBox Name="SearchDataset" materialDesign:HintAssist.Hint="Søk" ToolTip="Søk på navn eller eier" MinWidth="100" VerticalAlignment="Center" Margin="0 0 0 0" TextChanged="SearchDataset_OnTextChanged" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="File" Margin="0 0 0 0" VerticalAlignment="Center" />
+                    <TextBlock FontWeight="Bold" FontSize="16" ToolTip="Nedlastbare filer for valgt datasett" Padding="10" Margin="0 0 10 0" VerticalAlignment="Center">Filer</TextBlock>
+                    <materialDesign:PackIcon Kind="Filter" Foreground="{Binding ElementName=SearchDatasetFiles, Path=BorderBrush}" VerticalAlignment="Center" />
+                    <TextBox Name="SearchDatasetFiles" materialDesign:HintAssist.Hint="Søk" ToolTip="Søk på filnavn eller proporsjon" MinWidth="100" VerticalAlignment="Center" Margin="0 0 0 0" TextChanged="SearchDatasetFiles_OnTextChanged" />
+                </StackPanel>
+            </Grid>
+
+            <!-- Tabell overskrifter-->
+            <Grid Background="#b6afa8" Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                    <TextBlock ToolTip="Navn på datasett" Margin="48 0 0 0" Width="350" VerticalAlignment="Center" Text="Navn"></TextBlock>
+                    <TextBlock ToolTip="Eier av datasettet" Margin="0 0 26 0" Width="200" VerticalAlignment="Center" Text="Eier"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock ToolTip="Filnavn" Margin="8 0 0 0" Width="350" VerticalAlignment="Center" Text="Navn"></TextBlock>
+                    <TextBlock ToolTip="Projeksjon" Width="150" VerticalAlignment="Center" Text="Projeksjon"></TextBlock>
+                    <ToggleButton x:Name="BtnSelectAll" Width="20" Height="20" Margin="0 10 10 10"  Click="BtnSelectAll_OnClick"
+                                  Style="{StaticResource MaterialDesignActionToggleButton}"
+                                  ToolTip="Velg/fjern alle">
+                        <ToggleButton.Content>
+                            <materialDesign:PackIcon
+                                Kind="Plus" 
+                                Height="18"
+                                Width="18"/>
+                        </ToggleButton.Content>
+                        <materialDesign:ToggleButtonAssist.OnContent>
+                            <materialDesign:PackIcon
+                                Kind="Minus"
+                                Height="18"
+                                Width="18"/>
+                        </materialDesign:ToggleButtonAssist.OnContent>
+                    </ToggleButton>
+                    <ToggleButton Name ="ToggleSubscribeSelectedDatasetFiles"
+                        Click="BtnSubscribe_OnClick"
+                        Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                        ToolTip="Abonner på datasettet. Få med deg evt endirnger i datasettet ved å automatisk legge til/slette filer">
+                        <materialDesign:PackIcon
+                            Kind="Rss"
+                            Height="21"
+                            Width="21">
+                        </materialDesign:PackIcon>
+                        <materialDesign:ToggleButtonAssist.OnContent>
+                            <materialDesign:PackIcon
+                                Kind="Rss" 
+                                Height="21"
+                                Width="21"/>
+                        </materialDesign:ToggleButtonAssist.OnContent>
+                    </ToggleButton>
+                    <materialDesign:PopupBox Name="MenuSubscribe" Padding="20 20 20 20"  MaxWidth="100" DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="True">
+                        <StackPanel>
+                            <Label>Automatisk legge til/slette datasett filer</Label>
+                            <CheckBox Name="BtnAutoDeleteFiles" Style="{StaticResource MaterialDesignCheckBox}" Click="BtnAutoDeleteFiles_OnClick">Slette utgåtte filer</CheckBox>
+                            <CheckBox Name="BtnAutoAddFiles" Style="{StaticResource MaterialDesignCheckBox}" Click="BtnAutoAddFiles_OnClick">Legge til nye filer</CheckBox>
+                            <Label>Projeksjoner</Label>
+                            <ItemsControl
+                                Name="lbProjections"
+                                Grid.IsSharedSizeScope="True">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            x:Name="Border">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition
+                                                        SharedSizeGroup="Checkerz" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox
+                                                    Click="BtnProjection_OnClick"
+                                                    VerticalAlignment="Center"
+                                                    Uid="{Binding Epsg}"
+                                                    IsChecked="{Binding Selected}" />
+                                                <StackPanel
+                                                    Margin="2 0 0 0"
+                                                    Grid.Column="1">
+                                                    <TextBlock Text="{Binding Epsg}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsSelected}"
+                                                Value="True">
+                                                <Setter
+                                                    TargetName="Border"
+                                                    Property="Background"
+                                                    Value="{DynamicResource MaterialDesignSelection}" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <Label>Formater</Label>
+                            <ItemsControl
+                                Name="lbFormats"
+                                Grid.IsSharedSizeScope="True">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border
+                                            x:Name="Border">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition
+                                                        SharedSizeGroup="Checkerz" />
+                                                    <ColumnDefinition />
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox
+                                                    Click="BtnFormat_OnClick"
+                                                    VerticalAlignment="Center"
+                                                    Uid="{Binding Code}"
+                                                    IsChecked="{Binding Selected}" />
+                                                <StackPanel
+                                                    Margin="2 0 0 0"
+                                                    Grid.Column="1">
+                                                    <TextBlock Text="{Binding Code}" />
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger
+                                                Binding="{Binding IsSelected}"
+                                                Value="True">
+                                                <Setter
+                                                    TargetName="Border"
+                                                    Property="Background"
+                                                    Value="{DynamicResource MaterialDesignSelection}" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+            </Grid>
+
+            <ProgressBar
+                Value="0" 
+                Name="progressBar"
+                IsIndeterminate="False"
+                Background="White" BorderThickness="0">
+            </ProgressBar>
+
+
+            <!-- Filer for valgt datasett-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Datasett -->
+                <StackPanel Grid.Column="0" Margin="40 0 0 0">
+                    <ListBox BorderThickness="0.4" Name="LbDatasets" Height="450"
+                         SelectionChanged="ShowFiles">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="350" SharedSizeGroup="Column1"/>
+                                        <ColumnDefinition Width="200" SharedSizeGroup="Column2"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Center" ToolTip="{Binding Title}" Margin="0 0 10 3"  Grid.Column="0" Text="{Binding Title}"/>
+                                    <TextBlock VerticalAlignment="Center" Grid.Column="1" ToolTip="{Binding Organization}" Text="{Binding Organization}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </StackPanel>
+
+                <!-- Datasett filer -->
+                <StackPanel Grid.Column="1">
+
+                    <ListBox x:Name="LbSelectedDatasetFiles" 
+                             BorderThickness="0.4"  Height="450">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="350" SharedSizeGroup="Column1"/>
+                                        <ColumnDefinition Width="150" SharedSizeGroup="Column2"/>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="Column3"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Center" Grid.Column="0" ToolTip="{Binding Title}"  Text="{Binding Title}">
+                                        <materialDesign:PackIcon Margin="10 0 0 -2" ToolTip="{Binding Restrictions}" Grid.Column="2" Kind="Lock" Visibility="{Binding IsRestricted, Converter={StaticResource BoolToVisConverter}}"></materialDesign:PackIcon>
+                                    </TextBlock>
+                                    <TextBlock VerticalAlignment="Center" Grid.Column="1" ToolTip="{Binding EpsgName}" Text="{Binding Category}"/>
+                                    <ToggleButton x:Name="BtnAddOrRemove" Grid.Column="2" Width="20" Height="20" BindingGroup="{Binding LbSelectedDatasetFiles}" IsChecked="{Binding SelectedForDownload}" Click="AddRemove_OnChecked"
+                                        Style="{StaticResource MaterialDesignActionToggleButton}"
+                                        ToolTip="Legg til/Fjern">
+                                        <ToggleButton.Content>
+                                            <materialDesign:PackIcon
+                                                Kind="Plus" 
+                                                Height="18"
+                                                Width="18"/>
+                                        </ToggleButton.Content>
+                                        <materialDesign:ToggleButtonAssist.OnContent>
+                                            <materialDesign:PackIcon
+                                                Kind="Minus"
+                                                Height="18"
+                                                Width="18"/>
+                                        </materialDesign:ToggleButtonAssist.OnContent>
+                                    </ToggleButton>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </StackPanel>
+            </Grid>
+
+            <!-- Overskrift alle filer valgt for nedlasting -->
+            <StackPanel Orientation="Horizontal" Background="#dfdcda">
+                <materialDesign:PackIcon Kind="FileMultiple" Margin="40 0 0 0" VerticalAlignment="Center" />
+                <TextBlock FontWeight="Bold" FontSize="16" Padding="10" Margin="0 0 0 0" VerticalAlignment="Center">Alle filer valgt for nedlasting</TextBlock>
+            </StackPanel>
+
+            <Grid Background="#b6afa8" Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal" >
+                    <TextBlock Margin="70 0 0 0" ToolTip="Filnavn" Width="250" VerticalAlignment="Center" Text="Filnavn"></TextBlock>
+                    <TextBlock ToolTip="Projeksjon" Width="150" VerticalAlignment="Center" Text="Projeksjon"></TextBlock>
+                    <TextBlock ToolTip="Sist oppdatert" Width="150" VerticalAlignment="Center" Text="Sist oppdatert"></TextBlock>
+                    <Button x:Name="BtnRemoveAll" Margin="10 0" BindingGroup="{Binding LbSelectedFiles}" Click="BtnRemoveAll_OnClick"
+                                  
+                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                  ToolTip="Fjern alle"
+                                  Height="20"
+                                  Width="20">
+                        <materialDesign:PackIcon
+                            Kind="Minus"
+                            Height="18"
+                            Width="18" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <!-- Liste over filer valgt for nedlasting-->
+
+            <!--<TreeView TreeViewItem.Expanded="TreeViewItem_Expanded" SelectedItemChanged="LbSelectedFilesForDownload_OnSelectedItemChanged" VirtualizingStackPanel.IsVirtualizing="True" Name ="LbSelectedFilesForDownload" Margin="10" Height="300">-->
+            <TreeView TreeViewItem.Expanded="TreeViewItem_Expanded" TreeViewItem.Collapsed="TreeViewItem_Collapsed"  SelectedItemChanged="LbSelectedFilesForDownload_OnSelectedItemChanged" VirtualizingStackPanel.IsVirtualizing="True" Name ="LbSelectedFilesForDownload" Margin="20 20 0 0" Height="300">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Files}" DataType="{x:Type local:DownloadViewModel}">
+                        <TextBlock Margin="5" Text="{Binding DatasetTitle}">
+                            <materialDesign:PackIcon Margin="10 0 0 -2" ToolTip="Abonnerer på datasettet" Kind="Rss" Visibility="{Binding Subscribe, Converter={StaticResource BoolToVisConverter}}"></materialDesign:PackIcon>
+                        </TextBlock>
+                    </HierarchicalDataTemplate>
+                    <!--<Style x:Key="MaterialDesignFloatingHintTextBox"  BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}" TargetType="TreeViewItem"> Testing. Få inn material design-->
+
+                    <DataTemplate DataType="{x:Type local:DatasetFileViewModel}">
+                        <Grid Margin="15 5 0 5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock  IsEnabled="False" VerticalAlignment="Center" Grid.Column="0" ToolTip="{Binding Title}"  Text="{Binding Title}">
+                                <materialDesign:PackIcon Margin="10 0 0 -2" ToolTip="{Binding Restrictions}" Grid.Column="2" Kind="Lock" Visibility="{Binding IsRestricted, Converter={StaticResource BoolToVisConverter}}"></materialDesign:PackIcon>
+                            </TextBlock>
+
+                            <TextBlock VerticalAlignment="Center" Grid.Column="1" ToolTip="{Binding EpsgName}" Text="{Binding Category}"/>
+                            <TextBlock VerticalAlignment="Center" Grid.Column="2" Text="{Binding LastUpdated}"/>
+                            <Button x:Name="BtnAddOrRemove" Margin="10 0" Grid.Column="4" BindingGroup="{Binding LbSelectedFiles}" Click="RemoveFromDownloadList_Click"
+                                    Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                    ToolTip="Fjern"
+                                    Height="20"
+                                    Width="20">
+                                <materialDesign:PackIcon
+                                    Kind="Minus"
+                                    Height="18"
+                                    Width="18" />
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                    <Style TargetType="TreeViewItem">
+                        <Setter Property="IsExpanded" Value="{Binding Expanded}" />
+                        <Setter Property="Focusable" Value="false" />
+                        <!--<Setter Property="IsExpanded" Value="true" /> Testing -->
+                    </Style>
+                </TreeView.Resources>
+                    
+            </TreeView>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

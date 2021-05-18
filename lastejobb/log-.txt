@@ -1,0 +1,52 @@
+2020-05-03 20:17:58.976 +02:00 [INF] Start Geonorge - nedlaster
+2020-05-03 20:17:59.150 +02:00 [INF] Send download usage
+2020-05-03 20:17:59.151 +02:00 [INF] Write to config file
+2020-05-03 20:17:59.163 +02:00 [INF] Write to download history file
+2020-05-03 20:17:59.168 +02:00 [INF] Write to download log file
+2020-05-03 20:19:42.559 +02:00 [INF] Start Geonorge - nedlaster
+2020-05-03 20:19:42.737 +02:00 [ERR] Could not get selected files to download
+System.UnauthorizedAccessException: Access to the path '/home/grunnkart/forvaltningsportal-lastejobb/lastejobb' is denied. ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   at Geonorge.MassivNedlasting.DatasetService.GetSelectedFilesToDownload(ConfigFile configFile) in /home/grunnkart/Geonorge.NedlastingKlient/Lib/DatasetService.cs:line 407
+2020-05-03 20:19:42.753 +02:00 [INF] Send download usage
+2020-05-03 20:19:42.753 +02:00 [INF] Write to config file
+2020-05-03 20:19:42.754 +02:00 [ERR] Write to config file, /home/grunnkart/forvaltningsportal-lastejobb/lastejobb
+System.UnauthorizedAccessException: Access to the path '/home/grunnkart/forvaltningsportal-lastejobb/lastejobb' is denied. ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at Geonorge.MassivNedlasting.DatasetService.WriteToConfigFile(List`1 downloads) in /home/grunnkart/Geonorge.NedlastingKlient/Lib/DatasetService.cs:line 311
+2020-05-03 20:19:42.755 +02:00 [INF] Write to download history file
+2020-05-03 20:19:42.771 +02:00 [INF] Write to download log file
+2020-05-03 20:19:59.432 +02:00 [INF] Start Geonorge - nedlaster
+2020-05-03 20:19:59.628 +02:00 [ERR] Could not get selected files to download
+System.UnauthorizedAccessException: Access to the path '/home/grunnkart/forvaltningsportal-lastejobb/lastejobb' is denied. ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamReader..ctor(String path, Encoding encoding, Boolean detectEncodingFromByteOrderMarks, Int32 bufferSize)
+   at Geonorge.MassivNedlasting.DatasetService.GetSelectedFilesToDownload(ConfigFile configFile) in /home/grunnkart/Geonorge.NedlastingKlient/Lib/DatasetService.cs:line 407
+2020-05-03 20:19:59.639 +02:00 [INF] Send download usage
+2020-05-03 20:19:59.639 +02:00 [INF] Write to config file
+2020-05-03 20:19:59.640 +02:00 [ERR] Write to config file, /home/grunnkart/forvaltningsportal-lastejobb/lastejobb
+System.UnauthorizedAccessException: Access to the path '/home/grunnkart/forvaltningsportal-lastejobb/lastejobb' is denied. ---> System.IO.IOException: Permission denied
+   --- End of inner exception stack trace ---
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options)
+   at System.IO.StreamWriter..ctor(String path, Boolean append, Encoding encoding, Int32 bufferSize)
+   at Geonorge.MassivNedlasting.DatasetService.WriteToConfigFile(List`1 downloads) in /home/grunnkart/Geonorge.NedlastingKlient/Lib/DatasetService.cs:line 311
+2020-05-03 20:19:59.641 +02:00 [INF] Write to download history file
+2020-05-03 20:19:59.657 +02:00 [INF] Write to download log file
+2020-05-03 20:22:22.650 +02:00 [INF] Start Geonorge - nedlaster
+2020-05-03 20:24:13.411 +02:00 [INF] Subscribe to Dataset files
+2020-05-03 20:24:41.544 +02:00 [INF] Subscribe to Dataset files
+2020-05-03 20:24:45.367 +02:00 [INF] Send download usage
+2020-05-03 20:24:45.368 +02:00 [INF] Write to config file
+2020-05-03 20:24:45.392 +02:00 [INF] Write to download history file
+2020-05-03 20:24:45.394 +02:00 [INF] Write to download log file

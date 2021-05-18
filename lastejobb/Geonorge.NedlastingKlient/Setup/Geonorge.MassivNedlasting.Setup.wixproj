@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>241b56af-dbc8-4db5-99d7-7739ba59949c</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Geonorge.MassivNedlasting.Setup</OutputName>
+    <OutputType>Package</OutputType>
+    <Name>Geonorge.MassivNedlasting.Setup</Name>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ConsoleApp.wxs" />
+    <Compile Include="GuiApp.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gui\Geonorge.MassivNedlasting.Gui.csproj">
+      <Name>Geonorge.MassivNedlasting.Gui</Name>
+      <Project>{8c20e9a5-573f-430c-a4ab-879c9dcbcd2b}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\Console\Geonorge.Nedlaster.csproj">
+      <Name>Geonorge.Nedlaster</Name>
+      <Project>{f3f01547-bc08-469f-b7be-2b5eb77fc9a6}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="banner.bmp" />
+    <Content Include="dialog.bmp" />
+    <Content Include="geonorge.ico" />
+    <Content Include="Transforms.xslt" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <!--<Exec Command="dotnet publish ..\Console\Geonorge.Nedlaster.csproj -c $(Configuration) -r win-x64" /> -->
+    <PropertyGroup>
+      <LinkerBaseInputPaths>..\Console\bin\$(Configuration)\netcoreapp2.1\win-x64\publish;..\Gui\bin\$(Configuration)</LinkerBaseInputPaths>
+      <DefineConstants>ConsolePath=..\Console\bin\$(Configuration)\netcoreapp2.1\win-x64\publish;GuiPath=..\Gui\bin\$(Configuration)</DefineConstants>
+    </PropertyGroup>
+    <HeatDirectory OutputFile="ConsoleApp.wxs" DirectoryRefId="INSTALLFOLDER_CONSOLE" ComponentGroupName="ConsoleApp" SuppressCom="true" Directory="..\Console\bin\$(Configuration)\netcoreapp2.1\win-x64\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.ConsolePath" Transforms="Transforms.xslt" />
+    <HeatDirectory OutputFile="GuiApp.wxs" DirectoryRefId="INSTALLFOLDER_GUI" ComponentGroupName="GuiApp" SuppressCom="true" Directory="..\Gui\bin\$(Configuration)" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.GuiPath" Transforms="Transforms.xslt" />
+  </Target>
+</Project>

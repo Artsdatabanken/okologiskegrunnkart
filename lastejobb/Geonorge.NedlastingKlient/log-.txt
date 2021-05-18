@@ -1,0 +1,5 @@
+2020-04-05 22:14:16.848 +02:00 [INF] Start Geonorge - nedlaster
+2020-04-05 22:14:17.014 +02:00 [INF] Send download usage
+2020-04-05 22:14:17.015 +02:00 [INF] Write to config file
+2020-04-05 22:14:17.027 +02:00 [INF] Write to download history file
+2020-04-05 22:14:17.033 +02:00 [INF] Write to download log file

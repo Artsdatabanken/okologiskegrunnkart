@@ -19,14 +19,14 @@
         "Title": "GEOJSON-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/Basisdata/Kommuner/GEOJSON/Basisdata_0000_Norge_25833_Kommuner_GEOJSON.zip",
-        "LastUpdated": "2020-02-24T21:59:35",
+        "LastUpdated": "2021-01-04T23:04:45",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GEOJSON-format",
         "DatasetId": "Administrative enheter kommuner GEOJSON-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AdministrativeEnheterKommuner_AtomFeedGEOJSON.xml\n",
         "FilePath": "Basisdata_0000_Norge_25833_Kommuner_GEOJSON.zip",
-        "DownloadedDate": "4/19/20 9:56:36 PM"
+        "DownloadedDate": "1/6/21 5:11:02 AM"
       }
     ]
   },
@@ -52,14 +52,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/Natur/VerneplanVassdrag/GML/Natur_0000_Norge_25833_VerneplanVassdrag_GML.zip",
-        "LastUpdated": "2020-04-22T14:19:02",
+        "LastUpdated": "2021-05-01T19:33:17",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Verneplan for vassdrag GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/VerneplanVassdrag_AtomFeedGML.xml\n",
         "FilePath": "Natur_0000_Norge_25833_VerneplanVassdrag_GML.zip",
-        "DownloadedDate": "5/1/20 6:26:52 PM"
+        "DownloadedDate": "5/2/21 5:11:02 AM"
       }
     ]
   },
@@ -81,14 +81,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/Basisdata/StedsnavnKomplettSSR/GML/Basisdata_0000_Norge_25833_StedsnavnKomplettSSR_GML.zip",
-        "LastUpdated": "2020-04-06T08:47:04",
+        "LastUpdated": "2021-05-04T08:30:39",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Stedsnavn (komplett SSR) GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/StedsnavnKomplettSSR_AtomFeedGML.xml\n",
         "FilePath": "Basisdata_0000_Norge_25833_StedsnavnKomplettSSR_GML.zip",
-        "DownloadedDate": "5/1/20 6:37:19 PM"
+        "DownloadedDate": "5/5/21 5:11:24 AM"
       }
     ]
   },
@@ -117,15 +117,15 @@
       {
         "Title": "Løsmasser-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
         "Description": "",
-        "Url": "https://nedlasting.ngu.no/api/fileproxy/3de4ddf6-d6b8-4398-8222-f5c47791a757/fba4a45e-52c5-44b1-af39-116a6de7b2b6",
-        "LastUpdated": "2020-04-22T06:56:49Z",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/3de4ddf6-d6b8-4398-8222-f5c47791a757/7554cc31-df72-4bd6-8980-de5b8d911113",
+        "LastUpdated": "2021-05-11T08:24:41Z",
         "Organization": "",
         "Projection": "EPSG:25833",
         "Format": "Format:GEODATABASE_FILE",
         "DatasetId": "Løsmasser",
         "DatasetUrl": "https://nedlasting.ngu.no/api/atom/3de4ddf6-d6b8-4398-8222-f5c47791a757",
         "FilePath": "Geologi_0000_Norge_25833_Losmasser_FGDB.zip",
-        "DownloadedDate": "5/1/20 6:38:49 PM"
+        "DownloadedDate": "5/13/21 5:11:48 AM"
       }
     ]
   },
@@ -155,15 +155,15 @@
       {
         "Title": "Marin grense-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GML",
         "Description": "",
-        "Url": "https://nedlasting.ngu.no/api/fileproxy/cf8ccec7-9505-4d84-94a9-eac9c69971d3/72ac8b8b-9e2d-4980-9a9f-92ac9005b46d",
-        "LastUpdated": "2020-04-27T14:25:55Z",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/cf8ccec7-9505-4d84-94a9-eac9c69971d3/6b49abf8-797a-4d35-a5ee-0edf65bc6d11",
+        "LastUpdated": "2021-05-11T10:30:51Z",
         "Organization": "",
         "Projection": "EPSG:25833",
         "Format": "Format:GML",
         "DatasetId": "Marin grense",
         "DatasetUrl": "https://nedlasting.ngu.no/api/atom/cf8ccec7-9505-4d84-94a9-eac9c69971d3",
         "FilePath": "Geologi_0000_Norge_25833_MarinGrense_GML.zip",
-        "DownloadedDate": "5/1/20 6:39:04 PM"
+        "DownloadedDate": "5/12/21 5:11:47 AM"
       }
     ]
   },
@@ -192,15 +192,15 @@
       {
         "Title": "Mineralressurser-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
         "Description": "",
-        "Url": "https://nedlasting.ngu.no/api/fileproxy/378d5f88-de1f-4d1e-b99a-7b0f0dd52951/ca120a87-29bb-4148-8eaa-6ea9cd6eb368",
-        "LastUpdated": "2020-04-27T09:56:19Z",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/378d5f88-de1f-4d1e-b99a-7b0f0dd52951/03f5b511-7c65-4c11-a8d4-eaa8212571b0",
+        "LastUpdated": "2020-12-14T14:39:12Z",
         "Organization": "",
         "Projection": "EPSG:25833",
         "Format": "Format:GEODATABASE_FILE",
         "DatasetId": "Mineralressurser",
         "DatasetUrl": "https://nedlasting.ngu.no/api/atom/378d5f88-de1f-4d1e-b99a-7b0f0dd52951",
         "FilePath": "Geologi_0000_Norge_25833_Mineralressurser_FGDB.zip",
-        "DownloadedDate": "5/1/20 6:39:07 PM"
+        "DownloadedDate": "12/15/20 5:11:16 AM"
       }
     ]
   },
@@ -229,15 +229,15 @@
       {
         "Title": "Mulig Marin Leire-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
         "Description": "",
-        "Url": "https://nedlasting.ngu.no/api/fileproxy/641a81c2-9354-473b-b8f0-2b1e2ab3930a/517d20f9-2100-4259-9c79-fb78d54935bd",
-        "LastUpdated": "2020-04-29T21:56:42Z",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/641a81c2-9354-473b-b8f0-2b1e2ab3930a/c531a736-2001-42f3-887f-3259f2f0b804",
+        "LastUpdated": "2021-05-13T08:16:05Z",
         "Organization": "",
         "Projection": "EPSG:25833",
         "Format": "Format:GEODATABASE_FILE",
         "DatasetId": "Mulig Marin Leire",
         "DatasetUrl": "https://nedlasting.ngu.no/api/atom/641a81c2-9354-473b-b8f0-2b1e2ab3930a",
         "FilePath": "Geologi_0000_Norge_25833_MuligMarinLeire_FGDB.zip",
-        "DownloadedDate": "5/1/20 6:39:52 PM"
+        "DownloadedDate": "5/14/21 5:11:52 AM"
       }
     ]
   },
@@ -266,15 +266,15 @@
       {
         "Title": "Berggrunn N50-landsdekkende-Landsdekkende-UTM Sone 33 - Euref89-GEODATABASE_FILE",
         "Description": "",
-        "Url": "https://nedlasting.ngu.no/api/fileproxy/a5c76d05-33bd-4a1d-b28b-81575092e468/0c510199-a853-4984-ad51-c500dbb8d9bf",
-        "LastUpdated": "2020-04-27T10:22:58Z",
+        "Url": "https://nedlasting.ngu.no/api/fileproxy/a5c76d05-33bd-4a1d-b28b-81575092e468/6acc0b15-fd4c-4a88-9d3b-5e623c163d78",
+        "LastUpdated": "2021-05-11T07:31:36Z",
         "Organization": "",
         "Projection": "EPSG:25833",
         "Format": "Format:GEODATABASE_FILE",
         "DatasetId": "Berggrunn N50",
         "DatasetUrl": "https://nedlasting.ngu.no/api/atom/a5c76d05-33bd-4a1d-b28b-81575092e468",
         "FilePath": "Geologi_0000_Norge_25833_BerggrunnN50_FGDB.zip",
-        "DownloadedDate": "5/1/20 6:40:13 PM"
+        "DownloadedDate": "5/12/21 5:12:06 AM"
       }
     ]
   },
@@ -300,14 +300,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/AkvakulturLokaliteter/GML/KystOgFiskeri_0000_Norge_25833_AkvakulturLokaliteter_GML.zip",
-        "LastUpdated": "2020-05-01T01:40:45",
+        "LastUpdated": "2021-05-17T02:05:20",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Akvakultur - lokaliteter GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/AkvakulturLokaliteter_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_AkvakulturLokaliteter_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:14 PM"
+        "DownloadedDate": "5/18/21 5:11:11 AM"
       }
     ]
   },
@@ -333,14 +333,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/FiskeplasserRedskap/GML/KystOgFiskeri_0000_Norge_25833_FiskeplasserRedskap_GML.zip",
-        "LastUpdated": "2020-04-26T21:26:17",
+        "LastUpdated": "2021-04-25T21:43:26",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Fiskeplasser - redskap GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/FiskeplasserRedskap_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_FiskeplasserRedskap_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:18 PM"
+        "DownloadedDate": "4/27/21 5:11:14 AM"
       }
     ]
   },
@@ -366,14 +366,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Gyteomrader/GML/KystOgFiskeri_0000_Norge_25833_Gyteomrader_GML.zip",
-        "LastUpdated": "2020-04-28T02:03:22",
+        "LastUpdated": "2021-04-28T02:07:17",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Gyteområder GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Gyteomrader_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_Gyteomrader_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:18 PM"
+        "DownloadedDate": "4/29/21 5:12:00 AM"
       }
     ]
   },
@@ -399,14 +399,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Lassettingsplasser/GML/KystOgFiskeri_0000_Norge_25833_Lassettingsplasser_GML.zip",
-        "LastUpdated": "2020-04-28T01:42:45",
+        "LastUpdated": "2021-04-28T01:49:32",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Låssettingsplasser GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Lassettingsplasser_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_Lassettingsplasser_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:19 PM"
+        "DownloadedDate": "4/29/21 5:12:01 AM"
       }
     ]
   },
@@ -432,14 +432,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Laksefjorder/GML/KystOgFiskeri_0000_Norge_25833_Laksefjorder_GML.zip",
-        "LastUpdated": "2020-04-23T22:09:50",
+        "LastUpdated": "2021-04-23T22:10:59",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Nasjonale laksefjorder GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Laksefjorder_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_Laksefjorder_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:21 PM"
+        "DownloadedDate": "4/25/21 5:11:10 AM"
       }
     ]
   },
@@ -464,14 +464,14 @@
         "Title": "GML-format, Landsdekkende",
         "Description": "",
         "Url": "https://nedlasting.geonorge.no/geonorge/KystOgFiskeri/Tarehostefelt/GML/KystOgFiskeri_0000_Norge_25833_Tarehostefelt_GML.zip",
-        "LastUpdated": "2020-04-11T22:06:35",
+        "LastUpdated": "2021-05-11T22:08:55",
         "Organization": "Kartverket",
         "Projection": "EPSG:25833",
         "Format": "GML-format",
         "DatasetId": "Tare - høstefelt GML-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/Tarehostefelt_AtomFeedGML.xml\n",
         "FilePath": "KystOgFiskeri_0000_Norge_25833_Tarehostefelt_GML.zip",
-        "DownloadedDate": "5/1/20 6:40:22 PM"
+        "DownloadedDate": "5/13/21 5:11:55 AM"
       }
     ]
   },
@@ -500,7 +500,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6400_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:23 PM"
+        "DownloadedDate": "5/3/20 8:24:13 PM"
       },
       {
         "Title": "TIFF-format, Celle 6401",
@@ -513,7 +513,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6401_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:23 PM"
+        "DownloadedDate": "5/3/20 8:24:13 PM"
       },
       {
         "Title": "TIFF-format, Celle 64m1",
@@ -526,7 +526,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_64m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:23 PM"
+        "DownloadedDate": "5/3/20 8:24:13 PM"
       },
       {
         "Title": "TIFF-format, Celle 6500",
@@ -539,7 +539,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6500_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:26 PM"
+        "DownloadedDate": "5/3/20 8:24:14 PM"
       },
       {
         "Title": "TIFF-format, Celle 6501",
@@ -552,7 +552,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6501_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:28 PM"
+        "DownloadedDate": "5/3/20 8:24:14 PM"
       },
       {
         "Title": "TIFF-format, Celle 6502",
@@ -565,7 +565,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6502_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:30 PM"
+        "DownloadedDate": "5/3/20 8:24:15 PM"
       },
       {
         "Title": "TIFF-format, Celle 6503",
@@ -578,7 +578,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6503_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:30 PM"
+        "DownloadedDate": "5/3/20 8:24:15 PM"
       },
       {
         "Title": "TIFF-format, Celle 65m1",
@@ -591,7 +591,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_65m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:31 PM"
+        "DownloadedDate": "5/3/20 8:24:15 PM"
       },
       {
         "Title": "TIFF-format, Celle 6600",
@@ -604,7 +604,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6600_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:33 PM"
+        "DownloadedDate": "5/3/20 8:24:16 PM"
       },
       {
         "Title": "TIFF-format, Celle 6601",
@@ -617,7 +617,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6601_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:36 PM"
+        "DownloadedDate": "5/3/20 8:24:16 PM"
       },
       {
         "Title": "TIFF-format, Celle 6602",
@@ -630,7 +630,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6602_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:38 PM"
+        "DownloadedDate": "5/3/20 8:24:17 PM"
       },
       {
         "Title": "TIFF-format, Celle 6603",
@@ -643,7 +643,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6603_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:40 PM"
+        "DownloadedDate": "5/3/20 8:24:18 PM"
       },
       {
         "Title": "TIFF-format, Celle 66m1",
@@ -656,7 +656,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_66m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:41 PM"
+        "DownloadedDate": "5/3/20 8:24:18 PM"
       },
       {
         "Title": "TIFF-format, Celle 6700",
@@ -669,7 +669,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6700_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:44 PM"
+        "DownloadedDate": "5/3/20 8:24:19 PM"
       },
       {
         "Title": "TIFF-format, Celle 6701",
@@ -682,7 +682,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6701_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:46 PM"
+        "DownloadedDate": "5/3/20 8:24:19 PM"
       },
       {
         "Title": "TIFF-format, Celle 6702",
@@ -695,7 +695,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6702_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:48 PM"
+        "DownloadedDate": "5/3/20 8:24:20 PM"
       },
       {
         "Title": "TIFF-format, Celle 6703",
@@ -708,7 +708,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6703_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:51 PM"
+        "DownloadedDate": "5/3/20 8:24:21 PM"
       },
       {
         "Title": "TIFF-format, Celle 67m1",
@@ -721,7 +721,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_67m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:53 PM"
+        "DownloadedDate": "5/3/20 8:24:21 PM"
       },
       {
         "Title": "TIFF-format, Celle 6800",
@@ -734,7 +734,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6800_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:55 PM"
+        "DownloadedDate": "5/3/20 8:24:21 PM"
       },
       {
         "Title": "TIFF-format, Celle 6801",
@@ -747,7 +747,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6801_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:40:58 PM"
+        "DownloadedDate": "5/3/20 8:24:22 PM"
       },
       {
         "Title": "TIFF-format, Celle 6802",
@@ -760,7 +760,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6802_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:01 PM"
+        "DownloadedDate": "5/3/20 8:24:23 PM"
       },
       {
         "Title": "TIFF-format, Celle 6803",
@@ -773,7 +773,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6803_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:03 PM"
+        "DownloadedDate": "5/3/20 8:24:23 PM"
       },
       {
         "Title": "TIFF-format, Celle 68m1",
@@ -786,7 +786,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_68m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:04 PM"
+        "DownloadedDate": "5/3/20 8:24:24 PM"
       },
       {
         "Title": "TIFF-format, Celle 6900",
@@ -799,7 +799,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6900_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:06 PM"
+        "DownloadedDate": "5/3/20 8:24:24 PM"
       },
       {
         "Title": "TIFF-format, Celle 6901",
@@ -812,7 +812,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6901_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:08 PM"
+        "DownloadedDate": "5/3/20 8:24:24 PM"
       },
       {
         "Title": "TIFF-format, Celle 6902",
@@ -825,7 +825,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6902_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:11 PM"
+        "DownloadedDate": "5/3/20 8:24:25 PM"
       },
       {
         "Title": "TIFF-format, Celle 6903",
@@ -838,7 +838,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_6903_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:13 PM"
+        "DownloadedDate": "5/3/20 8:24:25 PM"
       },
       {
         "Title": "TIFF-format, Celle 69m1",
@@ -851,7 +851,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_69m1_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:13 PM"
+        "DownloadedDate": "5/3/20 8:24:26 PM"
       },
       {
         "Title": "TIFF-format, Celle 7000",
@@ -864,7 +864,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7000_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:13 PM"
+        "DownloadedDate": "5/3/20 8:24:26 PM"
       },
       {
         "Title": "TIFF-format, Celle 7001",
@@ -877,7 +877,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7001_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:14 PM"
+        "DownloadedDate": "5/3/20 8:24:26 PM"
       },
       {
         "Title": "TIFF-format, Celle 7002",
@@ -890,7 +890,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7002_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:16 PM"
+        "DownloadedDate": "5/3/20 8:24:26 PM"
       },
       {
         "Title": "TIFF-format, Celle 7003",
@@ -903,7 +903,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7003_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:19 PM"
+        "DownloadedDate": "5/3/20 8:24:27 PM"
       },
       {
         "Title": "TIFF-format, Celle 7004",
@@ -916,7 +916,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7004_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:19 PM"
+        "DownloadedDate": "5/3/20 8:24:27 PM"
       },
       {
         "Title": "TIFF-format, Celle 7101",
@@ -929,7 +929,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7101_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:19 PM"
+        "DownloadedDate": "5/3/20 8:24:27 PM"
       },
       {
         "Title": "TIFF-format, Celle 7102",
@@ -942,7 +942,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7102_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:20 PM"
+        "DownloadedDate": "5/3/20 8:24:27 PM"
       },
       {
         "Title": "TIFF-format, Celle 7103",
@@ -955,7 +955,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7103_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:23 PM"
+        "DownloadedDate": "5/3/20 8:24:28 PM"
       },
       {
         "Title": "TIFF-format, Celle 7104",
@@ -968,7 +968,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7104_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:24 PM"
+        "DownloadedDate": "5/3/20 8:24:29 PM"
       },
       {
         "Title": "TIFF-format, Celle 7202",
@@ -981,7 +981,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7202_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:24 PM"
+        "DownloadedDate": "5/3/20 8:24:29 PM"
       },
       {
         "Title": "TIFF-format, Celle 7203",
@@ -994,7 +994,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7203_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:25 PM"
+        "DownloadedDate": "5/3/20 8:24:29 PM"
       },
       {
         "Title": "TIFF-format, Celle 7204",
@@ -1007,7 +1007,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7204_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:27 PM"
+        "DownloadedDate": "5/3/20 8:24:29 PM"
       },
       {
         "Title": "TIFF-format, Celle 7303",
@@ -1020,7 +1020,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7303_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:28 PM"
+        "DownloadedDate": "5/3/20 8:24:30 PM"
       },
       {
         "Title": "TIFF-format, Celle 7304",
@@ -1033,7 +1033,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7304_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:30 PM"
+        "DownloadedDate": "5/3/20 8:24:30 PM"
       },
       {
         "Title": "TIFF-format, Celle 7305",
@@ -1046,7 +1046,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7305_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:31 PM"
+        "DownloadedDate": "5/3/20 8:24:30 PM"
       },
       {
         "Title": "TIFF-format, Celle 7403",
@@ -1059,7 +1059,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7403_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:31 PM"
+        "DownloadedDate": "5/3/20 8:24:31 PM"
       },
       {
         "Title": "TIFF-format, Celle 7404",
@@ -1072,7 +1072,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7404_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:32 PM"
+        "DownloadedDate": "5/3/20 8:24:31 PM"
       },
       {
         "Title": "TIFF-format, Celle 7405",
@@ -1085,7 +1085,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7405_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:33 PM"
+        "DownloadedDate": "5/3/20 8:24:31 PM"
       },
       {
         "Title": "TIFF-format, Celle 7503",
@@ -1098,7 +1098,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7503_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:33 PM"
+        "DownloadedDate": "5/3/20 8:24:31 PM"
       },
       {
         "Title": "TIFF-format, Celle 7504",
@@ -1111,7 +1111,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7504_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:34 PM"
+        "DownloadedDate": "5/3/20 8:24:32 PM"
       },
       {
         "Title": "TIFF-format, Celle 7505",
@@ -1124,7 +1124,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7505_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:36 PM"
+        "DownloadedDate": "5/3/20 8:24:32 PM"
       },
       {
         "Title": "TIFF-format, Celle 7506",
@@ -1137,7 +1137,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7506_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:38 PM"
+        "DownloadedDate": "5/3/20 8:24:33 PM"
       },
       {
         "Title": "TIFF-format, Celle 7507",
@@ -1150,7 +1150,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7507_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:38 PM"
+        "DownloadedDate": "5/3/20 8:24:33 PM"
       },
       {
         "Title": "TIFF-format, Celle 7604",
@@ -1163,7 +1163,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7604_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:38 PM"
+        "DownloadedDate": "5/3/20 8:24:33 PM"
       },
       {
         "Title": "TIFF-format, Celle 7605",
@@ -1176,7 +1176,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7605_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:40 PM"
+        "DownloadedDate": "5/3/20 8:24:33 PM"
       },
       {
         "Title": "TIFF-format, Celle 7606",
@@ -1189,7 +1189,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7606_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:43 PM"
+        "DownloadedDate": "5/3/20 8:24:34 PM"
       },
       {
         "Title": "TIFF-format, Celle 7607",
@@ -1202,7 +1202,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7607_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:47 PM"
+        "DownloadedDate": "5/3/20 8:24:34 PM"
       },
       {
         "Title": "TIFF-format, Celle 7608",
@@ -1215,7 +1215,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7608_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:49 PM"
+        "DownloadedDate": "5/3/20 8:24:35 PM"
       },
       {
         "Title": "TIFF-format, Celle 7609",
@@ -1228,7 +1228,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7609_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:50 PM"
+        "DownloadedDate": "5/3/20 8:24:35 PM"
       },
       {
         "Title": "TIFF-format, Celle 7705",
@@ -1241,7 +1241,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7705_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:50 PM"
+        "DownloadedDate": "5/3/20 8:24:35 PM"
       },
       {
         "Title": "TIFF-format, Celle 7706",
@@ -1254,7 +1254,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7706_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:51 PM"
+        "DownloadedDate": "5/3/20 8:24:36 PM"
       },
       {
         "Title": "TIFF-format, Celle 7707",
@@ -1267,7 +1267,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7707_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:54 PM"
+        "DownloadedDate": "5/3/20 8:24:36 PM"
       },
       {
         "Title": "TIFF-format, Celle 7708",
@@ -1280,7 +1280,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7708_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:56 PM"
+        "DownloadedDate": "5/3/20 8:24:37 PM"
       },
       {
         "Title": "TIFF-format, Celle 7709",
@@ -1293,7 +1293,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7709_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:58 PM"
+        "DownloadedDate": "5/3/20 8:24:38 PM"
       },
       {
         "Title": "TIFF-format, Celle 7710",
@@ -1306,7 +1306,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7710_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:41:59 PM"
+        "DownloadedDate": "5/3/20 8:24:38 PM"
       },
       {
         "Title": "TIFF-format, Celle 7711",
@@ -1319,7 +1319,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7711_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:00 PM"
+        "DownloadedDate": "5/3/20 8:24:38 PM"
       },
       {
         "Title": "TIFF-format, Celle 7806",
@@ -1332,7 +1332,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7806_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:00 PM"
+        "DownloadedDate": "5/3/20 8:24:38 PM"
       },
       {
         "Title": "TIFF-format, Celle 7807",
@@ -1345,7 +1345,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7807_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:00 PM"
+        "DownloadedDate": "5/3/20 8:24:39 PM"
       },
       {
         "Title": "TIFF-format, Celle 7808",
@@ -1358,7 +1358,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7808_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:03 PM"
+        "DownloadedDate": "5/3/20 8:24:39 PM"
       },
       {
         "Title": "TIFF-format, Celle 7809",
@@ -1371,7 +1371,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7809_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:05 PM"
+        "DownloadedDate": "5/3/20 8:24:40 PM"
       },
       {
         "Title": "TIFF-format, Celle 7810",
@@ -1384,7 +1384,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7810_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:07 PM"
+        "DownloadedDate": "5/3/20 8:24:40 PM"
       },
       {
         "Title": "TIFF-format, Celle 7811",
@@ -1397,7 +1397,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7811_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:07 PM"
+        "DownloadedDate": "5/3/20 8:24:40 PM"
       },
       {
         "Title": "TIFF-format, Celle 7906",
@@ -1410,7 +1410,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7906_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:08 PM"
+        "DownloadedDate": "5/3/20 8:24:40 PM"
       },
       {
         "Title": "TIFF-format, Celle 7907",
@@ -1423,7 +1423,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7907_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:08 PM"
+        "DownloadedDate": "5/3/20 8:24:41 PM"
       },
       {
         "Title": "TIFF-format, Celle 7908",
@@ -1436,7 +1436,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7908_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:08 PM"
+        "DownloadedDate": "5/3/20 8:24:41 PM"
       },
       {
         "Title": "TIFF-format, Celle 7909",
@@ -1449,7 +1449,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7909_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:08 PM"
+        "DownloadedDate": "5/3/20 8:24:41 PM"
       },
       {
         "Title": "TIFF-format, Celle 7910",
@@ -1462,7 +1462,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7910_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:09 PM"
+        "DownloadedDate": "5/3/20 8:24:41 PM"
       },
       {
         "Title": "TIFF-format, Celle 7911",
@@ -1475,7 +1475,7 @@
         "DatasetId": "DTM50 TIFF-format",
         "DatasetUrl": "http://nedlasting.geonorge.no/geonorge/ATOM-feeds/DTM50_AtomFeedTIFF.xml\n",
         "FilePath": "Basisdata_7911_Celle_25833_DTM50_TIFF.zip",
-        "DownloadedDate": "5/1/20 6:42:09 PM"
+        "DownloadedDate": "5/3/20 8:24:41 PM"
       }
     ]
   },

@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Geonorge.MassivNedlasting.Gui.FolderPickerDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d" 
+        x:Name="Self">
+    
+    <StackPanel Orientation="Horizontal">
+        <Button Name="FolderButton" Click="FolderButton_OnClick"
+                Width="30" Height="30"
+                Style="{DynamicResource MaterialDesignToolButton}">
+            <materialDesign:PackIcon VerticalAlignment="Center"
+                Kind="Folder"
+                Height="20"
+                Width="20" />
+            
+        </Button>
+        <TextBlock VerticalAlignment="Center" MouseDown="FolderButton_OnClick" MinWidth="100" Text="{Binding ElementName=Self, Path=DirectoryPath}"></TextBlock>
+    
+    </StackPanel>
+</UserControl>

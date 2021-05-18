@@ -1,0 +1,153 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/grunnkart/forvaltningsportal-lastejobb/lastejobb/Geonorge.NedlastingKlient/Lib/Geonorge.MassivNedlasting.csproj": {}
+  },
+  "projects": {
+    "/home/grunnkart/forvaltningsportal-lastejobb/lastejobb/Geonorge.NedlastingKlient/Lib/Geonorge.MassivNedlasting.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/grunnkart/forvaltningsportal-lastejobb/lastejobb/Geonorge.NedlastingKlient/Lib/Geonorge.MassivNedlasting.csproj",
+        "projectName": "Geonorge.MassivNedlasting.Lib",
+        "projectPath": "/home/grunnkart/forvaltningsportal-lastejobb/lastejobb/Geonorge.NedlastingKlient/Lib/Geonorge.MassivNedlasting.csproj",
+        "packagesPath": "/home/grunnkart/.nuget/packages/",
+        "outputPath": "/home/grunnkart/forvaltningsportal-lastejobb/lastejobb/Geonorge.NedlastingKlient/Lib/obj/",
+        "projectStyle": "PackageReference",
+        "crossTargeting": true,
+        "configFilePaths": ["/home/grunnkart/.nuget/NuGet/NuGet.Config"],
+        "originalTargetFrameworks": ["net471", "netstandard2.0"],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net471": {
+            "projectReferences": {}
+          },
+          "netstandard2.0": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": ["NU1605"]
+        }
+      },
+      "frameworks": {
+        "net471": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Cryptography.Internal": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.DataProtection": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.DataProtection.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.5.4, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.7.1, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        },
+        "netstandard2.0": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Cryptography.Internal": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.DataProtection": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.AspNetCore.DataProtection.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.CSharp": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[2.1.1, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[11.0.2, )"
+            },
+            "RestSharp": {
+              "target": "Package",
+              "version": "[106.5.4, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.7.1, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[4.0.0, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "imports": ["net461", "net462", "net47", "net471", "net472", "net48"],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

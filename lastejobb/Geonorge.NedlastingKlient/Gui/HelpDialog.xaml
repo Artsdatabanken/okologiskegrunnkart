@@ -1,0 +1,36 @@
+﻿<Window x:Class="Geonorge.MassivNedlasting.Gui.HelpDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Geonorge.MassivNedlasting.Gui"
+        mc:Ignorable="d"
+        Title="Hjelp" SizeToContent="WidthAndHeight" Icon="Content/geonorge.ico" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 10">
+            <TextBlock Margin="2" Name="lblVersion" Text="Versjon:"/>
+            <TextBlock Margin="10 2 0 0" Name="txtVersion" MinWidth="250" Text="{Binding versionNumber}"></TextBlock>
+            <TextBlock FontSize="12" FontStyle="Italic" HorizontalAlignment="Right">
+                <Hyperlink Foreground="Red"  Click="VersionHyperlink_OnClick">
+                    <TextBlock Name="versionStatusMessage" />
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <TextBlock Margin="2" Name="lblHelpPage" Grid.Row="2" MinWidth="250" Text="Informasjonsside:"/>
+        <TextBlock Margin="2 5" Name="txtHelpPage" Grid.Row="3" MinWidth="250" Text="">
+            <Hyperlink Click="Hyperlink_Click" NavigateUri="https://www.geonorge.no/verktoy/APIer-og-grensesnitt/massivnedlastingsklient/">
+                https://www.geonorge.no/verktoy/APIer-og-grensesnitt/massivnedlastingsklient/
+            </Hyperlink>
+        </TextBlock>
+
+</Grid>
+</Window>

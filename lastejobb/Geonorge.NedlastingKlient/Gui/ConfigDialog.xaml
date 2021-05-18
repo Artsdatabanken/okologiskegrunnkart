@@ -1,0 +1,82 @@
+﻿<Window x:Class="Geonorge.MassivNedlasting.Gui.ConfigDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:gui="clr-namespace:Geonorge.MassivNedlasting.Gui"
+        MinWidth="550" Height="Auto" MinHeight="500"
+        Title="Config-fil" SizeToContent="WidthAndHeight" Icon="Content/geonorge.ico" WindowStartupLocation="CenterScreen">
+    
+    <StackPanel Margin="0">
+
+        <Grid Background="#dfdcda">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Column="0"  materialDesign:HintAssist.Hint="Config-filer" Name="ConfigFilesList" SelectionChanged="ConfigFilesList_OnSelectionChanged" Margin="20" FlowDirection="LeftToRight"/>
+            <Button  Grid.Column="1" Name="btnNew" Style="{StaticResource MaterialDesignRaisedButton}" Margin="20" Click="BtnNewConfigFile_OnClick" Width="50"  FlowDirection="RightToLeft" VerticalAlignment="Bottom">Ny</Button>
+        </Grid>
+
+        <StackPanel Name="Validation" Background="#FFCCCC" Visibility="Collapsed">
+            <ItemsControl Margin="20" Name="ErrorList"/>
+        </StackPanel>
+        
+
+            <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            
+            <!--Navn-->
+            <TextBlock Margin="0 10 0 0" Style="{StaticResource MaterialDesignBody2TextBlock}">Navn</TextBlock>
+            <TextBox 
+                Grid.Column="1"
+                Margin="0 10 0 0"
+                Name="ConfigNameTextBox">
+            </TextBox>
+
+            <!--Nedlastingsmappe-->
+            <TextBlock Grid.Row="1" Margin="0 20 0 0" Name="lblDownloadDirectory" Style="{StaticResource MaterialDesignBody2TextBlock}">Nedlasting</TextBlock>
+            <StackPanel Grid.Row="1"  Margin="0 15 0 0" Grid.Column="1" Visibility="{Binding SelectionVisibility}">
+                <gui:FolderPickerDialog x:Name="FolderPickerDialogBox" DirectoryPath="{Binding DownloadDirectory, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            </StackPanel>
+            
+            <!--Loggmappe-->
+            <TextBlock Grid.Row="2" Margin="0 20 0 0" Name="lblLogDirectory" Style="{StaticResource MaterialDesignBody2TextBlock}">Loggfiler</TextBlock>
+            <StackPanel Grid.Row="2" Grid.Column="1" Margin="0 15 0 0" Visibility="{Binding SelectionVisibility2}">
+                <gui:FolderPickerDialog x:Name="FolderPickerDialogBoxLog" DirectoryPath="{Binding LogDirectory, RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            </StackPanel>
+
+            <!--Brukergruppe og formål-->
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Margin="0 20 0 0">Nedlasting brukergruppe og formål</TextBlock>
+                <Button  FlowDirection="RightToLeft" Style="{StaticResource MaterialDesignFlatButton}" Click="BtnEditDownloadUsage_OnClick"  VerticalAlignment="Bottom" Margin="20 12 0 0">Edit</Button>
+            </StackPanel>
+
+            <TextBlock Grid.Row="4" Name="DownloadUsageGroupLayout" Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="0 10 0 0">Brukergruppe</TextBlock>
+            <TextBlock Grid.Row="4" Margin="0 10 0 0" Grid.Column="1" Name="DownloadUsageGroup"/>
+
+            <TextBlock Grid.Row="5" Name ="DownloadUsagePurposeLayout"  Style="{StaticResource MaterialDesignBody2TextBlock}" Margin="0 20 0 0">Formål</TextBlock>
+            <ItemsControl Grid.Row="5" Margin="0 20 0 0" Grid.Column="1"  Name="DownloadUsagePurpose" />
+        </Grid>
+
+
+       <WrapPanel HorizontalAlignment="Right" Margin="20,15,20,20">
+            <Button IsDefault="True" Name="btnConfigDelete" Click="BtnDialogDelete_Click" MinWidth="60" Margin="0,0,10,0">_Slett</Button>
+            <Button IsDefault="True" Name="btnConfigSave" Click="BtnDialogSave_Click" MinWidth="60" Margin="0,0,10,0">_Lagre</Button>
+            <Button IsCancel="True" MinWidth="60">_Lukk</Button>
+        </WrapPanel>
+
+    </StackPanel>
+</Window>

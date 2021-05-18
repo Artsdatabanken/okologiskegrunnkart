@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:georss="http://www.georss.org/georss" xmlns:inspire_dls="http://inspire.ec.europa.eu/schemas/inspire_dls/1.0">
+  <title>Geonorge AtomFeeds</title>
+  <subtitle>Tjenestefeed for alle datasett tilgjengelige i Geonorge</subtitle>
+  <link href="http://www.geonorge.no" rel="describedby" type="application/html" title="Download Service Feed Metadata"/>
+  <link href="http://nedlasting.geonorge.no/Tjenestefeed.xml" hreflang="no-nb" rel="self" type="application/atom+xml" title="Download Service Feed"/>
+  <link href="http://www.weichand.de:8080/opensearchdls/verwaltungsgrenzen" hreflang="de" rel="search" type="application/opensearchdescription+xml" title="OpenSearch Description"/>
+  <id>http://nedlasting.geonorge.no/Tjenestefeed.xml</id>
+  <rights>Copyright den enkelte dataeier</rights>
+  <updated>2013-01-03T00:00:00+02:00</updated>
+  <author>
+    <name>Geonorge</name>
+    <email>post@geonorge.no</email>
+  </author>	
+<entry>
+    <title>Administrative enheter fylker GEOJSON-format</title>
+	<summary>Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.</summary>
+    <inspire_dls:spatial_dataset_identifier_code>6093c8a8-fa80-11e6-bc64-92361f002671</inspire_dls:spatial_dataset_identifier_code>
+    <inspire_dls:spatial_dataset_identifier_namespace>http://www.geonorge.no/</inspire_dls:spatial_dataset_identifier_namespace>
+    <link>http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGEOJSON.fmw</link>
+    <rights>Kartverket</rights>
+    <updated>2018-01-10T13:47:55</updated>
+    <author>
+      <name>Kartverket</name>
+    </author>
+    <category term="EPSG:25833" scheme="http://www.opengis.net/def/crs/" label="EPSG/0/25833"/>
+    <content type="html">Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.&lt;br/&gt;&lt;a href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGEOJSON.fmw"&gt;Administrative enheter fylker GEOJSON-format</content>
+    <link href="https://www.geonorge.no/geonetwork/srv/nor/xml_iso19139?uuid=6093c8a8-fa80-11e6-bc64-92361f002671" rel="describedby" type="application/vnd.ogc.csw.GetRecordByIdResponse_xml" title="Dataset Metadata"/>
+    <link rel="alternate" href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGEOJSON.fmw" type="application/atom+xml" title="Dataset feed"/>
+    <published>2015-11-05T14:38:49+01:00</published>
+  </entry><entry>
+    <title>Administrative enheter fylker GML-format</title>
+	<summary>Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.</summary>
+    <inspire_dls:spatial_dataset_identifier_code>6093c8a8-fa80-11e6-bc64-92361f002671</inspire_dls:spatial_dataset_identifier_code>
+    <inspire_dls:spatial_dataset_identifier_namespace>http://www.geonorge.no/</inspire_dls:spatial_dataset_identifier_namespace>
+    <link>http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGML.fmw</link>
+    <rights>Kartverket</rights>
+    <updated>2018-01-30T13:27:33</updated>
+    <author>
+      <name>Kartverket</name>
+    </author>
+    <category term="EPSG:25833" scheme="http://www.opengis.net/def/crs/" label="EPSG/0/25833"/>
+    <content type="html">Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.&lt;br/&gt;&lt;a href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGML.fmw"&gt;Administrative enheter fylker GML-format</content>
+    <link href="https://www.geonorge.no/geonetwork/srv/nor/xml_iso19139?uuid=6093c8a8-fa80-11e6-bc64-92361f002671" rel="describedby" type="application/vnd.ogc.csw.GetRecordByIdResponse_xml" title="Dataset Metadata"/>
+    <link rel="alternate" href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedGML.fmw" type="application/atom+xml" title="Dataset feed"/>
+    <published>2015-11-05T14:38:49+01:00</published>
+  </entry><entry>
+    <title>Administrative enheter fylker SOSI-format</title>
+	<summary>Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.</summary>
+    <inspire_dls:spatial_dataset_identifier_code>6093c8a8-fa80-11e6-bc64-92361f002671</inspire_dls:spatial_dataset_identifier_code>
+    <inspire_dls:spatial_dataset_identifier_namespace>http://www.geonorge.no/</inspire_dls:spatial_dataset_identifier_namespace>
+    <link>http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedSOSI.fmw</link>
+    <rights>Kartverket</rights>
+    <updated>2018-01-16T11:51:35</updated>
+    <author>
+      <name>Kartverket</name>
+    </author>
+    <category term="EPSG:25833" scheme="http://www.opengis.net/def/crs/" label="EPSG/0/25833"/>
+    <content type="html">Datasettet administrative enheter viser fylkesinndelingen i landet med de mest nøyaktige grenser som er registrert digitalt og som er samlet i ett datasett. 
+
+Fylkene er avgrenset av riksgrense, territorialgrense, avgrensningslinje i sjø og fylkesgrense. 
+
+I tillegg inneholder datasettet grunnlinje og 1 nautisk mil, som er juridiske linjer utenfor kysten. 
+
+Enhetene inneholder egenskaper som forteller om offisielle fylkesnumre. De offisielle norske og samiske navnene for fylker er hentet fra SSR. I tillegg finnes informasjon om samiske forvaltningsområder.
+
+Geometrien er avledet fra matrikkelen, som blir ajourført av kommunene. Riksgrense og territorialgrense er lagt inn fra Kartverkets egne etablerte filer.&lt;br/&gt;&lt;a href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedSOSI.fmw"&gt;Administrative enheter fylker SOSI-format</content>
+    <link href="https://www.geonorge.no/geonetwork/srv/nor/xml_iso19139?uuid=6093c8a8-fa80-11e6-bc64-92361f002671" rel="describedby" type="application/vnd.ogc.csw.GetRecordByIdResponse_xml" title="Dataset Metadata"/>
+    <link rel="alternate" href="http://nedlasting.geonorge.no/fmedatastreaming/ATOM-feeds/AdministrativeEnheterFylker_AtomFeedSOSI.fmw" type="application/atom+xml" title="Dataset feed"/>
+    <published>2015-11-05T14:38:49+01:00</published>
+  </entry>
+</feed>

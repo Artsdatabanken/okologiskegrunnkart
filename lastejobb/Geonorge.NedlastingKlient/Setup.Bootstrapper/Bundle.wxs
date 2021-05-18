@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Bundle Name="Geonorge.MassivNedlasting.Setup.Bootstrapper" Version="1.0.0.0" Manufacturer="Kartverket" UpgradeCode="62792086-3c32-4620-9064-444ad6db12c8">
+
+	  <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense" />
+		<Chain>
+		  <PackageGroupRef Id="NetFx471Redist"/>
+		  <MsiPackage Id="Geonorge.MassivNedlasting.Setup" SourceFile="..\Setup\bin\$(var.Geonorge.MassivNedlasting.Setup.Configuration)\Geonorge.MassivNedlasting.Setup.msi"  />
+		</Chain>
+	</Bundle>
+</Wix>

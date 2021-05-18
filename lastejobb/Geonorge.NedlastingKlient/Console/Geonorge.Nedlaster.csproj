@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <OutputType>exe</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <RuntimeFrameworkVersion>2.1</RuntimeFrameworkVersion>
+    <AssemblyName>Geonorge.Nedlaster</AssemblyName>
+    <RootNamespace>Geonorge.Nedlaster</RootNamespace>
+    <Authors>Kartverket</Authors>
+    <ApplicationIcon>geonorge.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\Geonorge.MassivNedlasting.csproj" />
+  </ItemGroup>
+
+</Project>

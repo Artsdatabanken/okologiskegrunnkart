@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "download": "node node_modules/lastejobb/lastejobb stages/download",
-    "transform": "node --max_old_space_size=28192  node_modules/lastejobb/lastejobb stages/transform",
-    "fulltext": "node --max_old_space_size=28192  node_modules/lastejobb/lastejobb stages/fulltext",
-    "build": "npm run download && npm run transform",
+    "kartverket_dtm": "node node_modules/lastejobb/lastejobb stages/kartverket_dtm",
+    "kartverket_stedsnavn": "node node_modules/lastejobb/lastejobb stages/kartverket_stedsnavn",
+    "build": "npm run download && npm run kartverket_stedsnavn",
     "deploy": "node node_modules/lastejobb/lastejobb stages/deploy"
   },
   "keywords": [],

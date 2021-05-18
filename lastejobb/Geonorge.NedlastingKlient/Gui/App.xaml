@@ -1,0 +1,26 @@
+﻿<Application x:Class="Geonorge.MassivNedlasting.Gui.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Geonorge.MassivNedlasting.Gui"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Grey.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.DeepOrange.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <!-- primary -->
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#fe5000"/>
+            <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#fe5000"/>
+            <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#fe5000"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF"/>
+            <!-- accent -->
+            <SolidColorBrush x:Key="SecondaryAccentBrush" Color="#3867c8"/>
+            <SolidColorBrush x:Key="SecondaryAccentForegroundBrush" Color="#FFFFFF"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
