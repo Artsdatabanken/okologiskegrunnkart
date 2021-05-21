@@ -110,6 +110,7 @@ namespace Geonorge.Nedlaster
                         Console.WriteLine(datasetFile.DatasetId + " - " + datasetFile.Title);
 
                         DirectoryInfo downloadDirectory = GetDownloadDirectory(config, datasetFile);
+                        Console.WriteLine("Download directory: " + downloadDirectory.FullName);
                         DatasetFile datasetFromFeed = datasetService.GetDatasetFile(datasetFile);
                         if (datasetFile.Url != datasetFromFeed.Url)
                             datasetFile.Url = datasetFromFeed.Url;
