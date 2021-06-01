@@ -77,7 +77,7 @@ function matchInput(formatstring, input) {
   if (Object.keys(result).length === 0) return { harData: false };
 
   // Get first property value an dreplace in orginal string
-  let faktaark = result[Object.keys(result)[0]];
+  let faktaark = encodeURIComponent(result[Object.keys(result)[0]]);
   faktaark = formatstring.replace(/\{(.+?)\}/g, faktaark);
 
   return { harData: true, faktaark };
