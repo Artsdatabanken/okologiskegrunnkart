@@ -311,6 +311,22 @@ const DrawerMenu = ({
         </MenuItem>
 
         <MenuItem
+          id="drawer-menuitem-source-code"
+          className="drawer-menuitem"
+          onClick={() => {
+            handleCloseDrawer();
+            const url = "https://ogforslag.test.artsdatabanken.no/";
+            openInNewTabWithoutOpener(url);
+          }}
+          tabIndex={0}
+        >
+          <ListItemIcon id="drawer-item-icon">
+            <Comment />
+          </ListItemIcon>
+          <ListItemText primary="Innmelding nye kartlag" />
+        </MenuItem>
+
+        <MenuItem
           id="drawer-menuitem-feedback"
           className="drawer-menuitem"
           onClick={() => {
