@@ -139,6 +139,15 @@ const DrawerMenu = ({
     newTab.location = url;
   };
 
+  const getOgforslagUrl = () => {
+    const host = window.location.host;
+    let testUrlParam = "test.";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      testUrlParam = "";
+    }
+    return `https://ogforslag.${testUrlParam}artsdatabanken.no/`;
+  };
+
   return (
     <>
       <Drawer
@@ -315,8 +324,7 @@ const DrawerMenu = ({
           className="drawer-menuitem"
           onClick={() => {
             handleCloseDrawer();
-            const url = "https://ogforslag.test.artsdatabanken.no/";
-            openInNewTabWithoutOpener(url);
+            openInNewTabWithoutOpener(getOgforslagUrl());
           }}
           tabIndex={0}
         >
