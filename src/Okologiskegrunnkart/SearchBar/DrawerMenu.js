@@ -139,6 +139,15 @@ const DrawerMenu = ({
     newTab.location = url;
   };
 
+  const getOgforslagUrl = () => {
+    const host = window.location.host;
+    let testUrlParam = "test.";
+    if (host === "okologiskegrunnkart.artsdatabanken.no") {
+      testUrlParam = "";
+    }
+    return `https://ogforslag.${testUrlParam}artsdatabanken.no/`;
+  };
+
   return (
     <>
       <Drawer
@@ -308,6 +317,21 @@ const DrawerMenu = ({
             <GitHub />
           </ListItemIcon>
           <ListItemText primary="Kildekode" />
+        </MenuItem>
+
+        <MenuItem
+          id="drawer-menuitem-source-code"
+          className="drawer-menuitem"
+          onClick={() => {
+            handleCloseDrawer();
+            openInNewTabWithoutOpener(getOgforslagUrl());
+          }}
+          tabIndex={0}
+        >
+          <ListItemIcon id="drawer-item-icon">
+            <Comment />
+          </ListItemIcon>
+          <ListItemText primary="Innmelding nye kartlag" />
         </MenuItem>
 
         <MenuItem

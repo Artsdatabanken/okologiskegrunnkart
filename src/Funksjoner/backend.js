@@ -93,11 +93,11 @@ class Backend {
   }
 
   static async getUserManual() {
-    return this.getPromiseText(`/brukermanual.txt`);
+    return this.getPromiseText(`./brukermanual.txt`);
   }
 
   static async getAboutPage() {
-    return this.getPromiseText(`/omOkologiskeGrunnkart.txt`);
+    return this.getPromiseText(`./omOkologiskeGrunnkart.txt`);
   }
 
   static async hentKnrGnrBnr(knr, gnr, bnr, side = 0, numberPerPage = 20) {
