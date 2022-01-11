@@ -49,3 +49,66 @@ select {
   padding: 5px;
   border: 1px solid #808080;
 }
+
+.cookie-warning {
+  background: #2f2f2f;
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  text-align: center;
+  color: white;
+  padding: 4px;
+  z-index: 1000;
+  max-width: 100%;
+  overflow-y: scroll;
+  max-height: calc(100% - 50px);
+}
+
+.normal-warning-buttons,
+.normal-warning {
+  display: flex;
+  padding: 4px;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 435px) {
+  .normal-warning {
+    flex-direction: column;
+  }
+}
+
+.normal-warning button {
+  min-width: 60px;
+  font-weight: bold;
+  max-height: 50px;
+}
+
+.normal-warning .primary {
+  background: #94cabd;
+}
+
+.normal-warning .secondary {
+  background: #a4b1b7;
+}
+
+@media only screen and (min-width: 769px) {
+  .cookie-warning {
+    max-width: 408px;
+    right: 0;
+  }
+}
+.readmore-box {
+  padding: 4px;
+  background: #383636;
+  margin: 4px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  color: white;
+  border: none;
+  background: transparent;
+}

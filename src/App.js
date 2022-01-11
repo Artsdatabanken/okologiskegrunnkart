@@ -8,6 +8,7 @@ import Kart from "./Kart/Leaflet";
 import KartlagSettings from "./Settings/KartlagSettings";
 import AuthenticationContext from "./AuthenticationContext";
 import bakgrunnskart from "./Kart/Bakgrunnskart/bakgrunnskarttema";
+import CookieWarning from "./Okologiskegrunnkart/CookieWarning";
 import { setValue } from "./Funksjoner/setValue";
 import {
   initialKartlagSort,
@@ -2919,6 +2920,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                       />
+                      <CookieWarning />
                     </div>
                   </>
                 );
