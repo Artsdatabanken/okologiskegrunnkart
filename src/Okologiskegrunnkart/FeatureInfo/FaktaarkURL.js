@@ -78,6 +78,10 @@ function matchInput(formatstring, input) {
 
   // Get first property value an dreplace in orginal string
   let faktaark = result[Object.keys(result)[0]];
+  // eslint-disable-next-line prettier/prettier
+  if (!/\b(http:\/\/|https:\/\/)/.test(faktaark)) {
+    faktaark = encodeURIComponent(faktaark);
+  }
   faktaark = formatstring.replace(/\{(.+?)\}/g, faktaark);
 
   return { harData: true, faktaark };
