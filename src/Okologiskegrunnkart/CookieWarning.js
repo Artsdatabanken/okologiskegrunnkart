@@ -27,7 +27,7 @@ const CookieWarning = ({}) => {
   };
 
   const text =
-    "Applikasjonen benytter lokal lagring på din maskin for å sikre god dataflyt . Kun du har tilgang på disse opplysningene.";
+    "Applikasjonen benytter lokal lagring på din maskin (cookies) for å sikre god dataflyt. Kun du har tilgang på disse opplysningene.";
   return cookieConsent?.trim() !== cookieString ? (
     <div className="cookie-warning">
       <div className="normal-warning">
@@ -63,10 +63,8 @@ const CookieWarning = ({}) => {
             "__dbnames".
           </p>
           <p>
-            Formålet med lagringen er å sikre bedre dataflyt av tunge kartlag,
-            og stabilitet som hindrer at du må laste ned kartdata på nytt. Dette
-            sparer deg for nedlastingsmengde, og sørger for at du ikke får
-            problemer om du har ustabil nettilgang.
+            Formålet med lagringen er at brukeren skal ha mulighet til å lagre
+            sine favorittkartlag og polygoner, slik at de finnes til senere.
           </p>
 
           <h3>Brukerlagring av preferanser</h3>
@@ -80,7 +78,7 @@ const CookieWarning = ({}) => {
           <p>
             For å slippe å se informasjonsboksen om datalagring igjen, kan du
             trykke på OK-knappen. Da settes en Informasjonskapsel kalt
-            "cookieWarning" med ett års holbarhet som husker dette.
+            "cookieWarning" med ett års varighet som husker dette.
           </p>
         </div>
       )}
