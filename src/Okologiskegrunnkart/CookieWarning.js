@@ -6,7 +6,7 @@ This is a first draft until new guidelines and better rig is in place.
 
 import React, { useState } from "react";
 import { Close } from "@material-ui/icons";
-const CookieWarning = ({}) => {
+const CookieWarning = () => {
   const cookieString = "cookieWarning=closed";
   const getConsentCookie = () => {
     return document.cookie.split(";").find(el => {
