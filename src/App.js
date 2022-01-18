@@ -2920,7 +2920,7 @@ class App extends React.Component {
                         showFavoriteLayers={this.state.showFavoriteLayers}
                         toggleShowFavoriteLayers={this.toggleShowFavoriteLayers}
                       />
-                      <CookieWarning />
+                      <CookieWarning isSideBarOpen={this.state.showSideBar} />
                     </div>
                   </>
                 );

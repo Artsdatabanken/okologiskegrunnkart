@@ -6,7 +6,7 @@ This is a first draft until new guidelines and better rig is in place.
 
 import React, { useState } from "react";
 import { Close } from "@material-ui/icons";
-const CookieWarning = () => {
+const CookieWarning = ({ isSideBarOpen }) => {
   const cookieString = "cookieWarning=closed";
   const getConsentCookie = () => {
     return document.cookie.split(";").find(el => {
@@ -29,7 +29,11 @@ const CookieWarning = () => {
   const text =
     "Applikasjonen benytter lokal lagring på din maskin (cookies) for å sikre god dataflyt. Kun du har tilgang på disse opplysningene.";
   return cookieConsent?.trim() !== cookieString ? (
-    <div className="cookie-warning">
+    <div
+      className={`cookie-warning${
+        readMore ? " cookie-warning-read-more" : ""
+      } ${isSideBarOpen ? "cookie-warning-side-bar-open" : ""}`}
+    >
       <div className="normal-warning">
         <span>{text}</span>
         <div className="normal-warning-buttons">

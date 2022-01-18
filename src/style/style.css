@@ -93,8 +93,23 @@ select {
 
 @media only screen and (min-width: 769px) {
   .cookie-warning {
-    max-width: 408px;
+    top: 115px;
+    max-width: 250px;
     right: 0;
+  }
+
+  .cookie-warning-side-bar-open {
+    max-width: 150px;
+    right: 407px;
+  }
+
+  .cookie-warning-read-more {
+    max-width: 400px;
+    bottom: 0;
+  }
+
+  .normal-warning {
+    flex-direction: column;
   }
 }
 .readmore-box {
