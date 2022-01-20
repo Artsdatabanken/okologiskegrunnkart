@@ -28,6 +28,7 @@ This project has a wiki, access it here:
 ## Deployment
 - manually triggered for master branch. 
 - See deploy.sh 
+- lastbalansert
 
 ## Thanks
 
