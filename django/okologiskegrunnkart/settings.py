@@ -25,7 +25,7 @@ SECRET_KEY = 'v7gtxx=j=9xlu0e9!%!g8op6@o$@k#bjtnh9nex$ld&%rzlmw5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*", "okologiskegrunnkartadmin.artsdatabanken.no"]
 
 
 # Application definition
@@ -154,3 +154,5 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8000',
 )
+
+CSRF_TRUSTED_ORIGINS = ["https://okologiskegrunnkartadmin.artsdatabanken.no/"]
