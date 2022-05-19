@@ -25,6 +25,11 @@ This project has a wiki, access it here:
 
 - https://github.com/Artsdatabanken/okologiskegrunnkart/wiki
 
+## Deployment
+- manually triggered for master branch. 
+- See deploy.sh 
+- lastbalansert
+
 ## Thanks
 
 <a href="https://www.browserstack.com/"><img src="doc/Browserstack-logo.svg" width="200px">
