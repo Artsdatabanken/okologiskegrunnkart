@@ -18,6 +18,7 @@
 - [Kartlag.json file](https://okologiskegrunnkart.test.artsdatabanken.no/kartlag.json)
 - [Cached tiles](https://data.test.artsdatabanken.no/grunnkart/)
 - [Response check](https://responssjekk.test.artsdatabanken.no/)
+- [DB Readme] (https://github.com/Artsdatabanken/okologiskegrunnkart/tree/master/django)
 
 ## Wiki
 
