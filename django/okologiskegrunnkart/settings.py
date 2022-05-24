@@ -146,6 +146,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 CORS_ALLOW_CREDENTIALS = True
 CORS_REPLACE_HTTPS_REFERER = True
 
+CSRF_TRUSTED_ORIGINS = ['https://okologiskegrunnkart.artsdatabanken.no']
+
 CORS_ORIGIN_WHITELIST = (
     'https://okologiskegrunnkart.artsdatabanken.no',
     'https://okologiskegrunnkart.test.artsdatabanken.no',
