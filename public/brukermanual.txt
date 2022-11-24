@@ -48,3 +48,7 @@ Du kan også få generert en arealrapport i denne modusen. Etter å ha valgt hvi
 ## Lenke
 
 Lenka fra portalen inneholder de aktive og punktet du sist klikket på. Dette gjør at du kan kopiere lenka fra nettleseren din, og dele denne med andre.
+
+## Brukertips på youtube
+
+Artsdatabaken har laget en rekke videoklipp med tips til hvordan du kan bruke Portal for Økologiske grunnkart. Gå inn på https://www.youtube.com/playlist?list=PLOXeNzczfAuML7HeUHZ90uo0ck5rnsr1l
