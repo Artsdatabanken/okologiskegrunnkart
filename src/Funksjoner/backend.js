@@ -80,9 +80,11 @@ class Backend {
     );
   }
 
-  static async hentSteder(bokstav, side = 0, numberPerPage = 20) {
+  static async hentSteder(bokstav, side = 1, numberPerPage = 20) {
     return this.getPromise(
-      `https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
+      //console.log("hentSteder", "called")
+      //`https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
+      `https://ws.geonorge.no/stedsnavn/v1/navn?sok=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
     );
   }
 

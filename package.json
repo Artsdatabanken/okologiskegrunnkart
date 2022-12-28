@@ -14,10 +14,11 @@
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@sentry/browser": "^5.7.1",
     "classnames": "^2.2.6",
+    "dexie": "^3.0.2",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "fast-xml-parser": "^4.0.12",
     "leaflet": "^1.6.0",
     "markdown-to-jsx": "^6.11.4",
-    "pixl-xml": "^1.0.13",
     "proj4": "^2.6.2",
     "qs": "^6.9.4",
     "react": "^16.11.0",
@@ -25,15 +26,20 @@
     "react-dom": "^16.11.0",
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "^4.0.0",
+    "react-scripts": "^5.0.1",
+    "react-scroll": "^1.8.1",
     "react-use": "^12.10.0",
+    "react-xml-parser": "^1.1.8",
     "recompose": "^0.30.0",
-    "dexie": "^3.0.2",
-    "react-scroll": "^1.8.1"
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
     "coveralls": "^3.0.7",
+    "cypress": "^6.3.0",
+    "cypress-file-upload": "^4.1.1",
     "eslint": "7.15.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-jsx-a11y": "^6.4.1",
@@ -41,11 +47,7 @@
     "husky": "^3.0.9",
     "lint-staged": "^9.4.2",
     "prettier": "^1.18.2",
-    "pretty-quick": "^2.0.0",
-    "@testing-library/react": "^11.2.2",
-    "@testing-library/jest-dom": "^5.11.6",
-    "cypress": "^6.3.0",
-    "cypress-file-upload": "^4.1.1"
+    "pretty-quick": "^2.0.0"
   },
   "eslintConfig": {
     "extends": [

@@ -379,10 +379,13 @@ const SearchBar = ({
   );
 
   const fetchSearchPlaces = useCallback(
-    (term, page = 0, numberPerPage = 20) => {
+    (term, page = 1, numberPerPage = 20) => {
+      page = page === 0 ? 1 : side;
       backend.hentSteder(term, page, numberPerPage).then(resultat => {
+        console.log("res", resultat);
         let max_items = 20;
-        let entries = resultat ? resultat.stedsnavn : null;
+        //let entries = resultat ? resultat.stedsnavn : null;
+        let entries = resultat ? resultat.skrivemåte : null;
         const resultatliste = {};
         // If only one entry is returned from backend, this is
         // returned as an object, not as array of objects.
@@ -418,10 +421,12 @@ const SearchBar = ({
           }
         }
         const prioritertliste = {};
+        console.log("resultatliste", resultatliste);
         for (let i in resultatliste) {
           const element = resultatliste[i];
           prioritertliste[element.ssrpri] = element;
         }
+        console.log("prioritertliste", prioritertliste);
         set_treffliste_sted(Object.values(prioritertliste));
         if (page === 0) {
           const numberPlaces =
