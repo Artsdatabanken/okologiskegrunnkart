@@ -555,9 +555,14 @@ const TreffListe = ({
                 itemname = item.tittel;
                 itemnr = item.tema || "Underlag";
               } else if (item.trefftype === "Stedsnavn") {
-                itemname = item.stedsnavn || "finner ikke stedsnavn";
-                itemtype = item.navnetype || "";
-                itemnr = item.ssrId || "";
+                //itemname = item.stedsnavn || "finner ikke stedsnavn";
+                itemname = item.skrivemåte || "finner ikke stedsnavn";
+                //itemtype = item.navnetype || "";
+                itemtype = item.trefftype || "";
+                item.kommunenavn =
+                  item && item.kommunenavn ? item.kommuner[0].kommunenavn : "";
+                //itemnr = item.ssrId || "";
+                itemnr = item.stedsnummer || "";
               } else if (item.trefftype === "Punkt") {
                 itemname = item.name;
                 itemnr = item.projection;

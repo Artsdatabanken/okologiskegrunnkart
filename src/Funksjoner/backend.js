@@ -84,7 +84,7 @@ class Backend {
     return this.getPromise(
       //console.log("hentSteder", "called")
       //`https://ws.geonorge.no/SKWS3Index/v2/ssr/sok?navn=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
-      `https://ws.geonorge.no/stedsnavn/v1/navn?sok=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&epsgKode=4326&side=${side}`
+      `https://ws.geonorge.no/stedsnavn/v1/navn?sok=${bokstav}*&eksakteForst=true&antPerSide=${numberPerPage}&utkoordsys=4326&side=${side}`
     );
   }
 
