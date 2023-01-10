@@ -558,9 +558,14 @@ const TreffListe = ({
                 //itemname = item.stedsnavn || "finner ikke stedsnavn";
                 itemname = item.skrivemåte || "finner ikke stedsnavn";
                 //itemtype = item.navnetype || "";
-                itemtype = item.trefftype || "";
+                itemtype = item.navneobjekttype || "";
                 item.kommunenavn =
-                  item && item.kommunenavn ? item.kommuner[0].kommunenavn : "";
+                  item &&
+                  item.kommunenavn &&
+                  item.kommuner &&
+                  item.kommuner.length > 0
+                    ? item.kommuner[0].kommunenavn
+                    : "";
                 //itemnr = item.ssrId || "";
                 itemnr = item.stedsnummer || "";
               } else if (item.trefftype === "Punkt") {

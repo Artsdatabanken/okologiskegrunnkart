@@ -108,28 +108,25 @@ it("should render place results on pop-up list", () => {
   );
   // Search results content
   let buttons = getAllByRole("button");
-  expect(buttons.length).toBe(5);
+  expect(buttons.length).toBe(4);
 
   getByText("Sarpsborg");
   getByText("Stedsnavn, By i Sarpsborg");
-  getByText("48340");
+  getByText("487975");
 
   getByText("Svelvik");
   getByText("Stedsnavn, By i Drammen");
-  getByText("59787");
-
-  getByText("Sortland");
-  getByText("287228");
+  getByText("124591");
 
   getByText("Suortá");
-  getByText("1329929");
+  getByText("685163");
 
   let places = getAllByText("Stedsnavn, By i Sortland - Suortá");
-  expect(places.length).toBe(2);
+  expect(places.length).toBe(1);
 
   getByText("Stokmarknes");
   getByText("Stedsnavn, By i Hadsel");
-  getByText("286770");
+  getByText("260956");
 
   // Div class
   let div = container.querySelector("#treffliste");
@@ -387,34 +384,31 @@ it("should render place results on search results page", () => {
   let buttons = getAllByRole("button");
   expect(buttons.length).toBe(9);
 
-  // Click on paces tab
+  // Click on places tab
   fireEvent.click(getByText("Stedsnavn"));
 
   // Buttons: 5 place results, 8 pagination, 6 tabs
   buttons = getAllByRole("button");
-  expect(buttons.length).toBe(19);
+  expect(buttons.length).toBe(18);
 
   // Layer results
   getByText("Sarpsborg");
   getByText("Stedsnavn, By i Sarpsborg");
-  getByText("48340");
+  getByText("487975");
 
   getByText("Svelvik");
   getByText("Stedsnavn, By i Drammen");
-  getByText("59787");
-
-  getByText("Sortland");
-  getByText("287228");
+  getByText("124591");
 
   getByText("Suortá");
-  getByText("1329929");
+  getByText("685163");
 
   let places = getAllByText("Stedsnavn, By i Sortland - Suortá");
-  expect(places.length).toBe(2);
+  expect(places.length).toBe(1);
 
   getByText("Stokmarknes");
   getByText("Stedsnavn, By i Hadsel");
-  getByText("286770");
+  getByText("260956");
 
   // Div class
   let div = container.querySelector("#treffliste");

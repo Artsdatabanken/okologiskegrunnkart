@@ -75,11 +75,27 @@ function treffliste_sted() {
       skrivemaatenavn: "Sarpsborg",
       skrivemaatestatus: "Godkjent",
       spraak: "NO",
-      ssrId: "48340",
+      ssrId: "487975",
       ssrpri: "0",
       stedsnavn: "Sarpsborg",
       stedsnummer: "487975",
-      trefftype: "Stedsnavn"
+      trefftype: "Stedsnavn",
+      nye_attributter: "under_her",
+      kommuner: [
+        {
+          kommunenummer: "3003",
+          kommunenavn: "Sarpsborg"
+        }
+      ],
+      representasjonspunkt: {
+        øst: 11.1097,
+        nord: 59.28388,
+        koordsys: 4326,
+        lon: 11.1097,
+        lat: 59.28388
+      },
+      skrivemåte: "Sarpsborg",
+      navneobjekttype: "By"
     },
     {
       aust: "10.4087472222222",
@@ -91,27 +107,19 @@ function treffliste_sted() {
       skrivemaatenavn: "Svelvik",
       skrivemaatestatus: "Godkjent",
       spraak: "NO",
-      ssrId: "59787",
+      ssrId: "124591",
       ssrpri: "1",
       stedsnavn: "Svelvik",
       stedsnummer: "124591",
-      trefftype: "Stedsnavn"
-    },
-    {
-      aust: "15.4138194444444",
-      epsgKode: "4326",
-      fylkesnavn: "Nordland",
-      kommunenavn: "Sortland - Suortá",
-      navnetype: "By",
-      nord: "68.6982",
-      skrivemaatenavn: "Sortland",
-      skrivemaatestatus: "Godkjent",
-      spraak: "NO",
-      ssrId: "287228",
-      ssrpri: "2",
-      stedsnavn: "Sortland",
-      stedsnummer: "685163",
-      trefftype: "Stedsnavn"
+      trefftype: "Stedsnavn",
+      skrivemåte: "Svelvik",
+      navneobjekttype: "By",
+      kommuner: [
+        {
+          kommunenummer: "?",
+          kommunenavn: "Drammen"
+        }
+      ]
     },
     {
       aust: "15.4138194444444",
@@ -123,11 +131,19 @@ function treffliste_sted() {
       skrivemaatenavn: "Suortá",
       skrivemaatestatus: "Uvurdert",
       spraak: "SN",
-      ssrId: "1329929",
+      ssrId: "685163",
       ssrpri: "3",
       stedsnavn: "Suortá",
       stedsnummer: "685163",
-      trefftype: "Stedsnavn"
+      trefftype: "Stedsnavn",
+      skrivemåte: "Suortá",
+      navneobjekttype: "By",
+      kommuner: [
+        {
+          kommunenummer: "?",
+          kommunenavn: "Sortland - Suortá"
+        }
+      ]
     },
     {
       aust: "14.9045479029965",
@@ -139,11 +155,19 @@ function treffliste_sted() {
       skrivemaatenavn: "Stokmarknes",
       skrivemaatestatus: "Godkjent",
       spraak: "NO",
-      ssrId: "286770",
+      ssrId: "260956",
       ssrpri: "4",
       stedsnavn: "Stokmarknes",
       stedsnummer: "260956",
-      trefftype: "Stedsnavn"
+      trefftype: "Stedsnavn",
+      skrivemåte: "Stokmarknes",
+      navneobjekttype: "By",
+      kommuner: [
+        {
+          kommunenummer: "?",
+          kommunenavn: "Hadsel"
+        }
+      ]
     }
   ];
 }

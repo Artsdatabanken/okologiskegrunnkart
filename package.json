@@ -75,6 +75,7 @@
     "coverageReporters": [
       "lcov"
     ],
+    "testEnvironment": "jsdom",
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/tests/tools/fileMock.js",
       "\\.(css|less)$": "<rootDir>/tests/tools/styleMock.js"
@@ -87,6 +88,7 @@
   "name": "nin-kart-frontend",
   "private": true,
   "scripts": {
+    "clear_jest": "jest --clearCache",
     "build": "react-scripts build",
     "build-storybook": "build-storybook -s public -o build/storybook",
     "eject": "react-scripts eject",
