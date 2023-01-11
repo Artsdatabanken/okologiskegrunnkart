@@ -782,9 +782,15 @@ class Leaflet extends React.Component {
     if (this.props.isMobile) {
       const newMax1 = max1 - (max1 - min1) / 2;
       const newMin1 = min1 - (max1 - min1) / 2;
-      new_bounds = [[newMax1, max0], [newMin1, min0]];
+      new_bounds = [
+        [newMax1, max0],
+        [newMin1, min0]
+      ];
     } else {
-      new_bounds = [[max1, max0], [min1, min0]];
+      new_bounds = [
+        [max1, max0],
+        [min1, min0]
+      ];
     }
     this.map.flyToBounds(new_bounds);
     this.props.handleRemoveZoomCoordinates();

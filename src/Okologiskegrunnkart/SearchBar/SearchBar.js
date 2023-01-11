@@ -550,7 +550,10 @@ const SearchBar = ({
     const textCoord2 = maxDec < 2 ? coord2.toFixed(2) : coord2.toFixed(maxDec);
     const koord = [];
     // BBOX [lat, lng]
-    const bbox = [[50.958427, -23.90625], [83.829945, 36.035156]];
+    const bbox = [
+      [50.958427, -23.90625],
+      [83.829945, 36.035156]
+    ];
     const minLat = bbox[0][0];
     const maxLat = bbox[1][0];
     const minLng = bbox[0][1];

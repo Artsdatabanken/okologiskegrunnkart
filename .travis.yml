@@ -10,7 +10,6 @@ script:
   - npm run build
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, BRANCH=$BRANCH"
   - cd wms-assistent
-  - npm install -D eslint-config-react-app --force
   #- npm install
   - npm run build
   - cd ..
