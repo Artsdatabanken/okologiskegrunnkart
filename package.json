@@ -28,7 +28,7 @@
     "react-scripts": "^4.0.0",
     "react-use": "^12.10.0",
     "recompose": "^0.30.0",
-    "dexie": "^3.0.2",
+    "dexie": "^3.2.2",
     "react-scroll": "^1.8.1"
   },
   "devDependencies": {
