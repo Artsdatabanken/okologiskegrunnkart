@@ -1,6 +1,6 @@
 import React from "react";
 import { CircularProgress, Snackbar } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo } from "./probe";
@@ -114,7 +114,9 @@ export default function TjenesteContainer() {
     setDoc(newDoc);
   };
 
-  const layer = (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {};
+  const layer = useMemo(
+    () => (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {}
+  );
 
   useEffect(() => {
     async function doprobe() {
