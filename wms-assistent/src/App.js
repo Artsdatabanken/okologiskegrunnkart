@@ -1,6 +1,6 @@
 import React from "react";
 import Suspense from "react";
-import BrowserRouter from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import homepage from "../package.json";
 import TjenesteContainer from "./TjenesteContainer";
 import CssBaseline from "@material-ui/core/CssBaseline";
