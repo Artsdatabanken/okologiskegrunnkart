@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - "16.14"
+os:
+  - linux
+dist:
+  - focal
 directories:
   - node_modules
 script:
