@@ -10,7 +10,7 @@ script:
   - npm install
   - npm run build
   - echo "TRAVIS_BRANCH=$TRAVIS_BRANCH, TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST, BRANCH=$BRANCH"
-  - npm install
+  #- npm install
   - cd wms-assistent
   #- npm install
   - npm run build
