@@ -563,17 +563,22 @@ const TreffListe = ({
                 itemname = item.tittel;
                 itemnr = item.tema || "Underlag";
               } else if (item.trefftype === "Stedsnavn") {
+                if (typeof item.kommunenavn === "undefined") {
+                  item.kommunenavn = "";
+                }
                 //itemname = item.stedsnavn || "finner ikke stedsnavn";
                 itemname = item.skrivemåte || "finner ikke stedsnavn";
                 //itemtype = item.navnetype || "";
                 itemtype = item.navneobjekttype || "";
-                item.kommunenavn =
+                //item.kommunenavn =
+                if (
                   does_exist(item) &&
                   does_exist(item.kommunenavn) &&
                   does_exist(item.kommuner) &&
                   item.kommuner.length > 0
-                    ? item.kommuner[0].kommunenavn
-                    : "";
+                ) {
+                  item.kommunenavn = item.kommuner[0].kommunenavn;
+                }
                 itemnr = item.stedsnummer || "";
               } else if (item.trefftype === "Punkt") {
                 itemname = item.name;
