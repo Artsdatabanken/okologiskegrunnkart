@@ -91,6 +91,14 @@ const TreffListe = ({
     }
   };
 
+  function does_exist(obj) {
+    if (obj || (typeof obj === "string" && obj === "")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const getPropertyPageDistribution = pageAPI => {
     // NOTE: page in API starts from 0, while page in Pagination starts from 1
     const page = pageAPI + 1;
@@ -560,13 +568,12 @@ const TreffListe = ({
                 //itemtype = item.navnetype || "";
                 itemtype = item.navneobjekttype || "";
                 item.kommunenavn =
-                  item &&
-                  item.kommunenavn &&
-                  item.kommuner &&
+                  does_exist(item) &&
+                  does_exist(item.kommunenavn) &&
+                  does_exist(item.kommuner) &&
                   item.kommuner.length > 0
                     ? item.kommuner[0].kommunenavn
                     : "";
-                //itemnr = item.ssrId || "";
                 itemnr = item.stedsnummer || "";
               } else if (item.trefftype === "Punkt") {
                 itemname = item.name;
