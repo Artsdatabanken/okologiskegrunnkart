@@ -1,6 +1,6 @@
 import React from "react";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
-import { OpenInNew } from "@material-ui/icons";
+import { OpenInNew } from "@mui/icons-material";
 
 const TextField2 = ({ title, dockey, doc, onUpdate, icon, onIconClick }) => {
   const value = doc[dockey];

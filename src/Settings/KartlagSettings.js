@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Button,
-  Checkbox,
-  Typography,
-  CircularProgress
-} from "@material-ui/core";
-import { TreeView, TreeItem } from "@material-ui/lab";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { Button, Checkbox, Typography, CircularProgress } from "@mui/material";
+import { TreeView, TreeItem } from "@mui/lab";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import "../style/settings.css";
 import { makeStyles } from "@mui/styles";
 
