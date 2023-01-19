@@ -1,5 +1,9 @@
 {
-  "ExpandedNodes": ["", "\\wms-assistent"],
-  "SelectedNode": "\\wms-assistent\\package.json",
+  "ExpandedNodes": [
+    "",
+    "\\src\\Okologiskegrunnkart\\GrunnKartlag",
+    "\\src\\Okologiskegrunnkart\\SearchBar"
+  ],
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
