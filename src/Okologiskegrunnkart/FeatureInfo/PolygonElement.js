@@ -1,6 +1,6 @@
-import { ListItem, ListItemIcon } from "@material-ui/core";
+import { ListItem, ListItemIcon } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import { Badge } from "@material-ui/core";
+import { Badge } from "@mui/material";
 import CustomIcon from "../../Common/CustomIcon";
 
 const PolygonElement = ({

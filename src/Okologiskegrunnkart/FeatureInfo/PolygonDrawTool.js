@@ -11,7 +11,7 @@ import {
   Forward,
   Folder,
   Save
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import {
   IconButton,
   Typography,
@@ -21,8 +21,8 @@ import {
   ListItem,
   ListItemText,
   Snackbar
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomRadio from "../../Common/CustomRadio";
 import { getPolygonDepth } from "../../Funksjoner/polygonTools";

@@ -9,7 +9,7 @@ import { TreeView, TreeItem } from "@material-ui/lab";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import "../style/settings.css";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
   root: {

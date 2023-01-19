@@ -5,13 +5,12 @@ import backend from "Funksjoner/backend";
 
 configure({ adapter: new Adapter() });
 
-//jest.mock('@material-ui/core/Tooltip')
-jest.mock("@material-ui/lab/Slider");
-jest.mock("@material-ui/core/Button");
-jest.mock("@material-ui/core/Drawer");
-jest.mock("@material-ui/core/TextField", () => "TextField");
-jest.mock("@material-ui/core/Tooltip");
-jest.mock("@material-ui/core/MenuItem");
+jest.mock("@mui/lab/Slider");
+jest.mock("@mui/material/Button");
+jest.mock("@mui/material/Drawer");
+jest.mock("@mui/material/TextField", () => "TextField");
+jest.mock("@mui/material/Tooltip");
+jest.mock("@mui/material/MenuItem");
 jest.mock("backend", () => () => ({}));
 
 jest.mock("./Kart", () => "tangram");

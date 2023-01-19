@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import SaveIcon from "@material-ui/icons/Save";
+import { Button } from "@mui/material";
+import Alert from "@mui/lab/Alert";
+import SaveIcon from "@mui/icons-material/Save";
 import KlikkIKart from "./KlikkkIKart";
 
 const Tjeneste = ({

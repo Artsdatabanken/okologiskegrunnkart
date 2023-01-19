@@ -9,7 +9,7 @@ import {
   CloudDownload,
   GitHub,
   Comment
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import {
   MenuItem,
   ListItem,
@@ -19,7 +19,7 @@ import {
   Modal,
   Drawer,
   IconButton
-} from "@material-ui/core";
+} from "@mui/material";
 import backend from "../../Funksjoner/backend";
 import {
   AllLayersIcon,

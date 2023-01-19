@@ -1,4 +1,4 @@
-import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -42,7 +42,7 @@ class RootBoundary extends React.Component {
   }
 }
 
-const theme = createMuiTheme({
+const theme = createTheme({
   palette: {
     primary: { main: "#888" },
     secondary: { main: "#2a2" }

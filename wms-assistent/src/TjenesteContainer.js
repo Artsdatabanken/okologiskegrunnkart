@@ -1,5 +1,5 @@
 import React from "react";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import { CircularProgress, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
@@ -10,7 +10,7 @@ import Tjenesteliste from "./Tjenesteliste";
 import TjenesteListItem from "./TjenesteListItem";
 import url_formatter from "./FeatureInfo/url_formatter";
 import backend from "./Funksjoner/backend";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import MainTabs from "./MainTabs";
 
 const kartlagUrl =

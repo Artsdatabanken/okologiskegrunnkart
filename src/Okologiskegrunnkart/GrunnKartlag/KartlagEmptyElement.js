@@ -1,5 +1,5 @@
 import React from "react";
-import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import { ListItemIcon, ListItem, ListItemText } from "@mui/material";
 import CustomIcon from "../../Common/CustomIcon";
 
 const KartlagEmptyElement = ({ kartlag }) => {

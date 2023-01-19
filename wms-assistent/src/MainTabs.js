@@ -1,8 +1,8 @@
 import React from "react";
-import { Paper, Tabs, Tab, Button } from "@material-ui/core";
+import { Paper, Tabs, Tab, Button } from "@mui/material";
 import Tjeneste from "./Tjeneste";
 import TextField2 from "./TextField2";
-import { Save as SaveIcon } from "@material-ui/icons";
+import { Save as SaveIcon } from "@mui/icons-material";
 // import { Create as CreateIcon } from "@material-ui/icons";
 // import { useHistory } from "react-router-dom";
 import KartlagListItem from "./KartlagListItem";

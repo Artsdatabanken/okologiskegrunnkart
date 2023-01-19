@@ -6,8 +6,8 @@ import {
   Terrain,
   ExpandLess,
   ExpandMore
-} from "@material-ui/icons";
-import { ListItem, ListItemText, Collapse } from "@material-ui/core";
+} from "@mui/icons-material";
+import { ListItem, ListItemText, Collapse } from "@mui/material";
 import CustomTooltip from "../../Common/CustomTooltip";
 import SmallSwitch from "../../Common/SmallSwitch";
 import "../../style/infobox.css";

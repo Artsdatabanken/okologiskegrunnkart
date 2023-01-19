@@ -9,7 +9,7 @@ import {
   Description,
   Layers,
   KeyboardBackspace
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import React, { useState, useEffect } from "react";
 import {
   Slider,
@@ -19,7 +19,7 @@ import {
   ListItemText,
   Typography,
   Badge
-} from "@material-ui/core";
+} from "@mui/material";
 import CustomIcon from "../../Common/CustomIcon";
 import CustomSwitch from "../../Common/CustomSwitch";
 

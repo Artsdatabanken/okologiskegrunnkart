@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { KeyboardBackspace } from "@material-ui/icons";
-import { Button } from "@material-ui/core";
-import Pagination from "@material-ui/lab/Pagination";
+import { KeyboardBackspace } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import Pagination from "@mui/lab/Pagination";
 
 const TreffListe = ({
   onSelectSearchResult,

@@ -3,9 +3,15 @@
   "version": "2.0.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.10.1",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.55",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "^5.0.0-alpha.116",
+    "@mui/material": "^5.11.5",
+    "@mui/styles": "^5.11.2",
     "classnames": "^2.2.6",
     "leaflet": "^1.6.0",
     "pixl-xml": "^1.0.13",
@@ -13,7 +19,7 @@
     "react-dom": "^17.0.0",
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "^5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

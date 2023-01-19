@@ -3,7 +3,7 @@ import topo4 from "./images/topo4.jpg";
 import topo4graatone from "./images/topo4graatone.jpg";
 import flyfoto from "./images/flyfoto.jpg";
 import React, { useState } from "react";
-import { Map } from "@material-ui/icons";
+import { Map } from "@mui/icons-material";
 
 const tilgjengelige = ["gebco", "topo4", "topo4graatone", "flybilder"];
 const tilgjengelige_data = {
