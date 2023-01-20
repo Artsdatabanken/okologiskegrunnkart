@@ -380,9 +380,12 @@ const SearchBar = ({
 
   const fetchSearchPlaces = useCallback(
     (term, page = 0, numberPerPage = 20) => {
+      page = page === 0 ? 1 : page + 1;
       backend.hentSteder(term, page, numberPerPage).then(resultat => {
+        console.log("res", resultat);
         let max_items = 20;
-        let entries = resultat ? resultat.stedsnavn : null;
+        //let entries = resultat ? resultat.stedsnavn : null;
+        let entries = resultat ? resultat.navn : null;
         const resultatliste = {};
         // If only one entry is returned from backend, this is
         // returned as an object, not as array of objects.
@@ -395,7 +398,8 @@ const SearchBar = ({
           entries.push(object);
         }
         for (const i in entries) {
-          const id = entries[i].ssrId;
+          //const id = entries[i].ssrId;
+          const id = entries[i].stedsnummer;
           if (resultatliste[id]) {
             const gammel = resultatliste[id];
             const ny = entries[i];
@@ -418,15 +422,21 @@ const SearchBar = ({
           }
         }
         const prioritertliste = {};
+        //console.log("resultatliste", resultatliste);
         for (let i in resultatliste) {
           const element = resultatliste[i];
           prioritertliste[element.ssrpri] = element;
         }
+        console.log("prioritertliste", prioritertliste);
         set_treffliste_sted(Object.values(prioritertliste));
-        if (page === 0) {
-          const numberPlaces =
+        if (page === 1) {
+          /*const numberPlaces =
             resultat && resultat.totaltAntallTreff
               ? resultat.totaltAntallTreff
+              : 0;*/
+          const numberPlaces =
+            resultat && resultat.metadata.totaltAntallTreff
+              ? resultat.metadata.totaltAntallTreff
               : 0;
           set_number_places(numberPlaces);
         }
@@ -540,7 +550,10 @@ const SearchBar = ({
     const textCoord2 = maxDec < 2 ? coord2.toFixed(2) : coord2.toFixed(maxDec);
     const koord = [];
     // BBOX [lat, lng]
-    const bbox = [[50.958427, -23.90625], [83.829945, 36.035156]];
+    const bbox = [
+      [50.958427, -23.90625],
+      [83.829945, 36.035156]
+    ];
     const minLat = bbox[0][0];
     const maxLat = bbox[1][0];
     const minLng = bbox[0][1];

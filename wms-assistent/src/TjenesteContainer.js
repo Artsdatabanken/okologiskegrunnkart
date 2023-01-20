@@ -162,6 +162,7 @@ export default function TjenesteContainer() {
       }
     }
     doprobe();
+    console.log(doc, doc.klikkurl, doc.wmsversion, layer);
   }, [doc, doc.klikkurl, doc.wmsversion, layer]);
 
   const handleUpdateLayer = layer => {
