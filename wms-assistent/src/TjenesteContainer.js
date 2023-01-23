@@ -113,7 +113,7 @@ export default function TjenesteContainer() {
     const newDoc = { ...doc, [k]: v };
     setDoc(newDoc);
   };
-
+  // eslint-disable-next-line
   const layer = (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {};
 
   useEffect(() => {
