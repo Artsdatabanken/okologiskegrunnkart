@@ -35,12 +35,7 @@ function renderGrunnKartlag(args) {
 }
 
 it("should render all layer names and buttons in kartlag sorted by tema", () => {
-  const {
-    getAllByText,
-    getByText,
-    getAllByRole,
-    getByTitle
-  } = renderGrunnKartlag();
+  const { getAllByText, getByText, getAllByRole } = renderGrunnKartlag();
   getByText("Kartlag");
   getByText("Gruppert på tema");
 
@@ -67,19 +62,14 @@ it("should render all layer names and buttons in kartlag sorted by tema", () => 
   expect(buttons.length).toBe(10);
 
   // Find buttons with title
-  getByTitle("Favoritter");
-  getByTitle("Sortere");
-  getByTitle("Filtrer");
-  getByTitle("Åpne på venstre side");
+  screen.getByLabelText("Favoritter");
+  screen.getByLabelText("Sortere");
+  screen.getByLabelText("Filtrer");
+  screen.getByLabelText("Åpne på venstre side");
 });
 
 it("should sort kartlag alphabetically", async () => {
-  const {
-    getAllByText,
-    getByText,
-    getByTitle,
-    findByText
-  } = renderGrunnKartlag();
+  const { getAllByText, getByText, findByText } = renderGrunnKartlag();
   getByText("Kartlag");
   getByText("Gruppert på tema");
 
@@ -90,7 +80,7 @@ it("should sort kartlag alphabetically", async () => {
   expect(arter.length).toBe(2);
 
   // Select sorting alphabetically
-  fireEvent.click(getByTitle("Sortere"));
+  fireEvent.click(screen.getByLabelText("Sortere"));
   await waitFor(() => findByText("Alfabetisk"));
   fireEvent.click(getByText("Alfabetisk"));
 
@@ -118,12 +108,7 @@ it("should sort kartlag alphabetically", async () => {
 });
 
 it("should sort kartlag by data owner", async () => {
-  const {
-    getAllByText,
-    getByText,
-    getByTitle,
-    findByText
-  } = renderGrunnKartlag();
+  const { getAllByText, getByText, findByText } = renderGrunnKartlag();
   getByText("Kartlag");
   getByText("Gruppert på tema");
 
@@ -140,7 +125,7 @@ it("should sort kartlag by data owner", async () => {
   getByText("Artsdatabanken");
 
   // Select sorting by data owner
-  fireEvent.click(getByTitle("Sortere"));
+  fireEvent.click(screen.getByLabelText("Sortere"));
   await waitFor(() => findByText("Dataeier"));
   fireEvent.click(getByText("Dataeier"));
 
@@ -172,7 +157,6 @@ it("should filter kartlag by arter", async () => {
   const {
     getAllByText,
     getByText,
-    getByTitle,
     findByText,
     queryByText
   } = renderGrunnKartlag();
@@ -194,7 +178,7 @@ it("should filter kartlag by arter", async () => {
   // Select filter by DOK-data and Naturtype
   let filtrer = queryByText("Filtrer");
   expect(filtrer).toBeNull();
-  fireEvent.click(getByTitle("Filtrer"));
+  fireEvent.click(screen.getByLabelText("Filtrer"));
   await waitFor(() => findByText("DOK-data"));
   fireEvent.click(arter[1]);
 
@@ -220,7 +204,6 @@ it("should filter kartlag by multiple terms", async () => {
   const {
     getAllByText,
     getByText,
-    getByTitle,
     findByText,
     queryByText
   } = renderGrunnKartlag();
@@ -242,11 +225,11 @@ it("should filter kartlag by multiple terms", async () => {
   // Select filter by DOK-data and Naturtype
   let filtrer = queryByText("Filtrer");
   expect(filtrer).toBeNull();
-  fireEvent.click(getByTitle("Filtrer"));
+  fireEvent.click(screen.getByLabelText("Filtrer"));
   await waitFor(() => findByText("Feltkartlagte data"));
   fireEvent.click(getByText("DOK-data"));
   await waitFor(() => findByText("Filtrer"));
-  fireEvent.click(getByTitle("Filtrer"));
+  fireEvent.click(screen.getByLabelText("Filtrer"));
   await waitFor(() => findByText("Feltkartlagte data"));
   fireEvent.click(getByText("Naturtype"));
 
@@ -269,7 +252,7 @@ it("should filter kartlag by multiple terms", async () => {
 });
 
 it("should allow different matches when filtered by multiple terms", async () => {
-  const { getByText, getByTitle, findByText } = renderGrunnKartlag();
+  const { getByText, findByText } = renderGrunnKartlag();
   getByText("Kartlag");
   getByText("Gruppert på tema");
 
@@ -280,11 +263,11 @@ it("should allow different matches when filtered by multiple terms", async () =>
   getByText("Arter - Rødlista");
 
   // Select filter by DOK-data and Naturtype
-  fireEvent.click(getByTitle("Filtrer"));
+  fireEvent.click(screen.getByLabelText("Filtrer"));
   await waitFor(() => findByText("Feltkartlagte data"));
   fireEvent.click(getByText("DOK-data"));
   await waitFor(() => findByText("Filtrer"));
-  fireEvent.click(getByTitle("Filtrer"));
+  fireEvent.click(screen.getByLabelText("Filtrer"));
   await waitFor(() => findByText("Feltkartlagte data"));
   fireEvent.click(getByText("Naturtype"));
 

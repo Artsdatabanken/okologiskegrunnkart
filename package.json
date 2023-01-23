@@ -92,6 +92,8 @@
     "start": "react-scripts start",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "jest",
+    "test-poly": "jest --debug --runInBand tests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js",
+    "test-tegn": "jest --debug --runInBand tests/TegnForklaring/Tegnforklaring.test.js",
     "test:watch": "jest --watch",
     "e2e": "cypress run",
     "e2e:test": "cypress run --env baseurl=https://okologiskegrunnkart.test.artsdatabanken.no",
