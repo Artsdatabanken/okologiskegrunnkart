@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import KartlagGruppering from "./KartlagGruppering";
-import { Chip, Typography, List, Button } from "@material-ui/core";
+import { Chip, Typography, List, Button } from "@mui/material";
 import Sortering from "./Sortering";
 import Filtrering from "./Filtrering";
 import FavouritesMenu from "./FavouritesMenu";

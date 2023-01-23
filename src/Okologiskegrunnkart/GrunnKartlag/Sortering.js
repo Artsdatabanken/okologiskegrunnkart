@@ -1,9 +1,9 @@
 import React from "react";
-import { Sort as SortIcon } from "@material-ui/icons";
-import { Paper } from "@material-ui/core";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import { Sort as SortIcon } from "@mui/icons-material";
+import { Paper } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
 import BottomTooltip from "../../Common/BottomTooltip";
 import CustomIconButton from "../../Common/CustomIconButton";
 

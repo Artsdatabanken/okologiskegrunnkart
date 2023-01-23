@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { MyLocation } from "@material-ui/icons";
+import { MyLocation } from "@mui/icons-material";
 import CustomTooltip from "../../Common/CustomTooltip";
 import "../../style/infobox.css";
 import ClickInfobox from "./ClickInfobox";

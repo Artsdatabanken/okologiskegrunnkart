@@ -3,7 +3,7 @@ import "./TileLayer.CachedOverview";
 // -- WEBPACK: Load styles --
 import "leaflet/dist/leaflet.css";
 import React from "react";
-import { LocationSearching, WhereToVote } from "@material-ui/icons";
+import { LocationSearching, WhereToVote } from "@mui/icons-material";
 import InfoboxSide from "../Okologiskegrunnkart/FeatureInfo/InfoboxSide";
 import "../style/leaflet.css";
 import CustomIcon from "../Common/CustomIcon";

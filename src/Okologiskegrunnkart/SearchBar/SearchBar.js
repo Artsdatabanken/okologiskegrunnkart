@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Menu as MenuIcon } from "@material-ui/icons";
+import { Menu as MenuIcon } from "@mui/icons-material";
 import DrawerMenu from "./DrawerMenu";
 import useDebounce from "./UseDebounce";
 
@@ -430,10 +430,6 @@ const SearchBar = ({
         console.log("prioritertliste", prioritertliste);
         set_treffliste_sted(Object.values(prioritertliste));
         if (page === 1) {
-          /*const numberPlaces =
-            resultat && resultat.totaltAntallTreff
-              ? resultat.totaltAntallTreff
-              : 0;*/
           const numberPlaces =
             resultat && resultat.metadata.totaltAntallTreff
               ? resultat.metadata.totaltAntallTreff

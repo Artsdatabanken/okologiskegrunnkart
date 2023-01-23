@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import KartlagElement from "./KartlagElement";
-import { ListSubheader } from "@material-ui/core";
+import { ListSubheader } from "@mui/material";
 
 const KartlagGruppering = ({
   kartlag,

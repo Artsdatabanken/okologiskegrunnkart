@@ -6,11 +6,11 @@ import {
   ListItemText,
   ListSubheader,
   ListItemSecondaryAction
-} from "@material-ui/core";
+} from "@mui/material";
 import { useHistory } from "react-router-dom";
-import LayersIcon from "@material-ui/icons/Layers";
-import ReportIcon from "@material-ui/icons/Report";
-import CheckIcon from "@material-ui/icons/Check";
+import LayersIcon from "@mui/icons-material/Layers";
+import ReportIcon from "@mui/icons-material/Report";
+import CheckIcon from "@mui/icons-material/Check";
 
 const Tjenesteliste = ({ tjenester }) => {
   const history = useHistory();

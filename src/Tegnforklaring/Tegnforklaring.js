@@ -6,8 +6,8 @@ import {
   ListItemIcon,
   ListItemText,
   ListItem
-} from "@material-ui/core";
-import { KeyboardBackspace } from "@material-ui/icons";
+} from "@mui/material";
+import { KeyboardBackspace } from "@mui/icons-material";
 
 const Tegnforklaring = ({ layers, setLegendVisible, legendPosition }) => {
   const [legendItems, setLegendItems] = useState({});

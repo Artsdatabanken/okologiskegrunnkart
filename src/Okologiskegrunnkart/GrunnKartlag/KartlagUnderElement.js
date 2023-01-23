@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import { ListItemIcon, ListItem, ListItemText } from "@mui/material";
 import CustomSwitch from "../../Common/CustomSwitch";
 import CustomIcon from "../../Common/CustomIcon";
 import BottomTooltip from "../../Common/BottomTooltip";

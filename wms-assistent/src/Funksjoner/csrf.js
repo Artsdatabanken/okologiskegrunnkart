@@ -18,6 +18,7 @@ const getCookie = name => {
 
 export { getCookie };
 
-export default () => {
+const csrfcookie = () => {
   return getCookie("csrftoken");
 };
+export default csrfcookie;

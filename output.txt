@@ -1,0 +1,1112 @@
+[0m[7m[1m[31m FAIL [39m[22m[27m[0m [2mtests/OkologiskeGrunnkart/FeatureInfo/[22m[1mPolygonDrawTool.test.js[22m ([0m[1m[41m7.693 s[49m[22m[0m)
+  [31m×[39m [2mshould render only 6 buttons and header button when polygon options are closed (176 ms)[22m
+  [31m×[39m [2mshould render 6 buttons, header button and options when polygon options are open (149 ms)[22m
+  [31m×[39m [2mshould render 2 buttons and header button when fylke is selected (73 ms)[22m
+  [31m×[39m [2mshould render 2 buttons and header button when kommune is selected (74 ms)[22m
+  [31m×[39m [2mshould render 2 buttons and header button when eiendom is selected (66 ms)[22m
+  [31m×[39m [2mshould render undo and done polygon when polyline is selected (76 ms)[22m
+  [31m×[39m [2mshould render save and edit polygon when polygon is selected (71 ms)[22m
+
+[1m[31m  [1m● [22m[1mshould render only 6 buttons and header button when polygon options are closed[39m[22m
+
+    TypeError: The "properties" argument must be an instance of Array. Received type string ('')
+[2m[22m
+[2m    [0m [90m 54 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 55 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m7[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 56 |[39m   console[33m.[39mtable([32m"DETTE ER TITTELEN"[39m[33m,[39m buttons[[35m0[39m][33m.[39mtitle)[33m;[39m[0m[22m
+[2m    [0m [90m    |[39m           [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 57 |[39m   getByTitle([32m"Last opp polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 58 |[39m   getByTitle([32m"Åpne lagret polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 59 |[39m   getByTitle([32m"Angre sist"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:56:11)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render 6 buttons, header button and options when polygon options are open[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Last opp polygon.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandLessIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"[39m
+          [33mid[39m=[32m"select-polygon-collapse"[39m
+          [33mstyle[39m=[32m"min-height: 0px;"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"polygon-options-container"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-title"[39m
+                [36m>[39m
+                  [0mDefiner polygon fra grenser[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-container"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33maria-label[39m=[32m"export"[39m
+                    [33mclass[39m=[32m"MuiFormGroup-root css-dmmspl-MuiFormGroup-root"[39m
+                    [33mrole[39m=[32m"radiogroup"[39m
+                  [36m>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-none"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-4 PrivateSwitchBase-root ForwardRef(Radio)-root-4 Mui-checked ForwardRef(Radio)-checked-5 MuiRadio-root ForwardRef(Radio)-root-4 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mchecked[39m=[32m""[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"none"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"css-hyxlzm"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hbvpl3-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonUncheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-11zohuh-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonCheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                        [36m/>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"[39m
+                      [36m>[39m
+                        [0mIngen (selvtegnet)[0m
+                      [36m</span>[39m
+                    [36m</label>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-fylke"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-4 PrivateSwitchBase-root ForwardRef(Radio)-root-4 MuiRadio-root ForwardRef(Radio)-root-4 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"fylke"[39m
+                        ...
+[2m[22m
+[2m    [0m [90m 84 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 85 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m7[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 86 |[39m   getByTitle([32m"Last opp polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m    |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 87 |[39m   getByTitle([32m"Åpne lagret polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 88 |[39m   getByTitle([32m"Angre sist"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 89 |[39m   getByTitle([32m"Ferdig"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:86:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render 2 buttons and header button when fylke is selected[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Vis/Gjem.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandLessIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"[39m
+          [33mid[39m=[32m"select-polygon-collapse"[39m
+          [33mstyle[39m=[32m"min-height: 0px;"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"polygon-options-container"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-title"[39m
+                [36m>[39m
+                  [0mDefiner polygon fra grenser[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-container"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33maria-label[39m=[32m"export"[39m
+                    [33mclass[39m=[32m"MuiFormGroup-root css-dmmspl-MuiFormGroup-root"[39m
+                    [33mrole[39m=[32m"radiogroup"[39m
+                  [36m>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-none"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-9 PrivateSwitchBase-root ForwardRef(Radio)-root-9 MuiRadio-root ForwardRef(Radio)-root-9 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"none"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"css-hyxlzm"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hbvpl3-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonUncheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hhw7if-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonCheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                        [36m/>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"[39m
+                      [36m>[39m
+                        [0mIngen (selvtegnet)[0m
+                      [36m</span>[39m
+                    [36m</label>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-fylke"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-9 PrivateSwitchBase-root ForwardRef(Radio)-root-9 Mui-checked ForwardRef(Radio)-checked-10 MuiRadio-root ForwardRef(Radio)-root-9 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mchecked[39m=[32m""[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"fylke"[39m
+                       ...
+[2m[22m
+[2m    [0m [90m 114 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 115 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m3[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 116 |[39m   getByTitle([32m"Vis/Gjem"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m     |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 117 |[39m   getByTitle([32m"Fjern"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 118 |[39m   [90m// Not visible buttons[39m[0m[22m
+[2m    [0m [90m 119 |[39m   buttons [33m=[39m screen[33m.[39mqueryByTitle([32m"Lagre polygon"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:116:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render 2 buttons and header button when kommune is selected[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Vis/Gjem.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandLessIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"[39m
+          [33mid[39m=[32m"select-polygon-collapse"[39m
+          [33mstyle[39m=[32m"min-height: 0px;"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"polygon-options-container"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-title"[39m
+                [36m>[39m
+                  [0mDefiner polygon fra grenser[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-container"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33maria-label[39m=[32m"export"[39m
+                    [33mclass[39m=[32m"MuiFormGroup-root css-dmmspl-MuiFormGroup-root"[39m
+                    [33mrole[39m=[32m"radiogroup"[39m
+                  [36m>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-none"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-14 PrivateSwitchBase-root ForwardRef(Radio)-root-14 MuiRadio-root ForwardRef(Radio)-root-14 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"none"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"css-hyxlzm"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hbvpl3-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonUncheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hhw7if-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonCheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                        [36m/>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"[39m
+                      [36m>[39m
+                        [0mIngen (selvtegnet)[0m
+                      [36m</span>[39m
+                    [36m</label>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-fylke"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-14 PrivateSwitchBase-root ForwardRef(Radio)-root-14 MuiRadio-root ForwardRef(Radio)-root-14 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"fylke"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=...
+[2m[22m
+[2m    [0m [90m 148 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 149 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m3[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 150 |[39m   getByTitle([32m"Vis/Gjem"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m     |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 151 |[39m   getByTitle([32m"Fjern"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 152 |[39m   [90m// Not visible buttons[39m[0m[22m
+[2m    [0m [90m 153 |[39m   buttons [33m=[39m screen[33m.[39mqueryByTitle([32m"Lagre polygon"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:150:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render 2 buttons and header button when eiendom is selected[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Vis/Gjem.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandLessIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"m12 8-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"MuiCollapse-root MuiCollapse-vertical MuiCollapse-entered css-pwcg7p-MuiCollapse-root"[39m
+          [33mid[39m=[32m"select-polygon-collapse"[39m
+          [33mstyle[39m=[32m"min-height: 0px;"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiCollapse-wrapper MuiCollapse-vertical css-smkl36-MuiCollapse-wrapper"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiCollapse-wrapperInner MuiCollapse-vertical css-9l5vo-MuiCollapse-wrapperInner"[39m
+            [36m>[39m
+              [36m<div[39m
+                [33mclass[39m=[32m"polygon-options-container"[39m
+              [36m>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-title"[39m
+                [36m>[39m
+                  [0mDefiner polygon fra grenser[0m
+                [36m</div>[39m
+                [36m<div[39m
+                  [33mclass[39m=[32m"infobox-radio-buttons-container"[39m
+                [36m>[39m
+                  [36m<div[39m
+                    [33maria-label[39m=[32m"export"[39m
+                    [33mclass[39m=[32m"MuiFormGroup-root css-dmmspl-MuiFormGroup-root"[39m
+                    [33mrole[39m=[32m"radiogroup"[39m
+                  [36m>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-none"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-19 PrivateSwitchBase-root ForwardRef(Radio)-root-19 MuiRadio-root ForwardRef(Radio)-root-19 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"none"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"css-hyxlzm"[39m
+                        [36m>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hbvpl3-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonUncheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                          [36m<svg[39m
+                            [33maria-hidden[39m=[32m"true"[39m
+                            [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1hhw7if-MuiSvgIcon-root"[39m
+                            [33mdata-testid[39m=[32m"RadioButtonCheckedIcon"[39m
+                            [33mfocusable[39m=[32m"false"[39m
+                            [33mviewBox[39m=[32m"0 0 24 24"[39m
+                          [36m>[39m
+                            [36m<path[39m
+                              [33md[39m=[32m"M8.465 8.465C9.37 7.56 10.62 7 12 7C14.76 7 17 9.24 17 12C17 13.38 16.44 14.63 15.535 15.535C14.63 16.44 13.38 17 12 17C9.24 17 7 14.76 7 12C7 10.62 7.56 9.37 8.465 8.465Z"[39m
+                            [36m/>[39m
+                          [36m</svg>[39m
+                        [36m</span>[39m
+                        [36m<span[39m
+                          [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                        [36m/>[39m
+                      [36m</span>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"[39m
+                      [36m>[39m
+                        [0mIngen (selvtegnet)[0m
+                      [36m</span>[39m
+                    [36m</label>[39m
+                    [36m<label[39m
+                      [33mclass[39m=[32m"MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"[39m
+                      [33mid[39m=[32m"infobox-radio-label-fylke"[39m
+                    [36m>[39m
+                      [36m<span[39m
+                        [33mclass[39m=[32m"MuiButtonBase-root ForwardRef(Radio)-root-19 PrivateSwitchBase-root ForwardRef(Radio)-root-19 MuiRadio-root ForwardRef(Radio)-root-19 MuiRadio-colorPrimary css-vqmohf-MuiButtonBase-root-MuiRadio-root"[39m
+                      [36m>[39m
+                        [36m<input[39m
+                          [33mclass[39m=[32m"PrivateSwitchBase-input css-1m9pwf3"[39m
+                          [33mname[39m=[32m"export1"[39m
+                          [33mtype[39m=[32m"radio"[39m
+                          [33mvalue[39m=[32m"fylke"[39m
+                        [36m/>[39m
+                        [36m<span[39m
+                          [33mclass[39m=...
+[2m[22m
+[2m    [0m [90m 182 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 183 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m3[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 184 |[39m   getByTitle([32m"Vis/Gjem"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m     |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 185 |[39m   getByTitle([32m"Fjern"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 186 |[39m   [90m// Not visible buttons[39m[0m[22m
+[2m    [0m [90m 187 |[39m   buttons [33m=[39m screen[33m.[39mqueryByTitle([32m"Lagre polygon"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:184:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render undo and done polygon when polyline is selected[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Last opp polygon.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandMoreIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-tool-wrapper vertical"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"polygon-tool-label vertical"[39m
+          [36m>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"[39m
+            [36m>[39m
+              [0mGeometri[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"polygon-buttons-wrapper"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Last opp polygon"[39m
+              [33mclass[39m=[32m"geometry-tool-button first-tool"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"upload-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"ForwardIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mstyle[39m=[32m"transform: rotate(-90deg);"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M12 8V4l8 8-8 8v-4H4V8z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Åpne lagret polygon"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"open-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"FolderIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Angre sist"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"undo-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"UndoIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Ferdig"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"done-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"DoneIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Vis/Gjem"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"hide-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"VisibilityOffOutlinedIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M12 6c3.79 0 7.17 2.13 8.82 5.5-.59 1.22-1.42 2.27-2.41 3.12l1.41 1.41c1.39-1.23 2.49-2.77 3.18-4.53C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l1.65 1.65C10.66 6.09 11.32 6 12 6zm-1.07 1.14L13 9.21c.57.25 1.03.71 1.28 1.28l2.07 2.07c.08-.34.14-.7.14-1.07C16.5 9.01 14.48 7 12 7c-.37 0-.72.05-1.07.14zM2.01 3.87l2.68 2.68C3.06 7.83 1.77 9.53 1 11.5 2.73 15.89 7 19 12 19c1.52 0 2.98-.29 4.32-.82l3.42 3.42 1.41-1.41L3.42 2.45 2.01 3.87zm7.5 7.5 2.61 2.61c-.04.01-.08.02-.12.02-1.38 0-2.5-1.12-2.5-2.5 0-.05.01-.08.01-.13zm-3.4-3.4 1.75 1.75c-.23.55-.36 1.15-.36 1.78 0 2.48 2.02 4.5 4.5 4.5.63 0 1.23-.13 1.77-.36l.98.98c-.88.24-1.8.38-2.75.38-3.79 0-7.17-2.13-8.82-5.5.7-1.43 1.72-2.61 2.93-3.53z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Fjern"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-23 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"delete-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"DeleteIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 206 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 207 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m7[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 208 |[39m   getByTitle([32m"Last opp polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m     |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 209 |[39m   getByTitle([32m"Åpne lagret polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 210 |[39m   getByTitle([32m"Angre sist"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 211 |[39m   getByTitle([32m"Ferdig"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:208:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1m[31m  [1m● [22m[1mshould render save and edit polygon when polygon is selected[39m[22m
+
+    TestingLibraryElementError: Unable to find an element with the title: Last opp polygon.
+
+    [36m<body>[39m
+      [36m<div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-options-listitem-wrapper"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root"[39m
+            [33mid[39m=[32m"polygon-options-listitem"[39m
+            [33mrole[39m=[32m"button"[39m
+            [33mtabindex[39m=[32m"0"[39m
+          [36m>[39m
+            [36m<div[39m
+              [33mclass[39m=[32m"MuiListItemText-root css-tlelie-MuiListItemText-root"[39m
+            [36m>[39m
+              [36m<span[39m
+                [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 MuiListItemText-primary css-10hburv-MuiTypography-root"[39m
+              [36m>[39m
+                [0mVelg polygon[0m
+              [36m</span>[39m
+            [36m</div>[39m
+            [36m<svg[39m
+              [33maria-hidden[39m=[32m"true"[39m
+              [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+              [33mdata-testid[39m=[32m"ExpandMoreIcon"[39m
+              [33mfocusable[39m=[32m"false"[39m
+              [33mviewBox[39m=[32m"0 0 24 24"[39m
+            [36m>[39m
+              [36m<path[39m
+                [33md[39m=[32m"M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"[39m
+              [36m/>[39m
+            [36m</svg>[39m
+            [36m<span[39m
+              [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+            [36m/>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"polygon-tool-wrapper vertical"[39m
+        [36m>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"polygon-tool-label vertical"[39m
+          [36m>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"MuiTypography-root MuiTypography-body1 css-ahj2mt-MuiTypography-root"[39m
+            [36m>[39m
+              [0mGeometri[0m
+            [36m</p>[39m
+          [36m</div>[39m
+          [36m<div[39m
+            [33mclass[39m=[32m"polygon-buttons-wrapper"[39m
+          [36m>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Last opp polygon"[39m
+              [33mclass[39m=[32m"geometry-tool-button first-tool"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"upload-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"ForwardIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mstyle[39m=[32m"transform: rotate(-90deg);"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M12 8V4l8 8-8 8v-4H4V8z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Åpne lagret polygon"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"open-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"FolderIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Lagre polygon"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"save-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"SaveIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Rediger"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"edit-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"CreateIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Vis/Gjem"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"hide-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"VisibilityOffOutlinedIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M12 6c3.79 0 7.17 2.13 8.82 5.5-.59 1.22-1.42 2.27-2.41 3.12l1.41 1.41c1.39-1.23 2.49-2.77 3.18-4.53C21.27 7.11 17 4 12 4c-1.27 0-2.49.2-3.64.57l1.65 1.65C10.66 6.09 11.32 6 12 6zm-1.07 1.14L13 9.21c.57.25 1.03.71 1.28 1.28l2.07 2.07c.08-.34.14-.7.14-1.07C16.5 9.01 14.48 7 12 7c-.37 0-.72.05-1.07.14zM2.01 3.87l2.68 2.68C3.06 7.83 1.77 9.53 1 11.5 2.73 15.89 7 19 12 19c1.52 0 2.98-.29 4.32-.82l3.42 3.42 1.41-1.41L3.42 2.45 2.01 3.87zm7.5 7.5 2.61 2.61c-.04.01-.08.02-.12.02-1.38 0-2.5-1.12-2.5-2.5 0-.05.01-.08.01-.13zm-3.4-3.4 1.75 1.75c-.23.55-.36 1.15-.36 1.78 0 2.48 2.02 4.5 4.5 4.5.63 0 1.23-.13 1.77-.36l.98.98c-.88.24-1.8.38-2.75.38-3.79 0-7.17-2.13-8.82-5.5.7-1.43 1.72-2.61 2.93-3.53z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+            [36m<span[39m
+              [33maria-label[39m=[32m"Fjern"[39m
+              [33mclass[39m=[32m"geometry-tool-button"[39m
+              [33mdata-mui-internal-clone-element[39m=[32m"true"[39m
+            [36m>[39m
+              [36m<button[39m
+                [33mclass[39m=[32m"MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium makeStyles-customIconButtom-25 css-78trlr-MuiButtonBase-root-MuiIconButton-root"[39m
+                [33mid[39m=[32m"delete-polygon-button"[39m
+                [33mtabindex[39m=[32m"0"[39m
+                [33mtype[39m=[32m"button"[39m
+              [36m>[39m
+                [36m<svg[39m
+                  [33maria-hidden[39m=[32m"true"[39m
+                  [33mclass[39m=[32m"MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"[39m
+                  [33mdata-testid[39m=[32m"DeleteIcon"[39m
+                  [33mfocusable[39m=[32m"false"[39m
+                  [33mviewBox[39m=[32m"0 0 24 24"[39m
+                [36m>[39m
+                  [36m<path[39m
+                    [33md[39m=[32m"M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"[39m
+                  [36m/>[39m
+                [36m</svg>[39m
+                [36m<span[39m
+                  [33mclass[39m=[32m"MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"[39m
+                [36m/>[39m
+              [36m</button>[39m
+            [36m</span>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+    [36m</body>[39m
+[2m[22m
+[2m    [0m [90m 226 |[39m   [36mlet[39m buttons [33m=[39m getAllByRole([32m"button"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 227 |[39m   expect(buttons[33m.[39mlength)[33m.[39mtoBe([35m7[39m)[33m;[39m[0m[22m
+[2m    [0m[31m[1m>[22m[2m[39m[90m 228 |[39m   getByTitle([32m"Last opp polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m     |[39m   [31m[1m^[22m[2m[39m[0m[22m
+[2m    [0m [90m 229 |[39m   getByTitle([32m"Åpne lagret polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 230 |[39m   getByTitle([32m"Lagre polygon"[39m)[33m;[39m[0m[22m
+[2m    [0m [90m 231 |[39m   getByTitle([32m"Rediger"[39m)[33m;[39m[0m[22m
+[2m[22m
+[2m      [2mat Object.getElementError ([22m[2mnode_modules/@testing-library/dom/dist/config.js[2m:37:19)[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:90:38[22m[2m[22m
+[2m      [2mat [22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:62:17[22m[2m[22m
+[2m      [2mat getByTitle ([22m[2mnode_modules/@testing-library/dom/dist/query-helpers.js[2m:111:19)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2m[0m[36mtests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js[39m[0m[2m:228:3)[22m[2m[22m
+[2m      [2mat TestScheduler.scheduleTests ([22m[2mnode_modules/@jest/core/build/TestScheduler.js[2m:333:13)[22m[2m[22m
+[2m      [2mat runJest ([22m[2mnode_modules/@jest/core/build/runJest.js[2m:404:19)[22m[2m[22m
+[2m      [2mat _run10000 ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:320:7)[22m[2m[22m
+[2m      [2mat runCLI ([22m[2mnode_modules/@jest/core/build/cli/index.js[2m:173:3)[22m[2m[22m
+
+[1mTest Suites: [22m[1m[31m1 failed[39m[22m, 1 total
+[1mTests:       [22m[1m[31m7 failed[39m[22m, 7 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        8.354 s
+[2mRan all test suites[22m[2m matching [22m/tests\\OkologiskeGrunnkart\\FeatureInfo\\PolygonDrawTool.test.js/i[2m.[22m

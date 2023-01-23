@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
-import { KeyboardBackspace, OpenInNew } from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText, Badge } from "@mui/material";
+import { KeyboardBackspace, OpenInNew } from "@mui/icons-material";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import { translateInfobox } from "../../Funksjoner/translate";

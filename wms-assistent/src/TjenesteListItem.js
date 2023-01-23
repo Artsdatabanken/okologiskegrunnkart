@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListItemText } from "@material-ui/core";
+import { List, ListItem, ListItemText } from "@mui/material";
 import { useHistory } from "react-router-dom";
 
 const TjenesteListItem = ({ doc }) => {

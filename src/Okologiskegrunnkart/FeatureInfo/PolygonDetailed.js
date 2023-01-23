@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ListItem, ListItemIcon, ListItemText, Badge } from "@material-ui/core";
-import { KeyboardBackspace } from "@material-ui/icons";
+import { ListItem, ListItemIcon, ListItemText, Badge } from "@mui/material";
+import { KeyboardBackspace } from "@mui/icons-material";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
 import PolygonDetailedDescription from "./PolygonDetailedDescription";

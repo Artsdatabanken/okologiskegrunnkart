@@ -1,14 +1,9 @@
-import { ExpandLess, ExpandMore } from "@material-ui/icons";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import React, { useState } from "react";
-import {
-  ListItemIcon,
-  Collapse,
-  ListItem,
-  ListItemText
-} from "@material-ui/core";
+import { ListItemIcon, Collapse, ListItem, ListItemText } from "@mui/material";
 import KartlagUnderElement from "./KartlagUnderElement";
 import CustomIcon from "../../Common/CustomIcon";
-import Badge from "@material-ui/core/Badge";
+import Badge from "@mui/material/Badge";
 import { setValue } from "../../Funksjoner/setValue";
 import CustomSwitchAll from "../../Common/CustomSwitchAll";
 

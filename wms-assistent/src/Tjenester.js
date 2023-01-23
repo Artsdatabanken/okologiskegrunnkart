@@ -6,8 +6,8 @@ import {
   ListItemAvatar,
   ListItemText,
   ListSubheader
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+} from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import { Switch, Route, useHistory } from "react-router-dom";
 import TjenesteContainer from "./Tjeneste";
 

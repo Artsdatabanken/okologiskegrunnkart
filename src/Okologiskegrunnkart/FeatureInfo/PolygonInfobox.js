@@ -5,13 +5,13 @@ import {
   ListItemIcon,
   ListItemText,
   LinearProgress
-} from "@material-ui/core";
-import { Home, Flag, Terrain } from "@material-ui/icons";
+} from "@mui/material";
+import { Home, Flag, Terrain } from "@mui/icons-material";
 import CustomIcon from "../../Common/CustomIcon";
 import "../../style/infobox.css";
 import PolygonDrawTool from "./PolygonDrawTool";
 import PolygonLayers from "./PolygonLayers";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import PolygonElement from "./PolygonElement";
 import PolygonDetailed from "./PolygonDetailed";
 import {
