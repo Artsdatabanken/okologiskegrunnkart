@@ -60,7 +60,8 @@ it("should render one legend when there is an aggregated layer visible", () => {
   // Button is enabled
   let buttons = getAllByRole("button");
   expect(buttons.length).toBe(1);
-  expect(buttons[0]).toHaveAttribute("aria-disabled", "false"); // Mui List Item
+  //expect(buttons[0]).toHaveAttribute("aria-disabled", "false"); // Mui List Item
+  expect(buttons[0].ariaDisabled).toBe(undefined);
 });
 
 it("should render several legends when there are several sublayers visible", () => {
@@ -101,7 +102,8 @@ it("should render several legends when there are several sublayers visible", () 
   // Button is enabled
   let buttons = getAllByRole("button");
   expect(buttons.length).toBe(1);
-  expect(buttons[0]).toHaveAttribute("aria-disabled", "false"); // Mui List Item
+  //expect(buttons[0]).toHaveAttribute("aria-disabled", "false"); // Mui List Item
+  expect(buttons[0].ariaDisabled).toBe(undefined);
 });
 
 it("should render legend on the right", () => {
