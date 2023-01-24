@@ -83,3 +83,5 @@ Integration tests are divided in three groups which can be run separatedly. It r
 ## Eslint skaper seg
 
 Slett wms-assistent/node_modules/eslint-config-react-app
+  // eslint-disable-next-line
+  const layer = (doc && doc.underlag && doc.underlag[selectedLayerIndex]) || {};
