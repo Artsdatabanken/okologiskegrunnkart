@@ -2,7 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import TreffListe from "../../../src/Okologiskegrunnkart/SearchBar/TreffListe";
-import XML from "pixl-xml";
+//import XML from "pixl-xml";
 import {
   numberMatches,
   treffliste_lag,
@@ -118,6 +118,7 @@ it("should try this", () => {
       }
     }
   };
+
 //const fastparser = new fastXMLParser();
 const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
 const options = {
