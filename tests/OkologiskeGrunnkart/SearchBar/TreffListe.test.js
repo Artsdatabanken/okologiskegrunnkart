@@ -2,6 +2,7 @@ import React from "react";
 import { cleanup, render, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import TreffListe from "../../../src/Okologiskegrunnkart/SearchBar/TreffListe";
+//import XML from "pixl-xml";
 import {
   numberMatches,
   treffliste_lag,
@@ -18,6 +19,7 @@ import {
 jest.mock("../../../src/Funksjoner/backend.js"); // jest mocks everything in that file
 
 afterEach(cleanup);
+//var XMLParser = require("react-xml-parser");
 
 const numbers = numberMatches();
 
@@ -99,6 +101,185 @@ it("should render layer search results on pop-up list", () => {
   let div = container.querySelector("#treffliste");
   expect(div).toHaveClass("treffliste", { exact: true });
 });
+
+/*
+it("should try this", () => {
+  console.log("Only I was run ?!");
+  var xmltxt = '<?xml version="1.0" encoding="UTF-8"?> <FeatureInfoResponse xmlns:esri_wms="http://www.esri.com/wms" xmlns="http://www.esri.com/wms"><FIELDS OBJECTID="27993" lokalId="VV00003233" cddaId="555595979" navn="Gaulosen" offisieltnavn="Gaulosen marine verneområde" faktaark="https://faktaark.naturbase.no/?id=VV00003233" verneform="marint verneområde (naturmangfoldloven)" verneformAggregert="marintVerneområde" verneforskrift="https://lovdata.no/forskrift/2016-06-17-690" vernedato="17.06.2016" førstegangVernet="Null" verneplan="Marin verneplan" kommune="Melhus (5028),Trondheim (5001),Skaun (5029)" forvaltningsmyndighet="Statsforvalteren i Trøndelag" forvaltningsmyndighetType="Statsforvalter" iucn="Ingen - ikke vurdert" revisjon="Ikke revidert" majorEcosystemType="Marin" NaturvernFKID="{E50693A6-AC05-4583-839A-86D02BF1ED94}" GlobalId="{0B9368D7-28AC-489D-9782-BE119B1E73F6}" Shape="Polygon" SHAPE.STArea="10866386,6644" SHAPE.STLength="14549,657285"></FIELDS></FeatureInfoResponse>';  
+  // 1: pixl-xml variant 
+  const wms_api_pixl = {
+    parse: text => {
+      try {
+        if (!text) return {};
+        return XML.parse(text);
+      } catch (e) {
+        console.error(e);
+        return {};
+      }
+    }
+  };
+
+//const fastparser = new fastXMLParser();
+const { XMLParser, XMLBuilder, XMLValidator} = require("fast-xml-parser");
+const options = {
+  ignoreAttributes: false,
+  attributeNamePrefix : "",
+  allowBooleanAttributes: true
+};
+const parser = new XMLParser(options);
+const wms_api_fast = {
+  parse: text =>{
+    try {
+      if (!text) return {};
+      var parsed =  parser.parse(text);
+      var hasFeatureInfoResponseTag = parsed.hasOwnProperty('FeatureInfoResponse');
+      if(hasFeatureInfoResponseTag){
+        return parsed.FeatureInfoResponse;
+      }else{
+        //return the second attribute in gml this will commonly be the body
+        return parsed[Object.keys(parsed)[1]];
+      }
+      return parsed;
+    } catch (e) {
+      console.error(e);
+      return {};
+    }
+  }
+  
+  
+};
+  var pixl_response = wms_api_pixl.parse(xmltxt);
+  //var react_xml_response = wms_api_react.parse(xmltxt);
+  var fast_xml_response = wms_api_fast.parse(xmltxt);
+  const dummyXmlDataStr = `
+  <?xml version="1.0" encoding="UTF-8"?>
+
+  <msGMLOutput 
+     xmlns:gml="http://www.opengis.net/gml"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Bergart_flate_layer>
+    <gml:name>Bedrock surface 1:250 000</gml:name>
+      <Bergart_flate_feature>
+        <gml:boundedBy>
+          <gml:Box srsName="EPSG:4326">
+            <gml:coordinates>14.188593,67.451717 15.417771,67.685319</gml:coordinates>
+          </gml:Box>
+        </gml:boundedBy>
+        <objectid>36396</objectid>
+        <objekttype>BergartFlate</objekttype>
+        <mref>250000</mref>
+        <oppdateringsdato>2021-10-18</oppdateringsdato>
+        <hovedbergkode_old>82</hovedbergkode_old>
+        <hovedbergkode_old_tekst>Diorittisk til granittisk gneis, migmatitt</hovedbergkode_old_tekst>
+        <bergnavn_old></bergnavn_old>
+        <bergnavn_nord_old>Granitt og granodioritt, stedvis forgneiset</bergnavn_nord_old>
+        <geolkartnummer>121</geolkartnummer>
+        <geokartnr_tekst_old></geokartnr_tekst_old>
+        <tegnforklaring>Granitt, overveiende grovporfyrisk, lys grå</tegnforklaring>
+        <tegnforklaring_engelsk></tegnforklaring_engelsk>
+        <alderbeskrivelse_old></alderbeskrivelse_old>
+        <cmykfargekode>3,12,7,0</cmykfargekode>
+        <cyan>3</cyan>
+        <magenta>12</magenta>
+        <yellow>7</yellow>
+        <black>0</black>
+        <kartbladindeks>SULITJELMA</kartbladindeks>
+        <hovedbergart>102</hovedbergart>
+        <hovedbergart_tekst>Granitt</hovedbergart_tekst>
+        <tegnforklaringnummer>2954</tegnforklaringnummer>
+        <tilleggsbergart1></tilleggsbergart1>
+        <tilleggsbergart1_tekst></tilleggsbergart1_tekst>
+        <tilleggsbergart2></tilleggsbergart2>
+        <tilleggsbergart2_tekst></tilleggsbergart2_tekst>
+        <tilleggsbergart3></tilleggsbergart3>
+        <tilleggsbergart3_tekst></tilleggsbergart3_tekst>
+        <dekkesystem>10</dekkesystem>
+        <dekkesystem_tekst>Øverste Dekkeserie</dekkesystem_tekst>
+        <dekkekompleks>240</dekkekompleks>
+        <dekkekompleks_tekst>Rödingsfjälldekkekomplekset</dekkekompleks_tekst>
+        <dekke></dekke>
+        <dekke_tekst></dekke_tekst>
+        <overgruppe></overgruppe>
+        <overgruppe_tekst></overgruppe_tekst>
+        <gruppe></gruppe>
+        <gruppe_tekst></gruppe_tekst>
+        <formasjon></formasjon>
+        <formasjon_tekst></formasjon_tekst>
+        <kompleks></kompleks>
+        <kompleks_tekst></kompleks_tekst>
+        <suite></suite>
+        <suite_tekst></suite_tekst>
+        <litodem>2860</litodem>
+        <litodem_tekst>Heggmovassmassivet</litodem_tekst>
+        <dannelsesalder>154</dannelsesalder>
+        <dannelsesalder_tekst>Neoproterozoikum (1000-541.0 Ma)</dannelsesalder_tekst>
+        <dannelsesminalder></dannelsesminalder>
+        <dannelsesminalder_tekst></dannelsesminalder_tekst>
+        <dannelsesmaksalder></dannelsesmaksalder>
+        <dannelsesmaksalder_tekst></dannelsesmaksalder_tekst>
+        <metamorffacies>80</metamorffacies>
+        <metamorffacies_tekst>Amfibolittfacies</metamorffacies_tekst>
+        <metamorfalder>120</metamorfalder>
+        <metamorfalder_tekst>Silur (443.8-419.2 Ma)</metamorfalder_tekst>
+        <metamorffacies2></metamorffacies2>
+        <metamorffacies2_tekst></metamorffacies2_tekst>
+        <metamorfalder2></metamorfalder2>
+        <metamorfalder2_tekst></metamorfalder2_tekst>
+        <opphav></opphav>
+        <oppdatertav>TORGERSEN_ESPEN_SDE</oppdatertav>
+        <rgbfargekode></rgbfargekode>
+        <omkodingsfelt>DekkeEnhetNavn= Grunnfjell</omkodingsfelt>
+        <tektoniskhovedinndeling>70</tektoniskhovedinndeling>
+        <tektoniskhovedinndeling_tekst>Kaledonsk orogen</tektoniskhovedinndeling_tekst>
+        <geologiskform></geologiskform>
+        <geologiskform_tekst></geologiskform_tekst>
+        <tektoniskenhet>10</tektoniskenhet>
+        <tektoniskenhet_tekst>Øverste kaledonske dekkeserie</tektoniskenhet_tekst>
+        <dekkekompleks_geninoid>148238</dekkekompleks_geninoid>
+        <dekke_geninoid></dekke_geninoid>
+        <gruppe_geninoid></gruppe_geninoid>
+        <overgruppe_geninoid></overgruppe_geninoid>
+        <formasjon_geninoid></formasjon_geninoid>
+        <kompleks_geninoid></kompleks_geninoid>
+        <suite_geninoid></suite_geninoid>
+      </Bergart_flate_feature>
+    </Bergart_flate_layer>
+    <Bergart_flate_tektoniskhovedinndeling_layer>
+    <gml:name>Bergartsflate 1:250 000 tektonisk hovedinndeling</gml:name>
+      <Bergart_flate_tektoniskhovedinndeling_feature>
+        <gml:boundedBy>
+          <gml:Box srsName="EPSG:4326">
+            <gml:coordinates>14.188593,67.451717 15.417771,67.685319</gml:coordinates>
+          </gml:Box>
+        </gml:boundedBy>
+        <objectid>36396</objectid>
+        <tektoniskhovedinndeling>70</tektoniskhovedinndeling>
+      </Bergart_flate_tektoniskhovedinndeling_feature>
+    </Bergart_flate_tektoniskhovedinndeling_layer>
+    <Bergart_flate_dannelsesalder_layer>
+    <gml:name>Bergartsflate 1:250 000 dannelsesalder</gml:name>
+      <Bergart_flate_dannelsesalder_feature>
+        <gml:boundedBy>
+          <gml:Box srsName="EPSG:4326">
+            <gml:coordinates>14.188593,67.451717 15.417771,67.685319</gml:coordinates>
+          </gml:Box>
+        </gml:boundedBy>
+        <objectid>36396</objectid>
+        <dannelsesalder>154</dannelsesalder>
+        <dannelsesminalder_tekst>Neoproterozoikum (1000-541.0 Ma)</dannelsesminalder_tekst>
+      </Bergart_flate_dannelsesalder_feature>
+    </Bergart_flate_dannelsesalder_layer>
+  </msGMLOutput>
+  `;
+  var fast2_response = wms_api_fast.parse(dummyXmlDataStr);
+  var pixl2_resp = wms_api_pixl.parse(dummyXmlDataStr);
+  //var attributes = react_xml_response.attributes
+  console.log("PIXL", pixl_response);
+  //console.log("REACT", react_xml_response);
+  var dummy;
+});
+*/
 
 it("should render place results on pop-up list", () => {
   const { container, getByText, getAllByRole, getAllByText } = renderTreffListe(
