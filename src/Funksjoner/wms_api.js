@@ -53,11 +53,18 @@ const wms_api = {
       );
       if (hasFeatureInfoResponseTag) {
         return parsed.FeatureInfoResponse;
-      } else {
+      } else if (Object.keys(parsed).length > 1) {
         //return the second attribute in gml this will commonly be the body
+        if (
+          Object.keys(parsed)
+            .join(" ")
+            .toLowerCase()
+            .includes("exception")
+        ) {
+          console.error("WMS exception: ", parsed);
+        }
         return parsed[Object.keys(parsed)[1]];
       }
-      //return parsed;
     } catch (e) {
       console.error(e);
       return {};
