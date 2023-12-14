@@ -4,7 +4,7 @@ import Tjeneste from "./Tjeneste";
 import TextField2 from "./TextField2";
 import { Save as SaveIcon } from "@mui/icons-material";
 // import { Create as CreateIcon } from "@material-ui/icons";
-// import { useHistory } from "react-router-dom";
+// import { useNavigate } from 'react-router-dom';
 import KartlagListItem from "./KartlagListItem";
 import KlikkResultatPreview from "./KlikkResultatPreview";
 
@@ -23,7 +23,7 @@ const MainTabs = ({
   writeUpdateLayer,
   writeUpdateSublayer
 }) => {
-  // const history = useHistory();
+  // const navigate = useNavigate();
   if (!doc) return null;
   if (!doc.underlag) return null;
   const layer = doc.underlag[selectedLayerIndex];
@@ -61,7 +61,7 @@ const MainTabs = ({
             doc={doc}
             onUpdate={onUpdate}
             // onIconClick={() => {
-            //   history.push(`?id=${doc._id}&sub=faktaark`);
+            //   navigate(`?id=${doc._id}&sub=faktaark`);
             // }}
             // icon={<CreateIcon />}
           />

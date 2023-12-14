@@ -7,13 +7,13 @@ import {
   ListSubheader,
   ListItemSecondaryAction
 } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import LayersIcon from "@mui/icons-material/Layers";
 import ReportIcon from "@mui/icons-material/Report";
 import CheckIcon from "@mui/icons-material/Check";
 
 const Kartlagliste = ({ kartlag }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   if (!kartlag) return null;
   return (
     <List>
@@ -30,7 +30,7 @@ const Kartlagliste = ({ kartlag }) => {
               const url = new URL(window.location);
               url.searchParams.set("ulid", k);
               url.searchParams.delete("sub");
-              history.push("/" + url.search);
+              navigate("/" + url.search);
             }}
           >
             <ListItemAvatar>

@@ -180,7 +180,7 @@ class Leaflet extends React.Component {
     } else {
       favoritesUrlString = "&favorites=" + favoritesUrlString;
     }
-    this.props.history.push(
+    this.props.navigate(
       "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
     );
     this.props.handleUpdateChangeInUrl(true);

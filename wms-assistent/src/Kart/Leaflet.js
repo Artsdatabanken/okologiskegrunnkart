@@ -13,6 +13,7 @@ L.Icon.Default.mergeOptions({
 });
 
 const MAX_MAP_ZOOM_LEVEL = 20;
+var map;
 
 class Leaflet extends React.Component {
   componentDidMount() {
@@ -24,7 +25,11 @@ class Leaflet extends React.Component {
       maxZoom: MAX_MAP_ZOOM_LEVEL
     };
 
-    let map = L.map(this.mapEl, options);
+    if(map) {
+      map.off();
+      map.remove();
+    }
+    map = L.map(this.mapEl, options);
     // For servere som bare støtter 900913
     L.CRS.EPSG900913 = Object.assign({}, L.CRS.EPSG3857);
     L.CRS.EPSG900913.code = "EPSG:900913";
