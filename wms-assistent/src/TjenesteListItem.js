@@ -1,16 +1,16 @@
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const TjenesteListItem = ({ doc }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   return (
     <List>
       <ListItem
         button
         onClick={() => {
           const url = new URL(window.location);
-          history.push("/tjeneste" + url.search);
+          navigate("/tjeneste" + url.search);
         }}
       >
         <ListItemText

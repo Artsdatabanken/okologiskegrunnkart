@@ -7,13 +7,13 @@ import {
   ListSubheader,
   ListItemSecondaryAction
 } from "@mui/material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import LayersIcon from "@mui/icons-material/Layers";
 import ReportIcon from "@mui/icons-material/Report";
 import CheckIcon from "@mui/icons-material/Check";
 
 const Tjenesteliste = ({ tjenester }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   if (!tjenester) return null;
   return (
     <List>
@@ -23,7 +23,7 @@ const Tjenesteliste = ({ tjenester }) => {
         const aok =
           lag.wmsurl && lag.wmsversion && lag.projeksjon && lag.wmsinfoformat;
         return (
-          <ListItem key={k} button onClick={() => history.push("/?id=" + k)}>
+          <ListItem key={k} button onClick={() => navigate("/?id=" + k)}>
             <ListItemAvatar>
               <LayersIcon></LayersIcon>
             </ListItemAvatar>

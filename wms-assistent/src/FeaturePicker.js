@@ -4,15 +4,15 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import TreeItem from "@mui/lab/TreeItem";
 import { IconButton, Typography, Paper } from "@mui/material";
-import { makeStyles } from "@mui/styles";
+import { css } from "@emotion/react"
 import CloseIcon from "@mui/icons-material/Close";
 import TextField2 from "./TextField2";
 import { Alert } from "@mui/lab";
 import klikktekst from "./FeatureInfo/Klikktekst";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
-const useStyles = makeStyles({
-  panel: {
+const styles = {
+  panel: css`
     zIndex: 11111,
     position: "fixed",
     width: 600,
@@ -21,13 +21,13 @@ const useStyles = makeStyles({
     left: 0,
     padding: 16,
     overflow: "scroll"
-  },
-  root: {
+    `,
+  root: css`
     xheight: 240,
     flexGrow: 1,
     maxWidth: 400
-  }
-});
+  `
+};
 
 const FeaturePicker = ({
   feature,
@@ -37,17 +37,16 @@ const FeaturePicker = ({
   layer,
   onUpdate
 }) => {
-  const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const resultat = klikktekst(feature, layer[picker]);
   return (
-    <Paper depth={4} className={classes.panel}>
+    <Paper depth={4} css={styles.panel}>
       {feature ? (
         <>
           {true && (
             <IconButton
-              onClick={() => history.goBack()}
+              onClick={() => navigate(-1)}
               style={{ zIndex: 100, position: "fixed", left: 536, top: 8 }}
             >
               <CloseIcon></CloseIcon>
@@ -78,7 +77,7 @@ const FeaturePicker = ({
             GetFeatureInfo {layer.testkoordinater}
           </Typography>
           <TreeView
-            className={classes.root}
+            css={styles.root}
             defaultExpanded={[]}
             defaultCollapseIcon={<ExpandMoreIcon />}
             defaultExpandIcon={<ChevronRightIcon />}

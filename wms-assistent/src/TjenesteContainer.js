@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import DrmInfestedLeaflet from "./Kart/DrmInfestedLeaflet";
 import FeaturePicker from "./FeaturePicker";
 import { getFeatureInfo } from "./probe";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Kartlagliste from "./Kartlagliste";
 import Tjenesteliste from "./Tjenesteliste";
 import TjenesteListItem from "./TjenesteListItem";
@@ -194,18 +194,19 @@ export default function TjenesteContainer() {
           float: "left"
         }}
       >
-        <Switch>
-          <Route path="/tjeneste">
-            <Tjenesteliste tjenester={kartlag} />
+        <Routes>
+          <Route path="/tjeneste" element={
+            <Tjenesteliste tjenester={kartlag} />}>
           </Route>
-          <Route path="/kartlag">
+          <Route path="/kartlag" element={
             <Kartlagliste
               kartlag={doc.underlag}
               selectedLayerIndex={selectedLayerIndex}
-            />
+            />}>
           </Route>
 
-          <Route path="/">
+          <Route path="/" element={
+            <>
             <TjenesteListItem doc={doc}></TjenesteListItem>
             <MainTabs
               tab={tab}
@@ -222,8 +223,9 @@ export default function TjenesteContainer() {
               sub={sub}
               selectedLayerIndex={selectedLayerIndex}
             />
+            </>}>
           </Route>
-        </Switch>
+        </Routes>
         {sub && sub.length > 0 && (
           <FeaturePicker
             feature={feature}

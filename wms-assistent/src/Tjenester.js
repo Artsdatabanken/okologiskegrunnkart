@@ -8,26 +8,28 @@ import {
   ListSubheader
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import TjenesteContainer from "./Tjeneste";
 
 const Tjenester = () => (
   <div>
-    <Switch>
-      <Route path="/">
+    <Routes>
+      <Route path="/" element={
         <TjenesteContainer />
+      }>
       </Route>
-      <Route path="/tjeneste">
+      <Route path="/tjeneste" element={
         <Tjenesteliste />
+      }>
       </Route>
-    </Switch>
+    </Routes>
   </div>
 );
 
 export default Tjenester;
 
 function Tjenesteliste({}) {
-  const history = useHistory();
+  const navigate = useNavigate();
   const docs = [];
   return (
     <>
@@ -38,7 +40,7 @@ function Tjenesteliste({}) {
             button
             dense
             key={doc._id}
-            onClick={() => history.push("?id=" + doc._id)}
+            onClick={() => navigate("?id=" + doc._id)}
           >
             <ListItemAvatar>
               <Avatar style={{ color: "#3399ff" }}>
@@ -50,7 +52,7 @@ function Tjenesteliste({}) {
         ))}
       </List>
       <Fab
-        onClick={() => history.push("?id=" + 42)}
+        onClick={() => navigate("?id=" + 42)}
         style={{ position: "fixed", left: 424, bottom: 72 }}
         color="primary"
         aria-label="add"

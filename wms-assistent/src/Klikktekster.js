@@ -2,18 +2,18 @@ import React from "react";
 import TextField2 from "./TextField2";
 import CreateIcon from "@mui/icons-material/Create";
 import { Alert } from "@mui/lab";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import klikktekst from "./FeatureInfo/Klikktekst";
 
 const Klikktekster = ({ underlag, feature, onUpdate, selectedLayerIndex }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const linje1 = klikktekst(feature, underlag.klikktekst);
   const linje2 = klikktekst(feature, underlag.klikktekst2);
   const goToEditmode = key => {
     const url = new URL(window.location);
     url.searchParams.set("ulid", selectedLayerIndex);
     url.searchParams.set("sub", key);
-    history.push(url.toString());
+    navigate(url.toString());
   };
   return (
     <>
