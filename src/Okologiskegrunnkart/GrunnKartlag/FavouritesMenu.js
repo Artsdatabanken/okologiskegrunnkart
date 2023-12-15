@@ -1,8 +1,8 @@
 import React from "react";
-import { Paper, ListItemIcon } from "@material-ui/core";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListItemText from "@material-ui/core/ListItemText";
+import { Paper, ListItemIcon } from "@mui/material";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemText from "@mui/material/ListItemText";
 import BottomTooltip from "../../Common/BottomTooltip";
 import { AllLayersIcon, FavouriteLayesIcon } from "../../Common/SvgIcons";
 import CustomIconButton from "../../Common/CustomIconButton";

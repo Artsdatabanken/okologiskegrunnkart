@@ -5,11 +5,11 @@ import {
   ListItemText,
   Badge,
   IconButton
-} from "@material-ui/core";
-import { BorderLeft } from "@material-ui/icons";
+} from "@mui/material";
+import { BorderLeft } from "@mui/icons-material";
 import CustomIcon from "../Common/CustomIcon";
 import BottomTooltip from "../Common/BottomTooltip";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles(() => ({
   customIconButtom: {

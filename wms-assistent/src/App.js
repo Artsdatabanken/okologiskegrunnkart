@@ -1,9 +1,9 @@
 import React from "react";
-import { Suspense } from "react";
+import Suspense from "react";
 import { BrowserRouter } from "react-router-dom";
-import { homepage } from "../package.json";
+import homepage from "../package.json";
 import TjenesteContainer from "./TjenesteContainer";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import CssBaseline from "@mui/material/CssBaseline";
 import AuthenticationContextProvider from "./Kart/AuthenticationContextProvider";
 
 const basename = process.env.NODE_ENV === "development" ? undefined : homepage;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Close, Save, Edit, Delete, Cancel } from "@material-ui/icons";
+import { Close, Save, Edit, Delete, Cancel } from "@mui/icons-material";
 import "../style/leaflet.css";
 import {
   Snackbar,
@@ -9,8 +9,8 @@ import {
   ListItem,
   ListItemText,
   IconButton
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+} from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import "leaflet/dist/leaflet.css";
 
 const useStyles = isMobile =>

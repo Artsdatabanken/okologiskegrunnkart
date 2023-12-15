@@ -27,8 +27,9 @@ This project has a wiki, access it here:
 - https://github.com/Artsdatabanken/okologiskegrunnkart/wiki
 
 ## Deployment
-- manually triggered for master branch. 
-- See deploy.sh 
+
+- manually triggered for master branch.
+- See deploy.sh
 - lastbalansert
 
 ## Thanks
@@ -79,3 +80,7 @@ Integration tests are divided in three groups which can be run separatedly. It r
 - Parallel tests in dev: `npm run group1`, `npm run group2`, `npm run group3`
 - Parallel tests in test: `npm run group1:test`, `npm run group2:test`, `npm run group3:test`
 - Parallel tests in prod: `npm run group1:prod`, `npm run group2:prod`, `npm run group3:prod`
+
+## Eslint skaper seg
+
+Slett wms-assistent/node_modules/eslint-config-react-app

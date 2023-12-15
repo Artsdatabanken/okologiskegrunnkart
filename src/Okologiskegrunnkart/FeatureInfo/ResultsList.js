@@ -5,11 +5,11 @@ import {
   ListItemIcon,
   LinearProgress,
   ListSubheader
-} from "@material-ui/core";
+} from "@mui/material";
 import GeneriskElement from "./GeneriskElement";
 import "../../style/infobox.css";
 import CustomIcon from "../../Common/CustomIcon";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import CustomSwitch from "../../Common/CustomSwitch";
 
 const useStyles = makeStyles(() => ({

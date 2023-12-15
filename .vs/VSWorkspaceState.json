@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Okologiskegrunnkart",
+    "\\src\\Okologiskegrunnkart\\FeatureInfo",
+    "\\tests",
+    "\\tests\\OkologiskeGrunnkart",
+    "\\tests\\OkologiskeGrunnkart\\FeatureInfo",
+    "\\tests\\Tegnforklaring"
+  ],
+  "SelectedNode": "\\tests\\OkologiskeGrunnkart\\FeatureInfo\\PolygonDrawTool.test.js",
+  "PreviewInSolutionExplorer": false
+}

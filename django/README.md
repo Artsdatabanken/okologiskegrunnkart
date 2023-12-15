@@ -35,7 +35,7 @@ OBS: SECRET_KEY bør antagelig settes i environment-variabel.
 
 ```
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v7gtxx=j=9xlu0e9!%!g8op6@o$@k#bjtnh9nex$ld&%rzlmw5'
+SPØR Ø.
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,7 +45,8 @@ ALLOWED_HOSTS = ["*"]
 
 ## Deployment
 
-Filer fra denne katalogen django, deployes til katalogen som er mappet inn i _forvaltningsporta-django_ container.
+Filer fra denne katalogen django, deployes til katalogen som er mappet
+inn i _forvaltningsporta-django_ container.
 
 ## Build and deploy docker image
 
@@ -53,3 +54,11 @@ Filer fra denne katalogen django, deployes til katalogen som er mappet inn i _fo
 docker build -t artsdatabanken/forvaltningsportal-django .
 docker push artsdatabanken/forvaltningsportal-django:latest
 ```
+
+## Nyttige ting:
+
+python manage.py createsuperuser
+
+# Kjøre databasen:
+
+python .\manage.py runserver

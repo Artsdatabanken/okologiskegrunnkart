@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../style/appname.css";
-import { Snackbar, Button, Modal } from "@material-ui/core";
-import { Close } from "@material-ui/icons";
+import { Snackbar, Button, Modal } from "@mui/material";
+import { Close } from "@mui/icons-material";
 
 const AppName = ({
   showAppName,

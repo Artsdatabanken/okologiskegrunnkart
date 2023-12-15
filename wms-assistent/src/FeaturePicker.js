@@ -1,13 +1,13 @@
 import React from "react";
-import { TreeView } from "@material-ui/lab";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import TreeItem from "@material-ui/lab/TreeItem";
-import { IconButton, Typography, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import CloseIcon from "@material-ui/icons/Close";
+import { TreeView } from "@mui/lab";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import TreeItem from "@mui/lab/TreeItem";
+import { IconButton, Typography, Paper } from "@mui/material";
+import { makeStyles } from "@mui/styles";
+import CloseIcon from "@mui/icons-material/Close";
 import TextField2 from "./TextField2";
-import { Alert } from "@material-ui/lab";
+import { Alert } from "@mui/lab";
 import klikktekst from "./FeatureInfo/Klikktekst";
 import { useHistory } from "react-router-dom";
 

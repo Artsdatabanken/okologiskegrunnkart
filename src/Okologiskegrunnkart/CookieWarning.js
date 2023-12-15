@@ -5,7 +5,7 @@ This is a first draft until new guidelines and better rig is in place.
 */
 
 import React, { useState } from "react";
-import { Close } from "@material-ui/icons";
+import { Close } from "@mui/icons-material";
 const CookieWarning = ({ isSideBarOpen }) => {
   const cookieString = "cookieWarning=closed";
   const getConsentCookie = () => {

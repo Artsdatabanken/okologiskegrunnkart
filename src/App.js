@@ -1160,6 +1160,17 @@ class App extends React.Component {
     let lng = null;
     let lat = null;
 
+    //Adaption/remapping for (new) Stedsnavn type
+    if (trefftype === "Stedsnavn") {
+      geostring.ssrId = geostring.stedsnummer;
+      lng = geostring.representasjonspunkt.øst;
+      lat = geostring.representasjonspunkt.nord;
+      geostring.representasjonspunkt.lon = lng;
+      geostring.representasjonspunkt.lat = lat;
+      geostring.aust = lng;
+      geostring.nord = lat;
+    }
+
     if (geostring.ssrId) {
       mincoord = [
         parseFloat(geostring.aust) - 0.5,

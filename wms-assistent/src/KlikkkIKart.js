@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper, ListItem, ListItemText } from "@material-ui/core";
+import { Paper, ListItem, ListItemText } from "@mui/material";
 import klikktekst from "./FeatureInfo/Klikktekst";
 import Underlag from "./Underlag";
 

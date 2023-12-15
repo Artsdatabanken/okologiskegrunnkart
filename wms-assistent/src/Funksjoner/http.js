@@ -21,6 +21,6 @@ const put = async (
   return fetch(request);
 };
 
-export default {
-  put
-};
+const putter = { put };
+
+export default putter;

@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import "../style/kartlagfane.css";
 import KartlagElement from "./GrunnKartlag/KartlagElement";
 import Tegnforklaring from "../Tegnforklaring/Tegnforklaring";
-import { KeyboardBackspace } from "@material-ui/icons";
+import { KeyboardBackspace } from "@mui/icons-material";
 import CustomIcon from "../Common/CustomIcon";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 import KartlagDetailedInfo from "./GrunnKartlag/KartlagDetailedInfo";
 import useWindowDimensions from "../Funksjoner/useWindowDimensions";
 

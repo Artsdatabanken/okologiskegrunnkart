@@ -1,7 +1,7 @@
 import React from "react";
 import TextField2 from "./TextField2";
-import CreateIcon from "@material-ui/icons/Create";
-import { Alert } from "@material-ui/lab";
+import CreateIcon from "@mui/icons-material/Create";
+import { Alert } from "@mui/lab";
 import { useHistory } from "react-router-dom";
 import klikktekst from "./FeatureInfo/Klikktekst";
 
