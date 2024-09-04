@@ -20,11 +20,11 @@ jobs:
       - run: cd ..
       - name: Check downloaded files
         run: ./.github/workflows/filecheck.sh
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          path: "./destinationRepo"
-          token: ${{secrets.PUSH_TOKEN}}
+      # - name: Checkout
+      #   uses: actions/checkout@v3
+      #   with:
+      #     path: "./destinationRepo"
+      #     token: ${{secrets.PUSH_TOKEN}}
       - name: Run deployment script
         run: ./.github/workflows/deploy.sh
         shell: bash
