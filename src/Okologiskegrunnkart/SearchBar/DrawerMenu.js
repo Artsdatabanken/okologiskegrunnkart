@@ -352,6 +352,23 @@ const DrawerMenu = ({
         </MenuItem>
 
         <MenuItem
+          id="drawer-menuitem-astatus"
+          className="drawer-menuitem"
+          onClick={() => {
+            handleCloseDrawer();
+            const url =
+              " https://uustatus.no/nb/erklaringer/publisert/f7f5b426-0b2f-443a-980d-cfa51c57c2f5";
+            openInNewTabWithoutOpener(url);
+          }}
+          tabIndex={0}
+        >
+          <ListItemIcon id="drawer-item-icon">
+            <Comment />
+          </ListItemIcon>
+          <ListItemText primary="Tilgjengelighetserklæring" />
+        </MenuItem>
+
+        <MenuItem
           id="drawer-menuitem-artsdatabanken"
           className="drawer-menuitem"
           onClick={() => {
