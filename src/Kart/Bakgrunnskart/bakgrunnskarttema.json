@@ -75,70 +75,49 @@
       "norgeibilder": {
         "kode": "bakgrunnskart",
         "tittel": "Norge i bilder",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://gatekeeper1.geonorge.no/BaatGatekeeper/gk/gk.nib_web_mercator_v2?gkt={gkt}&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=0&TILED=true&PROJECTION=EPSG%3A3857&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&STYLES=&{z}&TileCol={x}&TileRow={y}"
+        "url": "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_web_mercator_wmts_v2?gkt={gkt}&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=0&TILED=true&PROJECTION=EPSG%3A3857&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&STYLES=&{z}&TileCol={x}&TileRow={y}"
       },
       "gebco": {
         "kode": "bakgrunnskart",
         "tittel": "Gebco",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=havbunn_grunnkart&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "fjellskygge": {
         "kode": "bakgrunnskart",
         "tittel": "Fjellskygge",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=fjellskygge&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": " https://wms.geonorge.no/skwms1/wms.fjellskygge?&gkt={gkt}&layer=fjellskygge&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "topo4": {
         "kode": "bakgrunnskart",
         "tittel": "Topo 4",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=topo&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "topo4graatone": {
         "kode": "bakgrunnskart",
         "tittel": "Topo 4 gråtone",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=topograatone&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "google_satellite": {
         "kode": "bakgrunnskart",
         "tittel": "Satellitt (Google)",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
       },
       "google_hybrid": {
         "kode": "bakgrunnskart",
         "tittel": "Hybrid (Google)",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}"
       },
@@ -146,22 +125,16 @@
         "kode": "egk",
         "tittel": "Europeisk grunnkart",
         "order": -1,
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
         "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=egk&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "flybilder": {
         "kode": "bakgrunnskart",
         "tittel": "Flyfoto",
-        "zoom": [
-          0,
-          21
-        ],
+        "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_web_mercator_wmts_v2?&gkt={gkt}&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       }
     }
   }

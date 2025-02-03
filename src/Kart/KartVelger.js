@@ -5,13 +5,13 @@ import flyfoto from "./images/flyfoto.jpg";
 import React, { useState } from "react";
 import { Map } from "@mui/icons-material";
 
-const tilgjengelige = ["gebco", "topo4", "topo4graatone", "flybilder"];
+const tilgjengelige = ["topo4", "topo4graatone", "flybilder"];
 const tilgjengelige_data = {
-  gebco: {
-    navn: "GEBCO",
-    dataeier: "GEBCO/Kartverket",
-    url: "https://www.gebco.net"
-  },
+  //gebco: {
+  //  navn: "GEBCO",
+  //  dataeier: "GEBCO/Kartverket",
+  //  url: "https://www.gebco.net"
+  //},
   topo4: {
     navn: "Topografisk norgeskart 4",
     dataeier: "Kartverket",
@@ -28,7 +28,7 @@ const tilgjengelige_data = {
     url: "https://www.kartverket.no"
   }
 };
-const imgs = [gebco, topo4, topo4graatone, flyfoto];
+const imgs = [topo4, topo4graatone, flyfoto];
 
 const KartVelger = ({
   handleSetBakgrunnskart,
