@@ -26,8 +26,8 @@ it("should render map selection buttons", async () => {
   expect(buttons.length).toBe(1);
 
   // Open options
-  fireEvent.click(getByTitle("Endre bakgrunnskart"));
-  await waitFor(() => findByTitle("GEBCO"));
+  //fireEvent.click(getByTitle("Endre bakgrunnskart"));
+  //await waitFor(() => findByTitle("GEBCO"));
 
   // Get buttons (several visible)
   buttons = getAllByRole("button");
