@@ -1,4 +1,4 @@
-import gebco from "./images/gebco.jpg";
+// import gebco from "./images/gebco.jpg";
 import topo4 from "./images/topo4.jpg";
 import topo4graatone from "./images/topo4graatone.jpg";
 import flyfoto from "./images/flyfoto.jpg";
