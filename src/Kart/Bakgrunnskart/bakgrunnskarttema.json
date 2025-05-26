@@ -84,7 +84,7 @@
         "tittel": "Gebco",
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=havbunn_grunnkart&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://cache.kartverket.no/v1/service?&gkt={gkt}&layer=havbunn_grunnkart&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "fjellskygge": {
         "kode": "bakgrunnskart",
@@ -98,14 +98,14 @@
         "tittel": "Topo 4",
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=topo&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://cache.kartverket.no/v1/service?&gkt={gkt}&layer=topo&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "topo4graatone": {
         "kode": "bakgrunnskart",
         "tittel": "Topo 4 gråtone",
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=topograatone&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://cache.kartverket.no/v1/service?&gkt={gkt}&layer=topograatone&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "google_satellite": {
         "kode": "bakgrunnskart",
@@ -127,7 +127,7 @@
         "order": -1,
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/wmts?&gkt={gkt}&layer=egk&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://cache.kartverket.no/v1/service?&gkt={gkt}&layer=europaForenklet&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       },
       "flybilder": {
         "kode": "bakgrunnskart",
