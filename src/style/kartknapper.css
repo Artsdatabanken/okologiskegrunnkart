@@ -240,7 +240,7 @@
 }
 .artsdatabanken-logo-image {
   opacity: 0.8;
-  height: 30px;
+  height: 60px;
 }
 .artsdatabanken-logo-wrapper.side-bar-open {
   right: calc((100% + 408px) / 2 - 110px);
