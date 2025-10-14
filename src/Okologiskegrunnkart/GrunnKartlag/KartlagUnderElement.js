@@ -68,7 +68,7 @@ const KartlagUnderElement = ({
               icon="check-decagram"
               size={20}
               padding={0}
-              color={visible ? "#666" : "#999"}
+              color={visible ? "#005a71" : "#999"}
             />
           </ListItemIcon>
         )} */}
@@ -78,7 +78,7 @@ const KartlagUnderElement = ({
             icon="chevron-right"
             size={20}
             padding={0}
-            color="#666"
+            color="#005a71"
           />
         </ListItemIcon>
         {sublayer.visible && sublayer.tileerror && (

@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import "../../style/searchbar.css";
 import TreffListe from "./TreffListe";
 import backend from "../../Funksjoner/backend";
-import { Menu as MenuIcon } from "@mui/icons-material";
+import CustomIcon from "../../Common/CustomIcon";
 import DrawerMenu from "./DrawerMenu";
 import useDebounce from "./UseDebounce";
 
@@ -918,7 +918,7 @@ const SearchBar = ({
             }
           }}
         >
-          <MenuIcon />
+          <CustomIcon icon="menu" color="#005a71" size={24} />
         </button>
         <DrawerMenu
           anchorEl={anchorEl}

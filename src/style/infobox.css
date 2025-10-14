@@ -11,16 +11,18 @@
   left: -350px;
   top: 0px;
   width: 350px;
+  max-width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 1px solid #f2dfc5;
   background: #eeeeee;
 }
 .infobox-container-side.infobox-open {
   left: 0px;
   top: 0px;
+  max-width: 100%;
 }
 @media only screen and (max-width: 768px) {
   .infobox-container-side {
@@ -52,7 +54,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #eee;
+  background-color: #fffcf7;
   max-height: 100vh;
   overflow-y: auto;
   height: calc(100% - 61px);
@@ -76,8 +78,8 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  background-color: #697f8a;
-  color: white;
+  background-color: #fff1db;
+  border-bottom: 1px solid #f2dfc5;
   width: 100%;
   flex-shrink: 0;
 }
@@ -130,34 +132,15 @@
 
 /* -------- Close infobox button --------- */
 .close-infobox-button-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 0;
-  width: 0;
-  margin: 30px 29px 23px 22px;
-  padding: 0;
-  background-color: rgba(145, 163, 176, 0);
-  border: none;
-  border-radius: 10px;
-  transition: background-color 0.2s, width 0.2s, height 0.2s, margin 0.2s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 5px;
 }
-.close-infobox-button-wrapper:hover {
-  background-color: rgba(145, 163, 176, 0);
-}
-.close-infobox-button-wrapper:focus {
-  background-color: rgba(145, 163, 176, 1);
-  outline: none;
-  height: 46px;
-  width: 44px;
-  margin: 7px 7px 0 0;
-}
+
 .close-infobox-button {
   padding: 0;
   display: flex;
-  color: white;
-  border: 2px solid white;
+  color: #005a71;
+  background: white;
+  border: 2px solid #005a71;
   border-radius: 5px;
   height: 28px;
   width: 28px;
@@ -246,23 +229,26 @@
 .infobox-options-container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(248, 248, 248);
   padding: 5px;
 }
-.infobox-options-listitem-wrapper {
-  background-color: rgba(145, 163, 176, 0.5);
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
+
+/* ALL THE HEADINGS */
+.list-header {
+  background-color: #fff1db;
+  border-bottom: 1px solid #f2dfc5;
+  border-top: 1px solid #f2dfc5;
+  width: 100%;
+  display: flex;
+  padding: 8px;
+  align-items: center;
 }
-.infobox-options-listitem-wrapper-closed {
-  background-color: rgba(145, 163, 176, 0.5);
-  border-top: 1px solid #aaa;
-}
+
 .infobox-switch-container {
   display: flex;
   align-items: center;
   padding-left: 4px;
 }
+
 .infobox-switch-title {
   font-size: 16px;
   text-align: left;
@@ -272,20 +258,16 @@
   padding-left: 5px;
   font-size: 16px;
 }
-.polygon-options-listitem-wrapper {
-  background-color: rgba(145, 163, 176, 0.75);
-  border-bottom: 1px solid #999;
-}
+
 .polygon-options-container {
   display: flex;
   flex-direction: column;
-  background-color: rgb(248, 248, 248);
-  background-color: rgba(145, 163, 176, 0.2);
-  border-bottom: 1px solid #aaa;
+  border-bottom: 1px solid #f2dfc5;
   padding: 0 5px 5px 5px;
 }
 #select-polygon-collapse {
   flex-shrink: 0;
+  background-color: white;
 }
 .infobox-radio-buttons-title {
   font-size: 16px;
@@ -304,9 +286,6 @@
 }
 
 /* List with selected layers */
-.detailed-info-container-side {
-  background-color: #eee;
-}
 .layer-results-scrollable-side {
   display: inline-block;
   width: 100%;
@@ -316,10 +295,7 @@
   flex-direction: column;
   align-items: flex-start;
 }
-#layer-results-header {
-  border-top: 3px solid grey;
-  border-bottom: 1px solid grey;
-}
+
 #layer-results-header.MuiListItem-root {
   padding-top: 4px;
   padding-bottom: 4px;
@@ -375,7 +351,7 @@
   max-height: 44px;
 }
 #open-facts-icon-layer.MuiSvgIcon-colorPrimary {
-  color: #777;
+  color: #262f31;
 }
 #open-facts-icon-sublayer.MuiSvgIcon-colorPrimary {
   color: #697f8a;
@@ -522,7 +498,7 @@
 
 /* Facts information buttons */
 #open-facts-info-button.MuiIconButton-colorPrimary {
-  color: #666;
+  color: #005a71;
 }
 
 /* Facts information modal */
@@ -781,8 +757,6 @@ h4.container_header {
   align-content: center;
   flex-shrink: 0;
   padding: 14px 15px 14px 14px;
-  border-bottom: 1px solid #aaa;
-  background: rgba(145, 163, 176, 0.5);
 }
 .polygon-tool-wrapper.vertical {
   display: flex;
@@ -856,7 +830,8 @@ h4.container_header {
   padding: 12px 0 10px 0;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
-  border-bottom: 1px solid #ddd;
+
+  border-bottom: solid 1px #f2dfc5;
 }
 .polygon-details-content-wrapper-description {
   display: flex;
@@ -866,33 +841,34 @@ h4.container_header {
   padding-top: 12px;
   color: rgba(0, 0, 0, 0.75);
   width: 100%;
-  border-bottom: 1px solid #ddd;
+  border-bottom: solid 1px #f2dfc5;
 }
+
 .polygon-layers-wrapper {
   display: flex;
   flex-direction: column;
   align-content: flex-start;
   justify-items: center;
-  border-top: 1px solid #aaa;
   flex-shrink: 0;
 }
 #polygon-layer-expander,
 #polygon-layer-disabled {
-  background: rgba(145, 163, 176, 0.3);
-  border-bottom: 1px solid #aaa;
+  background-color: #fff1db;
+  border-top: solid 1px #f2dfc5;
+  border-bottom: solid 1px #f2dfc5;
   flex-shrink: 0;
+  &:hover {
+    background-color: #f2dfc5;
+  }
+
+  &.Mui-focusVisible {
+    background-color: #f2dfc5;
+  }
 }
 #polygon-layer-disabled {
-  color: #777;
+  opacity: 50%;
 }
-#polygon-layer-expander:hover,
-#polygon-layer-disabled:hover {
-  background: rgba(145, 163, 176, 0.5);
-}
-#polygon-layer-expander.Mui-focusVisible,
-#polygon-layer-disabled.Mui-focusVisible {
-  background: rgba(145, 163, 176, 0.5);
-}
+
 #polygon-layer-expander.MuiListItem-gutters,
 #polygon-layer-disabled.MuiListItem-gutters {
   padding-left: 14px;
@@ -902,7 +878,8 @@ h4.container_header {
 #polygon-layers-collapse {
   flex-shrink: 0;
   padding-bottom: 15px;
-  background: rgba(145, 163, 176, 0.2);
+  border-bottom: solid 1px #f2dfc5;
+  background: white;
 }
 /* .polygon-layers-content {
   background: rgba(145, 163, 176, 0.2);

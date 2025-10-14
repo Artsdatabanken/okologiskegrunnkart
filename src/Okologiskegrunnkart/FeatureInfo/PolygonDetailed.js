@@ -75,7 +75,7 @@ const PolygonDetailed = ({
                 icon={resultLayer.icon}
                 size={iconSize(resultLayer.icon).size || 30}
                 padding={iconSize(resultLayer.icon).padding || 0}
-                color={"#777"}
+                color={"#262f31"}
               />
             </Badge>
           </ListItemIcon>

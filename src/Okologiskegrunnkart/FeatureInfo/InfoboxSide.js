@@ -193,7 +193,7 @@ const InfoBox = ({
             <CustomIcon
               id="show-layers-icon"
               icon="drag-horizontal"
-              color="#fff"
+              color="#005a71"
               size={30}
             />
           </button>
@@ -219,7 +219,7 @@ const InfoBox = ({
               <CustomIcon
                 id="polygon-icon"
                 icon="hexagon-slice-4"
-                color="#fff"
+                color="#262F31"
                 size={24}
               />
               <div className="infobox-title-text">
@@ -240,7 +240,7 @@ const InfoBox = ({
             <CustomIcon
               id="infobox-minimize"
               icon="chevron-doble-left"
-              color="#fff"
+              color="#005a71"
               size={24}
             />
           </div>

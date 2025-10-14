@@ -321,7 +321,7 @@ const GeneriskElement = ({
                 icon={layer.tema}
                 size={isLargeIcon(layer.tema) ? 30 : 26}
                 padding={isLargeIcon(layer.tema) ? 0 : 2}
-                color={"#777"}
+                color={"#262f31"}
               />
             </Badge>
           </ListItemIcon>
@@ -351,7 +351,7 @@ const GeneriskElement = ({
                 icon="chevron-right"
                 size={20}
                 padding={0}
-                color="#666"
+                color="#005a71"
               />
             )}
           </ListItemIcon>

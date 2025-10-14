@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 /* Generell kode for applikasjonen */
 .hidden-app-content {
   display: none;
@@ -11,6 +13,8 @@ button {
 body {
   overflow: hidden;
   touch-action: none;
+  color: #262f31;
+  font-family: "Chivo", sans-serif;
 }
 
 a,
@@ -31,16 +35,25 @@ b {
 
 button {
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: 30px;
   padding: 5px;
-}
+  background: white;
+  border: 2px solid #005a71;
+  color: #005a71;
 
-button:hover,
-button.active:hover,
-button.active:focus,
-button.active {
-  cursor: pointer;
-  background: grey;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 0px 1px #005a71 inset;
+  }
+  &:active,
+  &:focus {
+    background: #fff1db;
+    color: white;
+  }
+
+  &:focus-visible {
+    outline: 2px solid blue;
+  }
 }
 
 input,
@@ -54,7 +67,7 @@ select {
   background: #2f2f2f;
   position: absolute;
   width: 100%;
-  top: 50px;
+  top: 60px;
   text-align: center;
   color: white;
   padding: 4px;

@@ -198,8 +198,8 @@ const ClickInfobox = ({
         <div
           className={
             showMarkerOptions
-              ? "infobox-options-listitem-wrapper"
-              : "infobox-options-listitem-wrapper-closed"
+              ? "infobox-options-listitem-wrapper list-header"
+              : "infobox-options-listitem-wrapper-closed list-header"
           }
         >
           <ListItem

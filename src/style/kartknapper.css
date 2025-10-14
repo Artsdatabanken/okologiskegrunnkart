@@ -199,7 +199,7 @@
 #polygon-button-map.active {
   padding: 6px;
   border: 2px solid white;
-  background: rgba(95, 117, 128, 1);
+  background: #005a71;
   color: rgba(255, 255, 255, 1);
 }
 #marker-button-map:hover:not(.active),
@@ -273,7 +273,7 @@
 @media only screen and (max-width: 768px) {
   .artsdatabanken-logo-wrapper {
     width: auto;
-    top: 50px;
+    top: 60px;
     bottom: auto;
     right: 10px;
     padding-top: 6px;

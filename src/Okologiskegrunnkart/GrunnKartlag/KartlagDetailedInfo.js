@@ -165,7 +165,7 @@ const KartlagDetailedInfo = ({
                   icon={kartlag.tema}
                   size={isLargeIcon ? 30 : 26}
                   padding={isLargeIcon ? 0 : 2}
-                  color={kartlag.visible ? "#666" : "#999"}
+                  color={"#005a71"}
                 />
               </Badge>
             </div>

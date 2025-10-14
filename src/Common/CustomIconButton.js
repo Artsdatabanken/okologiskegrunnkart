@@ -4,8 +4,8 @@ import { IconButton } from "@mui/material";
 const styles = {
   root: {
     "&.MuiIconButton-root": {
-      color: "#666",
-      border: "1px solid #666",
+      color: "#005a71",
+      border: "2px solid #005a71",
       backgroundColor: "rgba(200, 200, 200, 0)",
       padding: "10px"
     },
@@ -13,7 +13,6 @@ const styles = {
       backgroundColor: "rgba(200, 200, 200, 0.6)"
     },
     "&.Mui-disabled": {
-      color: "#999",
       border: "1px solid #999"
     }
   }

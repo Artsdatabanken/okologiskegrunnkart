@@ -8,13 +8,13 @@
   top: 0px;
   right: -408px;
   width: 408px;
-  padding-top: 50px;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  padding-top: 60px;
+  background: #fffcf7;
 }
 .kartlag_fanen.side-bar-open {
   display: block;
   right: 0;
+  border: 1px solid #f2dfc5;
 }
 .kartlag-hidden {
   display: none;
@@ -23,11 +23,9 @@
 @media only screen and (max-width: 768px) {
   .kartlag_fanen {
     --h: 0px;
-    border-top: 1px solid lightgrey;
     top: auto;
     bottom: 0;
     padding-top: 0;
-    background-color: #eee;
     z-index: 100;
     height: calc(var(--h, 0px));
     overflow-y: hidden;
@@ -39,7 +37,7 @@
     width: 100%;
   }
   .kartlag_fanen.side-bar-fullscreen {
-    height: calc(100% - 50px + var(--h, 0px));
+    height: calc(100% - 60px + var(--h, 0px));
     width: 100%;
   }
   .kartlag-hidden {
@@ -48,7 +46,6 @@
 }
 
 .scroll_area {
-  background: rgb(230, 230, 230);
   overflow-y: auto;
   width: 100%;
   height: calc(100vh - 48px);
@@ -128,8 +125,7 @@
 .listheadingbutton-text {
   color: rgba(0, 0, 0, 0.64);
   font-size: 17px;
-  font-weight: 500;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 700;
 }
 @media only screen and (max-width: 768px) {
   .listheadingbutton {
@@ -153,7 +149,9 @@
 #toggle-side-bar-button {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
-  border: 1px solid #777;
+  border: 2px solid #005a71;
+  background: white;
+  color: white;
   border-right: 0;
   width: 32px !important;
   min-width: 32px;
@@ -175,30 +173,11 @@
   display: none;
 }
 #toggle-kartlag-button {
-  border-radius: 4px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  border: 1px solid grey;
   border-bottom: 0;
-  height: 40px;
-  width: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  padding: 0;
-  background-color: white;
-  border: 0;
-  -webkit-transition: height 0.5s, box-shadow 0.5s, background-color 0.5s;
-  -moz-transition: height 0.5s, box-shadow 0.5s, background-color 0.5s;
-  -ms-transition: height 0.5s, box-shadow 0.5s, background-color 0.5s;
-  -o-transition: height 0.5s, box-shadow 0.5s, background-color 0.5s;
-  transition: height 0.5s, box-shadow 0.5s, background-color 0.5s;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: -2px 0px 1px -1px rgba(0, 0, 0, 0.2),
-    -1px 0px 1px 0px rgba(0, 0, 0, 0.14), -1px 0px 3px 0px rgba(0, 0, 0, 0.12);
 }
-#toggle-kartlag-button:focus {
-  outline: none;
-}
+
 @media only screen and (max-width: 768px) {
   .toggle-kartlag-wrapper {
     --h: 0px;
@@ -214,7 +193,7 @@
   }
   .toggle-kartlag-wrapper.side-bar-open {
     top: auto;
-    bottom: calc(40vh - 74px + var(--h, 0px));
+    bottom: calc(40vh - 64px + var(--h, 0px));
     right: 160px;
     width: calc(100% - 160px);
     height: 73px;
@@ -222,7 +201,7 @@
   }
   .toggle-kartlag-wrapper.side-bar-fullscreen {
     top: auto;
-    bottom: calc(100% - 50px - 74px + var(--h, 0px));
+    bottom: calc(100% - 60px - 74px + var(--h, 0px));
     right: 160px;
     width: calc(100% - 160px);
     height: 73px;
@@ -242,7 +221,7 @@
     height: 35px;
   }
   .toggle-kartlag-wrapper.side-bar-fullscreen.popup-visible {
-    bottom: calc(100% - 50px - 35px + var(--h, 0px));
+    bottom: calc(100% - 60px - 35px + var(--h, 0px));
     right: 0;
     width: calc(100%);
     height: 35px;
@@ -266,8 +245,8 @@
 
 /* ----------- Sorted layers extra components ------------ */
 .sorted-layers-subheaders .MuiListSubheader-root {
-  background-color: rgb(216, 216, 216);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-color: #fff1db;
+  border-bottom: solid 1px #f2dfc5;
   font-size: 17px;
 }
 .sorted-layers-subheaders .MuiListItem-root {
@@ -288,7 +267,7 @@
   margin-right: 5px;
 }
 .header-layers-menu {
-  background-color: white;
+  background-color: #fffcf7;
   position: -webkit-sticky;
   position: -moz-sticky;
   position: -ms-sticky;
@@ -424,12 +403,12 @@
   z-index: 10;
 }
 .legend-link-wrapper {
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #aaa;
+  border-top: solid 1px #f2dfc5;
+  border-bottom: solid 1px #f2dfc5;
   background-color: white;
 }
 #legend-link-list-item {
-  background-color: rgba(145, 163, 176, 0.5);
+  background-color: #fffcf7;
 }
 #legend-link-list-item.Mui-disabled {
   opacity: 1;
@@ -495,7 +474,7 @@
   justify-content: flex-start;
   background-color: rgba(145, 163, 176, 0.5);
   width: 100%;
-  height: 50px;
+  height: 60px;
   border-top: 1px solid #bbb;
   border-bottom: 1px solid #bbb;
 }
@@ -526,7 +505,7 @@
 }
 .legend-content-wrapper {
   padding: 0 24px 24px 24px;
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
   overflow-y: auto;
 }
 .legend-content-layer {
@@ -539,7 +518,8 @@
 
 /* -------- Layers and sublayers wrappers ---------- */
 #layer-list-item.MuiListItem-root {
-  border-bottom: 1px solid #bbb;
+  border-bottom: solid 1px #f2dfc5;
+  background: white;
 }
 @media only screen and (max-width: 768px) {
   #layer-list-item {
@@ -631,13 +611,13 @@
   color: #444;
 }
 #list-element-sublayer.MuiListItem-root {
-  border-bottom: 1px solid #e2e2e2;
+  border-bottom: solid 1px #f2dfc5;
 }
 #list-element-sublayer-all.MuiListItem-gutters {
   padding-left: 5px;
 }
 #list-element-sublayer-all.MuiListItem-root {
-  border-bottom: 1px solid #cccddd;
+  border-bottom: solid 1px #fff1db;
 }
 .badge-enabled > .MuiBadge-colorPrimary {
   background-color: #22aa58;
@@ -665,7 +645,7 @@
   right: 0px;
   top: 0px;
   width: 408px;
-  padding-top: 50px;
+  padding-top: 60px;
 }
 @media only screen and (max-width: 768px) {
   .layer-details-div {
@@ -681,7 +661,7 @@
   justify-content: flex-start;
   background-color: rgba(145, 163, 176, 0.5);
   width: 100%;
-  height: 50px;
+  height: 60px;
   border-bottom: 1px solid #aaa;
 }
 @media only screen and (max-width: 768px) {
@@ -693,7 +673,7 @@
 
 /* Sublayer details title */
 .details-content-wrapper {
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
   overflow-y: auto;
 }
 @media only screen and (max-width: 768px) {
@@ -754,7 +734,7 @@
   color: #ccc;
 }
 #opacity-visible-icon.MuiSvgIcon-colorPrimary {
-  color: #666;
+  color: #005a71;
 }
 
 #details-title-wrapper .MuiListItemIcon-root {

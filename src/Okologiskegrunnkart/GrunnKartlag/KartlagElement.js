@@ -55,7 +55,7 @@ const KartlagElement = ({
                 icon={kartlag.tema}
                 size={isLargeIcon(kartlag.tema) ? 30 : 26}
                 padding={isLargeIcon(kartlag.tema) ? 0 : 2}
-                color={erSynlig ? "#666" : "#999"}
+                color={erSynlig ? "#262f31" : "#999"}
               />
             </Badge>
           </div>
@@ -104,7 +104,7 @@ const KartlagElement = ({
                     icon="chevron-right"
                     size={20}
                     padding={0}
-                    color="#666"
+                    color="#005a71"
                   />
                 </ListItemIcon>
               </ListItem>

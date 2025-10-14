@@ -593,7 +593,7 @@ const KartlagFanen = ({
             <CustomIcon
               id="show-layers-icon"
               icon="drag-horizontal"
-              color="#666"
+              color="#262f31"
               size={30}
             />
           </button>
