@@ -47,7 +47,7 @@ const ArtsdatabankenLogo = ({ showSideBar, showInfobox, isMobile }) => {
     <div className="artsdatabanken-logo-wrapper">
       {!isMobile && (
         <img
-          src="/logoer/adb_liggende.png"
+          src="/logoer/Artsdatabanken_Logo_Color.svg"
           className="artsdatabanken-logo-image"
           alt="artsdatabanken-logo"
         />
