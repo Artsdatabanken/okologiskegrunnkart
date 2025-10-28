@@ -31,16 +31,16 @@ import { checkPolylineIsValid } from "../../Funksjoner/polylineTools";
 const useStyles = makeStyles(() => ({
   customIconButtom: {
     "&.MuiIconButton-root": {
-      color: "#666",
-      border: "1px solid #666",
-      backgroundColor: "rgba(145, 163, 176, 0)",
+      color: "#005a71",
+      border: "2px solid #005a71",
+      backgroundColor: "#FFF",
       padding: "10px"
     },
     "&:hover": {
       backgroundColor: "rgba(145, 163, 176, 0.5)"
     },
     "&.Mui-disabled": {
-      color: "#999",
+      color: "#262f31",
       border: "1px solid #999"
     }
   }
@@ -152,7 +152,7 @@ const PolygonDrawTool = ({
 
   return (
     <>
-      <div className="polygon-options-listitem-wrapper">
+      <div className="polygon-options-listitem-wrapper list-header">
         <ListItem
           id="polygon-options-listitem"
           button
@@ -214,8 +214,8 @@ const PolygonDrawTool = ({
       <div
         className={
           grensePolygon === "none"
-            ? "polygon-tool-wrapper vertical"
-            : "polygon-tool-wrapper"
+            ? "polygon-tool-wrapper vertical list-header"
+            : "polygon-tool-wrapper list-header"
         }
       >
         <div

@@ -17,9 +17,9 @@ const useStyles = isMobile =>
   makeStyles(() => ({
     customIconButtom: {
       "&.MuiIconButton-root": {
-        color: "#666",
-        border: "1px solid #666",
-        backgroundColor: "rgba(145, 163, 176, 0.3)",
+        color: "#005a71",
+        border: "2px solid #005a71",
+        backgroundColor: "#FFF",
         padding: isMobile ? "4px" : "5px",
         margin: isMobile ? "0 3px" : "0 5px"
       },
@@ -27,7 +27,7 @@ const useStyles = isMobile =>
         backgroundColor: "rgba(145, 163, 176, 0.6)"
       },
       "&.Mui-disabled": {
-        color: "#999",
+        color: "#262f31",
         border: "1px solid #999"
       }
     }

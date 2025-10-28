@@ -482,9 +482,9 @@ const PolygonInfobox = ({
           <div className="infobox-content">
             <div className="infobox-text-wrapper-polygon">
               <CustomIcon
-                id="polygon-icon"
+                id="polygon-icon-1"
                 icon="hexagon-outline"
-                color="grey"
+                color="#262F31"
                 size={24}
               />
               <div className="infobox-text-multiple">
@@ -496,9 +496,9 @@ const PolygonInfobox = ({
             </div>
             <div className="infobox-text-wrapper-polygon">
               <CustomIcon
-                id="polygon-icon"
+                id="polygon-icon-2"
                 icon="hexagon-slice-6"
-                color="grey"
+                color="#262F31"
                 size={24}
               />
               <div className="infobox-text-multiple">
@@ -561,7 +561,7 @@ const PolygonInfobox = ({
                     <CustomIcon
                       icon="layers"
                       size={32}
-                      color="#777"
+                      color="#262f31"
                       padding={0}
                     />
                   </ListItemIcon>

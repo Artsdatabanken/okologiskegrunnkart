@@ -14,9 +14,9 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles(() => ({
   customIconButtom: {
     "&.MuiIconButton-root": {
-      color: "#666",
-      border: "1px solid #666",
-      backgroundColor: "rgba(145, 163, 176, 0)",
+      color: "#005a71",
+      border: "2px solid #005a71",
+      backgroundColor: "#FFF",
       padding: "9px",
       margin: "4px 4px 4px 0"
     },
@@ -94,7 +94,7 @@ const TegnforklaringLink = ({
             icon="map-legend"
             size={26}
             padding={2}
-            color={disabled ? "#999" : "#555"}
+            color={disabled ? "#262F31" : "#555"}
           />
         </Badge>
       </ListItemIcon>

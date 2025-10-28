@@ -65,7 +65,7 @@ const PolygonElement = ({
               icon={polygonLayer.icon}
               size={isLargeIcon(polygonLayer.icon) ? 30 : 26}
               padding={isLargeIcon(polygonLayer.icon) ? 0 : 2}
-              color={"#777"}
+              color={"#262f31"}
             />
           </Badge>
         </ListItemIcon>
@@ -86,7 +86,7 @@ const PolygonElement = ({
               icon="chevron-right"
               size={20}
               padding={0}
-              color="#666"
+              color="#005a71"
             />
           )}
         </ListItemIcon>

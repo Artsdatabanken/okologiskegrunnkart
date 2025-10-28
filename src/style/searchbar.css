@@ -1,65 +1,74 @@
 .searchbar_container {
   position: absolute;
-  height: 50px;
+  height: 60px;
   overflow: visible;
   right: 0px;
   top: 0px;
   width: 408px;
   z-index: 200;
-  background: #697f8a;
-}
-.searchbar_container.floating {
-  height: 44px;
-  width: 402px;
-  margin: 3px;
-  border-radius: 7px;
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-}
-@media only screen and (max-width: 768px) {
-  .searchbar_container {
+  background: #fff1db;
+  border-bottom: 1px solid #f2dfc5;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+
+  &.floating {
+    height: 44px;
+    width: 402px;
+    margin: 3px;
+    border-radius: 7px;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  }
+
+  @media only screen and (max-width: 768px) {
     width: 100%;
     top: 0px;
-  }
-  .searchbar_container_results {
-    position: absolute;
-    overflow: visible;
-    right: 0px;
-    z-index: 200;
-    background: #697f8a;
-    width: 100%;
-    top: 0px;
-    height: 100%;
+
+    &_results {
+      position: absolute;
+      overflow: visible;
+      right: 0px;
+      z-index: 200;
+      background: #697f8a;
+      width: 100%;
+      top: 0px;
+      height: 100%;
+    }
   }
 }
+
+.search-results-compact {
+  position: absolute;
+  top: 54px;
+  width: calc(100% - 60px);
+  left: 6px;
+}
+
 .searchbar {
   position: relative;
-  margin-top: 9.5px;
-  margin-left: 10px;
-  margin-right: auto;
   width: 350px;
   background: white;
-  border-radius: 3px;
+  border-radius: 4px;
   text-align: center;
   display: inline-block;
-  height: 31px;
-  border: 1px solid black;
-  margin-bottom: 5px;
-  width: calc(100% - 58px);
+  height: 42px;
+  border: 2px solid #f2dfc5;
+  border-bottom-right-radius: 30px;
+  border-top-right-radius: 30px;
+  display: flex;
 }
-.searchbar.floating {
-  margin-top: 6.5px;
-  margin-left: 7px;
-  width: 350px;
-}
+
 .search-button {
-  width: 50px;
-  float: right;
+  width: 52px;
   border: 0px;
-  border-left: 1px solid black;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   font-size: 12pt;
+  background: #005a71;
+  color: white;
+  margin-top: -2px;
+  height: inherit;
 }
 .search-button:hover {
   background: #ccc;
@@ -107,12 +116,13 @@
     margin: 0;
     padding-top: 4px;
   }
-  .search-button {
-    margin: 0;
-    padding-top: 4px;
-    padding-bottom: 5px;
-    background-color: rgb(239, 239, 239);
-  }
+}
+
+.help_button {
+  border-radius: 50%;
+  height: 42px;
+  width: 42px;
+  font-size: 28px;
 }
 
 /* --------- Search lists ---------  */
@@ -161,7 +171,7 @@
     max-height: 80vh;
   }
   .searchbar {
-    max-width: calc(100% - 60px);
+    max-width: calc(100% - 50px);
   }
 }
 .treffliste .searchbar_item {
@@ -362,30 +372,12 @@
   border-right: 0px;
 }
 .help_button {
-  position: absolute;
-  right: 10px;
-  top: 9.5px;
-  width: 31px;
-  height: 31px;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #555;
-}
-.help_button.floating {
-  right: 7px;
-  top: 6.5px;
-}
-.help_button:hover {
-  background: #ccc;
-}
-.help_button:focus-visible {
-  background: #999;
-}
-@media only screen and (max-width: 768px) {
-  .help_button {
-    background-color: rgb(239, 239, 239);
+  &:hover {
+    box-shadow: 0px -1px 0px 0px #005a71 inset;
+  }
+  &:focus,
+  &:active {
+    background: #fff1db;
   }
 }
 
@@ -417,8 +409,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #697f8a;
-  color: white;
+  border-bottom: 1px solid grey;
   font-size: 26px;
   font-weight: bold;
   padding-left: 25px;
@@ -457,9 +448,9 @@
 .close-modal-button {
   padding: 1px;
   display: flex;
-  color: white;
-  border: 2px solid white;
-  border-radius: 5px;
+  border: 2px solid;
+  border-radius: 50%;
+  padding: 6px;
 }
 .close-modal-button:hover {
   background-color: rgba(145, 163, 176, 1);
@@ -529,8 +520,8 @@
   }
 }
 #settings-drawer-titel {
-  background-color: #697f8a;
-  color: white;
+  background-color: #fff1db;
+  border-bottom: 1px solid #f2dfc5;
 }
 #settings-drawer-titel.MuiListItem-gutters {
   padding-left: 4px;

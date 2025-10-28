@@ -139,9 +139,9 @@ const ResultsList = ({
   return (
     <div className="detailed-info-container-side">
       <div className="layer-results-side">
-        <ListItem id="layer-results-header">
+        <ListItem id="layer-results-header" class="list-header">
           <ListItemIcon>
-            <CustomIcon icon="layers" size={32} color="#777" padding={0} />
+            <CustomIcon icon="layers" size={32} color="#262f31" padding={0} />
           </ListItemIcon>
           <div className="search-layers-button-wrapper">
             <span

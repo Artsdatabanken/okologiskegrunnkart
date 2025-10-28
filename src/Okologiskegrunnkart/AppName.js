@@ -123,7 +123,7 @@ const AppName = ({
                 : "app-name-wrapper"
             }
           >
-            <div className="app-name-text">Økologiske grunnkart</div>
+            <h1 className="app-name-text">Økologiske grunnkart</h1>
             <Button
               id="read-more-about"
               variant="contained"

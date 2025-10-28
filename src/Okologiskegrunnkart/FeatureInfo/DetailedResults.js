@@ -106,7 +106,7 @@ const DetailedResults = ({
                 icon={resultLayer.tema}
                 size={isLargeIcon(resultLayer.tema) ? 30 : 26}
                 padding={isLargeIcon(resultLayer.tema) ? 0 : 2}
-                color="#666"
+                color="#005a71"
               />
             </Badge>
           </ListItemIcon>

@@ -12,7 +12,7 @@ const KartlagEmptyElement = ({ kartlag }) => {
             icon="playlist-remove"
             size={30}
             padding={0}
-            color="#666"
+            color="#005a71"
           />
         </div>
       </ListItemIcon>
