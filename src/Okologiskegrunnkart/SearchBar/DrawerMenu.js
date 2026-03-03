@@ -141,10 +141,10 @@ const DrawerMenu = ({
 
   const getOgforslagUrl = () => {
     const host = window.location.host;
-    let testUrlParam = "test.";
-    if (host === "okologiskegrunnkart.artsdatabanken.no") {
-      testUrlParam = "";
-    }
+    // let testUrlParam = "test.";
+    // if (host === "okologiskegrunnkart.artsdatabanken.no") {
+    //   testUrlParam = "";
+    // }
     return `https://ogforslag.artsdatabanken.no/`;
   };
 
