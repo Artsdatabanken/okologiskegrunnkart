@@ -77,7 +77,7 @@
         "tittel": "Norge i bilder",
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_web_mercator_wmts_v2?gkt={gkt}&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=0&TILED=true&PROJECTION=EPSG%3A3857&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&STYLES=&{z}&TileCol={x}&TileRow={y}"
+        "url": "https://tilecache.norgeibilder.no/wmts/webmercator?token={gkt}&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image%2Fpng&TRANSPARENT=true&LAYERS=0&TILED=true&PROJECTION=EPSG%3A3857&SRS=EPSG%3A3857&WIDTH=256&HEIGHT=256&STYLES=&{z}&TileCol={x}&TileRow={y}"
       },
       "gebco": {
         "kode": "bakgrunnskart",
@@ -127,14 +127,14 @@
         "order": -1,
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://cache.kartverket.no/v1/service?&gkt={gkt}&layer=europaForenklet&style=default&tilematrixset=webmercator&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       },
       "flybilder": {
         "kode": "bakgrunnskart",
         "tittel": "Flyfoto",
         "zoom": [0, 21],
         "tint": "#fff",
-        "url": "https://opencache.statkart.no/gatekeeper/gk/gk.open_nib_web_mercator_wmts_v2?&gkt={gkt}&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
+        "url": "https://tilecache.norgeibilder.no/wmts/webmercator?token={gkt}&layer=Nibcache_web_mercator_v2&style=default&tilematrixset=default028mm&Service=WMTS&Request=GetTile&Version=1.0.0&Format=image%2Fpng&TileMatrix={z}&TileCol={x}&TileRow={y}"
       }
     }
   }
