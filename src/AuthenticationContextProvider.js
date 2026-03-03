@@ -3,7 +3,7 @@ import AuthenticationContext from "./AuthenticationContext";
 
 // geonorge-tokenet som vi må ha for å få lov å laste lukkede data
 
-const url = "https://www.norgeskart.no/ws/gkt.py";
+const url = "https://artskart.artsdatabanken.no/appapi/api/token/gettoken";
 const thirtyMinutes = 30 * 60 * 1000;
 
 async function downloadToken() {
@@ -11,9 +11,7 @@ async function downloadToken() {
   try {
     const result = await fetch(url);
     const t = await result.text();
-    var parts = t.split('"');
-    var token = parts[1];
-    return token;
+    return JSON.parse(t);
   } catch (err) {
     console.error("token troubles", url, err);
     return {};
