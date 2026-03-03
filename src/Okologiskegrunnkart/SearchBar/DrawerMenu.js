@@ -140,7 +140,7 @@ const DrawerMenu = ({
   };
 
   const getOgforslagUrl = () => {
-    const host = window.location.host;
+    // const host = window.location.host;
     // let testUrlParam = "test.";
     // if (host === "okologiskegrunnkart.artsdatabanken.no") {
     //   testUrlParam = "";
