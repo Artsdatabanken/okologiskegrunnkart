@@ -1,0 +1,961 @@
+
+> nin-kart-frontend@0.2.0 test
+> jest --watch=false --runInBand
+
+FAIL tests/Kart/KartVelger.test.js (5.844 s)
+  ÔùÅ should render map selection buttons
+
+    expect(received).toBeGreaterThanOrEqual(expected)
+
+    Expected: >= 4
+    Received:    1
+
+      32 |   // Get buttons (several visible)
+      33 |   buttons = getAllByRole("button");
+    > 34 |   expect(buttons.length).toBeGreaterThanOrEqual(4);
+         |                          ^
+      35 |   getByTitle("Endre bakgrunnskart");
+      36 |   getByTitle("Topografisk norgeskart 4");
+      37 |   getByTitle("Topografisk norgeskart 4 Gr├Ñtone");
+
+      at Object.<anonymous> (tests/Kart/KartVelger.test.js:34:26)
+
+FAIL tests/Settings/KartlagSettings.test.js
+  ÔùÅ Console
+
+    console.warn
+      MUI: The TreeView component was moved from `@mui/lab` to `@mui/x-tree-view`.
+      
+      You should use `import { TreeView } from '@mui/x-tree-view'`
+      or `import { TreeView } from '@mui/x-tree-view/TreeView'`
+      
+      More information about this migration on our blog: https://mui.com/blog/lab-tree-view-to-mui-x/.
+
+      25 |
+      26 |   const props = { ...defaultprops, ...args };
+    > 27 |   return render(<KartlagSettings {...props} />);
+         |                ^
+      28 | }
+      29 |
+      30 | it("should render tree with layers checked as defined in kartlag", async () => {
+
+      at warn (node_modules/@mui/lab/node/TreeView/TreeView.js:15:13)
+      at DeprecatedTreeView (node_modules/@mui/lab/node/TreeView/TreeView.js:24:3)
+      at renderWithHooks (node_modules/react-dom/cjs/react-dom.development.js:14985:18)
+      at updateForwardRef (node_modules/react-dom/cjs/react-dom.development.js:17044:20)
+      at beginWork (node_modules/react-dom/cjs/react-dom.development.js:19098:16)
+      at beginWork$1 (node_modules/react-dom/cjs/react-dom.development.js:23940:14)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22779:12)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom.development.js:21881:7)
+      at updateContainer (node_modules/react-dom/cjs/react-dom.development.js:25482:3)
+      at node_modules/react-dom/cjs/react-dom.development.js:26021:7
+      at unbatchedUpdates (node_modules/react-dom/cjs/react-dom.development.js:22431:12)
+      at legacyRenderSubtreeIntoContainer (node_modules/react-dom/cjs/react-dom.development.js:26020:5)
+      at Object.render (node_modules/react-dom/cjs/react-dom.development.js:26103:10)
+      at node_modules/@testing-library/react/dist/pure.js:101:25
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22380:12)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderKartlagSettings (tests/Settings/KartlagSettings.test.js:27:16)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:38:7)
+
+  ÔùÅ should render tree with layers checked as defined in kartlag
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      37 |     getAllByRole
+      38 |   } = renderKartlagSettings();
+    > 39 |   getByText("Kartlag");
+         |   ^
+      40 |
+      41 |   // Kartlag checkbox checked
+      42 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:39:3)
+
+  ÔùÅ should uncheck all sublayers in layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      126 |     getAllByRole
+      127 |   } = renderKartlagSettings();
+    > 128 |   getByText("Kartlag");
+          |   ^
+      129 |
+      130 |   // Kartlag checkbox checked
+      131 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:128:3)
+
+  ÔùÅ should uncheck some sublayers in layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      196 |     getAllByRole
+      197 |   } = renderKartlagSettings();
+    > 198 |   getByText("Kartlag");
+          |   ^
+      199 |
+      200 |   // Kartlag checkbox checked
+      201 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:198:3)
+
+  ÔùÅ should check all sublayers in layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      265 |     getAllByRole
+      266 |   } = renderKartlagSettings();
+    > 267 |   getByText("Kartlag");
+          |   ^
+      268 |
+      269 |   // Kartlag checkbox checked
+      270 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:267:3)
+
+  ÔùÅ should check some sublayers in layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      351 |     getAllByRole
+      352 |   } = renderKartlagSettings();
+    > 353 |   getByText("Kartlag");
+          |   ^
+      354 |
+      355 |   // Kartlag checkbox checked
+      356 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:353:3)
+
+  ÔùÅ should uncheck layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      436 |     getAllByRole
+      437 |   } = renderKartlagSettings();
+    > 438 |   getByText("Kartlag");
+          |   ^
+      439 |
+      440 |   // Kartlag checkbox checked
+      441 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:438:3)
+
+  ÔùÅ should check layer
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      502 |     getAllByRole
+      503 |   } = renderKartlagSettings();
+    > 504 |   getByText("Kartlag");
+          |   ^
+      505 |
+      506 |   // Kartlag checkbox checked
+      507 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:504:3)
+
+  ÔùÅ should uncheck kartlag
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      580 |     getAllByRole
+      581 |   } = renderKartlagSettings();
+    > 582 |   getByText("Kartlag");
+          |   ^
+      583 |
+      584 |   // Kartlag checkbox checked
+      585 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:582:3)
+
+  ÔùÅ should check kartlag
+
+    TestingLibraryElementError: Unable to find an element with the text: Kartlag. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    <body>
+      <div>
+        <div
+          class="settings-layers-wrapper"
+        >
+          <div
+            class="setting-layers-title"
+          >
+            <span>
+              Velg favoritte lag og underlag
+            </span>
+          </div>
+          <div
+            class="settings-layers-tree-wrapper"
+          />
+          <div
+            class="settings-layers-buttons-wrapper"
+          >
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-cancel-button"
+              tabindex="0"
+              type="button"
+            >
+              Avbryt
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+            <button
+              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeSmall MuiButton-containedSizeSmall MuiButton-colorPrimary css-11qr2p8-MuiButtonBase-root-MuiButton-root"
+              id="settings-layers-save-button"
+              tabindex="0"
+              type="button"
+            >
+              Lagre
+              <span
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </body>
+
+      646 |     getAllByRole
+      647 |   } = renderKartlagSettings();
+    > 648 |   getByText("Kartlag");
+          |   ^
+      649 |
+      650 |   // Kartlag checkbox checked
+      651 |   let box = getByRole("checkbox");
+
+      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
+      at node_modules/@testing-library/dom/dist/query-helpers.js:90:38
+      at node_modules/@testing-library/dom/dist/query-helpers.js:62:17
+      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:111:19)
+      at Object.<anonymous> (tests/Settings/KartlagSettings.test.js:648:3)
+
+PASS tests/OkologiskeGrunnkart/SearchBar/SearchBar.test.js
+  ÔùÅ Console
+
+    console.log
+      res null
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:385:17
+
+    console.log
+      prioritertliste {}
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:430:17
+
+    console.log
+      res null
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:385:17
+
+    console.log
+      prioritertliste {}
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:430:17
+
+    console.log
+      res null
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:385:17
+
+    console.log
+      prioritertliste {}
+
+      at src/Okologiskegrunnkart/SearchBar/SearchBar.js:430:17
+
+PASS tests/OkologiskeGrunnkart/FeatureInfo/InfoboxSide.test.js
+  ÔùÅ Console
+
+    console.error
+      Warning: Invalid DOM property `class`. Did you mean `className`?
+          at li
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at ListItem (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\ListItem\ListItem.js:147:59)
+          at div
+          at div
+          at ResultsList (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ResultsList.js:22:3)
+          at div
+          at div
+          at ClickInfobox (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ClickInfobox.js:18:3)
+          at div
+          at InfoBox (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\InfoboxSide.js:11:3)
+
+       96 |
+       97 |   const props = { ...defaultprops, ...args };
+    >  98 |   return render(<InfoboxSide {...props} />);
+          |                ^
+       99 | }
+      100 |
+      101 | // ---------------------------------------------------------------- //
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateProperty$1 (node_modules/react-dom/cjs/react-dom.development.js:3505:9)
+      at warnUnknownProperties (node_modules/react-dom/cjs/react-dom.development.js:3559:21)
+      at validateProperties$2 (node_modules/react-dom/cjs/react-dom.development.js:3583:3)
+      at validatePropertiesInDevelopment (node_modules/react-dom/cjs/react-dom.development.js:8765:5)
+      at setInitialProperties (node_modules/react-dom/cjs/react-dom.development.js:9041:5)
+      at finalizeInitialChildren (node_modules/react-dom/cjs/react-dom.development.js:10201:3)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19470:17)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom.development.js:21881:7)
+      at updateContainer (node_modules/react-dom/cjs/react-dom.development.js:25482:3)
+      at node_modules/react-dom/cjs/react-dom.development.js:26021:7
+      at unbatchedUpdates (node_modules/react-dom/cjs/react-dom.development.js:22431:12)
+      at legacyRenderSubtreeIntoContainer (node_modules/react-dom/cjs/react-dom.development.js:26020:5)
+      at Object.render (node_modules/react-dom/cjs/react-dom.development.js:26103:10)
+      at node_modules/@testing-library/react/dist/pure.js:101:25
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22380:12)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderInfoboxSide (tests/OkologiskeGrunnkart/FeatureInfo/InfoboxSide.test.js:98:16)
+      at Object.<anonymous> (tests/OkologiskeGrunnkart/FeatureInfo/InfoboxSide.test.js:105:25)
+
+PASS tests/OkologiskeGrunnkart/GrunnKartlag/GrunnKartlag.test.js
+  ÔùÅ Console
+
+    console.error
+      Warning: React does not recognize the `getContentAnchorEl` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `getcontentanchorel` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+          at div
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Portal (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Portal\Portal.js:34:5)
+          at Modal (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Modal\Modal.js:88:59)
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Popover (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Popover\Popover.js:102:59)
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Menu (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Menu\Menu.js:76:59)
+          at div
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Paper (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Paper\Paper.js:70:59)
+          at FavouritesMenu (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\GrunnKartlag\FavouritesMenu.js:11:3)
+          at div
+          at div
+          at div
+          at GrunnKartlag (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\GrunnKartlag\GrunnKartlag.js:11:3)
+
+      32 |
+      33 |   const props = { ...defaultprops, ...args };
+    > 34 |   return render(<GrunnKartlag {...props} />);
+         |                ^
+      35 | }
+      36 |
+      37 | it("should render all layer names and buttons in kartlag sorted by tema", () => {
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateProperty$1 (node_modules/react-dom/cjs/react-dom.development.js:3513:7)
+      at warnUnknownProperties (node_modules/react-dom/cjs/react-dom.development.js:3559:21)
+      at validateProperties$2 (node_modules/react-dom/cjs/react-dom.development.js:3583:3)
+      at validatePropertiesInDevelopment (node_modules/react-dom/cjs/react-dom.development.js:8765:5)
+      at setInitialProperties (node_modules/react-dom/cjs/react-dom.development.js:9041:5)
+      at finalizeInitialChildren (node_modules/react-dom/cjs/react-dom.development.js:10201:3)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19470:17)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at node_modules/react-dom/cjs/react-dom.development.js:11327:26
+      at unstable_runWithPriority (node_modules/scheduler/cjs/scheduler.development.js:468:12)
+      at runWithPriority$1 (node_modules/react-dom/cjs/react-dom.development.js:11276:10)
+      at flushSyncCallbackQueueImpl (node_modules/react-dom/cjs/react-dom.development.js:11322:9)
+      at flushSyncCallbackQueue (node_modules/react-dom/cjs/react-dom.development.js:11309:3)
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22387:7)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderGrunnKartlag (tests/OkologiskeGrunnkart/GrunnKartlag/GrunnKartlag.test.js:34:16)
+      at Object.<anonymous> (tests/OkologiskeGrunnkart/GrunnKartlag/GrunnKartlag.test.js:38:53)
+
+PASS tests/Kart/Leaflet.test.js
+  ÔùÅ Console
+
+    console.error
+      Warning: Invalid DOM property `class`. Did you mean `className`?
+          at li
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at ListItem (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\ListItem\ListItem.js:147:59)
+          at div
+          at div
+          at ResultsList (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ResultsList.js:22:3)
+          at div
+          at div
+          at ClickInfobox (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ClickInfobox.js:18:3)
+          at div
+          at InfoBox (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\InfoboxSide.js:11:3)
+          at Leaflet (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Kart\Leaflet.js:27:39)
+
+      104 | function renderLeaflet(args) {
+      105 |   const props = { ...defaultprops, ...args };
+    > 106 |   return render(<Leaflet {...props} />);
+          |                ^
+      107 | }
+      108 |
+      109 | it("should render map buttons at start", () => {
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateProperty$1 (node_modules/react-dom/cjs/react-dom.development.js:3505:9)
+      at warnUnknownProperties (node_modules/react-dom/cjs/react-dom.development.js:3559:21)
+      at validateProperties$2 (node_modules/react-dom/cjs/react-dom.development.js:3583:3)
+      at validatePropertiesInDevelopment (node_modules/react-dom/cjs/react-dom.development.js:8765:5)
+      at setInitialProperties (node_modules/react-dom/cjs/react-dom.development.js:9041:5)
+      at finalizeInitialChildren (node_modules/react-dom/cjs/react-dom.development.js:10201:3)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19470:17)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom.development.js:21881:7)
+      at updateContainer (node_modules/react-dom/cjs/react-dom.development.js:25482:3)
+      at node_modules/react-dom/cjs/react-dom.development.js:26021:7
+      at unbatchedUpdates (node_modules/react-dom/cjs/react-dom.development.js:22431:12)
+      at legacyRenderSubtreeIntoContainer (node_modules/react-dom/cjs/react-dom.development.js:26020:5)
+      at Object.render (node_modules/react-dom/cjs/react-dom.development.js:26103:10)
+      at node_modules/@testing-library/react/dist/pure.js:101:25
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22380:12)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderLeaflet (tests/Kart/Leaflet.test.js:106:16)
+      at Object.<anonymous> (tests/Kart/Leaflet.test.js:110:26)
+
+PASS tests/OkologiskeGrunnkart/SearchBar/TreffListe.test.js
+PASS tests/OkologiskeGrunnkart/KartlagFanen.test.js
+  ÔùÅ Console
+
+    console.error
+      Warning: React does not recognize the `getContentAnchorEl` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `getcontentanchorel` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+          at div
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Portal (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Portal\Portal.js:34:5)
+          at Modal (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Modal\Modal.js:88:59)
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Popover (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Popover\Popover.js:102:59)
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Menu (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Menu\Menu.js:76:59)
+          at div
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at Paper (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\Paper\Paper.js:70:59)
+          at FavouritesMenu (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\GrunnKartlag\FavouritesMenu.js:11:3)
+          at div
+          at div
+          at div
+          at GrunnKartlag (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\GrunnKartlag\GrunnKartlag.js:11:3)
+          at div
+          at div
+          at div
+          at KartlagFanen (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\KartlagFanen.js:13:3)
+
+      43 |
+      44 |   const props = { ...defaultprops, ...args };
+    > 45 |   return render(<KartlagFanen {...props} />);
+         |                ^
+      46 | }
+      47 |
+      48 | it("should render all layer names and data owners in kartlag", () => {
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateProperty$1 (node_modules/react-dom/cjs/react-dom.development.js:3513:7)
+      at warnUnknownProperties (node_modules/react-dom/cjs/react-dom.development.js:3559:21)
+      at validateProperties$2 (node_modules/react-dom/cjs/react-dom.development.js:3583:3)
+      at validatePropertiesInDevelopment (node_modules/react-dom/cjs/react-dom.development.js:8765:5)
+      at setInitialProperties (node_modules/react-dom/cjs/react-dom.development.js:9041:5)
+      at finalizeInitialChildren (node_modules/react-dom/cjs/react-dom.development.js:10201:3)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19470:17)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at node_modules/react-dom/cjs/react-dom.development.js:11327:26
+      at unstable_runWithPriority (node_modules/scheduler/cjs/scheduler.development.js:468:12)
+      at runWithPriority$1 (node_modules/react-dom/cjs/react-dom.development.js:11276:10)
+      at flushSyncCallbackQueueImpl (node_modules/react-dom/cjs/react-dom.development.js:11322:9)
+      at flushSyncCallbackQueue (node_modules/react-dom/cjs/react-dom.development.js:11309:3)
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22387:7)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderKartlagFanen (tests/OkologiskeGrunnkart/KartlagFanen.test.js:45:16)
+      at Object.<anonymous> (tests/OkologiskeGrunnkart/KartlagFanen.test.js:49:39)
+
+PASS tests/Kart/PolygonActions.test.js
+PASS tests/OkologiskeGrunnkart/FeatureInfo/ClickInfobox.test.js
+  ÔùÅ Console
+
+    console.error
+      Warning: Invalid DOM property `class`. Did you mean `className`?
+          at li
+          at C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@emotion\react\dist\emotion-element-a1829a1e.cjs.js:58:23
+          at ListItem (C:\Repo\Artsdatabanken\okologiskegrunnkart\node_modules\@mui\material\node\ListItem\ListItem.js:147:59)
+          at div
+          at div
+          at ResultsList (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ResultsList.js:22:3)
+          at div
+          at div
+          at ClickInfobox (C:\Repo\Artsdatabanken\okologiskegrunnkart\src\Okologiskegrunnkart\FeatureInfo\ClickInfobox.js:18:3)
+
+      55 |
+      56 |   const props = { ...defaultprops, ...args };
+    > 57 |   return render(<ClickInfobox {...props} />);
+         |                ^
+      58 | }
+      59 |
+      60 | // These tests could also have been done in InfoboxSide component.
+
+      at printWarning (node_modules/react-dom/cjs/react-dom.development.js:67:30)
+      at error (node_modules/react-dom/cjs/react-dom.development.js:43:5)
+      at validateProperty$1 (node_modules/react-dom/cjs/react-dom.development.js:3505:9)
+      at warnUnknownProperties (node_modules/react-dom/cjs/react-dom.development.js:3559:21)
+      at validateProperties$2 (node_modules/react-dom/cjs/react-dom.development.js:3583:3)
+      at validatePropertiesInDevelopment (node_modules/react-dom/cjs/react-dom.development.js:8765:5)
+      at setInitialProperties (node_modules/react-dom/cjs/react-dom.development.js:9041:5)
+      at finalizeInitialChildren (node_modules/react-dom/cjs/react-dom.development.js:10201:3)
+      at completeWork (node_modules/react-dom/cjs/react-dom.development.js:19470:17)
+      at completeUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22812:16)
+      at performUnitOfWork (node_modules/react-dom/cjs/react-dom.development.js:22787:5)
+      at workLoopSync (node_modules/react-dom/cjs/react-dom.development.js:22707:5)
+      at renderRootSync (node_modules/react-dom/cjs/react-dom.development.js:22670:7)
+      at performSyncWorkOnRoot (node_modules/react-dom/cjs/react-dom.development.js:22293:18)
+      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom.development.js:21881:7)
+      at updateContainer (node_modules/react-dom/cjs/react-dom.development.js:25482:3)
+      at node_modules/react-dom/cjs/react-dom.development.js:26021:7
+      at unbatchedUpdates (node_modules/react-dom/cjs/react-dom.development.js:22431:12)
+      at legacyRenderSubtreeIntoContainer (node_modules/react-dom/cjs/react-dom.development.js:26020:5)
+      at Object.render (node_modules/react-dom/cjs/react-dom.development.js:26103:10)
+      at node_modules/@testing-library/react/dist/pure.js:101:25
+      at batchedUpdates$1 (node_modules/react-dom/cjs/react-dom.development.js:22380:12)
+      at act (node_modules/react-dom/cjs/react-dom-test-utils.development.js:1042:14)
+      at render (node_modules/@testing-library/react/dist/pure.js:97:26)
+      at renderClickInfobox (tests/OkologiskeGrunnkart/FeatureInfo/ClickInfobox.test.js:57:16)
+      at Object.<anonymous> (tests/OkologiskeGrunnkart/FeatureInfo/ClickInfobox.test.js:63:25)
+
+PASS tests/OkologiskeGrunnkart/FeatureInfo/PolygonDrawTool.test.js
+PASS tests/OkologiskeGrunnkart/GrunnKartlag/KartlagElement.test.js
+PASS tests/OkologiskeGrunnkart/FeatureInfo/DetailedResults.test.js
+PASS tests/OkologiskeGrunnkart/FeatureInfo/PolygonDetailed.test.js
+PASS tests/Tegnforklaring/TegnforklaringLink.test.js
+  ÔùÅ Console
+
+    console.log
+      ÔöîÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö¼ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÉ
+      Ôöé (index)                 Ôöé tag Ôöé key  Ôöé elementType Ôöé type      Ôöé stateNode                                                                                                                                             Ôöé return      Ôöé child       Ôöé sibling Ôöé index Ôöé ref                    Ôöé pendingProps Ôöé memoizedProps Ôöé updateQueue Ôöé memoizedState Ôöé dependencies Ôöé mode Ôöé flags Ôöé nextEffect Ôöé firstEffect Ôöé lastEffect Ôöé lanes Ôöé childLanes Ôöé alternate   Ôöé actualDuration Ôöé actualStartTime Ôöé selfBaseDuration Ôöé treeBaseDuration Ôöé _debugID Ôöé _debugSource Ôöé _debugOwner Ôöé _debugNeedsRemount Ôöé _debugHookTypes Ôöé className                                                                                                                                       Ôöé onBlur                 Ôöé onClick             Ôöé onContextMenu          Ôöé onFocus                Ôöé onKeyDown              Ôöé onKeyUp                Ôöé onMouseDown            Ôöé onMouseLeave           Ôöé onMouseUp              Ôöé onDragLeave            Ôöé onTouchEnd             Ôöé onTouchMove            Ôöé onTouchStart           Ôöé tabIndex Ôöé role     Ôöé id                      Ôöé children              Ôöé
+      Ôö£ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö╝ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöñ
+      Ôöé __reactFiber$u37hsgr81q Ôöé 5   Ôöé null Ôöé 'div'       Ôöé 'div'     Ôöé HTMLDivElement { '__reactFiber$u37hsgr81q': [FiberNode], '__reactProps$u37hsgr81q': [Object], [Symbol(SameObject caches)]: [Object: null prototype] } Ôöé [FiberNode] Ôöé [FiberNode] Ôöé null    Ôöé 1     Ôöé [Function (anonymous)] Ôöé [Object]     Ôöé [Object]      Ôöé null        Ôöé null          Ôöé null         Ôöé 0    Ôöé 0     Ôöé null       Ôöé null        Ôöé null       Ôöé 0     Ôöé 0          Ôöé [FiberNode] Ôöé 0              Ôöé -1              Ôöé 0                Ôöé 0                Ôöé 203      Ôöé null         Ôöé [FiberNode] Ôöé false              Ôöé null            Ôöé                                                                                                                                                 Ôöé                        Ôöé                     Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé                        Ôöé          Ôöé          Ôöé                         Ôöé                       Ôöé
+      Ôöé __reactProps$u37hsgr81q Ôöé     Ôöé      Ôöé             Ôöé undefined Ôöé                                                                                                                                                       Ôöé             Ôöé             Ôöé         Ôöé       Ôöé                        Ôöé              Ôöé               Ôöé             Ôöé               Ôöé              Ôöé      Ôöé       Ôöé            Ôöé             Ôöé            Ôöé       Ôöé            Ôöé             Ôöé                Ôöé                 Ôöé                  Ôöé                  Ôöé          Ôöé              Ôöé             Ôöé                    Ôöé                 Ôöé 'MuiButtonBase-root MuiListItem-root MuiListItem-gutters MuiListItem-padding MuiListItem-button css-bshv44-MuiButtonBase-root-MuiListItem-root' Ôöé [Function (anonymous)] Ôöé [Function: onClick] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé [Function (anonymous)] Ôöé 0        Ôöé 'button' Ôöé 'legend-link-list-item' Ôöé [ [Array], [Object] ] Ôöé
+      ÔööÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔö┤ÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÇÔöÿ
+
+      at Object.<anonymous> (tests/Tegnforklaring/TegnforklaringLink.test.js:48:11)
+
+PASS tests/Tegnforklaring/Tegnforklaring.test.js
+PASS tests/OkologiskeGrunnkart/AppName.test.js
+PASS tests/OkologiskeGrunnkart/GrunnKartlag/KartlagUnderElement.test.js
+
+Test Suites: 2 failed, 16 passed, 18 total
+Tests:       10 failed, 96 passed, 106 total
+Snapshots:   0 total
+Time:        33.429 s, estimated 3603 s
+Ran all test suites.
