@@ -180,9 +180,12 @@ class Leaflet extends React.Component {
     } else {
       favoritesUrlString = "&favorites=" + favoritesUrlString;
     }
-    this.props.navigate(
-      "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
-    );
+    const navigate = this.props.navigate || this.props.history?.push;
+    if (typeof navigate === "function") {
+      navigate(
+        "?lng=" + lng + "&lat=" + lat + layersUrlString + favoritesUrlString
+      );
+    }
     this.props.handleUpdateChangeInUrl(true);
   }
 

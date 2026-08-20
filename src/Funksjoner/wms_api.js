@@ -36,7 +36,8 @@ const wms_api = {
   }
 };*/
 
-const { XMLParser } = require("fast-xml-parser");
+import { XMLParser } from "fast-xml-parser";
+
 const options = {
   ignoreAttributes: false,
   attributeNamePrefix: "",

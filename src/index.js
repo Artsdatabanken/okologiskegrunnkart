@@ -20,12 +20,12 @@ class RootBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     this.setState({ error });
-    Sentry.configureScope(scope => {
+    Sentry.withScope(scope => {
       Object.keys(errorInfo).forEach(key => {
         scope.setExtra(key, errorInfo[key]);
       });
+      Sentry.captureException(error);
     });
-    Sentry.captureException(error);
   }
 
   render() {
