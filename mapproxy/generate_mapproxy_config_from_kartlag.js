@@ -3,7 +3,8 @@
  *
  * This script reads the layer catalog from `kartlag.json`, validates that each
  * configured WMS layer is actually advertised by its source service, and then
- * writes two output files:
+ * optionally derives a better `minzoom` estimate from layer scale constraints,
+ * before writing two output files:
  *
  * - `seed.yaml`: MapProxy seed definitions for the lowest configured zoom level
  *   of each layer.
@@ -17,6 +18,11 @@
  * Optional debug flags:
  * - DEBUG_WMS=1: log WMS validation and GetCapabilities activity
  * - DEBUG_WMS_LAYERS=1: also log all advertised layers when a match is missing
+ *
+ * When a WMS layer advertises `MaxScaleDenominator`, the script converts that
+ * value into an estimated tiled `minzoom`. If the estimate is stricter (larger)
+ * than the `minzoom` from kartlag.json, the layer is updated and the change is
+ * logged.
  */
 
 const fs = require("fs");
@@ -94,6 +100,9 @@ let kartlag;
 // service do not trigger repeated network requests.
 const capabilitiesCache = new Map();
 
+// Approximate OGC pixel size used in scale denominator calculations.
+const OGC_PIXEL_SIZE_METERS = 0.00028;
+
 main().catch(err => {
   console.error("Failed to generate MapProxy configuration", err);
   process.exit(1);
@@ -105,9 +114,10 @@ main().catch(err => {
  * Workflow:
  * 1. Read and flatten layers from kartlag.json.
  * 2. Validate each WMS layer against GetCapabilities.
- * 3. Remove duplicates by generated layer id.
- * 4. Sort layers for stable output.
- * 5. Generate `seed.yaml` and `mapproxy.yaml`.
+ * 3. Update `minzoom` when GetCapabilities implies a stricter scale limit.
+ * 4. Remove duplicates by generated layer id.
+ * 5. Sort layers for stable output.
+ * 6. Generate `seed.yaml` and `mapproxy.yaml`.
  */
 async function main() {
   const rawKartlag = JSON.parse(fs.readFileSync("kartlag.json"));
@@ -116,12 +126,29 @@ async function main() {
   for (const e of Object.values(rawKartlag)) {
     for (const ul of Object.values(e.underlag || {})) {
       const wmsurl = getBaseWmsUrl(e.wmsurl);
-      const isValid = await hasValidWmsSource(wmsurl, ul.wmslayer);
-      if (!isValid) {
+      const layerMetadata = await getAdvertisedLayerMetadata(
+        wmsurl,
+        ul.wmslayer
+      );
+      if (!layerMetadata) {
         console.warn(
           `Skipping invalid WMS source for ${e.tittel} / ${ul.tittel}: ${wmsurl} (${ul.wmslayer})`
         );
         continue;
+      }
+
+      const estimatedMinzoom = maxScaleDenominatorToMinzoom(
+        layerMetadata.maxScaleDenominator,
+        e.projeksjon
+      );
+      if (
+        typeof estimatedMinzoom === "number" &&
+        estimatedMinzoom > ul.minzoom
+      ) {
+        console.log(
+          `Updating minzoom for ${e.tittel} / ${ul.tittel} from ${ul.minzoom} to ${estimatedMinzoom} based on MaxScaleDenominator=${layerMetadata.maxScaleDenominator}`
+        );
+        ul.minzoom = estimatedMinzoom;
       }
 
       ul.wmsurl = wmsurl;
@@ -250,27 +277,32 @@ function collectLayerNames(layerNode, layerNames) {
 }
 
 /**
- * Verifies that a WMS service advertises the requested layer name.
+ * Returns metadata for a specific advertised WMS layer.
+ *
+ * The returned object always includes the set of all advertised layer names so
+ * missing-layer logging can still show the complete list from the service.
  *
  * @param {string} urlString - Base WMS URL.
  * @param {string} layerName - Expected advertised layer name.
- * @returns {Promise<boolean>} True when the layer is present in GetCapabilities.
+ * @returns {Promise<{layerNames: Set<string>, maxScaleDenominator: number|null}|null>}
+ * Layer metadata, or null if the service cannot be read or the layer is not
+ * advertised.
  */
-async function hasValidWmsSource(urlString, layerName) {
-  const layerNames = await getAdvertisedLayers(urlString);
-  if (!layerNames) {
+async function getAdvertisedLayerMetadata(urlString, layerName) {
+  const capabilities = await getAdvertisedLayers(urlString);
+  if (!capabilities) {
     if (DEBUG_WMS) {
       console.warn(
         `[WMS DEBUG] No advertised layers could be read from ${urlString}`
       );
     }
-    return false;
+    return null;
   }
 
-  const isMatch = layerNames.has(layerName);
+  const isMatch = capabilities.layerNames.has(layerName);
   if (DEBUG_WMS) {
     console.log(
-      `[WMS DEBUG] Checked layer "${layerName}" against ${urlString}. Advertised layer count: ${layerNames.size}. Match: ${isMatch}`
+      `[WMS DEBUG] Checked layer "${layerName}" against ${urlString}. Advertised layer count: ${capabilities.layerNames.size}. Match: ${isMatch}`
     );
   }
 
@@ -281,25 +313,32 @@ async function hasValidWmsSource(urlString, layerName) {
     if (DEBUG_WMS_LAYERS) {
       console.warn(
         `[WMS DEBUG] Advertised layers for ${urlString}: ${Array.from(
-          layerNames
+          capabilities.layerNames
         )
           .sort()
           .join(", ")}`
       );
     }
+    return null;
   }
 
-  return isMatch;
+  return (
+    capabilities.layersByName.get(layerName) || {
+      layerNames: capabilities.layerNames,
+      maxScaleDenominator: null
+    }
+  );
 }
 
 /**
- * Returns the set of layer names advertised by a WMS service.
+ * Returns advertised layer metadata from a WMS service.
  *
  * Results are cached per service URL so multiple validations against the same
  * endpoint reuse the same in-flight or completed request.
  *
  * @param {string} urlString - Base WMS URL.
- * @returns {Promise<Set<string>|null>} Advertised layer names, or null on error.
+ * @returns {Promise<{layerNames: Set<string>, layersByName: Map<string, {layerNames: Set<string>, maxScaleDenominator: number|null}>}|null>}
+ * Advertised layer metadata, or null on error.
  */
 async function getAdvertisedLayers(urlString) {
   if (capabilitiesCache.has(urlString)) {
@@ -324,7 +363,8 @@ async function getAdvertisedLayers(urlString) {
  * so the caller can skip invalid sources instead of aborting the whole script.
  *
  * @param {string} urlString - Base WMS URL.
- * @returns {Promise<Set<string>|null>} Advertised layer names, or null.
+ * @returns {Promise<{layerNames: Set<string>, layersByName: Map<string, {layerNames: Set<string>, maxScaleDenominator: number|null}>}|null>}
+ * Advertised layer metadata, or null.
  */
 function fetchCapabilitiesLayerNames(urlString) {
   return new Promise(resolve => {
@@ -353,13 +393,13 @@ function fetchCapabilitiesLayerNames(urlString) {
         });
         res.on("end", () => {
           try {
-            const layerNames = parseLayerNamesFromCapabilities(body);
+            const capabilities = parseLayerNamesFromCapabilities(body);
             if (DEBUG_WMS) {
               console.log(
-                `[WMS DEBUG] Parsed ${layerNames.size} advertised layers from ${urlString}`
+                `[WMS DEBUG] Parsed ${capabilities.layerNames.size} advertised layers from ${urlString}`
               );
             }
-            resolve(layerNames);
+            resolve(capabilities);
           } catch (err) {
             console.warn(
               `Failed parsing WMS capabilities for ${urlString}: ${err.message}`
@@ -405,7 +445,8 @@ function fetchCapabilitiesLayerNames(urlString) {
  * responses.
  *
  * @param {string} xml - Raw GetCapabilities XML.
- * @returns {Set<string>} Set of advertised layer names.
+ * @returns {{layerNames: Set<string>, layersByName: Map<string, {layerNames: Set<string>, maxScaleDenominator: number|null}>}}
+ * Advertised layer metadata keyed by layer name.
  * @throws {Error} If the document does not contain Capability.Layer.
  */
 function parseLayerNamesFromCapabilities(xml) {
@@ -425,8 +466,119 @@ function parseLayerNamesFromCapabilities(xml) {
   }
 
   const layerNames = new Set();
-  collectLayerNames(root.Capability.Layer, layerNames);
-  return layerNames;
+  const layersByName = new Map();
+  collectLayerMetadata(root.Capability.Layer, layerNames, layersByName, null);
+  return { layerNames, layersByName };
+}
+
+/**
+ * Collects advertised layer names and selected layer metadata from a parsed WMS
+ * layer tree.
+ *
+ * Child layers inherit `MaxScaleDenominator` from their parent when not set on
+ * the child itself.
+ *
+ * @param {object|object[]} layerNode - Parsed WMS Capability Layer node, or an array of nodes.
+ * @param {Set<string>} layerNames - Set populated with discovered layer names.
+ * @param {Map<string, {layerNames: Set<string>, maxScaleDenominator: number|null}>} layersByName
+ * Map populated with metadata for named layers.
+ * @param {number|null} inheritedMaxScaleDenominator - Inherited max scale denominator from parent layer.
+ */
+function collectLayerMetadata(
+  layerNode,
+  layerNames,
+  layersByName,
+  inheritedMaxScaleDenominator
+) {
+  if (Array.isArray(layerNode)) {
+    layerNode.forEach(node =>
+      collectLayerMetadata(
+        node,
+        layerNames,
+        layersByName,
+        inheritedMaxScaleDenominator
+      )
+    );
+    return;
+  }
+
+  if (!layerNode || typeof layerNode !== "object") return;
+
+  const ownMaxScaleDenominator = parseScaleDenominator(
+    layerNode.MaxScaleDenominator
+  );
+  const maxScaleDenominator =
+    ownMaxScaleDenominator !== null
+      ? ownMaxScaleDenominator
+      : inheritedMaxScaleDenominator;
+
+  if (typeof layerNode.Name === "string") {
+    layerNames.add(layerNode.Name);
+    layersByName.set(layerNode.Name, {
+      layerNames,
+      maxScaleDenominator
+    });
+  }
+
+  if (layerNode.Layer) {
+    collectLayerMetadata(
+      layerNode.Layer,
+      layerNames,
+      layersByName,
+      maxScaleDenominator
+    );
+  }
+}
+
+/**
+ * Parses a WMS scale denominator value into a finite number.
+ *
+ * @param {string|number|undefined} value - Raw scale denominator value.
+ * @returns {number|null} Parsed numeric value, or null if unavailable.
+ */
+function parseScaleDenominator(value) {
+  if (value === undefined || value === null || value === "") return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+/**
+ * Converts a WMS `MaxScaleDenominator` into an approximate tiled minzoom.
+ *
+ * For Web Mercator style tiles, scale denominator can be approximated from map
+ * resolution with the standard OGC pixel size of 0.28 mm:
+ *
+ *   scaleDenominator = resolutionMetersPerPixel / 0.00028
+ *
+ * and for global mercator tiles:
+ *
+ *   resolutionMetersPerPixel = 156543.03392804097 / 2^zoom
+ *
+ * Solving for zoom gives the minimum integer zoom whose scale denominator is no
+ * larger than the layer's advertised max scale denominator.
+ *
+ * @param {number|null} maxScaleDenominator - Advertised WMS max scale denominator.
+ * @param {string} projeksjon - Layer projection from kartlag.json.
+ * @returns {number|null} Estimated minzoom, or null when no estimate is possible.
+ */
+function maxScaleDenominatorToMinzoom(maxScaleDenominator, projeksjon) {
+  if (!Number.isFinite(maxScaleDenominator) || maxScaleDenominator <= 0) {
+    return null;
+  }
+
+  // The generated caches use global mercator grids for both supported values.
+  // EPSG:900913 is treated explicitly for readability, but both map to the same
+  // zoom/resolution progression in practice here.
+  if (projeksjon !== "EPSG:900913" && projeksjon !== "EPSG:3857") {
+    return null;
+  }
+
+  const baseResolution = 156543.03392804097;
+  const targetResolution = maxScaleDenominator * OGC_PIXEL_SIZE_METERS;
+  const zoom = Math.log2(baseResolution / targetResolution);
+
+  if (!Number.isFinite(zoom)) return null;
+  return Math.max(0, Math.ceil(zoom));
 }
 
 /**
