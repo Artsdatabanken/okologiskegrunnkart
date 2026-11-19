@@ -3,7 +3,7 @@ import AuthenticationContext from "./AuthenticationContext";
 
 // geonorge-tokenet som vi må ha for å få lov å laste lukkede data
 
-const url = "https://artskart.artsdatabanken.no/appapi/api/token/gettoken";
+const url = "https://artskart2.artsdatabanken.no/appapi/api/token/gettoken";
 const thirtyMinutes = 30 * 60 * 1000;
 
 async function downloadToken() {
